@@ -11,17 +11,19 @@ export default async function Component() {
     <div className="flex flex-col min-h-dvh">
       <Header />
       <main className="flex-1">
-        <Row>
-          {list.map((item) => (
-            <CardItem
-              key={item.id}
-              name={item.name}
-              description={item.description}
-              image={item.image}
-              price={item.price}
-            />
-          ))}
-        </Row>
+        {list.map(({ items, name, id }) => (
+          <Row name={name} key={id}>
+            {items.map((item) => (
+              <CardItem
+                key={item.id}
+                name={item.name}
+                description={item.description}
+                image={item.image}
+                price={item.price}
+              />
+            ))}
+          </Row>
+        ))}
       </main>
       <Footer />
     </div>
