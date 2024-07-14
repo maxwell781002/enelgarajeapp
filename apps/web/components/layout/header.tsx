@@ -1,8 +1,12 @@
+import Link from "next/link"
+
 export function Header() {
   return (
     <header className="bg-primary text-primary-foreground py-8 md:py-12 lg:py-16">
       <div className="container flex flex-col items-center gap-4">
-        <HandPlatterIcon className="h-20 w-20" />
+        <Link href="/" prefetch={false}>
+          <HandPlatterIcon className="h-20 w-20" />
+        </Link>
         <div className="flex items-center gap-4">
           <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">Acme Restaurant</h1>
         </div>
