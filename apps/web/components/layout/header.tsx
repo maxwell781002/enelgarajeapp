@@ -14,6 +14,9 @@ export function Header() {
           Discover the finest culinary delights at our renowned restaurant, where every dish is a masterpiece of
           flavor and presentation.
         </p>
+        <Link href="/address" prefetch={false}>
+          ¿Cómo llegar?
+        </Link>
       </div>
     </header>
   )
