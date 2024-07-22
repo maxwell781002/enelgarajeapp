@@ -1,6 +1,4 @@
-import Map from "@repo/ui/components/Map/Map.lazy";
-
-const DEFAULT_CENTER = [38.907132, -77.036546]
+import { Map } from "@repo/ui/components/Map/index";
 
 export default async function Page() {
   return (
@@ -10,7 +8,7 @@ export default async function Page() {
           height={300}
           point={[23.102639551820147, -82.37307390774875]}
           // point={location?.coordinates}
-          zoom={10}
+          zoom={17}
           // onChange={() => {}}
         />
       </div>

@@ -1,14 +1,12 @@
-"use client"
+'use client';
 
-// https://andresprieto-25116.medium.com/how-to-use-react-leaflet-in-nextjs-with-typescript-surviving-it-21a3379d4d18
-
-import { MapContainer, TileLayer, MapContainerProps } from "react-leaflet";
-import { LatLngTuple } from 'leaflet';
-
+import { useEffect } from "react";
+import L, { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-import "leaflet-defaulticon-compatibility";
-import LocationMarker, { LocationMarkerProps } from "./LocationMarker";
+
+let DefaultIcon = L.icon({
+  iconUrl: '/marker-icon.png',
+});
 
 const HABANA: LatLngTuple = [23.102639551820147, -82.37307390774875];
 
@@ -17,26 +15,38 @@ export type MapProps = {
   center?: LatLngTuple,
   zoom?: number,
   point?: LatLngTuple,
-} & MapContainerProps & LocationMarkerProps
-
-const Map = ({ zoom = 9, center, point, ...props }: MapProps) => {
-  center = point || HABANA;
-
-  return (
-    <MapContainer
-      {...props}
-      center={center}
-      zoom={zoom}
-      scrollWheelZoom={false}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <LocationMarker position={point} {...props} />
-    </MapContainer>
-  )
+  textPopup?: string,
+  onChange?: (position: LatLngTuple,) => void
 }
 
-export default Map
+export default function Map({ zoom = 9, center, point, textPopup, height }: MapProps) {
+  center = point || HABANA;
+  useEffect(() => {
+    let container: any = L.DomUtil.get("map");
+
+    if (container != null) {
+      container._leaflet_id = null;
+    }
+    let map = L.map("map", {
+      scrollWheelZoom: false,
+      zoom,
+    }).setView(center, zoom);
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+        "pk.eyJ1IjoidGFyLWhlbCIsImEiOiJjbDJnYWRieGMwMTlrM2luenIzMzZwbGJ2In0.RQRMAJqClc4qoNwROT8Umg",
+      }
+    ).addTo(map);
+    L.Marker.prototype.options.icon = DefaultIcon;
+    var marker = L.marker(center).addTo(map);
+    if (textPopup) {
+      marker.bindPopup(textPopup).openPopup();
+    }
+  }, [textPopup, zoom, center]);
+  return <div id="map" style={{ height }}></div>;
+}
