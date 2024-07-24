@@ -2,22 +2,29 @@
   "name": "@repo/model",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "engines" : { 
+    "node" : ">=v20.15.1"
+  },
   "exports": {
     "./model/*": "./src/*.ts"
+  },
+  "prisma": {
+    "seed": "node --env-file ../../.env prisma/seed.js"
   },
   "scripts": {
     "prisma-generate": "dotenv -e ../../.env -- prisma generate --schema=./prisma/schema.prisma",
     "prisma-create-migration": "dotenv -e ../../.env -- prisma migrate dev --create-only --schema=./prisma/schema.prisma",
-    "prisma-migration-deploy": "dotenv -e ../../.env -- prisma migrate deploy --schema=./prisma/schema.prisma",
-    "prisma": "prisma"
+    "prisma-migration-deploy": "dotenv -e ../../.env -- prisma migrate deploy --schema=./prisma/schema.prisma"
   },
   "devDependencies": {
     "@prisma/client": "5.13.0",
-    "prisma": "5.13.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20.14.12",
     "dotenv-cli": "^7.4.2",
-    "typescript": "^5.3.3",
+    "prisma": "5.13.0",
+    "ts-node": "^10.9.2",
     "zod-prisma": "^0.5.4"
   },
   "dependencies": {

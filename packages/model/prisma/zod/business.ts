@@ -7,7 +7,7 @@ export const BusinessModel = z.object({
 })
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
-  Category: CompleteCategory[]
+  categories: CompleteCategory[]
 }
 
 /**
@@ -16,5 +16,5 @@ export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedBusinessModel: z.ZodSchema<CompleteBusiness> = z.lazy(() => BusinessModel.extend({
-  Category: RelatedCategoryModel.array(),
+  categories: RelatedCategoryModel.array(),
 }))
