@@ -17,7 +17,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Business {
+  id   String @id @default(uuid())
+  name String
+
+  Category Category[]
+}
+
 model Category {
-  id String @id @default(uuid())
-  name      String
+  id         String   @id @default(uuid())
+  name       String
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String
 }
