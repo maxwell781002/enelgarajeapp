@@ -2,6 +2,7 @@
 CREATE TABLE "Business" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT,
 
     CONSTRAINT "Business_pkey" PRIMARY KEY ("id")
 );
@@ -10,6 +11,7 @@ CREATE TABLE "Business" (
 CREATE TABLE "Category" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT,
     "businessId" TEXT NOT NULL,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
@@ -19,6 +21,7 @@ CREATE TABLE "Category" (
 CREATE TABLE "Plate" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT,
     "image" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
@@ -30,6 +33,9 @@ CREATE TABLE "Plate" (
 
     CONSTRAINT "Plate_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Business_slug_key" ON "Business"("slug");
 
 -- AddForeignKey
 ALTER TABLE "Category" ADD CONSTRAINT "Category_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

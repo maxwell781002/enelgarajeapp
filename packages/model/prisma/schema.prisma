@@ -18,17 +18,19 @@ datasource db {
 }
 
 model Business {
-  id   String @id @default(uuid())
+  id   String  @id @default(uuid())
   name String
+  slug String? @unique
 
   categories Category[]
   plates     Plate[]
 }
 
 model Category {
-  id         String   @id @default(uuid())
-  name       String
-  plates     Plate[]
+  id     String  @id @default(uuid())
+  name   String
+  slug   String?
+  plates Plate[]
 
   business   Business @relation(fields: [businessId], references: [id])
   businessId String
@@ -37,6 +39,7 @@ model Category {
 model Plate {
   id          String   @id @default(uuid())
   name        String
+  slug        String?
   image       String
   description String
   price       Int
@@ -44,8 +47,8 @@ model Plate {
   ingredients String[]
   images      String[]
 
-  business    Business @relation(fields: [businessId], references: [id])
-  businessId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  String
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
 }

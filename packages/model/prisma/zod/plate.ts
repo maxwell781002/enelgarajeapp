@@ -4,6 +4,7 @@ import { CompleteBusiness, RelatedBusinessModel, CompleteCategory, RelatedCatego
 export const PlateModel = z.object({
   id: z.string(),
   name: z.string(),
+  slug: z.string().nullish(),
   image: z.string(),
   description: z.string(),
   price: z.number().int(),

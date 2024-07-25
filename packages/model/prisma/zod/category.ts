@@ -4,6 +4,7 @@ import { CompletePlate, RelatedPlateModel, CompleteBusiness, RelatedBusinessMode
 export const CategoryModel = z.object({
   id: z.string(),
   name: z.string(),
+  slug: z.string().nullish(),
   businessId: z.string(),
 })
 

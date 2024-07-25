@@ -4,6 +4,7 @@ import { CompleteCategory, RelatedCategoryModel, CompletePlate, RelatedPlateMode
 export const BusinessModel = z.object({
   id: z.string(),
   name: z.string(),
+  slug: z.string().nullish(),
 })
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
