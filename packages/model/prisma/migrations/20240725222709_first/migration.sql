@@ -37,6 +37,12 @@ CREATE TABLE "Plate" (
 -- CreateIndex
 CREATE UNIQUE INDEX "Business_slug_key" ON "Business"("slug");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Category_slug_key" ON "Category"("slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Plate_slug_key" ON "Plate"("slug");
+
 -- AddForeignKey
 ALTER TABLE "Category" ADD CONSTRAINT "Category_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

@@ -110,6 +110,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@repo/model':
+        specifier: workspace:*
+        version: link:../../packages/model
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -3749,7 +3752,7 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 20.14.11
+      '@types/node': 20.14.12
 
   '@types/inquirer@6.5.0':
     dependencies:
@@ -3793,7 +3796,7 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 20.14.11
+      '@types/node': 20.14.12
 
   '@types/tinycolor2@1.4.6': {}
 

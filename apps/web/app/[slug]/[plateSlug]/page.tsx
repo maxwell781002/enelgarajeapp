@@ -1,7 +1,16 @@
-import { getItem } from "../../actions/cardList";
+import { getBySlug } from "@repo/model/repository/plate";
 
-export default async function Page() {
-  const item = await getItem(1);
+type PageProps = {
+  params: {
+    plateSlug: string;
+  };
+};
+
+export default async function Page({ params: { plateSlug } }: PageProps) {
+  const item = await getBySlug(plateSlug);
+
+  if (!item) return <div>Not found</div>;
+
   return (
     <div className="flex flex-col">
       <section className="w-full">

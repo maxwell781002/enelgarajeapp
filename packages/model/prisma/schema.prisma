@@ -29,7 +29,7 @@ model Business {
 model Category {
   id     String  @id @default(uuid())
   name   String
-  slug   String?
+  slug   String? @unique
   plates Plate[]
 
   business   Business @relation(fields: [businessId], references: [id])
@@ -39,7 +39,7 @@ model Category {
 model Plate {
   id          String   @id @default(uuid())
   name        String
-  slug        String?
+  slug        String?  @unique
   image       String
   description String
   price       Int

@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-export function Header() {
+export function Header({ slug }: { slug: string }) {
   return (
     <header className="bg-primary text-primary-foreground py-8 md:py-12 lg:py-16">
       <div className="container flex flex-col items-center gap-4">
-        <Link href="/" prefetch={false}>
+        <Link href={`/${slug}`} prefetch={false}>
           <HandPlatterIcon className="h-20 w-20" />
         </Link>
         <div className="flex items-center gap-4">
