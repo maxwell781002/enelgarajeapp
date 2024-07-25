@@ -1,1 +1,1 @@
-export { default as Map } from './Map.lazy';
+export { default as Map } from "./Map.lazy";

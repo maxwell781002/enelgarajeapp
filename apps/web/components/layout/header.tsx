@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 export function Header() {
   return (
@@ -8,18 +8,20 @@ export function Header() {
           <HandPlatterIcon className="h-20 w-20" />
         </Link>
         <div className="flex items-center gap-4">
-          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">Acme Restaurant</h1>
+          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
+            Acme Restaurant
+          </h1>
         </div>
         <p className="max-w-md text-center text-primary-foreground/80 md:text-lg">
-          Discover the finest culinary delights at our renowned restaurant, where every dish is a masterpiece of
-          flavor and presentation.
+          Discover the finest culinary delights at our renowned restaurant,
+          where every dish is a masterpiece of flavor and presentation.
         </p>
         <Link href="/address" prefetch={false}>
           ¿Cómo llegar?
         </Link>
       </div>
     </header>
-  )
+  );
 }
 
 function HandPlatterIcon(props: any) {
@@ -43,5 +45,5 @@ function HandPlatterIcon(props: any) {
       <path d="m15.4 17.4 3.2-2.8a2 2 0 0 1 2.8 2.9l-3.6 3.3c-.7.8-1.7 1.2-2.8 1.2h-4c-1.1 0-2.1-.4-2.8-1.2L5 18" />
       <path d="M5 14v7H2" />
     </svg>
-  )
+  );
 }

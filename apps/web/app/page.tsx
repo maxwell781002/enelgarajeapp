@@ -1,7 +1,7 @@
-import { Row } from "@repo/ui/components/cardList/row"
-import { CardItem } from "@repo/ui/components/cardList/card"
-import { getCardList } from "../actions/cardList"
-import Link from "next/link"
+import { Row } from "@repo/ui/components/cardList/row";
+import { CardItem } from "@repo/ui/components/cardList/card";
+import { getCardList } from "../actions/cardList";
+import Link from "next/link";
 
 export default async function Component() {
   const list = getCardList();
@@ -22,6 +22,5 @@ export default async function Component() {
         </Row>
       ))}
     </>
-  )
+  );
 }
-

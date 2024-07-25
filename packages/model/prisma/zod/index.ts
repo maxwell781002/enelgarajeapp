@@ -1,3 +1,3 @@
-export * from "./business"
-export * from "./category"
-export * from "./plate"
+export * from "./business";
+export * from "./category";
+export * from "./plate";
