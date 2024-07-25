@@ -1,26 +1,30 @@
 import { PrismaClient } from '@prisma/client'
+import sampleData from './sample-data/data.js'
 const prisma = new PrismaClient()
 
-const business = {
-  'La cueva del pirata': {
-    categories: [
-      {
-        name: 'Entrantes',
+async function createBusiness(name) {
+  const business = await prisma.business.create({
+    data: {
+      name,
+    },
+  })
+  return Promise.all(sampleData.map(({ plates, ...category }) => prisma.category.create({
+    data: {
+      ...category,
+      businessId: business.id,
+      plates: {
+        create: plates.map((plate) => ({
+          ...plate,
+          businessId: business.id,
+        })),
       }
-    ]
-  }
+    },
+  })))
 }
 
 async function main() {
-  const promises = Object.entries(business).map(async ([name, { categories }]) => prisma.business.create({
-    data: {
-      name,
-      categories: {
-        create: categories,
-      }
-    },
-  }))
-  return Promise.all(promises)
+  await createBusiness('La cueva del pirata')
+  await createBusiness('Nápoles')
 }
 main()
   .then(async () => {

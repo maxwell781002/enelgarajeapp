@@ -22,11 +22,30 @@ model Business {
   name String
 
   categories Category[]
+  plates     Plate[]
 }
 
 model Category {
   id         String   @id @default(uuid())
   name       String
+  plates     Plate[]
+
   business   Business @relation(fields: [businessId], references: [id])
   businessId String
+}
+
+model Plate {
+  id          String   @id @default(uuid())
+  name        String
+  image       String
+  description String
+  price       Int
+  offerPrice  Int?
+  ingredients String[]
+  images      String[]
+
+  business    Business @relation(fields: [businessId], references: [id])
+  businessId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String
 }
