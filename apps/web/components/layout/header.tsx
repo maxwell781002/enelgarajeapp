@@ -1,22 +1,27 @@
 import Link from "next/link";
+import z from "zod";
+import { BusinessModel } from "@repo/model/zod/business";
 
-export function Header({ slug }: { slug: string }) {
+export function Header({
+  business,
+}: {
+  business: z.infer<typeof BusinessModel>;
+}) {
   return (
     <header className="bg-primary text-primary-foreground py-8 md:py-12 lg:py-16">
       <div className="container flex flex-col items-center gap-4">
-        <Link href={`/${slug}`} prefetch={false}>
+        <Link href={`/${business.slug}`} prefetch={false}>
           <HandPlatterIcon className="h-20 w-20" />
         </Link>
         <div className="flex items-center gap-4">
           <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
-            Acme Restaurant
+            {business.name}
           </h1>
         </div>
         <p className="max-w-md text-center text-primary-foreground/80 md:text-lg">
-          Discover the finest culinary delights at our renowned restaurant,
-          where every dish is a masterpiece of flavor and presentation.
+          {business.description}
         </p>
-        <Link href="/address" prefetch={false}>
+        <Link href={`/${business.slug}/address`} prefetch={false}>
           ¿Cómo llegar?
         </Link>
       </div>

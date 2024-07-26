@@ -9,6 +9,10 @@ import {
 export const BusinessModel = z.object({
   id: z.string(),
   name: z.string(),
+  description: z.string().nullish(),
+  address: z.string().nullish(),
+  howToArrive: z.string().nullish(),
+  coordinates: z.number().array(),
   slug: z.string().nullish(),
 });
 

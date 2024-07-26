@@ -6,7 +6,8 @@
     "node": ">=v20.15.1"
   },
   "exports": {
-    "./repository/*": ["./repository/*.ts"]
+    "./repository/*": ["./repository/*.ts"],
+    "./zod/*": ["./prisma/zod/*.ts"]
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

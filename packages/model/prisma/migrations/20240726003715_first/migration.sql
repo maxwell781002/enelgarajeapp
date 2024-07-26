@@ -2,6 +2,10 @@
 CREATE TABLE "Business" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "description" TEXT,
+    "address" TEXT,
+    "howToArrive" TEXT,
+    "coordinates" DOUBLE PRECISION[],
     "slug" TEXT,
 
     CONSTRAINT "Business_pkey" PRIMARY KEY ("id")
