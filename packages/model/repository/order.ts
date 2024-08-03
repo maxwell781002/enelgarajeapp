@@ -17,19 +17,42 @@ export const getCurrentOrder = async (): Promise<
   if (orderId) {
     const order = (await prisma.order.findUnique({
       where: { id: orderId.value },
-      include: { items: true },
+      include: {
+        items: {
+          include: { product: true },
+        },
+      },
     })) as ShopCartOrder;
     if (order) {
       order.numberOfItems = order?.items.length || 0;
+    }
+    if (order?.items) {
+      order.items = order.items.map(({ price, quantity, ...item }) => ({
+        ...item,
+        price,
+        quantity,
+        total: price * quantity,
+      }));
+      order.total = order.items.reduce((acc, item: any) => acc + item.total, 0);
     }
     return order;
   }
 };
 
+export const hasProduct = async (productId: string) => {
+  const order = await getCurrentOrder();
+  if (!order) {
+    return false;
+  }
+  return order.items.some((product: any) => product.productId === productId);
+};
+
 export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
   if (!order) {
-    order = (await prisma.order.create({ data: {} })) as ShopCartOrder;
+    order = (await prisma.order.create({
+      data: { productsDetails: "[]" },
+    })) as ShopCartOrder;
     cookies().set("order_id", order.id);
   }
   return order;
@@ -72,7 +95,7 @@ export const addToOrder = async (productId: string) => {
       productsDetails: JSON.stringify(products),
       items: {
         upsert: {
-          create: { productId, quantity: 1 },
+          create: { productId, quantity: 1, price: product.price },
           update: { quantity: { increment: 1 } },
           where: {
             productId_orderId: {

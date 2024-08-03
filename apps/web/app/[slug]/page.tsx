@@ -1,27 +1,21 @@
 import { Row } from "@repo/ui/components/cardList/row";
 import { CardItem } from "@repo/ui/components/cardList/card";
 import { getBySlugBusiness } from "@repo/model/repository/category";
-import { addToOrder } from "@repo/model/repository/order";
+import { addToOrder, hasProduct } from "@repo/model/repository/order";
 
 type PageProps = {
   params: {
     slug: string;
   };
-  searchParams: {
-    add?: string;
-  };
 };
 
-export default async function Page({
-  params: { slug },
-  searchParams: { add },
-}: PageProps) {
+export default async function Page({ params: { slug } }: PageProps) {
   const list = await getBySlugBusiness(slug);
   return (
     <>
       {list.map(({ plates, name, id }) => (
         <Row name={name} key={id}>
-          {plates.map((item) => (
+          {plates.map(async (item) => (
             <CardItem
               onAdd={addToOrder.bind(null, item.id)}
               key={item.id}
@@ -30,6 +24,7 @@ export default async function Page({
               slug={item.slug as string}
               image={item.image}
               price={item.price}
+              inCart={await hasProduct(item.id)}
             />
           ))}
         </Row>

@@ -1,6 +1,5 @@
 import Link from "next/link";
-import z from "zod";
-import { BusinessModel } from "@repo/model/zod/business";
+import { CompleteBusiness } from "@repo/model/zod/business";
 import { getCurrentOrder } from "@repo/model/repository/order";
 import {
   Sheet,
@@ -17,11 +16,7 @@ import {
   ShoppingCartIcon,
 } from "@repo/ui/components/icons";
 
-export async function Header({
-  business,
-}: {
-  business: z.infer<typeof BusinessModel>;
-}) {
+export async function Header({ business }: { business: CompleteBusiness }) {
   const order = await getCurrentOrder();
   return (
     <header className="flex items-center justify-between bg-background px-4 py-3 shadow-sm">

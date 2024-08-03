@@ -1,3 +1,4 @@
+import { getCurrentOrder } from "@repo/model/repository/order";
 import {
   Table,
   TableBody,
@@ -8,42 +9,21 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components/ui/table";
+import EmptyCart from "./empty";
 
-const products = [
-  {
-    id: 1,
-    name: "Pizza Margherita",
-    quantity: 1,
-    price: 200,
-    total: 200,
-  },
-  {
-    id: 2,
-    name: "Pizza Funghi",
-    quantity: 1,
-    price: 250,
-    total: 250,
-  },
-  {
-    id: 3,
-    name: "Pizza Quattro Formaggi",
-    quantity: 1,
-    price: 300,
-    total: 300,
-  },
-  {
-    id: 4,
-    name: "Pizza Quattro Stagioni",
-    quantity: 2,
-    price: 350,
-    total: 700,
-  },
-];
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
 
-export default function Page() {
+export default async function Page({ params: { slug } }: PageProps) {
+  const order = await getCurrentOrder();
+  if (!order || !order.items) {
+    return <EmptyCart slug={slug} />;
+  }
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Nombre</TableHead>
@@ -53,9 +33,9 @@ export default function Page() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {products.map((item) => (
-          <TableRow key={item.id}>
-            <TableCell className="font-medium">{item.name}</TableCell>
+        {order?.items.map((item: any, i) => (
+          <TableRow key={i}>
+            <TableCell className="font-medium">{item.product.name}</TableCell>
             <TableCell>{item.price}</TableCell>
             <TableCell>{item.quantity}</TableCell>
             <TableCell className="text-right">{item.total}</TableCell>
@@ -65,7 +45,7 @@ export default function Page() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
+          <TableCell className="text-right">{order?.total}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

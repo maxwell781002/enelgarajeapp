@@ -9,6 +9,7 @@ import {
 export const OrderProductModel = z.object({
   productId: z.string(),
   orderId: z.string(),
+  price: z.number().int(),
   quantity: z.number().int(),
 });
 

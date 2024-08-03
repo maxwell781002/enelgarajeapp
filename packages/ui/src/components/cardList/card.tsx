@@ -3,6 +3,7 @@
 import { CardContent, Card } from "../ui/card";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { CheckIcon } from "@repo/ui/components/icons";
 
 type CardItemProps = {
   name?: string;
@@ -12,6 +13,7 @@ type CardItemProps = {
   onAdd?: () => void;
   price: number;
   image: string;
+  inCart?: boolean;
 };
 
 export function CardItem({
@@ -22,16 +24,24 @@ export function CardItem({
   baseUrl,
   slug,
   onAdd,
+  inCart = false,
 }: CardItemProps) {
   return (
     <Card>
-      <Link href={`/${baseUrl}/${slug}`} prefetch={false}>
-        <img
-          src={image}
-          alt={name}
-          className="rounded-t-lg object-cover w-full h-48"
-        />
-      </Link>
+      <div className="relative">
+        {inCart && (
+          <div className="absolute top-2 left-2 bg-red-600 rounded-full p-1">
+            <CheckIcon className="h-4 w-4 text-primary-foreground" />
+          </div>
+        )}
+        <Link href={`/${baseUrl}/${slug}`} prefetch={false}>
+          <img
+            src={image}
+            alt={name}
+            className="rounded-t-lg object-cover w-full h-48"
+          />
+        </Link>
+      </div>
       <CardContent className="p-4">
         {!!name && <h3 className="text-lg font-bold mb-2 font-sans">{name}</h3>}
         {!!description && (
