@@ -6,8 +6,13 @@
     "./globals.css": "./globals.css",
     "./postcss.config": "./postcss.config.js",
     "./tailwind.config": "./tailwind.config.ts",
-    "./lib/*": ["./src/lib/*.ts"],
-    "./components/*": ["./src/components/*.tsx", "./src/components/*.ts"]
+    "./lib/*": [
+      "./src/lib/*.ts"
+    ],
+    "./components/*": [
+      "./src/components/*.tsx",
+      "./src/components/*.ts"
+    ]
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -28,6 +33,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",

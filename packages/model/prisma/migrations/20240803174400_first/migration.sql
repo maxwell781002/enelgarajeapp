@@ -51,7 +51,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Order" (
     "id" TEXT NOT NULL,
     "userId" TEXT,
-    "productsDetails" JSONB NOT NULL DEFAULT '[]',
+    "productsDetails" JSONB NOT NULL,
     "total" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")

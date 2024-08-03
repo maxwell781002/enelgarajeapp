@@ -5,23 +5,31 @@ import prisma from "../prisma/prisma-client";
 import { getById } from "./plate";
 import { CompleteOrder, CompletePlate } from "../prisma/zod";
 
+export type ShopCartOrder = {
+  numberOfItems: number | undefined;
+} & CompleteOrder;
+
 export const getCurrentOrder = async (): Promise<
-  CompleteOrder | null | undefined
+  ShopCartOrder | null | undefined
 > => {
   const cookieStore = cookies();
   const orderId = cookieStore.get("order_id");
   if (orderId) {
-    return prisma.order.findUnique({
+    const order = (await prisma.order.findUnique({
       where: { id: orderId.value },
       include: { items: true },
-    }) as Promise<CompleteOrder | null>;
+    })) as ShopCartOrder;
+    if (order) {
+      order.numberOfItems = order?.items.length || 0;
+    }
+    return order;
   }
 };
 
 export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
   if (!order) {
-    order = (await prisma.order.create({ data: {} })) as CompleteOrder;
+    order = (await prisma.order.create({ data: {} })) as ShopCartOrder;
     cookies().set("order_id", order.id);
   }
   return order;
@@ -50,7 +58,10 @@ export const removeFromOrder = async (productId: string) => {
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompletePlate;
   const order = await getOrCrateOrder();
-  let products = JSON.parse((order.productsDetails as string) || "[]");
+  let products =
+    order.productsDetails instanceof Array
+      ? order.productsDetails
+      : JSON.parse((order.productsDetails as string) || "[]");
   const find = (order.items || []).find((item: any) => item.id === product.id);
   if (!find) {
     products = [...products, product];

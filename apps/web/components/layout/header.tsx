@@ -2,6 +2,20 @@ import Link from "next/link";
 import z from "zod";
 import { BusinessModel } from "@repo/model/zod/business";
 import { getCurrentOrder } from "@repo/model/repository/order";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+} from "@repo/ui/components/ui/sheet";
+import { Button } from "@repo/ui/components/ui/button";
+import {
+  MountainIcon,
+  MenuIcon,
+  HomeIcon,
+  InfoIcon,
+  MailIcon,
+  ShoppingCartIcon,
+} from "@repo/ui/components/icons";
 
 export async function Header({
   business,
@@ -9,55 +23,63 @@ export async function Header({
   business: z.infer<typeof BusinessModel>;
 }) {
   const order = await getCurrentOrder();
-  console.log("Order ==> ", order);
   return (
-    <header className="bg-primary text-primary-foreground py-8 md:py-12 lg:py-16">
-      <div className="container flex flex-col items-center gap-4">
-        <Link href={`/${business.slug}`} prefetch={false}>
-          <HandPlatterIcon className="h-20 w-20" />
+    <header className="flex items-center justify-between bg-background px-4 py-3 shadow-sm">
+      <Link
+        href={`/${business.slug}`}
+        className="flex items-center gap-2"
+        prefetch={false}
+      >
+        <MountainIcon className="h-6 w-6" />
+        <span className="text-lg font-semibold">Acme</span>
+      </Link>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <MenuIcon className="h-6 w-6 text-muted-foreground" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right" className="w-64">
+          <div className="grid gap-4 p-4">
+            <Link
+              href={`/${business.slug}`}
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              prefetch={false}
+            >
+              <HomeIcon className="h-5 w-5" />
+              Home
+            </Link>
+            <Link
+              href={`/${business.slug}/about-us`}
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              prefetch={false}
+            >
+              <InfoIcon className="h-5 w-5" />
+              About
+            </Link>
+            <Link
+              href="#"
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              prefetch={false}
+            >
+              <MailIcon className="h-5 w-5" />
+              Contact
+            </Link>
+          </div>
+        </SheetContent>
+      </Sheet>
+      <div className="relative">
+        <Link
+          href={`/${business.slug}/shopping-cart`}
+          className="flex items-center gap-2"
+          prefetch={false}
+        >
+          <ShoppingCartIcon className="w-6 h-6" />
+          <span className="bg-accent text-accent-foreground rounded-full px-2 py-0.5 text-xs font-medium">
+            {order?.numberOfItems || 0}
+          </span>
         </Link>
-        <div className="flex items-center gap-4">
-          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
-            {business.name}
-          </h1>
-        </div>
-        <ul className="flex gap-4">
-          <li>
-            <Link href={`/${business.slug}/about-us`} prefetch={false}>
-              Sobre Nosotros
-            </Link>
-          </li>
-          <li>
-            <Link href={`/${business.slug}/shopping-cart`} prefetch={false}>
-              Shop Cart
-            </Link>
-          </li>
-        </ul>
       </div>
     </header>
-  );
-}
-
-function HandPlatterIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 3V2" />
-      <path d="M5 10a7.1 7.1 0 0 1 14 0" />
-      <path d="M4 10h16" />
-      <path d="M2 14h12a2 2 0 1 1 0 4h-2" />
-      <path d="m15.4 17.4 3.2-2.8a2 2 0 0 1 2.8 2.9l-3.6 3.3c-.7.8-1.7 1.2-2.8 1.2h-4c-1.1 0-2.1-.4-2.8-1.2L5 18" />
-      <path d="M5 14v7H2" />
-    </svg>
   );
 }

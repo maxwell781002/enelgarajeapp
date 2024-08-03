@@ -16,7 +16,9 @@ export default async function SlugLayout({
   return (
     <>
       <Header business={business} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 container py-12 md:py-16 lg:py-20">
+        {children}
+      </main>
       <Footer />
     </>
   );
