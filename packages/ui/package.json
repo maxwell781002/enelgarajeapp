@@ -13,6 +13,9 @@
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component"
   },
+  "peerDependencies": {
+    "next": "15.0.0-rc.0"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",

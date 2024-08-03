@@ -4,6 +4,8 @@ import {
   RelatedBusinessModel,
   CompleteCategory,
   RelatedCategoryModel,
+  CompleteOrderProduct,
+  RelatedOrderProductModel,
 } from "./index";
 
 export const PlateModel = z.object({
@@ -23,6 +25,7 @@ export const PlateModel = z.object({
 export interface CompletePlate extends z.infer<typeof PlateModel> {
   business: CompleteBusiness;
   category: CompleteCategory;
+  orderItems: CompleteOrderProduct[];
 }
 
 /**
@@ -34,5 +37,6 @@ export const RelatedPlateModel: z.ZodSchema<CompletePlate> = z.lazy(() =>
   PlateModel.extend({
     business: RelatedBusinessModel,
     category: RelatedCategoryModel,
+    orderItems: RelatedOrderProductModel.array(),
   }),
 );

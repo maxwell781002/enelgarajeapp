@@ -1,12 +1,15 @@
 import Link from "next/link";
 import z from "zod";
 import { BusinessModel } from "@repo/model/zod/business";
+import { getCurrentOrder } from "@repo/model/repository/order";
 
-export function Header({
+export async function Header({
   business,
 }: {
   business: z.infer<typeof BusinessModel>;
 }) {
+  const order = await getCurrentOrder();
+  console.log("Order ==> ", order);
   return (
     <header className="bg-primary text-primary-foreground py-8 md:py-12 lg:py-16">
       <div className="container flex flex-col items-center gap-4">
@@ -18,12 +21,18 @@ export function Header({
             {business.name}
           </h1>
         </div>
-        <p className="max-w-md text-center text-primary-foreground/80 md:text-lg">
-          {business.description}
-        </p>
-        <Link href={`/${business.slug}/address`} prefetch={false}>
-          ¿Cómo llegar?
-        </Link>
+        <ul className="flex gap-4">
+          <li>
+            <Link href={`/${business.slug}/about-us`} prefetch={false}>
+              Sobre Nosotros
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${business.slug}/shopping-cart`} prefetch={false}>
+              Shop Cart
+            </Link>
+          </li>
+        </ul>
       </div>
     </header>
   );

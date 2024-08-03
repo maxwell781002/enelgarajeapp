@@ -18,6 +18,9 @@
     "prisma-migration-deploy": "prisma migrate deploy --schema=./prisma/schema.prisma",
     "prisma-reset": "prisma migrate reset --schema=./prisma/schema.prisma"
   },
+  "peerDependencies": {
+    "next-auth": "^4.24.7"
+  },
   "devDependencies": {
     "@prisma/client": "5.13.0",
     "@repo/eslint-config": "workspace:*",

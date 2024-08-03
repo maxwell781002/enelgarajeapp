@@ -38,6 +38,34 @@ CREATE TABLE "Plate" (
     CONSTRAINT "Plate_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "email" TEXT NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Order" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT,
+    "productsDetails" JSONB NOT NULL DEFAULT '[]',
+    "total" INTEGER NOT NULL DEFAULT 0,
+
+    CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OrderProduct" (
+    "productId" TEXT NOT NULL,
+    "orderId" TEXT NOT NULL,
+    "quantity" INTEGER NOT NULL,
+
+    CONSTRAINT "OrderProduct_pkey" PRIMARY KEY ("productId","orderId")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Business_slug_key" ON "Business"("slug");
 
@@ -55,3 +83,12 @@ ALTER TABLE "Plate" ADD CONSTRAINT "Plate_businessId_fkey" FOREIGN KEY ("busines
 
 -- AddForeignKey
 ALTER TABLE "Plate" ADD CONSTRAINT "Plate_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OrderProduct" ADD CONSTRAINT "OrderProduct_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Plate"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OrderProduct" ADD CONSTRAINT "OrderProduct_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
