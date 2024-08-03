@@ -3,7 +3,11 @@
 import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
 import { getById } from "./plate";
-import { CompleteOrder, CompletePlate } from "../prisma/zod";
+import {
+  CompleteOrder,
+  CompleteOrderProduct,
+  CompletePlate,
+} from "../prisma/zod";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -58,9 +62,56 @@ export const getOrCrateOrder = async () => {
   return order;
 };
 
+export const getProducts = (order: ShopCartOrder) => {
+  return order.productsDetails instanceof Array
+    ? order.productsDetails
+    : JSON.parse((order.productsDetails as string) || "[]");
+};
+
+export const decrementItem = async (productId: string) => {
+  const order = await getOrCrateOrder();
+  const find = order.items.some(
+    (item: CompleteOrderProduct) =>
+      item.productId === productId && item.quantity > 1,
+  );
+  if (!find) {
+    return;
+  }
+  return incrementDecrementItem(order, productId, "decrement");
+};
+
+export const incrementItem = async (productId: string) => {
+  const order = await getOrCrateOrder();
+  return incrementDecrementItem(order, productId, "increment");
+};
+
+const incrementDecrementItem = async (
+  order: CompleteOrder,
+  productId: string,
+  action: "increment" | "decrement",
+) => {
+  const find = order.items.some(
+    (item: CompleteOrderProduct) => item.productId === productId,
+  );
+  if (!find) {
+    return;
+  }
+  return prisma.order.update({
+    where: { id: order.id },
+    data: {
+      items: {
+        update: {
+          where: { productId_orderId: { productId, orderId: order.id } },
+          data: { quantity: { [action]: 1 } },
+        },
+      },
+    },
+  });
+};
+
 export const removeFromOrder = async (productId: string) => {
   const order = await getOrCrateOrder();
-  let products = JSON.parse((order.productsDetails as string) || "[]");
+  let products = getProducts(order);
   products = products.filter((product: any) => product.id !== productId);
   return prisma.order.update({
     where: { id: order.id },
@@ -81,10 +132,7 @@ export const removeFromOrder = async (productId: string) => {
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompletePlate;
   const order = await getOrCrateOrder();
-  let products =
-    order.productsDetails instanceof Array
-      ? order.productsDetails
-      : JSON.parse((order.productsDetails as string) || "[]");
+  let products = getProducts(order);
   const find = (order.items || []).find((item: any) => item.id === product.id);
   if (!find) {
     products = [...products, product];
