@@ -1,9 +1,7 @@
-"use client";
-
 import { CardContent, Card } from "../ui/card";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
+import { BtnAddCart } from "../add-cart";
 
 type CardItemProps = {
   name?: string;
@@ -49,7 +47,7 @@ export function CardItem({
         )}
         <div className="flex justify-between items-center">
           <span className="font-semibold font-sans">${price}</span>
-          <Button onClick={() => onAdd?.()}>OK</Button>
+          <BtnAddCart action={onAdd} />
         </div>
       </CardContent>
     </Card>

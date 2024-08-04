@@ -56,6 +56,7 @@ export default async function Page({ params: { slug } }: PageProps) {
               onRemove={remove.bind(null, item.productId)}
               add={increment.bind(null, item.productId)}
               sub={decrement.bind(null, item.productId)}
+              slug={slug}
             />
           </div>
         ))}

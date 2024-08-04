@@ -5,15 +5,17 @@ import { MinusIcon, PlusIcon, Trash2Icon } from "@repo/ui/components/icons";
 import { Button } from "@repo/ui/components/ui/button";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
+import Link from "next/link";
 
 type Props = {
   item: CompleteOrderProduct;
+  slug: string;
   onRemove: () => void;
   add: () => void;
   sub: () => void;
 };
 
-export default function CardItem({ item, onRemove, add, sub }: Props) {
+export default function CardItem({ item, onRemove, add, sub, slug }: Props) {
   return (
     <>
       <Card key={item.productId}>
@@ -29,7 +31,9 @@ export default function CardItem({ item, onRemove, add, sub }: Props) {
                 style={{ aspectRatio: "64/64", objectFit: "cover" }}
               />
               <div>
-                <h3 className="font-medium">{item.product.name}</h3>
+                <Link href={`/${slug}/${item.product.slug}`} prefetch={false}>
+                  <h3 className="font-medium">{item.product.name}</h3>
+                </Link>
               </div>
             </div>
             <div className="flex items-center justify-between">
