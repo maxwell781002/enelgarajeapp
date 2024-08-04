@@ -4,6 +4,7 @@ import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import { MinusIcon, PlusIcon, Trash2Icon } from "@repo/ui/components/icons";
 import { Button } from "@repo/ui/components/ui/button";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
+import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 
 type Props = {
   item: CompleteOrderProduct;
@@ -42,9 +43,12 @@ export default function CardItem({ item, onRemove, add, sub }: Props) {
                 </Button>
               </div>
               <div>${(item as any).total}</div>
-              <Button variant="ghost" size="icon" onClick={() => onRemove()}>
-                <Trash2Icon className="h-4 w-4 text-red-600" />
-              </Button>
+              <BtnConfirm
+                btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
+                title="Confirmar"
+                description="¿Está seguro de querer eleminar el producto?"
+                action={() => onRemove()}
+              />
             </div>
           </div>
         </CardContent>
