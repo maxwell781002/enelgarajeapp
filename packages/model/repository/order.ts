@@ -29,7 +29,7 @@ export const getCurrentOrder = async (): Promise<
       },
     })) as ShopCartOrder;
     if (order) {
-      order.numberOfItems = order?.items.length || 0;
+      order.numberOfItems = order.items.reduce((acc, { quantity }) => acc + quantity, 0);
     }
     if (order?.items) {
       order.items = order.items.map(({ price, quantity, ...item }) => ({
