@@ -80,6 +80,7 @@ model OrderProduct {
   order     Order  @relation(fields: [orderId], references: [id])
   orderId   String // relation scalar field (used in the `@relation` attribute above)
   price     Int
+  position  Int    @default(1)
 
   quantity Int
 

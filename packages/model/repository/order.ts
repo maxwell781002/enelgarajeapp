@@ -24,6 +24,7 @@ export const getCurrentOrder = async (): Promise<
       include: {
         items: {
           include: { product: true },
+          orderBy: { position: "asc" },
         },
       },
     })) as ShopCartOrder;
@@ -111,7 +112,7 @@ const incrementDecrementItem = async (
 
 export const removeFromOrder = async (productId: string) => {
   const order = await getOrCrateOrder();
-  let products = getProducts(order);
+  let products = await getProducts(order);
   products = products.filter((product: any) => product.id !== productId);
   return prisma.order.update({
     where: { id: order.id },
@@ -132,8 +133,15 @@ export const removeFromOrder = async (productId: string) => {
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompletePlate;
   const order = await getOrCrateOrder();
-  let products = getProducts(order);
+  let products = await getProducts(order);
   const find = (order.items || []).find((item: any) => item.id === product.id);
+  const position =
+    (
+      await prisma.orderProduct.findFirst({
+        where: { orderId: order.id },
+        orderBy: { position: "desc" },
+      })
+    )?.position || 0;
   if (!find) {
     products = [...products, product];
   }
@@ -143,7 +151,12 @@ export const addToOrder = async (productId: string) => {
       productsDetails: JSON.stringify(products),
       items: {
         upsert: {
-          create: { productId, quantity: 1, price: product.price },
+          create: {
+            productId,
+            quantity: 1,
+            price: product.price,
+            position: position + 1,
+          },
           update: { quantity: { increment: 1 } },
           where: {
             productId_orderId: {

@@ -8,6 +8,7 @@ import EmptyCart from "./empty";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import CardItem from "./card";
+import { revalidatePath } from "next/cache";
 
 type PageProps = {
   params: {
@@ -20,16 +21,41 @@ export default async function Page({ params: { slug } }: PageProps) {
   if (!order || !order.items) {
     return <EmptyCart slug={slug} />;
   }
+  const remove = async (productId: string) => {
+    "use server";
+    await removeFromOrder(productId);
+    revalidatePath(`/${slug}`);
+  };
+
+  const increment = async (productId: string) => {
+    "use server";
+    await incrementItem(productId);
+    revalidatePath(`/${slug}`);
+  };
+
+  const decrement = async (productId: string) => {
+    "use server";
+    await decrementItem(productId);
+    revalidatePath(`/${slug}`);
+  };
+
+  if (!order || order.items.length === 0) {
+    return <EmptyCart slug={slug} />;
+  }
+
   return (
     <div className="flex flex-col gap-6">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+        Shop Cart
+      </h1>
       <div className="overflow-auto">
         {order.items.map((item) => (
           <div key={item.productId} className="mb-2">
             <CardItem
               item={item as any}
-              onRemove={removeFromOrder.bind(null, item.productId)}
-              add={incrementItem.bind(null, item.productId)}
-              sub={decrementItem.bind(null, item.productId)}
+              onRemove={remove.bind(null, item.productId)}
+              add={increment.bind(null, item.productId)}
+              sub={decrement.bind(null, item.productId)}
             />
           </div>
         ))}
