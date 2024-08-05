@@ -1,5 +1,17 @@
 {
   "ShopCart": {
-    "title": "Tu compra"
+    "title": "Tu compra",
+    "continue_shopping": "Continuar comprando",
+    "total_cart": "Total:",
+    "checkout": "Solicitar pedido",
+    "emptyCart": "Tu carrito se encuentra vacío",
+    "emptyCartDescription": "Para seguir comprando, haz clic en el botón de continuar comprando.",
+    "continueShopping": "Continuar comprando",
+    "remove_dialog": {
+      "title": "Confirmar",
+      "description": "¿Estás seguro de querer borrar este producto?",
+      "cancel": "No",
+      "continue": "Si"
+    }
   }
 }

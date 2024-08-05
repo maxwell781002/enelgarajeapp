@@ -68,14 +68,14 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <span className="text-lg font-semibold">Cart Total:</span>
+          <span className="text-lg font-semibold">{t("total_cart")}</span>
           <span className="text-2xl font-bold">${order.total}</span>
         </div>
         <div className="flex flex-col gap-2">
           <Link href="#" className="w-full" prefetch={false}>
-            <Button variant="outline">Continue Shopping</Button>
+            <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
-          <Button className="w-full">Proceed to Checkout</Button>
+          <Button className="w-full">{t("checkout")}</Button>
         </div>
       </div>
     </div>

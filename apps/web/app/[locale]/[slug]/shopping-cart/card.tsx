@@ -6,6 +6,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 type Props = {
   item: CompleteOrderProduct;
@@ -16,6 +17,8 @@ type Props = {
 };
 
 export default function CardItem({ item, onRemove, add, sub, slug }: Props) {
+  const t = useTranslations("ShopCart");
+
   return (
     <>
       <Card key={item.productId}>
@@ -49,9 +52,11 @@ export default function CardItem({ item, onRemove, add, sub, slug }: Props) {
               <div>${(item as any).total}</div>
               <BtnConfirm
                 btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
-                title="Confirmar"
-                description="¿Está seguro de querer eleminar el producto?"
+                title={t("remove_dialog.title")}
+                description={t("remove_dialog.description")}
                 action={() => onRemove()}
+                btnCancelText={t("remove_dialog.cancel")}
+                btnContinueText={t("remove_dialog.continue")}
               />
             </div>
           </div>
