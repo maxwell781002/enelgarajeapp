@@ -28,7 +28,7 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
             <CardItem
               onAdd={add.bind(null, item.id)}
               key={item.id}
-              description={item.name}
+              name={item.name}
               baseUrl={baseUrl}
               slug={item.slug as string}
               image={item.image}

@@ -9,6 +9,7 @@ const config: ReturnType<typeof getRequestConfig> = getRequestConfig(
 
     const messages = {
       ...(await import(`./messages/${locale}/shop-cart.json`)).default,
+      ...(await import(`./messages/${locale}/product.json`)).default,
     };
 
     return {

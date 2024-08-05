@@ -3,6 +3,7 @@ import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
 import { addToOrder, hasProduct } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
+import { getTranslations } from "next-intl/server";
 
 type PageProps = {
   params: {
@@ -21,6 +22,8 @@ export default async function Page({
     addToOrder(productId);
     revalidatePath(`/${locale}/${slug}/${plateSlug}`);
   };
+
+  const t = await getTranslations("Product");
 
   if (!item) return <div>Not found</div>;
 
@@ -47,7 +50,9 @@ export default async function Page({
                     <div className="bg-red-600 rounded-full p-1">
                       <CheckIcon className="h-4 w-4 text-primary-foreground" />
                     </div>
-                    <strong>En el carro</strong>
+                    <strong>
+                      {t("inCart")}
+                    </strong>
                   </div>
                 )}
                 <BtnAddCart action={add.bind(null, item.id)} />
@@ -71,7 +76,9 @@ export default async function Page({
         </div>
       </section>
       <section className="container mx-auto py-12 md:py-16 px-4 md:px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8">Más fotos</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8">
+          {t("photos")}
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {item.images.map((image) => (
             <img
