@@ -32,7 +32,7 @@ export function CardItem({
             <CheckIcon className="h-4 w-4 text-primary-foreground" />
           </div>
         )}
-        <Link href={`/${baseUrl}/${slug}`} prefetch={false}>
+        <Link href={`${baseUrl}/${slug}`} prefetch={false}>
           <img
             src={image}
             alt={name}
@@ -41,7 +41,11 @@ export function CardItem({
         </Link>
       </div>
       <CardContent className="p-4">
-        {!!name && <h3 className="text-lg font-bold mb-2 font-sans">{name}</h3>}
+        {!!name && (
+          <Link href={`${baseUrl}/${slug}`} prefetch={false}>
+            <h3 className="text-lg font-medium">{name}</h3>
+          </Link>
+        )}
         {!!description && (
           <p className="text-muted-foreground mb-4 font-sans">{description}</p>
         )}

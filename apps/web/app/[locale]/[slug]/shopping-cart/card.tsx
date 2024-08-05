@@ -31,7 +31,7 @@ export default function CardItem({ item, onRemove, add, sub, slug }: Props) {
                 style={{ aspectRatio: "64/64", objectFit: "cover" }}
               />
               <div>
-                <Link href={`/${slug}/${item.product.slug}`} prefetch={false}>
+                <Link href={`${slug}/${item.product.slug}`} prefetch={false}>
                   <h3 className="font-medium">{item.product.name}</h3>
                 </Link>
               </div>

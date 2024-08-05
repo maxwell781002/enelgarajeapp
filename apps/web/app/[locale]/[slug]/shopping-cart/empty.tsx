@@ -11,7 +11,7 @@ export default function EmptyCart({ slug }: { slug: string }) {
           <p className="text-muted-foreground">
             Looks like you haven't added any items to your cart yet.
           </p>
-          <Link href={`/${slug}`} className="mt-4" prefetch={false}>
+          <Link href={slug} className="mt-4" prefetch={false}>
             <Button>Continue Shopping</Button>
           </Link>
         </div>

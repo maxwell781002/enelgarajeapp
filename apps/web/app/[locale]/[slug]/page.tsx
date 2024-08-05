@@ -7,16 +7,19 @@ import { revalidatePath } from "next/cache";
 type PageProps = {
   params: {
     slug: string;
+    locale: string;
   };
 };
 
-export default async function Page({ params: { slug } }: PageProps) {
+export default async function Page({ params: { slug, locale } }: PageProps) {
   const list = await getBySlugBusiness(slug);
+  const baseUrl = `/${locale}/${slug}`;
   const add = async (productId: string) => {
     "use server";
     await addToOrder(productId);
-    revalidatePath(`/${slug}`);
+    revalidatePath(baseUrl);
   };
+
   return (
     <>
       {list.map(({ plates, name, id }) => (
@@ -26,7 +29,7 @@ export default async function Page({ params: { slug } }: PageProps) {
               onAdd={add.bind(null, item.id)}
               key={item.id}
               description={item.name}
-              baseUrl={slug}
+              baseUrl={baseUrl}
               slug={item.slug as string}
               image={item.image}
               price={item.price}

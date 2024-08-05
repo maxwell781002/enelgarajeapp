@@ -1,7 +1,6 @@
 import { getBySlug } from "@repo/model/repository/plate";
 import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
-import { Button } from "@repo/ui/components/ui/button";
 import { addToOrder, hasProduct } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 
@@ -9,15 +8,18 @@ type PageProps = {
   params: {
     plateSlug: string;
     slug: string;
+    locale: string;
   };
 };
 
-export default async function Page({ params: { slug, plateSlug } }: PageProps) {
+export default async function Page({
+  params: { slug, plateSlug, locale },
+}: PageProps) {
   const item = await getBySlug(plateSlug);
   const add = async (productId: string) => {
     "use server";
     addToOrder(productId);
-    revalidatePath(`${slug}/${plateSlug}`);
+    revalidatePath(`/${locale}/${slug}/${plateSlug}`);
   };
 
   if (!item) return <div>Not found</div>;

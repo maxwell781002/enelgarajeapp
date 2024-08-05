@@ -9,44 +9,49 @@ import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import CardItem from "./card";
 import { revalidatePath } from "next/cache";
+import { getTranslations } from "next-intl/server";
 
 type PageProps = {
   params: {
     slug: string;
+    locale: string;
   };
 };
 
-export default async function Page({ params: { slug } }: PageProps) {
+export default async function Page({ params: { slug, locale } }: PageProps) {
   const order = await getCurrentOrder();
+  const baseUrl = `/${locale}/${slug}`;
   if (!order || !order.items) {
     return <EmptyCart slug={slug} />;
   }
   const remove = async (productId: string) => {
     "use server";
     await removeFromOrder(productId);
-    revalidatePath(`/${slug}`);
+    revalidatePath(`/${baseUrl}/shopping-cart`);
   };
 
   const increment = async (productId: string) => {
     "use server";
     await incrementItem(productId);
-    revalidatePath(`/${slug}`);
+    revalidatePath(`/${baseUrl}/shopping-cart`);
   };
 
   const decrement = async (productId: string) => {
     "use server";
     await decrementItem(productId);
-    revalidatePath(`/${slug}`);
+    revalidatePath(`/${baseUrl}/shopping-cart`);
   };
 
   if (!order || order.items.length === 0) {
-    return <EmptyCart slug={slug} />;
+    return <EmptyCart slug={baseUrl} />;
   }
+
+  const t = await getTranslations("ShopCart");
 
   return (
     <div className="flex flex-col gap-6">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        Shop Cart
+        {t("title")}
       </h1>
       <div className="overflow-auto">
         {order.items.map((item) => (
@@ -56,7 +61,7 @@ export default async function Page({ params: { slug } }: PageProps) {
               onRemove={remove.bind(null, item.productId)}
               add={increment.bind(null, item.productId)}
               sub={decrement.bind(null, item.productId)}
-              slug={slug}
+              slug={baseUrl}
             />
           </div>
         ))}
