@@ -1,6 +1,5 @@
 import "@repo/ui/globals.css";
 import { Header } from "../../../components/layout/header";
-import { Footer } from "../../../components/layout/footer";
 import { getBySlug } from "@repo/model/repository/business";
 import { CompleteBusiness } from "@repo/model/zod/index";
 
@@ -18,7 +17,6 @@ export default async function SlugLayout({
       <main className="flex-1 container pt-20 md:py-16 lg:py-20">
         {children}
       </main>
-      <Footer />
     </>
   );
 }

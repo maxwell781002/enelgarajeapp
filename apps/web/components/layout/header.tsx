@@ -15,6 +15,7 @@ import {
   MailIcon,
   ShoppingCartIcon,
 } from "@repo/ui/components/icons";
+import { getTranslations } from "next-intl/server";
 
 export async function Header({
   business,
@@ -24,6 +25,7 @@ export async function Header({
   locale: string;
 }) {
   const order = await getCurrentOrder();
+  const t = await getTranslations("Header");
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex h-14 w-full bg-background shadow-lg flex items-center justify-between bg-background px-4 py-3 shadow-sm">
       <Link
@@ -32,7 +34,9 @@ export async function Header({
         prefetch={false}
       >
         <MountainIcon className="h-6 w-6" />
-        <span className="text-lg font-semibold">Acme</span>
+        <span className="text-lg font-semibold">
+          {business.name}
+        </span>
       </Link>
       <Sheet>
         <SheetTrigger asChild>
@@ -48,7 +52,7 @@ export async function Header({
               prefetch={false}
             >
               <HomeIcon className="h-5 w-5" />
-              Home
+              {t("home")}
             </Link>
             <Link
               href={`/${locale}/${business.slug}/about-us`}
@@ -56,7 +60,7 @@ export async function Header({
               prefetch={false}
             >
               <InfoIcon className="h-5 w-5" />
-              About
+              {t("about")}
             </Link>
             <Link
               href="#"
@@ -64,7 +68,7 @@ export async function Header({
               prefetch={false}
             >
               <MailIcon className="h-5 w-5" />
-              Contact
+              {t("contact")}
             </Link>
           </div>
         </SheetContent>
