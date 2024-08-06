@@ -1,0 +1,16 @@
+{
+  "Checkout": {
+    "title": "Solicitar pedido",
+    "lblName": "Nombre",
+    "lbPhone": "Teléfono",
+    "phName": "Escriba su nombre",
+    "phPhone": "Escriba su teléfono",
+    "continue": "Enviar pedido",
+    "products": "Productos",
+    "image": "Imagen",
+    "name": "Nombre",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "total_cart": "Total"
+  }
+}

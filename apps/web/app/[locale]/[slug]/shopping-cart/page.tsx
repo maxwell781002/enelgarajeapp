@@ -4,7 +4,7 @@ import {
   incrementItem,
   removeFromOrder,
 } from "@repo/model/repository/order";
-import EmptyCart from "./empty";
+import EmptyCart from "../../../../components/emptyCart";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import CardItem from "./card";
@@ -75,7 +75,13 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
           <Link href={`/${locale}/${slug}`} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
-          <Button className="w-full">{t("checkout")}</Button>
+          <Link
+            href={`/${locale}/${slug}/checkout`}
+            className="w-full"
+            prefetch={false}
+          >
+            <Button className="w-full">{t("checkout")}</Button>
+          </Link>
         </div>
       </div>
     </div>
