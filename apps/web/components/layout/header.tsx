@@ -14,8 +14,10 @@ import {
   InfoIcon,
   MailIcon,
   ShoppingCartIcon,
+  UserIcon,
 } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
+import { getCurrentUser, getOrCreateUser } from "@repo/model/repository/user";
 
 export async function Header({
   business,
@@ -25,6 +27,7 @@ export async function Header({
   locale: string;
 }) {
   const order = await getCurrentOrder();
+  const user = await getCurrentUser();
   const t = await getTranslations("Header");
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex h-14 w-full bg-background shadow-lg flex items-center justify-between bg-background px-4 py-3 shadow-sm">
@@ -34,9 +37,7 @@ export async function Header({
         prefetch={false}
       >
         <MountainIcon className="h-6 w-6" />
-        <span className="text-lg font-semibold">
-          {business.name}
-        </span>
+        <span className="text-lg font-semibold">{business.name}</span>
       </Link>
       <Sheet>
         <SheetTrigger asChild>
@@ -46,6 +47,12 @@ export async function Header({
         </SheetTrigger>
         <SheetContent side="right" className="w-64">
           <div className="grid gap-4 p-4">
+            {!!user?.name && (
+              <div className="border-b border-muted-foreground/10 pb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+                <UserIcon className="h-5 w-5" />
+                {user?.name}
+              </div>
+            )}
             <Link
               href={`/${locale}/${business.slug}`}
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"

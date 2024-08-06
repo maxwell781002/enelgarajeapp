@@ -72,7 +72,7 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
           <span className="text-2xl font-bold">${order.total}</span>
         </div>
         <div className="flex flex-col gap-2">
-          <Link href="#" className="w-full" prefetch={false}>
+          <Link href={`/${locale}/${slug}`} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
           <Button className="w-full">{t("checkout")}</Button>

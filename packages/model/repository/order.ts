@@ -7,7 +7,9 @@ import {
   CompleteOrder,
   CompleteOrderProduct,
   CompletePlate,
+  CompleteUser,
 } from "../prisma/zod";
+import { getOrCreateUser } from "./user";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -57,9 +59,10 @@ export const hasProduct = async (productId: string) => {
 
 export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
+  const { id } = (await getOrCreateUser()) as CompleteUser;
   if (!order) {
     order = (await prisma.order.create({
-      data: { productsDetails: "[]" },
+      data: { productsDetails: "[]", userId: id },
     })) as ShopCartOrder;
     cookies().set("order_id", order.id);
   }

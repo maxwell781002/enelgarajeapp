@@ -50,9 +50,7 @@ export default async function Page({
                     <div className="bg-red-600 rounded-full p-1">
                       <CheckIcon className="h-4 w-4 text-primary-foreground" />
                     </div>
-                    <strong>
-                      {t("inCart")}
-                    </strong>
+                    <strong>{t("inCart")}</strong>
                   </div>
                 )}
                 <BtnAddCart action={add.bind(null, item.id)} />
@@ -76,9 +74,7 @@ export default async function Page({
         </div>
       </section>
       <section className="container mx-auto py-12 md:py-16 px-4 md:px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8">
-          {t("photos")}
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8">{t("photos")}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {item.images.map((image) => (
             <img
