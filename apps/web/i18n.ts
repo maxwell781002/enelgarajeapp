@@ -12,6 +12,7 @@ const config: ReturnType<typeof getRequestConfig> = getRequestConfig(
       ...(await import(`./messages/${locale}/product.json`)).default,
       ...(await import(`./messages/${locale}/header.json`)).default,
       ...(await import(`./messages/${locale}/checkout.json`)).default,
+      ...(await import(`./messages/${locale}/order.json`)).default,
     };
 
     return {

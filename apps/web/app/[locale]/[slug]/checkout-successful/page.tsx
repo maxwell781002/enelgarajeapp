@@ -1,9 +1,27 @@
+import { getOrderById } from "@repo/model/repository/order";
 import { CircleCheckIcon } from "@repo/ui/components/icons";
 import OrderDetail from "@repo/ui/components/order-detail";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
-export default async function Page() {
+type Props = {
+  searchParams: {
+    orderId: string;
+  };
+  params: {
+    slug: string;
+    locale: string;
+  };
+};
+
+export default async function Page({
+  searchParams: { orderId },
+  params: { slug, locale },
+}: Props) {
+  const baseUrl = `/${locale}/${slug}`;
+  const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
+  const to = await getTranslations("OrderDetail");
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
@@ -20,7 +38,23 @@ export default async function Page() {
             </div>
           </div>
         </section>
-        <OrderDetail />
+        <OrderDetail order={order} t={to} />
+        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href={`${baseUrl}/order/${orderId}`}
+            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+            prefetch={false}
+          >
+            {t("show_order")}
+          </Link>
+          <Link
+            href={baseUrl}
+            className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+            prefetch={false}
+          >
+            {t("continue_shopping")}
+          </Link>
+        </div>
       </main>
     </div>
   );

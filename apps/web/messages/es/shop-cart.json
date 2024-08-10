@@ -16,6 +16,8 @@
   },
   "CheckoutSuccessful": {
     "title": "Pago confirmado",
-    "description": "Gracias por tu compra, nos pondremos en contacto contigo a la brevedad."
+    "description": "Gracias por tu compra, nos pondremos en contacto contigo a la brevedad.",
+    "continue_shopping": "Continuar comprando",
+    "show_order": "Ver pedido"
   }
 }

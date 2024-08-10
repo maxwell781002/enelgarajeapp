@@ -23,15 +23,7 @@ export const getCurrentOrder = async (): Promise<
   const cookieStore = cookies();
   const orderId = cookieStore.get("order_id");
   if (orderId) {
-    const order = (await prisma.order.findUnique({
-      where: { id: orderId.value },
-      include: {
-        items: {
-          include: { product: true },
-          orderBy: { position: "asc" },
-        },
-      },
-    })) as ShopCartOrder;
+    const order = (await getOrderById(orderId.value)) as ShopCartOrder;
     if (order) {
       order.numberOfItems = order.items.reduce(
         (acc, { quantity }) => acc + quantity,
@@ -182,10 +174,23 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const userEntity = (await getCurrentUser()) as CompleteUser;
   await updateUser(userEntity.id, user);
   const order = await getOrCrateOrder();
-  return prisma.order.update({
+  await prisma.order.update({
     where: { id: order.id },
     data: {
       status: OrderStatus.SEND,
+    },
+  });
+  cookies().delete("order_id");
+};
+
+export const getOrderById = async (id: string) => {
+  return prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: {
+        include: { product: true },
+        orderBy: { position: "asc" },
+      },
     },
   });
 };

@@ -34,7 +34,7 @@ export default async function Component({
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
     await checkoutOrder(data);
-    await redirect(`${baseUrl}/checkout-successful`);
+    await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
 
   return (
