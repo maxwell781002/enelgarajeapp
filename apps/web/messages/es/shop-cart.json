@@ -13,5 +13,9 @@
       "cancel": "No",
       "continue": "Si"
     }
+  },
+  "CheckoutSuccessful": {
+    "title": "Pago confirmado",
+    "description": "Gracias por tu compra, nos pondremos en contacto contigo a la brevedad."
   }
 }

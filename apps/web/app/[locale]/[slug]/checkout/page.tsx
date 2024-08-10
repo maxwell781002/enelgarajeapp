@@ -12,6 +12,7 @@ import EmptyCart from "../../../../components/emptyCart";
 import { CheckoutForm } from "./form";
 import { getOrCreateUser } from "@repo/model/repository/user";
 import { TUserRegisterSchema } from "@repo/model/validation/user";
+import { redirect } from "next/navigation";
 
 type PageProps = {
   params: {
@@ -32,12 +33,8 @@ export default async function Component({
   const user = await getOrCreateUser();
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    try {
-      return await checkoutOrder(data);
-    } catch (e) {
-      console.log("ddddd");
-    }
-    // revalidatePath(`/${baseUrl}/shopping-cart`);
+    await checkoutOrder(data);
+    await redirect(`${baseUrl}/checkout-successful`);
   };
 
   return (

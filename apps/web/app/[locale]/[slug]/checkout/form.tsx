@@ -25,7 +25,6 @@ type CheckoutFormProps = {
 };
 
 export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
-  console.log(defaultValues);
   const t = useTranslations("Checkout");
 
   const { formState, ...form } = useForm<TUserRegisterSchema>({
