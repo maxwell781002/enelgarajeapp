@@ -4,7 +4,7 @@ import { CompleteOrder, RelatedOrderModel } from "./index";
 export const UserModel = z.object({
   id: z.string(),
   name: z.string().nullish(),
-  phpne: z.string().nullish(),
+  phone: z.string().nullish(),
 });
 
 export interface CompleteUser extends z.infer<typeof UserModel> {

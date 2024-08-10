@@ -7,6 +7,7 @@
   },
   "exports": {
     "./repository/*": ["./repository/*.ts"],
+    "./validation/*": ["./validation/*.ts"],
     "./zod/*": ["./prisma/zod/*.ts"]
   },
   "prisma": {

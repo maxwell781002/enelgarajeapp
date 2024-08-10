@@ -1,5 +1,3 @@
-import { Input } from "@repo/ui/components/ui/input";
-import { Button } from "@repo/ui/components/ui/button";
 import {
   Table,
   TableHeader,
@@ -8,10 +6,12 @@ import {
   TableBody,
   TableCell,
 } from "@repo/ui/components/ui/table";
-import { Label } from "@repo/ui/components/ui/label";
 import { getTranslations } from "next-intl/server";
-import { getCurrentOrder } from "@repo/model/repository/order";
+import { checkoutOrder, getCurrentOrder } from "@repo/model/repository/order";
 import EmptyCart from "../../../../components/emptyCart";
+import { CheckoutForm } from "./form";
+import { getOrCreateUser } from "@repo/model/repository/user";
+import { TUserRegisterSchema } from "@repo/model/validation/user";
 
 type PageProps = {
   params: {
@@ -29,23 +29,25 @@ export default async function Component({
   if (!order || order.items.length === 0) {
     return <EmptyCart slug={baseUrl} />;
   }
+  const user = await getOrCreateUser();
+  const checkout = async (data: TUserRegisterSchema) => {
+    "use server";
+    try {
+      return await checkoutOrder(data);
+    } catch (e) {
+      console.log("ddddd");
+    }
+    // revalidatePath(`/${baseUrl}/shopping-cart`);
+  };
+
   return (
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <form className="bg-background rounded-lg shadow-sm mt-4 space-y-4">
-          <div>
-            <Label htmlFor="name">{t("lblName")}</Label>
-            <Input id="name" type="text" placeholder={t("phName")} />
-          </div>
-          <div>
-            <Label htmlFor="phone">{t("lbPhone")}</Label>
-            <Input id="phone" placeholder={t("phPhone")} />
-          </div>
-          <Button type="submit" className="w-full">
-            {t("continue")}
-          </Button>
-        </form>
+        <CheckoutForm
+          action={checkout}
+          defaultValues={user as TUserRegisterSchema}
+        />
       </div>
       <div>
         <h1 className="text-2xl font-bold">{t("products")}</h1>
@@ -61,7 +63,7 @@ export default async function Component({
             </TableHeader>
             <TableBody>
               {order.items.map((item) => (
-                <TableRow>
+                <TableRow key={item.productId}>
                   <TableCell>
                     <img
                       src={item.product.image}

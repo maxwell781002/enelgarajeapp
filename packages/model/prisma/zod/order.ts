@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { OrderStatus } from "@prisma/client";
 import {
   CompleteUser,
   RelatedUserModel,
@@ -19,6 +20,7 @@ export const OrderModel = z.object({
   userId: z.string().nullish(),
   productsDetails: jsonSchema,
   total: z.number().int(),
+  status: z.nativeEnum(OrderStatus),
 });
 
 export interface CompleteOrder extends z.infer<typeof OrderModel> {

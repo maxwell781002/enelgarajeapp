@@ -9,7 +9,9 @@ import {
   CompletePlate,
   CompleteUser,
 } from "../prisma/zod";
-import { getOrCreateUser } from "./user";
+import { getCurrentUser, getOrCreateUser, updateUser } from "./user";
+import { OrderStatus } from "@prisma/client";
+import { TUserRegisterSchema } from "../validation/user";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -172,6 +174,18 @@ export const addToOrder = async (productId: string) => {
           },
         },
       },
+    },
+  });
+};
+
+export const checkoutOrder = async (user: TUserRegisterSchema) => {
+  const userEntity = (await getCurrentUser()) as CompleteUser;
+  await updateUser(userEntity.id, user);
+  const order = await getOrCrateOrder();
+  return prisma.order.update({
+    where: { id: order.id },
+    data: {
+      status: OrderStatus.SEND,
     },
   });
 };

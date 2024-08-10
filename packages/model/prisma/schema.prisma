@@ -61,7 +61,7 @@ model Plate {
 model User {
   id     String  @id @default(uuid())
   name   String?
-  phpne  String?
+  phone  String?
   orders Order[]
 }
 
@@ -72,6 +72,7 @@ model Order {
   items           OrderProduct[]
   productsDetails Json
   total           Int            @default(0)
+  status          OrderStatus    @default(CREATED)
 }
 
 model OrderProduct {
@@ -85,4 +86,11 @@ model OrderProduct {
   quantity Int
 
   @@id([productId, orderId])
+}
+
+enum OrderStatus {
+  CREATED
+  SEND
+  PAYED
+  REJECTED
 }
