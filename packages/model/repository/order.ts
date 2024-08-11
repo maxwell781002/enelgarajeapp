@@ -171,7 +171,7 @@ export const addToOrder = async (productId: string) => {
 };
 
 const generateIdentifier = (date: Date, position: number) => {
-  return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}-${position}`;
+  return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
 };
 
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
@@ -208,4 +208,24 @@ export const getOrderById = async (id: string) => {
       },
     },
   });
+};
+
+export const getOrdersByUserId = async (userId: string) => {
+  return prisma.order.findMany({
+    where: { userId, NOT: { status: OrderStatus.CREATED } },
+    include: {
+      items: {
+        include: { product: true },
+        orderBy: { position: "asc" },
+      },
+    },
+  });
+};
+
+export const getOrderCurrentUser = async () => {
+  const userId = (await getCurrentUser())?.id;
+  if (!userId) {
+    return null;
+  }
+  return getOrdersByUserId(userId);
 };

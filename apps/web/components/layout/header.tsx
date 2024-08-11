@@ -15,6 +15,7 @@ import {
   MailIcon,
   ShoppingCartIcon,
   UserIcon,
+  PackageIcon,
 } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
 import { getCurrentUser, getOrCreateUser } from "@repo/model/repository/user";
@@ -76,6 +77,14 @@ export async function Header({
             >
               <MailIcon className="h-5 w-5" />
               {t("contact")}
+            </Link>
+            <Link
+              href={`/${locale}/${business.slug}/order`}
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              prefetch={false}
+            >
+              <PackageIcon className="h-5 w-5" />
+              {t("order")}
             </Link>
           </div>
         </SheetContent>

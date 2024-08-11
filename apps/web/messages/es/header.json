@@ -2,6 +2,7 @@
   "Header": {
     "home": "Inicio",
     "about": "Acerca de",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "order": "Mis ordenes"
   }
 }

@@ -1,3 +1,4 @@
+import { formatDate } from "../lib/date";
 import { Separator } from "./ui/separator";
 import { CompleteOrder, CompleteOrderProduct } from "@repo/model";
 
@@ -17,11 +18,10 @@ export default function OrderDetail({ order, t }: OrderProps) {
             </h2>
             <div className="mt-4 space-y-4">
               <div className="flex items-center justify-between">
-                <div className="font-medium">{t("order")} #12345</div>
-                <div>
-                  {/* {new Date(order.createdAt).toLocaleDateString()}{" "}
-                  {new Date(order.createdAt).toLocaleTimeString()} */}
+                <div className="font-medium">
+                  {t("order")} #{order.identifier}
                 </div>
+                <div>{formatDate(order.sentAt as Date)}</div>
               </div>
               <Separator />
               <div className="grid gap-4">
