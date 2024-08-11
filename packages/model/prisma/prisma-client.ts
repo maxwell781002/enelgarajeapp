@@ -14,7 +14,7 @@ const prisma = new PrismaClient().$extends({
     business: {
       create: createSlug,
     },
-    plate: {
+    product: {
       create: createSlug,
     },
     category: {

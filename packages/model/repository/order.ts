@@ -2,11 +2,11 @@
 
 import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
-import { getById } from "./plate";
+import { getById } from "./product";
 import {
   CompleteOrder,
   CompleteOrderProduct,
-  CompletePlate,
+  CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
 import { getCurrentUser, getOrCreateUser, updateUser } from "./user";
@@ -131,7 +131,7 @@ export const removeFromOrder = async (productId: string) => {
 };
 
 export const addToOrder = async (productId: string) => {
-  const product = (await getById(productId)) as CompletePlate;
+  const product = (await getById(productId)) as CompleteProduct;
   const order = await getOrCrateOrder();
   let products = await getProducts(order);
   const find = (order.items || []).find((item: any) => item.id === product.id);

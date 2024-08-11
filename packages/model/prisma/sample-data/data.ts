@@ -1,7 +1,7 @@
 export default [
   {
     name: "Entrantes",
-    plates: [
+    products: [
       {
         name: "Verduras Asadas al Horno",
         description:
@@ -9,14 +9,6 @@ export default [
         price: 250,
         image:
           "https://media.istockphoto.com/id/2053408546/photo/overhead-view-of-plate-with-roasted-baby-potatoes-brussels-sprouts-and-cherry-tomatoes.webp?b=1&s=170667a&w=0&k=20&c=p9k53FN78yNfU3laNeWW8wcZpVSXnqUoiZEZhD5JwY0=",
-        ingredients: [
-          "Papas baby Asadas",
-          "Tomates Cherry Asados",
-          "Coles de Bruselas Asadas",
-          "Aceite de oliva",
-          "Sal",
-          "Pimienta",
-        ],
         images: [
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",
@@ -32,14 +24,6 @@ export default [
         price: 250,
         image:
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
-        ingredients: [
-          "Papas baby Asadas",
-          "Tomates Cherry Asados",
-          "Coles de Bruselas Asadas",
-          "Aceite de oliva",
-          "Sal",
-          "Pimienta",
-        ],
         images: [
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",
@@ -52,7 +36,7 @@ export default [
   },
   {
     name: "Sopas",
-    plates: [
+    products: [
       {
         name: "Croissant de Mantequilla Fresco",
         description:
@@ -60,14 +44,6 @@ export default [
         price: 250,
         image:
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",
-        ingredients: [
-          "Papas baby Asadas",
-          "Tomates Cherry Asados",
-          "Coles de Bruselas Asadas",
-          "Aceite de oliva",
-          "Sal",
-          "Pimienta",
-        ],
         images: [
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",
@@ -83,14 +59,6 @@ export default [
         price: 250,
         image:
           "https://media.istockphoto.com/id/1487017655/photo/roasted-salmon-with-salad.jpg?s=612x612&w=0&k=20&c=Pcmw-Ig7NCF-9Wdgh5XjpXwKP1S9HP5YBd4dvTbvLBs=",
-        ingredients: [
-          "Papas baby Asadas",
-          "Tomates Cherry Asados",
-          "Coles de Bruselas Asadas",
-          "Aceite de oliva",
-          "Sal",
-          "Pimienta",
-        ],
         images: [
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",
@@ -103,7 +71,7 @@ export default [
   },
   {
     name: "Ensaladas",
-    plates: [
+    products: [
       {
         name: "Cheeseburger Clásica",
         description:
@@ -111,14 +79,6 @@ export default [
         price: 250,
         image:
           "https://media.istockphoto.com/id/1473452859/photo/tasty-cheeseburger-glass-of-cola-and-french-fries-on-wooden-tray-close-up.jpg?s=612x612&w=0&k=20&c=QLq7mv50xRL-LSfLYgUwNHsHm8Ri5nWrIdNwQL0qCqc=",
-        ingredients: [
-          "Papas baby Asadas",
-          "Tomates Cherry Asados",
-          "Coles de Bruselas Asadas",
-          "Aceite de oliva",
-          "Sal",
-          "Pimienta",
-        ],
         images: [
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",
@@ -134,14 +94,6 @@ export default [
         price: 250,
         image:
           "https://media.istockphoto.com/id/2048785542/photo/pink-donut-and-coffee.jpg?s=612x612&w=0&k=20&c=cE3hEi48ljCAkCwgTo8n0WHtDzpcK2CYG03H-5PCPC8=",
-        ingredients: [
-          "Papas baby Asadas",
-          "Tomates Cherry Asados",
-          "Coles de Bruselas Asadas",
-          "Aceite de oliva",
-          "Sal",
-          "Pimienta",
-        ],
         images: [
           "https://media.istockphoto.com/id/1482543117/photo/chicken-breast-grilled-and-fresh-vegetable-salad.webp?b=1&s=170667a&w=0&k=20&c=Z6LFtYqACE4A-WLRXm_rUiTZ72POpxuVnbcUhVY_ND4=",
           "https://media.istockphoto.com/id/1614842743/photo/fresh-butter-croissant-on-plate-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=5ineu_RXS5_-zBmrm0deJCkVWau1zpVVbxQKlWzNCnM=",

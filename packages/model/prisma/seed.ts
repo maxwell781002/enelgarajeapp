@@ -6,7 +6,7 @@ async function createBusiness(data: any) {
     data,
   });
   return Promise.all(
-    sampleData.map(async ({ plates, ...category }) => {
+    sampleData.map(async ({ products, ...category }) => {
       const categoryEntity = await prisma.category.create({
         data: {
           ...category,
@@ -15,10 +15,10 @@ async function createBusiness(data: any) {
       });
 
       return Promise.all(
-        plates.map(async (plate) =>
-          prisma.plate.create({
+        products.map(async (product) =>
+          prisma.product.create({
             data: {
-              ...plate,
+              ...product,
               businessId: business.id,
               categoryId: categoryEntity.id,
             },

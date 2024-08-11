@@ -7,6 +7,6 @@ export const getBySlugBusiness = (slug: string) => {
         slug,
       },
     },
-    include: { plates: true },
+    include: { products: true },
   });
 };
