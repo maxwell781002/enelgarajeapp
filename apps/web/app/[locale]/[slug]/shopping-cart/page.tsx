@@ -21,9 +21,6 @@ type PageProps = {
 export default async function Page({ params: { slug, locale } }: PageProps) {
   const order = await getCurrentOrder();
   const baseUrl = `/${locale}/${slug}`;
-  if (!order || !order.items) {
-    return <EmptyCart slug={slug} />;
-  }
   const remove = async (productId: string) => {
     "use server";
     await removeFromOrder(productId);
@@ -72,11 +69,11 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
           <span className="text-2xl font-bold">${order.total}</span>
         </div>
         <div className="flex flex-col gap-2">
-          <Link href={`/${locale}/${slug}`} className="w-full" prefetch={false}>
+          <Link href={baseUrl} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
           <Link
-            href={`/${locale}/${slug}/checkout`}
+            href={`${baseUrl}/checkout`}
             className="w-full"
             prefetch={false}
           >

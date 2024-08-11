@@ -22,9 +22,9 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
 
   return (
     <>
-      {list.map(({ plates, name, id }) => (
+      {list.map(({ products, name, id }) => (
         <Row name={name} key={id}>
-          {plates.map(async (item) => (
+          {products.map(async (item) => (
             <CardItem
               onAdd={add.bind(null, item.id)}
               key={item.id}

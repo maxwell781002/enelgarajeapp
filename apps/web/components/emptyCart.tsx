@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 
 export default async function EmptyCart({ slug }: { slug: string }) {
   const t = await getTranslations("ShopCart");
+  console.log("hhhhh", slug);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">

@@ -1,4 +1,4 @@
-import { getBySlug } from "@repo/model/repository/plate";
+import { getBySlug } from "@repo/model/repository/product";
 import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
 import { addToOrder, hasProduct } from "@repo/model/repository/order";
@@ -7,17 +7,17 @@ import { getTranslations } from "next-intl/server";
 
 type PageProps = {
   params: {
-    plateSlug: string;
+    productSlug: string;
     slug: string;
     locale: string;
   };
 };
 
 export default async function Page({
-  params: { slug, plateSlug, locale },
+  params: { slug, productSlug, locale },
 }: PageProps) {
-  const baseUrl = `/${locale}/${slug}/${plateSlug}`;
-  const item = await getBySlug(plateSlug);
+  const baseUrl = `/${locale}/${slug}/${productSlug}`;
+  const item = await getBySlug(productSlug);
   const add = async (productId: string) => {
     "use server";
     await addToOrder(productId);
@@ -65,12 +65,6 @@ export default async function Page({
                 <h3 className="text-lg font-semibold mb-1">{item.category}</h3>
               </div>
             </div>
-            <h2 className="text-2xl font-semibold mb-4">Ingredientes</h2>
-            <ul className="list-disc pl-6 text-muted-foreground">
-              {item.ingredients.map((ingredient) => (
-                <li key={ingredient}>{ingredient}</li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
