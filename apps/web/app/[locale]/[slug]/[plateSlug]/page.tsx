@@ -16,11 +16,12 @@ type PageProps = {
 export default async function Page({
   params: { slug, plateSlug, locale },
 }: PageProps) {
+  const baseUrl = `/${locale}/${slug}/${plateSlug}`;
   const item = await getBySlug(plateSlug);
   const add = async (productId: string) => {
     "use server";
-    addToOrder(productId);
-    revalidatePath(`/${locale}/${slug}/${plateSlug}`);
+    await addToOrder(productId);
+    revalidatePath(baseUrl);
   };
 
   const t = await getTranslations("Product");
