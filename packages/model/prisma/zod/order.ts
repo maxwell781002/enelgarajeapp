@@ -21,6 +21,9 @@ export const OrderModel = z.object({
   productsDetails: jsonSchema,
   total: z.number().int(),
   status: z.nativeEnum(OrderStatus),
+  sentAt: z.date().nullish(),
+  position: z.number().int().nullish(),
+  identifier: z.string().nullish(),
 });
 
 export interface CompleteOrder extends z.infer<typeof OrderModel> {

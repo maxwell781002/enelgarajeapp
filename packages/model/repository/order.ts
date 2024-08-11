@@ -170,14 +170,29 @@ export const addToOrder = async (productId: string) => {
   });
 };
 
+const generateIdentifier = (date: Date, position: number) => {
+  return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}-${position}`;
+};
+
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const userEntity = (await getCurrentUser()) as CompleteUser;
   await updateUser(userEntity.id, user);
   const order = await getOrCrateOrder();
+  const position =
+    (
+      await prisma.order.findFirst({
+        orderBy: { position: "desc" },
+      })
+    )?.position || 0;
+  const newPosition = position + 1;
   await prisma.order.update({
     where: { id: order.id },
     data: {
+      total: order.total,
       status: OrderStatus.SEND,
+      position: newPosition,
+      sentAt: new Date(),
+      identifier: generateIdentifier(new Date(), newPosition),
     },
   });
   cookies().delete("order_id");

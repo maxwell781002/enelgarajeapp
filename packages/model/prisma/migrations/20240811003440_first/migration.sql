@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "OrderStatus" AS ENUM ('CREATED', 'SEND', 'PAYED', 'REJECTED');
+
 -- CreateTable
 CREATE TABLE "Business" (
     "id" TEXT NOT NULL,
@@ -42,7 +45,7 @@ CREATE TABLE "Plate" (
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT,
-    "email" TEXT NOT NULL,
+    "phone" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -53,6 +56,10 @@ CREATE TABLE "Order" (
     "userId" TEXT,
     "productsDetails" JSONB NOT NULL,
     "total" INTEGER NOT NULL DEFAULT 0,
+    "status" "OrderStatus" NOT NULL DEFAULT 'CREATED',
+    "sentAt" TIMESTAMP(3),
+    "position" INTEGER,
+    "identifier" TEXT,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
@@ -61,6 +68,8 @@ CREATE TABLE "Order" (
 CREATE TABLE "OrderProduct" (
     "productId" TEXT NOT NULL,
     "orderId" TEXT NOT NULL,
+    "price" INTEGER NOT NULL,
+    "position" INTEGER NOT NULL DEFAULT 1,
     "quantity" INTEGER NOT NULL,
 
     CONSTRAINT "OrderProduct_pkey" PRIMARY KEY ("productId","orderId")

@@ -73,6 +73,9 @@ model Order {
   productsDetails Json
   total           Int            @default(0)
   status          OrderStatus    @default(CREATED)
+  sentAt          DateTime?
+  position        Int?
+  identifier      String?
 }
 
 model OrderProduct {
