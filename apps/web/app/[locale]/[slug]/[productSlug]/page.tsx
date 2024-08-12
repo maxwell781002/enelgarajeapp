@@ -1,7 +1,7 @@
 import { getBySlug } from "@repo/model/repository/product";
 import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
-import { addToOrder, hasProduct } from "@repo/model/repository/order";
+import { addToOrder, getCurrentOrder, hasProduct } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 
@@ -18,6 +18,7 @@ export default async function Page({
 }: PageProps) {
   const baseUrl = `/${locale}/${slug}/${productSlug}`;
   const item = await getBySlug(productSlug);
+  const order = await getCurrentOrder()
   const add = async (productId: string) => {
     "use server";
     await addToOrder(productId);
@@ -46,7 +47,7 @@ export default async function Page({
             <div className="flex justify-between items-center border-y border-indigo-600 py-2 mb-2">
               <div className="font-semibold mb-1">${item.price}</div>
               <div className="flex justify-end gap-4">
-                {(await hasProduct(item.id)) && (
+                {(await hasProduct(item.id, order)) && (
                   <div className="flex items-center gap-2">
                     <div className="bg-red-600 rounded-full p-1">
                       <CheckIcon className="h-4 w-4 text-primary-foreground" />

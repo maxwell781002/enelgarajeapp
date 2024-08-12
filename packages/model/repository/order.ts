@@ -17,6 +17,10 @@ export type ShopCartOrder = {
   numberOfItems: number | undefined;
 } & CompleteOrder;
 
+export type ProductShopCartItem = {
+  _inCart: boolean;
+} & CompleteProduct;
+
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
 > => {
@@ -43,8 +47,7 @@ export const getCurrentOrder = async (): Promise<
   }
 };
 
-export const hasProduct = async (productId: string) => {
-  const order = await getCurrentOrder();
+export const hasProduct = async (productId: string, order: ShopCartOrder | null | undefined) => {
   if (!order) {
     return false;
   }

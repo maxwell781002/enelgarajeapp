@@ -1,7 +1,7 @@
 import { Row } from "@repo/ui/components/cardList/row";
 import { CardItem } from "@repo/ui/components/cardList/card";
 import { getBySlugBusiness } from "@repo/model/repository/category";
-import { addToOrder, hasProduct } from "@repo/model/repository/order";
+import { addToOrder, getCurrentOrder, hasProduct, ProductShopCartItem } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 
 type PageProps = {
@@ -14,6 +14,7 @@ type PageProps = {
 export default async function Page({ params: { slug, locale } }: PageProps) {
   const list = await getBySlugBusiness(slug);
   const baseUrl = `/${locale}/${slug}`;
+  const order = await getCurrentOrder()
   const add = async (productId: string) => {
     "use server";
     await addToOrder(productId);
@@ -28,12 +29,8 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
             <CardItem
               onAdd={add.bind(null, item.id)}
               key={item.id}
-              name={item.name}
+              item={{ ...item, _inCart: await hasProduct(item.id, order) } as ProductShopCartItem}
               baseUrl={baseUrl}
-              slug={item.slug as string}
-              image={item.image}
-              price={item.price}
-              inCart={await hasProduct(item.id)}
             />
           ))}
         </Row>
