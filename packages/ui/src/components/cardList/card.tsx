@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useOptimistic } from 'react'
+import { useOptimistic } from "react";
 import { CardContent, Card } from "../ui/card";
 import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
@@ -13,12 +13,16 @@ type CardItemProps = {
   onAdd?: () => void;
 };
 
-export function CardItem({ item: originalItem, baseUrl, onAdd }: CardItemProps) {
+export function CardItem({
+  item: originalItem,
+  baseUrl,
+  onAdd,
+}: CardItemProps) {
   const [item, setItem] = useOptimistic(originalItem);
   const handleAdd = async () => {
     setItem({ ...item, _inCart: true });
     await onAdd?.();
-  }
+  };
 
   return (
     <Card>

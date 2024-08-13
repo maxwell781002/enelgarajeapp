@@ -6,9 +6,15 @@
     "node": ">=v20.15.1"
   },
   "exports": {
-    "./repository/*": ["./repository/*.ts"],
-    "./validation/*": ["./validation/*.ts"],
-    "./zod/*": ["./prisma/zod/*.ts"]
+    "./repository/*": [
+      "./repository/*.ts"
+    ],
+    "./validation/*": [
+      "./validation/*.ts"
+    ],
+    "./zod/*": [
+      "./prisma/zod/*.ts"
+    ]
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -17,7 +23,8 @@
     "prisma-generate": "prisma generate --schema=./prisma/schema.prisma",
     "prisma-create-migration": "prisma migrate dev --create-only --schema=./prisma/schema.prisma",
     "prisma-migration-deploy": "prisma migrate deploy --schema=./prisma/schema.prisma",
-    "prisma-reset": "prisma migrate reset --schema=./prisma/schema.prisma"
+    "prisma-reset": "prisma migrate reset --schema=./prisma/schema.prisma",
+    "test": "vitest"
   },
   "peerDependencies": {
     "next-auth": "^4.24.7"
@@ -26,10 +33,15 @@
     "@prisma/client": "5.13.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20.14.12",
+    "@vitejs/plugin-react": "^4.3.1",
     "dotenv-cli": "^7.4.2",
+    "jsdom": "^24.1.1",
     "prisma": "5.13.0",
     "ts-node": "^10.9.2",
+    "vitest": "^2.0.5",
     "zod-prisma": "^0.5.4"
   },
   "dependencies": {

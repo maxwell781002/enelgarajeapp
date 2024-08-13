@@ -47,7 +47,10 @@ export const getCurrentOrder = async (): Promise<
   }
 };
 
-export const hasProduct = async (productId: string, order: ShopCartOrder | null | undefined) => {
+export const hasProduct = async (
+  productId: string,
+  order: ShopCartOrder | null | undefined,
+) => {
   if (!order) {
     return false;
   }

@@ -1,5 +1,9 @@
 import { getBySlug } from "@repo/model/repository/product";
-import { addToOrder, getCurrentOrder, hasProduct } from "@repo/model/repository/order";
+import {
+  addToOrder,
+  getCurrentOrder,
+  hasProduct,
+} from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { AddCart } from "./add-cart";
@@ -17,7 +21,7 @@ export default async function Page({
 }: PageProps) {
   const baseUrl = `/${locale}/${slug}/${productSlug}`;
   const item = await getBySlug(productSlug);
-  const order = await getCurrentOrder()
+  const order = await getCurrentOrder();
   const add = async (productId: string) => {
     "use server";
     await addToOrder(productId);
@@ -45,7 +49,10 @@ export default async function Page({
             <h1 className="text-3xl md:text-4xl font-bold mb-4">{item.name}</h1>
             <div className="flex justify-between items-center border-y border-indigo-600 py-2 mb-2">
               <div className="font-semibold mb-1">${item.price}</div>
-              <AddCart inCart={await hasProduct(item.id, order)} add={add.bind(null, item.id)} />
+              <AddCart
+                inCart={await hasProduct(item.id, order)}
+                add={add.bind(null, item.id)}
+              />
             </div>
             <p className="text-muted-foreground text-lg mb-6">
               {item.description}

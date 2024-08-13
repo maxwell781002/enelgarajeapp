@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useOptimistic } from 'react'
+import { useOptimistic } from "react";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
 import { CheckIcon } from "@repo/ui/components/icons";
 import { useTranslations } from "next-intl";
@@ -8,14 +8,14 @@ import { useTranslations } from "next-intl";
 type Props = {
   inCart: boolean;
   add: () => any;
-}
+};
 
 export function AddCart({ inCart, add }: Props) {
   const [optimisticInCart, setOptimisticInCart] = useOptimistic(inCart);
   const handleAdd = async () => {
     setOptimisticInCart(true);
     await add();
-  }
+  };
   const t = useTranslations("Product");
   return (
     <div className="flex justify-end gap-4">
