@@ -1,9 +1,8 @@
 import { getBySlug } from "@repo/model/repository/product";
-import { CheckIcon } from "@repo/ui/components/icons";
-import { BtnAddCart } from "@repo/ui/components/add-cart";
 import { addToOrder, getCurrentOrder, hasProduct } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { AddCart } from "./add-cart";
 
 type PageProps = {
   params: {
@@ -46,17 +45,7 @@ export default async function Page({
             <h1 className="text-3xl md:text-4xl font-bold mb-4">{item.name}</h1>
             <div className="flex justify-between items-center border-y border-indigo-600 py-2 mb-2">
               <div className="font-semibold mb-1">${item.price}</div>
-              <div className="flex justify-end gap-4">
-                {(await hasProduct(item.id, order)) && (
-                  <div className="flex items-center gap-2">
-                    <div className="bg-red-600 rounded-full p-1">
-                      <CheckIcon className="h-4 w-4 text-primary-foreground" />
-                    </div>
-                    <strong>{t("inCart")}</strong>
-                  </div>
-                )}
-                <BtnAddCart action={add.bind(null, item.id)} />
-              </div>
+              <AddCart inCart={await hasProduct(item.id, order)} add={add.bind(null, item.id)} />
             </div>
             <p className="text-muted-foreground text-lg mb-6">
               {item.description}
