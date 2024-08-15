@@ -15,36 +15,43 @@ import { TUserRegisterSchema } from "../validation/user";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
+  items: ShopCartItem[];
 } & CompleteOrder;
 
 export type ProductShopCartItem = {
   _inCart: boolean;
 } & CompleteProduct;
 
+export type ShopCartItem = {
+  total: number;
+} & CompleteOrderProduct;
+
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
 > => {
   const cookieStore = cookies();
   const orderId = cookieStore.get("order_id");
-  if (orderId) {
-    const order = (await getOrderById(orderId.value)) as ShopCartOrder;
-    if (order) {
-      order.numberOfItems = order.items.reduce(
-        (acc, { quantity }) => acc + quantity,
-        0,
-      );
-    }
-    if (order?.items) {
-      order.items = order.items.map(({ price, quantity, ...item }) => ({
-        ...item,
-        price,
-        quantity,
-        total: price * quantity,
-      }));
-      order.total = order.items.reduce((acc, item: any) => acc + item.total, 0);
-    }
-    return order;
+  if (!orderId) {
+    return null;
   }
+  const order = (await getOrderById(orderId.value)) as ShopCartOrder;
+  if (!order) {
+    return null;
+  }
+  order.numberOfItems = order.items.reduce(
+    (acc, { quantity }) => acc + quantity,
+    0,
+  );
+  const items: ShopCartItem[] = order.items.map(
+    ({ price, quantity, ...item }) => ({
+      ...item,
+      price,
+      quantity,
+      total: price * quantity,
+    }),
+  );
+  order.total = items.reduce((acc, item: any) => acc + item.total, 0);
+  return { ...order, items };
 };
 
 export const hasProduct = async (

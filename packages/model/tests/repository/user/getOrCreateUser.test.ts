@@ -35,7 +35,7 @@ describe("User", () => {
   it("Cookies is empty", async () => {
     const user = await getOrCreateUser();
     expect(user).not.toBeNull();
-    expect(mocksGet.set).toHaveBeenCalledWith('user_id', user?.id);
+    expect(mocksGet.set).toHaveBeenCalledWith("user_id", user?.id);
   });
 
   it("The user in cookies", async () => {
