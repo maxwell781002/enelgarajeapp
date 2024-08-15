@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 
-export const USER_ID_COOKIES = "user_id";
+const USER_ID_COOKIES = "user_id";
 
 export const getCurrentUser = async () => {
   const userId = cookies().get(USER_ID_COOKIES)?.value;

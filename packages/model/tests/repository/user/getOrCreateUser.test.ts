@@ -1,5 +1,5 @@
 import { expect, describe, afterEach, vi, it, beforeEach } from "vitest";
-import { getOrCreateUser, USER_ID_COOKIES } from "../../../repository/user";
+import { getOrCreateUser } from "../../../repository/user";
 import prisma from "../../../prisma/prisma-client";
 
 const mocksGet = vi.hoisted(() => ({
@@ -35,7 +35,7 @@ describe("User", () => {
   it("Cookies is empty", async () => {
     const user = await getOrCreateUser();
     expect(user).not.toBeNull();
-    expect(mocksGet.set).toHaveBeenCalledWith(USER_ID_COOKIES, user?.id);
+    expect(mocksGet.set).toHaveBeenCalledWith('user_id', user?.id);
   });
 
   it("The user in cookies", async () => {
