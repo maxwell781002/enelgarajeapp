@@ -1,5 +1,13 @@
 import prisma from "../prisma/prisma-client";
 
+export const clearBd = async () => {
+  await prisma.orderProduct.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
+  await prisma.order.deleteMany();
+  await prisma.business.deleteMany();
+};
+
 export const categoryFactory = (data: any = {}) => {
   return prisma.category.create({
     data: {
@@ -19,6 +27,9 @@ export const businessFactory = (data = {}) => {
 };
 
 export const productFactory = async (data: any = {}) => {
+  if (!data.businessId) {
+    data.businessId = (await businessFactory()).id;
+  }
   if (!data.categoryId) {
     data.categoryId = (
       await categoryFactory({ businessId: data.businessId })

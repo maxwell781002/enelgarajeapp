@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import prisma from "../../../prisma/prisma-client";
 import { getCurrentOrder, ShopCartOrder } from "../../../repository/order";
-import { businessFactory, productFactory } from "../../factories";
+import { businessFactory, clearBd, productFactory } from "../../factories";
 
 const mocksGet = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -43,9 +43,7 @@ describe("CurrentOrder", () => {
 
   afterEach(async () => {
     vi.clearAllMocks();
-    await prisma.orderProduct.deleteMany();
-    await prisma.product.deleteMany();
-    await prisma.order.deleteMany();
+    await clearBd();
   });
 
   it("getCurrentOrder null", async () => {
