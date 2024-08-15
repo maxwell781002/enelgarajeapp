@@ -1,13 +1,15 @@
 import { expect, describe, afterEach, vi, it, beforeEach } from "vitest";
-import { getCurrentUser } from "../../repository/user";
-import prisma from "../../prisma/prisma-client";
+import { getOrCreateUser, USER_ID_COOKIES } from "../../../repository/user";
+import prisma from "../../../prisma/prisma-client";
 
 const mocksGet = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
+  set: vi.fn(),
 }));
 vi.mock("next/headers", () => ({
   cookies: () => ({
     get: mocksGet.get,
+    set: mocksGet.set,
   }),
 }));
 
@@ -30,20 +32,15 @@ describe("User", () => {
     await prisma.user.deleteMany();
   });
 
-  it("First test", async () => {
-    const user = await getCurrentUser();
-    expect(user).toBeNull();
+  it("Cookies is empty", async () => {
+    const user = await getOrCreateUser();
+    expect(user).not.toBeNull();
+    expect(mocksGet.set).toHaveBeenCalledWith(USER_ID_COOKIES, user?.id);
   });
 
-  it("The userId is not in the db", async () => {
-    mocksGet.get.mockReturnValue({ value: "id-not-in-db" });
-    const user = await getCurrentUser();
-    expect(user).toBeNull();
-  });
-
-  it("The userId is in the db", async () => {
+  it("The user in cookies", async () => {
     mocksGet.get.mockReturnValue({ value: userId });
-    const user = await getCurrentUser();
+    const user = await getOrCreateUser();
     expect(user?.id).equals(userId);
   });
 });

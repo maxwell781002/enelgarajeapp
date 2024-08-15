@@ -4,8 +4,10 @@ import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 
+export const USER_ID_COOKIES = "user_id";
+
 export const getCurrentUser = async () => {
-  const userId = cookies().get("user_id")?.value;
+  const userId = cookies().get(USER_ID_COOKIES)?.value;
   if (!userId) {
     return null;
   }
@@ -13,12 +15,12 @@ export const getCurrentUser = async () => {
 };
 
 export const getOrCreateUser = async () => {
-  const userId = cookies().get("user_id")?.value;
-  if (userId) {
-    return prisma.user.findUnique({ where: { id: userId } });
+  let user = await getCurrentUser();
+  if (user) {
+    return user;
   }
-  const user = await prisma.user.create({ data: {} });
-  cookies().set("user_id", user.id);
+  user = await prisma.user.create({ data: {} });
+  cookies().set(USER_ID_COOKIES, user.id);
   return user;
 };
 
