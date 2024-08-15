@@ -66,8 +66,8 @@ export const hasProduct = async (
 
 export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
-  const { id } = (await getOrCreateUser()) as CompleteUser;
   if (!order) {
+    const { id } = (await getOrCreateUser()) as CompleteUser;
     order = (await prisma.order.create({
       data: { productsDetails: "[]", userId: id },
     })) as ShopCartOrder;
