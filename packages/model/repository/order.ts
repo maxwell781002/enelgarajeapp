@@ -203,7 +203,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
       })
     )?.position || 0;
   const newPosition = position + 1;
-  await prisma.order.update({
+  const newOrder = await prisma.order.update({
     where: { id: order.id },
     data: {
       total: order.total,
@@ -214,6 +214,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     },
   });
   cookies().delete("order_id");
+  return newOrder;
 };
 
 export const getOrderById = async (id: string) => {
