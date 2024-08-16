@@ -49,3 +49,7 @@ export const productFactory = async (data: any = {}) => {
 export const userFactory = async (data = {}) => {
   return prisma.user.create({ data: {} });
 };
+
+export const orderFactory = async (data: any) => {
+  return prisma.order.create({ data: { productsDetails: "[]", ...data } });
+};
