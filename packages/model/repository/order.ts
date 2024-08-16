@@ -76,7 +76,7 @@ export const getOrCrateOrder = async () => {
   return order;
 };
 
-export const getProducts = (order: ShopCartOrder) => {
+const getProducts = (order: ShopCartOrder) => {
   return order.productsDetails instanceof Array
     ? order.productsDetails
     : JSON.parse((order.productsDetails as string) || "[]");
@@ -120,6 +120,7 @@ const incrementDecrementItem = async (
         },
       },
     },
+    include: { items: { orderBy: { position: "asc" } } },
   });
 };
 
@@ -140,6 +141,7 @@ export const removeFromOrder = async (productId: string) => {
         },
       },
     },
+    include: { items: { orderBy: { position: "asc" } } },
   });
 };
 
@@ -147,7 +149,9 @@ export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompleteProduct;
   const order = await getOrCrateOrder();
   let products = await getProducts(order);
-  const find = (order.items || []).find((item: any) => item.id === product.id);
+  const find = (order.items || []).find(
+    (item: any) => item.productId === product.id,
+  );
   const position =
     (
       await prisma.orderProduct.findFirst({
@@ -180,6 +184,7 @@ export const addToOrder = async (productId: string) => {
         },
       },
     },
+    include: { items: { orderBy: { position: "asc" } } },
   });
 };
 
