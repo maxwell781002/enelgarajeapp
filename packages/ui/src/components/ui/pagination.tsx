@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -6,7 +7,12 @@ import {
 } from "@radix-ui/react-icons";
 
 import { cn } from "@repo/ui/lib/utils";
-import { ButtonProps, buttonVariants } from "@repo/ui/components/ui/button";
+import {
+  Button,
+  ButtonProps,
+  buttonVariants,
+} from "@repo/ui/components/ui/button";
+import { ArrowLeftIcon, ArrowRightIcon } from "../icons";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -41,7 +47,7 @@ PaginationItem.displayName = "PaginationItem";
 type PaginationLinkProps = {
   isActive?: boolean;
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">;
+  React.ComponentProps<typeof Link>;
 
 const PaginationLink = ({
   className,
@@ -49,7 +55,7 @@ const PaginationLink = ({
   size = "icon",
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({
@@ -73,8 +79,9 @@ const PaginationPrevious = ({
     className={cn("gap-1 pl-2.5", className)}
     {...props}
   >
-    <ChevronLeftIcon className="h-4 w-4" />
-    <span>Previous</span>
+    <Button variant="outline" size="icon" aria-label="Right">
+      <ArrowLeftIcon />
+    </Button>
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
@@ -89,8 +96,9 @@ const PaginationNext = ({
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
-    <span>Next</span>
-    <ChevronRightIcon className="h-4 w-4" />
+    <Button variant="outline" size="icon" aria-label="Right">
+      <ArrowRightIcon />
+    </Button>
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";

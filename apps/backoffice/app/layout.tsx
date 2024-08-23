@@ -4,7 +4,7 @@ import { Toaster } from "@repo/ui/components/ui/toaster";
 import { TooltipProvider } from "@repo/ui/components/ui/tooltip";
 import { LayoutMain } from "@repo/ui/layouts/backoffice/main";
 import { mainMenu, profileMenu, secondaryMenu } from "./config/menu";
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,7 +30,7 @@ const breadcrumbItems = [
     title: "Acme Inc",
     link: "/post",
   },
-]
+];
 
 export default async function RootLayout({
   children,

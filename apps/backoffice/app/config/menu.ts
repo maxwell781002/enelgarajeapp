@@ -13,7 +13,7 @@ export const mainMenu: LinkItem[] = [
     Icon: Package2,
     active: true,
   },
-]
+];
 
 export const secondaryMenu: LinkItem[] = [
   {
@@ -21,25 +21,25 @@ export const secondaryMenu: LinkItem[] = [
     title: "Settings",
     Icon: Settings,
   },
-]
+];
 
 export const profileMenu: MenuItem[] = [
   {
-    title: 'My Account',
-    link: '/'
+    title: "My Account",
+    link: "/",
   },
   SEPARATOR,
   {
-    title: 'Settings',
-    link: '/'
+    title: "Settings",
+    link: "/",
   },
   {
-    title: 'Support',
-    link: '/'
+    title: "Support",
+    link: "/",
   },
   SEPARATOR,
   {
-    title: 'Logout',
-    link: '/'
+    title: "Logout",
+    link: "/",
   },
-]
+];
