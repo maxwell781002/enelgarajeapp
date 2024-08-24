@@ -15,6 +15,9 @@
     ],
     "./zod/*": [
       "./prisma/zod/*.ts"
+    ],
+    "./repositories/*": [
+      "./repositories/*.ts"
     ]
   },
   "prisma": {

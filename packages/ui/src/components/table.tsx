@@ -14,6 +14,7 @@ import {
   PaginationPrevious,
 } from "./ui/pagination";
 import { Url } from "url";
+import { PaginationResult } from "@repo/model/types/pagination";
 
 export type ColumnDef<TData> = {
   header: string;
@@ -22,7 +23,7 @@ export type ColumnDef<TData> = {
 };
 
 type MyTableProps = {
-  data: any[];
+  pagination: PaginationResult<any>;
   columns: ColumnDef<any>[];
   previousLink?: Url;
   nextLink?: Url;
@@ -31,12 +32,10 @@ type MyTableProps = {
 };
 
 export default function MyTable({
-  data,
+  pagination: { data, pageIndex, totalPage },
   columns,
   previousLink,
   nextLink,
-  currentPage,
-  totalPages,
 }: MyTableProps) {
   return (
     <div>
@@ -50,7 +49,7 @@ export default function MyTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item, index) => (
+            {data.map((item: any, index: number) => (
               <TableRow
                 key={item.id}
                 className="flex flex-col md:table-row border-b md:border-b-0"
@@ -83,7 +82,7 @@ export default function MyTable({
             {previousLink ? <PaginationPrevious href={previousLink} /> : <></>}
           </PaginationItem>
           <PaginationItem>
-            {currentPage} / {totalPages}
+            {pageIndex + 1} / {totalPage}
           </PaginationItem>
           <PaginationItem>
             {nextLink ? <PaginationNext href={nextLink} /> : <></>}

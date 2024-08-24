@@ -70,6 +70,9 @@ importers:
 
   apps/backoffice:
     dependencies:
+      '@repo/model':
+        specifier: workspace:*
+        version: link:../../packages/model
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
