@@ -13,30 +13,37 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui/pagination";
-import { Url } from "url";
-import { PaginationResult } from "@repo/model/types/pagination";
+import { PaginationResult, PaginateData } from "@repo/model/types/pagination";
 
 export type ColumnDef<TData> = {
   header: string;
   accessorKey: keyof TData;
-  cell?: (props: { cell: { value: any } }) => JSX.Element;
+  cell?: (props: { cell: { value: any } }) => JSX.Element | string;
 };
 
 type MyTableProps = {
   pagination: PaginationResult<any>;
+  paginate: ({ pageIndex, pageSize }: PaginateData) => void;
   columns: ColumnDef<any>[];
-  previousLink?: Url;
-  nextLink?: Url;
-  currentPage: number;
-  totalPages: number;
 };
+
+const getValue = (field: string, value: any) => {
+  const parts = field.split(".");
+  return parts.reduce((a: any, b: string) => a[b], value);
+};
+
+const pageSize = 5;
 
 export default function MyTable({
   pagination: { data, pageIndex, totalPage },
+  paginate,
   columns,
-  previousLink,
-  nextLink,
 }: MyTableProps) {
+  const previousLink =
+    pageIndex > 0 && paginate({ pageIndex: pageIndex - 1, pageSize });
+  const nextLink =
+    pageIndex + 1 < totalPage &&
+    paginate({ pageIndex: pageIndex + 1, pageSize });
   return (
     <div>
       <div className="w-full overflow-hidden border rounded-lg">
@@ -54,23 +61,26 @@ export default function MyTable({
                 key={item.id}
                 className="flex flex-col md:table-row border-b md:border-b-0"
               >
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.header}
-                    className="flex justify-between md:table-cell py-2 md:py-4"
-                  >
-                    <span className="font-medium md:hidden">
-                      {column.header}:
-                    </span>
-                    <span>
-                      {column.cell
-                        ? column.cell({
-                            cell: { value: item[column.accessorKey] },
-                          })
-                        : item[column.accessorKey]}
-                    </span>
-                  </TableCell>
-                ))}
+                {columns.map((column) => {
+                  const value = getValue(column.accessorKey as string, item);
+                  return (
+                    <TableCell
+                      key={column.header}
+                      className="flex justify-between md:table-cell py-2 md:py-4"
+                    >
+                      <span className="font-medium md:hidden">
+                        {column.header}:
+                      </span>
+                      <span>
+                        {column.cell
+                          ? column.cell({
+                              cell: { value },
+                            })
+                          : value}
+                      </span>
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableBody>

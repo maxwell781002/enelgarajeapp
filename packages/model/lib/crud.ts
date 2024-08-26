@@ -17,9 +17,8 @@ export function crud<T extends Entity>(path: string, repositoryName: string) {
     revalidatePath(path);
   };
 
-  const paginate = async ({ pageIndex, pageSize }: PaginateData) => {
-    "use server";
-    redirect(`${path}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  const paginate = ({ pageIndex, pageSize }: PaginateData) => {
+    return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize}`;
   };
 
   const list = async (query: any) => {
