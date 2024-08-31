@@ -1,7 +1,11 @@
 import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteOrder, OrderModel } from "../prisma/zod";
-import { PaginateData } from "../types/pagination";
+import { PaginateData as BasePaginateData } from "../types/pagination";
+
+type PaginateData = {
+  businessId?: string;
+} & BasePaginateData;
 
 export class OrderRepository extends BaseRepository<
   CompleteOrder,
@@ -11,9 +15,12 @@ export class OrderRepository extends BaseRepository<
     super(OrderModel, prisma.order);
   }
 
-  paginate(data: PaginateData = {}) {
+  paginate({ businessId, ...data }: PaginateData = {}) {
     return super.paginate({
       ...data,
+      where: {
+        businessId,
+      },
       include: {
         user: true,
       },

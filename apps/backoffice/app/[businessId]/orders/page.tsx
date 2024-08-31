@@ -5,13 +5,17 @@ import { columns } from "./columns";
 
 type PageProps = {
   searchParams: any;
+  params: { businessId: string };
 };
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page({
+  searchParams,
+  params: { businessId },
+}: PageProps) {
   const { list, paginate } = crud("/aaa/orders", OrderRepository.name);
   return (
     <MyTable
-      pagination={await list(searchParams)}
+      pagination={await list({ ...searchParams, businessId })}
       columns={columns}
       paginate={paginate}
     />

@@ -33,7 +33,7 @@ export default async function Component({
   const user = await getOrCreateUser();
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    await checkoutOrder(data);
+    await checkoutOrder(data, slug);
     await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
 

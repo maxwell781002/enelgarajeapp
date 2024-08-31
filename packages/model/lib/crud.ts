@@ -3,18 +3,22 @@ import { revalidatePath } from "next/cache";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
 
-export function crud<T extends Entity>(path: string, repositoryName: string) {
+export function crud<T extends Entity, U>(
+  path: string,
+  repositoryName: string,
+) {
   const getRepository = async () => {
     "use server";
-    return repositories[repositoryName] as BaseRepository<T>;
+    return repositories[repositoryName] as BaseRepository<T, U>;
   };
 
-  const buildMethod = (key: keyof BaseRepository<T>) => async (props: any) => {
-    "use server";
-    const repository = await getRepository();
-    await repository[key](props);
-    revalidatePath(path);
-  };
+  const buildMethod =
+    (key: keyof BaseRepository<T, U>) => async (props: any) => {
+      "use server";
+      const repository = await getRepository();
+      await repository[key](props);
+      revalidatePath(path);
+    };
 
   const paginate = ({ pageIndex, pageSize }: PaginateData) => {
     return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize}`;
@@ -23,7 +27,7 @@ export function crud<T extends Entity>(path: string, repositoryName: string) {
   const list = async (query: any) => {
     const pageIndex = parseInt(query.pageIndex || "0");
     const pageSize = parseInt(query.pageSize || "10");
-    return (await getRepository()).paginate({ pageIndex, pageSize });
+    return (await getRepository()).paginate({ pageIndex, pageSize, ...query });
   };
 
   return {

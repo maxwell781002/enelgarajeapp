@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
 import { getById } from "./product";
 import {
+  CompleteBusiness,
   CompleteOrder,
   CompleteOrderProduct,
   CompleteProduct,
@@ -12,6 +13,7 @@ import {
 import { getCurrentUser, getOrCreateUser, updateUser } from "./user";
 import { OrderStatus } from "@prisma/client";
 import { TUserRegisterSchema } from "../validation/user";
+import { getBySlug } from "./business";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -192,8 +194,12 @@ const generateIdentifier = (date: Date, position: number) => {
   return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
 };
 
-export const checkoutOrder = async (user: TUserRegisterSchema) => {
+export const checkoutOrder = async (
+  user: TUserRegisterSchema,
+  businessSlug: string,
+) => {
   const userEntity = (await getCurrentUser()) as CompleteUser;
+  const business = (await getBySlug(businessSlug)) as CompleteBusiness;
   await updateUser(userEntity.id, user);
   const order = await getOrCrateOrder();
   const position =
@@ -210,6 +216,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
       status: OrderStatus.SEND,
       position: newPosition,
       sentAt: new Date(),
+      businessId: business.id,
       identifier: generateIdentifier(new Date(), newPosition),
     },
   });
