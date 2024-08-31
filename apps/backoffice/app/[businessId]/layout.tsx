@@ -52,7 +52,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TooltipProvider>
           <LayoutMain
-            menuItems={mainMenu}
+            menuItems={mainMenu(businessId)}
             secondaryMenu={secondaryMenu}
             userImage="/placeholder-user.jpg"
             userMenuItems={profileMenu}

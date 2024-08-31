@@ -1,15 +1,17 @@
 import { LinkItem, MenuItem, SEPARATOR } from "@repo/ui/types/linkItem";
 import { Home, Package2, Settings } from "lucide-react";
 
-export const mainMenu: LinkItem[] = [
+export const mainMenu: (businessId: string) => LinkItem[] = (
+  businessId: string,
+) => [
   {
-    link: "/",
+    link: `/${businessId}`,
     title: "Dashboard",
     Icon: Home,
   },
   {
-    link: "/post",
-    title: "Acme Inc",
+    link: `/${businessId}/orders`,
+    title: "Orders",
     Icon: Package2,
     active: true,
   },
