@@ -1,6 +1,5 @@
 import { PaginateData } from "../types/pagination";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
 

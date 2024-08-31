@@ -9,13 +9,15 @@ import Menu, { MenuProps } from "./menu";
 import { LinkItem } from "@repo/ui/types/linkItem";
 import UserInfo, { UserInfoProps } from "./userInfo";
 import Breadcrumb, { BreadcrumbProps } from "./breadcrumb";
+import BusinessSwitch, { BusinessSwitchProps } from "./business.switch";
 
 type MainProps = {
   children: React.ReactNode;
   secondaryMenu?: LinkItem[];
 } & Omit<MenuProps, "showTitle"> &
   UserInfoProps &
-  Omit<BreadcrumbProps, "className">;
+  Omit<BreadcrumbProps, "className"> &
+  BusinessSwitchProps;
 
 export function LayoutMain({ children, secondaryMenu, ...props }: MainProps) {
   return (
@@ -43,6 +45,7 @@ export function LayoutMain({ children, secondaryMenu, ...props }: MainProps) {
               </nav>
             </SheetContent>
           </Sheet>
+          <BusinessSwitch {...props} />
           <div className="flex-1 flex justify-end sm:justify-between">
             <Breadcrumb {...props} className="hidden md:flex" />
             <UserInfo {...props} />

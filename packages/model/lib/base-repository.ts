@@ -10,12 +10,12 @@ export type Entity = {
   id: any;
 };
 
-export abstract class BaseRepository<T extends Entity> {
+export abstract class BaseRepository<T extends Entity, M> {
   protected validatorByAction: TValidatorByAction = {};
 
   constructor(
     protected validatorSchema: ZodType,
-    protected model: any,
+    protected model: M,
   ) {
     this.init();
   }

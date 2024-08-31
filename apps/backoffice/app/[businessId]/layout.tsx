@@ -3,15 +3,18 @@ import type { Metadata } from "next";
 import { Toaster } from "@repo/ui/components/ui/toaster";
 import { TooltipProvider } from "@repo/ui/components/ui/tooltip";
 import { LayoutMain } from "@repo/ui/layouts/backoffice/main";
-import { mainMenu, profileMenu, secondaryMenu } from "./config/menu";
+import { mainMenu, profileMenu, secondaryMenu } from "../config/menu";
 import localFont from "next/font/local";
+import { businessRepository } from "@repo/model/repositories/business";
+import { Item } from "@repo/ui/layouts/backoffice/business.switch";
+import { redirect } from "next/navigation";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
 });
 
@@ -34,9 +37,16 @@ const breadcrumbItems = [
 
 export default async function RootLayout({
   children,
+  params: { businessId },
 }: {
   children: React.ReactNode;
+  params: { businessId: string };
 }) {
+  const business = await businessRepository.getByUser("");
+  const onChangeBusiness = async (businessId: string) => {
+    "use server";
+    await redirect(`/${businessId}`);
+  };
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -47,6 +57,10 @@ export default async function RootLayout({
             userImage="/placeholder-user.jpg"
             userMenuItems={profileMenu}
             breadcrumbItems={breadcrumbItems}
+            businessId={businessId}
+            ph="Negocio..."
+            business={business as Item[]}
+            onChange={onChangeBusiness}
           >
             {children}
           </LayoutMain>
