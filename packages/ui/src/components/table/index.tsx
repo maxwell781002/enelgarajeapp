@@ -12,8 +12,9 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "./ui/pagination";
+} from "../ui/pagination";
 import { PaginationResult, PaginateData } from "@repo/model/types/pagination";
+import EmptyTable, { EmptyTableProps } from "./empty";
 
 export type ColumnDef<TData> = {
   header: string;
@@ -25,7 +26,7 @@ type MyTableProps = {
   pagination: PaginationResult<any>;
   paginate: ({ pageIndex, pageSize }: PaginateData) => void;
   columns: ColumnDef<any>[];
-};
+} & EmptyTableProps;
 
 const getValue = (field: string, value: any) => {
   const parts = field.split(".");
@@ -35,15 +36,19 @@ const getValue = (field: string, value: any) => {
 const pageSize = 5;
 
 export default function MyTable({
-  pagination: { data, pageIndex, totalPage },
+  pagination: { data, pageIndex, totalPage, total },
   paginate,
   columns,
+  ...props
 }: MyTableProps) {
   const previousLink =
     pageIndex > 0 && paginate({ pageIndex: pageIndex - 1, pageSize });
   const nextLink =
     pageIndex + 1 < totalPage &&
     paginate({ pageIndex: pageIndex + 1, pageSize });
+  if (total === 0) {
+    return <EmptyTable {...props} />;
+  }
   return (
     <div>
       <div className="w-full overflow-hidden border rounded-lg">
