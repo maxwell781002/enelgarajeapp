@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { checkoutOrder, getOrCrateOrder } from "../../../repository/order";
-import { clearBd, userFactory } from "../../factories";
+import { businessFactory, clearBd, userFactory } from "../../factories";
 
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -34,9 +34,11 @@ const userData = {
 describe("checkoutOrder", () => {
   let order;
   let user;
+  let business;
 
   beforeAll(async () => {
     user = await userFactory();
+    business = await businessFactory()
     userModule.getOrCreateUser.mockReturnValue(user);
     userModule.getCurrentUser.mockReturnValue(user);
     order = await getOrCrateOrder();
@@ -49,7 +51,7 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order", async () => {
-    const newOrder = await checkoutOrder(userData);
+    const newOrder = await checkoutOrder(userData, business.slug);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(1);
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);

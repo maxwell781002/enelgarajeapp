@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="flex flex-col min-h-dvh">
+        <div className="flex flex-col min-h-dvh pb-10">
           <NextIntlClientProvider messages={messages}>
             {children}
           </NextIntlClientProvider>

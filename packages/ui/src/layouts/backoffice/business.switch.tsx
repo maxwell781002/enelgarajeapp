@@ -3,7 +3,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
@@ -14,20 +13,20 @@ export type Item = {
 };
 
 export type BusinessSwitchProps = {
-  businessId: string;
+  businessId?: string;
   ph?: string;
   business: Item[];
-  onChange?: (value: string) => void;
+  onChangeBusiness?: (value: string) => void;
 };
 
 export default function BusinessSwitch({
   businessId,
   ph,
   business,
-  onChange,
+  onChangeBusiness,
 }: BusinessSwitchProps) {
   return (
-    <Select onValueChange={onChange} value={businessId}>
+    <Select onValueChange={onChangeBusiness} value={businessId}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={ph} />
       </SelectTrigger>
