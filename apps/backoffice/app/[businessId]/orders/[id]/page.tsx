@@ -2,6 +2,8 @@ import { orderRepository } from "@repo/model/repositories/order";
 import BackPage from "@repo/ui/components/back-page";
 import OrderDetail from "@repo/ui/components/order-detail";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
+import ChangeStatus from "./changeStatus";
+import { revalidatePath } from "next/cache";
 
 type OrderDetailProps = {
   params: { businessId: string; id: string };
@@ -11,10 +13,23 @@ export default async function Page({
   params: { businessId, id },
 }: OrderDetailProps) {
   const order = await orderRepository.get(id);
+  const changeStatus = async (status: string) => {
+    "use server";
+    await orderRepository.changeStatus(id, status as any);
+    revalidatePath(`/${businessId}/orders/${id}`);
+  };
+  const changeStatusComponent = (
+    <ChangeStatus
+      status={order.status}
+      onChange={changeStatus}
+      options={orderRepository.orderToChange()}
+    />
+  );
   return (
     <BackPage
       href={`/${businessId}/orders`}
-      urlTitle="Ir al listado de órdenes"
+      urlTitle="Ir a órdenes"
+      headerChildren={changeStatusComponent}
     >
       <Card>
         <CardContent className="p-6">

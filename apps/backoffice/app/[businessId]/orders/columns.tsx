@@ -1,28 +1,29 @@
 import { ColumnDef } from "@repo/ui/components/table/index";
-import { Badge, BadgeProps } from "@repo/ui/components/ui/badge";
+import { Badge } from "@repo/ui/components/ui/badge";
 import { formatDate } from "@repo/ui/lib/date";
-import { EyeIcon } from "lucide-react";
 import Link from "next/link";
+import { statusLabel } from "./status-label";
+import { statusColors } from "@repo/model/repositories/order";
 
 export const columns: ColumnDef<any>[] = [
   {
-    header: "",
-    accessorKey: "id",
-    cell: ({ cell: { value: id } }: { cell: { value: string } }) => {
+    header: "Identificador",
+    accessorKey: "identifier",
+    cell: ({
+      cell: { value, row },
+    }: {
+      cell: { value: string; row: any };
+    }) => {
       return (
         <Link
-          href={`orders/${id}`}
-          className="bg-white hover:bg-gray-100 text-gray-800 h-10 w-10"
+          href={`orders/${row.id}`}
+          className="bg-white hover:bg-gray-100 text-gray-800 h-10 w-10 text-blue-500 underline hover:text-blue-700 transition-colors"
           aria-label="View"
         >
-          <EyeIcon className="h-6 w-6" />
+          {value}
         </Link>
       );
     },
-  },
-  {
-    header: "Identificador",
-    accessorKey: "identifier",
   },
   {
     header: "Usuario",
@@ -42,16 +43,16 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Estado",
     accessorKey: "status",
-    cell: ({ cell: { value: status } }: { cell: { value: string } }) => {
-      const statusMap: Record<string, BadgeProps["variant"]> = {
-        SENT: "outline",
-        CREATED: "destructive",
-      };
+    cell: ({
+      cell: { value: status, row },
+    }: {
+      cell: { value: string; row: any };
+    }) => {
       return (
         <Badge
-          variant={statusMap[status as keyof typeof statusMap] || "default"}
+          className={`${statusColors[status as keyof typeof statusColors]}`}
         >
-          {status}
+          {statusLabel(status)}
         </Badge>
       );
     },

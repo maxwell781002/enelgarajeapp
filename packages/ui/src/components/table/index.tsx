@@ -19,7 +19,7 @@ import EmptyTable, { EmptyTableProps } from "./empty";
 export type ColumnDef<TData> = {
   header: string;
   accessorKey: keyof TData;
-  cell?: (props: { cell: { value: any } }) => JSX.Element | string;
+  cell?: (props: { cell: { value: any; row: any } }) => JSX.Element | string;
 };
 
 type MyTableProps = {
@@ -79,7 +79,7 @@ export default function MyTable({
                       <span>
                         {column.cell
                           ? column.cell({
-                              cell: { value },
+                              cell: { value, row: item },
                             })
                           : value}
                       </span>

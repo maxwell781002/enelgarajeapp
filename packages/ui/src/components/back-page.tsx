@@ -5,9 +5,15 @@ type BackPageProps = {
   href: string;
   urlTitle: string;
   children: React.ReactNode;
+  headerChildren?: React.ReactNode;
 };
 
-export default function BackPage({ href, urlTitle, children }: BackPageProps) {
+export default function BackPage({
+  href,
+  urlTitle,
+  children,
+  headerChildren,
+}: BackPageProps) {
   return (
     <>
       <Link
@@ -16,7 +22,10 @@ export default function BackPage({ href, urlTitle, children }: BackPageProps) {
         prefetch={false}
       >
         <ArrowLeftIcon className="h-4 w-4" />
-        {urlTitle}
+        <div className="flex flex-1 justify-between">
+          {urlTitle}
+          {headerChildren}
+        </div>
       </Link>
       {children}
     </>
