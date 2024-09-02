@@ -9,7 +9,9 @@ export default async function Page() {
     await redirect(`/${businessId}`);
   };
 
-  return <div className="p-5">
-    <BusinessSwitch business={business} onChangeBusiness={onChangeBusiness}  />
-  </div>;
+  return (
+    <div className="p-5">
+      <BusinessSwitch business={business} onChangeBusiness={onChangeBusiness} />
+    </div>
+  );
 }

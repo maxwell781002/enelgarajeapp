@@ -26,6 +26,10 @@ export abstract class BaseRepository<T extends Entity, M> {
 
   protected init() {}
 
+  get(id: any, query?: any) {
+    return this.model.findUnique({ where: { id }, ...query });
+  }
+
   create(data: T) {
     this.validate("create", data);
     return this.doCreate(data);

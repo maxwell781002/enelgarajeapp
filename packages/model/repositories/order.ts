@@ -26,6 +26,18 @@ export class OrderRepository extends BaseRepository<
       },
     });
   }
+
+  get(id: any, query?: any) {
+    return super.get(id, {
+      include: {
+        user: true,
+        items: {
+          include: { product: true },
+          orderBy: { position: "asc" },
+        },
+      },
+    });
+  }
 }
 
 export const orderRepository = new OrderRepository();

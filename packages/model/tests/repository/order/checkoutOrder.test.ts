@@ -38,7 +38,7 @@ describe("checkoutOrder", () => {
 
   beforeAll(async () => {
     user = await userFactory();
-    business = await businessFactory()
+    business = await businessFactory();
     userModule.getOrCreateUser.mockReturnValue(user);
     userModule.getCurrentUser.mockReturnValue(user);
     order = await getOrCrateOrder();

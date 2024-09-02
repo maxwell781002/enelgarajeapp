@@ -50,7 +50,7 @@ export default function MyTable({
     return <EmptyTable {...props} />;
   }
   return (
-    <div>
+    <div className="bg-white">
       <div className="w-full overflow-hidden border rounded-lg">
         <Table>
           <TableHeader className="bg-muted/50 hidden md:table-header-group">
@@ -74,7 +74,7 @@ export default function MyTable({
                       className="flex justify-between md:table-cell py-2 md:py-4"
                     >
                       <span className="font-medium md:hidden">
-                        {column.header}:
+                        {column.header && `${column.header}:`}
                       </span>
                       <span>
                         {column.cell
