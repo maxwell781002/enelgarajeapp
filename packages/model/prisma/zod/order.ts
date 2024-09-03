@@ -5,6 +5,8 @@ import {
   RelatedUserModel,
   CompleteOrderProduct,
   RelatedOrderProductModel,
+  CompleteBusiness,
+  RelatedBusinessModel,
 } from "./index";
 
 // Helper schema for JSON fields
@@ -23,12 +25,14 @@ export const OrderModel = z.object({
   status: z.nativeEnum(OrderStatus),
   sentAt: z.date().nullish(),
   position: z.number().int().nullish(),
+  businessId: z.string().nullish(),
   identifier: z.string().nullish(),
 });
 
 export interface CompleteOrder extends z.infer<typeof OrderModel> {
   user?: CompleteUser | null;
   items: CompleteOrderProduct[];
+  business?: CompleteBusiness | null;
 }
 
 /**
@@ -40,5 +44,6 @@ export const RelatedOrderModel: z.ZodSchema<CompleteOrder> = z.lazy(() =>
   OrderModel.extend({
     user: RelatedUserModel.nullish(),
     items: RelatedOrderProductModel.array(),
+    business: RelatedBusinessModel.nullish(),
   }),
 );

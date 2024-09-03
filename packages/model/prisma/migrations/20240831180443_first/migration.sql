@@ -58,6 +58,7 @@ CREATE TABLE "Order" (
     "status" "OrderStatus" NOT NULL DEFAULT 'CREATED',
     "sentAt" TIMESTAMP(3),
     "position" INTEGER,
+    "businessId" TEXT,
     "identifier" TEXT,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
@@ -94,6 +95,9 @@ ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("cat
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Order" ADD CONSTRAINT "Order_businessId_fkey" FOREIGN KEY ("businessId") REFERENCES "Business"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "OrderProduct" ADD CONSTRAINT "OrderProduct_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

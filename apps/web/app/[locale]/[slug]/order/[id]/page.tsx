@@ -27,7 +27,7 @@ export default async function Page({ params: { slug, locale, id } }: Props) {
         <ArrowLeftIcon className="h-4 w-4" />
         {t("back")}
       </Link>
-      <OrderDetail order={order} t={t} />
+      <OrderDetail order={order} titleLb={t("title")} orderLb={t("order")} />
     </>
   );
 }

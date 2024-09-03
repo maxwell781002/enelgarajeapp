@@ -7,6 +7,9 @@
     "node": ">=v20.15.1"
   },
   "exports": {
+    "./lib/*": [
+      "./lib/*.ts"
+    ],
     "./repository/*": [
       "./repository/*.ts"
     ],
@@ -15,6 +18,9 @@
     ],
     "./zod/*": [
       "./prisma/zod/*.ts"
+    ],
+    "./repositories/*": [
+      "./repositories/*.ts"
     ]
   },
   "prisma": {

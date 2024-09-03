@@ -38,7 +38,11 @@ export default async function Page({
             </div>
           </div>
         </section>
-        <OrderDetail order={order} t={to} />
+        <OrderDetail
+          order={order}
+          titleLb={to("title")}
+          orderLb={to("order")}
+        />
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
             href={`${baseUrl}/order`}

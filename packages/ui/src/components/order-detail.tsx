@@ -4,22 +4,21 @@ import { CompleteOrder, CompleteOrderProduct } from "@repo/model";
 
 type OrderProps = {
   order: CompleteOrder;
-  t: any;
+  titleLb: string;
+  orderLb: string;
 };
 
-export default function OrderDetail({ order, t }: OrderProps) {
+export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
       <div className="container px-4 md:px-6">
         <div className="max-w-2xl mx-auto space-y-6">
           <div>
-            <h2 className="text-2xl font-bold tracking-tighter">
-              {t("title")}
-            </h2>
+            <h2 className="text-2xl font-bold tracking-tighter">{titleLb}</h2>
             <div className="mt-4 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="font-medium">
-                  {t("order")} #{order.identifier}
+                  {orderLb} #{order.identifier}
                 </div>
                 <div>{formatDate(order.sentAt as Date)}</div>
               </div>
