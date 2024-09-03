@@ -71,7 +71,7 @@ export default function MyTable({
                   return (
                     <TableCell
                       key={column.header}
-                      className="flex justify-between md:table-cell py-2 md:py-4"
+                      className={`flex ${!!column.header && "justify-between"} md:table-cell py-2 md:py-4`}
                     >
                       <span className="font-medium md:hidden">
                         {column.header && `${column.header}:`}

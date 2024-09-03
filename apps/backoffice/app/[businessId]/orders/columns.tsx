@@ -9,11 +9,7 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Identificador",
     accessorKey: "identifier",
-    cell: ({
-      cell: { value, row },
-    }: {
-      cell: { value: string; row: any };
-    }) => {
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
       return (
         <Link
           href={`orders/${row.id}`}

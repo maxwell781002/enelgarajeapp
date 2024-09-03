@@ -1,7 +1,7 @@
 import MyTable from "@repo/ui/components/table/index";
 import { crud } from "@repo/model/lib/crud";
-import { OrderRepository } from "@repo/model/repositories/order";
 import { columns } from "./columns";
+import { CategoryRepository } from "@repo/model/repositories/category";
 
 type PageProps = {
   searchParams: any;
@@ -13,16 +13,16 @@ export default async function Page({
   params: { businessId },
 }: PageProps) {
   const { list, paginate } = crud(
-    `/${businessId}/orders`,
-    OrderRepository.name,
+    `/${businessId}/categories`,
+    CategoryRepository.name,
   );
   return (
     <MyTable
       pagination={await list({ ...searchParams, businessId })}
       columns={columns}
       paginate={paginate}
-      emptyTitle="No hay órdenes"
-      emptyDescription="No has tenido ninguna compra todavía."
+      emptyTitle="No hay categorias"
+      emptyDescription="No has creado ninguna categoria todavía."
     />
   );
 }
