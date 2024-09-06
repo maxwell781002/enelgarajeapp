@@ -20,9 +20,10 @@ export type ColumnDef<TData> = {
   header: string;
   accessorKey: keyof TData;
   cell?: (props: { cell: { value: any; row: any } }) => JSX.Element | string;
+  row?: (props: { cell: { value: any; row: any } }) => JSX.Element | string;
 };
 
-type MyTableProps = {
+export type MyTableProps = {
   pagination: PaginationResult<any>;
   paginate: ({ pageIndex, pageSize }: PaginateData) => void;
   columns: ColumnDef<any>[];
@@ -71,18 +72,24 @@ export default function MyTable({
                   return (
                     <TableCell
                       key={column.header}
-                      className={`flex ${!!column.header && "justify-between"} md:table-cell py-2 md:py-4`}
+                      className={`flex ${!!column.row && "justify-between"} md:table-cell py-2 md:py-4`}
                     >
-                      <span className="font-medium md:hidden">
-                        {column.header && `${column.header}:`}
-                      </span>
-                      <span>
-                        {column.cell
-                          ? column.cell({
-                              cell: { value, row: item },
-                            })
-                          : value}
-                      </span>
+                      {column.row ? (
+                        column.row({ cell: { value, row: item } })
+                      ) : (
+                        <>
+                          <span className="font-medium md:hidden">
+                            {column.header && `${column.header}:`}
+                          </span>
+                          <span>
+                            {column.cell
+                              ? column.cell({
+                                  cell: { value, row: item },
+                                })
+                              : value}
+                          </span>
+                        </>
+                      )}
                     </TableCell>
                   );
                 })}

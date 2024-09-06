@@ -70,6 +70,9 @@ importers:
 
   apps/backoffice:
     dependencies:
+      '@radix-ui/react-icons':
+        specifier: ^1.3.0
+        version: 1.3.0(react@19.0.0-rc-f994737d14-20240522)
       '@repo/model':
         specifier: workspace:*
         version: link:../../packages/model
@@ -88,6 +91,12 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-f994737d14-20240522
         version: 19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522)
+      react-hook-form:
+        specifier: ^7.52.2
+        version: 7.52.2(react@19.0.0-rc-f994737d14-20240522)
+      zod:
+        specifier: link:@hookform/resolvers/zod
+        version: link:@hookform/resolvers/zod
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -268,7 +277,7 @@ importers:
         version: 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)
       '@radix-ui/react-icons':
         specifier: ^1.3.0
-        version: 1.3.0
+        version: 1.3.0(react@19.0.0-rc-f994737d14-20240522)
       '@radix-ui/react-label':
         specifier: ^2.1.0
         version: 2.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)
@@ -5254,7 +5263,9 @@ snapshots:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
 
-  '@radix-ui/react-icons@1.3.0': {}
+  '@radix-ui/react-icons@1.3.0(react@19.0.0-rc-f994737d14-20240522)':
+    dependencies:
+      react: 19.0.0-rc-f994737d14-20240522
 
   '@radix-ui/react-id@1.1.0(@types/react@18.3.3)':
     dependencies:

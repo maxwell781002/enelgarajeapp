@@ -1,7 +1,6 @@
-import MyTable from "@repo/ui/components/table/index";
 import { crud } from "@repo/model/lib/crud";
-import { columns } from "./columns";
 import { CategoryRepository } from "@repo/model/repositories/category";
+import CategoryTable from "./table";
 
 type PageProps = {
   searchParams: any;
@@ -17,12 +16,9 @@ export default async function Page({
     CategoryRepository.name,
   );
   return (
-    <MyTable
+    <CategoryTable
       pagination={await list({ ...searchParams, businessId })}
-      columns={columns}
       paginate={paginate}
-      emptyTitle="No hay categorias"
-      emptyDescription="No has creado ninguna categoria todavía."
     />
   );
 }

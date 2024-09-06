@@ -1,5 +1,10 @@
-import * as z from "zod"
-import { CompleteProduct, RelatedProductModel, CompleteOrder, RelatedOrderModel } from "./index"
+import * as z from "zod";
+import {
+  CompleteProduct,
+  RelatedProductModel,
+  CompleteOrder,
+  RelatedOrderModel,
+} from "./index";
 
 export const OrderProductModel = z.object({
   productId: z.string(),
@@ -7,11 +12,12 @@ export const OrderProductModel = z.object({
   price: z.number().int(),
   position: z.number().int(),
   quantity: z.number().int(),
-})
+});
 
-export interface CompleteOrderProduct extends z.infer<typeof OrderProductModel> {
-  product: CompleteProduct
-  order: CompleteOrder
+export interface CompleteOrderProduct
+  extends z.infer<typeof OrderProductModel> {
+  product: CompleteProduct;
+  order: CompleteOrder;
 }
 
 /**
@@ -19,7 +25,10 @@ export interface CompleteOrderProduct extends z.infer<typeof OrderProductModel> 
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const RelatedOrderProductModel: z.ZodSchema<CompleteOrderProduct> = z.lazy(() => OrderProductModel.extend({
-  product: RelatedProductModel,
-  order: RelatedOrderModel,
-}))
+export const RelatedOrderProductModel: z.ZodSchema<CompleteOrderProduct> =
+  z.lazy(() =>
+    OrderProductModel.extend({
+      product: RelatedProductModel,
+      order: RelatedOrderModel,
+    }),
+  );
