@@ -11,6 +11,7 @@
     "removeCategoryDescription": "La categoría será eliminada completamente.",
     "removeCategoryContinue": "Continuar",
     "removeCategoryCancel": "Cancelar",
-    "createCategory": "Crear categoría"
+    "createCategory": "Crear categoría",
+    "required": "Requerido"
   }
 }

@@ -33,7 +33,7 @@ model Business {
 
 model Category {
   id       String    @id @default(uuid())
-  name     String
+  name     String /// @zod.min(1, { message: "required" })
   slug     String?   @unique
   products Product[]
 
