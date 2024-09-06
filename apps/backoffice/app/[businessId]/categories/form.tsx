@@ -14,6 +14,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { CategoryModel, CompleteCategory } from "@repo/model/zod/category";
+import { useTranslations } from "next-intl";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -26,13 +27,14 @@ export default function CategoryForm({
   action,
   defaultValues,
 }: FormAction) {
+  const t = useTranslations("Category");
   const { toast } = useToast();
   const { form, onSubmit } = useFormProcess({
     resolver,
     action,
     defaultValues,
     onSuccess: () =>
-      toast({ title: defaultValues?.id ? "Category updated" : "Category created" }),
+      toast({ title: defaultValues?.id ? t('categoryUpdated') : t('categoryCreated') }),
   });
 
   return (
@@ -43,11 +45,11 @@ export default function CategoryForm({
           name="name"
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
-              <FormLabel>Nombre</FormLabel>
+              <FormLabel>{t("lblName")}</FormLabel>
               <FormControl>
-                <Input placeholder="Nombre" {...field} />
+                <Input placeholder={t("phName")} {...field} />
               </FormControl>
-              <FormMessage>{error?.message}</FormMessage>
+              <FormMessage>{error?.message && t(error?.message)}</FormMessage>
             </FormItem>
           )}
         />

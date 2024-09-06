@@ -1,0 +1,8 @@
+{
+  "Category": {
+    "lblName": "Nombre",
+    "phName": "Escriba su nombre",
+    "categoryUpdated": "Categoría actualizada",
+    "categoryCreated": "Categoría creada"
+  }
+}
