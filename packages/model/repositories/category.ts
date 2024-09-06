@@ -12,7 +12,7 @@ export class CategoryRepository extends BaseRepository<
   typeof prisma.category
 > {
   constructor() {
-    super(CategoryModel, prisma.category);
+    super(CategoryModel.omit({ id: true }), prisma.category);
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {

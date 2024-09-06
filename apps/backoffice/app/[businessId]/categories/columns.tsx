@@ -5,6 +5,7 @@ import { BtnList } from "@repo/ui/components/ui/btn-list";
 import { DialogForm } from "./DialogForm";
 import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { Pencil1Icon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 
 type ActionProps = {
   row: CompleteCategory;
@@ -12,15 +13,23 @@ type ActionProps = {
 
 function RowActions({ row }: ActionProps) {
   const { remove, update } = useTableContext();
+  const t = useTranslations("Category");
   return (
     <BtnList>
       <DialogForm
-        title="Edit"
+        title={t("editCategory")}
         action={update}
         defaultValues={row}
         btnIcon={<Pencil1Icon />}
       />
-      <BtnRemove action={remove} entityId={row.id} />
+      <BtnRemove
+        action={remove}
+        entityId={row.id}
+        title={t("removeCategory")}
+        description={t("removeCategoryDescription")}
+        btnContinueText={t("removeCategoryContinue")}
+        btnCancelText={t("removeCategoryCancel")}
+      />
     </BtnList>
   );
 }

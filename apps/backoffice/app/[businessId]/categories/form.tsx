@@ -23,10 +23,7 @@ type FormAction = {
 
 const resolver = zodResolver(CategoryModel.omit({ id: true }));
 
-export default function CategoryForm({
-  action,
-  defaultValues,
-}: FormAction) {
+export default function CategoryForm({ action, defaultValues }: FormAction) {
   const t = useTranslations("Category");
   const { toast } = useToast();
   const { form, onSubmit } = useFormProcess({
@@ -34,7 +31,9 @@ export default function CategoryForm({
     action,
     defaultValues,
     onSuccess: () =>
-      toast({ title: defaultValues?.id ? t('categoryUpdated') : t('categoryCreated') }),
+      toast({
+        title: defaultValues?.id ? t("categoryUpdated") : t("categoryCreated"),
+      }),
   });
 
   return (
@@ -53,7 +52,7 @@ export default function CategoryForm({
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{t("btnSubmit")}</Button>
       </form>
     </Form>
   );
