@@ -6,6 +6,8 @@ import { mainMenu, profileMenu, secondaryMenu } from "../config/menu";
 import { businessRepository } from "@repo/model/repositories/business";
 import { Item } from "@repo/ui/layouts/backoffice/business.switch";
 import { redirect } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 // Only for testing
 const breadcrumbItems = [
@@ -27,28 +29,31 @@ export default async function RootLayout({
   params: { businessId: string };
 }) {
   const business = await businessRepository.getByUser("");
+  const messages = await getMessages();
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);
   };
   return (
     <>
-      <TooltipProvider>
-        <LayoutMain
-          menuItems={mainMenu(businessId)}
-          secondaryMenu={secondaryMenu}
-          userImage="/placeholder-user.jpg"
-          userMenuItems={profileMenu}
-          breadcrumbItems={breadcrumbItems}
-          businessId={businessId}
-          ph="Negocio..."
-          business={business as Item[]}
-          onChangeBusiness={onChangeBusiness}
-        >
-          {children}
-        </LayoutMain>
-        <Toaster />
-      </TooltipProvider>
+      <NextIntlClientProvider messages={messages}>
+        <TooltipProvider>
+          <LayoutMain
+            menuItems={mainMenu(businessId)}
+            secondaryMenu={secondaryMenu}
+            userImage="/placeholder-user.jpg"
+            userMenuItems={profileMenu}
+            breadcrumbItems={breadcrumbItems}
+            businessId={businessId}
+            ph="Negocio..."
+            business={business as Item[]}
+            onChangeBusiness={onChangeBusiness}
+          >
+            {children}
+          </LayoutMain>
+          <Toaster />
+        </TooltipProvider>
+      </NextIntlClientProvider>
     </>
   );
 }

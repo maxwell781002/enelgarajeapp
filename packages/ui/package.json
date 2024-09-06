@@ -20,6 +20,14 @@
     "./types/*": [
       "./src/types/*.ts",
       "./src/types/*.tsx"
+    ],
+    "./hooks/*": [
+      "./src/hooks/*.ts",
+      "./src/hooks/*.tsx"
+    ],
+    "./context/*": [
+      "./src/context/*.ts",
+      "./src/context/*.tsx"
     ]
   },
   "scripts": {

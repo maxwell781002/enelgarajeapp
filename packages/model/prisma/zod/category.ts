@@ -8,7 +8,7 @@ import {
 
 export const CategoryModel = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().min(1, { message: "required" }),
   slug: z.string().nullish(),
   businessId: z.string(),
 });

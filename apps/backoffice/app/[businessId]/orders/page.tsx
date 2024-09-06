@@ -12,7 +12,10 @@ export default async function Page({
   searchParams,
   params: { businessId },
 }: PageProps) {
-  const { list, paginate } = crud("/aaa/orders", OrderRepository.name);
+  const { list, paginate } = crud(
+    `/${businessId}/orders`,
+    OrderRepository.name,
+  );
   return (
     <MyTable
       pagination={await list({ ...searchParams, businessId })}

@@ -20,11 +20,14 @@ export function crud<T extends Entity, U>(
       revalidatePath(path);
     };
 
-  const paginate = ({ pageIndex, pageSize }: PaginateData) => {
+  // TODO: check pagination works now that I have changed to async function.
+  const paginate = async ({ pageIndex, pageSize }: PaginateData) => {
+    "use server";
     return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize}`;
   };
 
   const list = async (query: any) => {
+    "use server";
     const pageIndex = parseInt(query.pageIndex || "0");
     const pageSize = parseInt(query.pageSize || "10");
     return (await getRepository()).paginate({ pageIndex, pageSize, ...query });
