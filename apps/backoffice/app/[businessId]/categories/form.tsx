@@ -22,7 +22,7 @@ type FormAction = {
 
 const resolver = zodResolver(CategoryModel.omit({ id: true }));
 
-export default function CheckboxReactHookFormSingle({
+export default function CategoryForm({
   action,
   defaultValues,
 }: FormAction) {
@@ -32,23 +32,22 @@ export default function CheckboxReactHookFormSingle({
     action,
     defaultValues,
     onSuccess: () =>
-      toast({ title: defaultValues?.id ? "Post updated" : "Post created" }),
+      toast({ title: defaultValues?.id ? "Category updated" : "Category created" }),
   });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        Nombre
         <FormField
           control={form.control}
-          name="title"
+          name="name"
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Nombre</FormLabel>
               <FormControl>
-                <Input placeholder="Title" {...field} />
+                <Input placeholder="Nombre" {...field} />
               </FormControl>
-              <FormMessage>{t(error?.message)}</FormMessage>
+              <FormMessage>{error?.message}</FormMessage>
             </FormItem>
           )}
         />
