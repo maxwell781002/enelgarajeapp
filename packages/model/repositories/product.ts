@@ -12,7 +12,7 @@ export class ProductRepository extends BaseRepository<
   typeof prisma.product
 > {
   constructor() {
-    super(ProductModel.omit({ id: true }), prisma.product);
+    super(ProductModel.omit({ id: true, images: true }), prisma.product);
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {

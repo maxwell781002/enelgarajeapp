@@ -1,6 +1,21 @@
 {
   "Product": {
     "ProductList": "Productos",
-    "photos": "Fotos"
+    "photos": "Fotos",
+    "createProduct": "Crear producto",
+    "lbName": "Nombre",
+    "phName": "Nombre del producto",
+    "lbCategoryId": "Categoría",
+    "phCategoryId": "Selecciona la Categoría",
+    "lbImage": "Imagen",
+    "phImage": "Selecciona Imagen",
+    "lbPrice": "Precio",
+    "phPrice": "Precio del producto",
+    "lbOfferPrice": "Precio de oferta",
+    "phOfferPrice": "Precio de oferta del producto",
+    "lbDescription": "Descripción",
+    "phDescription": "Descripción del producto",
+    "productUpdated": "Producto actualizado",
+    "productCreated": "Producto creado"
   }
 }

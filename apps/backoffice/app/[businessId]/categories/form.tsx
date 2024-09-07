@@ -48,7 +48,7 @@ export default function CategoryForm({ action, defaultValues }: FormAction) {
               <FormControl>
                 <Input placeholder={t("phName")} {...field} />
               </FormControl>
-              <FormMessage>{t(error?.message)}</FormMessage>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
           )}
         />

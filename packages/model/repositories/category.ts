@@ -15,6 +15,10 @@ export class CategoryRepository extends BaseRepository<
     super(CategoryModel.omit({ id: true }), prisma.category);
   }
 
+  getAll(businessId: string) {
+    return this.model.findMany({ where: { businessId } });
+  }
+
   paginate({ businessId, ...data }: PaginateData = {}) {
     return super.paginate({
       ...data,

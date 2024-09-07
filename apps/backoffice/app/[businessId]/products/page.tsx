@@ -6,10 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-// import { DialogForm } from "./DialogForm";
 import { getTranslations } from "next-intl/server";
 import { ProductRepository } from "@repo/model/repositories/product";
 import ProductTable from "./table";
+import Link from "next/link";
+import { Button } from "@repo/ui/components/ui/button";
 
 type PageProps = {
   searchParams: any;
@@ -37,11 +38,9 @@ export default async function Page({
             <CardTitle>{t("ProductList")}</CardTitle>
           </div>
           <div className="flex-1 flex justify-end">
-            {/* <DialogForm
-              title={t("createProduct")}
-              action={create}
-              defaultValues={{ ...defaultValues, businessId }}
-            /> */}
+            <Link href={`/${businessId}/products/form`}>
+              <Button>{t("createProduct")}</Button>
+            </Link>
           </div>
         </div>
       </CardHeader>
