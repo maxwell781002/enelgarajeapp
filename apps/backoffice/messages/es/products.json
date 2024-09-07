@@ -16,6 +16,8 @@
     "lbDescription": "Descripción",
     "phDescription": "Descripción del producto",
     "productUpdated": "Producto actualizado",
-    "productCreated": "Producto creado"
+    "productCreated": "Producto creado",
+    "updateProduct": "Actualizar producto",
+    "btnSubmit": "Salvar"
   }
 }

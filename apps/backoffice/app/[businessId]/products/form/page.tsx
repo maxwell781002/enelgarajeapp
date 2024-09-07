@@ -1,4 +1,3 @@
-import { CompleteProduct } from "@repo/model/zod/product";
 import BackPage from "@repo/ui/components/back-page";
 import ProductForm from "./form";
 import { categoryRepository } from "@repo/model/repositories/category";
@@ -26,14 +25,19 @@ export default async function PageForm({
 }: FormAction) {
   const action = async (props: any) => {
     "use server";
-    const { id } = await productRepository.create({ ...props, businessId });
+    const { id } = props.id
+      ? await productRepository.update(props)
+      : await productRepository.create({ ...props, businessId });
     return redirect(`/${businessId}/products/${id}`);
   };
   const categories = await categoryRepository.getAll(businessId);
+  const product = id
+    ? await productRepository.get(id as string)
+    : { ...defaultValues, businessId };
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
       <ProductForm
-        defaultValues={{ ...defaultValues, businessId } as CompleteProduct}
+        defaultValues={product}
         categories={categories}
         action={action}
       />
