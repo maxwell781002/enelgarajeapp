@@ -72,7 +72,7 @@ export default function MyTable({
                   return (
                     <TableCell
                       key={column.header}
-                      className={`flex ${!!column.row && "justify-between"} md:table-cell py-2 md:py-4`}
+                      className={`flex ${!column.row && "justify-between"} md:table-cell py-2 md:py-4`}
                     >
                       {column.row ? (
                         column.row({ cell: { value, row: item } })
