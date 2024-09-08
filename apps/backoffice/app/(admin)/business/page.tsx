@@ -9,14 +9,12 @@ import {
 import { getTranslations } from "next-intl/server";
 import { BusinessRepository } from "@repo/model/repositories/business";
 import BusinessTable from "./table";
+import { Button } from "@repo/ui/components/ui/button";
+import Link from "next/link";
 
 type PageProps = {
   searchParams: any;
   params: { businessId: string };
-};
-
-const defaultValues = {
-  name: "",
 };
 
 export default async function Page({
@@ -35,7 +33,11 @@ export default async function Page({
           <div>
             <CardTitle>{t("BusinessList")}</CardTitle>
           </div>
-          <div className="flex-1 flex justify-end">aaa</div>
+          <div className="flex-1 flex justify-end">
+            <Link href={`/business/form`}>
+              <Button>{t("createBusiness")}</Button>
+            </Link>
+          </div>
         </div>
       </CardHeader>
       <CardContent>

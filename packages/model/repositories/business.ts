@@ -7,7 +7,7 @@ export class BusinessRepository extends BaseRepository<
   typeof prisma.business
 > {
   constructor() {
-    super(BusinessModel, prisma.business);
+    super(BusinessModel.omit({ id: true, coordinates: true }), prisma.business);
   }
 
   getByUser(userId: string) {
