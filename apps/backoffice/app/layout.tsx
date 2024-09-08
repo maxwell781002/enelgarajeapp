@@ -1,5 +1,9 @@
+import { Toaster } from "@repo/ui/components/ui/toaster";
+import { TooltipProvider } from "@repo/ui/components/ui/tooltip";
 import "@repo/ui/globals.css";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import localFont from "next/font/local";
 
 const geistSans = localFont({
@@ -21,10 +25,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const messages = await getMessages();
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          <TooltipProvider>
+            {children}
+            <Toaster />
+          </TooltipProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

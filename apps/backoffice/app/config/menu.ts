@@ -5,9 +5,23 @@ import {
   Settings,
   TagsIcon,
   ShoppingBasketIcon,
+  BriefcaseBusinessIcon,
 } from "lucide-react";
 
-export const mainMenu: (businessId: string) => LinkItem[] = (
+export const coreMenu: LinkItem[] = [
+  {
+    link: `/dashboard`,
+    title: "Dashboard",
+    Icon: Home,
+  },
+  {
+    link: `/business`,
+    title: "Negocios",
+    Icon: BriefcaseBusinessIcon,
+  },
+];
+
+export const businessMenu: (businessId: string) => LinkItem[] = (
   businessId: string,
 ) => [
   {
