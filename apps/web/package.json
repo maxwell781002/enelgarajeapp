@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prisma-migration-deploy": "prisma migrate deploy --schema=../../packages/model/prisma/schema.prisma",
-    "vercel-build": "pnpm prisma-migration-deploy && next build"
+    "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
+    "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -30,6 +31,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-rc.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "zod-prisma": "^0.5.4"
   }
 }

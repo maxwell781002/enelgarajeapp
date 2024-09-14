@@ -205,14 +205,17 @@ const config = {
         "fromEnvVar": null,
         "value": "debian-openssl-1.0.x",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
   "clientVersion": "5.13.0",
@@ -230,8 +233,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ngenerator zod {\n  provider = \"zod-prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_URL\")\n}\n\nmodel Business {\n  id          String  @id @default(uuid())\n  name        String\n  description String?\n  address     String?\n  howToArrive String?\n  coordinates Float[]\n  slug        String? @unique\n\n  categories Category[]\n  products   Product[]\n  orders     Order[]\n}\n\nmodel Category {\n  id       String    @id @default(uuid())\n  name     String /// @zod.min(1, { message: \"required\" })\n  slug     String?   @unique\n  products Product[]\n\n  business   Business @relation(fields: [businessId], references: [id])\n  businessId String\n}\n\nmodel Product {\n  id          String   @id @default(uuid())\n  name        String\n  slug        String?  @unique\n  image       String\n  description String\n  price       Int\n  offerPrice  Int?\n  images      String[]\n\n  business   Business       @relation(fields: [businessId], references: [id])\n  businessId String\n  category   Category       @relation(fields: [categoryId], references: [id])\n  categoryId String\n  orderItems OrderProduct[]\n}\n\nmodel User {\n  id     String  @id @default(uuid())\n  name   String?\n  phone  String?\n  orders Order[]\n}\n\nmodel Order {\n  id              String         @id @default(uuid())\n  user            User?          @relation(fields: [userId], references: [id])\n  userId          String?\n  items           OrderProduct[]\n  productsDetails Json\n  total           Int            @default(0)\n  status          OrderStatus    @default(CREATED)\n  sentAt          DateTime?\n  position        Int?\n  business        Business?       @relation(fields: [businessId], references: [id])\n  businessId      String?\n  identifier      String?\n}\n\nmodel OrderProduct {\n  product   Product @relation(fields: [productId], references: [id])\n  productId String // relation scalar field (used in the `@relation` attribute above)\n  order     Order   @relation(fields: [orderId], references: [id])\n  orderId   String // relation scalar field (used in the `@relation` attribute above)\n  price     Int\n  position  Int     @default(1)\n\n  quantity Int\n\n  @@id([productId, orderId])\n}\n\nenum OrderStatus {\n  CREATED\n  SEND\n  PAYED\n  REJECTED\n}\n",
-  "inlineSchemaHash": "7fefc521cf8f7121c80946bd874bf62a405e287f57424e8fe87ac950c8764f74",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ngenerator zod {\n  provider = \"zod-prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_URL\")\n}\n\nmodel Business {\n  id          String  @id @default(uuid())\n  name        String\n  description String?\n  address     String?\n  howToArrive String?\n  coordinates Float[]\n  slug        String? @unique\n\n  categories Category[]\n  products   Product[]\n  orders     Order[]\n}\n\nmodel Category {\n  id       String    @id @default(uuid())\n  name     String /// @zod.min(1, { message: \"required\" })\n  slug     String?   @unique\n  products Product[]\n\n  business   Business @relation(fields: [businessId], references: [id])\n  businessId String\n}\n\nmodel Product {\n  id          String   @id @default(uuid())\n  name        String\n  slug        String?  @unique\n  image       String\n  description String\n  price       Int\n  offerPrice  Int?\n  images      String[]\n\n  business   Business       @relation(fields: [businessId], references: [id])\n  businessId String\n  category   Category       @relation(fields: [categoryId], references: [id])\n  categoryId String\n  orderItems OrderProduct[]\n}\n\nmodel User {\n  id     String  @id @default(uuid())\n  name   String?\n  phone  String?\n  orders Order[]\n}\n\nmodel Order {\n  id              String         @id @default(uuid())\n  user            User?          @relation(fields: [userId], references: [id])\n  userId          String?\n  items           OrderProduct[]\n  productsDetails Json\n  total           Int            @default(0)\n  status          OrderStatus    @default(CREATED)\n  sentAt          DateTime?\n  position        Int?\n  business        Business?       @relation(fields: [businessId], references: [id])\n  businessId      String?\n  identifier      String?\n}\n\nmodel OrderProduct {\n  product   Product @relation(fields: [productId], references: [id])\n  productId String // relation scalar field (used in the `@relation` attribute above)\n  order     Order   @relation(fields: [orderId], references: [id])\n  orderId   String // relation scalar field (used in the `@relation` attribute above)\n  price     Int\n  position  Int     @default(1)\n\n  quantity Int\n\n  @@id([productId, orderId])\n}\n\nenum OrderStatus {\n  CREATED\n  SEND\n  PAYED\n  REJECTED\n}\n",
+  "inlineSchemaHash": "aa687daf9fe2230f1561feaacc653b6925c76d90b7adff938ebb618b683784be",
   "copyEngine": true
 }
 
@@ -240,8 +243,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "prisma/generated/client",
-    "generated/client",
+    "../../packages/model/prisma/generated/client",
+    "../packages/model/prisma/generated/client",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -270,7 +273,11 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-debian-openssl-1.0.x.so.node");
-path.join(process.cwd(), "prisma/generated/client/libquery_engine-debian-openssl-1.0.x.so.node")
+path.join(process.cwd(), "../../packages/model/prisma/generated/client/libquery_engine-debian-openssl-1.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "../../packages/model/prisma/generated/client/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "prisma/generated/client/schema.prisma")
+path.join(process.cwd(), "../../packages/model/prisma/generated/client/schema.prisma")
