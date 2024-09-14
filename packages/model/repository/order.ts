@@ -11,7 +11,7 @@ import {
   CompleteUser,
 } from "../prisma/zod";
 import { getCurrentUser, getOrCreateUser, updateUser } from "./user";
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus } from "../prisma/generated/client";
 import { TUserRegisterSchema } from "../validation/user";
 import { getBySlug } from "./business";
 

@@ -2,7 +2,7 @@ import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteOrder, OrderModel } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus } from "../prisma/generated/client";
 
 export const statusColors: Record<OrderStatus, string> = {
   CREATED: "bg-yellow-500",

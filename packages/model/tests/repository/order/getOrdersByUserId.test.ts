@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { orderFactory, userFactory } from "../../factories";
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus } from "../../../prisma/generated/client";
 import { getOrdersByUserId } from "../../../repository/order";
 
 describe("getOrdersByUserId", () => {

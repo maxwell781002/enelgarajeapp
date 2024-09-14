@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "./generated/client";
 import slugify from "slugify";
 
 const randomString = () => Math.random().toString(36).substring(2, 7);
