@@ -37,7 +37,7 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {orders?.map((order) => (
+        {orders?.map((order: any) => (
           <TableRow key={order.id}>
             <TableCell>
               <Link href={`${baseUrl}/order/${order.id}`}>
