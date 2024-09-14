@@ -15,7 +15,7 @@ export abstract class BaseRepository<T extends Entity, M> {
 
   constructor(
     protected validatorSchema: ZodType,
-    protected model: M,
+    protected model: M & any, // TODO: I add any type because I don't know what is the prisma base model.
   ) {
     this.init();
   }

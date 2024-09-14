@@ -33,7 +33,7 @@ export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
   });
 
   return (
-    <Form {...form}>
+    <Form {...form} formState={formState}>
       <form
         onSubmit={form.handleSubmit((data) =>
           action({ ...defaultValues, ...data }),
@@ -47,7 +47,7 @@ export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
             <FormItem>
               <FormLabel>{t("lblName")}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} value={field.value as string} />
               </FormControl>
               <FormDescription>{t("phName")}</FormDescription>
               <FormMessage />

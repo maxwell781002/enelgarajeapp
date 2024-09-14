@@ -21,6 +21,9 @@
     ],
     "./repositories/*": [
       "./repositories/*.ts"
+    ],
+    "./types/*": [
+      "./types/*.ts"
     ]
   },
   "prisma": {

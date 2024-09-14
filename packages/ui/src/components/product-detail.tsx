@@ -1,4 +1,5 @@
 import { CompleteProduct } from "@repo/model/zod/product";
+
 type ProductDetailProps = {
   product: CompleteProduct;
   addCartBtn?: JSX.Element;
@@ -37,7 +38,7 @@ export default function ProductDetail({
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div>
                 <h3 className="text-lg font-semibold mb-1">
-                  {product.category}
+                  {product.category?.name}
                 </h3>
               </div>
             </div>

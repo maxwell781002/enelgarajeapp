@@ -1,4 +1,5 @@
 import { getOrderById } from "@repo/model/repository/order";
+import { CompleteOrder } from "@repo/model/zod/order";
 import { CircleCheckIcon } from "@repo/ui/components/icons";
 import OrderDetail from "@repo/ui/components/order-detail";
 import { getTranslations } from "next-intl/server";
@@ -39,7 +40,7 @@ export default async function Page({
           </div>
         </section>
         <OrderDetail
-          order={order}
+          order={order as CompleteOrder}
           titleLb={to("title")}
           orderLb={to("order")}
         />

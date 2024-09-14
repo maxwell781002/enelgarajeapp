@@ -1,6 +1,7 @@
 import { formatDate } from "../lib/date";
 import { Separator } from "./ui/separator";
-import { CompleteOrder, CompleteOrderProduct } from "@repo/model";
+import { CompleteOrder } from "@repo/model/zod/order";
+import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
 type OrderProps = {
   order: CompleteOrder;
