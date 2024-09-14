@@ -1,4 +1,5 @@
 import { getOrderById } from "@repo/model/repository/order";
+import { CompleteOrder } from "@repo/model/zod/order";
 import { ArrowLeftIcon } from "@repo/ui/components/icons";
 import OrderDetail from "@repo/ui/components/order-detail";
 import { getTranslations } from "next-intl/server";
@@ -27,7 +28,11 @@ export default async function Page({ params: { slug, locale, id } }: Props) {
         <ArrowLeftIcon className="h-4 w-4" />
         {t("back")}
       </Link>
-      <OrderDetail order={order} titleLb={t("title")} orderLb={t("order")} />
+      <OrderDetail
+        order={order as CompleteOrder}
+        titleLb={t("title")}
+        orderLb={t("order")}
+      />
     </>
   );
 }

@@ -7,6 +7,7 @@ export default getRequestConfig(async () => {
   const messages = {
     ...(await import(`../messages/${locale}/categories.json`)).default,
     ...(await import(`../messages/${locale}/products.json`)).default,
+    ...(await import(`../messages/${locale}/business.json`)).default,
   };
 
   return {

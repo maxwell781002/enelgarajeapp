@@ -1,4 +1,4 @@
-import { PanelLeft } from "lucide-react";
+import { HousePlugIcon, PanelLeft } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Sheet,
@@ -9,17 +9,26 @@ import Menu, { MenuProps } from "./menu";
 import { LinkItem } from "@repo/ui/types/linkItem";
 import UserInfo, { UserInfoProps } from "./userInfo";
 import Breadcrumb, { BreadcrumbProps } from "./breadcrumb";
-import BusinessSwitch, { BusinessSwitchProps } from "./business.switch";
+import BusinessSwitch, { BusinessSwitchProps, Item } from "./business.switch";
+import Link from "next/link";
 
 type MainProps = {
   children: React.ReactNode;
   secondaryMenu?: LinkItem[];
+  adminUrl?: string;
+  business?: Item[];
 } & Omit<MenuProps, "showTitle"> &
   UserInfoProps &
   Omit<BreadcrumbProps, "className"> &
-  BusinessSwitchProps;
+  Omit<BusinessSwitchProps, "business">;
 
-export function LayoutMain({ children, secondaryMenu, ...props }: MainProps) {
+export function LayoutMain({
+  children,
+  secondaryMenu,
+  business,
+  adminUrl,
+  ...props
+}: MainProps) {
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -45,7 +54,12 @@ export function LayoutMain({ children, secondaryMenu, ...props }: MainProps) {
               </nav>
             </SheetContent>
           </Sheet>
-          <BusinessSwitch {...props} />
+          {!!business && <BusinessSwitch {...props} business={business} />}
+          {!!adminUrl && (
+            <Link href={adminUrl}>
+              <HousePlugIcon />
+            </Link>
+          )}
           <div className="flex-1 flex justify-end sm:justify-between">
             <Breadcrumb {...props} className="hidden md:flex" />
             <UserInfo {...props} />

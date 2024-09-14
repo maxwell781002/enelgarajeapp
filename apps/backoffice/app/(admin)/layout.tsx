@@ -1,8 +1,6 @@
 import "@repo/ui/globals.css";
 import { LayoutMain } from "@repo/ui/layouts/backoffice/main";
-import { businessMenu, profileMenu, secondaryMenu } from "../config/menu";
-import { businessRepository } from "@repo/model/repositories/business";
-import { Item } from "@repo/ui/layouts/backoffice/business.switch";
+import { coreMenu, profileMenu, secondaryMenu } from "../config/menu";
 import { redirect } from "next/navigation";
 
 // Only for testing
@@ -19,28 +17,22 @@ const breadcrumbItems = [
 
 export default async function RootLayout({
   children,
-  params: { businessId },
 }: {
   children: React.ReactNode;
-  params: { businessId: string };
 }) {
-  const business = await businessRepository.getByUser("");
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);
   };
   return (
     <LayoutMain
-      menuItems={businessMenu(businessId)}
+      menuItems={coreMenu}
       secondaryMenu={secondaryMenu}
       userImage="/placeholder-user.jpg"
       userMenuItems={profileMenu}
       breadcrumbItems={breadcrumbItems}
-      businessId={businessId}
       ph="Negocio..."
-      business={business as Item[]}
       onChangeBusiness={onChangeBusiness}
-      adminUrl="/dashboard"
     >
       {children}
     </LayoutMain>

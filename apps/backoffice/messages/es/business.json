@@ -1,0 +1,11 @@
+{
+  "Business": {
+    "BusinessList": "Negocios",
+    "createBusiness": "Crear negocio",
+    "lbName": "Nombre",
+    "phName": "Nombre del negocio",
+    "lbDescription": "Descripción",
+    "phDescription": "Descripción del negocio",
+    "btnSubmit": "Salvar"
+  }
+}

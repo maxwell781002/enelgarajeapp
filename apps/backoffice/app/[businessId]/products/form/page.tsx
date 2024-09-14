@@ -5,7 +5,6 @@ import { productRepository } from "@repo/model/repositories/product";
 import { redirect } from "next/navigation";
 
 type FormAction = {
-  action: (object: any) => Promise<any>;
   params: { businessId: string };
   searchParams: { id?: string };
 };
