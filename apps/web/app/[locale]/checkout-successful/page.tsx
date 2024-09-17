@@ -10,16 +10,15 @@ type Props = {
     orderId: string;
   };
   params: {
-    slug: string;
     locale: string;
   };
 };
 
 export default async function Page({
   searchParams: { orderId },
-  params: { slug, locale },
+  params: { locale },
 }: Props) {
-  const baseUrl = `/${locale}/${slug}`;
+  const baseUrl = `/${locale}`;
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");

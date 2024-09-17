@@ -13,15 +13,14 @@ import { CompleteProduct } from "@repo/model/zod/product";
 type PageProps = {
   params: {
     productSlug: string;
-    slug: string;
     locale: string;
   };
 };
 
 export default async function Page({
-  params: { slug, productSlug, locale },
+  params: { productSlug, locale },
 }: PageProps) {
-  const baseUrl = `/${locale}/${slug}/${productSlug}`;
+  const baseUrl = `/${locale}/${productSlug}`;
   const item = await getBySlug(productSlug);
   const order = await getCurrentOrder();
   const add = async (productId: string) => {

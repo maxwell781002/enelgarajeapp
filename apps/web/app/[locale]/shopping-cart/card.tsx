@@ -10,13 +10,13 @@ import { useTranslations } from "next-intl";
 
 type Props = {
   item: CompleteOrderProduct;
-  slug: string;
+  url: string;
   onRemove: () => void;
   add: () => void;
   sub: () => void;
 };
 
-export default function CardItem({ item, onRemove, add, sub, slug }: Props) {
+export default function CardItem({ item, onRemove, add, sub, url }: Props) {
   const t = useTranslations("ShopCart");
 
   return (
@@ -34,7 +34,7 @@ export default function CardItem({ item, onRemove, add, sub, slug }: Props) {
                 style={{ aspectRatio: "64/64", objectFit: "cover" }}
               />
               <div>
-                <Link href={`${slug}/${item.product.slug}`} prefetch={false}>
+                <Link href={`${url}/${item.product.slug}`} prefetch={false}>
                   <h3 className="font-medium">{item.product.name}</h3>
                 </Link>
               </div>
