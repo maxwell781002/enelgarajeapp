@@ -13,7 +13,7 @@ import {
 import { getCurrentUser, getOrCreateUser, updateUser } from "./user";
 import { OrderStatus } from "../prisma/generated/client";
 import { TUserRegisterSchema } from "../validation/user";
-import { getBySlug } from "./business";
+import { getBySlug, getCurrentBusiness } from "./business";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -194,12 +194,9 @@ const generateIdentifier = (date: Date, position: number) => {
   return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
 };
 
-export const checkoutOrder = async (
-  user: TUserRegisterSchema,
-  businessSlug: string,
-) => {
+export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const userEntity = (await getCurrentUser()) as CompleteUser;
-  const business = (await getBySlug(businessSlug)) as CompleteBusiness;
+  const business = (await getCurrentBusiness()) as CompleteBusiness;
   await updateUser(userEntity.id, user);
   const order = await getOrCrateOrder();
   const position =

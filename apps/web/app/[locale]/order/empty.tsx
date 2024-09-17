@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 
-export default async function EmptyOrders({ slug }: { slug: string }) {
+export default async function EmptyOrders({ url }: { url: string }) {
   const t = await getTranslations("Orders");
 
   return (
@@ -12,7 +12,7 @@ export default async function EmptyOrders({ slug }: { slug: string }) {
           <div className="h-12 w-12 text-muted-foreground" />
           <h2 className="text-2xl font-semibold">{t("emptyOrders")}</h2>
           <p className="text-muted-foreground">{t("emptyOrdersDescription")}</p>
-          <Link href={slug} className="mt-4" prefetch={false}>
+          <Link href={url} className="mt-4" prefetch={false}>
             <Button>{t("continueShopping")}</Button>
           </Link>
         </div>

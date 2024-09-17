@@ -33,7 +33,7 @@ export async function Header({
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex h-14 w-full bg-background shadow-lg flex items-center justify-between bg-background px-4 py-3 shadow-sm">
       <Link
-        href={`/${locale}/${business.slug}`}
+        href={`/${locale}`}
         className="flex items-center gap-2"
         prefetch={false}
       >
@@ -55,7 +55,7 @@ export async function Header({
               </div>
             )}
             <Link
-              href={`/${locale}/${business.slug}`}
+              href={`/${locale}`}
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
               prefetch={false}
             >
@@ -63,7 +63,7 @@ export async function Header({
               {t("home")}
             </Link>
             <Link
-              href={`/${locale}/${business.slug}/about-us`}
+              href={`/${locale}/about-us`}
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
               prefetch={false}
             >
@@ -79,7 +79,7 @@ export async function Header({
               {t("contact")}
             </Link>
             <Link
-              href={`/${locale}/${business.slug}/order`}
+              href={`/${locale}/order`}
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
               prefetch={false}
             >
@@ -91,7 +91,7 @@ export async function Header({
       </Sheet>
       <div className="relative">
         <Link
-          href={`/${locale}/${business.slug}/shopping-cart`}
+          href={`/${locale}/shopping-cart`}
           className="flex items-center gap-2"
           prefetch={false}
         >

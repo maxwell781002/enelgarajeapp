@@ -14,17 +14,16 @@ import Link from "next/link";
 
 type PageProps = {
   params: {
-    slug: string;
     locale: string;
   };
 };
 
-export default async function Page({ params: { slug, locale } }: PageProps) {
-  const baseUrl = `/${locale}/${slug}`;
+export default async function Page({ params: { locale } }: PageProps) {
+  const baseUrl = `/${locale}`;
   const orders = await getOrderCurrentUser();
   const t = await getTranslations("Orders");
   if (!orders?.length) {
-    return <EmptyOrders slug={baseUrl} />;
+    return <EmptyOrders url={baseUrl} />;
   }
   return (
     <Table>

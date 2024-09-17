@@ -1,15 +1,9 @@
-import { getBySlug } from "@repo/model/repository/business";
+import { getCurrentBusiness } from "@repo/model/repository/business";
 import { Map } from "@repo/ui/components/Map/index";
 import { LatLngTuple } from "leaflet";
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export default async function Page({ params: { slug } }: PageProps) {
-  const business = await getBySlug(slug);
+export default async function Page() {
+  const business = await getCurrentBusiness();
   if (!business) return <></>;
   return (
     <div className="flex flex-col h-screen">

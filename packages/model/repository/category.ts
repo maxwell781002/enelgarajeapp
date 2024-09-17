@@ -1,10 +1,11 @@
 import prisma from "../prisma/prisma-client";
+import { CompleteBusiness } from "../prisma/zod";
 
-export const getBySlugBusiness = (slug: string) => {
+export const getByBusiness = (business: CompleteBusiness) => {
   return prisma.category.findMany({
     where: {
       business: {
-        slug,
+        id: business.id,
       },
     },
     include: { products: true },

@@ -8,7 +8,7 @@ import {
 } from "@repo/ui/components/ui/table";
 import { getTranslations } from "next-intl/server";
 import { checkoutOrder, getCurrentOrder } from "@repo/model/repository/order";
-import EmptyCart from "../../../../components/emptyCart";
+import EmptyCart from "../../../components/emptyCart";
 import { CheckoutForm } from "./form";
 import { getOrCreateUser } from "@repo/model/repository/user";
 import { TUserRegisterSchema } from "@repo/model/validation/user";
@@ -16,24 +16,21 @@ import { redirect } from "next/navigation";
 
 type PageProps = {
   params: {
-    slug: string;
     locale: string;
   };
 };
 
-export default async function Component({
-  params: { slug, locale },
-}: PageProps) {
-  const baseUrl = `/${locale}/${slug}`;
+export default async function Component({ params: { locale } }: PageProps) {
+  const baseUrl = `/${locale}`;
   const t = await getTranslations("Checkout");
   const order = await getCurrentOrder();
   if (!order || order.items.length === 0) {
-    return <EmptyCart slug={baseUrl} />;
+    return <EmptyCart url={baseUrl} />;
   }
   const user = await getOrCreateUser();
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    await checkoutOrder(data, slug);
+    await checkoutOrder(data);
     await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
 

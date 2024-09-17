@@ -37,7 +37,7 @@
   },
   "peerDependencies": {
     "@repo/model": "workspace:*",
-    "next": "15.0.0-rc.0"
+    "next": "^14.2.11"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -50,7 +50,7 @@
     "@types/react-dom": "^18.2.19",
     "eslint": "^8.57.0",
     "lucide-react": "^0.428.0",
-    "next": "15.0.0-rc.0",
+    "next": "^14.2.11",
     "typescript": "^5.3.3"
   },
   "dependencies": {

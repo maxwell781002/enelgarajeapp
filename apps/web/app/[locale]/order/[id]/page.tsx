@@ -7,14 +7,13 @@ import Link from "next/link";
 
 type Props = {
   params: {
-    slug: string;
     locale: string;
     id: string;
   };
 };
 
-export default async function Page({ params: { slug, locale, id } }: Props) {
-  const baseUrl = `/${locale}/${slug}`;
+export default async function Page({ params: { locale, id } }: Props) {
+  const baseUrl = `/${locale}`;
   const order = await getOrderById(id);
   const t = await getTranslations("OrderDetail");
 

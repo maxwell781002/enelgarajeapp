@@ -4,7 +4,7 @@ import {
   incrementItem,
   removeFromOrder,
 } from "@repo/model/repository/order";
-import EmptyCart from "../../../../components/emptyCart";
+import EmptyCart from "../../../components/emptyCart";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import CardItem from "./card";
@@ -13,14 +13,13 @@ import { getTranslations } from "next-intl/server";
 
 type PageProps = {
   params: {
-    slug: string;
     locale: string;
   };
 };
 
-export default async function Page({ params: { slug, locale } }: PageProps) {
+export default async function Page({ params: { locale } }: PageProps) {
   const order = await getCurrentOrder();
-  const baseUrl = `/${locale}/${slug}`;
+  const baseUrl = `/${locale}`;
   const remove = async (productId: string) => {
     "use server";
     await removeFromOrder(productId);
@@ -40,7 +39,7 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
   };
 
   if (!order || order.items.length === 0) {
-    return <EmptyCart slug={baseUrl} />;
+    return <EmptyCart url={baseUrl} />;
   }
 
   const t = await getTranslations("ShopCart");
@@ -58,7 +57,7 @@ export default async function Page({ params: { slug, locale } }: PageProps) {
               onRemove={remove.bind(null, item.productId)}
               add={increment.bind(null, item.productId)}
               sub={decrement.bind(null, item.productId)}
-              slug={baseUrl}
+              url={baseUrl}
             />
           </div>
         ))}
