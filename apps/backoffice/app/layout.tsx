@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import localFont from "next/font/local";
+import Security from "../components/security";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,12 +30,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NextIntlClientProvider messages={messages}>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-          </TooltipProvider>
-        </NextIntlClientProvider>
+        <Security>
+          <NextIntlClientProvider messages={messages}>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </NextIntlClientProvider>
+        </Security>
       </body>
     </html>
   );

@@ -4,3 +4,7 @@ export * from "./product";
 export * from "./user";
 export * from "./order";
 export * from "./orderproduct";
+export * from "./account";
+export * from "./session";
+export * from "./verificationtoken";
+export * from "./authenticator";
