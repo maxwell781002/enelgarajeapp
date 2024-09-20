@@ -33,12 +33,11 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
           size="icon"
           className="overflow-hidden rounded-full"
         >
-          <Image
+          <img
             src={userImage}
-            width={36}
-            height={36}
-            alt="Avatar"
-            className="overflow-hidden rounded-full"
+            referrerpolicy="no-referrer"
+            alt={"user name"}
+            className="aspect-square rounded-md object-cover"
           />
         </Button>
       </DropdownMenuTrigger>

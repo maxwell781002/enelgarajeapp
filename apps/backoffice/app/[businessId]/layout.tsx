@@ -4,6 +4,7 @@ import { businessMenu, profileMenu, secondaryMenu } from "../config/menu";
 import { businessRepository } from "@repo/model/repositories/business";
 import { Item } from "@repo/ui/layouts/backoffice/business.switch";
 import { redirect } from "next/navigation";
+import { auth } from "@repo/model/lib/auth";
 
 // Only for testing
 const breadcrumbItems = [
@@ -24,6 +25,9 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { businessId: string };
 }) {
+  const {
+    user: { image },
+  } = await auth();
   const business = await businessRepository.getByUser("");
   const onChangeBusiness = async (businessId: string) => {
     "use server";
@@ -33,7 +37,7 @@ export default async function RootLayout({
     <LayoutMain
       menuItems={businessMenu(businessId)}
       secondaryMenu={secondaryMenu}
-      userImage="/placeholder-user.jpg"
+      userImage={image}
       userMenuItems={profileMenu}
       breadcrumbItems={breadcrumbItems}
       businessId={businessId}
