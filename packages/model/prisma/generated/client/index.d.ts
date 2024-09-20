@@ -32,6 +32,12 @@ export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>;
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>;
 /**
+ * Model UserBusiness
+ *
+ */
+export type UserBusiness =
+  $Result.DefaultSelection<Prisma.$UserBusinessPayload>;
+/**
  * Model Order
  *
  */
@@ -287,6 +293,16 @@ export class PrismaClient<
    * ```
    */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.userBusiness`: Exposes CRUD operations for the **UserBusiness** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more UserBusinesses
+   * const userBusinesses = await prisma.userBusiness.findMany()
+   * ```
+   */
+  get userBusiness(): Prisma.UserBusinessDelegate<ExtArgs>;
 
   /**
    * `prisma.order`: Exposes CRUD operations for the **Order** model.
@@ -864,6 +880,7 @@ export namespace Prisma {
     Category: "Category";
     Product: "Product";
     User: "User";
+    UserBusiness: "UserBusiness";
     Order: "Order";
     OrderProduct: "OrderProduct";
     Account: "Account";
@@ -895,6 +912,7 @@ export namespace Prisma {
         | "category"
         | "product"
         | "user"
+        | "userBusiness"
         | "order"
         | "orderProduct"
         | "account"
@@ -1165,6 +1183,74 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>;
             result: $Utils.Optional<UserCountAggregateOutputType> | number;
+          };
+        };
+      };
+      UserBusiness: {
+        payload: Prisma.$UserBusinessPayload<ExtArgs>;
+        fields: Prisma.UserBusinessFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.UserBusinessFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.UserBusinessFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>;
+          };
+          findFirst: {
+            args: Prisma.UserBusinessFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.UserBusinessFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>;
+          };
+          findMany: {
+            args: Prisma.UserBusinessFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>[];
+          };
+          create: {
+            args: Prisma.UserBusinessCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>;
+          };
+          createMany: {
+            args: Prisma.UserBusinessCreateManyArgs<ExtArgs>;
+            result: Prisma.BatchPayload;
+          };
+          delete: {
+            args: Prisma.UserBusinessDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>;
+          };
+          update: {
+            args: Prisma.UserBusinessUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>;
+          };
+          deleteMany: {
+            args: Prisma.UserBusinessDeleteManyArgs<ExtArgs>;
+            result: Prisma.BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.UserBusinessUpdateManyArgs<ExtArgs>;
+            result: Prisma.BatchPayload;
+          };
+          upsert: {
+            args: Prisma.UserBusinessUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserBusinessPayload>;
+          };
+          aggregate: {
+            args: Prisma.UserBusinessAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateUserBusiness>;
+          };
+          groupBy: {
+            args: Prisma.UserBusinessGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<UserBusinessGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.UserBusinessCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<UserBusinessCountAggregateOutputType>
+              | number;
           };
         };
       };
@@ -1753,6 +1839,7 @@ export namespace Prisma {
     categories: number;
     products: number;
     orders: number;
+    users: number;
   };
 
   export type BusinessCountOutputTypeSelect<
@@ -1761,6 +1848,7 @@ export namespace Prisma {
     categories?: boolean | BusinessCountOutputTypeCountCategoriesArgs;
     products?: boolean | BusinessCountOutputTypeCountProductsArgs;
     orders?: boolean | BusinessCountOutputTypeCountOrdersArgs;
+    users?: boolean | BusinessCountOutputTypeCountUsersArgs;
   };
 
   // Custom InputTypes
@@ -1801,6 +1889,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: OrderWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountUsersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserBusinessWhereInput;
   };
 
   /**
@@ -1884,6 +1981,7 @@ export namespace Prisma {
     accounts: number;
     sessions: number;
     Authenticator: number;
+    business: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -1893,6 +1991,7 @@ export namespace Prisma {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs;
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs;
     Authenticator?: boolean | UserCountOutputTypeCountAuthenticatorArgs;
+    business?: boolean | UserCountOutputTypeCountBusinessArgs;
   };
 
   // Custom InputTypes
@@ -1942,6 +2041,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: AuthenticatorWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBusinessArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserBusinessWhereInput;
   };
 
   /**
@@ -2203,6 +2311,7 @@ export namespace Prisma {
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
       orders?: boolean | Business$ordersArgs<ExtArgs>;
+      users?: boolean | Business$usersArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
@@ -2224,6 +2333,7 @@ export namespace Prisma {
     categories?: boolean | Business$categoriesArgs<ExtArgs>;
     products?: boolean | Business$productsArgs<ExtArgs>;
     orders?: boolean | Business$ordersArgs<ExtArgs>;
+    users?: boolean | Business$usersArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
 
@@ -2235,6 +2345,7 @@ export namespace Prisma {
       categories: Prisma.$CategoryPayload<ExtArgs>[];
       products: Prisma.$ProductPayload<ExtArgs>[];
       orders: Prisma.$OrderPayload<ExtArgs>[];
+      users: Prisma.$UserBusinessPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -2700,6 +2811,13 @@ export namespace Prisma {
       $Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany"> | Null
     >;
 
+    users<T extends Business$usersArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$usersArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "findMany">
+      | Null
+    >;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3145,6 +3263,30 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[];
+  };
+
+  /**
+   * Business.users
+   */
+  export type Business$usersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    where?: UserBusinessWhereInput;
+    orderBy?:
+      | UserBusinessOrderByWithRelationInput
+      | UserBusinessOrderByWithRelationInput[];
+    cursor?: UserBusinessWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
   };
 
   /**
@@ -5610,6 +5752,7 @@ export namespace Prisma {
       accounts?: boolean | User$accountsArgs<ExtArgs>;
       sessions?: boolean | User$sessionsArgs<ExtArgs>;
       Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>;
+      business?: boolean | User$businessArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["user"]
@@ -5634,6 +5777,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>;
     sessions?: boolean | User$sessionsArgs<ExtArgs>;
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>;
+    business?: boolean | User$businessArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
 
@@ -5646,6 +5790,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[];
       sessions: Prisma.$SessionPayload<ExtArgs>[];
       Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[];
+      business: Prisma.$UserBusinessPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -6099,6 +6244,13 @@ export namespace Prisma {
       args?: Subset<T, User$AuthenticatorArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany">
+      | Null
+    >;
+
+    business<T extends User$businessArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$businessArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "findMany">
       | Null
     >;
 
@@ -6567,6 +6719,30 @@ export namespace Prisma {
   };
 
   /**
+   * User.business
+   */
+  export type User$businessArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    where?: UserBusinessWhereInput;
+    orderBy?:
+      | UserBusinessOrderByWithRelationInput
+      | UserBusinessOrderByWithRelationInput[];
+    cursor?: UserBusinessWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
+  };
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<
@@ -6580,6 +6756,1032 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model UserBusiness
+   */
+
+  export type AggregateUserBusiness = {
+    _count: UserBusinessCountAggregateOutputType | null;
+    _min: UserBusinessMinAggregateOutputType | null;
+    _max: UserBusinessMaxAggregateOutputType | null;
+  };
+
+  export type UserBusinessMinAggregateOutputType = {
+    userId: string | null;
+    businessId: string | null;
+  };
+
+  export type UserBusinessMaxAggregateOutputType = {
+    userId: string | null;
+    businessId: string | null;
+  };
+
+  export type UserBusinessCountAggregateOutputType = {
+    userId: number;
+    businessId: number;
+    _all: number;
+  };
+
+  export type UserBusinessMinAggregateInputType = {
+    userId?: true;
+    businessId?: true;
+  };
+
+  export type UserBusinessMaxAggregateInputType = {
+    userId?: true;
+    businessId?: true;
+  };
+
+  export type UserBusinessCountAggregateInputType = {
+    userId?: true;
+    businessId?: true;
+    _all?: true;
+  };
+
+  export type UserBusinessAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which UserBusiness to aggregate.
+     */
+    where?: UserBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserBusinesses to fetch.
+     */
+    orderBy?:
+      | UserBusinessOrderByWithRelationInput
+      | UserBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: UserBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserBusinesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned UserBusinesses
+     **/
+    _count?: true | UserBusinessCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: UserBusinessMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: UserBusinessMaxAggregateInputType;
+  };
+
+  export type GetUserBusinessAggregateType<
+    T extends UserBusinessAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateUserBusiness]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserBusiness[P]>
+      : GetScalarType<T[P], AggregateUserBusiness[P]>;
+  };
+
+  export type UserBusinessGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserBusinessWhereInput;
+    orderBy?:
+      | UserBusinessOrderByWithAggregationInput
+      | UserBusinessOrderByWithAggregationInput[];
+    by: UserBusinessScalarFieldEnum[] | UserBusinessScalarFieldEnum;
+    having?: UserBusinessScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: UserBusinessCountAggregateInputType | true;
+    _min?: UserBusinessMinAggregateInputType;
+    _max?: UserBusinessMaxAggregateInputType;
+  };
+
+  export type UserBusinessGroupByOutputType = {
+    userId: string;
+    businessId: string;
+    _count: UserBusinessCountAggregateOutputType | null;
+    _min: UserBusinessMinAggregateOutputType | null;
+    _max: UserBusinessMaxAggregateOutputType | null;
+  };
+
+  type GetUserBusinessGroupByPayload<T extends UserBusinessGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<UserBusinessGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof UserBusinessGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserBusinessGroupByOutputType[P]>
+            : GetScalarType<T[P], UserBusinessGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type UserBusinessSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      userId?: boolean;
+      businessId?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userBusiness"]
+  >;
+
+  export type UserBusinessSelectScalar = {
+    userId?: boolean;
+    businessId?: boolean;
+  };
+
+  export type UserBusinessInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+
+  export type $UserBusinessPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "UserBusiness";
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+      business: Prisma.$BusinessPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        userId: string;
+        businessId: string;
+      },
+      ExtArgs["result"]["userBusiness"]
+    >;
+    composites: {};
+  };
+
+  type UserBusinessGetPayload<
+    S extends boolean | null | undefined | UserBusinessDefaultArgs,
+  > = $Result.GetResult<Prisma.$UserBusinessPayload, S>;
+
+  type UserBusinessCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<UserBusinessFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: UserBusinessCountAggregateInputType | true;
+  };
+
+  export interface UserBusinessDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["UserBusiness"];
+      meta: { name: "UserBusiness" };
+    };
+    /**
+     * Find zero or one UserBusiness that matches the filter.
+     * @param {UserBusinessFindUniqueArgs} args - Arguments to find a UserBusiness
+     * @example
+     * // Get one UserBusiness
+     * const userBusiness = await prisma.userBusiness.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     **/
+    findUnique<T extends UserBusinessFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, UserBusinessFindUniqueArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<
+        Prisma.$UserBusinessPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one UserBusiness that matches the filter or throw an error  with `error.code='P2025'`
+     *     if no matches were found.
+     * @param {UserBusinessFindUniqueOrThrowArgs} args - Arguments to find a UserBusiness
+     * @example
+     * // Get one UserBusiness
+     * const userBusiness = await prisma.userBusiness.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     **/
+    findUniqueOrThrow<T extends UserBusinessFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserBusinessFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<
+        Prisma.$UserBusinessPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first UserBusiness that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessFindFirstArgs} args - Arguments to find a UserBusiness
+     * @example
+     * // Get one UserBusiness
+     * const userBusiness = await prisma.userBusiness.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     **/
+    findFirst<T extends UserBusinessFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserBusinessFindFirstArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<
+        Prisma.$UserBusinessPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first UserBusiness that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessFindFirstOrThrowArgs} args - Arguments to find a UserBusiness
+     * @example
+     * // Get one UserBusiness
+     * const userBusiness = await prisma.userBusiness.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     **/
+    findFirstOrThrow<T extends UserBusinessFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserBusinessFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<
+        Prisma.$UserBusinessPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more UserBusinesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserBusinesses
+     * const userBusinesses = await prisma.userBusiness.findMany()
+     *
+     * // Get first 10 UserBusinesses
+     * const userBusinesses = await prisma.userBusiness.findMany({ take: 10 })
+     *
+     * // Only select the `userId`
+     * const userBusinessWithUserIdOnly = await prisma.userBusiness.findMany({ select: { userId: true } })
+     *
+     **/
+    findMany<T extends UserBusinessFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserBusinessFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a UserBusiness.
+     * @param {UserBusinessCreateArgs} args - Arguments to create a UserBusiness.
+     * @example
+     * // Create one UserBusiness
+     * const UserBusiness = await prisma.userBusiness.create({
+     *   data: {
+     *     // ... data to create a UserBusiness
+     *   }
+     * })
+     *
+     **/
+    create<T extends UserBusinessCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserBusinessCreateArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many UserBusinesses.
+     *     @param {UserBusinessCreateManyArgs} args - Arguments to create many UserBusinesses.
+     *     @example
+     *     // Create many UserBusinesses
+     *     const userBusiness = await prisma.userBusiness.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *
+     **/
+    createMany<T extends UserBusinessCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserBusinessCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Delete a UserBusiness.
+     * @param {UserBusinessDeleteArgs} args - Arguments to delete one UserBusiness.
+     * @example
+     * // Delete one UserBusiness
+     * const UserBusiness = await prisma.userBusiness.delete({
+     *   where: {
+     *     // ... filter to delete one UserBusiness
+     *   }
+     * })
+     *
+     **/
+    delete<T extends UserBusinessDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, UserBusinessDeleteArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one UserBusiness.
+     * @param {UserBusinessUpdateArgs} args - Arguments to update one UserBusiness.
+     * @example
+     * // Update one UserBusiness
+     * const userBusiness = await prisma.userBusiness.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     **/
+    update<T extends UserBusinessUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserBusinessUpdateArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more UserBusinesses.
+     * @param {UserBusinessDeleteManyArgs} args - Arguments to filter UserBusinesses to delete.
+     * @example
+     * // Delete a few UserBusinesses
+     * const { count } = await prisma.userBusiness.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     **/
+    deleteMany<T extends UserBusinessDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserBusinessDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more UserBusinesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserBusinesses
+     * const userBusiness = await prisma.userBusiness.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     **/
+    updateMany<T extends UserBusinessUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, UserBusinessUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one UserBusiness.
+     * @param {UserBusinessUpsertArgs} args - Arguments to update or create a UserBusiness.
+     * @example
+     * // Update or create a UserBusiness
+     * const userBusiness = await prisma.userBusiness.upsert({
+     *   create: {
+     *     // ... data to create a UserBusiness
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserBusiness we want to update
+     *   }
+     * })
+     **/
+    upsert<T extends UserBusinessUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, UserBusinessUpsertArgs<ExtArgs>>,
+    ): Prisma__UserBusinessClient<
+      $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of UserBusinesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessCountArgs} args - Arguments to filter UserBusinesses to count.
+     * @example
+     * // Count the number of UserBusinesses
+     * const count = await prisma.userBusiness.count({
+     *   where: {
+     *     // ... the filter for the UserBusinesses we want to count
+     *   }
+     * })
+     **/
+    count<T extends UserBusinessCountArgs>(
+      args?: Subset<T, UserBusinessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], UserBusinessCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a UserBusiness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends UserBusinessAggregateArgs>(
+      args: Subset<T, UserBusinessAggregateArgs>,
+    ): Prisma.PrismaPromise<GetUserBusinessAggregateType<T>>;
+
+    /**
+     * Group by UserBusiness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBusinessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends UserBusinessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserBusinessGroupByArgs["orderBy"] }
+        : { orderBy?: UserBusinessGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, UserBusinessGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetUserBusinessGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the UserBusiness model
+     */
+    readonly fields: UserBusinessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserBusiness.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserBusinessClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow">
+      | Null,
+      Null,
+      ExtArgs
+    >;
+
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the UserBusiness model
+   */
+  interface UserBusinessFieldRefs {
+    readonly userId: FieldRef<"UserBusiness", "String">;
+    readonly businessId: FieldRef<"UserBusiness", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * UserBusiness findUnique
+   */
+  export type UserBusinessFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserBusiness to fetch.
+     */
+    where: UserBusinessWhereUniqueInput;
+  };
+
+  /**
+   * UserBusiness findUniqueOrThrow
+   */
+  export type UserBusinessFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserBusiness to fetch.
+     */
+    where: UserBusinessWhereUniqueInput;
+  };
+
+  /**
+   * UserBusiness findFirst
+   */
+  export type UserBusinessFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserBusiness to fetch.
+     */
+    where?: UserBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserBusinesses to fetch.
+     */
+    orderBy?:
+      | UserBusinessOrderByWithRelationInput
+      | UserBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for UserBusinesses.
+     */
+    cursor?: UserBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserBusinesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of UserBusinesses.
+     */
+    distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * UserBusiness findFirstOrThrow
+   */
+  export type UserBusinessFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserBusiness to fetch.
+     */
+    where?: UserBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserBusinesses to fetch.
+     */
+    orderBy?:
+      | UserBusinessOrderByWithRelationInput
+      | UserBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for UserBusinesses.
+     */
+    cursor?: UserBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserBusinesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of UserBusinesses.
+     */
+    distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * UserBusiness findMany
+   */
+  export type UserBusinessFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserBusinesses to fetch.
+     */
+    where?: UserBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserBusinesses to fetch.
+     */
+    orderBy?:
+      | UserBusinessOrderByWithRelationInput
+      | UserBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing UserBusinesses.
+     */
+    cursor?: UserBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserBusinesses.
+     */
+    skip?: number;
+    distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * UserBusiness create
+   */
+  export type UserBusinessCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a UserBusiness.
+     */
+    data: XOR<UserBusinessCreateInput, UserBusinessUncheckedCreateInput>;
+  };
+
+  /**
+   * UserBusiness createMany
+   */
+  export type UserBusinessCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many UserBusinesses.
+     */
+    data: UserBusinessCreateManyInput | UserBusinessCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * UserBusiness update
+   */
+  export type UserBusinessUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a UserBusiness.
+     */
+    data: XOR<UserBusinessUpdateInput, UserBusinessUncheckedUpdateInput>;
+    /**
+     * Choose, which UserBusiness to update.
+     */
+    where: UserBusinessWhereUniqueInput;
+  };
+
+  /**
+   * UserBusiness updateMany
+   */
+  export type UserBusinessUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update UserBusinesses.
+     */
+    data: XOR<
+      UserBusinessUpdateManyMutationInput,
+      UserBusinessUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which UserBusinesses to update
+     */
+    where?: UserBusinessWhereInput;
+  };
+
+  /**
+   * UserBusiness upsert
+   */
+  export type UserBusinessUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the UserBusiness to update in case it exists.
+     */
+    where: UserBusinessWhereUniqueInput;
+    /**
+     * In case the UserBusiness found by the `where` argument doesn't exist, create a new UserBusiness with this data.
+     */
+    create: XOR<UserBusinessCreateInput, UserBusinessUncheckedCreateInput>;
+    /**
+     * In case the UserBusiness was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserBusinessUpdateInput, UserBusinessUncheckedUpdateInput>;
+  };
+
+  /**
+   * UserBusiness delete
+   */
+  export type UserBusinessDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter which UserBusiness to delete.
+     */
+    where: UserBusinessWhereUniqueInput;
+  };
+
+  /**
+   * UserBusiness deleteMany
+   */
+  export type UserBusinessDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which UserBusinesses to delete
+     */
+    where?: UserBusinessWhereInput;
+  };
+
+  /**
+   * UserBusiness without action
+   */
+  export type UserBusinessDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserBusiness
+     */
+    select?: UserBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBusinessInclude<ExtArgs> | null;
   };
 
   /**
@@ -13210,6 +14412,14 @@ export namespace Prisma {
   export type UserScalarFieldEnum =
     (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 
+  export const UserBusinessScalarFieldEnum: {
+    userId: "userId";
+    businessId: "businessId";
+  };
+
+  export type UserBusinessScalarFieldEnum =
+    (typeof UserBusinessScalarFieldEnum)[keyof typeof UserBusinessScalarFieldEnum];
+
   export const OrderScalarFieldEnum: {
     id: "id";
     userId: "userId";
@@ -13458,6 +14668,7 @@ export namespace Prisma {
     categories?: CategoryListRelationFilter;
     products?: ProductListRelationFilter;
     orders?: OrderListRelationFilter;
+    users?: UserBusinessListRelationFilter;
   };
 
   export type BusinessOrderByWithRelationInput = {
@@ -13471,6 +14682,7 @@ export namespace Prisma {
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
     orders?: OrderOrderByRelationAggregateInput;
+    users?: UserBusinessOrderByRelationAggregateInput;
   };
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<
@@ -13488,6 +14700,7 @@ export namespace Prisma {
       categories?: CategoryListRelationFilter;
       products?: ProductListRelationFilter;
       orders?: OrderListRelationFilter;
+      users?: UserBusinessListRelationFilter;
     },
     "id" | "slug"
   >;
@@ -13702,6 +14915,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter;
     sessions?: SessionListRelationFilter;
     Authenticator?: AuthenticatorListRelationFilter;
+    business?: UserBusinessListRelationFilter;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -13718,6 +14932,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput;
     sessions?: SessionOrderByRelationAggregateInput;
     Authenticator?: AuthenticatorOrderByRelationAggregateInput;
+    business?: UserBusinessOrderByRelationAggregateInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -13738,6 +14953,7 @@ export namespace Prisma {
       accounts?: AccountListRelationFilter;
       sessions?: SessionListRelationFilter;
       Authenticator?: AuthenticatorListRelationFilter;
+      business?: UserBusinessListRelationFilter;
     },
     "id" | "email"
   >;
@@ -13778,6 +14994,57 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null;
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string;
+  };
+
+  export type UserBusinessWhereInput = {
+    AND?: UserBusinessWhereInput | UserBusinessWhereInput[];
+    OR?: UserBusinessWhereInput[];
+    NOT?: UserBusinessWhereInput | UserBusinessWhereInput[];
+    userId?: StringFilter<"UserBusiness"> | string;
+    businessId?: StringFilter<"UserBusiness"> | string;
+    user?: XOR<UserRelationFilter, UserWhereInput>;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+  };
+
+  export type UserBusinessOrderByWithRelationInput = {
+    userId?: SortOrder;
+    businessId?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+    business?: BusinessOrderByWithRelationInput;
+  };
+
+  export type UserBusinessWhereUniqueInput = Prisma.AtLeast<
+    {
+      userId_businessId?: UserBusinessUserIdBusinessIdCompoundUniqueInput;
+      AND?: UserBusinessWhereInput | UserBusinessWhereInput[];
+      OR?: UserBusinessWhereInput[];
+      NOT?: UserBusinessWhereInput | UserBusinessWhereInput[];
+      userId?: StringFilter<"UserBusiness"> | string;
+      businessId?: StringFilter<"UserBusiness"> | string;
+      user?: XOR<UserRelationFilter, UserWhereInput>;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    },
+    "userId_businessId"
+  >;
+
+  export type UserBusinessOrderByWithAggregationInput = {
+    userId?: SortOrder;
+    businessId?: SortOrder;
+    _count?: UserBusinessCountOrderByAggregateInput;
+    _max?: UserBusinessMaxOrderByAggregateInput;
+    _min?: UserBusinessMinOrderByAggregateInput;
+  };
+
+  export type UserBusinessScalarWhereWithAggregatesInput = {
+    AND?:
+      | UserBusinessScalarWhereWithAggregatesInput
+      | UserBusinessScalarWhereWithAggregatesInput[];
+    OR?: UserBusinessScalarWhereWithAggregatesInput[];
+    NOT?:
+      | UserBusinessScalarWhereWithAggregatesInput
+      | UserBusinessScalarWhereWithAggregatesInput[];
+    userId?: StringWithAggregatesFilter<"UserBusiness"> | string;
+    businessId?: StringWithAggregatesFilter<"UserBusiness"> | string;
   };
 
   export type OrderWhereInput = {
@@ -14262,6 +15529,7 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateInput = {
@@ -14275,6 +15543,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUpdateInput = {
@@ -14288,6 +15557,7 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateInput = {
@@ -14301,6 +15571,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateManyInput = {
@@ -14492,6 +15763,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -14508,6 +15780,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUpdateInput = {
@@ -14528,6 +15801,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -14548,6 +15822,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -14592,6 +15867,38 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserBusinessCreateInput = {
+    user: UserCreateNestedOneWithoutBusinessInput;
+    business: BusinessCreateNestedOneWithoutUsersInput;
+  };
+
+  export type UserBusinessUncheckedCreateInput = {
+    userId: string;
+    businessId: string;
+  };
+
+  export type UserBusinessUpdateInput = {
+    user?: UserUpdateOneRequiredWithoutBusinessNestedInput;
+    business?: BusinessUpdateOneRequiredWithoutUsersNestedInput;
+  };
+
+  export type UserBusinessUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type UserBusinessCreateManyInput = {
+    userId: string;
+    businessId: string;
+  };
+
+  export type UserBusinessUpdateManyMutationInput = {};
+
+  export type UserBusinessUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type OrderCreateInput = {
@@ -15074,6 +16381,12 @@ export namespace Prisma {
     none?: OrderWhereInput;
   };
 
+  export type UserBusinessListRelationFilter = {
+    every?: UserBusinessWhereInput;
+    some?: UserBusinessWhereInput;
+    none?: UserBusinessWhereInput;
+  };
+
   export type SortOrderInput = {
     sort: SortOrder;
     nulls?: NullsOrder;
@@ -15088,6 +16401,10 @@ export namespace Prisma {
   };
 
   export type OrderOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type UserBusinessOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -15454,6 +16771,31 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>;
     _max?: NestedDateTimeFilter<$PrismaModel>;
   };
+
+  export type UserRelationFilter = {
+    is?: UserWhereInput;
+    isNot?: UserWhereInput;
+  };
+
+  export type UserBusinessUserIdBusinessIdCompoundUniqueInput = {
+    userId: string;
+    businessId: string;
+  };
+
+  export type UserBusinessCountOrderByAggregateInput = {
+    userId?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type UserBusinessMaxOrderByAggregateInput = {
+    userId?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type UserBusinessMinOrderByAggregateInput = {
+    userId?: SortOrder;
+    businessId?: SortOrder;
+  };
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<
@@ -15651,11 +16993,6 @@ export namespace Prisma {
     price?: SortOrder;
     position?: SortOrder;
     quantity?: SortOrder;
-  };
-
-  export type UserRelationFilter = {
-    is?: UserWhereInput;
-    isNot?: UserWhereInput;
   };
 
   export type AccountProviderProviderAccountIdCompoundUniqueInput = {
@@ -15874,6 +17211,21 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
   };
 
+  export type UserBusinessCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutBusinessInput,
+          UserBusinessUncheckedCreateWithoutBusinessInput
+        >
+      | UserBusinessCreateWithoutBusinessInput[]
+      | UserBusinessUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutBusinessInput
+      | UserBusinessCreateOrConnectWithoutBusinessInput[];
+    createMany?: UserBusinessCreateManyBusinessInputEnvelope;
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+  };
+
   export type CategoryUncheckedCreateNestedManyWithoutBusinessInput = {
     create?:
       | XOR<
@@ -15917,6 +17269,21 @@ export namespace Prisma {
       | OrderCreateOrConnectWithoutBusinessInput[];
     createMany?: OrderCreateManyBusinessInputEnvelope;
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+  };
+
+  export type UserBusinessUncheckedCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutBusinessInput,
+          UserBusinessUncheckedCreateWithoutBusinessInput
+        >
+      | UserBusinessCreateWithoutBusinessInput[]
+      | UserBusinessUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutBusinessInput
+      | UserBusinessCreateOrConnectWithoutBusinessInput[];
+    createMany?: UserBusinessCreateManyBusinessInputEnvelope;
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
   };
 
   export type StringFieldUpdateOperationsInput = {
@@ -16016,6 +17383,34 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[];
   };
 
+  export type UserBusinessUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutBusinessInput,
+          UserBusinessUncheckedCreateWithoutBusinessInput
+        >
+      | UserBusinessCreateWithoutBusinessInput[]
+      | UserBusinessUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutBusinessInput
+      | UserBusinessCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | UserBusinessUpsertWithWhereUniqueWithoutBusinessInput
+      | UserBusinessUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: UserBusinessCreateManyBusinessInputEnvelope;
+    set?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    disconnect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    delete?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    update?:
+      | UserBusinessUpdateWithWhereUniqueWithoutBusinessInput
+      | UserBusinessUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | UserBusinessUpdateManyWithWhereWithoutBusinessInput
+      | UserBusinessUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
+  };
+
   export type CategoryUncheckedUpdateManyWithoutBusinessNestedInput = {
     create?:
       | XOR<
@@ -16098,6 +17493,34 @@ export namespace Prisma {
       | OrderUpdateManyWithWhereWithoutBusinessInput
       | OrderUpdateManyWithWhereWithoutBusinessInput[];
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[];
+  };
+
+  export type UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutBusinessInput,
+          UserBusinessUncheckedCreateWithoutBusinessInput
+        >
+      | UserBusinessCreateWithoutBusinessInput[]
+      | UserBusinessUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutBusinessInput
+      | UserBusinessCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | UserBusinessUpsertWithWhereUniqueWithoutBusinessInput
+      | UserBusinessUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: UserBusinessCreateManyBusinessInputEnvelope;
+    set?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    disconnect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    delete?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    update?:
+      | UserBusinessUpdateWithWhereUniqueWithoutBusinessInput
+      | UserBusinessUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | UserBusinessUpdateManyWithWhereWithoutBusinessInput
+      | UserBusinessUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
   };
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -16432,6 +17855,21 @@ export namespace Prisma {
     connect?: AuthenticatorWhereUniqueInput | AuthenticatorWhereUniqueInput[];
   };
 
+  export type UserBusinessCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutUserInput,
+          UserBusinessUncheckedCreateWithoutUserInput
+        >
+      | UserBusinessCreateWithoutUserInput[]
+      | UserBusinessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutUserInput
+      | UserBusinessCreateOrConnectWithoutUserInput[];
+    createMany?: UserBusinessCreateManyUserInputEnvelope;
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+  };
+
   export type OrderUncheckedCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
@@ -16487,6 +17925,21 @@ export namespace Prisma {
       | AuthenticatorCreateOrConnectWithoutUserInput[];
     createMany?: AuthenticatorCreateManyUserInputEnvelope;
     connect?: AuthenticatorWhereUniqueInput | AuthenticatorWhereUniqueInput[];
+  };
+
+  export type UserBusinessUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutUserInput,
+          UserBusinessUncheckedCreateWithoutUserInput
+        >
+      | UserBusinessCreateWithoutUserInput[]
+      | UserBusinessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutUserInput
+      | UserBusinessCreateOrConnectWithoutUserInput[];
+    createMany?: UserBusinessCreateManyUserInputEnvelope;
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
   };
 
   export type EnumUserRolesFieldUpdateOperationsInput = {
@@ -16614,6 +18067,34 @@ export namespace Prisma {
       | AuthenticatorScalarWhereInput[];
   };
 
+  export type UserBusinessUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutUserInput,
+          UserBusinessUncheckedCreateWithoutUserInput
+        >
+      | UserBusinessCreateWithoutUserInput[]
+      | UserBusinessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutUserInput
+      | UserBusinessCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserBusinessUpsertWithWhereUniqueWithoutUserInput
+      | UserBusinessUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserBusinessCreateManyUserInputEnvelope;
+    set?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    disconnect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    delete?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    update?:
+      | UserBusinessUpdateWithWhereUniqueWithoutUserInput
+      | UserBusinessUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserBusinessUpdateManyWithWhereWithoutUserInput
+      | UserBusinessUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
+  };
+
   export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
@@ -16725,6 +18206,86 @@ export namespace Prisma {
     deleteMany?:
       | AuthenticatorScalarWhereInput
       | AuthenticatorScalarWhereInput[];
+  };
+
+  export type UserBusinessUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserBusinessCreateWithoutUserInput,
+          UserBusinessUncheckedCreateWithoutUserInput
+        >
+      | UserBusinessCreateWithoutUserInput[]
+      | UserBusinessUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserBusinessCreateOrConnectWithoutUserInput
+      | UserBusinessCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserBusinessUpsertWithWhereUniqueWithoutUserInput
+      | UserBusinessUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserBusinessCreateManyUserInputEnvelope;
+    set?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    disconnect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    delete?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+    update?:
+      | UserBusinessUpdateWithWhereUniqueWithoutUserInput
+      | UserBusinessUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserBusinessUpdateManyWithWhereWithoutUserInput
+      | UserBusinessUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
+  };
+
+  export type UserCreateNestedOneWithoutBusinessInput = {
+    create?: XOR<
+      UserCreateWithoutBusinessInput,
+      UserUncheckedCreateWithoutBusinessInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutBusinessInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type BusinessCreateNestedOneWithoutUsersInput = {
+    create?: XOR<
+      BusinessCreateWithoutUsersInput,
+      BusinessUncheckedCreateWithoutUsersInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutUsersInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type UserUpdateOneRequiredWithoutBusinessNestedInput = {
+    create?: XOR<
+      UserCreateWithoutBusinessInput,
+      UserUncheckedCreateWithoutBusinessInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutBusinessInput;
+    upsert?: UserUpsertWithoutBusinessInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutBusinessInput,
+        UserUpdateWithoutBusinessInput
+      >,
+      UserUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutUsersNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutUsersInput,
+      BusinessUncheckedCreateWithoutUsersInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutUsersInput;
+    upsert?: BusinessUpsertWithoutUsersInput;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutUsersInput,
+        BusinessUpdateWithoutUsersInput
+      >,
+      BusinessUncheckedUpdateWithoutUsersInput
+    >;
   };
 
   export type UserCreateNestedOneWithoutOrdersInput = {
@@ -17399,6 +18960,29 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type UserBusinessCreateWithoutBusinessInput = {
+    user: UserCreateNestedOneWithoutBusinessInput;
+  };
+
+  export type UserBusinessUncheckedCreateWithoutBusinessInput = {
+    userId: string;
+  };
+
+  export type UserBusinessCreateOrConnectWithoutBusinessInput = {
+    where: UserBusinessWhereUniqueInput;
+    create: XOR<
+      UserBusinessCreateWithoutBusinessInput,
+      UserBusinessUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type UserBusinessCreateManyBusinessInputEnvelope = {
+    data:
+      | UserBusinessCreateManyBusinessInput
+      | UserBusinessCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type CategoryUpsertWithWhereUniqueWithoutBusinessInput = {
     where: CategoryWhereUniqueInput;
     update: XOR<
@@ -17524,6 +19108,42 @@ export namespace Prisma {
     identifier?: StringNullableFilter<"Order"> | string | null;
   };
 
+  export type UserBusinessUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: UserBusinessWhereUniqueInput;
+    update: XOR<
+      UserBusinessUpdateWithoutBusinessInput,
+      UserBusinessUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      UserBusinessCreateWithoutBusinessInput,
+      UserBusinessUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type UserBusinessUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: UserBusinessWhereUniqueInput;
+    data: XOR<
+      UserBusinessUpdateWithoutBusinessInput,
+      UserBusinessUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type UserBusinessUpdateManyWithWhereWithoutBusinessInput = {
+    where: UserBusinessScalarWhereInput;
+    data: XOR<
+      UserBusinessUpdateManyMutationInput,
+      UserBusinessUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type UserBusinessScalarWhereInput = {
+    AND?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
+    OR?: UserBusinessScalarWhereInput[];
+    NOT?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
+    userId?: StringFilter<"UserBusiness"> | string;
+    businessId?: StringFilter<"UserBusiness"> | string;
+  };
+
   export type ProductCreateWithoutCategoryInput = {
     id?: string;
     name: string;
@@ -17573,6 +19193,7 @@ export namespace Prisma {
     slug?: string | null;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCategoriesInput = {
@@ -17585,6 +19206,7 @@ export namespace Prisma {
     slug?: string | null;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCategoriesInput = {
@@ -17653,6 +19275,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCategoriesInput = {
@@ -17665,6 +19288,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateWithoutProductsInput = {
@@ -17677,6 +19301,7 @@ export namespace Prisma {
     slug?: string | null;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -17689,6 +19314,7 @@ export namespace Prisma {
     slug?: string | null;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -17780,6 +19406,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -17792,6 +19419,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -18007,6 +19635,27 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type UserBusinessCreateWithoutUserInput = {
+    business: BusinessCreateNestedOneWithoutUsersInput;
+  };
+
+  export type UserBusinessUncheckedCreateWithoutUserInput = {
+    businessId: string;
+  };
+
+  export type UserBusinessCreateOrConnectWithoutUserInput = {
+    where: UserBusinessWhereUniqueInput;
+    create: XOR<
+      UserBusinessCreateWithoutUserInput,
+      UserBusinessUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type UserBusinessCreateManyUserInputEnvelope = {
+    data: UserBusinessCreateManyUserInput | UserBusinessCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type OrderUpsertWithWhereUniqueWithoutUserInput = {
     where: OrderWhereUniqueInput;
     update: XOR<
@@ -18163,6 +19812,214 @@ export namespace Prisma {
     transports?: StringNullableFilter<"Authenticator"> | string | null;
   };
 
+  export type UserBusinessUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserBusinessWhereUniqueInput;
+    update: XOR<
+      UserBusinessUpdateWithoutUserInput,
+      UserBusinessUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      UserBusinessCreateWithoutUserInput,
+      UserBusinessUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type UserBusinessUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserBusinessWhereUniqueInput;
+    data: XOR<
+      UserBusinessUpdateWithoutUserInput,
+      UserBusinessUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type UserBusinessUpdateManyWithWhereWithoutUserInput = {
+    where: UserBusinessScalarWhereInput;
+    data: XOR<
+      UserBusinessUpdateManyMutationInput,
+      UserBusinessUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type UserCreateWithoutBusinessInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutBusinessInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutBusinessInput,
+      UserUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type BusinessCreateWithoutUsersInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutUsersInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutUsersInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutUsersInput,
+      BusinessUncheckedCreateWithoutUsersInput
+    >;
+  };
+
+  export type UserUpsertWithoutBusinessInput = {
+    update: XOR<
+      UserUpdateWithoutBusinessInput,
+      UserUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      UserCreateWithoutBusinessInput,
+      UserUncheckedCreateWithoutBusinessInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutBusinessInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutBusinessInput,
+      UserUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type UserUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type BusinessUpsertWithoutUsersInput = {
+    update: XOR<
+      BusinessUpdateWithoutUsersInput,
+      BusinessUncheckedUpdateWithoutUsersInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutUsersInput,
+      BusinessUncheckedCreateWithoutUsersInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutUsersInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutUsersInput,
+      BusinessUncheckedUpdateWithoutUsersInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
   export type UserCreateWithoutOrdersInput = {
     id?: string;
     role?: $Enums.UserRoles;
@@ -18176,6 +20033,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -18191,6 +20049,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -18238,6 +20097,7 @@ export namespace Prisma {
     slug?: string | null;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutOrdersInput = {
@@ -18250,6 +20110,7 @@ export namespace Prisma {
     slug?: string | null;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutOrdersInput = {
@@ -18297,6 +20158,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -18316,6 +20178,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type OrderProductUpsertWithWhereUniqueWithoutOrderInput = {
@@ -18376,6 +20239,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutOrdersInput = {
@@ -18388,6 +20252,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductCreateWithoutOrderItemsInput = {
@@ -18559,6 +20424,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -18574,6 +20440,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -18621,6 +20488,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -18640,6 +20508,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutSessionsInput = {
@@ -18655,6 +20524,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -18670,6 +20540,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -18717,6 +20588,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -18736,6 +20608,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -18751,6 +20624,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -18766,6 +20640,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -18813,6 +20688,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -18832,6 +20708,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type CategoryCreateManyBusinessInput = {
@@ -18861,6 +20738,10 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+  };
+
+  export type UserBusinessCreateManyBusinessInput = {
+    userId: string;
   };
 
   export type CategoryUpdateWithoutBusinessInput = {
@@ -18954,6 +20835,18 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+  };
+
+  export type UserBusinessUpdateWithoutBusinessInput = {
+    user?: UserUpdateOneRequiredWithoutBusinessNestedInput;
+  };
+
+  export type UserBusinessUncheckedUpdateWithoutBusinessInput = {
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type UserBusinessUncheckedUpdateManyWithoutBusinessInput = {
+    userId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type ProductCreateManyCategoryInput = {
@@ -19075,6 +20968,10 @@ export namespace Prisma {
     credentialDeviceType: string;
     credentialBackedUp: boolean;
     transports?: string | null;
+  };
+
+  export type UserBusinessCreateManyUserInput = {
+    businessId: string;
   };
 
   export type OrderUpdateWithoutUserInput = {
@@ -19208,6 +21105,18 @@ export namespace Prisma {
     transports?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
+  export type UserBusinessUpdateWithoutUserInput = {
+    business?: BusinessUpdateOneRequiredWithoutUsersNestedInput;
+  };
+
+  export type UserBusinessUncheckedUpdateWithoutUserInput = {
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type UserBusinessUncheckedUpdateManyWithoutUserInput = {
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
   export type OrderProductCreateManyOrderInput = {
     productId: string;
     price: number;
@@ -19293,6 +21202,12 @@ export namespace Prisma {
   export type UserArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = UserDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use UserBusinessDefaultArgs instead
+   */
+  export type UserBusinessArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = UserBusinessDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use OrderDefaultArgs instead
    */

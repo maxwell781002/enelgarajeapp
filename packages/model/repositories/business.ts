@@ -1,13 +1,29 @@
 import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
-import { BusinessModel, CompleteBusiness } from "../prisma/zod";
+import { CompleteBusiness } from "../prisma/zod";
+import { BusinessValidation } from "../validation/business";
+import { z } from "zod";
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
   typeof prisma.business
 > {
   constructor() {
-    super(BusinessModel.omit({ id: true, coordinates: true }), prisma.business);
+    super(BusinessValidation, prisma.business);
+  }
+
+  async create({ userId, ...data }: z.infer<typeof BusinessValidation>) {
+    this.validate("create", data as CompleteBusiness);
+    const business = await this.doCreate(data as CompleteBusiness);
+    if (userId) {
+      await prisma.userBusiness.create({
+        data: {
+          userId,
+          businessId: business.id,
+        },
+      });
+    }
+    return business;
   }
 
   getByUser(userId: string) {

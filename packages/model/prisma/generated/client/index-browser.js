@@ -161,6 +161,11 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserBusinessScalarFieldEnum = {
+  userId: 'userId',
+  businessId: 'businessId'
+};
+
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -263,6 +268,7 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   Product: 'Product',
   User: 'User',
+  UserBusiness: 'UserBusiness',
   Order: 'Order',
   OrderProduct: 'OrderProduct',
   Account: 'Account',

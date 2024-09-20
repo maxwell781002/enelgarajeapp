@@ -6,6 +6,8 @@
     "phName": "Nombre del negocio",
     "lbDescription": "Descripción",
     "phDescription": "Descripción del negocio",
+    "lbUserId": "Propietario",
+    "phUserId": "Propietario",
     "btnSubmit": "Salvar"
   }
 }

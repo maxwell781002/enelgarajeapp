@@ -14,19 +14,25 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
-import { BusinessModel, CompleteBusiness } from "@repo/model/zod/business";
+import { CompleteBusiness } from "@repo/model/zod/business";
 import { Textarea } from "@repo/ui/components/ui/textarea";
+import EntitySelect from "@repo/ui/components/entity-select";
+import { CompleteUser } from "@repo/model/zod/user";
+import { BusinessValidation } from "@repo/model/validation/business";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
   defaultValues: CompleteBusiness;
+  users: CompleteUser[];
 };
 
-const resolver = zodResolver(
-  BusinessModel.omit({ id: true, coordinates: true }),
-);
+const resolver = zodResolver(BusinessValidation);
 
-export default function BusinessForm({ action, defaultValues }: FormAction) {
+export default function BusinessForm({
+  action,
+  defaultValues,
+  users,
+}: FormAction) {
   const t = useTranslations("Business");
   const { toast } = useToast();
   const { form, onSubmit } = useFormProcess({
@@ -38,7 +44,6 @@ export default function BusinessForm({ action, defaultValues }: FormAction) {
         title: defaultValues?.id ? t("businessUpdated") : t("businessCreated"),
       }),
   });
-  console.log(form.formState.errors);
 
   return (
     <Form {...form}>
@@ -64,6 +69,23 @@ export default function BusinessForm({ action, defaultValues }: FormAction) {
               <FormLabel>{t("lbDescription")}</FormLabel>
               <FormControl>
                 <Textarea placeholder={t("phDescription")} {...field} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="userId"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbUserId")}</FormLabel>
+              <FormControl>
+                <EntitySelect
+                  {...field}
+                  items={users}
+                  placeholder={t("phUserId")}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>

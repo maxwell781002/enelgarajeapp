@@ -32,6 +32,7 @@ model Business {
   categories Category[]
   products   Product[]
   orders     Order[]
+  users      UserBusiness[]
 }
 
 model Category {
@@ -77,6 +78,17 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  business UserBusiness[]
+}
+
+model UserBusiness {
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String
+
+  @@id([userId, businessId])
 }
 
 model Order {

@@ -12,6 +12,10 @@ export class UserRepository extends BaseRepository<
   constructor() {
     super(UserModel.omit({ id: true }), prisma.user);
   }
+
+  getAll() {
+    return this.model.findMany();
+  }
 }
 
 export const userRepository = new UserRepository();
