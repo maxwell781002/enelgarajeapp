@@ -63,6 +63,7 @@ model Product {
 
 model User {
   id            String          @id @default(uuid())
+  role          UserRoles       @default(USER)
   name          String?
   phone         String?
   orders        Order[]
@@ -104,6 +105,11 @@ model OrderProduct {
   quantity Int
 
   @@id([productId, orderId])
+}
+
+enum UserRoles {
+  USER
+  ADMIN
 }
 
 enum OrderStatus {

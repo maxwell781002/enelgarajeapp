@@ -18,6 +18,5 @@ const SignIn = () => (
 
 export default async function Security({ children }: SecurityProps) {
   const session = await auth();
-  console.log(session);
   return <>{session?.user ? children : <SignIn />}</>;
 }

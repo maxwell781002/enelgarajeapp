@@ -151,6 +151,7 @@ exports.Prisma.ProductScalarFieldEnum = {
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  role: 'role',
   name: 'name',
   phone: 'phone',
   email: 'email',
@@ -245,6 +246,11 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.UserRoles = exports.$Enums.UserRoles = {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+};
+
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   CREATED: 'CREATED',
   SEND: 'SEND',

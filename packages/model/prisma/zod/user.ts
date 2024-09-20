@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { UserRoles } from "../generated/client";
 import {
   CompleteOrder,
   RelatedOrderModel,
@@ -12,6 +13,7 @@ import {
 
 export const UserModel = z.object({
   id: z.string(),
+  role: z.nativeEnum(UserRoles),
   name: z.string().nullish(),
   phone: z.string().nullish(),
   email: z.string(),
