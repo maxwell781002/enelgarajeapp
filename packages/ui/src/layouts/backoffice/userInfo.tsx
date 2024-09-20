@@ -9,6 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { MenuItem, SEPARATOR } from "../../types/linkItem";
+import Link from "next/link";
+import Logout from "./logout";
+import { signOut } from "@repo/model/lib/auth";
+import { redirect } from "next/navigation.js";
 
 export type UserInfoProps = {
   userImage: string;
@@ -16,6 +20,11 @@ export type UserInfoProps = {
 };
 
 export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
+  const handleSignOut = async () => {
+    "use server";
+    await signOut();
+    return redirect("/");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,10 +48,14 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
             {item === SEPARATOR ? (
               <DropdownMenuSeparator />
             ) : (
-              <DropdownMenuItem>{item.title}</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={item.link}>{item.title}</Link>
+              </DropdownMenuItem>
             )}
           </Fragment>
         ))}
+        <DropdownMenuSeparator />
+        <Logout signOut={handleSignOut} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
