@@ -1,4 +1,4 @@
-import { signIn, auth } from "../auth";
+import { signIn, auth } from "@repo/model/lib/auth";
 import { ReactNode } from "react";
 
 type SecurityProps = {
