@@ -58,7 +58,7 @@ export async function Header({
                 <div className="border-b border-muted-foreground/10 pb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
                   <img
                     src={user.image}
-                    referrerpolicy="no-referrer"
+                    referrerPolicy="no-referrer"
                     alt={"user name"}
                     className="aspect-square rounded-md object-cover h-10 w-10"
                   />

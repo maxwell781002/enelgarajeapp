@@ -35,7 +35,7 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
         >
           <img
             src={userImage}
-            referrerpolicy="no-referrer"
+            referrerPolicy="no-referrer"
             alt={"user name"}
             className="aspect-square rounded-md object-cover"
           />

@@ -12,16 +12,6 @@ export const getCurrentUser = async () => {
   return session?.user;
 };
 
-export const getOrCreateUser = async () => {
-  let user = await getCurrentUser();
-  if (user) {
-    return user;
-  }
-  user = await prisma.user.create({ data: {} });
-  cookies().set(USER_ID_COOKIES, user.id);
-  return user;
-};
-
 export const updateUser = async (id: string, data: any) => {
   UserRegisterSchema.parse(data);
   return prisma.user.update({
