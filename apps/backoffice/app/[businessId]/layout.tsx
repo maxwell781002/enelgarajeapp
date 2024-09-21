@@ -5,6 +5,7 @@ import { businessRepository } from "@repo/model/repositories/business";
 import { Item } from "@repo/ui/layouts/backoffice/business.switch";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
+import { UserRoles } from "@repo/model/repositories/user";
 
 // Only for testing
 const breadcrumbItems = [
@@ -26,7 +27,10 @@ export default async function RootLayout({
   params: { businessId: string };
 }) {
   const session = await auth();
-  const business = await businessRepository.getByUser("");
+  const business =
+    session?.user.role === UserRoles.ADMIN
+      ? [await businessRepository.getById(businessId)]
+      : await businessRepository.getByUser(session?.user?.id);
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);
@@ -42,7 +46,7 @@ export default async function RootLayout({
       ph="Negocio..."
       business={business as Item[]}
       onChangeBusiness={onChangeBusiness}
-      adminUrl="/dashboard"
+      adminUrl={session?.user?.role === UserRoles.ADMIN ? "/dashboard" : ""}
     >
       {children}
     </LayoutMain>

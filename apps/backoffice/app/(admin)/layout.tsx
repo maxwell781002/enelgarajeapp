@@ -3,6 +3,7 @@ import { LayoutMain } from "@repo/ui/layouts/backoffice/main";
 import { coreMenu, profileMenu, secondaryMenu } from "../config/menu";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
+import { UserRoles } from "@repo/model/repositories/user";
 
 // Only for testing
 const breadcrumbItems = [
@@ -22,6 +23,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
+  if (!session || session.user.role !== UserRoles.ADMIN) {
+    return redirect("/");
+  }
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);
