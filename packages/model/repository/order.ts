@@ -208,6 +208,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const newOrder = await prisma.order.update({
     where: { id: order.id },
     data: {
+      userId: userEntity.id,
       total: order.total,
       status: OrderStatus.SEND,
       position: newPosition,
