@@ -21,7 +21,7 @@ const socialNetworks = [
 
 export default function SignIn({ title, description, signIn }: SignInProps) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-background">
+    <div className="flex flex-col items-center justify-center bg-background">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold tracking-tight text-foreground">
