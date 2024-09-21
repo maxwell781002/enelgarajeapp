@@ -21,9 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const {
-    user: { image },
-  } = await auth();
+  const session = await auth();
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);
@@ -32,7 +30,7 @@ export default async function RootLayout({
     <LayoutMain
       menuItems={coreMenu}
       secondaryMenu={secondaryMenu}
-      userImage={image}
+      userImage={session?.user?.image}
       userMenuItems={profileMenu}
       breadcrumbItems={breadcrumbItems}
       ph="Negocio..."

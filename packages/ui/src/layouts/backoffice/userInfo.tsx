@@ -12,7 +12,7 @@ import { MenuItem, SEPARATOR } from "../../types/linkItem";
 import Link from "next/link";
 import Logout from "./logout";
 import { signOut } from "@repo/model/lib/auth";
-import { redirect } from "next/navigation.js";
+import { redirect } from "next/navigation";
 
 export type UserInfoProps = {
   userImage: string;

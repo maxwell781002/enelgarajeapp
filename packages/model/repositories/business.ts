@@ -28,7 +28,17 @@ export class BusinessRepository extends BaseRepository<
 
   getByUser(userId: string) {
     //TODO filter by user when the relation is ready
-    return this.model.findMany();
+    console.log("getByUser", userId);
+    return this.model.findMany({
+      where: {
+        users: {
+          some: { userId },
+        },
+        // userId_businessId: {
+        //   userId,
+        // },
+      },
+    });
   }
 
   getBySlug(slug: string) {
