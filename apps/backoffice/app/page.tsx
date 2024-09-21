@@ -1,17 +1,20 @@
+import { auth } from "@repo/model/lib/auth";
 import { businessRepository } from "@repo/model/repositories/business";
-import BusinessSwitch from "@repo/ui/layouts/backoffice/business.switch";
+import { UserRoles } from "@repo/model/repositories/user";
 import { redirect } from "next/navigation";
+import ShopNotHave from "./whatsaap-contact";
 
 export default async function Page() {
-  const business = await businessRepository.getByUser("");
-  const onChangeBusiness = async (businessId: string) => {
-    "use server";
-    await redirect(`/${businessId}`);
-  };
+  const {
+    user: { role, id },
+  } = await auth();
+  if (role == UserRoles.ADMIN) {
+    return redirect("/dashboard");
+  }
+  const business = await businessRepository.getByUser(id);
+  if (business.length > 0) {
+    return redirect(`/${business[0].id}`);
+  }
 
-  return (
-    <div className="p-5">
-      <BusinessSwitch business={business} onChangeBusiness={onChangeBusiness} />
-    </div>
-  );
+  return <ShopNotHave />;
 }

@@ -7,18 +7,19 @@ import {
   SheetContent,
 } from "@repo/ui/components/ui/sheet";
 import { Button } from "@repo/ui/components/ui/button";
-import {
+import SignInIcon, {
   MountainIcon,
   MenuIcon,
   HomeIcon,
   InfoIcon,
-  MailIcon,
   ShoppingCartIcon,
   UserIcon,
   PackageIcon,
 } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
-import { getCurrentUser, getOrCreateUser } from "@repo/model/repository/user";
+import { getCurrentUser } from "@repo/model/repository/user";
+import { signOut } from "@repo/model/lib/auth";
+import { Logout } from "./logout";
 
 export async function Header({
   business,
@@ -30,6 +31,10 @@ export async function Header({
   const order = await getCurrentOrder();
   const user = await getCurrentUser();
   const t = await getTranslations("Header");
+  const logoutAction = async () => {
+    "use server";
+    return signOut();
+  };
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex h-14 w-full bg-background shadow-lg flex items-center justify-between bg-background px-4 py-3 shadow-sm">
       <Link
@@ -49,10 +54,25 @@ export async function Header({
         <SheetContent side="right" className="w-64">
           <div className="grid gap-4 p-4">
             {!!user?.name && (
-              <div className="border-b border-muted-foreground/10 pb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
-                <UserIcon className="h-5 w-5" />
-                {user?.name}
-              </div>
+              <>
+                <div className="border-b border-muted-foreground/10 pb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+                  <img
+                    src={user.image}
+                    referrerpolicy="no-referrer"
+                    alt={"user name"}
+                    className="aspect-square rounded-md object-cover h-10 w-10"
+                  />
+                  {user?.name}
+                </div>
+                <Link
+                  href={`/${locale}/order`}
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+                  prefetch={false}
+                >
+                  <PackageIcon className="h-5 w-5" />
+                  {t("order")}
+                </Link>
+              </>
             )}
             <Link
               href={`/${locale}`}
@@ -70,22 +90,18 @@ export async function Header({
               <InfoIcon className="h-5 w-5" />
               {t("about")}
             </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <MailIcon className="h-5 w-5" />
-              {t("contact")}
-            </Link>
-            <Link
-              href={`/${locale}/order`}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <PackageIcon className="h-5 w-5" />
-              {t("order")}
-            </Link>
+            {!user ? (
+              <Link
+                href={`/${locale}/auth/login`}
+                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+                prefetch={false}
+              >
+                <SignInIcon className="h-5 w-5" />
+                {t("login")}
+              </Link>
+            ) : (
+              <Logout title={t("logout")} action={logoutAction} />
+            )}
           </div>
         </SheetContent>
       </Sheet>

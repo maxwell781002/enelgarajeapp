@@ -10,10 +10,10 @@ import {
   CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
-import { getCurrentUser, getOrCreateUser, updateUser } from "./user";
+import { getCurrentUser, updateUser } from "./user";
 import { OrderStatus } from "../prisma/generated/client";
 import { TUserRegisterSchema } from "../validation/user";
-import { getBySlug, getCurrentBusiness } from "./business";
+import { getCurrentBusiness } from "./business";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -69,9 +69,8 @@ export const hasProduct = async (
 export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
   if (!order) {
-    const { id } = (await getOrCreateUser()) as CompleteUser;
     order = (await prisma.order.create({
-      data: { productsDetails: "[]", userId: id },
+      data: { productsDetails: "[]" },
     })) as ShopCartOrder;
     cookies().set("order_id", order.id);
   }
@@ -209,6 +208,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const newOrder = await prisma.order.update({
     where: { id: order.id },
     data: {
+      userId: userEntity.id,
       total: order.total,
       status: OrderStatus.SEND,
       position: newPosition,

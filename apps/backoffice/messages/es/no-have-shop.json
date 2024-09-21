@@ -1,0 +1,8 @@
+{
+  "NoHaveShop": {
+    "title": "No tienes negocios",
+    "message": "Habla con nosotros para crear tu primer negocio.",
+    "btnSubmit": "Chatear en WhatsApp",
+    "textChat": "Hola, quiero crear una tienda en su plataforma."
+  }
+}

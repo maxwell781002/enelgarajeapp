@@ -3,15 +3,13 @@
 import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
+import { auth } from "../lib/auth";
 
 const USER_ID_COOKIES = "user_id";
 
 export const getCurrentUser = async () => {
-  const userId = cookies().get(USER_ID_COOKIES)?.value;
-  if (!userId) {
-    return null;
-  }
-  return prisma.user.findUnique({ where: { id: userId } });
+  const session = await auth();
+  return session?.user;
 };
 
 export const getOrCreateUser = async () => {

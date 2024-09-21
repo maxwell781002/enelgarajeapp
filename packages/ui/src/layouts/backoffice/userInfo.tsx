@@ -9,6 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { MenuItem, SEPARATOR } from "../../types/linkItem";
+import Link from "next/link";
+import Logout from "./logout";
+import { signOut } from "@repo/model/lib/auth";
+import { redirect } from "next/navigation";
 
 export type UserInfoProps = {
   userImage: string;
@@ -16,6 +20,11 @@ export type UserInfoProps = {
 };
 
 export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
+  const handleSignOut = async () => {
+    "use server";
+    await signOut();
+    return redirect("/");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,12 +33,11 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
           size="icon"
           className="overflow-hidden rounded-full"
         >
-          <Image
+          <img
             src={userImage}
-            width={36}
-            height={36}
-            alt="Avatar"
-            className="overflow-hidden rounded-full"
+            referrerpolicy="no-referrer"
+            alt={"user name"}
+            className="aspect-square rounded-md object-cover"
           />
         </Button>
       </DropdownMenuTrigger>
@@ -39,10 +47,14 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
             {item === SEPARATOR ? (
               <DropdownMenuSeparator />
             ) : (
-              <DropdownMenuItem>{item.title}</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={item.link}>{item.title}</Link>
+              </DropdownMenuItem>
             )}
           </Fragment>
         ))}
+        <DropdownMenuSeparator />
+        <Logout signOut={handleSignOut} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -10,9 +10,10 @@ import { getTranslations } from "next-intl/server";
 import { checkoutOrder, getCurrentOrder } from "@repo/model/repository/order";
 import EmptyCart from "../../../components/emptyCart";
 import { CheckoutForm } from "./form";
-import { getOrCreateUser } from "@repo/model/repository/user";
 import { TUserRegisterSchema } from "@repo/model/validation/user";
 import { redirect } from "next/navigation";
+import { auth } from "@repo/model/lib/auth";
+import NoUser from "./no-user";
 
 type PageProps = {
   params: {
@@ -27,12 +28,15 @@ export default async function Component({ params: { locale } }: PageProps) {
   if (!order || order.items.length === 0) {
     return <EmptyCart url={baseUrl} />;
   }
-  const user = await getOrCreateUser();
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
     await checkoutOrder(data);
     await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
+  const session = await auth();
+  if (!session) {
+    return <NoUser />;
+  }
 
   return (
     <div className="grid gap-6">
@@ -40,7 +44,7 @@ export default async function Component({ params: { locale } }: PageProps) {
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <CheckoutForm
           action={checkout}
-          defaultValues={user as TUserRegisterSchema}
+          defaultValues={session?.user as TUserRegisterSchema}
         />
       </div>
       <div>

@@ -52,6 +52,10 @@ export abstract class BaseRepository<T extends Entity, M> {
     return this.model.create({ data });
   }
 
+  getById(id: any) {
+    return this.model.findUnique({ where: { id } });
+  }
+
   protected validate(action: string, data: T) {
     const validator = this.validatorByAction[action] || this.validatorSchema;
     return validator.parse(data);

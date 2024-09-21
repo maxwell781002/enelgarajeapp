@@ -1,14 +1,36 @@
 import * as z from "zod";
-import { CompleteOrder, RelatedOrderModel } from "./index";
+import { UserRoles } from "../generated/client";
+import {
+  CompleteOrder,
+  RelatedOrderModel,
+  CompleteAccount,
+  RelatedAccountModel,
+  CompleteSession,
+  RelatedSessionModel,
+  CompleteAuthenticator,
+  RelatedAuthenticatorModel,
+  CompleteUserBusiness,
+  RelatedUserBusinessModel,
+} from "./index";
 
 export const UserModel = z.object({
   id: z.string(),
+  role: z.nativeEnum(UserRoles),
   name: z.string().nullish(),
   phone: z.string().nullish(),
+  email: z.string(),
+  emailVerified: z.date().nullish(),
+  image: z.string().nullish(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export interface CompleteUser extends z.infer<typeof UserModel> {
   orders: CompleteOrder[];
+  accounts: CompleteAccount[];
+  sessions: CompleteSession[];
+  Authenticator: CompleteAuthenticator[];
+  business: CompleteUserBusiness[];
 }
 
 /**
@@ -19,5 +41,9 @@ export interface CompleteUser extends z.infer<typeof UserModel> {
 export const RelatedUserModel: z.ZodSchema<CompleteUser> = z.lazy(() =>
   UserModel.extend({
     orders: RelatedOrderModel.array(),
+    accounts: RelatedAccountModel.array(),
+    sessions: RelatedSessionModel.array(),
+    Authenticator: RelatedAuthenticatorModel.array(),
+    business: RelatedUserBusinessModel.array(),
   }),
 );
