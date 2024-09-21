@@ -1,22 +1,30 @@
 import { signIn, auth } from "@repo/model/lib/auth";
+import SignIn from "@repo/ui/components/signin";
+import { getTranslations } from "next-intl/server";
 import { ReactNode } from "react";
 
 type SecurityProps = {
   children: ReactNode;
 };
 
-const SignIn = () => (
-  <form
-    action={async () => {
-      "use server";
-      await signIn("google");
-    }}
-  >
-    <button type="submit">Signin with Google</button>
-  </form>
-);
-
 export default async function Security({ children }: SecurityProps) {
   const session = await auth();
-  return <>{session?.user ? children : <SignIn />}</>;
+  const t = await getTranslations("Security");
+  const action = async (provider: string) => {
+    "use server";
+    await signIn(provider);
+  };
+  return (
+    <>
+      {session?.user ? (
+        children
+      ) : (
+        <SignIn
+          title={t("title")}
+          description={t("description")}
+          signIn={action}
+        />
+      )}
+    </>
+  );
 }
