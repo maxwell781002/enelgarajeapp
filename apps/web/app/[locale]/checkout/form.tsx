@@ -63,7 +63,7 @@ export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormDescription>{t("phName")}</FormDescription>
+              <FormDescription>{t("phPhone")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
