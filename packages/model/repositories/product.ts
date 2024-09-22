@@ -1,6 +1,6 @@
 import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
-import { CompleteProduct, ProductModel } from "../prisma/zod";
+import { CompleteProduct } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { put } from "@vercel/blob";
 import { ProductValidation } from "../validation/product";
@@ -26,12 +26,12 @@ export class ProductRepository extends BaseRepository<
 
   protected async doCreate(data: FormData) {
     const imageFile = data.get("image") as File;
-    data.delete("image");
     const blob = await put(imageFile.name, imageFile, {
       access: "public",
     });
-    console.log(blob);
-    return super.doCreate(data);
+    return this.model.create({
+      data: { ...this.getObject(data), image: blob },
+    });
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {

@@ -4402,7 +4402,6 @@ export namespace Prisma {
     id: string | null;
     name: string | null;
     slug: string | null;
-    image: string | null;
     description: string | null;
     price: number | null;
     offerPrice: number | null;
@@ -4414,7 +4413,6 @@ export namespace Prisma {
     id: string | null;
     name: string | null;
     slug: string | null;
-    image: string | null;
     description: string | null;
     price: number | null;
     offerPrice: number | null;
@@ -4450,7 +4448,6 @@ export namespace Prisma {
     id?: true;
     name?: true;
     slug?: true;
-    image?: true;
     description?: true;
     price?: true;
     offerPrice?: true;
@@ -4462,7 +4459,6 @@ export namespace Prisma {
     id?: true;
     name?: true;
     slug?: true;
-    image?: true;
     description?: true;
     price?: true;
     offerPrice?: true;
@@ -4579,11 +4575,11 @@ export namespace Prisma {
     id: string;
     name: string;
     slug: string | null;
-    image: string;
+    image: JsonValue;
     description: string;
     price: number;
     offerPrice: number | null;
-    images: string[];
+    images: JsonValue[];
     businessId: string;
     categoryId: string;
     _count: ProductCountAggregateOutputType | null;
@@ -4664,11 +4660,11 @@ export namespace Prisma {
         id: string;
         name: string;
         slug: string | null;
-        image: string;
+        image: Prisma.JsonValue;
         description: string;
         price: number;
         offerPrice: number | null;
-        images: string[];
+        images: Prisma.JsonValue[];
         businessId: string;
         categoryId: string;
       },
@@ -5175,11 +5171,11 @@ export namespace Prisma {
     readonly id: FieldRef<"Product", "String">;
     readonly name: FieldRef<"Product", "String">;
     readonly slug: FieldRef<"Product", "String">;
-    readonly image: FieldRef<"Product", "String">;
+    readonly image: FieldRef<"Product", "Json">;
     readonly description: FieldRef<"Product", "String">;
     readonly price: FieldRef<"Product", "Int">;
     readonly offerPrice: FieldRef<"Product", "Int">;
-    readonly images: FieldRef<"Product", "String[]">;
+    readonly images: FieldRef<"Product", "Json[]">;
     readonly businessId: FieldRef<"Product", "String">;
     readonly categoryId: FieldRef<"Product", "String">;
   }
@@ -14573,6 +14569,14 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Json"
+  >;
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -14586,6 +14590,14 @@ export namespace Prisma {
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<
     $PrismaModel,
     "Int[]"
+  >;
+
+  /**
+   * Reference to a field of type 'Json[]'
+   */
+  export type ListJsonFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Json[]"
   >;
 
   /**
@@ -14618,14 +14630,6 @@ export namespace Prisma {
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<
     $PrismaModel,
     "DateTime[]"
-  >;
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
-    $PrismaModel,
-    "Json"
   >;
 
   /**
@@ -14810,11 +14814,11 @@ export namespace Prisma {
     id?: StringFilter<"Product"> | string;
     name?: StringFilter<"Product"> | string;
     slug?: StringNullableFilter<"Product"> | string | null;
-    image?: StringFilter<"Product"> | string;
+    image?: JsonFilter<"Product">;
     description?: StringFilter<"Product"> | string;
     price?: IntFilter<"Product"> | number;
     offerPrice?: IntNullableFilter<"Product"> | number | null;
-    images?: StringNullableListFilter<"Product">;
+    images?: JsonNullableListFilter<"Product">;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringFilter<"Product"> | string;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -14846,11 +14850,11 @@ export namespace Prisma {
       OR?: ProductWhereInput[];
       NOT?: ProductWhereInput | ProductWhereInput[];
       name?: StringFilter<"Product"> | string;
-      image?: StringFilter<"Product"> | string;
+      image?: JsonFilter<"Product">;
       description?: StringFilter<"Product"> | string;
       price?: IntFilter<"Product"> | number;
       offerPrice?: IntNullableFilter<"Product"> | number | null;
-      images?: StringNullableListFilter<"Product">;
+      images?: JsonNullableListFilter<"Product">;
       businessId?: StringFilter<"Product"> | string;
       categoryId?: StringFilter<"Product"> | string;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -14889,11 +14893,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Product"> | string;
     name?: StringWithAggregatesFilter<"Product"> | string;
     slug?: StringNullableWithAggregatesFilter<"Product"> | string | null;
-    image?: StringWithAggregatesFilter<"Product"> | string;
+    image?: JsonWithAggregatesFilter<"Product">;
     description?: StringWithAggregatesFilter<"Product"> | string;
     price?: IntWithAggregatesFilter<"Product"> | number;
     offerPrice?: IntNullableWithAggregatesFilter<"Product"> | number | null;
-    images?: StringNullableListFilter<"Product">;
+    images?: JsonNullableListFilter<"Product">;
     businessId?: StringWithAggregatesFilter<"Product"> | string;
     categoryId?: StringWithAggregatesFilter<"Product"> | string;
   };
@@ -15660,11 +15664,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     business: BusinessCreateNestedOneWithoutProductsInput;
     category: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
@@ -15674,11 +15678,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     businessId: string;
     categoryId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
@@ -15688,11 +15692,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
@@ -15702,11 +15706,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
@@ -15716,11 +15720,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     businessId: string;
     categoryId: string;
   };
@@ -15729,22 +15733,22 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
   };
 
   export type ProductUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: StringFieldUpdateOperationsInput | string;
   };
@@ -16508,6 +16512,37 @@ export namespace Prisma {
     slug?: SortOrder;
     businessId?: SortOrder;
   };
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonFilterBase<$PrismaModel>>,
+          Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, "path">
+        >,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, "path">>;
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+  };
 
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
@@ -16530,12 +16565,26 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>;
     not?: NestedIntNullableFilter<$PrismaModel> | number | null;
   };
+  export type JsonNullableListFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonNullableListFilterBase<$PrismaModel>>,
+          Exclude<
+            keyof Required<JsonNullableListFilterBase<$PrismaModel>>,
+            "path"
+          >
+        >,
+        Required<JsonNullableListFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<Required<JsonNullableListFilterBase<$PrismaModel>>, "path">
+      >;
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null;
-    has?: string | StringFieldRefInput<$PrismaModel> | null;
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>;
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>;
+  export type JsonNullableListFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel> | null;
+    has?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    hasEvery?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel>;
+    hasSome?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel>;
     isEmpty?: boolean;
   };
 
@@ -16576,7 +16625,6 @@ export namespace Prisma {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrder;
-    image?: SortOrder;
     description?: SortOrder;
     price?: SortOrder;
     offerPrice?: SortOrder;
@@ -16588,7 +16636,6 @@ export namespace Prisma {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrder;
-    image?: SortOrder;
     description?: SortOrder;
     price?: SortOrder;
     offerPrice?: SortOrder;
@@ -16599,6 +16646,45 @@ export namespace Prisma {
   export type ProductSumOrderByAggregateInput = {
     price?: SortOrder;
     offerPrice?: SortOrder;
+  };
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
+          Exclude<
+            keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
+            "path"
+          >
+        >,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, "path">
+      >;
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedJsonFilter<$PrismaModel>;
+    _max?: NestedJsonFilter<$PrismaModel>;
   };
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -16796,37 +16882,6 @@ export namespace Prisma {
     userId?: SortOrder;
     businessId?: SortOrder;
   };
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<
-          Required<JsonFilterBase<$PrismaModel>>,
-          Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, "path">
-        >,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, "path">>;
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    path?: string[];
-    string_contains?: string | StringFieldRefInput<$PrismaModel>;
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    not?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-  };
 
   export type EnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>;
@@ -16889,45 +16944,6 @@ export namespace Prisma {
   export type OrderSumOrderByAggregateInput = {
     total?: SortOrder;
     position?: SortOrder;
-  };
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<
-          Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
-          Exclude<
-            keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
-            "path"
-          >
-        >,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<
-        Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, "path">
-      >;
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    path?: string[];
-    string_contains?: string | StringFieldRefInput<$PrismaModel>;
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    not?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedJsonFilter<$PrismaModel>;
-    _max?: NestedJsonFilter<$PrismaModel>;
   };
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -17636,7 +17652,7 @@ export namespace Prisma {
   };
 
   export type ProductCreateimagesInput = {
-    set: string[];
+    set: InputJsonValue[];
   };
 
   export type BusinessCreateNestedOneWithoutProductsInput = {
@@ -17704,8 +17720,8 @@ export namespace Prisma {
   };
 
   export type ProductUpdateimagesInput = {
-    set?: string[];
-    push?: string | string[];
+    set?: InputJsonValue[];
+    push?: InputJsonValue | InputJsonValue[];
   };
 
   export type BusinessUpdateOneRequiredWithoutProductsNestedInput = {
@@ -18654,6 +18670,37 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>;
     not?: NestedIntNullableFilter<$PrismaModel> | number | null;
   };
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<NestedJsonFilterBase<$PrismaModel>>,
+          Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, "path">
+        >,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, "path">>;
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+  };
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
@@ -18795,37 +18842,6 @@ export namespace Prisma {
       | ListEnumOrderStatusFieldRefInput<$PrismaModel>;
     not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus;
   };
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<
-          Required<NestedJsonFilterBase<$PrismaModel>>,
-          Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, "path">
-        >,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, "path">>;
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    path?: string[];
-    string_contains?: string | StringFieldRefInput<$PrismaModel>;
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    not?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-  };
 
   export type NestedEnumOrderStatusWithAggregatesFilter<$PrismaModel = never> =
     {
@@ -18888,11 +18904,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     category: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -18901,11 +18917,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     categoryId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
@@ -19056,11 +19072,11 @@ export namespace Prisma {
     id?: StringFilter<"Product"> | string;
     name?: StringFilter<"Product"> | string;
     slug?: StringNullableFilter<"Product"> | string | null;
-    image?: StringFilter<"Product"> | string;
+    image?: JsonFilter<"Product">;
     description?: StringFilter<"Product"> | string;
     price?: IntFilter<"Product"> | number;
     offerPrice?: IntNullableFilter<"Product"> | number | null;
-    images?: StringNullableListFilter<"Product">;
+    images?: JsonNullableListFilter<"Product">;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringFilter<"Product"> | string;
   };
@@ -19148,11 +19164,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     business: BusinessCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -19161,11 +19177,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     businessId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
@@ -20259,11 +20275,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     business: BusinessCreateNestedOneWithoutProductsInput;
     category: CategoryCreateNestedOneWithoutProductsInput;
   };
@@ -20272,11 +20288,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     businessId: string;
     categoryId: string;
   };
@@ -20345,11 +20361,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
   };
@@ -20358,11 +20374,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: StringFieldUpdateOperationsInput | string;
   };
@@ -20721,11 +20737,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     categoryId: string;
   };
 
@@ -20768,11 +20784,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -20781,11 +20797,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     categoryId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
@@ -20794,11 +20810,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     categoryId?: StringFieldUpdateOperationsInput | string;
   };
 
@@ -20853,11 +20869,11 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
-    image: string;
+    image: JsonNullValueInput | InputJsonValue;
     description: string;
     price: number;
     offerPrice?: number | null;
-    images?: ProductCreateimagesInput | string[];
+    images?: ProductCreateimagesInput | InputJsonValue[];
     businessId: string;
   };
 
@@ -20865,11 +20881,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -20878,11 +20894,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     businessId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
@@ -20891,11 +20907,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
-    image?: StringFieldUpdateOperationsInput | string;
+    image?: JsonNullValueInput | InputJsonValue;
     description?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
-    images?: ProductUpdateimagesInput | string[];
+    images?: ProductUpdateimagesInput | InputJsonValue[];
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 

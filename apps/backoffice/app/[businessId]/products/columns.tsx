@@ -1,4 +1,5 @@
 import { ColumnDef } from "@repo/ui/components/table/index";
+import Image from "next/image";
 import Link from "next/link";
 
 export const columns: ColumnDef<any>[] = [
@@ -6,13 +7,14 @@ export const columns: ColumnDef<any>[] = [
     header: "Nombre",
     accessorKey: "name",
     row: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
+      const image = JSON.parse(row.image as string);
       return (
         <div className="flex flex-1">
-          <img
-            src={row.image}
+          <Image
+            src={image.downloadUrl}
+            width={48}
+            height={48}
             alt={row.name}
-            style={{ width: 48, height: 48 }}
-            className="rounded-t-lg object-cover w-full h-48 mr-4"
           />
           <Link
             href={`products/${row.id}`}

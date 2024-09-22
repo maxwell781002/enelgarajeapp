@@ -49,11 +49,11 @@ model Product {
   id          String   @id @default(uuid())
   name        String
   slug        String?  @unique
-  image       String
+  image       Json
   description String
   price       Int
   offerPrice  Int?
-  images      String[]
+  images      Json[]
 
   business   Business       @relation(fields: [businessId], references: [id])
   businessId String
