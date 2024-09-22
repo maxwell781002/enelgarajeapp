@@ -23,7 +23,7 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
   const handleSignOut = async () => {
     "use server";
     await signOut();
-    return redirect("/");
+    return redirect("/login");
   };
   return (
     <DropdownMenu>
