@@ -21,7 +21,11 @@ export const useFormProcess = <T extends FieldValues>({
 
   async function onSubmit(data: any) {
     try {
-      await action({ ...defaultValues, ...data });
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
+      });
+      await action(formData);
       onSuccess && onSuccess();
     } catch (error) {
       setErrors<T, typeof form.setError>(error as TErrors, form.setError);

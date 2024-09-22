@@ -30,7 +30,7 @@ export abstract class BaseRepository<T extends Entity, M> {
     return this.model.findUnique({ where: { id }, ...query });
   }
 
-  create(data: T) {
+  create(data: FormData) {
     this.validate("create", data);
     return this.doCreate(data);
   }
@@ -39,26 +39,35 @@ export abstract class BaseRepository<T extends Entity, M> {
     return this.model.delete({ where: { id } });
   }
 
-  update({ id, ...data }: T) {
-    this.validate("update", { id, ...data } as T);
-    return this.doUpdate(id, data as T);
+  protected getObject(data: FormData) {
+    return Object.entries(Object.fromEntries(data.entries())).reduce(
+      (acc, [key, value]) => ({ ...acc, [key]: value }),
+      {},
+    );
   }
 
-  protected doUpdate(id: any, data: T) {
-    return this.model.update({ where: { id }, data });
+  update(data: FormData) {
+    this.validate("update", data);
+    return this.doUpdate(data);
   }
 
-  protected doCreate(data: T) {
-    return this.model.create({ data });
+  protected doUpdate(data: FormData) {
+    const id = data.get("id");
+    data.delete("id");
+    return this.model.update({ where: { id }, data: this.getObject(data) });
+  }
+
+  protected doCreate(data: FormData) {
+    return this.model.create({ data: this.getObject(data) });
   }
 
   getById(id: any) {
     return this.model.findUnique({ where: { id } });
   }
 
-  protected validate(action: string, data: T) {
+  protected validate(action: string, data: FormData) {
     const validator = this.validatorByAction[action] || this.validatorSchema;
-    return validator.parse(data);
+    return validator.parse(this.getObject(data));
   }
 
   async paginate({

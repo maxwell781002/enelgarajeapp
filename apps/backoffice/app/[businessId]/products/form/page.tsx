@@ -22,11 +22,12 @@ export default async function PageForm({
   params: { businessId },
   searchParams: { id },
 }: FormAction) {
-  const action = async (props: any) => {
+  const action = async (formData: FormData) => {
     "use server";
-    const { id } = props.id
-      ? await productRepository.update(props)
-      : await productRepository.create({ ...props, businessId });
+    formData.set("businessId", businessId);
+    const { id } = formData.get("id")
+      ? await productRepository.update(formData)
+      : await productRepository.create(formData);
     return redirect(`/${businessId}/products/${id}`);
   };
   const categories = await categoryRepository.getAll(businessId);

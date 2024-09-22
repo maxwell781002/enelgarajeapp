@@ -15,8 +15,9 @@ import { Textarea } from "@repo/ui/components/ui/textarea";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
-import { CompleteProduct, ProductModel } from "@repo/model/zod/product";
+import { CompleteProduct } from "@repo/model/zod/product";
 import EntitySelect from "@repo/ui/components/entity-select";
+import { ProductValidation } from "@repo/model/validation/product";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -24,9 +25,7 @@ type FormAction = {
   categories: any[];
 };
 
-const resolver = zodResolver(
-  ProductModel.omit({ id: true, businessId: true, images: true }),
-);
+const resolver = zodResolver(ProductValidation);
 
 export default function ProductForm({
   action,
@@ -81,11 +80,22 @@ export default function ProductForm({
         <FormField
           control={form.control}
           name="image"
-          render={({ field, fieldState: { error } }: any) => (
+          render={({
+            field: { onChange, value, ...field },
+            fieldState: { error },
+          }: any) => (
             <FormItem>
               <FormLabel>{t("lbImage")}</FormLabel>
               <FormControl>
-                <Input placeholder={t("phImage")} {...field} />
+                <Input
+                  placeholder={t("phImage")}
+                  {...field}
+                  value={value?.fileName}
+                  type="file"
+                  onChange={(event: any) => {
+                    onChange(event.target.files[0]);
+                  }}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
