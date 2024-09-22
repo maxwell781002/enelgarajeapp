@@ -5,9 +5,13 @@ import { redirect } from "next/navigation";
 import ShopNotHave from "./whatsaap-contact";
 
 export default async function Page() {
+  const session = await auth();
+  if (session?.user) {
+    return <></>;
+  }
   const {
     user: { role, id },
-  } = await auth();
+  } = session;
   if (role == UserRoles.ADMIN) {
     return redirect("/dashboard");
   }

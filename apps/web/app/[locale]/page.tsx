@@ -29,8 +29,6 @@ export default async function Page({ params: { locale } }: PageProps) {
     revalidatePath(baseUrl);
   };
 
-  console.log(JSON.stringify(list));
-
   return (
     <>
       {list.map(({ products, name, id }: any) => (
