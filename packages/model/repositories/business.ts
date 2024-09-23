@@ -2,7 +2,6 @@ import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
-import { z } from "zod";
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
@@ -12,9 +11,10 @@ export class BusinessRepository extends BaseRepository<
     super(BusinessValidation, prisma.business);
   }
 
-  async create({ userId, ...data }: z.infer<typeof BusinessValidation>) {
-    this.validate("create", data as CompleteBusiness);
-    const business = await this.doCreate(data as CompleteBusiness);
+  async doCreate(data: FormData) {
+    const userId = data.get("userId") as string;
+    data.delete("userId");
+    const business = await super.doCreate(data);
     if (userId) {
       await prisma.userBusiness.create({
         data: {

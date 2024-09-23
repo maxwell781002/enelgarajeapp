@@ -1,4 +1,5 @@
 import { CompleteProduct } from "@repo/model/zod/product";
+import Image from "@repo/ui/components/image";
 
 type ProductDetailProps = {
   product: CompleteProduct;
@@ -14,11 +15,11 @@ export default function ProductDetail({
   return (
     <div className="flex flex-col">
       <section className="w-full">
-        <img
+        <Image
           src={product.image}
           width={1600}
           height={800}
-          alt="Dish"
+          alt={product.name}
           className="w-full h-[500px] md:h-[600px] object-cover"
         />
       </section>
@@ -49,7 +50,7 @@ export default function ProductDetail({
         <h2 className="text-2xl md:text-3xl font-bold mb-8">{t("photos")}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {product.images.map((image) => (
-            <img
+            <Image
               key={image}
               src={image}
               width={600}

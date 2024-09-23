@@ -367,6 +367,7 @@ declare type Operation =
   | "findMany"
   | "create"
   | "createMany"
+  | "createManyAndReturn"
   | "update"
   | "updateMany"
   | "upsert"

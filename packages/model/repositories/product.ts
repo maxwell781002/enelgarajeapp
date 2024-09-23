@@ -1,7 +1,12 @@
 import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
-import { CompleteProduct, ProductModel } from "../prisma/zod";
+import { CompleteProduct } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
+import { del, put } from "@vercel/blob";
+import {
+  ProductUpdateValidation,
+  ProductValidation,
+} from "../validation/product";
 
 type PaginateData = {
   businessId?: string;
@@ -12,7 +17,58 @@ export class ProductRepository extends BaseRepository<
   typeof prisma.product
 > {
   constructor() {
-    super(ProductModel.omit({ id: true, images: true }), prisma.product);
+    super(ProductValidation, prisma.product);
+    this.addValidator("update", ProductUpdateValidation);
+  }
+
+  protected getObject(data: FormData) {
+    const object: Partial<CompleteProduct> = super.getObject(data);
+    if (object.offerPrice) object.offerPrice = Number(object.offerPrice);
+    if (object.price) object.price = Number(object.price);
+    return object;
+  }
+
+  protected uploadImage(data: FormData) {
+    const imageFile = data.get("image") as File;
+    return put(imageFile.name, imageFile, {
+      access: "public",
+    });
+  }
+
+  protected async doCreate(data: FormData) {
+    const blob = await this.uploadImage(data);
+    return this.model.create({
+      data: { ...this.getObject(data), image: blob },
+    });
+  }
+
+  protected async doUpdate(id: string, data: FormData) {
+    const image = data.get("image");
+    const entity = await this.getById(id);
+    if (image && typeof image === "object") {
+      const blob = await this.uploadImage(data);
+      try {
+        const newImage = await this.model.update({
+          where: { id: entity.id },
+          data: { ...this.getObject(data), image: blob },
+        });
+        await del(entity.image.url);
+        return newImage;
+      } catch (error) {
+        await del(blob.url);
+        throw error;
+      }
+    }
+    data.delete("image");
+    return super.doUpdate(id, data);
+  }
+
+  async remove(id: any) {
+    const entity = await this.getById(id);
+    const image: any = JSON.parse(entity.image);
+    const data = await super.remove(id);
+    await del(image.url);
+    return data;
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {

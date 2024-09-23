@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "../add-cart";
 import { ProductShopCartItem } from "@repo/model/repository/order";
+import Image from "@repo/ui/components/image";
 
 type CardItemProps = {
   item: ProductShopCartItem;
@@ -33,8 +34,10 @@ export function CardItem({
           </div>
         )}
         <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
-          <img
+          <Image
             src={item.image}
+            width={300}
+            height={300}
             alt={item.name}
             className="rounded-t-lg object-cover w-full h-48"
           />

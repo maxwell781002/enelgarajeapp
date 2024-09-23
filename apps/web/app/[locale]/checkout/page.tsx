@@ -14,6 +14,7 @@ import { TUserRegisterSchema } from "@repo/model/validation/user";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import NoUser from "./no-user";
+import Image from "@repo/ui/components/image";
 
 type PageProps = {
   params: {
@@ -63,10 +64,10 @@ export default async function Component({ params: { locale } }: PageProps) {
               {order.items.map((item) => (
                 <TableRow key={item.productId}>
                   <TableCell>
-                    <img
+                    <Image
                       src={item.product.image}
-                      width="64"
-                      height="64"
+                      width={64}
+                      height={64}
                       alt={item.product.name}
                       className="aspect-square rounded-md object-cover"
                     />

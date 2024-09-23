@@ -8,15 +8,23 @@ import {
   RelatedOrderProductModel,
 } from "./index";
 
+// Helper schema for JSON fields
+type Literal = boolean | number | string;
+type Json = Literal | { [key: string]: Json } | Json[];
+const literalSchema = z.union([z.string(), z.number(), z.boolean()]);
+const jsonSchema: z.ZodSchema<Json> = z.lazy(() =>
+  z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)]),
+);
+
 export const ProductModel = z.object({
   id: z.string(),
   name: z.string(),
   slug: z.string().nullish(),
-  image: z.string(),
+  image: jsonSchema,
   description: z.string(),
   price: z.number().int(),
   offerPrice: z.number().int().nullish(),
-  images: z.string().array(),
+  images: jsonSchema.array(),
   businessId: z.string(),
   categoryId: z.string(),
 });
