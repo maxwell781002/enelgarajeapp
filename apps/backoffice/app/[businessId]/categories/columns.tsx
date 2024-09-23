@@ -18,7 +18,7 @@ function RowActions({ row }: ActionProps) {
     <BtnList>
       <DialogForm
         title={t("editCategory")}
-        action={update}
+        action={(data) => update(row.id, data)}
         defaultValues={row}
         btnIcon={<Pencil1Icon />}
       />

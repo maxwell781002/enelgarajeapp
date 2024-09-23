@@ -13,7 +13,7 @@ export function crud<T extends Entity, U>(
   };
 
   const buildMethod =
-    (key: keyof BaseRepository<T, U>) => async (props: any) => {
+    (key: keyof Omit<BaseRepository<T, U>, "update">) => async (props: any) => {
       "use server";
       const repository = await getRepository();
       await repository[key](props);
@@ -33,11 +33,18 @@ export function crud<T extends Entity, U>(
     return (await getRepository()).paginate({ pageIndex, pageSize, ...query });
   };
 
+  const update = async (id: string, props: any) => {
+    "use server";
+    const repository = await getRepository();
+    await repository.update(id, props);
+    revalidatePath(path);
+  };
+
   return {
     list,
     paginate,
+    update,
     create: buildMethod("create"),
     remove: buildMethod("remove"),
-    update: buildMethod("update"),
   };
 }
