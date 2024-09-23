@@ -2,8 +2,11 @@ import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteProduct } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
-import { put } from "@vercel/blob";
-import { ProductValidation } from "../validation/product";
+import { del, put } from "@vercel/blob";
+import {
+  ProductUpdateValidation,
+  ProductValidation,
+} from "../validation/product";
 
 type PaginateData = {
   businessId?: string;
@@ -15,6 +18,7 @@ export class ProductRepository extends BaseRepository<
 > {
   constructor() {
     super(ProductValidation, prisma.product);
+    this.addValidator("update", ProductUpdateValidation);
   }
 
   protected getObject(data: FormData) {
@@ -24,14 +28,40 @@ export class ProductRepository extends BaseRepository<
     return object;
   }
 
-  protected async doCreate(data: FormData) {
+  protected uploadImage(data: FormData) {
     const imageFile = data.get("image") as File;
-    const blob = await put(imageFile.name, imageFile, {
+    return put(imageFile.name, imageFile, {
       access: "public",
     });
+  }
+
+  protected async doCreate(data: FormData) {
+    const blob = await this.uploadImage(data);
     return this.model.create({
       data: { ...this.getObject(data), image: blob },
     });
+  }
+
+  protected async doUpdate(id: string, data: FormData) {
+    const image = data.get("image");
+    const entity = await this.getById(id);
+    const oldImage: any = JSON.parse(entity.image);
+    if (image && typeof image === "object") {
+      const blob = await this.uploadImage(data);
+      try {
+        const newImage = await this.model.update({
+          where: { id: entity.id },
+          data: { ...this.getObject(data), image: blob },
+        });
+        await del(oldImage.url);
+        return newImage;
+      } catch (error) {
+        await del(blob.url);
+        throw error;
+      }
+    }
+    data.delete("image");
+    return super.doUpdate(id, data);
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {

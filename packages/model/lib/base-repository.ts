@@ -46,14 +46,12 @@ export abstract class BaseRepository<T extends Entity, M> {
     );
   }
 
-  update(data: FormData) {
+  update(id: string, data: FormData) {
     this.validate("update", data);
-    return this.doUpdate(data);
+    return this.doUpdate(id, data);
   }
 
-  protected doUpdate(data: FormData) {
-    const id = data.get("id");
-    data.delete("id");
+  protected doUpdate(id: string, data: FormData) {
     return this.model.update({ where: { id }, data: this.getObject(data) });
   }
 

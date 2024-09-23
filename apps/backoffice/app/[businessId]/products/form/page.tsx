@@ -25,10 +25,10 @@ export default async function PageForm({
   const action = async (formData: FormData) => {
     "use server";
     formData.set("businessId", businessId);
-    const { id } = formData.get("id")
-      ? await productRepository.update(formData)
+    const { id: idFromDb } = id
+      ? await productRepository.update(id, formData)
       : await productRepository.create(formData);
-    return redirect(`/${businessId}/products/${id}`);
+    return redirect(`/${businessId}/products/${idFromDb}`);
   };
   const categories = await categoryRepository.getAll(businessId);
   const product = id

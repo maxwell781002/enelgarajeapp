@@ -17,15 +17,17 @@ import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
 import { CompleteProduct } from "@repo/model/zod/product";
 import EntitySelect from "@repo/ui/components/entity-select";
-import { ProductValidation } from "@repo/model/validation/product";
+import {
+  ProductUpdateValidation,
+  ProductValidation,
+} from "@repo/model/validation/product";
+import { useMemo } from "react";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
   defaultValues: CompleteProduct;
   categories: any[];
 };
-
-const resolver = zodResolver(ProductValidation);
 
 export default function ProductForm({
   action,
@@ -34,6 +36,13 @@ export default function ProductForm({
 }: FormAction) {
   const t = useTranslations("Product");
   const { toast } = useToast();
+  const resolver = useMemo(
+    () =>
+      zodResolver(
+        defaultValues?.id ? ProductUpdateValidation : ProductValidation,
+      ),
+    [defaultValues?.id],
+  );
   const { form, onSubmit } = useFormProcess({
     resolver,
     action,
