@@ -46,9 +46,9 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
-  slug        String?  @unique
+  slug        String? @unique
   image       Json
   description String
   price       Int

@@ -45,7 +45,6 @@ export class ProductRepository extends BaseRepository<
   protected async doUpdate(id: string, data: FormData) {
     const image = data.get("image");
     const entity = await this.getById(id);
-    const oldImage: any = JSON.parse(entity.image);
     if (image && typeof image === "object") {
       const blob = await this.uploadImage(data);
       try {
@@ -53,7 +52,7 @@ export class ProductRepository extends BaseRepository<
           where: { id: entity.id },
           data: { ...this.getObject(data), image: blob },
         });
-        await del(oldImage.url);
+        await del(entity.image.url);
         return newImage;
       } catch (error) {
         await del(blob.url);

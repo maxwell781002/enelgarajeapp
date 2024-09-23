@@ -31,12 +31,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.13.0
- * Query Engine version: b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b
+ * Prisma Client JS version: 5.19.1
+ * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
  */
 Prisma.prismaVersion = {
-  client: "5.13.0",
-  engine: "b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b"
+  client: "5.19.1",
+  engine: "69d742ee20b815d88e17e54db4a2a7a3b30324e3"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -271,15 +271,16 @@ const config = {
     "previewFeatures": [
       "driverAdapters"
     ],
+    "sourceFilePath": "/home/renier/Development/DESARROLLO/CATALOG/catalog/packages/model/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
     "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "schemaEnvPath": "../../../../../apps/backoffice/.env"
   },
   "relativePath": "../..",
-  "clientVersion": "5.13.0",
-  "engineVersion": "b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b",
+  "clientVersion": "5.19.1",
+  "engineVersion": "69d742ee20b815d88e17e54db4a2a7a3b30324e3",
   "datasourceNames": [
     "db"
   ],
@@ -293,8 +294,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  output          = \"./generated/client\"\n  previewFeatures = [\"driverAdapters\"]\n}\n\ngenerator zod {\n  provider = \"zod-prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"POSTGRES_PRISMA_URL\") // uses connection pooling\n  directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\n}\n\nmodel Business {\n  id          String  @id @default(uuid())\n  name        String\n  description String?\n  address     String?\n  howToArrive String?\n  coordinates Float[]\n  slug        String? @unique\n\n  categories Category[]\n  products   Product[]\n  orders     Order[]\n  users      UserBusiness[]\n}\n\nmodel Category {\n  id       String    @id @default(uuid())\n  name     String /// @zod.min(1, { message: \"required\" })\n  slug     String?   @unique\n  products Product[]\n\n  business   Business @relation(fields: [businessId], references: [id])\n  businessId String\n}\n\nmodel Product {\n  id          String   @id @default(uuid())\n  name        String\n  slug        String?  @unique\n  image       Json\n  description String\n  price       Int\n  offerPrice  Int?\n  images      Json[]\n\n  business   Business       @relation(fields: [businessId], references: [id])\n  businessId String\n  category   Category       @relation(fields: [categoryId], references: [id])\n  categoryId String\n  orderItems OrderProduct[]\n}\n\nmodel User {\n  id            String          @id @default(uuid())\n  role          UserRoles       @default(USER)\n  name          String?\n  phone         String?\n  orders        Order[]\n  email         String          @unique\n  emailVerified DateTime?\n  image         String?\n  accounts      Account[]\n  sessions      Session[]\n  // Optional for WebAuthn support\n  Authenticator Authenticator[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  business UserBusiness[]\n}\n\nmodel UserBusiness {\n  user       User     @relation(fields: [userId], references: [id])\n  userId     String\n  business   Business @relation(fields: [businessId], references: [id])\n  businessId String\n\n  @@id([userId, businessId])\n}\n\nmodel Order {\n  id              String         @id @default(uuid())\n  user            User?          @relation(fields: [userId], references: [id])\n  userId          String?\n  items           OrderProduct[]\n  productsDetails Json\n  total           Int            @default(0)\n  status          OrderStatus    @default(CREATED)\n  sentAt          DateTime?\n  position        Int?\n  business        Business?      @relation(fields: [businessId], references: [id])\n  businessId      String?\n  identifier      String?\n}\n\nmodel OrderProduct {\n  product   Product @relation(fields: [productId], references: [id])\n  productId String // relation scalar field (used in the `@relation` attribute above)\n  order     Order   @relation(fields: [orderId], references: [id])\n  orderId   String // relation scalar field (used in the `@relation` attribute above)\n  price     Int\n  position  Int     @default(1)\n\n  quantity Int\n\n  @@id([productId, orderId])\n}\n\nenum UserRoles {\n  USER\n  ADMIN\n}\n\nenum OrderStatus {\n  CREATED\n  SEND\n  PAYED\n  REJECTED\n}\n\nmodel Account {\n  userId            String\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String?\n  access_token      String?\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String?\n  session_state     String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@id([provider, providerAccountId])\n}\n\nmodel Session {\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String\n  expires    DateTime\n\n  @@id([identifier, token])\n}\n\n// Optional for WebAuthn support\nmodel Authenticator {\n  credentialID         String  @unique\n  userId               String\n  providerAccountId    String\n  credentialPublicKey  String\n  counter              Int\n  credentialDeviceType String\n  credentialBackedUp   Boolean\n  transports           String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@id([userId, credentialID])\n}\n",
-  "inlineSchemaHash": "4537e2c4686040588c1a522167decad4f863467ad98061ba0145e082e54e5fb7",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  output          = \"./generated/client\"\n  previewFeatures = [\"driverAdapters\"]\n}\n\ngenerator zod {\n  provider = \"zod-prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"POSTGRES_PRISMA_URL\") // uses connection pooling\n  directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\n}\n\nmodel Business {\n  id          String  @id @default(uuid())\n  name        String\n  description String?\n  address     String?\n  howToArrive String?\n  coordinates Float[]\n  slug        String? @unique\n\n  categories Category[]\n  products   Product[]\n  orders     Order[]\n  users      UserBusiness[]\n}\n\nmodel Category {\n  id       String    @id @default(uuid())\n  name     String /// @zod.min(1, { message: \"required\" })\n  slug     String?   @unique\n  products Product[]\n\n  business   Business @relation(fields: [businessId], references: [id])\n  businessId String\n}\n\nmodel Product {\n  id          String  @id @default(uuid())\n  name        String\n  slug        String? @unique\n  image       Json\n  description String\n  price       Int\n  offerPrice  Int?\n  images      Json[]\n\n  business   Business       @relation(fields: [businessId], references: [id])\n  businessId String\n  category   Category       @relation(fields: [categoryId], references: [id])\n  categoryId String\n  orderItems OrderProduct[]\n}\n\nmodel User {\n  id            String          @id @default(uuid())\n  role          UserRoles       @default(USER)\n  name          String?\n  phone         String?\n  orders        Order[]\n  email         String          @unique\n  emailVerified DateTime?\n  image         String?\n  accounts      Account[]\n  sessions      Session[]\n  // Optional for WebAuthn support\n  Authenticator Authenticator[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  business UserBusiness[]\n}\n\nmodel UserBusiness {\n  user       User     @relation(fields: [userId], references: [id])\n  userId     String\n  business   Business @relation(fields: [businessId], references: [id])\n  businessId String\n\n  @@id([userId, businessId])\n}\n\nmodel Order {\n  id              String         @id @default(uuid())\n  user            User?          @relation(fields: [userId], references: [id])\n  userId          String?\n  items           OrderProduct[]\n  productsDetails Json\n  total           Int            @default(0)\n  status          OrderStatus    @default(CREATED)\n  sentAt          DateTime?\n  position        Int?\n  business        Business?      @relation(fields: [businessId], references: [id])\n  businessId      String?\n  identifier      String?\n}\n\nmodel OrderProduct {\n  product   Product @relation(fields: [productId], references: [id])\n  productId String // relation scalar field (used in the `@relation` attribute above)\n  order     Order   @relation(fields: [orderId], references: [id])\n  orderId   String // relation scalar field (used in the `@relation` attribute above)\n  price     Int\n  position  Int     @default(1)\n\n  quantity Int\n\n  @@id([productId, orderId])\n}\n\nenum UserRoles {\n  USER\n  ADMIN\n}\n\nenum OrderStatus {\n  CREATED\n  SEND\n  PAYED\n  REJECTED\n}\n\nmodel Account {\n  userId            String\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String?\n  access_token      String?\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String?\n  session_state     String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@id([provider, providerAccountId])\n}\n\nmodel Session {\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String\n  expires    DateTime\n\n  @@id([identifier, token])\n}\n\n// Optional for WebAuthn support\nmodel Authenticator {\n  credentialID         String  @unique\n  userId               String\n  providerAccountId    String\n  credentialPublicKey  String\n  counter              Int\n  credentialDeviceType String\n  credentialBackedUp   Boolean\n  transports           String?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@id([userId, credentialID])\n}\n",
+  "inlineSchemaHash": "651f57ecf5132a062110de7d24b6c8193cda8a4ff34ab46adfaf021b63170fac",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -304,7 +305,9 @@ defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: () => require('./query_engine_bg.js'),
   getQueryEngineWasmModule: async () => {
-    return (await import('#wasm-engine-loader')).default
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine 
   }
 }
 
