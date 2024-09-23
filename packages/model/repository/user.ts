@@ -1,11 +1,8 @@
 "use server";
 
-import { cookies } from "next/headers";
 import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 import { auth } from "../lib/auth";
-
-const USER_ID_COOKIES = "user_id";
 
 export const getCurrentUser = async () => {
   const session = await auth();

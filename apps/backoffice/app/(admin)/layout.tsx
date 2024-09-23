@@ -23,6 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
+  //TODO: I will check if I can do this in the middleware.
   if (!session || session.user.role !== UserRoles.ADMIN) {
     return redirect("/");
   }
