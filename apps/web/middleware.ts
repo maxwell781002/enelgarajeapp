@@ -11,6 +11,8 @@ const intlMiddleware = createMiddleware({
   defaultLocale,
 });
 
+export const runtime = "experimental-edge";
+
 export default async function middleware(request: NextRequest) {
   const session = await auth();
   if (

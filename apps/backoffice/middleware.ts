@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@repo/model/lib/auth";
 
+export const runtime = "experimental-edge";
+
 export default async function middleware(request: NextRequest) {
   const session = await auth();
   const isLogin = request.nextUrl.pathname === "/login";
