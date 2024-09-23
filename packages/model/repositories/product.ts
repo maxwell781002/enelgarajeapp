@@ -64,6 +64,14 @@ export class ProductRepository extends BaseRepository<
     return super.doUpdate(id, data);
   }
 
+  async remove(id: any) {
+    const entity = await this.getById(id);
+    const image: any = JSON.parse(entity.image);
+    const data = await super.remove(id);
+    await del(image.url);
+    return data;
+  }
+
   paginate({ businessId, ...data }: PaginateData = {}) {
     return super.paginate({
       ...data,
