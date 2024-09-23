@@ -1,5 +1,5 @@
 import { CompleteProduct } from "@repo/model/zod/product";
-import Image from "next/image";
+import Image from "@repo/ui/components/image";
 
 type ProductDetailProps = {
   product: CompleteProduct;
@@ -12,12 +12,11 @@ export default function ProductDetail({
   addCartBtn,
   t,
 }: ProductDetailProps) {
-  const image = JSON.parse(product.image as string);
   return (
     <div className="flex flex-col">
       <section className="w-full">
         <Image
-          src={image.downloadUrl}
+          src={product.image}
           width={1600}
           height={800}
           alt={product.name}
@@ -51,7 +50,7 @@ export default function ProductDetail({
         <h2 className="text-2xl md:text-3xl font-bold mb-8">{t("photos")}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {product.images.map((image) => (
-            <img
+            <Image
               key={image}
               src={image}
               width={600}

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import Image from "@repo/ui/components/image";
 
 type Props = {
   item: CompleteOrderProduct;
@@ -25,7 +26,7 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
         <CardContent>
           <div className="grid gap-4">
             <div className="flex items-center gap-4">
-              <img
+              <Image
                 src={item.product.image}
                 alt={item.product.name}
                 className="rounded-md"
