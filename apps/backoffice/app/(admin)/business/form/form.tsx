@@ -76,6 +76,19 @@ export default function BusinessForm({
         />
         <FormField
           control={form.control}
+          name="slug"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbSlug")}</FormLabel>
+              <FormControl>
+                <Input placeholder={t("phSlug")} {...field} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="userId"
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
