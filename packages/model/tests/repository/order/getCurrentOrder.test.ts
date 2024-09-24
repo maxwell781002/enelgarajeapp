@@ -11,6 +11,12 @@ vi.mock("next/headers", () => ({
     get: mocksGet.get,
   }),
 }));
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({ value: "" })),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 describe("CurrentOrder", () => {
   let orderId;

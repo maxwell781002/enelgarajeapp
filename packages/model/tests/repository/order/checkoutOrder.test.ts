@@ -8,6 +8,9 @@ const mocksCookies = vi.hoisted(() => ({
   delete: vi.fn(),
 }));
 vi.mock("next/headers", () => ({
+  headers: () => ({
+    get: vi.fn(() => "http://localhost:3000"),
+  }),
   cookies: () => ({
     get: mocksCookies.get,
     set: mocksCookies.set,
@@ -51,7 +54,7 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order", async () => {
-    const newOrder = await checkoutOrder(userData, business.slug);
+    const newOrder = await checkoutOrder(userData as any);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(1);
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);

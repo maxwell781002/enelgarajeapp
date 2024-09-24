@@ -1,7 +1,14 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import { orderFactory, userFactory } from "../../factories";
 import { OrderStatus } from "../../../prisma/generated/client";
 import { getOrdersByUserId } from "../../../repository/order";
+
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({ value: "" })),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 describe("getOrdersByUserId", () => {
   let user1;

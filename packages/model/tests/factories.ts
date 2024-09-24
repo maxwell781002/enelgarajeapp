@@ -1,5 +1,12 @@
 import prisma from "../prisma/prisma-client";
 
+const randomEmail = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};
+
 export const clearBd = async () => {
   await prisma.orderProduct.deleteMany();
   await prisma.product.deleteMany();
@@ -21,6 +28,7 @@ export const businessFactory = (data = {}) => {
   return prisma.business.create({
     data: {
       name: "Business",
+      slug: "http://localhost:3000",
       ...data,
     },
   });
@@ -47,7 +55,11 @@ export const productFactory = async (data: any = {}) => {
 };
 
 export const userFactory = async (data = {}) => {
-  return prisma.user.create({ data: {} });
+  return prisma.user.create({
+    data: {
+      email: `${randomEmail()}@gmail.com`,
+    },
+  });
 };
 
 export const orderFactory = async (data: any) => {

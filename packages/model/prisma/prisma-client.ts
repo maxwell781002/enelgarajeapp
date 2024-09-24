@@ -16,9 +16,6 @@ const createSlug = ({ model, operation, args, query }: any) => {
 
 const prisma = new PrismaClient({ adapter }).$extends({
   query: {
-    business: {
-      create: createSlug,
-    },
     product: {
       create: createSlug,
     },

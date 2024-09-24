@@ -1,5 +1,5 @@
 import { describe, vi, beforeAll, it, expect, afterAll } from "vitest";
-import { clearBd, productFactory } from "../../factories";
+import { businessFactory, clearBd, productFactory } from "../../factories";
 import {
   addToOrder,
   decrementItem,
@@ -20,13 +20,24 @@ vi.mock("next/headers", () => ({
   }),
 }));
 
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({ value: "" })),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
+
 describe("shopCart", () => {
   let product1;
   let product2;
 
   beforeAll(async () => {
-    product1 = await productFactory();
-    product2 = await productFactory();
+    product1 = await productFactory({
+      businessId: (await businessFactory({ slug: "http://localhost:3000" })).id,
+    });
+    product2 = await productFactory({
+      businessId: (await businessFactory({ slug: "http://localhost:3002" })).id,
+    });
   });
 
   afterAll(async () => {
