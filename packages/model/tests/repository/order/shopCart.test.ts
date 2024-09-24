@@ -1,5 +1,5 @@
 import { describe, vi, beforeAll, it, expect, afterAll } from "vitest";
-import { clearBd, productFactory } from "../../factories";
+import { businessFactory, clearBd, productFactory } from "../../factories";
 import {
   addToOrder,
   decrementItem,
@@ -20,13 +20,24 @@ vi.mock("next/headers", () => ({
   }),
 }));
 
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({ value: "" })),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
+
 describe("shopCart", () => {
   let product1;
   let product2;
 
   beforeAll(async () => {
-    product1 = await productFactory();
-    product2 = await productFactory();
+    product1 = await productFactory({
+      businessId: (await businessFactory({ slug: "http://localhost:3000" })).id,
+    });
+    product2 = await productFactory({
+      businessId: (await businessFactory({ slug: "http://localhost:3002" })).id,
+    });
   });
 
   afterAll(async () => {
@@ -47,9 +58,8 @@ describe("shopCart", () => {
     expect(order.items[0].productId).toBe(product1.id);
     expect(order.items[0].quantity).toBe(1);
     expect(order.items[0].position).toBe(1);
-    const productsDetails = JSON.parse(order.productsDetails as string);
-    expect(productsDetails).toHaveLength(1);
-    expect(productsDetails[0]).toEqual(product1);
+    expect(order.productsDetails).toHaveLength(1);
+    expect((order.productsDetails as Array<any>)[0]).toEqual(product1);
   });
 
   it("decrement quantity", async () => {
@@ -69,9 +79,8 @@ describe("shopCart", () => {
     expect(order.items[1].productId).toBe(product2.id);
     expect(order.items[1].quantity).toBe(1);
     expect(order.items[1].position).toBe(2);
-    const productsDetails = JSON.parse(order.productsDetails as string);
-    expect(productsDetails).toHaveLength(2);
-    expect(productsDetails[1]).toEqual(product2);
+    expect(order.productsDetails).toHaveLength(2);
+    expect((order.productsDetails as Array<any>)[1]).toEqual(product2);
   });
 
   it("add product again", async () => {
@@ -81,10 +90,9 @@ describe("shopCart", () => {
     expect(order.items[0].productId).toBe(product1.id);
     expect(order.items[0].quantity).toBe(2);
     expect(order.items[0].position).toBe(1);
-    const productsDetails = JSON.parse(order.productsDetails as string);
-    expect(productsDetails).toHaveLength(2);
-    expect(productsDetails[0]).toEqual(product1);
-    expect(productsDetails[1]).toEqual(product2);
+    expect(order.productsDetails).toHaveLength(2);
+    expect((order.productsDetails as Array<any>)[0]).toEqual(product1);
+    expect((order.productsDetails as Array<any>)[1]).toEqual(product2);
   });
 
   it("Increment product", async () => {
@@ -94,10 +102,9 @@ describe("shopCart", () => {
     expect(order.items[0].productId).toBe(product1.id);
     expect(order.items[0].quantity).toBe(3);
     expect(order.items[0].position).toBe(1);
-    const productsDetails = JSON.parse(order.productsDetails as string);
-    expect(productsDetails).toHaveLength(2);
-    expect(productsDetails[0]).toEqual(product1);
-    expect(productsDetails[1]).toEqual(product2);
+    expect(order.productsDetails).toHaveLength(2);
+    expect((order.productsDetails as Array<any>)[0]).toEqual(product1);
+    expect((order.productsDetails as Array<any>)[1]).toEqual(product2);
   });
 
   it("decrement quantity", async () => {
@@ -116,8 +123,7 @@ describe("shopCart", () => {
     expect(order.items[0].productId).toBe(product2.id);
     expect(order.items[0].quantity).toBe(1);
     expect(order.items[0].position).toBe(2);
-    const productsDetails = JSON.parse(order.productsDetails as string);
-    expect(productsDetails).toHaveLength(1);
-    expect(productsDetails[0]).toEqual(product2);
+    expect(order.productsDetails).toHaveLength(1);
+    expect((order.productsDetails as Array<any>)[0]).toEqual(product2);
   });
 });

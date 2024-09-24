@@ -1,7 +1,14 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { productFactory, clearBd } from "../../factories";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { productFactory, clearBd, businessFactory } from "../../factories";
 import prisma from "../../../prisma/prisma-client";
 import { hasProduct } from "../../../repository/order";
+
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({ value: "" })),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 describe("hasProduct", () => {
   let order;
@@ -9,8 +16,12 @@ describe("hasProduct", () => {
   let product2;
 
   beforeAll(async () => {
-    product1 = await productFactory();
-    product2 = await productFactory();
+    product1 = await productFactory({
+      businessId: (await businessFactory({ slug: "http://localhost:3000" })).id,
+    });
+    product2 = await productFactory({
+      businessId: (await businessFactory({ slug: "http://localhost:3002" })).id,
+    });
     order = await prisma.order.create({
       data: {
         productsDetails: "[]",
