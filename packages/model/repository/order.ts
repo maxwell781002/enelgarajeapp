@@ -70,17 +70,11 @@ export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
   if (!order) {
     order = (await prisma.order.create({
-      data: { productsDetails: "[]" },
+      data: { productsDetails: [] },
     })) as ShopCartOrder;
     cookies().set("order_id", order.id);
   }
   return order;
-};
-
-const getProducts = (order: ShopCartOrder) => {
-  return order.productsDetails instanceof Array
-    ? order.productsDetails
-    : JSON.parse((order.productsDetails as string) || "[]");
 };
 
 export const decrementItem = async (productId: string) => {
@@ -127,12 +121,12 @@ const incrementDecrementItem = async (
 
 export const removeFromOrder = async (productId: string) => {
   const order = await getOrCrateOrder();
-  let products = await getProducts(order);
+  let products = order.productsDetails as Array<any>;
   products = products.filter((product: any) => product.id !== productId);
   return prisma.order.update({
     where: { id: order.id },
     data: {
-      productsDetails: JSON.stringify(products),
+      productsDetails: products,
       items: {
         delete: {
           productId_orderId: {
@@ -149,7 +143,7 @@ export const removeFromOrder = async (productId: string) => {
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompleteProduct;
   const order = await getOrCrateOrder();
-  let products = await getProducts(order);
+  let products = order.productsDetails as Array<any>
   const find = (order.items || []).find(
     (item: any) => item.productId === product.id,
   );
@@ -166,7 +160,7 @@ export const addToOrder = async (productId: string) => {
   return prisma.order.update({
     where: { id: order.id },
     data: {
-      productsDetails: JSON.stringify(products),
+      productsDetails: products,
       items: {
         upsert: {
           create: {

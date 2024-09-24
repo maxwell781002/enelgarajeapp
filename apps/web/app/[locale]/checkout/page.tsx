@@ -15,6 +15,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import NoUser from "./no-user";
 import Image from "@repo/ui/components/image";
+import { userRepository } from "@repo/model/repositories/user";
 
 type PageProps = {
   params: {
@@ -38,14 +39,14 @@ export default async function Component({ params: { locale } }: PageProps) {
   if (!session) {
     return <NoUser />;
   }
-
+  const user = await userRepository.getById(session.user.id);
   return (
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <CheckoutForm
           action={checkout}
-          defaultValues={session?.user as TUserRegisterSchema}
+          defaultValues={user}
         />
       </div>
       <div>
