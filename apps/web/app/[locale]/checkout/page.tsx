@@ -44,10 +44,7 @@ export default async function Component({ params: { locale } }: PageProps) {
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <CheckoutForm
-          action={checkout}
-          defaultValues={user}
-        />
+        <CheckoutForm action={checkout} defaultValues={user} />
       </div>
       <div>
         <h1 className="text-2xl font-bold">{t("products")}</h1>

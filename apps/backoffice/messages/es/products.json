@@ -18,6 +18,7 @@
     "productUpdated": "Producto actualizado",
     "productCreated": "Producto creado",
     "updateProduct": "Actualizar producto",
+    "price_should_be_less_than_offer_price": "El precio debe ser menor que el precio de oferta.",
     "btnSubmit": "Salvar"
   }
 }

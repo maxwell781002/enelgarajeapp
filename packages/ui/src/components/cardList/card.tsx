@@ -1,12 +1,13 @@
 "use client";
 
 import { useOptimistic } from "react";
-import { CardContent, Card } from "../ui/card";
+import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
-import { BtnAddCart } from "../add-cart";
+import { BtnAddCart } from "@repo/ui/components/add-cart";
 import { ProductShopCartItem } from "@repo/model/repository/order";
 import Image from "@repo/ui/components/image";
+import PriceDisplay from "@repo/ui/components/price";
 
 type CardItemProps = {
   item: ProductShopCartItem;
@@ -50,7 +51,12 @@ export function CardItem({
           </Link>
         )}
         <div className="flex justify-between items-center">
-          <span className="font-semibold font-sans">${item.price}</span>
+          <span className="font-semibold font-sans">
+            <PriceDisplay
+              price={item.price}
+              offerPrice={item.offerPrice as number}
+            />
+          </span>
           <BtnAddCart action={handleAdd} />
         </div>
       </CardContent>

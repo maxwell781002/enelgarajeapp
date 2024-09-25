@@ -4815,7 +4815,13 @@ export namespace Prisma {
         slug: string | null;
         image: Prisma.JsonValue;
         description: string;
+        /**
+         * @zod.gte(0)
+         */
         price: number;
+        /**
+         * @zod.gte(0)
+         */
         offerPrice: number | null;
         images: Prisma.JsonValue[];
         businessId: string;

@@ -52,9 +52,15 @@ export default function ProductForm({
         title: defaultValues?.id ? t("productUpdated") : t("productCreated"),
       }),
   });
+  const globalError = useMemo(
+    () => form.formState.errors[""]?.message || "",
+    [form.formState],
+  );
 
   return (
     <Form {...form}>
+      {}
+      <FormMessage>{!!globalError && t(globalError)}</FormMessage>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
