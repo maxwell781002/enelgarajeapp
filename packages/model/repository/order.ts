@@ -143,7 +143,7 @@ export const removeFromOrder = async (productId: string) => {
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompleteProduct;
   const order = await getOrCrateOrder();
-  let products = order.productsDetails as Array<any>
+  let products = order.productsDetails as Array<any>;
   const find = (order.items || []).find(
     (item: any) => item.productId === product.id,
   );

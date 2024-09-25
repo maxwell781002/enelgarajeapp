@@ -1,5 +1,6 @@
 import { CompleteProduct } from "@repo/model/zod/product";
 import Image from "@repo/ui/components/image";
+import PriceDisplay from "@repo/ui/components/price";
 
 type ProductDetailProps = {
   product: CompleteProduct;
@@ -30,7 +31,12 @@ export default function ProductDetail({
               {product.name}
             </h1>
             <div className="flex justify-between items-center border-y border-indigo-600 py-2 mb-2">
-              <div className="font-semibold mb-1">${product.price}</div>
+              <div className="font-semibold mb-1">
+                <PriceDisplay
+                  price={product.price}
+                  offerPrice={product.offerPrice as number}
+                />
+              </div>
               {addCartBtn}
             </div>
             <p className="text-muted-foreground text-lg mb-6">

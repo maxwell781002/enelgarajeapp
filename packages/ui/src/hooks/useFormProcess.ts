@@ -22,9 +22,11 @@ export const useFormProcess = <T extends FieldValues>({
   async function onSubmit(data: any) {
     try {
       const formData = new FormData();
-      Object.keys(data).filter((key) => !!data[key]).forEach((key) => {
-        formData.append(key, data[key]);
-      });
+      Object.keys(data)
+        .filter((key) => !!data[key])
+        .forEach((key) => {
+          formData.append(key, data[key]);
+        });
       await action(formData);
       onSuccess && onSuccess();
     } catch (error) {

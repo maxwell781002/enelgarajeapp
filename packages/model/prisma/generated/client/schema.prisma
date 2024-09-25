@@ -51,8 +51,8 @@ model Product {
   slug        String? @unique
   image       Json
   description String
-  price       Int
-  offerPrice  Int?
+  price       Int /// @zod.gte(0)
+  offerPrice  Int? /// @zod.gte(0)
   images      Json[]
 
   business   Business       @relation(fields: [businessId], references: [id])
