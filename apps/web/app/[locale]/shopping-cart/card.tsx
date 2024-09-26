@@ -8,6 +8,7 @@ import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Image from "@repo/ui/components/image";
+import PriceDisplay from "@repo/ui/components/price";
 
 type Props = {
   item: CompleteOrderProduct;
@@ -37,6 +38,10 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
               <div>
                 <Link href={`${url}/${item.product.slug}`} prefetch={false}>
                   <h3 className="font-medium">{item.product.name}</h3>
+                  <PriceDisplay
+                    offerPrice={item.product.offerPrice as number}
+                    price={item.product.price}
+                  />
                 </Link>
               </div>
             </div>

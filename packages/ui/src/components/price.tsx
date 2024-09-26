@@ -19,7 +19,7 @@ export default function PriceDisplay({
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      {offerPrice !== undefined && offerPrice < price ? (
+      {offerPrice && offerPrice < price ? (
         <>
           <span
             className="text-lg font-bold text-green-600"
