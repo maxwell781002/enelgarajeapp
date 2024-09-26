@@ -34,9 +34,12 @@ describe("shopCart", () => {
   beforeAll(async () => {
     product1 = await productFactory({
       businessId: (await businessFactory({ slug: "http://localhost:3000" })).id,
+      price: 50,
+      offerPrice: 10,
     });
     product2 = await productFactory({
       businessId: (await businessFactory({ slug: "http://localhost:3002" })).id,
+      price: 20,
     });
   });
 
@@ -58,8 +61,10 @@ describe("shopCart", () => {
     expect(order.items[0].productId).toBe(product1.id);
     expect(order.items[0].quantity).toBe(1);
     expect(order.items[0].position).toBe(1);
+    expect(order.items[0].price).toBe(10);
     expect(order.productsDetails).toHaveLength(1);
     expect((order.productsDetails as Array<any>)[0]).toEqual(product1);
+    expect((await getCurrentOrder())?.total).toBe(10);
   });
 
   it("decrement quantity", async () => {
@@ -70,6 +75,8 @@ describe("shopCart", () => {
     expect(order2.items[0].productId).toBe(product1.id);
     expect(order2.items[0].quantity).toBe(1);
     expect(order2.items[0].position).toBe(1);
+    expect(order2.items[0].price).toBe(10);
+    expect(order2.total).toBe(10);
   });
 
   it("add another product", async () => {
@@ -79,8 +86,10 @@ describe("shopCart", () => {
     expect(order.items[1].productId).toBe(product2.id);
     expect(order.items[1].quantity).toBe(1);
     expect(order.items[1].position).toBe(2);
+    expect(order.items[1].price).toBe(20);
     expect(order.productsDetails).toHaveLength(2);
     expect((order.productsDetails as Array<any>)[1]).toEqual(product2);
+    expect((await getCurrentOrder())?.total).toBe(30);
   });
 
   it("add product again", async () => {
@@ -93,6 +102,7 @@ describe("shopCart", () => {
     expect(order.productsDetails).toHaveLength(2);
     expect((order.productsDetails as Array<any>)[0]).toEqual(product1);
     expect((order.productsDetails as Array<any>)[1]).toEqual(product2);
+    expect((await getCurrentOrder())?.total).toBe(40);
   });
 
   it("Increment product", async () => {
