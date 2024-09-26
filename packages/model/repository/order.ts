@@ -166,7 +166,7 @@ export const addToOrder = async (productId: string) => {
           create: {
             productId,
             quantity: 1,
-            price: product.price,
+            price: product.offerPrice || product.price,
             position: position + 1,
           },
           update: { quantity: { increment: 1 } },
