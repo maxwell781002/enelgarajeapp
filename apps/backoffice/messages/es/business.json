@@ -10,6 +10,9 @@
     "phUserId": "Propietario",
     "lbSlug": "Dominio",
     "phSlug": "Dominio del negocio",
-    "btnSubmit": "Salvar"
+    "lbPhone": "Teléfono",
+    "phPhone": "Teléfono del negocio",
+    "btnSubmit": "Salvar",
+    "backBusiness": "Ir al negocio"
   }
 }
