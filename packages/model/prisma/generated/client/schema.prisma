@@ -25,6 +25,7 @@ model Business {
   name        String
   description String?
   address     String?
+  phone       String?
   howToArrive String?
   coordinates Float[]
   slug        String? @unique

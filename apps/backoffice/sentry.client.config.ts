@@ -5,7 +5,7 @@
 import * as Sentry from "@sentry/nextjs";
 
 Sentry.init({
-  dsn: "https://0ee4d181a5c764210d9e45ed5e941acf@o878120.ingest.us.sentry.io/4508021196259328",
+  dsn: process.env.SENTRY_DSN,
 
   // Add optional integrations for additional features
   integrations: [Sentry.replayIntegration()],

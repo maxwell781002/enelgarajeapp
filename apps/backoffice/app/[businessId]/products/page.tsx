@@ -26,7 +26,7 @@ export default async function Page({
   params: { businessId },
 }: PageProps) {
   const t = await getTranslations("Product");
-  const { list, paginate, remove, update, create } = crud(
+  const { list, paginate, remove, update } = crud(
     `/${businessId}/products`,
     ProductRepository.name,
   );

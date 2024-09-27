@@ -25,6 +25,7 @@ model Business {
   name        String
   description String?
   address     String?
+  phone       String?
   howToArrive String?
   coordinates Float[]
   slug        String? @unique
@@ -46,9 +47,9 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
-  slug        String?  @unique
+  slug        String? @unique
   image       Json
   description String
   price       Int /// @zod.gte(0)

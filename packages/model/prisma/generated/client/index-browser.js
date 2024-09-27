@@ -124,6 +124,7 @@ exports.Prisma.BusinessScalarFieldEnum = {
   name: 'name',
   description: 'description',
   address: 'address',
+  phone: 'phone',
   howToArrive: 'howToArrive',
   coordinates: 'coordinates',
   slug: 'slug'

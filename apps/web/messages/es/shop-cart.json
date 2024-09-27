@@ -18,6 +18,8 @@
     "title": "Solictud enviada",
     "description": "Gracias por su compra, en breve nos podremos en contacto con usted.",
     "continue_shopping": "Continuar comprando",
-    "show_orders": "Ver órdenes"
+    "show_orders": "Ver órdenes",
+    "btnWhatsappSubmit": "Contacar con el vendor vía WhatsApp",
+    "orderMessage": "Hola, hice la compra {reference}"
   }
 }
