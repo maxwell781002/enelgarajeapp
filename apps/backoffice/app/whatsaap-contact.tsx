@@ -4,7 +4,7 @@ import { WhatsappIcon } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
 
 export default async function ShopNotHave() {
-  const whatsappNumber = "+5353024637"; // Replace with your actual WhatsApp number
+  const whatsappNumber = process.env.PHONE_ADMIN_CONTACT
   const t = await getTranslations("NoHaveShop");
   const whatsappMessage = encodeURIComponent(t("textChat"));
 
