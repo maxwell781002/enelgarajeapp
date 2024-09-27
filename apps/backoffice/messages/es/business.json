@@ -13,6 +13,10 @@
     "lbPhone": "Teléfono",
     "phPhone": "Teléfono del negocio",
     "btnSubmit": "Salvar",
-    "backBusiness": "Ir al negocio"
+    "backBusiness": "Ir al negocio",
+    "businessUpdated": "Negocio actualizado",
+    "businessCreated": "Negocio creado",
+    "General": "General",
+    "noPhone": "Sin teléfono"
   }
 }
