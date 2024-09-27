@@ -1,7 +1,9 @@
+import { getCurrentBusiness } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
-import { CircleCheckIcon } from "@repo/ui/components/icons";
+import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
 import OrderDetail from "@repo/ui/components/order-detail";
+import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
@@ -22,6 +24,11 @@ export default async function Page({
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
+  const business = await getCurrentBusiness();
+  const whatsappMessage = encodeURIComponent(
+    t("orderMessage", { reference: order?.identifier }),
+  );
+
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
@@ -43,22 +50,39 @@ export default async function Page({
           titleLb={to("title")}
           orderLb={to("order")}
         />
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href={`${baseUrl}/order`}
-            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-            prefetch={false}
-          >
-            {t("show_orders")}
-          </Link>
-          <Link
-            href={baseUrl}
-            className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-            prefetch={false}
-          >
-            {t("continue_shopping")}
-          </Link>
-        </div>
+        {business?.phone ? (
+          <>
+            <Button asChild className="flex items-center space-x-2">
+              <a
+                href={`https://wa.me/${business.phone}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsappIcon className="w-5 h-5" />
+                <span>{t("btnWhatsappSubmit")}</span>
+              </a>
+            </Button>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <Link
+                href={`${baseUrl}/order`}
+                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                {t("show_orders")}
+              </Link>
+              <Link
+                href={baseUrl}
+                className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                {t("continue_shopping")}
+              </Link>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );

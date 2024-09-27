@@ -2114,6 +2114,7 @@ export namespace Prisma {
     name: string | null;
     description: string | null;
     address: string | null;
+    phone: string | null;
     howToArrive: string | null;
     slug: string | null;
   };
@@ -2123,6 +2124,7 @@ export namespace Prisma {
     name: string | null;
     description: string | null;
     address: string | null;
+    phone: string | null;
     howToArrive: string | null;
     slug: string | null;
   };
@@ -2132,6 +2134,7 @@ export namespace Prisma {
     name: number;
     description: number;
     address: number;
+    phone: number;
     howToArrive: number;
     coordinates: number;
     slug: number;
@@ -2151,6 +2154,7 @@ export namespace Prisma {
     name?: true;
     description?: true;
     address?: true;
+    phone?: true;
     howToArrive?: true;
     slug?: true;
   };
@@ -2160,6 +2164,7 @@ export namespace Prisma {
     name?: true;
     description?: true;
     address?: true;
+    phone?: true;
     howToArrive?: true;
     slug?: true;
   };
@@ -2169,6 +2174,7 @@ export namespace Prisma {
     name?: true;
     description?: true;
     address?: true;
+    phone?: true;
     howToArrive?: true;
     coordinates?: true;
     slug?: true;
@@ -2271,6 +2277,7 @@ export namespace Prisma {
     name: string;
     description: string | null;
     address: string | null;
+    phone: string | null;
     howToArrive: string | null;
     coordinates: number[];
     slug: string | null;
@@ -2302,6 +2309,7 @@ export namespace Prisma {
       name?: boolean;
       description?: boolean;
       address?: boolean;
+      phone?: boolean;
       howToArrive?: boolean;
       coordinates?: boolean;
       slug?: boolean;
@@ -2322,6 +2330,7 @@ export namespace Prisma {
       name?: boolean;
       description?: boolean;
       address?: boolean;
+      phone?: boolean;
       howToArrive?: boolean;
       coordinates?: boolean;
       slug?: boolean;
@@ -2334,6 +2343,7 @@ export namespace Prisma {
     name?: boolean;
     description?: boolean;
     address?: boolean;
+    phone?: boolean;
     howToArrive?: boolean;
     coordinates?: boolean;
     slug?: boolean;
@@ -2368,6 +2378,7 @@ export namespace Prisma {
         name: string;
         description: string | null;
         address: string | null;
+        phone: string | null;
         howToArrive: string | null;
         coordinates: number[];
         slug: string | null;
@@ -2904,6 +2915,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Business", "String">;
     readonly description: FieldRef<"Business", "String">;
     readonly address: FieldRef<"Business", "String">;
+    readonly phone: FieldRef<"Business", "String">;
     readonly howToArrive: FieldRef<"Business", "String">;
     readonly coordinates: FieldRef<"Business", "Float[]">;
     readonly slug: FieldRef<"Business", "String">;
@@ -15113,6 +15125,7 @@ export namespace Prisma {
     name: "name";
     description: "description";
     address: "address";
+    phone: "phone";
     howToArrive: "howToArrive";
     coordinates: "coordinates";
     slug: "slug";
@@ -15420,6 +15433,7 @@ export namespace Prisma {
     name?: StringFilter<"Business"> | string;
     description?: StringNullableFilter<"Business"> | string | null;
     address?: StringNullableFilter<"Business"> | string | null;
+    phone?: StringNullableFilter<"Business"> | string | null;
     howToArrive?: StringNullableFilter<"Business"> | string | null;
     coordinates?: FloatNullableListFilter<"Business">;
     slug?: StringNullableFilter<"Business"> | string | null;
@@ -15434,6 +15448,7 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrderInput | SortOrder;
     address?: SortOrderInput | SortOrder;
+    phone?: SortOrderInput | SortOrder;
     howToArrive?: SortOrderInput | SortOrder;
     coordinates?: SortOrder;
     slug?: SortOrderInput | SortOrder;
@@ -15453,6 +15468,7 @@ export namespace Prisma {
       name?: StringFilter<"Business"> | string;
       description?: StringNullableFilter<"Business"> | string | null;
       address?: StringNullableFilter<"Business"> | string | null;
+      phone?: StringNullableFilter<"Business"> | string | null;
       howToArrive?: StringNullableFilter<"Business"> | string | null;
       coordinates?: FloatNullableListFilter<"Business">;
       categories?: CategoryListRelationFilter;
@@ -15468,6 +15484,7 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrderInput | SortOrder;
     address?: SortOrderInput | SortOrder;
+    phone?: SortOrderInput | SortOrder;
     howToArrive?: SortOrderInput | SortOrder;
     coordinates?: SortOrder;
     slug?: SortOrderInput | SortOrder;
@@ -15493,6 +15510,7 @@ export namespace Prisma {
       | string
       | null;
     address?: StringNullableWithAggregatesFilter<"Business"> | string | null;
+    phone?: StringNullableWithAggregatesFilter<"Business"> | string | null;
     howToArrive?:
       | StringNullableWithAggregatesFilter<"Business">
       | string
@@ -16281,6 +16299,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -16295,6 +16314,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -16309,6 +16329,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -16323,6 +16344,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -16337,6 +16359,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -16347,6 +16370,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -16357,6 +16381,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -17171,6 +17196,7 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrder;
     address?: SortOrder;
+    phone?: SortOrder;
     howToArrive?: SortOrder;
     coordinates?: SortOrder;
     slug?: SortOrder;
@@ -17185,6 +17211,7 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrder;
     address?: SortOrder;
+    phone?: SortOrder;
     howToArrive?: SortOrder;
     slug?: SortOrder;
   };
@@ -17194,6 +17221,7 @@ export namespace Prisma {
     name?: SortOrder;
     description?: SortOrder;
     address?: SortOrder;
+    phone?: SortOrder;
     howToArrive?: SortOrder;
     slug?: SortOrder;
   };
@@ -19958,6 +19986,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -19971,6 +20000,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -20040,6 +20070,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -20053,6 +20084,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -20066,6 +20098,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -20079,6 +20112,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -20171,6 +20205,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -20184,6 +20219,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -20655,6 +20691,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -20668,6 +20705,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -20769,6 +20807,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -20782,6 +20821,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -20862,6 +20902,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -20875,6 +20916,7 @@ export namespace Prisma {
     name: string;
     description?: string | null;
     address?: string | null;
+    phone?: string | null;
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
@@ -21004,6 +21046,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -21017,6 +21060,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
     address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
