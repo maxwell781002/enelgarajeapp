@@ -41,6 +41,7 @@ export class OrderRepository extends BaseRepository<
       ...data,
       where: {
         businessId,
+        NOT: { userId: null }
       },
       include: {
         user: true,
