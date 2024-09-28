@@ -41,13 +41,32 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  paginate({ businessId, ...data }: PaginateData = {}) {
+  paginate({ businessId, query, ...data }: PaginateData = {}) {
+    const where: any = {
+      businessId,
+      NOT: { userId: null },
+    };
+    if (query) {
+      where["OR"] = [
+        {
+          identifier: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          user: {
+            name: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        },
+      ];
+    }
     return super.paginate({
       ...data,
-      where: {
-        businessId,
-        NOT: { userId: null },
-      },
+      where,
       orderBy: { sentAt: "desc" },
       include: {
         user: true,

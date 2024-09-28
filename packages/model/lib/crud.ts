@@ -8,6 +8,7 @@ const PAGE_SIZE = 10;
 export function crud<T extends Entity, U>(
   path: string,
   repositoryName: string,
+  searchParams: any = {},
 ) {
   const getRepository = async () => {
     "use server";
@@ -22,14 +23,19 @@ export function crud<T extends Entity, U>(
       revalidatePath(path);
     };
 
-  // TODO: check pagination works now that I have changed to async function.
   const paginate = async ({ pageIndex, pageSize }: PaginateData) => {
     "use server";
     return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize || PAGE_SIZE}`;
   };
 
-  const list = async (query: any) => {
+  const search = async (query: any = {}) => {
     "use server";
+    return `${path}?${new URLSearchParams({ ...searchParams, pageIndex: 0, pageSize: PAGE_SIZE, ...query })}`;
+  };
+
+  const list = async (query: any = {}) => {
+    "use server";
+    query = { ...searchParams, ...query };
     const pageIndex = query.pageIndex ? Number(query.pageIndex) : 0;
     const pageSize = query.pageSize ? Number(query.pageSize) : PAGE_SIZE;
     return (await getRepository()).paginate({ ...query, pageIndex, pageSize });
@@ -46,6 +52,7 @@ export function crud<T extends Entity, U>(
     list,
     paginate,
     update,
+    search,
     create: buildMethod("create"),
     remove: buildMethod("remove"),
   };

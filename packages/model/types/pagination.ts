@@ -14,5 +14,6 @@ export type PaginateData = {
   where?: any;
   orderBy?: any;
   include?: any;
+  query?: any;
 };
 export type Paginate = (data: PaginateData) => void;
