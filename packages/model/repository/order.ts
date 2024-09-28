@@ -14,6 +14,7 @@ import { getCurrentUser, updateUser } from "./user";
 import { OrderStatus } from "../prisma/generated/client";
 import { TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
+import { orderRepository } from "../repositories/order";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -183,34 +184,16 @@ export const addToOrder = async (productId: string) => {
   });
 };
 
-const generateIdentifier = (date: Date, position: number) => {
-  return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
-};
-
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const userEntity = (await getCurrentUser()) as CompleteUser;
   const business = (await getCurrentBusiness()) as CompleteBusiness;
   await updateUser(userEntity.id, user);
   const order = await getOrCrateOrder();
-  const position =
-    (
-      await prisma.order.findFirst({
-        orderBy: { position: "desc" },
-      })
-    )?.position || 0;
-  const newPosition = position + 1;
-  const newOrder = await prisma.order.update({
-    where: { id: order.id },
-    data: {
-      userId: userEntity.id,
-      total: order.total,
-      status: OrderStatus.SEND,
-      position: newPosition,
-      sentAt: new Date(),
-      businessId: business.id,
-      identifier: generateIdentifier(new Date(), newPosition),
-    },
-  });
+  const newOrder = await orderRepository.placeOrder(
+    order,
+    userEntity,
+    business,
+  );
   cookies().delete("order_id");
   return newOrder;
 };

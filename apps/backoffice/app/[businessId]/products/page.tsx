@@ -29,6 +29,7 @@ export default async function Page({
   const { list, paginate, remove, update } = crud(
     `/${businessId}/products`,
     ProductRepository.name,
+    searchParams,
   );
   return (
     <Card>
@@ -47,7 +48,7 @@ export default async function Page({
       <CardContent>
         <TableContextProvider update={update} remove={remove}>
           <ProductTable
-            pagination={await list({ ...searchParams, businessId })}
+            pagination={await list({ businessId })}
             paginate={paginate}
           />
         </TableContextProvider>

@@ -57,6 +57,18 @@ describe("checkoutOrder", () => {
     const newOrder = await checkoutOrder(userData as any);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(1);
+    expect(newOrder.status).toBe("SEND");
+    expect(newOrder.identifier?.split("-")[1]).toBe("1");
+    expect(userModule.updateUser).toBeCalledWith(user.id, userData);
+    expect(mocksCookies.delete).toBeCalledWith("order_id");
+  });
+
+  it("new checkout order", async () => {
+    const newOrder = await checkoutOrder(userData as any);
+    expect(newOrder).not.toBeNull();
+    expect(newOrder.position).toBe(2);
+    expect(newOrder.status).toBe("SEND");
+    expect(newOrder.identifier?.split("-")[1]).toBe("2");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);
     expect(mocksCookies.delete).toBeCalledWith("order_id");
   });

@@ -5,18 +5,6 @@ import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import { UserRoles } from "@repo/model/repositories/user";
 
-// Only for testing
-const breadcrumbItems = [
-  {
-    title: "Dashboard",
-    link: "/",
-  },
-  {
-    title: "Acme Inc",
-    link: "/post",
-  },
-];
-
 export default async function RootLayout({
   children,
 }: {
@@ -37,7 +25,6 @@ export default async function RootLayout({
       secondaryMenu={secondaryMenu}
       userImage={session?.user?.image}
       userMenuItems={profileMenu}
-      breadcrumbItems={breadcrumbItems}
       ph="Negocio..."
       onChangeBusiness={onChangeBusiness}
     >

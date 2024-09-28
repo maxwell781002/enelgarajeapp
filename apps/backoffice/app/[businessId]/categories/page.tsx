@@ -28,6 +28,7 @@ export default async function Page({
   const { list, paginate, remove, update, create } = crud(
     `/${businessId}/categories`,
     CategoryRepository.name,
+    searchParams,
   );
   return (
     <Card>
@@ -40,7 +41,7 @@ export default async function Page({
             <DialogForm
               title={t("createCategory")}
               action={create}
-              defaultValues={{ ...defaultValues, businessId }}
+              defaultValues={{ businessId }}
             />
           </div>
         </div>
