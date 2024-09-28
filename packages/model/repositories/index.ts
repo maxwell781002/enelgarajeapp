@@ -8,7 +8,7 @@ import { userRepository, UserRepository } from "./user";
 export default {
   [OrderRepository.name]: orderRepository,
   [BusinessRepository.name]: businessRepository,
-  [CategoryRepository.name]: categoryRepository,
   [ProductRepository.name]: productRepository,
   [UserRepository.name]: userRepository,
+  [CategoryRepository.name]: categoryRepository,
 } as Record<string, BaseRepository<any, any>>;

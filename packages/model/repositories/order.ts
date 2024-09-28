@@ -47,27 +47,22 @@ export class OrderRepository extends BaseRepository<
       NOT: { userId: null },
     };
     if (query) {
-      where['AND'] = [
-        where,
+      where['OR'] = [
         {
-          OR: [
-            {
-              identifier: {
-                contains: query,
-                mode: "insensitive",
-              },
+          identifier: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          user: {
+            name: {
+              contains: query,
+              mode: "insensitive",
             },
-            {
-              user: {
-                name: {
-                  contains: query,
-                  mode: "insensitive",
-                },
-              },
-            },
-          ]
-        }
-      ];
+          },
+        },
+      ]
     }
     return super.paginate({
       ...data,

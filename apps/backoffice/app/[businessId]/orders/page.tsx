@@ -24,11 +24,12 @@ export default async function Page({
     const url = await search({ query });
     return redirect(url);
   };
+  const data = await list({ businessId })
   return (
     <>
       <Filter onChange={handleSearch} />
       <MyTable
-        pagination={await list({ businessId })}
+        pagination={data}
         columns={columns}
         paginate={paginate}
         emptyTitle="No hay órdenes"
