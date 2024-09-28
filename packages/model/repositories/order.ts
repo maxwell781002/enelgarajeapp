@@ -1,6 +1,6 @@
 import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
-import { CompleteOrder, OrderModel } from "../prisma/zod";
+import { CompleteBusiness, CompleteOrder, CompleteUser, OrderModel } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { OrderStatus } from "../prisma/generated/client";
 
@@ -57,6 +57,35 @@ export class OrderRepository extends BaseRepository<
           include: { product: true },
           orderBy: { position: "asc" },
         },
+      },
+    });
+  }
+
+  protected generateIdentifier(date: Date, position: number) {
+    return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+  };
+
+  protected async getLastPosition(businessId: string) {
+    return (
+      await prisma.order.findFirst({
+        where: { businessId },
+        orderBy: { position: "desc" },
+      })
+    )?.position || 0;
+  }
+
+  async placeOrder(order: CompleteOrder, user: CompleteUser, business: CompleteBusiness) {
+    const newPosition = (await this.getLastPosition(business.id)) + 1;
+    return prisma.order.update({
+      where: { id: order.id },
+      data: {
+        userId: user.id,
+        total: order.total,
+        status: OrderStatus.SEND,
+        position: newPosition,
+        sentAt: new Date(),
+        businessId: business.id,
+        identifier: this.generateIdentifier(new Date(), newPosition),
       },
     });
   }
