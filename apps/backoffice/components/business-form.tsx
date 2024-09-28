@@ -116,7 +116,10 @@ export default function BusinessForm({
                 <FormControl>
                   <EntitySelect
                     {...field}
-                    items={users}
+                    items={users?.map((b) => ({
+                      ...b,
+                      name: `${b.name} (${b.email})`,
+                    }))}
                     placeholder={t("phUserId")}
                   />
                 </FormControl>

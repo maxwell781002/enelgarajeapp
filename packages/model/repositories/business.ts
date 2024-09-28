@@ -3,6 +3,8 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
 
+// TODO: I am working with userBusiness using only one user.
+
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
   typeof prisma.business
@@ -24,6 +26,30 @@ export class BusinessRepository extends BaseRepository<
       });
     }
     return business;
+  }
+
+  async doUpdate(id: string, data: FormData) {
+    const userId = data.get("userId") as string;
+    data.delete("userId");
+    if (userId) {
+      await prisma.userBusiness.deleteMany({
+        where: { businessId: id },
+      });
+      await prisma.userBusiness.create({
+        data: {
+          userId,
+          businessId: id,
+        },
+      });
+    }
+    return super.doUpdate(id, data);
+  }
+
+  getOwner(businessId: string) {
+    return prisma.userBusiness.findFirst({
+      where: { businessId },
+      include: { user: true },
+    });
   }
 
   getByUser(userId: string) {

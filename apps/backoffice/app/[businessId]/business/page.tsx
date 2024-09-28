@@ -14,6 +14,7 @@ export default async function PageForm({
   const t = await getTranslations("Business");
   const business = await businessRepository.getById(businessId);
   const user = await getCurrentUser();
+  const owner = await businessRepository.getOwner(businessId);
   const users =
     user.role === UserRoles.ADMIN ? await userRepository.getAll() : [];
   const action = async (props: any) => {
@@ -24,7 +25,7 @@ export default async function PageForm({
   return (
     <BackPage href={`/${businessId}`} urlTitle={t("backBusiness")}>
       <BusinessForm
-        defaultValues={business}
+        defaultValues={{ ...business, userId: owner?.userId }}
         action={action}
         isAdmin={user?.role === UserRoles.ADMIN}
         users={users}
