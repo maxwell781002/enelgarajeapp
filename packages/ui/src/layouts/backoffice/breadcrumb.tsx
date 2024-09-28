@@ -12,7 +12,7 @@ import {
 
 export type BreadcrumbProps = {
   className?: string;
-  breadcrumbItems: LinkItem[];
+  breadcrumbItems?: LinkItem[];
 };
 
 export default function Breadcrumb({
