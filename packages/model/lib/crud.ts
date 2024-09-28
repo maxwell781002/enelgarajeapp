@@ -3,6 +3,8 @@ import { revalidatePath } from "next/cache";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
 
+const PAGE_SIZE = 10;
+
 export function crud<T extends Entity, U>(
   path: string,
   repositoryName: string,
@@ -23,14 +25,14 @@ export function crud<T extends Entity, U>(
   // TODO: check pagination works now that I have changed to async function.
   const paginate = async ({ pageIndex, pageSize }: PaginateData) => {
     "use server";
-    return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize}`;
+    return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize || PAGE_SIZE}`;
   };
 
   const list = async (query: any) => {
     "use server";
-    const pageIndex = parseInt(query.pageIndex || "0");
-    const pageSize = parseInt(query.pageSize || "10");
-    return (await getRepository()).paginate({ pageIndex, pageSize, ...query });
+    const pageIndex = query.pageIndex ? Number(query.pageIndex) : 0;
+    const pageSize = query.pageSize ? Number(query.pageSize) : PAGE_SIZE;
+    return (await getRepository()).paginate({ ...query, pageIndex, pageSize });
   };
 
   const update = async (id: string, props: any) => {

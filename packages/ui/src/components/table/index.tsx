@@ -34,19 +34,16 @@ const getValue = (field: string, value: any) => {
   return parts.reduce((a: any, b: string) => a[b], value);
 };
 
-const pageSize = 5;
-
-export default function MyTable({
+export default async function MyTable({
   pagination: { data, pageIndex, totalPage, total },
   paginate,
   columns,
   ...props
 }: MyTableProps) {
   const previousLink =
-    pageIndex > 0 && paginate({ pageIndex: pageIndex - 1, pageSize });
+    pageIndex > 0 && (await paginate({ pageIndex: pageIndex - 1 }));
   const nextLink =
-    pageIndex + 1 < totalPage &&
-    paginate({ pageIndex: pageIndex + 1, pageSize });
+    pageIndex + 1 < totalPage && (await paginate({ pageIndex: pageIndex + 1 }));
   if (total === 0) {
     return <EmptyTable {...props} />;
   }

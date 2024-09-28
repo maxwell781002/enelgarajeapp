@@ -70,7 +70,7 @@ export abstract class BaseRepository<T extends Entity, M> {
 
   async paginate({
     pageIndex = 1,
-    pageSize = 2,
+    pageSize = 10,
     where = {},
     include = {},
   }: PaginateData = {}): Promise<PaginationResult<T>> {

@@ -14,7 +14,7 @@ import { getCurrentUser, updateUser } from "./user";
 import { OrderStatus } from "../prisma/generated/client";
 import { TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
-import { orderRepository } from '../repositories/order';
+import { orderRepository } from "../repositories/order";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -189,7 +189,11 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const business = (await getCurrentBusiness()) as CompleteBusiness;
   await updateUser(userEntity.id, user);
   const order = await getOrCrateOrder();
-  const newOrder = await orderRepository.placeOrder(order, userEntity, business);
+  const newOrder = await orderRepository.placeOrder(
+    order,
+    userEntity,
+    business,
+  );
   cookies().delete("order_id");
   return newOrder;
 };
