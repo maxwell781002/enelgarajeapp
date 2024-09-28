@@ -48,6 +48,7 @@ export class OrderRepository extends BaseRepository<
         businessId,
         NOT: { userId: null },
       },
+      orderBy: { sentAt: "desc" },
       include: {
         user: true,
       },

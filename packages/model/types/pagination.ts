@@ -12,6 +12,7 @@ export type PaginateData = {
   pageIndex?: number;
   pageSize?: number;
   where?: any;
+  orderBy?: any;
   include?: any;
 };
 export type Paginate = (data: PaginateData) => void;
