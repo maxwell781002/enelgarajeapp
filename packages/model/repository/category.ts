@@ -8,6 +8,6 @@ export const getByBusiness = (business: CompleteBusiness) => {
         id: business.id,
       },
     },
-    include: { products: true },
+    include: { products: { where: { active: true } } },
   });
 };
