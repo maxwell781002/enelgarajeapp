@@ -120,6 +120,18 @@ export class OrderRepository extends BaseRepository<
       },
     });
   }
+
+  hasOrders(productId: string) {
+    return prisma.order.count({
+      where: {
+        items: {
+          some: {
+            productId,
+          },
+        },
+      },
+    });
+  }
 }
 
 export const orderRepository = new OrderRepository();
