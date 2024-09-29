@@ -23,7 +23,7 @@ export const useFormProcess = <T extends FieldValues>({
     try {
       const formData = new FormData();
       Object.keys(data)
-        .filter((key) => !!data[key])
+        .filter((key) => !!data[key] || typeof data[key] === "boolean")
         .forEach((key) => {
           formData.append(key, data[key]);
         });

@@ -1,3 +1,5 @@
+"use client";
+
 import { TrashIcon } from "@radix-ui/react-icons";
 
 import {
@@ -7,7 +9,7 @@ import {
 
 type TKey = "title" | "description" | "btnIcon";
 
-type BtnRemoveProps = {
+export type BtnRemoveProps = {
   action: (id: any) => any;
   entityId: any;
 } & Omit<BtnConfirmProps, TKey | "action"> &

@@ -1,4 +1,4 @@
-import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon, Cross1Icon } from "@radix-ui/react-icons";
 import { productRepository } from "@repo/model/repositories/product";
 import { CompleteProduct } from "@repo/model/zod/product";
 import BackPage from "@repo/ui/components/back-page";
@@ -6,6 +6,7 @@ import ProductDetail from "@repo/ui/components/product-detail";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import BtnRemove from "./button-remove";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -14,20 +15,43 @@ type PageProps = {
 export default async function Page({ params: { id, businessId } }: PageProps) {
   const t = await getTranslations("Product");
   const product = await productRepository.get(id);
-  const btnEdit = (
-    <Link href={`/${businessId}/products/form?id=${id}`}>
-      <Button>
-        <Pencil1Icon className="mr-2" /> {t("updateProduct")}
-      </Button>
-    </Link>
-  );
+  const remove = async (id: string) => {
+    "use server";
+    try {
+      await productRepository.remove(id);
+    } catch (error: any) {
+      return {
+        error: error.message,
+      };
+    }
+  };
+
   return (
-    <BackPage
-      href={`/${businessId}/products`}
-      urlTitle="Ir a productos"
-      headerChildren={btnEdit}
-    >
-      <ProductDetail product={product as CompleteProduct} t={t} />
+    <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
+      <>
+        <div className="flex justify-end">
+          <Link href={`/${businessId}/products/form?id=${id}`}>
+            <Button size="icon" className="mr-2">
+              <Pencil1Icon />
+            </Button>
+          </Link>
+          <BtnRemove
+            entityId={id}
+            btnIcon={<Cross1Icon className="w-5 h-5" />}
+            title={t("remove_dialog.title")}
+            description={t("remove_dialog.description")}
+            action={remove}
+            btnCancelText={t("remove_dialog.cancel")}
+            btnContinueText={t("remove_dialog.continue")}
+            btnAttr={{ variant: "destructive" }}
+            url={`/${businessId}/products`}
+          />
+        </div>
+        <h3>
+          {t("lbActive")}: {product.active ? t("lbYes") : t("lbNo")}
+        </h3>
+        <ProductDetail product={product as CompleteProduct} t={t} />
+      </>
     </BackPage>
   );
 }

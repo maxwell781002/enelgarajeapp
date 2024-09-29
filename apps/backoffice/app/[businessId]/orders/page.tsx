@@ -24,7 +24,7 @@ export default async function Page({
     const url = await search({ query });
     return redirect(url);
   };
-  const data = await list({ businessId })
+  const data = await list({ businessId });
   return (
     <>
       <Filter onChange={handleSearch} />

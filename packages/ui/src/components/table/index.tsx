@@ -31,7 +31,7 @@ export type MyTableProps = {
 
 const getValue = (field: string, value: any) => {
   const parts = field.split(".");
-  return parts.reduce((a: any, b: string) => a &&a[b], value);
+  return parts.reduce((a: any, b: string) => a && a[b], value);
 };
 
 export default async function MyTable({

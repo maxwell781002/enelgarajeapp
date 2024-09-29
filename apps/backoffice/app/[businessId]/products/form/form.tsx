@@ -22,6 +22,7 @@ import {
   ProductValidation,
 } from "@repo/model/validation/product";
 import { useMemo } from "react";
+import { Switch } from "@repo/ui/components/ui/switch";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -75,23 +76,46 @@ export default function ProductForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="categoryId"
-          render={({ field, fieldState: { error } }: any) => (
-            <FormItem>
-              <FormLabel>{t("lbCategoryId")}</FormLabel>
-              <FormControl>
-                <EntitySelect
-                  {...field}
-                  items={categories}
-                  placeholder={t("phCategoryId")}
-                />
-              </FormControl>
-              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-1 gap-4">
+          <FormField
+            control={form.control}
+            name="categoryId"
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbCategoryId")}</FormLabel>
+                <FormControl>
+                  <EntitySelect
+                    {...field}
+                    items={categories}
+                    placeholder={t("phCategoryId")}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="active"
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbActive")}</FormLabel>
+                <FormControl>
+                  <Switch
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="image"

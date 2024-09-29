@@ -47,7 +47,7 @@ export class OrderRepository extends BaseRepository<
       NOT: { userId: null },
     };
     if (query) {
-      where['OR'] = [
+      where["OR"] = [
         {
           identifier: {
             contains: query,
@@ -62,7 +62,7 @@ export class OrderRepository extends BaseRepository<
             },
           },
         },
-      ]
+      ];
     }
     return super.paginate({
       ...data,
@@ -117,6 +117,18 @@ export class OrderRepository extends BaseRepository<
         sentAt: new Date(),
         businessId: business.id,
         identifier: this.generateIdentifier(new Date(), newPosition),
+      },
+    });
+  }
+
+  hasOrders(productId: string) {
+    return prisma.order.count({
+      where: {
+        items: {
+          some: {
+            productId,
+          },
+        },
       },
     });
   }

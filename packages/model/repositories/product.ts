@@ -7,6 +7,7 @@ import {
   ProductUpdateValidation,
   ProductValidation,
 } from "../validation/product";
+import { orderRepository } from "./order";
 
 type PaginateData = {
   businessId?: string;
@@ -25,6 +26,7 @@ export class ProductRepository extends BaseRepository<
     const object: Partial<CompleteProduct> = super.getObject(data);
     if (object.offerPrice) object.offerPrice = Number(object.offerPrice);
     if (object.price) object.price = Number(object.price);
+    if (object.active) object.active = (object.active as any) === "true";
     return object;
   }
 
@@ -64,10 +66,14 @@ export class ProductRepository extends BaseRepository<
   }
 
   async remove(id: any) {
+    if (await orderRepository.hasOrders(id)) {
+      throw new Error(
+        "Este producto no puede ser eliminado. Puede desactivarlo si lo desea.",
+      );
+    }
     const entity = await this.getById(id);
-    const image: any = JSON.parse(entity.image);
     const data = await super.remove(id);
-    await del(image.url);
+    await del(entity.image.url);
     return data;
   }
 
