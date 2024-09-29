@@ -4544,6 +4544,7 @@ export namespace Prisma {
     description: string | null;
     price: number | null;
     offerPrice: number | null;
+    active: boolean | null;
     businessId: string | null;
     categoryId: string | null;
   };
@@ -4555,6 +4556,7 @@ export namespace Prisma {
     description: string | null;
     price: number | null;
     offerPrice: number | null;
+    active: boolean | null;
     businessId: string | null;
     categoryId: string | null;
   };
@@ -4568,6 +4570,7 @@ export namespace Prisma {
     price: number;
     offerPrice: number;
     images: number;
+    active: number;
     businessId: number;
     categoryId: number;
     _all: number;
@@ -4590,6 +4593,7 @@ export namespace Prisma {
     description?: true;
     price?: true;
     offerPrice?: true;
+    active?: true;
     businessId?: true;
     categoryId?: true;
   };
@@ -4601,6 +4605,7 @@ export namespace Prisma {
     description?: true;
     price?: true;
     offerPrice?: true;
+    active?: true;
     businessId?: true;
     categoryId?: true;
   };
@@ -4614,6 +4619,7 @@ export namespace Prisma {
     price?: true;
     offerPrice?: true;
     images?: true;
+    active?: true;
     businessId?: true;
     categoryId?: true;
     _all?: true;
@@ -4719,6 +4725,7 @@ export namespace Prisma {
     price: number;
     offerPrice: number | null;
     images: JsonValue[];
+    active: boolean;
     businessId: string;
     categoryId: string;
     _count: ProductCountAggregateOutputType | null;
@@ -4753,6 +4760,7 @@ export namespace Prisma {
       price?: boolean;
       offerPrice?: boolean;
       images?: boolean;
+      active?: boolean;
       businessId?: boolean;
       categoryId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
@@ -4775,6 +4783,7 @@ export namespace Prisma {
       price?: boolean;
       offerPrice?: boolean;
       images?: boolean;
+      active?: boolean;
       businessId?: boolean;
       categoryId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
@@ -4792,6 +4801,7 @@ export namespace Prisma {
     price?: boolean;
     offerPrice?: boolean;
     images?: boolean;
+    active?: boolean;
     businessId?: boolean;
     categoryId?: boolean;
   };
@@ -4836,6 +4846,10 @@ export namespace Prisma {
          */
         offerPrice: number | null;
         images: Prisma.JsonValue[];
+        /**
+         * @zod.optional()
+         */
+        active: boolean;
         businessId: string;
         categoryId: string;
       },
@@ -5375,6 +5389,7 @@ export namespace Prisma {
     readonly price: FieldRef<"Product", "Int">;
     readonly offerPrice: FieldRef<"Product", "Int">;
     readonly images: FieldRef<"Product", "Json[]">;
+    readonly active: FieldRef<"Product", "Boolean">;
     readonly businessId: FieldRef<"Product", "String">;
     readonly categoryId: FieldRef<"Product", "String">;
   }
@@ -15153,6 +15168,7 @@ export namespace Prisma {
     price: "price";
     offerPrice: "offerPrice";
     images: "images";
+    active: "active";
     businessId: "businessId";
     categoryId: "categoryId";
   };
@@ -15368,6 +15384,14 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Boolean"
+  >;
+
+  /**
    * Reference to a field of type 'UserRoles'
    */
   export type EnumUserRolesFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -15412,14 +15436,6 @@ export namespace Prisma {
    */
   export type ListEnumOrderStatusFieldRefInput<$PrismaModel> =
     FieldRefInputType<$PrismaModel, "OrderStatus[]">;
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<
-    $PrismaModel,
-    "Boolean"
-  >;
 
   /**
    * Deep Input Types
@@ -15591,6 +15607,7 @@ export namespace Prisma {
     price?: IntFilter<"Product"> | number;
     offerPrice?: IntNullableFilter<"Product"> | number | null;
     images?: JsonNullableListFilter<"Product">;
+    active?: BoolFilter<"Product"> | boolean;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringFilter<"Product"> | string;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -15607,6 +15624,7 @@ export namespace Prisma {
     price?: SortOrder;
     offerPrice?: SortOrderInput | SortOrder;
     images?: SortOrder;
+    active?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
     business?: BusinessOrderByWithRelationInput;
@@ -15627,6 +15645,7 @@ export namespace Prisma {
       price?: IntFilter<"Product"> | number;
       offerPrice?: IntNullableFilter<"Product"> | number | null;
       images?: JsonNullableListFilter<"Product">;
+      active?: BoolFilter<"Product"> | boolean;
       businessId?: StringFilter<"Product"> | string;
       categoryId?: StringFilter<"Product"> | string;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -15645,6 +15664,7 @@ export namespace Prisma {
     price?: SortOrder;
     offerPrice?: SortOrderInput | SortOrder;
     images?: SortOrder;
+    active?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
     _count?: ProductCountOrderByAggregateInput;
@@ -15670,6 +15690,7 @@ export namespace Prisma {
     price?: IntWithAggregatesFilter<"Product"> | number;
     offerPrice?: IntNullableWithAggregatesFilter<"Product"> | number | null;
     images?: JsonNullableListFilter<"Product">;
+    active?: BoolWithAggregatesFilter<"Product"> | boolean;
     businessId?: StringWithAggregatesFilter<"Product"> | string;
     categoryId?: StringWithAggregatesFilter<"Product"> | string;
   };
@@ -16448,6 +16469,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     business: BusinessCreateNestedOneWithoutProductsInput;
     category: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
@@ -16462,6 +16484,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     businessId: string;
     categoryId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
@@ -16476,6 +16499,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
@@ -16490,6 +16514,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
@@ -16504,6 +16529,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     businessId: string;
     categoryId: string;
   };
@@ -16517,6 +16543,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type ProductUncheckedUpdateManyInput = {
@@ -16528,6 +16555,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: StringFieldUpdateOperationsInput | string;
   };
@@ -17370,6 +17398,11 @@ export namespace Prisma {
     isEmpty?: boolean;
   };
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
+  };
+
   export type CategoryRelationFilter = {
     is?: CategoryWhereInput;
     isNot?: CategoryWhereInput;
@@ -17394,6 +17427,7 @@ export namespace Prisma {
     price?: SortOrder;
     offerPrice?: SortOrder;
     images?: SortOrder;
+    active?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
   };
@@ -17410,6 +17444,7 @@ export namespace Prisma {
     description?: SortOrder;
     price?: SortOrder;
     offerPrice?: SortOrder;
+    active?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
   };
@@ -17421,6 +17456,7 @@ export namespace Prisma {
     description?: SortOrder;
     price?: SortOrder;
     offerPrice?: SortOrder;
+    active?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
   };
@@ -17499,6 +17535,14 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>;
     _min?: NestedIntNullableFilter<$PrismaModel>;
     _max?: NestedIntNullableFilter<$PrismaModel>;
+  };
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedBoolFilter<$PrismaModel>;
+    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type EnumUserRolesFilter<$PrismaModel = never> = {
@@ -17901,11 +17945,6 @@ export namespace Prisma {
     expires?: SortOrder;
   };
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
-  };
-
   export type AuthenticatorUserIdCredentialIDCompoundUniqueInput = {
     userId: string;
     credentialID: string;
@@ -17950,14 +17989,6 @@ export namespace Prisma {
 
   export type AuthenticatorSumOrderByAggregateInput = {
     counter?: SortOrder;
-  };
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedBoolFilter<$PrismaModel>;
-    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type BusinessCreatecoordinatesInput = {
@@ -18504,6 +18535,10 @@ export namespace Prisma {
   export type ProductUpdateimagesInput = {
     set?: InputJsonValue[];
     push?: InputJsonValue | InputJsonValue[];
+  };
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean;
   };
 
   export type BusinessUpdateOneRequiredWithoutProductsNestedInput = {
@@ -19345,10 +19380,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean;
-  };
-
   export type UserUpdateOneRequiredWithoutAuthenticatorNestedInput = {
     create?: XOR<
       UserCreateWithoutAuthenticatorInput,
@@ -19452,6 +19483,11 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>;
     not?: NestedIntNullableFilter<$PrismaModel> | number | null;
   };
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
+  };
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<
@@ -19536,6 +19572,14 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>;
     gte?: number | FloatFieldRefInput<$PrismaModel>;
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null;
+  };
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedBoolFilter<$PrismaModel>;
+    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type NestedEnumUserRolesFilter<$PrismaModel = never> = {
@@ -19642,19 +19686,6 @@ export namespace Prisma {
       _max?: NestedEnumOrderStatusFilter<$PrismaModel>;
     };
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
-  };
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedBoolFilter<$PrismaModel>;
-    _max?: NestedBoolFilter<$PrismaModel>;
-  };
-
   export type CategoryCreateWithoutBusinessInput = {
     id?: string;
     name: string;
@@ -19691,6 +19722,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     category: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -19704,6 +19736,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     categoryId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
@@ -19859,6 +19892,7 @@ export namespace Prisma {
     price?: IntFilter<"Product"> | number;
     offerPrice?: IntNullableFilter<"Product"> | number | null;
     images?: JsonNullableListFilter<"Product">;
+    active?: BoolFilter<"Product"> | boolean;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringFilter<"Product"> | string;
   };
@@ -19951,6 +19985,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     business: BusinessCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -19964,6 +19999,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     businessId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
@@ -21078,6 +21114,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     business: BusinessCreateNestedOneWithoutProductsInput;
     category: CategoryCreateNestedOneWithoutProductsInput;
   };
@@ -21091,6 +21128,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     businessId: string;
     categoryId: string;
   };
@@ -21164,6 +21202,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
   };
@@ -21177,6 +21216,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: StringFieldUpdateOperationsInput | string;
   };
@@ -21540,6 +21580,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     categoryId: string;
   };
 
@@ -21587,6 +21628,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -21600,6 +21642,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categoryId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
@@ -21613,6 +21656,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categoryId?: StringFieldUpdateOperationsInput | string;
   };
 
@@ -21672,6 +21716,7 @@ export namespace Prisma {
     price: number;
     offerPrice?: number | null;
     images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
     businessId: string;
   };
 
@@ -21684,6 +21729,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -21697,6 +21743,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
@@ -21710,6 +21757,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number;
     offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
     images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 

@@ -55,6 +55,7 @@ model Product {
   price       Int /// @zod.gte(0)
   offerPrice  Int? /// @zod.gte(0)
   images      Json[]
+  active      Boolean @default(true) /// @zod.optional()
 
   business   Business       @relation(fields: [businessId], references: [id])
   businessId String

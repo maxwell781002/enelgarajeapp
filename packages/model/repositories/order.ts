@@ -47,7 +47,7 @@ export class OrderRepository extends BaseRepository<
       NOT: { userId: null },
     };
     if (query) {
-      where['OR'] = [
+      where["OR"] = [
         {
           identifier: {
             contains: query,
@@ -62,7 +62,7 @@ export class OrderRepository extends BaseRepository<
             },
           },
         },
-      ]
+      ];
     }
     return super.paginate({
       ...data,

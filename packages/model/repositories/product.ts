@@ -25,6 +25,7 @@ export class ProductRepository extends BaseRepository<
     const object: Partial<CompleteProduct> = super.getObject(data);
     if (object.offerPrice) object.offerPrice = Number(object.offerPrice);
     if (object.price) object.price = Number(object.price);
+    if (object.active) object.active = (object.active as any) === "true";
     return object;
   }
 

@@ -27,7 +27,12 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
       urlTitle="Ir a productos"
       headerChildren={btnEdit}
     >
-      <ProductDetail product={product as CompleteProduct} t={t} />
+      <>
+        <h3>
+          {t("lbActive")}: {product.active ? t("lbYes") : t("lbNo")}
+        </h3>
+        <ProductDetail product={product as CompleteProduct} t={t} />
+      </>
     </BackPage>
   );
 }

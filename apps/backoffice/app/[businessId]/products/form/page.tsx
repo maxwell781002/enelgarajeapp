@@ -16,6 +16,7 @@ const defaultValues = {
   description: "",
   price: 0,
   offerPrice: 0,
+  active: true,
 };
 
 export default async function PageForm({

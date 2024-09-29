@@ -25,6 +25,7 @@ export const ProductModel = z.object({
   price: z.number().int().gte(0),
   offerPrice: z.number().int().gte(0).nullish(),
   images: jsonSchema.array(),
+  active: z.boolean().optional(),
   businessId: z.string(),
   categoryId: z.string(),
 });
