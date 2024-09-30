@@ -23,7 +23,9 @@ export default async function NoUser() {
         </div>
         <div className="pt-4">
           <Button asChild className="w-full">
-            <Link href="/auth/login">{t("login")}</Link>
+            <Link href="/auth/login?redirectAfterLogin=/checkout">
+              {t("login")}
+            </Link>
           </Button>
         </div>
       </div>
