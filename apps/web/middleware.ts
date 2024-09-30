@@ -22,7 +22,8 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
   if (session && request.nextUrl.pathname.includes("/auth/login")) {
-    return NextResponse.redirect(new URL("/", request.url));
+    const url = request.nextUrl.searchParams.get("redirectAfterLogin") || "/";
+    return NextResponse.redirect(new URL(url, request.url));
   }
   return intlMiddleware(request);
 }
