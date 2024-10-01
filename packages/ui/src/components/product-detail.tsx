@@ -52,21 +52,23 @@ export default function ProductDetail({
           </div>
         </div>
       </section>
-      <section className="container mx-auto py-12 md:py-16 px-4 md:px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8">{t("photos")}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {product.images.map((image) => (
-            <Image
-              key={image}
-              src={image}
-              width={600}
-              height={400}
-              alt="Dish"
-              className="w-full h-[200px] md:h-[300px] object-cover rounded-lg"
-            />
-          ))}
-        </div>
-      </section>
+      {product.images?.length > 0 && (
+        <section className="container mx-auto py-12 md:py-16 px-4 md:px-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8">{t("photos")}</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {product.images.map((image) => (
+              <Image
+                key={image}
+                src={image}
+                width={600}
+                height={400}
+                alt="Dish"
+                className="w-full h-[200px] md:h-[300px] object-cover rounded-lg"
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
