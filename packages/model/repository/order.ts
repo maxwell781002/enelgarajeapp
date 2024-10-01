@@ -210,22 +210,11 @@ export const getOrderById = async (id: string) => {
   });
 };
 
-export const getOrdersByUserId = async (userId: string) => {
-  return prisma.order.findMany({
-    where: { userId, NOT: { status: OrderStatus.CREATED } },
-    include: {
-      items: {
-        include: { product: true },
-        orderBy: { position: "asc" },
-      },
-    },
-  });
-};
-
 export const getOrderCurrentUser = async () => {
   const userId = (await getCurrentUser())?.id;
-  if (!userId) {
+  const businessId = (await getCurrentBusiness())?.id;
+  if (!userId || !businessId) {
     return null;
   }
-  return getOrdersByUserId(userId);
+  return orderRepository.getByBusinessAndUser(userId, businessId);
 };
