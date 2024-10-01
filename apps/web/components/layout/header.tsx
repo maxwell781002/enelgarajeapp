@@ -8,12 +8,10 @@ import {
 } from "@repo/ui/components/ui/sheet";
 import { Button } from "@repo/ui/components/ui/button";
 import SignInIcon, {
-  MountainIcon,
   MenuIcon,
   HomeIcon,
   InfoIcon,
   ShoppingCartIcon,
-  UserIcon,
   PackageIcon,
 } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
@@ -24,9 +22,11 @@ import { Logout } from "./logout";
 export async function Header({
   business,
   locale,
+  logo,
 }: {
   business: CompleteBusiness;
   locale: string;
+  logo: string;
 }) {
   const order = await getCurrentOrder();
   const user = await getCurrentUser();
@@ -42,7 +42,7 @@ export async function Header({
         className="flex items-center gap-2"
         prefetch={false}
       >
-        <MountainIcon className="h-6 w-6" />
+        <img src={logo} alt="logo" className="h-8 w-8" />
         <span className="text-lg font-semibold">{business.name}</span>
       </Link>
       <Sheet>
