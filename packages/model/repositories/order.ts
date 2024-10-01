@@ -132,6 +132,18 @@ export class OrderRepository extends BaseRepository<
       },
     });
   }
+
+  getByBusinessAndUser(userId: string, businessId: string) {
+    return prisma.order.findMany({
+      where: { userId, businessId, NOT: { status: OrderStatus.CREATED } },
+      include: {
+        items: {
+          include: { product: true },
+          orderBy: { position: "asc" },
+        },
+      },
+    });
+  }
 }
 
 export const orderRepository = new OrderRepository();
