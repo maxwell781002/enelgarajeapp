@@ -24,7 +24,7 @@ export default function BtnRemove({ action, url, ...props }: BtnRemoveProps) {
     }
     toast({
       title: "Producto eliminado",
-      variant: "destructive",
+      variant: "default",
     });
     return router.push(url);
   };
