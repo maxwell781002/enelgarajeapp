@@ -11,8 +11,9 @@ export const getById = (id: string) => {
 };
 
 export const paginateFrontend = async (parameters: any) => {
-  const order = await getCurrentOrder()
-  const { data, ...props } = await productRepository.paginateFrontend(parameters);
+  const order = await getCurrentOrder();
+  const { data, ...props } =
+    await productRepository.paginateFrontend(parameters);
   const products = data.map(async (item: any) => ({
     ...item,
     _inCart: await hasProduct(item.id, order),

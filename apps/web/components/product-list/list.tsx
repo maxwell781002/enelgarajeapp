@@ -5,6 +5,7 @@ import { CardItem } from "@repo/ui/components/cardList/card";
 import { startTransition, useCallback, useOptimistic, useState } from "react";
 import ShowMore from "@repo/ui/components/show-more";
 import { useTranslations } from "next-intl";
+import { ProductShopCartItem } from "@repo/model/repository/order";
 
 export type ProductListProps = {
   data: CompleteProduct[];
@@ -21,7 +22,7 @@ export default function ProductList({
   categoryId,
   hastMore,
 }: ProductListProps) {
-  const [list, setList] = useOptimistic(data);
+  const [list, setList] = useState(data);
   const [currentHastMore, setCurrentHastMore] = useState(hastMore);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -41,7 +42,9 @@ export default function ProductList({
 
   const handleAdd = (item: any) => {
     startTransition(() => {
-      setList(prev => prev.map(i => i.id === item.id ? { ...i, _inCart: true } : i));
+      setList((prev) =>
+        prev.map((i) => (i.id === item.id ? { ...i, _inCart: true } : i)),
+      );
       return add(item.id);
     });
   };
@@ -51,9 +54,14 @@ export default function ProductList({
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((item: any) => (
           <CardItem
-            onAdd={async () => handleAdd(item)}
+            onAdd={() => handleAdd(item)}
             key={item.id}
-            item={item}
+            item={
+              {
+                ...item,
+                _inCart: item._inCart,
+              } as ProductShopCartItem
+            }
             baseUrl={""}
           />
         ))}
