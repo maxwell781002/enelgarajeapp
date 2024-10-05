@@ -1,6 +1,5 @@
 "use client";
 
-import { useOptimistic } from "react";
 import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
@@ -16,16 +15,10 @@ type CardItemProps = {
 };
 
 export function CardItem({
-  item: originalItem,
+  item,
   baseUrl,
   onAdd,
 }: CardItemProps) {
-  const [item, setItem] = useOptimistic(originalItem);
-  const handleAdd = async () => {
-    setItem({ ...item, _inCart: true });
-    await onAdd?.();
-  };
-
   return (
     <Card className="mb-4">
       <div className="relative">
@@ -57,7 +50,7 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <BtnAddCart action={handleAdd} />
+          <BtnAddCart action={onAdd} />
         </div>
       </CardContent>
     </Card>

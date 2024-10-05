@@ -1,8 +1,8 @@
 "use client";
-import { ProductShopCartItem } from "@repo/model/repository/order";
+
 import { CompleteProduct } from "@repo/model/zod/product";
 import { CardItem } from "@repo/ui/components/cardList/card";
-import { useCallback, useState } from "react";
+import { startTransition, useCallback, useOptimistic, useState } from "react";
 import ShowMore from "@repo/ui/components/show-more";
 import { useTranslations } from "next-intl";
 
@@ -21,7 +21,7 @@ export default function ProductList({
   categoryId,
   hastMore,
 }: ProductListProps) {
-  const [list, setList] = useState(data);
+  const [list, setList] = useOptimistic(data);
   const [currentHastMore, setCurrentHastMore] = useState(hastMore);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -38,19 +38,22 @@ export default function ProductList({
     setPage(page + 1);
     setLoading(false);
   }, [categoryId, businessId, page, list]);
+
+  const handleAdd = (item: any) => {
+    startTransition(() => {
+      setList(prev => prev.map(i => i.id === item.id ? { ...i, _inCart: true } : i));
+      return add(item.id);
+    });
+  };
+
   return (
     <>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((item: any) => (
           <CardItem
-            onAdd={async () => add(item.id)}
+            onAdd={async () => handleAdd(item)}
             key={item.id}
-            item={
-              {
-                ...item,
-                _inCart: item._inCart,
-              } as ProductShopCartItem
-            }
+            item={item}
             baseUrl={""}
           />
         ))}

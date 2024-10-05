@@ -1,4 +1,4 @@
-import { productRepository } from "@repo/model/repositories/product";
+import { paginateFrontend } from "@repo/model/repository/product";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -10,6 +10,6 @@ export async function GET(req: NextRequest) {
   };
   const categoryId = req.nextUrl.searchParams.get("categoryId");
   if (categoryId) params["categoryId"] = categoryId;
-  const data = await productRepository.paginateFrontend(params);
+  const data = await paginateFrontend(params);
   return NextResponse.json(data);
 }

@@ -2,9 +2,9 @@ import { categoryRepository } from "@repo/model/repositories/category";
 import CategoryMenu from "./category-menu";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import ProductList from "./list";
-import { productRepository } from "@repo/model/repositories/product";
 import { addToOrder } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
+import { paginateFrontend } from "@repo/model/repository/product";
 
 export default async function ProductListWrapper({
   currentBusiness,
@@ -19,7 +19,7 @@ export default async function ProductListWrapper({
 }) {
   const categories = await categoryRepository.getAll(currentBusiness.id);
   const currenItem = categories.find((item: any) => item.slug === categorySlug);
-  const { data, hasMore } = await productRepository.paginateFrontend({
+  const { data, hasMore } = await paginateFrontend({
     businessId,
     categoryId: currenItem?.id,
   });
