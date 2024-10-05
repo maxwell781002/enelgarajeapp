@@ -11,7 +11,10 @@ import { orderRepository } from "./order";
 
 type PaginateData = {
   businessId?: string;
+  categoryId?: string;
 } & BasePaginateData;
+
+export const PAGE_SIZE_FRONTEND = 6;
 
 export class ProductRepository extends BaseRepository<
   CompleteProduct,
@@ -83,7 +86,14 @@ export class ProductRepository extends BaseRepository<
       where: {
         businessId,
       },
+      pageSize: 100,
     });
+  }
+
+  paginateFrontend({ categoryId, businessId, ...props }: PaginateData = {}) {
+    const where: any = { businessId, active: true };
+    if (categoryId) where["categoryId"] = categoryId;
+    return super.paginate({ ...props, where, pageSize: PAGE_SIZE_FRONTEND });
   }
 }
 

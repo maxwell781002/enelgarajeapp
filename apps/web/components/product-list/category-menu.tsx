@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export type CategoryMenuProps = {
   items: CompleteCategory[];
-  activeSlug?: string;
+  active?: CompleteCategory;
 };
 
 const Item = ({
@@ -39,12 +39,8 @@ const Item = ({
   );
 };
 
-export default async function Component({
-  items,
-  activeSlug,
-}: CategoryMenuProps) {
+export default async function Component({ items, active }: CategoryMenuProps) {
   const t = await getTranslations("Header");
-  const currenItem = items.find((item) => item.slug === activeSlug);
   return (
     <>
       <div className="w-full mx-auto px-10 md:px-4 shadow-lg bg-gray-100 rounded">
@@ -56,13 +52,13 @@ export default async function Component({
           className="w-full"
         >
           <CarouselContent className="-ml-2 md:-ml-4">
-            <Item text={t("AllCategory")} url={"/"} active={!activeSlug} />
+            <Item text={t("AllCategory")} url={"/"} active={!active} />
             {items.map((category, index) => (
               <Item
                 key={index}
                 text={category.name}
                 url={`/c/${category.slug}`}
-                active={activeSlug === category.slug}
+                active={active?.slug === category.slug}
               />
             ))}
           </CarouselContent>
@@ -70,9 +66,9 @@ export default async function Component({
           <CarouselNext className="top-5" />
         </Carousel>
       </div>
-      {activeSlug && (
+      {active && (
         <div className="mt-4 text-center">
-          <p className="text-xl font-semibold">{currenItem?.name}</p>
+          <p className="text-xl font-semibold">{active.name}</p>
         </div>
       )}
     </>

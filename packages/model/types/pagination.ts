@@ -6,6 +6,7 @@ export type PaginationResult<T> = {
   firstRecordNumber: number;
   lastRecordNumber: number;
   data: T[];
+  hasMore: boolean;
 };
 
 export type PaginateData = {

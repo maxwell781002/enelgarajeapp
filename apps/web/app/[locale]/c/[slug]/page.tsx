@@ -7,11 +7,13 @@ export default async function Page({
 }: {
   params: { slug: string };
 }) {
-  const currentBusiness = await getCurrentBusiness();
+  const currentBusiness = (await getCurrentBusiness()) as CompleteBusiness;
   return (
     <ProductList
-      currentBusiness={currentBusiness as CompleteBusiness}
+      currentBusiness={currentBusiness}
       categorySlug={slug}
+      baseUrl={`/c/${slug}`}
+      businessId={currentBusiness.id}
     />
   );
 }
