@@ -27,7 +27,7 @@ export function CardItem({
   };
 
   return (
-    <Card>
+    <Card className="mb-4">
       <div className="relative">
         {item._inCart && (
           <div className="absolute top-2 left-2 bg-red-600 rounded-full p-1">

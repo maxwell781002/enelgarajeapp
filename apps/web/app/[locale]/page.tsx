@@ -10,6 +10,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import CategoryMenu from "../../components/category-menu";
 
 type PageProps = {
   params: {
@@ -31,8 +32,11 @@ export default async function Page({ params: { locale } }: PageProps) {
 
   return (
     <>
+      <div className="mb-8">
+        <CategoryMenu />
+      </div>
       {list.map(({ products, name, id }: any) => (
-        <Row name={name} key={id}>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map(async (item: any) => (
             <CardItem
               onAdd={add.bind(null, item.id)}
@@ -46,7 +50,7 @@ export default async function Page({ params: { locale } }: PageProps) {
               baseUrl={baseUrl}
             />
           ))}
-        </Row>
+        </div>
       ))}
     </>
   );
