@@ -21,12 +21,7 @@ export function CardItem({
 }: CardItemProps) {
   return (
     <Card className="mb-4">
-      <div className="relative">
-        {item._inCart && (
-          <div className="absolute top-2 left-2 bg-red-600 rounded-full p-1">
-            <CheckIcon className="h-4 w-4 text-primary-foreground" />
-          </div>
-        )}
+      <div>
         <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
           <Image
             src={item.image}
@@ -50,7 +45,15 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <BtnAddCart action={onAdd} />
+          <div className="relative">
+            {item._inCart && (
+              //top-2 left-2
+              <div className="absolute left-7 -top-2  bg-green-600 rounded-full p-1 h-5 w-5 mr-2">
+                <CheckIcon className="h-3.5 w-3.5 text-primary-foreground" />
+              </div>
+            )}
+            <BtnAddCart action={onAdd} />
+          </div>
         </div>
       </CardContent>
     </Card>
