@@ -1,4 +1,3 @@
-import { Row } from "@repo/ui/components/cardList/row";
 import { CardItem } from "@repo/ui/components/cardList/card";
 import { getByBusiness } from "@repo/model/repository/category";
 import {
@@ -10,7 +9,9 @@ import {
 import { revalidatePath } from "next/cache";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { CompleteBusiness } from "@repo/model/zod/business";
-import CategoryMenu from "../../components/category-menu";
+import CategoryMenu from "../../components/product-list/category-menu";
+import { categoryRepository } from "@repo/model/repositories/category";
+import ProductList from "../../components/product-list";
 
 type PageProps = {
   params: {
@@ -18,10 +19,16 @@ type PageProps = {
   };
 };
 
-export default async function Page({ params: { locale } }: PageProps) {
-  const list = await getByBusiness(
-    (await getCurrentBusiness()) as CompleteBusiness,
-  );
+export default async function Page() {
+  const currentBusiness = await getCurrentBusiness();
+  if (!currentBusiness) return <div>Not found</div>;
+  return <ProductList currentBusiness={currentBusiness as CompleteBusiness} />;
+}
+
+export async function PageV({ params: { locale } }: PageProps) {
+  const currentBusiness = await getCurrentBusiness();
+  if (!currentBusiness) return <div>Not found</div>;
+  const list = await getByBusiness(currentBusiness as CompleteBusiness);
   const baseUrl = `/${locale}`;
   const order = await getCurrentOrder();
   const add = async (productId: string) => {
@@ -29,11 +36,12 @@ export default async function Page({ params: { locale } }: PageProps) {
     await addToOrder(productId);
     revalidatePath(baseUrl);
   };
+  const categories = await categoryRepository.getAll(currentBusiness.id);
 
   return (
     <>
       <div className="mb-8">
-        <CategoryMenu />
+        <CategoryMenu items={categories} />
       </div>
       {list.map(({ products, name, id }: any) => (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
