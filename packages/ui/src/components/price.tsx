@@ -15,8 +15,9 @@ export default function PriceDisplay({
   className,
   acronym = "CUP",
 }: PriceDisplayProps) {
-  const formatPrice = (amount: number) => {
-    return `${currency}${(amount / 100).toFixed(2)} ${acronym}`;
+  const formatPrice = (amount: number, showAcronym = true) => {
+    const price = `${currency}${(amount / 100).toFixed(2)}`;
+    return showAcronym ? `${price} ${acronym}` : price;
   };
 
   return (
@@ -33,7 +34,7 @@ export default function PriceDisplay({
             className="text-sm text-gray-500 line-through"
             aria-label="Original price"
           >
-            {formatPrice(price)}
+            {formatPrice(price, false)}
           </span>
         </>
       ) : (
