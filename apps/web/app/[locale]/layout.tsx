@@ -17,8 +17,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Catalogo",
-  description: "Plantaforma de compras",
+  title: "EnElGaraje",
+  description: "Plataforma de compra/ventas",
 };
 
 export default async function RootLayout({
