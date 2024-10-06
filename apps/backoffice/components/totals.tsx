@@ -2,7 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/ui
 import { Package, ShoppingCart } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
-export default async function Totals() {
+export type TotalsProps = {
+  productTotal: number,
+  productInactive: number,
+}
+
+export default async function Totals({
+  productTotal,
+  productInactive,
+}: TotalsProps) {
   const t = await getTranslations('Totals')
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -14,9 +22,11 @@ export default async function Totals() {
           <Package className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">1,234</div>
+          <div className="text-2xl font-bold">
+            {productTotal}
+          </div>
           <p className="text-xs text-muted-foreground">
-            +20.1% {t('totalProductsInactive')}
+            {!!productInactive && `+ ${productInactive} ${t('totalProductsInactive')}`}
           </p>
         </CardContent>
       </Card>
