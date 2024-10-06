@@ -11,6 +11,7 @@ import { ProductRepository } from "@repo/model/repositories/product";
 import ProductTable from "./table";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
+import { PaginationResult } from "@repo/model/types/pagination";
 
 type PageProps = {
   searchParams: any;
@@ -27,6 +28,7 @@ export default async function Page({
     ProductRepository.name,
     searchParams,
   );
+  const pagination = await list({ businessId });
   return (
     <Card>
       <CardHeader className="px-7">
@@ -43,7 +45,7 @@ export default async function Page({
       </CardHeader>
       <CardContent>
         <TableContextProvider update={update} remove={remove}>
-          <ProductTable pagination={await list({ businessId })} />
+          <ProductTable pagination={pagination as PaginationResult<any>} />
         </TableContextProvider>
       </CardContent>
     </Card>

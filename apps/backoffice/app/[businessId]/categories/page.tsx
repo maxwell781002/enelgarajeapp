@@ -10,6 +10,7 @@ import {
 } from "@repo/ui/components/ui/card";
 import { DialogForm } from "./DialogForm";
 import { getTranslations } from "next-intl/server";
+import { PaginationResult } from "@repo/model/types/pagination";
 
 type PageProps = {
   searchParams: any;
@@ -26,6 +27,7 @@ export default async function Page({
     CategoryRepository.name,
     searchParams,
   );
+  const pagination = await list({ ...searchParams, businessId });
   return (
     <Card>
       <CardHeader className="px-7">
@@ -44,9 +46,7 @@ export default async function Page({
       </CardHeader>
       <CardContent>
         <TableContextProvider update={update} remove={remove}>
-          <CategoryTable
-            pagination={await list({ ...searchParams, businessId })}
-          />
+          <CategoryTable pagination={pagination as PaginationResult<any>} />
         </TableContextProvider>
       </CardContent>
     </Card>

@@ -11,6 +11,7 @@ import { BusinessRepository } from "@repo/model/repositories/business";
 import BusinessTable from "./table";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
+import { PaginationResult } from "@repo/model/types/pagination";
 
 type PageProps = {
   searchParams: any;
@@ -27,6 +28,7 @@ export default async function Page({
     BusinessRepository.name,
     searchParams,
   );
+  const pagination = await list({ businessId });
   return (
     <Card>
       <CardHeader className="px-7">
@@ -43,7 +45,7 @@ export default async function Page({
       </CardHeader>
       <CardContent>
         <TableContextProvider remove={remove}>
-          <BusinessTable pagination={await list({ businessId })} />
+          <BusinessTable pagination={pagination as PaginationResult<any>} />
         </TableContextProvider>
       </CardContent>
     </Card>

@@ -7,6 +7,8 @@ export type PaginationResult<T> = {
   lastRecordNumber: number;
   data: T[];
   hasMore: boolean;
+  previousLink?: string;
+  nextLink?: string;
 };
 
 export type PaginateData = {

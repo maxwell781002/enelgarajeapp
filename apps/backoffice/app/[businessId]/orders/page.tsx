@@ -4,6 +4,7 @@ import { OrderRepository } from "@repo/model/repositories/order";
 import { columns } from "./columns";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
+import { PaginationResult } from "@repo/model/types/pagination";
 
 type PageProps = {
   searchParams: any;
@@ -29,7 +30,7 @@ export default async function Page({
     <>
       <Filter onChange={handleSearch} />
       <MyTable
-        pagination={data}
+        pagination={data as PaginationResult<any>}
         columns={columns}
         emptyTitle="No hay órdenes"
         emptyDescription="No has tenido ninguna compra todavía."
