@@ -55,7 +55,9 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
                   <PlusIcon className="h-4 w-4" />
                 </Button>
               </div>
-              <div>${(item as any).total}</div>
+              <div>
+                <PriceDisplay price={(item as any).total} />
+              </div>
               <BtnConfirm
                 btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
                 title={t("remove_dialog.title")}

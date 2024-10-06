@@ -14,7 +14,7 @@ export default function PriceDisplay({
   className,
 }: PriceDisplayProps) {
   const formatPrice = (amount: number) => {
-    return amount.toFixed(2);
+    return (amount / 100).toFixed(2);
   };
 
   return (
