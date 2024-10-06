@@ -23,6 +23,8 @@
     "totalProducts": "Total de productos",
     "totalProductsInactive": "Total inactivos",
     "orderToProcess": "Pedidos pendientes",
-    "totalOrders": "Total de pedidos"
+    "totalOrders": "Total de pedidos",
+    "orderPayed": "Pedidos pagados",
+    "orderReject": "Pedidos rechazados"
   }
 }
