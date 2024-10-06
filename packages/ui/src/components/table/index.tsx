@@ -13,7 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
-import { PaginationResult, PaginateData } from "@repo/model/types/pagination";
+import { PaginationResult } from "@repo/model/types/pagination";
 import EmptyTable, { EmptyTableProps } from "./empty";
 
 export type ColumnDef<TData> = {
@@ -25,7 +25,6 @@ export type ColumnDef<TData> = {
 
 export type MyTableProps = {
   pagination: PaginationResult<any>;
-  paginate: ({ pageIndex, pageSize }: PaginateData) => void;
   columns: ColumnDef<any>[];
 } & EmptyTableProps;
 
@@ -35,15 +34,10 @@ const getValue = (field: string, value: any) => {
 };
 
 export default async function MyTable({
-  pagination: { data, pageIndex, totalPage, total },
-  paginate,
+  pagination: { data, pageIndex, totalPage, total, previousLink, nextLink },
   columns,
   ...props
 }: MyTableProps) {
-  const previousLink =
-    pageIndex > 0 && (await paginate({ pageIndex: pageIndex - 1 }));
-  const nextLink =
-    pageIndex + 1 < totalPage && (await paginate({ pageIndex: pageIndex + 1 }));
   if (total === 0) {
     return <EmptyTable {...props} />;
   }
@@ -101,7 +95,7 @@ export default async function MyTable({
             {previousLink ? <PaginationPrevious href={previousLink} /> : <></>}
           </PaginationItem>
           <PaginationItem>
-            {pageIndex + 1} / {totalPage}
+            {pageIndex} / {totalPage}
           </PaginationItem>
           <PaginationItem>
             {nextLink ? <PaginationNext href={nextLink} /> : <></>}

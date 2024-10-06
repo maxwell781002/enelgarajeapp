@@ -22,7 +22,7 @@ export default async function Page({
   params: { businessId },
 }: PageProps) {
   const t = await getTranslations("Business");
-  const { list, paginate, remove } = crud(
+  const { list, remove } = crud(
     `/${businessId}/categories`,
     BusinessRepository.name,
     searchParams,
@@ -43,10 +43,7 @@ export default async function Page({
       </CardHeader>
       <CardContent>
         <TableContextProvider remove={remove}>
-          <BusinessTable
-            pagination={await list({ businessId })}
-            paginate={paginate}
-          />
+          <BusinessTable pagination={await list({ businessId })} />
         </TableContextProvider>
       </CardContent>
     </Card>

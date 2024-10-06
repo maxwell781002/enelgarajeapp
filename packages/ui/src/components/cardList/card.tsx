@@ -1,6 +1,5 @@
 "use client";
 
-import { useOptimistic } from "react";
 import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
@@ -8,6 +7,7 @@ import { BtnAddCart } from "@repo/ui/components/add-cart";
 import { ProductShopCartItem } from "@repo/model/repository/order";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
+import { startTransition, useOptimistic } from "react";
 
 type CardItemProps = {
   item: ProductShopCartItem;
@@ -21,19 +21,15 @@ export function CardItem({
   onAdd,
 }: CardItemProps) {
   const [item, setItem] = useOptimistic(originalItem);
-  const handleAdd = async () => {
-    setItem({ ...item, _inCart: true });
-    await onAdd?.();
+  const handleAdd = () => {
+    startTransition(() => {
+      setItem({ ...item, _inCart: true });
+      return onAdd?.();
+    });
   };
-
   return (
-    <Card>
-      <div className="relative">
-        {item._inCart && (
-          <div className="absolute top-2 left-2 bg-red-600 rounded-full p-1">
-            <CheckIcon className="h-4 w-4 text-primary-foreground" />
-          </div>
-        )}
+    <Card className="mb-4">
+      <div>
         <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
           <Image
             src={item.image}
@@ -57,7 +53,14 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <BtnAddCart action={handleAdd} />
+          <div className="relative">
+            {item._inCart && (
+              <div className="absolute left-7 -top-2  bg-green-600 rounded-full p-1 h-5 w-5 mr-2">
+                <CheckIcon className="h-3.5 w-3.5 text-primary-foreground" />
+              </div>
+            )}
+            <BtnAddCart action={handleAdd} />
+          </div>
         </div>
       </CardContent>
     </Card>
