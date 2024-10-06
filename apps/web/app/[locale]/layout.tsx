@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { CompleteBusiness } from "@repo/model/zod/index";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { Header } from "../../components/layout/header";
+import { Footer } from "../../components/layout/footer";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -34,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="flex flex-col min-h-dvh pb-10">
+        <div className="flex flex-col min-h-dvh">
           <NextIntlClientProvider messages={messages}>
             {business ? (
               <>
@@ -42,6 +43,7 @@ export default async function RootLayout({
                 <main className="flex-1 container pt-20 md:py-16 lg:py-20">
                   {children}
                 </main>
+                <Footer />
               </>
             ) : (
               <h1>not found</h1>
