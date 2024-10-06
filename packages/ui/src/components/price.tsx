@@ -5,6 +5,7 @@ interface PriceDisplayProps {
   offerPrice?: number;
   currency?: string;
   className?: string;
+  acronym?: string;
 }
 
 export default function PriceDisplay({
@@ -12,9 +13,10 @@ export default function PriceDisplay({
   offerPrice,
   currency = "$",
   className,
+  acronym = "CUP",
 }: PriceDisplayProps) {
   const formatPrice = (amount: number) => {
-    return (amount / 100).toFixed(2);
+    return `${currency}${(amount / 100).toFixed(2)} ${acronym}`;
   };
 
   return (
@@ -25,20 +27,17 @@ export default function PriceDisplay({
             className="text-lg font-bold text-green-600"
             aria-label="Offer price"
           >
-            {currency}
             {formatPrice(offerPrice)}
           </span>
           <span
             className="text-sm text-gray-500 line-through"
             aria-label="Original price"
           >
-            {currency}
             {formatPrice(price)}
           </span>
         </>
       ) : (
         <span className="text-lg font-bold" aria-label="Price">
-          {currency}
           {formatPrice(price)}
         </span>
       )}
