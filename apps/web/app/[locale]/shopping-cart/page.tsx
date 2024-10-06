@@ -10,6 +10,7 @@ import Link from "next/link";
 import CardItem from "./card";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import PriceDisplay from "@repo/ui/components/price";
 
 type PageProps = {
   params: {
@@ -65,7 +66,9 @@ export default async function Page({ params: { locale } }: PageProps) {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <span className="text-lg font-semibold">{t("total_cart")}</span>
-          <span className="text-2xl font-bold">${order.total as number}</span>
+          <span className="text-2xl font-bold">
+            <PriceDisplay price={order.total} />
+          </span>
         </div>
         <div className="flex flex-col gap-2">
           <Link href={baseUrl} className="w-full" prefetch={false}>

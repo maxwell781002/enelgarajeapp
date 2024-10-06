@@ -1,4 +1,5 @@
 import { formatDate } from "../lib/date";
+import PriceDisplay from "./price";
 import { Separator } from "./ui/separator";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
@@ -29,7 +30,8 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                   <div className="flex items-center justify-between">
                     <div className="font-medium">{item.product.name}</div>
                     <div>
-                      {item.quantity} x ${item.price}
+                      {item.quantity} x
+                      <PriceDisplay price={item.price} />
                     </div>
                   </div>
                 ))}
@@ -37,7 +39,9 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
               <Separator />
               <div className="flex items-center justify-between font-medium">
                 <div>Total</div>
-                <div>${order.total}</div>
+                <div>
+                  <PriceDisplay price={order.total} />
+                </div>
               </div>
             </div>
           </div>

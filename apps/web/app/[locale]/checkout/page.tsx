@@ -16,6 +16,7 @@ import { auth } from "@repo/model/lib/auth";
 import NoUser from "./no-user";
 import Image from "@repo/ui/components/image";
 import { userRepository } from "@repo/model/repositories/user";
+import PriceDisplay from "@repo/ui/components/price";
 
 type PageProps = {
   params: {
@@ -73,7 +74,9 @@ export default async function Component({ params: { locale } }: PageProps) {
                   <TableCell className="font-medium">
                     {item.product.name}
                   </TableCell>
-                  <TableCell>${item.price}</TableCell>
+                  <TableCell>
+                    <PriceDisplay price={item.price} />
+                  </TableCell>
                   <TableCell>{item.quantity}</TableCell>
                 </TableRow>
               ))}
@@ -83,7 +86,9 @@ export default async function Component({ params: { locale } }: PageProps) {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-lg font-semibold">{t("total_cart")}</span>
-        <span className="text-2xl font-bold">${order.total as number}</span>
+        <span className="text-2xl font-bold">
+          <PriceDisplay price={order.total} />
+        </span>
       </div>
     </div>
   );
