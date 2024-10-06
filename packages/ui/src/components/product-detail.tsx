@@ -1,6 +1,7 @@
 import { CompleteProduct } from "@repo/model/zod/product";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
+import Markdown from "./markdown";
 
 type ProductDetailProps = {
   product: CompleteProduct;
@@ -39,9 +40,9 @@ export default function ProductDetail({
               </div>
               {addCartBtn}
             </div>
-            <p className="text-muted-foreground text-lg mb-6">
-              {product.description}
-            </p>
+            <div>
+              <Markdown>{product.description}</Markdown>
+            </div>
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div>
                 <h3 className="text-lg font-semibold mb-1">
