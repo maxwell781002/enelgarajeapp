@@ -94,6 +94,23 @@ export class ProductRepository extends BaseRepository<
     if (categoryId) where["categoryId"] = categoryId;
     return super.paginate({ ...props, where, pageSize: PAGE_SIZE_FRONTEND });
   }
+
+  async getTotals(businessId: string) {
+    const totalActive = this.model.count({
+      where: {
+        businessId,
+        active: true,
+      },
+    });
+    const totalInactive = this.model.count({
+      where: {
+        businessId,
+        active: false,
+      },
+    });
+    const values = await Promise.all([totalActive, totalInactive]);
+    return { totalActive: values[0], totalInactive: values[1] };
+  }
 }
 
 export const productRepository = new ProductRepository();

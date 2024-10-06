@@ -9,6 +9,9 @@ import { businessRepository } from "@repo/model/repositories/business";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
+import Totals from "../../components/totals";
+import { productRepository } from "@repo/model/repositories/product";
+import { orderRepository } from "@repo/model/repositories/order";
 
 export default async function BusinessPage({
   params: { businessId },
@@ -17,6 +20,10 @@ export default async function BusinessPage({
 }) {
   const business = await businessRepository.getById(businessId);
   const t = await getTranslations("Business");
+  const { totalActive, totalInactive } =
+    await productRepository.getTotals(businessId);
+  const { totalSend, totalPayed, totalReject } =
+    await orderRepository.getTotals(businessId);
 
   return (
     <div className="container mx-auto p-4 space-y-6">
@@ -28,6 +35,13 @@ export default async function BusinessPage({
           </Button>
         </Link>
       </div>
+      <Totals
+        productTotal={totalActive}
+        productInactive={totalInactive}
+        orderToProcess={totalSend}
+        orderPayed={totalPayed}
+        orderReject={totalReject}
+      />
       <Card className="overflow-hidden">
         <CardHeader>
           <div className="flex flex-1">

@@ -144,6 +144,24 @@ export class OrderRepository extends BaseRepository<
       },
     });
   }
+
+  async getTotals(businessId: string) {
+    const totalSend = prisma.order.count({
+      where: { businessId, NOT: { status: OrderStatus.SEND } },
+    });
+    const totalPayed = prisma.order.count({
+      where: { businessId, status: OrderStatus.PAYED },
+    });
+    const totalReject = prisma.order.count({
+      where: { businessId, status: OrderStatus.REJECTED },
+    });
+    const values = await Promise.all([totalSend, totalPayed, totalReject]);
+    return {
+      totalSend: values[0],
+      totalPayed: values[1],
+      totalReject: values[2],
+    };
+  }
 }
 
 export const orderRepository = new OrderRepository();
