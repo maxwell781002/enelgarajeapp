@@ -1,20 +1,31 @@
+import { WhatsappIcon } from "@repo/ui/components/icons";
+import { Mail } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
   return (
     <footer className="bg-muted py-6 text-muted-foreground">
       <div className="container flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
-        <p className="text-sm">&copy; 2024 Acme Restaurant</p>
+        <div className="flex items-center gap-1">
+          <Image src="/logo.png" alt="logo" width={40} height={40} />
+          <p className="text-sm">
+            &copy; 2024 EnElGaraje
+          </p>
+        </div>
         <nav className="flex gap-4 text-sm">
-          <Link href="#" className="hover:underline" prefetch={false}>
-            Privacy Policy
-          </Link>
-          <Link href="#" className="hover:underline" prefetch={false}>
-            Terms of Service
-          </Link>
-          <Link href="#" className="hover:underline" prefetch={false}>
-            Contact Us
-          </Link>
+          <div className="flex items-center">
+            <Mail className="h-5 w-5 text-primary mr-2" />
+            <Link href="mailto:contact@yourcompany.com" className="text-sm hover:underline">
+              contacto@enelgaraje.com
+            </Link>
+          </div>
+          <div className="flex items-center">
+            <WhatsappIcon className="w-5 h-5 mr-2" />
+            <Link href="https://wa.me/+5350586327" target="_blank" rel="noopener noreferrer" className="text-sm hover:underline">
+              (+53) 50586327
+            </Link>
+          </div>
         </nav>
       </div>
     </footer>
