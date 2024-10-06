@@ -17,16 +17,12 @@ type PageProps = {
   params: { businessId: string };
 };
 
-const defaultValues = {
-  name: "",
-};
-
 export default async function Page({
   searchParams,
   params: { businessId },
 }: PageProps) {
   const t = await getTranslations("Product");
-  const { list, paginate, remove, update } = crud(
+  const { list, remove, update } = crud(
     `/${businessId}/products`,
     ProductRepository.name,
     searchParams,
@@ -47,10 +43,7 @@ export default async function Page({
       </CardHeader>
       <CardContent>
         <TableContextProvider update={update} remove={remove}>
-          <ProductTable
-            pagination={await list({ businessId })}
-            paginate={paginate}
-          />
+          <ProductTable pagination={await list({ businessId })} />
         </TableContextProvider>
       </CardContent>
     </Card>

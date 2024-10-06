@@ -14,7 +14,7 @@ export default async function Page({
   searchParams,
   params: { businessId },
 }: PageProps) {
-  const { list, paginate, search } = crud(
+  const { list, search } = crud(
     `/${businessId}/orders`,
     OrderRepository.name,
     searchParams,
@@ -31,7 +31,6 @@ export default async function Page({
       <MyTable
         pagination={data}
         columns={columns}
-        paginate={paginate}
         emptyTitle="No hay órdenes"
         emptyDescription="No has tenido ninguna compra todavía."
       />

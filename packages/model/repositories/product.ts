@@ -86,7 +86,6 @@ export class ProductRepository extends BaseRepository<
       where: {
         businessId,
       },
-      pageSize: 100,
     });
   }
 

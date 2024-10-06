@@ -23,11 +23,6 @@ export function crud<T extends Entity, U>(
       revalidatePath(path);
     };
 
-  const paginate = async ({ pageIndex, pageSize }: PaginateData) => {
-    "use server";
-    return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize || PAGE_SIZE}`;
-  };
-
   const search = async (query: any = {}) => {
     "use server";
     return `${path}?${new URLSearchParams({ ...searchParams, pageIndex: 0, pageSize: PAGE_SIZE, ...query })}`;
@@ -36,9 +31,23 @@ export function crud<T extends Entity, U>(
   const list = async (query: any = {}) => {
     "use server";
     query = { ...searchParams, ...query };
-    const pageIndex = query.pageIndex ? Number(query.pageIndex) : 0;
+    const pageIndex = query.pageIndex ? Number(query.pageIndex) : 1;
     const pageSize = query.pageSize ? Number(query.pageSize) : PAGE_SIZE;
-    return (await getRepository()).paginate({ ...query, pageIndex, pageSize });
+    const { totalPage, ...data } = await (
+      await getRepository()
+    ).paginate({ ...query, pageIndex, pageSize });
+    const paginate = ({ pageIndex, pageSize }: PaginateData) => {
+      return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize || PAGE_SIZE}`;
+    };
+    return {
+      ...data,
+      totalPage,
+      previousLink:
+        pageIndex > 1 && paginate({ pageIndex: pageIndex - 1, pageSize }),
+      nextLink:
+        pageIndex < totalPage &&
+        paginate({ pageIndex: pageIndex + 1, pageSize }),
+    };
   };
 
   const update = async (id: string, props: any) => {
@@ -50,7 +59,6 @@ export function crud<T extends Entity, U>(
 
   return {
     list,
-    paginate,
     update,
     search,
     create: buildMethod("create"),
