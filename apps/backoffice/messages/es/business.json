@@ -18,5 +18,11 @@
     "businessCreated": "Negocio creado",
     "General": "General",
     "noPhone": "Sin teléfono"
+  },
+  "Totals": {
+    "totalProducts": "Total de productos",
+    "totalProductsInactive": "Total inactivos",
+    "orderToProcess": "Pedidos pendientes",
+    "totalOrders": "Total de pedidos"
   }
 }

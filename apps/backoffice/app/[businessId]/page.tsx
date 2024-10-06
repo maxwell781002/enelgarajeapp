@@ -9,6 +9,7 @@ import { businessRepository } from "@repo/model/repositories/business";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
+import Totals from "../../components/totals";
 
 export default async function BusinessPage({
   params: { businessId },
@@ -28,6 +29,7 @@ export default async function BusinessPage({
           </Button>
         </Link>
       </div>
+      <Totals />
       <Card className="overflow-hidden">
         <CardHeader>
           <div className="flex flex-1">
