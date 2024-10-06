@@ -16,7 +16,7 @@ export function Footer() {
         <nav className="flex gap-4 text-sm">
           <div className="flex items-center">
             <Mail className="h-5 w-5 text-primary mr-2" />
-            <Link href="mailto:contact@yourcompany.com" className="text-sm hover:underline">
+            <Link href="mailto:contacto@enelgaraje.com" className="text-sm hover:underline">
               contacto@enelgaraje.com
             </Link>
           </div>
