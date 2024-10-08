@@ -33,10 +33,11 @@ export function CardItem({
         <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
           <Image
             src={item.image}
-            width={300}
-            height={300}
             alt={item.name}
-            className="rounded-t-lg object-cover w-full h-48"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "100%", height: "auto" }}
           />
         </Link>
       </div>

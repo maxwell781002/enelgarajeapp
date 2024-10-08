@@ -63,13 +63,15 @@ export default async function Component({ params: { locale } }: PageProps) {
               {order.items.map((item) => (
                 <TableRow key={item.productId}>
                   <TableCell>
-                    <Image
-                      src={item.product.image}
-                      width={64}
-                      height={64}
-                      alt={item.product.name}
-                      className="aspect-square rounded-md object-cover"
-                    />
+                    <div className="h-[64px] w-[64px] flex items-center justify-center">
+                      <Image
+                        src={item.product.image}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: "100%", height: "auto" }}
+                      />
+                    </div>
                   </TableCell>
                   <TableCell className="font-medium">
                     {item.product.name}

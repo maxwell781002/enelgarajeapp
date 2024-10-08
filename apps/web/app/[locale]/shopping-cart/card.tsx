@@ -27,14 +27,16 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
         <CardContent>
           <div className="grid gap-4">
             <div className="flex items-center gap-4">
-              <Image
-                src={item.product.image}
-                alt={item.product.name}
-                className="rounded-md"
-                width="64"
-                height="64"
-                style={{ aspectRatio: "64/64", objectFit: "cover" }}
-              />
+              <div className="h-[64px] w-[64px] flex items-center justify-center">
+                <Image
+                  src={item.product.image}
+                  alt={item.product.name}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </div>
               <div>
                 <Link href={`${url}/${item.product.slug}`} prefetch={false}>
                   <h3 className="font-medium">{item.product.name}</h3>
