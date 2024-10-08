@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { CompleteCategory } from "@repo/model/zod/category";
 import {
@@ -45,14 +45,14 @@ const Item = ({
 
 export default function Component({ items, active }: CategoryMenuProps) {
   const t = useTranslations("Header");
-  const [api, setApi] = React.useState<CarouselApi>() 
+  const [api, setApi] = React.useState<CarouselApi>();
   React.useEffect(() => {
     if (!api) {
-      return
+      return;
     }
-    const index = items.findIndex((item) => item.slug === active?.slug)
-    api.scrollTo(index, true)
-  }, [api, items])
+    const index = items.findIndex((item) => item.slug === active?.slug);
+    api.scrollTo(index, true);
+  }, [api, items]);
 
   return (
     <>

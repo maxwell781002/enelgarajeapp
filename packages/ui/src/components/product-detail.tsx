@@ -19,10 +19,11 @@ export default function ProductDetail({
       <section className="w-full">
         <Image
           src={product.image}
-          width={1600}
-          height={800}
           alt={product.name}
-          className="w-full h-[500px] md:h-[600px] object-cover"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }}
         />
       </section>
       <section className="container mx-auto py-12 md:py-16 px-4 md:px-6">

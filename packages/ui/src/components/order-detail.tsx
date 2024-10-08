@@ -27,18 +27,22 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
               <Separator />
               <div className="grid gap-4">
                 {order.items.map((item: CompleteOrderProduct) => (
-                  <div className="flex items-center justify-between">
-                    <div className="font-medium">{item.product.name}</div>
-                    <div>
-                      {item.quantity} x
-                      <PriceDisplay price={item.price} />
+                  <>
+                    <div className="flex items-start justify-between">
+                      <div className="font-medium">{item.product.name}</div>
+                      <div className="flex flex-col">
+                        <div className="text-right">{item.quantity} x</div>
+                        <PriceDisplay price={item.price} />
+                      </div>
                     </div>
-                  </div>
+                    <Separator />
+                  </>
                 ))}
               </div>
-              <Separator />
               <div className="flex items-center justify-between font-medium">
-                <div>Total</div>
+                <div>
+                  <strong>Total</strong>
+                </div>
                 <div>
                   <PriceDisplay price={order.total} />
                 </div>
