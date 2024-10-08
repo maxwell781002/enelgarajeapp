@@ -1,14 +1,18 @@
+'use client';
+
 import { CompleteCategory } from "@repo/model/zod/category";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@repo/ui/components/ui/carousel";
 import { cn } from "@repo/ui/lib/utils";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import React from "react";
 
 export type CategoryMenuProps = {
   items: CompleteCategory[];
@@ -39,12 +43,22 @@ const Item = ({
   );
 };
 
-export default async function Component({ items, active }: CategoryMenuProps) {
-  const t = await getTranslations("Header");
+export default function Component({ items, active }: CategoryMenuProps) {
+  const t = useTranslations("Header");
+  const [api, setApi] = React.useState<CarouselApi>() 
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+    const index = items.findIndex((item) => item.slug === active?.slug)
+    api.scrollTo(index, true)
+  }, [api, items])
+
   return (
     <>
       <div className="w-full mx-auto px-10 md:px-4 shadow-lg bg-gray-100 rounded">
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
             loop: true,
