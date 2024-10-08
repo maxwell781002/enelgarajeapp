@@ -9,6 +9,7 @@ import { getTranslations } from "next-intl/server";
 import { AddCart } from "./add-cart";
 import ProductDetail from "@repo/ui/components/product-detail";
 import { CompleteProduct } from "@repo/model/zod/product";
+import { ResolvingMetadata } from "next";
 
 type PageProps = {
   params: {
@@ -16,6 +17,22 @@ type PageProps = {
     locale: string;
   };
 };
+
+export async function generateMetadata(
+  { params: { productSlug } }: PageProps,
+  parent: ResolvingMetadata,
+) {
+  const product = await getBySlug(productSlug);
+  const previousImages = (await parent).openGraph?.images || [];
+  const image = (product?.image as any)?.downloadUrl;
+  return {
+    title: product?.name,
+    description: product?.description,
+    openGraph: {
+      images: image ? [image, ...previousImages] : previousImages,
+    },
+  };
+}
 
 export default async function Page({
   params: { productSlug, locale },
