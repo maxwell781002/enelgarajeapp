@@ -3382,14 +3382,26 @@ export namespace Prisma {
 
   export type AggregateCategory = {
     _count: CategoryCountAggregateOutputType | null;
+    _avg: CategoryAvgAggregateOutputType | null;
+    _sum: CategorySumAggregateOutputType | null;
     _min: CategoryMinAggregateOutputType | null;
     _max: CategoryMaxAggregateOutputType | null;
+  };
+
+  export type CategoryAvgAggregateOutputType = {
+    priority: number | null;
+  };
+
+  export type CategorySumAggregateOutputType = {
+    priority: number | null;
   };
 
   export type CategoryMinAggregateOutputType = {
     id: string | null;
     name: string | null;
     slug: string | null;
+    active: boolean | null;
+    priority: number | null;
     businessId: string | null;
   };
 
@@ -3397,6 +3409,8 @@ export namespace Prisma {
     id: string | null;
     name: string | null;
     slug: string | null;
+    active: boolean | null;
+    priority: number | null;
     businessId: string | null;
   };
 
@@ -3404,14 +3418,26 @@ export namespace Prisma {
     id: number;
     name: number;
     slug: number;
+    active: number;
+    priority: number;
     businessId: number;
     _all: number;
+  };
+
+  export type CategoryAvgAggregateInputType = {
+    priority?: true;
+  };
+
+  export type CategorySumAggregateInputType = {
+    priority?: true;
   };
 
   export type CategoryMinAggregateInputType = {
     id?: true;
     name?: true;
     slug?: true;
+    active?: true;
+    priority?: true;
     businessId?: true;
   };
 
@@ -3419,6 +3445,8 @@ export namespace Prisma {
     id?: true;
     name?: true;
     slug?: true;
+    active?: true;
+    priority?: true;
     businessId?: true;
   };
 
@@ -3426,6 +3454,8 @@ export namespace Prisma {
     id?: true;
     name?: true;
     slug?: true;
+    active?: true;
+    priority?: true;
     businessId?: true;
     _all?: true;
   };
@@ -3472,6 +3502,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      *
+     * Select which fields to average
+     **/
+    _avg?: CategoryAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: CategorySumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
      * Select which fields to find the minimum value
      **/
     _min?: CategoryMinAggregateInputType;
@@ -3503,6 +3545,8 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     _count?: CategoryCountAggregateInputType | true;
+    _avg?: CategoryAvgAggregateInputType;
+    _sum?: CategorySumAggregateInputType;
     _min?: CategoryMinAggregateInputType;
     _max?: CategoryMaxAggregateInputType;
   };
@@ -3511,8 +3555,12 @@ export namespace Prisma {
     id: string;
     name: string;
     slug: string | null;
+    active: boolean;
+    priority: number;
     businessId: string;
     _count: CategoryCountAggregateOutputType | null;
+    _avg: CategoryAvgAggregateOutputType | null;
+    _sum: CategorySumAggregateOutputType | null;
     _min: CategoryMinAggregateOutputType | null;
     _max: CategoryMaxAggregateOutputType | null;
   };
@@ -3537,6 +3585,8 @@ export namespace Prisma {
       id?: boolean;
       name?: boolean;
       slug?: boolean;
+      active?: boolean;
+      priority?: boolean;
       businessId?: boolean;
       products?: boolean | Category$productsArgs<ExtArgs>;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
@@ -3552,6 +3602,8 @@ export namespace Prisma {
       id?: boolean;
       name?: boolean;
       slug?: boolean;
+      active?: boolean;
+      priority?: boolean;
       businessId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
     },
@@ -3562,6 +3614,8 @@ export namespace Prisma {
     id?: boolean;
     name?: boolean;
     slug?: boolean;
+    active?: boolean;
+    priority?: boolean;
     businessId?: boolean;
   };
 
@@ -3594,6 +3648,14 @@ export namespace Prisma {
          */
         name: string;
         slug: string | null;
+        /**
+         * @zod.optional()
+         */
+        active: boolean;
+        /**
+         * @zod.optional()
+         */
+        priority: number;
         businessId: string;
       },
       ExtArgs["result"]["category"]
@@ -4123,6 +4185,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Category", "String">;
     readonly name: FieldRef<"Category", "String">;
     readonly slug: FieldRef<"Category", "String">;
+    readonly active: FieldRef<"Category", "Boolean">;
+    readonly priority: FieldRef<"Category", "Int">;
     readonly businessId: FieldRef<"Category", "String">;
   }
 
@@ -15202,6 +15266,8 @@ export namespace Prisma {
     id: "id";
     name: "name";
     slug: "slug";
+    active: "active";
+    priority: "priority";
     businessId: "businessId";
   };
 
@@ -15404,11 +15470,11 @@ export namespace Prisma {
   >;
 
   /**
-   * Reference to a field of type 'Json'
+   * Reference to a field of type 'Boolean'
    */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<
     $PrismaModel,
-    "Json"
+    "Boolean"
   >;
 
   /**
@@ -15428,19 +15494,19 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Json"
+  >;
+
+  /**
    * Reference to a field of type 'Json[]'
    */
   export type ListJsonFieldRefInput<$PrismaModel> = FieldRefInputType<
     $PrismaModel,
     "Json[]"
-  >;
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<
-    $PrismaModel,
-    "Boolean"
   >;
 
   /**
@@ -15594,6 +15660,8 @@ export namespace Prisma {
     id?: StringFilter<"Category"> | string;
     name?: StringFilter<"Category"> | string;
     slug?: StringNullableFilter<"Category"> | string | null;
+    active?: BoolFilter<"Category"> | boolean;
+    priority?: IntFilter<"Category"> | number;
     businessId?: StringFilter<"Category"> | string;
     products?: ProductListRelationFilter;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -15603,6 +15671,8 @@ export namespace Prisma {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrderInput | SortOrder;
+    active?: SortOrder;
+    priority?: SortOrder;
     businessId?: SortOrder;
     products?: ProductOrderByRelationAggregateInput;
     business?: BusinessOrderByWithRelationInput;
@@ -15616,6 +15686,8 @@ export namespace Prisma {
       OR?: CategoryWhereInput[];
       NOT?: CategoryWhereInput | CategoryWhereInput[];
       name?: StringFilter<"Category"> | string;
+      active?: BoolFilter<"Category"> | boolean;
+      priority?: IntFilter<"Category"> | number;
       businessId?: StringFilter<"Category"> | string;
       products?: ProductListRelationFilter;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -15627,10 +15699,14 @@ export namespace Prisma {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrderInput | SortOrder;
+    active?: SortOrder;
+    priority?: SortOrder;
     businessId?: SortOrder;
     _count?: CategoryCountOrderByAggregateInput;
+    _avg?: CategoryAvgOrderByAggregateInput;
     _max?: CategoryMaxOrderByAggregateInput;
     _min?: CategoryMinOrderByAggregateInput;
+    _sum?: CategorySumOrderByAggregateInput;
   };
 
   export type CategoryScalarWhereWithAggregatesInput = {
@@ -15644,6 +15720,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Category"> | string;
     name?: StringWithAggregatesFilter<"Category"> | string;
     slug?: StringNullableWithAggregatesFilter<"Category"> | string | null;
+    active?: BoolWithAggregatesFilter<"Category"> | boolean;
+    priority?: IntWithAggregatesFilter<"Category"> | number;
     businessId?: StringWithAggregatesFilter<"Category"> | string;
   };
 
@@ -16479,6 +16557,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     products?: ProductCreateNestedManyWithoutCategoryInput;
     business: BusinessCreateNestedOneWithoutCategoriesInput;
   };
@@ -16487,6 +16567,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     businessId: string;
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput;
   };
@@ -16495,6 +16577,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     products?: ProductUpdateManyWithoutCategoryNestedInput;
     business?: BusinessUpdateOneRequiredWithoutCategoriesNestedInput;
   };
@@ -16503,6 +16587,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     businessId?: StringFieldUpdateOperationsInput | string;
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput;
   };
@@ -16511,6 +16597,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     businessId: string;
   };
 
@@ -16518,12 +16606,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
   };
 
   export type CategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 
@@ -17385,6 +17477,22 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>;
   };
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
+  };
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntFilter<$PrismaModel> | number;
+  };
+
   export type BusinessRelationFilter = {
     is?: BusinessWhereInput;
     isNot?: BusinessWhereInput;
@@ -17394,13 +17502,21 @@ export namespace Prisma {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrder;
+    active?: SortOrder;
+    priority?: SortOrder;
     businessId?: SortOrder;
+  };
+
+  export type CategoryAvgOrderByAggregateInput = {
+    priority?: SortOrder;
   };
 
   export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrder;
+    active?: SortOrder;
+    priority?: SortOrder;
     businessId?: SortOrder;
   };
 
@@ -17408,7 +17524,37 @@ export namespace Prisma {
     id?: SortOrder;
     name?: SortOrder;
     slug?: SortOrder;
+    active?: SortOrder;
+    priority?: SortOrder;
     businessId?: SortOrder;
+  };
+
+  export type CategorySumOrderByAggregateInput = {
+    priority?: SortOrder;
+  };
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedBoolFilter<$PrismaModel>;
+    _max?: NestedBoolFilter<$PrismaModel>;
+  };
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
   };
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -17442,17 +17588,6 @@ export namespace Prisma {
       | JsonNullValueFilter;
   };
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>;
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    lt?: number | IntFieldRefInput<$PrismaModel>;
-    lte?: number | IntFieldRefInput<$PrismaModel>;
-    gt?: number | IntFieldRefInput<$PrismaModel>;
-    gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntFilter<$PrismaModel> | number;
-  };
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null;
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
@@ -17484,11 +17619,6 @@ export namespace Prisma {
     hasEvery?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel>;
     hasSome?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel>;
     isEmpty?: boolean;
-  };
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
   export type CategoryRelationFilter = {
@@ -17604,22 +17734,6 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>;
   };
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>;
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    lt?: number | IntFieldRefInput<$PrismaModel>;
-    lte?: number | IntFieldRefInput<$PrismaModel>;
-    gt?: number | IntFieldRefInput<$PrismaModel>;
-    gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _avg?: NestedFloatFilter<$PrismaModel>;
-    _sum?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedIntFilter<$PrismaModel>;
-    _max?: NestedIntFilter<$PrismaModel>;
-  };
-
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null;
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
@@ -17634,14 +17748,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>;
     _min?: NestedIntNullableFilter<$PrismaModel>;
     _max?: NestedIntNullableFilter<$PrismaModel>;
-  };
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedBoolFilter<$PrismaModel>;
-    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type EnumUserRolesFilter<$PrismaModel = never> = {
@@ -18490,6 +18596,18 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[];
   };
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean;
+  };
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+  };
+
   export type ProductUpdateManyWithoutCategoryNestedInput = {
     create?:
       | XOR<
@@ -18615,14 +18733,6 @@ export namespace Prisma {
     connect?: OrderProductWhereUniqueInput | OrderProductWhereUniqueInput[];
   };
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number;
-    increment?: number;
-    decrement?: number;
-    multiply?: number;
-    divide?: number;
-  };
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null;
     increment?: number;
@@ -18634,10 +18744,6 @@ export namespace Prisma {
   export type ProductUpdateimagesInput = {
     set?: InputJsonValue[];
     push?: InputJsonValue | InputJsonValue[];
-  };
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean;
   };
 
   export type BusinessUpdateOneRequiredWithoutProductsNestedInput = {
@@ -19587,6 +19693,41 @@ export namespace Prisma {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
     not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedBoolFilter<$PrismaModel>;
+    _max?: NestedBoolFilter<$PrismaModel>;
+  };
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
+  };
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>;
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    lt?: number | FloatFieldRefInput<$PrismaModel>;
+    lte?: number | FloatFieldRefInput<$PrismaModel>;
+    gt?: number | FloatFieldRefInput<$PrismaModel>;
+    gte?: number | FloatFieldRefInput<$PrismaModel>;
+    not?: NestedFloatFilter<$PrismaModel> | number;
+  };
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<
@@ -19619,33 +19760,6 @@ export namespace Prisma {
       | JsonNullValueFilter;
   };
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>;
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    lt?: number | IntFieldRefInput<$PrismaModel>;
-    lte?: number | IntFieldRefInput<$PrismaModel>;
-    gt?: number | IntFieldRefInput<$PrismaModel>;
-    gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _avg?: NestedFloatFilter<$PrismaModel>;
-    _sum?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedIntFilter<$PrismaModel>;
-    _max?: NestedIntFilter<$PrismaModel>;
-  };
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>;
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>;
-    lt?: number | FloatFieldRefInput<$PrismaModel>;
-    lte?: number | FloatFieldRefInput<$PrismaModel>;
-    gt?: number | FloatFieldRefInput<$PrismaModel>;
-    gte?: number | FloatFieldRefInput<$PrismaModel>;
-    not?: NestedFloatFilter<$PrismaModel> | number;
-  };
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null;
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
@@ -19671,14 +19785,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>;
     gte?: number | FloatFieldRefInput<$PrismaModel>;
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null;
-  };
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedBoolFilter<$PrismaModel>;
-    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type NestedEnumUserRolesFilter<$PrismaModel = never> = {
@@ -19789,6 +19895,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     products?: ProductCreateNestedManyWithoutCategoryInput;
   };
 
@@ -19796,6 +19904,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput;
   };
 
@@ -19954,6 +20064,8 @@ export namespace Prisma {
     id?: StringFilter<"Category"> | string;
     name?: StringFilter<"Category"> | string;
     slug?: StringNullableFilter<"Category"> | string | null;
+    active?: BoolFilter<"Category"> | boolean;
+    priority?: IntFilter<"Category"> | number;
     businessId?: StringFilter<"Category"> | string;
   };
 
@@ -20283,6 +20395,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     business: BusinessCreateNestedOneWithoutCategoriesInput;
   };
 
@@ -20290,6 +20404,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
     businessId: string;
   };
 
@@ -20402,6 +20518,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     business?: BusinessUpdateOneRequiredWithoutCategoriesNestedInput;
   };
 
@@ -20409,6 +20527,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 
@@ -21695,6 +21815,8 @@ export namespace Prisma {
     id?: string;
     name: string;
     slug?: string | null;
+    active?: boolean;
+    priority?: number;
   };
 
   export type ProductCreateManyBusinessInput = {
@@ -21732,6 +21854,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     products?: ProductUpdateManyWithoutCategoryNestedInput;
   };
 
@@ -21739,6 +21863,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput;
   };
 
@@ -21746,6 +21872,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
   };
 
   export type ProductUpdateWithoutBusinessInput = {
