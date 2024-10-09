@@ -4884,8 +4884,17 @@ export namespace Prisma {
          * @zod.optional()
          */
         active: boolean;
+        /**
+         * @zod.optional()
+         */
         isNew: boolean;
+        /**
+         * @zod.optional()
+         */
         outOfStock: boolean;
+        /**
+         * @zod.optional()
+         */
         priority: number;
         businessId: string;
         categoryId: string;
