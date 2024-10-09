@@ -39,7 +39,7 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages}>
             {business ? (
               <>
-                <Header business={business} locale={locale} logo="/logo.jpg" />
+                <Header business={business} locale={locale} logo="/logo.png" />
                 <main className="flex-1 container pt-20 md:py-16 lg:py-20">
                   {children}
                 </main>

@@ -42,7 +42,7 @@ export async function Header({
         className="flex items-center gap-2"
         prefetch={false}
       >
-        <img src={logo} alt="logo" className="h-8 w-8" />
+        <img src={logo} alt="logo" className="h-7" />
         <span className="text-lg font-semibold">{business.name}</span>
       </Link>
       <Sheet>
