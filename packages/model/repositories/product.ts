@@ -97,7 +97,12 @@ export class ProductRepository extends BaseRepository<
   paginateFrontend({ categoryId, businessId, ...props }: PaginateData = {}) {
     const where: any = { businessId, active: true };
     if (categoryId) where["categoryId"] = categoryId;
-    return super.paginate({ ...props, where, pageSize: PAGE_SIZE_FRONTEND });
+    return super.paginate({
+      ...props,
+      where,
+      pageSize: PAGE_SIZE_FRONTEND,
+      orderBy: { priority: "desc" },
+    });
   }
 
   async getTotals(businessId: string) {
