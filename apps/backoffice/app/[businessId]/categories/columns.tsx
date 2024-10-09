@@ -6,6 +6,7 @@ import { DialogForm } from "./DialogForm";
 import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
+import { Check } from "lucide-react";
 
 type ActionProps = {
   row: CompleteCategory;
@@ -36,15 +37,37 @@ function RowActions({ row }: ActionProps) {
 
 export const columns: ColumnDef<any>[] = [
   {
-    header: "",
+    header: "Nombre",
     accessorKey: "name",
-    row: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
-      return (
-        <div className="flex flex-1 justify-between">
-          <div>{value}</div>
-          <RowActions row={row} />
-        </div>
-      );
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) =>
+      value,
+  },
+  {
+    header: "Prioridad",
+    accessorKey: "priority",
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) =>
+      value,
+  },
+  {
+    header: "Activo",
+    accessorKey: "active",
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => (
+      <>
+        {value ? (
+          <Check
+            className={`${
+              value ? "text-green-500" : "text-red-500"
+            } inline-block w-4 h-4`}
+          />
+        ) : null}
+      </>
+    ),
+  },
+  {
+    header: "Acciones",
+    accessorKey: "name",
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
+      return <RowActions row={row} />;
     },
   },
 ];
