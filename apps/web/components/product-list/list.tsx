@@ -2,10 +2,11 @@
 
 import { CompleteProduct } from "@repo/model/zod/product";
 import { CardItem } from "@repo/ui/components/cardList/card";
-import { startTransition, useCallback, useOptimistic, useState } from "react";
+import { startTransition, useCallback, useState } from "react";
 import ShowMore from "@repo/ui/components/show-more";
 import { useTranslations } from "next-intl";
 import { ProductShopCartItem } from "@repo/model/repository/order";
+import ScrollTop from "@repo/ui/components/scroll-top";
 
 export type ProductListProps = {
   data: CompleteProduct[];
@@ -50,7 +51,7 @@ export default function ProductList({
   };
 
   return (
-    <>
+    <ScrollTop>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((item: any) => (
           <CardItem
@@ -73,6 +74,6 @@ export default function ProductList({
           </ShowMore>
         </div>
       )}
-    </>
+    </ScrollTop>
   );
 }
