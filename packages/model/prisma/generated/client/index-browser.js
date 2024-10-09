@@ -134,6 +134,8 @@ exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
+  active: 'active',
+  priority: 'priority',
   businessId: 'businessId'
 };
 

@@ -15,6 +15,7 @@ import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { CategoryModel, CompleteCategory } from "@repo/model/zod/category";
 import { useTranslations } from "next-intl";
+import { Switch } from "@repo/ui/components/ui/switch";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -47,6 +48,41 @@ export default function CategoryForm({ action, defaultValues }: FormAction) {
               <FormLabel>{t("lblName")}</FormLabel>
               <FormControl>
                 <Input placeholder={t("phName")} {...field} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="active"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbActive")}</FormLabel>
+              <FormControl>
+                <Switch
+                  {...field}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="priority"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbPriority")}</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={t("phPriority")}
+                  type="number"
+                  {...field}
+                  onChange={(event: any) => field.onChange(+event.target.value)}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>

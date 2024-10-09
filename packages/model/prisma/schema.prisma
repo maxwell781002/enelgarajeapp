@@ -41,6 +41,8 @@ model Category {
   name     String /// @zod.min(1, { message: "required" })
   slug     String?   @unique
   products Product[]
+  active   Boolean   @default(true) /// @zod.optional()
+  priority Int       @default(0) /// @zod.optional()
 
   business   Business @relation(fields: [businessId], references: [id])
   businessId String

@@ -39,7 +39,7 @@ export default async function Page({
             <DialogForm
               title={t("createCategory")}
               action={create}
-              defaultValues={{ businessId }}
+              defaultValues={{ businessId, active: true, priority: 0 }}
             />
           </div>
         </div>

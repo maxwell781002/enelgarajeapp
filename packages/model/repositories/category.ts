@@ -15,8 +15,18 @@ export class CategoryRepository extends BaseRepository<
     super(CategoryModel.omit({ id: true }), prisma.category);
   }
 
+  protected getObject(data: FormData) {
+    const object: Partial<CompleteCategory> = super.getObject(data);
+    if (object.priority) object.priority = Number(object.priority);
+    if (object.active) object.active = (object.active as any) === "true";
+    return object;
+  }
+
   getAll(businessId: string) {
-    return this.model.findMany({ where: { businessId } });
+    return this.model.findMany({
+      where: { businessId, active: true },
+      orderBy: { priority: "desc" },
+    });
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {

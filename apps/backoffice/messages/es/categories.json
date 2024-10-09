@@ -12,6 +12,8 @@
     "removeCategoryContinue": "Continuar",
     "removeCategoryCancel": "Cancelar",
     "createCategory": "Crear categoría",
+    "lbActive": "Activo",
+    "lbPriority": "Prioridad",
     "required": "Requerido"
   }
 }

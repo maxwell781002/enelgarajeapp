@@ -10,6 +10,8 @@ export const CategoryModel = z.object({
   id: z.string(),
   name: z.string().min(1, { message: "required" }),
   slug: z.string().nullish(),
+  active: z.boolean().optional(),
+  priority: z.number().int().optional(),
   businessId: z.string(),
 });
 
