@@ -27,9 +27,14 @@ export class ProductRepository extends BaseRepository<
 
   protected getObject(data: FormData) {
     const object: Partial<CompleteProduct> = super.getObject(data);
+    // TODO: Check how to fix this in the frontend
     if (object.offerPrice) object.offerPrice = Number(object.offerPrice);
     if (object.price) object.price = Number(object.price);
+    if (object.priority) object.priority = Number(object.priority);
     if (object.active) object.active = (object.active as any) === "true";
+    if (object.isNew) object.isNew = (object.isNew as any) === "true";
+    if (object.outOfStock)
+      object.outOfStock = (object.outOfStock as any) === "true";
     return object;
   }
 
@@ -92,7 +97,12 @@ export class ProductRepository extends BaseRepository<
   paginateFrontend({ categoryId, businessId, ...props }: PaginateData = {}) {
     const where: any = { businessId, active: true };
     if (categoryId) where["categoryId"] = categoryId;
-    return super.paginate({ ...props, where, pageSize: PAGE_SIZE_FRONTEND });
+    return super.paginate({
+      ...props,
+      where,
+      pageSize: PAGE_SIZE_FRONTEND,
+      orderBy: { priority: "desc" },
+    });
   }
 
   async getTotals(businessId: string) {

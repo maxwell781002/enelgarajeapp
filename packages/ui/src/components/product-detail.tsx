@@ -2,6 +2,7 @@ import { CompleteProduct } from "@repo/model/zod/product";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
 import Markdown from "./markdown";
+import ProductBadge from "@repo/ui/components/product-badge";
 
 type ProductDetailProps = {
   product: CompleteProduct;
@@ -32,6 +33,7 @@ export default function ProductDetail({
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
               {product.name}
             </h1>
+            <ProductBadge product={product} className="mb-2" />
             <div className="flex justify-between items-center border-y border-indigo-600 py-2 mb-2">
               <div className="font-semibold mb-1">
                 <PriceDisplay

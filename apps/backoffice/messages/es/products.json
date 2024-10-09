@@ -22,6 +22,10 @@
     "productCreated": "Producto creado",
     "price_should_be_less_than_offer_price": "El precio debe ser menor que el precio de oferta.",
     "btnSubmit": "Salvar",
+    "lbIsNew": "¿Es nuevo?",
+    "lbOutOfStock": "¿Está agotado?",
+    "lbPriority": "Prioridad",
+    "phPriority": "Prioridad",
     "remove_dialog": {
       "title": "¿Deseas borrar este producto?",
       "description": "Solo puede borrar un producto si no se ha hecho ninguna compra con él.",

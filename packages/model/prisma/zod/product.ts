@@ -26,6 +26,9 @@ export const ProductModel = z.object({
   offerPrice: z.number().int().gte(0).nullish(),
   images: jsonSchema.array(),
   active: z.boolean().optional(),
+  isNew: z.boolean().optional(),
+  outOfStock: z.boolean().optional(),
+  priority: z.number().int().optional(),
   businessId: z.string(),
   categoryId: z.string(),
 });

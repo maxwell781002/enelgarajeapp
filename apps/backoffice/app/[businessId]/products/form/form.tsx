@@ -76,18 +76,53 @@ export default function ProductForm({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="categoryId"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbCategoryId")}</FormLabel>
+              <FormControl>
+                <EntitySelect
+                  {...field}
+                  items={categories}
+                  placeholder={t("phCategoryId")}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="priority"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbPriority")}</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={t("phPriority")}
+                  type="number"
+                  {...field}
+                  onChange={(event: any) => field.onChange(+event.target.value)}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
         <div className="flex flex-1 gap-4">
           <FormField
             control={form.control}
-            name="categoryId"
+            name="active"
             render={({ field, fieldState: { error } }: any) => (
               <FormItem>
-                <FormLabel>{t("lbCategoryId")}</FormLabel>
+                <FormLabel>{t("lbActive")}</FormLabel>
                 <FormControl>
-                  <EntitySelect
+                  <Switch
                     {...field}
-                    items={categories}
-                    placeholder={t("phCategoryId")}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
                   />
                 </FormControl>
                 <FormMessage>
@@ -98,10 +133,29 @@ export default function ProductForm({
           />
           <FormField
             control={form.control}
-            name="active"
+            name="isNew"
             render={({ field, fieldState: { error } }: any) => (
               <FormItem>
-                <FormLabel>{t("lbActive")}</FormLabel>
+                <FormLabel>{t("lbIsNew")}</FormLabel>
+                <FormControl>
+                  <Switch
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="outOfStock"
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbOutOfStock")}</FormLabel>
                 <FormControl>
                   <Switch
                     {...field}

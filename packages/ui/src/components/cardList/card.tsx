@@ -8,6 +8,7 @@ import { ProductShopCartItem } from "@repo/model/repository/order";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
 import { startTransition, useOptimistic } from "react";
+import ProductBadge from "@repo/ui/components/product-badge";
 
 type CardItemProps = {
   item: ProductShopCartItem;
@@ -63,6 +64,7 @@ export function CardItem({
             <BtnAddCart action={handleAdd} />
           </div>
         </div>
+        <ProductBadge product={item} className="mt-2" />
       </CardContent>
     </Card>
   );
