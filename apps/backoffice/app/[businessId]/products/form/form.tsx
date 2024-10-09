@@ -23,6 +23,7 @@ import {
 } from "@repo/model/validation/product";
 import { useMemo } from "react";
 import { Switch } from "@repo/ui/components/ui/switch";
+import PriceWidget from "@repo/ui/components/price-widget";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -60,7 +61,6 @@ export default function ProductForm({
 
   return (
     <Form {...form}>
-      {}
       <FormMessage>{!!globalError && t(globalError)}</FormMessage>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
@@ -140,48 +140,7 @@ export default function ProductForm({
             </FormItem>
           )}
         />
-        <div className="flex flex-1 gap-4">
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field, fieldState: { error } }: any) => (
-              <FormItem>
-                <FormLabel>{t("lbPrice")}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t("phPrice")}
-                    type="number"
-                    {...field}
-                    onChange={(event) => field.onChange(+event.target.value)}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {!!error?.message && t(error?.message)}
-                </FormMessage>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="offerPrice"
-            render={({ field, fieldState: { error } }: any) => (
-              <FormItem>
-                <FormLabel>{t("lbOfferPrice")}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t("phOfferPrice")}
-                    type="number"
-                    {...field}
-                    onChange={(event) => field.onChange(+event.target.value)}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {!!error?.message && t(error?.message)}
-                </FormMessage>
-              </FormItem>
-            )}
-          />
-        </div>
+        <PriceWidget form={form} />
         <FormField
           control={form.control}
           name="description"
