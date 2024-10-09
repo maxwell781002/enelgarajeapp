@@ -23,7 +23,10 @@ export class CategoryRepository extends BaseRepository<
   }
 
   getAll(businessId: string) {
-    return this.model.findMany({ where: { businessId } });
+    return this.model.findMany({
+      where: { businessId, active: true },
+      orderBy: { priority: "desc" },
+    });
   }
 
   paginate({ businessId, ...data }: PaginateData = {}) {
