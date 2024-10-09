@@ -10,8 +10,9 @@ const adapter = new PrismaNeon(neon);
 
 export const createSlug = ({ args, query }: any) => {
   if (!args.data?.name) return query(args);
-  const name = args.data.name.replace(/\./g, "-");
-  const slug = `${slugify(name, { lower: true, trim: true })}-${randomString()}`;
+  const name = args.data.name.replace(/[*+~%\<>/;.(){}?,'"!:@#^|]/g, "-");
+  let slug = slugify(name, { strict: true, lower: true, trim: true });
+  slug = `${slug}-${randomString()}`;
   args.data = { ...args.data, slug };
   return query(args);
 };
