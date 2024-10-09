@@ -147,7 +147,7 @@ export class OrderRepository extends BaseRepository<
 
   async getTotals(businessId: string) {
     const totalSend = prisma.order.count({
-      where: { businessId, NOT: { status: OrderStatus.SEND } },
+      where: { businessId, status: OrderStatus.SEND },
     });
     const totalPayed = prisma.order.count({
       where: { businessId, status: OrderStatus.PAYED },
