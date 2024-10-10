@@ -28,6 +28,12 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
+  protected getObject(data: FormData) {
+    const object: Partial<CompleteBusiness> = super.getObject(data);
+    if (object.active) object.active = (object.active as any) === "true";
+    return object;
+  }
+
   async doCreate(data: FormData) {
     const userId = data.get("userId") as string;
     data.delete("userId");
