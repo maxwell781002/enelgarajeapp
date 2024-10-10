@@ -19,7 +19,10 @@ export default function Filter({ onChange, categories }: FilterType) {
       (obj, [key, val]) => ({ ...obj, [key]: val }),
       {},
     );
-    console.log(value);
+    onChange({
+      ...value,
+      [name]: term,
+    });
   }, 300);
   const t = useTranslations("Product");
   return (
@@ -32,9 +35,10 @@ export default function Filter({ onChange, categories }: FilterType) {
       />
       <div>
         <EntitySelect
-          items={categories}
+          items={[{ name: "Todos", id: null }, ...categories]}
           placeholder={t("phCategoryId")}
           className="bg-withe"
+          onChange={(value) => handleSearch("categoryId", value)}
         />
       </div>
     </div>

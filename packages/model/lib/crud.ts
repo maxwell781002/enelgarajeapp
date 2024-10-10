@@ -25,7 +25,7 @@ export function crud<T extends Entity, U>(
 
   const search = async (query: any = {}) => {
     "use server";
-    return `${path}?${new URLSearchParams({ ...searchParams, pageIndex: 0, pageSize: PAGE_SIZE, ...query })}`;
+    return `${path}?${new URLSearchParams({ ...searchParams, pageSize: PAGE_SIZE, ...query, pageIndex: 1 })}`;
   };
 
   const list = async (query: any = {}) => {
@@ -37,7 +37,7 @@ export function crud<T extends Entity, U>(
       await getRepository()
     ).paginate({ ...query, pageIndex, pageSize });
     const paginate = ({ pageIndex, pageSize }: PaginateData) => {
-      return `${path}?pageIndex=${pageIndex}&pageSize=${pageSize || PAGE_SIZE}`;
+      return `${path}?${new URLSearchParams({ ...searchParams, pageSize: pageSize || PAGE_SIZE, pageIndex })}`;
     };
     return {
       ...data,

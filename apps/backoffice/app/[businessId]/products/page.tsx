@@ -14,6 +14,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { PaginationResult } from "@repo/model/types/pagination";
 import Filter from "./filters";
 import { categoryRepository } from "@repo/model/repositories/category";
+import { redirect } from "next/navigation";
 
 type PageProps = {
   searchParams: any;
@@ -32,6 +33,11 @@ export default async function Page({
   );
   const pagination = await list({ businessId });
   const categories = await categoryRepository.getAll(businessId);
+  const handleSearch = async (query: any) => {
+    "use server";
+    const url = await search(query);
+    return redirect(url);
+  };
   return (
     <Card>
       <CardHeader className="px-6">
@@ -46,7 +52,7 @@ export default async function Page({
           </div>
         </div>
         <div className="flex flex-1 p-2 rounded border bg-neutral-300 sm:bg-white sm:border-0 sm:rounded-none sm:p-0">
-          <Filter onChange={search} categories={categories} />
+          <Filter onChange={handleSearch} categories={categories} />
         </div>
       </CardHeader>
       <CardContent>
