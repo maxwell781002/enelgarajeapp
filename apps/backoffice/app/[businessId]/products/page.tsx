@@ -12,6 +12,8 @@ import ProductTable from "./table";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
 import { PaginationResult } from "@repo/model/types/pagination";
+import Filter from "./filters";
+import { categoryRepository } from "@repo/model/repositories/category";
 
 type PageProps = {
   searchParams: any;
@@ -23,15 +25,16 @@ export default async function Page({
   params: { businessId },
 }: PageProps) {
   const t = await getTranslations("Product");
-  const { list, remove, update } = crud(
+  const { list, remove, update, search } = crud(
     `/${businessId}/products`,
     ProductRepository.name,
     searchParams,
   );
   const pagination = await list({ businessId });
+  const categories = await categoryRepository.getAll(businessId);
   return (
     <Card>
-      <CardHeader className="px-7">
+      <CardHeader className="px-6">
         <div className="flex flex-1">
           <div>
             <CardTitle>{t("ProductList")}</CardTitle>
@@ -41,6 +44,9 @@ export default async function Page({
               <Button>{t("createProduct")}</Button>
             </Link>
           </div>
+        </div>
+        <div className="flex flex-1 p-2 rounded border bg-neutral-300 sm:bg-white sm:border-0 sm:rounded-none sm:p-0">
+          <Filter onChange={search} categories={categories} />
         </div>
       </CardHeader>
       <CardContent>
