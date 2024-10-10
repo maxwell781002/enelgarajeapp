@@ -1,6 +1,5 @@
 import { Pencil1Icon, Cross1Icon } from "@radix-ui/react-icons";
 import { productRepository } from "@repo/model/repositories/product";
-import { CompleteProduct } from "@repo/model/zod/product";
 import BackPage from "@repo/ui/components/back-page";
 import ProductDetail from "@repo/ui/components/product-detail";
 import { Button } from "@repo/ui/components/ui/button";
@@ -8,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import BtnRemove from "./button-remove";
 import BooleanValue from "../../../../components/boolean-value";
+import { IProduct } from "@repo/model/types/product";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -56,7 +56,7 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             {t("lbPriority")}: {product.priority}
           </div>
         </div>
-        <ProductDetail product={product as CompleteProduct} t={t} />
+        <ProductDetail product={product as IProduct} t={t} />
       </>
     </BackPage>
   );
