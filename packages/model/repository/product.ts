@@ -20,7 +20,7 @@ export const addProductFields = async (
 ) => {
   return {
     ...product,
-    _inCart: order && hasProduct(product.id, order),
+    _inCart: order && await hasProduct(product.id, order),
     _isOffer: product.offerPrice && product.offerPrice < product.price,
   };
 };
