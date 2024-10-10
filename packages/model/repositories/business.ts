@@ -2,6 +2,7 @@ import prisma from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
+import { PaginateData } from "../types/pagination";
 
 // TODO: I am working with userBusiness using only one user.
 
@@ -11,6 +12,20 @@ export class BusinessRepository extends BaseRepository<
 > {
   constructor() {
     super(BusinessValidation, prisma.business);
+  }
+
+  paginate({ query, ...data }: PaginateData = {}) {
+    const where: any = {};
+    if (query) {
+      where["name"] = {
+        contains: query,
+        mode: "insensitive",
+      };
+    }
+    return super.paginate({
+      ...data,
+      where,
+    });
   }
 
   async doCreate(data: FormData) {
