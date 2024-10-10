@@ -52,7 +52,7 @@ export const getCurrentOrder = async (): Promise<
   return { ...order, items };
 };
 
-export const hasProduct = async (
+export const hasProduct = (
   productId: string,
   order: ShopCartOrder | null | undefined,
 ) => {
@@ -138,6 +138,9 @@ export const removeFromOrder = async (productId: string) => {
 
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompleteProduct;
+  if (product.outOfStock) {
+    return;
+  }
   const order = await getOrCrateOrder();
   let products = order.productsDetails as Array<any>;
   const find = (order.items || []).find(

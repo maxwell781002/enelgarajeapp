@@ -17,7 +17,5 @@ export function AddCart({ product, add }: Props) {
     await add();
   };
   const t = useTranslations("Product");
-  return (
-    <BtnAddCart action={handleAdd} product={optimisticProduct} />
-  );
+  return <BtnAddCart action={handleAdd} product={optimisticProduct} />;
 }
