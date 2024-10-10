@@ -1,11 +1,5 @@
 import { crud } from "@repo/model/lib/crud";
 import { TableContextProvider } from "@repo/ui/context/table";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/ui/card";
 import { getTranslations } from "next-intl/server";
 import { ProductRepository } from "@repo/model/repositories/product";
 import ProductTable from "./table";
@@ -15,6 +9,7 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import Filter from "./filters";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { redirect } from "next/navigation";
+import TableLayout from "@repo/ui/components/table-layout";
 
 type PageProps = {
   searchParams: any;
@@ -39,27 +34,18 @@ export default async function Page({
     return redirect(url);
   };
   return (
-    <Card>
-      <CardHeader className="px-6">
-        <div className="flex flex-1">
-          <div>
-            <CardTitle>{t("ProductList")}</CardTitle>
-          </div>
-          <div className="flex-1 flex justify-end">
-            <Link href={`/${businessId}/products/form`}>
-              <Button>{t("createProduct")}</Button>
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-1 p-2 rounded border bg-neutral-300 sm:bg-white sm:border-0 sm:rounded-none sm:p-0">
-          <Filter onChange={handleSearch} categories={categories} />
-        </div>
-      </CardHeader>
-      <CardContent>
-        <TableContextProvider update={update} remove={remove}>
-          <ProductTable pagination={pagination as PaginationResult<any>} />
-        </TableContextProvider>
-      </CardContent>
-    </Card>
+    <TableLayout
+      title={t("ProductList")}
+      buttons={
+        <Link href={`/${businessId}/products/form`}>
+          <Button>{t("createProduct")}</Button>
+        </Link>
+      }
+      filter={<Filter onChange={handleSearch} categories={categories} />}
+    >
+      <TableContextProvider update={update} remove={remove}>
+        <ProductTable pagination={pagination as PaginationResult<any>} />
+      </TableContextProvider>
+    </TableLayout>
   );
 }
