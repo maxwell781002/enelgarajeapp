@@ -11,7 +11,6 @@ import {
   CompleteUser,
 } from "../prisma/zod";
 import { getCurrentUser, updateUser } from "./user";
-import { OrderStatus } from "../prisma/generated/client";
 import { TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
 import { orderRepository } from "../repositories/order";
@@ -20,10 +19,6 @@ export type ShopCartOrder = {
   numberOfItems: number | undefined;
   items: ShopCartItem[];
 } & CompleteOrder;
-
-export type ProductShopCartItem = {
-  _inCart: boolean;
-} & CompleteProduct;
 
 export type ShopCartItem = {
   total: number;

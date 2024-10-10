@@ -4,14 +4,14 @@ import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
 import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
-import { ProductShopCartItem } from "@repo/model/repository/order";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
 import { startTransition, useOptimistic } from "react";
 import ProductBadge from "@repo/ui/components/product-badge";
+import { IProduct } from "@repo/model/types/product";
 
 type CardItemProps = {
-  item: ProductShopCartItem;
+  item: IProduct;
   baseUrl?: string;
   onAdd?: () => void;
 };
