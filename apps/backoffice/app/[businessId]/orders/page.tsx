@@ -1,6 +1,9 @@
 import MyTable from "@repo/ui/components/table/index";
 import { crud } from "@repo/model/lib/crud";
-import { OrderRepository } from "@repo/model/repositories/order";
+import {
+  orderRepository,
+  OrderRepository,
+} from "@repo/model/repositories/order";
 import { columns } from "./columns";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
@@ -32,7 +35,12 @@ export default async function Page({
   return (
     <TableLayout
       title={t("CategoryList")}
-      filter={<Filter onChange={handleSearch} />}
+      filter={
+        <Filter
+          onChange={handleSearch}
+          options={orderRepository.orderToChange()}
+        />
+      }
     >
       <MyTable
         pagination={data as PaginationResult<any>}

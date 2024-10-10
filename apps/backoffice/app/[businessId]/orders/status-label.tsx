@@ -4,6 +4,7 @@ export const statusLabel = (status: string) => {
     CREATED: "Creado",
     PAYED: "Pagado",
     REJECTED: "Rechazado",
+    TODOS: "Todos",
   }[status];
 };
 

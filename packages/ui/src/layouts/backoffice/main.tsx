@@ -65,7 +65,7 @@ export function LayoutMain({
             <UserInfo {...props} />
           </div>
         </header>
-        <main className="">{children}</main>
+        <main className="flex-1 p-4 sm:px-6 sm:py-0">{children}</main>
       </div>
     </div>
   );
