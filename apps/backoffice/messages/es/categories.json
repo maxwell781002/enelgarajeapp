@@ -14,6 +14,7 @@
     "createCategory": "Crear categoría",
     "lbActive": "Activo",
     "lbPriority": "Prioridad",
+    "phSearch": "Buscar...",
     "required": "Requerido"
   }
 }
