@@ -30,16 +30,23 @@ vi.mock("@repo/model/lib/auth", () => ({
 describe("shopCart", () => {
   let product1;
   let product2;
+  let product3;
 
   beforeAll(async () => {
+    const business = await businessFactory({ slug: "http://localhost:3000" });
     product1 = await productFactory({
-      businessId: (await businessFactory({ slug: "http://localhost:3000" })).id,
+      businessId: business.id,
       price: 50,
       offerPrice: 10,
     });
     product2 = await productFactory({
       businessId: (await businessFactory({ slug: "http://localhost:3002" })).id,
       price: 20,
+    });
+    product3 = await productFactory({
+      businessId: business.id,
+      price: 20,
+      outOfStock: true,
     });
   });
 
@@ -53,8 +60,13 @@ describe("shopCart", () => {
     expect(order).toBeNull();
   });
 
+  it("Add product out of stock", async () => {
+    const order = await addToOrder(product3.id);
+    expect(order).toBeUndefined();
+  });
+
   it("add product", async () => {
-    const order = await addToOrder(product1.id);
+    const order = (await addToOrder(product1.id)) as ShopCartOrder;
     expect(order).not.toBeNull();
     mocksGet.get.mockReturnValue({ value: order.id });
     expect(order.items).toHaveLength(1);
@@ -80,7 +92,7 @@ describe("shopCart", () => {
   });
 
   it("add another product", async () => {
-    const order = await addToOrder(product2.id);
+    const order = (await addToOrder(product2.id)) as ShopCartOrder;
     expect(order).not.toBeNull();
     expect(order.items).toHaveLength(2);
     expect(order.items[1].productId).toBe(product2.id);
@@ -93,7 +105,7 @@ describe("shopCart", () => {
   });
 
   it("add product again", async () => {
-    const order = await addToOrder(product1.id);
+    const order = (await addToOrder(product1.id)) as ShopCartOrder;
     expect(order).not.toBeNull();
     expect(order.items).toHaveLength(2);
     expect(order.items[0].productId).toBe(product1.id);

@@ -5,8 +5,8 @@ import { CardItem } from "@repo/ui/components/cardList/card";
 import { startTransition, useCallback, useState } from "react";
 import ShowMore from "@repo/ui/components/show-more";
 import { useTranslations } from "next-intl";
-import { ProductShopCartItem } from "@repo/model/repository/order";
 import ScrollTop from "@repo/ui/components/scroll-top";
+import { IProduct } from "@repo/model/types/product";
 
 export type ProductListProps = {
   data: CompleteProduct[];
@@ -61,7 +61,7 @@ export default function ProductList({
               {
                 ...item,
                 _inCart: item._inCart,
-              } as ProductShopCartItem
+              } as IProduct
             }
             baseUrl={""}
           />

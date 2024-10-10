@@ -2,16 +2,15 @@
 
 import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
-import { CheckIcon } from "@repo/ui/components/icons";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
-import { ProductShopCartItem } from "@repo/model/repository/order";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
 import { startTransition, useOptimistic } from "react";
 import ProductBadge from "@repo/ui/components/product-badge";
+import { IProduct } from "@repo/model/types/product";
 
 type CardItemProps = {
-  item: ProductShopCartItem;
+  item: IProduct;
   baseUrl?: string;
   onAdd?: () => void;
 };
@@ -55,14 +54,7 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <div className="relative">
-            {item._inCart && (
-              <div className="absolute left-7 -top-2  bg-green-600 rounded-full p-1 h-5 w-5 mr-2">
-                <CheckIcon className="h-3.5 w-3.5 text-primary-foreground" />
-              </div>
-            )}
-            <BtnAddCart action={handleAdd} />
-          </div>
+          <BtnAddCart action={handleAdd} product={item} />
         </div>
         <ProductBadge product={item} className="mt-2" />
       </CardContent>
