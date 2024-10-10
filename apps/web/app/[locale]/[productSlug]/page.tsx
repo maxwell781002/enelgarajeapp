@@ -1,15 +1,11 @@
 import { getBySlug } from "@repo/model/repository/product";
-import {
-  addToOrder,
-  getCurrentOrder,
-  hasProduct,
-} from "@repo/model/repository/order";
+import { addToOrder } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { AddCart } from "./add-cart";
 import ProductDetail from "@repo/ui/components/product-detail";
-import { CompleteProduct } from "@repo/model/zod/product";
 import { ResolvingMetadata } from "next";
+import { IProduct } from "@repo/model/types/product";
 
 type PageProps = {
   params: {
@@ -39,7 +35,6 @@ export default async function Page({
 }: PageProps) {
   const baseUrl = `/${locale}/${productSlug}`;
   const item = await getBySlug(productSlug);
-  const order = await getCurrentOrder();
   const add = async (productId: string) => {
     "use server";
     await addToOrder(productId);
@@ -51,17 +46,8 @@ export default async function Page({
   if (!item) return <div>Not found</div>;
 
   const btnAdd = (
-    <AddCart
-      inCart={await hasProduct(item.id, order)}
-      add={add.bind(null, item.id)}
-    />
+    <AddCart product={item as IProduct} add={add.bind(null, item.id)} />
   );
 
-  return (
-    <ProductDetail
-      product={item as CompleteProduct}
-      addCartBtn={btnAdd}
-      t={t}
-    />
-  );
+  return <ProductDetail product={item as IProduct} addCartBtn={btnAdd} t={t} />;
 }

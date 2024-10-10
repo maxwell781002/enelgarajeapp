@@ -1,11 +1,11 @@
-import { CompleteProduct } from "@repo/model/zod/product";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
 import Markdown from "./markdown";
 import ProductBadge from "@repo/ui/components/product-badge";
+import { IProduct } from "@repo/model/types/product";
 
 type ProductDetailProps = {
-  product: CompleteProduct;
+  product: IProduct;
   addCartBtn?: JSX.Element;
   t: (key: string) => string;
 };

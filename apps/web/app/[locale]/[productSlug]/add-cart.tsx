@@ -2,32 +2,22 @@
 
 import { useOptimistic } from "react";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
-import { CheckIcon } from "@repo/ui/components/icons";
 import { useTranslations } from "next-intl";
+import { IProduct } from "@repo/model/types/product";
 
 type Props = {
-  inCart: boolean;
+  product: IProduct;
   add: () => any;
 };
 
-export function AddCart({ inCart, add }: Props) {
-  const [optimisticInCart, setOptimisticInCart] = useOptimistic(inCart);
+export function AddCart({ product, add }: Props) {
+  const [optimisticProduct, setOptimisticProduct] = useOptimistic(product);
   const handleAdd = async () => {
-    setOptimisticInCart(true);
+    setOptimisticProduct({ ...product, _inCart: true });
     await add();
   };
   const t = useTranslations("Product");
   return (
-    <div className="flex justify-end gap-4">
-      {optimisticInCart && (
-        <div className="flex items-center gap-2">
-          <div className="bg-red-600 rounded-full p-1">
-            <CheckIcon className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <strong>{t("inCart")}</strong>
-        </div>
-      )}
-      <BtnAddCart action={handleAdd} />
-    </div>
+    <BtnAddCart action={handleAdd} product={optimisticProduct} />
   );
 }

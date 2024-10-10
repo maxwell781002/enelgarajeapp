@@ -2,8 +2,12 @@ import prisma from "../prisma/prisma-client";
 import { productRepository } from "../repositories/product";
 import { getCurrentOrder, hasProduct, ShopCartOrder } from "./order";
 
-export const getBySlug = (slug: string) => {
-  return prisma.product.findUnique({ where: { slug } });
+export const getBySlug = async (slug: string) => {
+  const order = await getCurrentOrder();
+  return addProductFields(
+    await prisma.product.findUnique({ where: { slug } }),
+    order,
+  );
 };
 
 export const getById = (id: string) => {
