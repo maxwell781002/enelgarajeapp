@@ -29,12 +29,19 @@ export class CategoryRepository extends BaseRepository<
     });
   }
 
-  paginate({ businessId, ...data }: PaginateData = {}) {
+  paginate({ businessId, query, ...data }: PaginateData = {}) {
+    const where: any = {
+      businessId,
+    };
+    if (query) {
+      where["name"] = {
+        contains: query,
+        mode: "insensitive",
+      };
+    }
     return super.paginate({
       ...data,
-      where: {
-        businessId,
-      },
+      where,
     });
   }
 }

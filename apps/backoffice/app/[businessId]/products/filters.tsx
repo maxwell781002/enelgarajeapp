@@ -1,19 +1,19 @@
 "use client";
 
+import { CompleteCategory } from "@repo/model/zod/category";
+import EntitySelect from "@repo/ui/components/entity-select";
 import { Input } from "@repo/ui/components/ui/input";
-import { useFilterChange } from "@repo/ui/hooks/useFilterChange";
 import { useTranslations } from "next-intl";
-import StatusSelect from "./status-select";
+import { useFilterChange } from "@repo/ui/hooks/useFilterChange";
 
-export default function Filter({
-  onChange,
-  options,
-}: {
+export type FilterType = {
+  categories: CompleteCategory[];
   onChange: (value: any) => void;
-  options: [string, string][];
-}) {
+};
+
+export default function Filter({ onChange, categories }: FilterType) {
   const { changeFilter, value } = useFilterChange(onChange);
-  const t = useTranslations("Order");
+  const t = useTranslations("Product");
   return (
     <div className="flex flex-1 justify-between flex-col sm:flex-row gap-4">
       <Input
@@ -23,11 +23,11 @@ export default function Filter({
         className="flex-1 bg-withe"
       />
       <div>
-        <StatusSelect
-          status={value.status}
-          onChange={(e) => changeFilter("status", e)}
-          options={[["", "", "TODOS"], ...options]}
+        <EntitySelect
+          items={[{ name: "Todos", id: null }, ...categories]}
+          placeholder={t("phCategoryId")}
           className="bg-withe"
+          onChange={(value) => changeFilter("categoryId", value)}
         />
       </div>
     </div>

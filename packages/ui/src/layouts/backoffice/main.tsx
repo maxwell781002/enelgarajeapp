@@ -65,9 +65,7 @@ export function LayoutMain({
             <UserInfo {...props} />
           </div>
         </header>
-        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          {children}
-        </main>
+        <main className="flex-1 p-4 sm:px-6 sm:py-0">{children}</main>
       </div>
     </div>
   );

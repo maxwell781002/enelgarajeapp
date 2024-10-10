@@ -8,6 +8,7 @@ import {
 } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { OrderStatus } from "../prisma/generated/client";
+import { clearWhere } from "../lib/util-query";
 
 export const statusColors: Record<OrderStatus, string> = {
   CREATED: "bg-yellow-500",
@@ -18,6 +19,7 @@ export const statusColors: Record<OrderStatus, string> = {
 
 type PaginateData = {
   businessId?: string;
+  status?: string;
 } & BasePaginateData;
 
 export class OrderRepository extends BaseRepository<
@@ -41,11 +43,12 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  paginate({ businessId, query, ...data }: PaginateData = {}) {
-    const where: any = {
+  paginate({ businessId, status, query, ...data }: PaginateData = {}) {
+    const where = clearWhere({
       businessId,
-      NOT: { userId: null },
-    };
+      status,
+    });
+    where.NOT = { userId: null };
     if (query) {
       where["OR"] = [
         {

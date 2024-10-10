@@ -10,11 +10,10 @@ import {
 
 export type Item = {
   name: string;
-  id: string;
+  id: string | null;
 };
 
 export type EntitySelectProps = {
-  // value?: string;
   placeholder?: string;
   items: Item[];
   onChange?: (value: string) => void;
@@ -28,7 +27,7 @@ export default function EntitySelect({
 }: EntitySelectProps) {
   return (
     <Select onValueChange={onChange} {...props}>
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full bg-white">
         <SelectValue {...props} />
       </SelectTrigger>
       <SelectContent>

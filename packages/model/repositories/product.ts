@@ -8,6 +8,7 @@ import {
   ProductValidation,
 } from "../validation/product";
 import { orderRepository } from "./order";
+import { clearWhere } from "../lib/util-query";
 
 type PaginateData = {
   businessId?: string;
@@ -85,12 +86,21 @@ export class ProductRepository extends BaseRepository<
     return data;
   }
 
-  paginate({ businessId, ...data }: PaginateData = {}) {
+  paginate({ businessId, query, categoryId, ...data }: PaginateData = {}) {
+    const where = clearWhere({
+      businessId,
+      categoryId,
+    });
+    if (query) {
+      where["name"] = {
+        contains: query,
+        mode: "insensitive",
+      };
+    }
     return super.paginate({
       ...data,
-      where: {
-        businessId,
-      },
+      where,
+      orderBy: { priority: "desc" },
     });
   }
 
