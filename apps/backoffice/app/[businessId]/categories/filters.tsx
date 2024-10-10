@@ -16,6 +16,7 @@ export default function Filter({
       placeholder={t("phSearch")}
       onChange={(e) => changeFilter("query", e.target.value)}
       defaultValue={value.query?.toString()}
+      className="flex-1 bg-withe"
     />
   );
 }

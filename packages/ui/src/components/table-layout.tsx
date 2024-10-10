@@ -15,21 +15,23 @@ export default function TableLayout({
   filter,
 }: TableLayoutProps) {
   return (
-    <Card>
-      <CardHeader className="px-6">
-        <div className="flex flex-1 pb-2">
-          <div>
-            <CardTitle>{title}</CardTitle>
+    <div className="flex-1 p-4 sm:px-6 sm:py-0">
+      <Card>
+        <CardHeader className="px-6">
+          <div className="flex flex-1 pb-2">
+            <div>
+              <CardTitle>{title}</CardTitle>
+            </div>
+            <div className="flex-1 flex justify-end">{buttons}</div>
           </div>
-          <div className="flex-1 flex justify-end">{buttons}</div>
-        </div>
-        {!!filter && (
-          <div className="flex flex-1 p-2 rounded border bg-neutral-300 sm:bg-white sm:border-0 sm:rounded-none sm:p-0">
-            {filter}
-          </div>
-        )}
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-    </Card>
+          {!!filter && (
+            <div className="flex flex-1 p-2 rounded border bg-neutral-300 sm:bg-white sm:border-0 sm:rounded-none sm:p-0">
+              {filter}
+            </div>
+          )}
+        </CardHeader>
+        <CardContent>{children}</CardContent>
+      </Card>
+    </div>
   );
 }

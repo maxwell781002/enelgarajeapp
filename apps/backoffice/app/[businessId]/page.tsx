@@ -60,6 +60,7 @@ export default async function BusinessPage({
             <a
               href={`https://${business.slug}`}
               className="text-blue-600 hover:underline"
+              target="_blank"
             >
               {business.slug}
             </a>
