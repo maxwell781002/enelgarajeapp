@@ -24,7 +24,7 @@ export default async function Page({
 }: PageProps) {
   const t = await getTranslations("Business");
   const { list, remove } = crud(
-    `/${businessId}/categories`,
+    '/business',
     BusinessRepository.name,
     searchParams,
   );
