@@ -17,7 +17,7 @@ export default function TableLayout({
   return (
     <Card>
       <CardHeader className="px-6">
-        <div className="flex flex-1">
+        <div className="flex flex-1 pb-2">
           <div>
             <CardTitle>{title}</CardTitle>
           </div>

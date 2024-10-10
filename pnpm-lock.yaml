@@ -386,6 +386,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.4)))
+      use-debounce:
+        specifier: ^10.0.3
+        version: 10.0.3(react@19.0.0-rc-f994737d14-20240522)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
