@@ -44,12 +44,12 @@ describe("hasProduct", () => {
   });
 
   it("hasProduct", async () => {
-    const result = hasProduct(product1.id, order);
+    const result = await hasProduct(product1.id, order);
     expect(result).toBe(true);
   });
 
   it("!hasProduct", async () => {
-    const result = hasProduct(product2.id, order);
+    const result = await hasProduct(product2.id, order);
     expect(result).toBe(false);
   });
 });
