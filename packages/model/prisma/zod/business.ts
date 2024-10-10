@@ -19,6 +19,7 @@ export const BusinessModel = z.object({
   howToArrive: z.string().nullish(),
   coordinates: z.number().array(),
   slug: z.string().nullish(),
+  active: z.boolean().optional(),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
