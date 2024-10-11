@@ -86,6 +86,10 @@ export class BusinessRepository extends BaseRepository<
   getBySlug(slug: string) {
     return this.model.findUnique({ where: { slug } });
   }
+
+  getBySlugAndActive(slug: string) {
+    return this.model.findFirst({ where: { slug, active: true } });
+  }
 }
 
 export const businessRepository = new BusinessRepository();
