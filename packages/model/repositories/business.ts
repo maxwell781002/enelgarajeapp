@@ -73,9 +73,10 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  getByUser(userId: string) {
+  getByUserAndActive(userId: string) {
     return this.model.findMany({
       where: {
+        active: true,
         users: {
           some: { userId },
         },

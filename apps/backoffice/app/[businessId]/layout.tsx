@@ -18,7 +18,7 @@ export default async function RootLayout({
   const business =
     session?.user.role === UserRoles.ADMIN
       ? [await businessRepository.getById(businessId)]
-      : await businessRepository.getByUser(session?.user?.id);
+      : await businessRepository.getByUserAndActive(session?.user?.id);
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);

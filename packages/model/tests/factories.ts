@@ -8,6 +8,7 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
+  await prisma.userBusiness.deleteMany();
   await prisma.orderProduct.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
@@ -31,6 +32,12 @@ export const businessFactory = (data = {}) => {
       slug: "http://localhost:3000",
       ...data,
     },
+  });
+};
+
+export const userBusinessFactory = (data: any) => {
+  return prisma.userBusiness.create({
+    data,
   });
 };
 
