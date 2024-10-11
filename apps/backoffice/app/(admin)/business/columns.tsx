@@ -4,6 +4,7 @@ import { BtnList } from "@repo/ui/components/ui/btn-list";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import BooleanValue from "@repo/ui/components/boolean-value";
 
 type ActionProps = {
   row: CompleteBusiness;
@@ -25,6 +26,17 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: "name",
     cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
       return <Link href={`/${row.id}`}>{value}</Link>;
+    },
+  },
+  {
+    header: "Activo",
+    accessorKey: "active",
+    cell: ({
+      cell: { value, row },
+    }: {
+      cell: { value: boolean; row: any };
+    }) => {
+      return <BooleanValue value={value} />;
     },
   },
 ];

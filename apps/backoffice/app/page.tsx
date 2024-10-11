@@ -12,7 +12,7 @@ export default async function Page() {
   if (role == UserRoles.ADMIN) {
     return redirect("/dashboard");
   }
-  const business = await businessRepository.getByUser(id);
+  const business = await businessRepository.getByUserAndActive(id);
   if (business.length > 0) {
     return redirect(`/${business[0].id}`);
   }

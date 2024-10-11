@@ -12,6 +12,7 @@ import { getTranslations } from "next-intl/server";
 import Totals from "../../components/totals";
 import { productRepository } from "@repo/model/repositories/product";
 import { orderRepository } from "@repo/model/repositories/order";
+import BooleanValue from "@repo/ui/components/boolean-value";
 
 export default async function BusinessPage({
   params: { businessId },
@@ -51,6 +52,10 @@ export default async function BusinessPage({
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div className="flex items-center space-x-2">
+            <BooleanValue value={business.active} />
+            <span>{t("lbActive")}</span>
+          </div>
           <div className="flex items-center space-x-2">
             <Phone className="h-5 w-5 text-muted-foreground" />
             <span>{business.phone || t("noPhone")}</span>

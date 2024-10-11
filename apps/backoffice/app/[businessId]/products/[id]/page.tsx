@@ -6,8 +6,8 @@ import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import BtnRemove from "./button-remove";
-import BooleanValue from "../../../../components/boolean-value";
 import { IProduct } from "@repo/model/types/product";
+import BooleanValue from "@repo/ui/components/boolean-value";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -49,9 +49,9 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
           />
         </div>
         <div className="flex flex-col sm:flex-row sm:gap-4 bg-muted-foreground rounded-lg p-4 text-white">
-          <BooleanValue label={t("lbActive")} value={product.active} />
-          <BooleanValue label={t("lbOutOfStock")} value={product.outOfStock} />
-          <BooleanValue label={t("lbIsNew")} value={product.isNew} />
+          {t("lbActive")}: <BooleanValue value={product.active} />
+          {t("lbOutOfStock")}: <BooleanValue value={product.outOfStock} />
+          {t("lbIsNew")}: <BooleanValue value={product.isNew} />
           <div>
             {t("lbPriority")}: {product.priority}
           </div>

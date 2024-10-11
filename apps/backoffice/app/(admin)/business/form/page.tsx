@@ -8,6 +8,7 @@ import BusinessForm from "../../../../components/business-form";
 const defaultValues = {
   name: "",
   description: "",
+  active: true,
 };
 
 export default async function PageForm() {

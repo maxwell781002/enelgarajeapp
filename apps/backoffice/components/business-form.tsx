@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
+import { Switch } from "@repo/ui/components/ui/switch";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
@@ -76,6 +77,27 @@ export default function BusinessForm({
             </FormItem>
           )}
         />
+        {isAdmin && (
+          <FormField
+            control={form.control}
+            name="active"
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbActive")}</FormLabel>
+                <FormControl>
+                  <Switch
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
           name="description"

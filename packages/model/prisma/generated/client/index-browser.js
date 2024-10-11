@@ -127,7 +127,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   phone: 'phone',
   howToArrive: 'howToArrive',
   coordinates: 'coordinates',
-  slug: 'slug'
+  slug: 'slug',
+  active: 'active'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {

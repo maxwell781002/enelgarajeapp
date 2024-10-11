@@ -28,6 +28,12 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
+  protected getObject(data: FormData) {
+    const object: Partial<CompleteBusiness> = super.getObject(data);
+    if (object.active) object.active = (object.active as any) === "true";
+    return object;
+  }
+
   async doCreate(data: FormData) {
     const userId = data.get("userId") as string;
     data.delete("userId");
@@ -67,9 +73,10 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  getByUser(userId: string) {
+  getByUserAndActive(userId: string) {
     return this.model.findMany({
       where: {
+        active: true,
         users: {
           some: { userId },
         },
@@ -79,6 +86,10 @@ export class BusinessRepository extends BaseRepository<
 
   getBySlug(slug: string) {
     return this.model.findUnique({ where: { slug } });
+  }
+
+  getBySlugAndActive(slug: string) {
+    return this.model.findFirst({ where: { slug, active: true } });
   }
 }
 

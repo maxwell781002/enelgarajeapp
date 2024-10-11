@@ -2117,6 +2117,7 @@ export namespace Prisma {
     phone: string | null;
     howToArrive: string | null;
     slug: string | null;
+    active: boolean | null;
   };
 
   export type BusinessMaxAggregateOutputType = {
@@ -2127,6 +2128,7 @@ export namespace Prisma {
     phone: string | null;
     howToArrive: string | null;
     slug: string | null;
+    active: boolean | null;
   };
 
   export type BusinessCountAggregateOutputType = {
@@ -2138,6 +2140,7 @@ export namespace Prisma {
     howToArrive: number;
     coordinates: number;
     slug: number;
+    active: number;
     _all: number;
   };
 
@@ -2157,6 +2160,7 @@ export namespace Prisma {
     phone?: true;
     howToArrive?: true;
     slug?: true;
+    active?: true;
   };
 
   export type BusinessMaxAggregateInputType = {
@@ -2167,6 +2171,7 @@ export namespace Prisma {
     phone?: true;
     howToArrive?: true;
     slug?: true;
+    active?: true;
   };
 
   export type BusinessCountAggregateInputType = {
@@ -2178,6 +2183,7 @@ export namespace Prisma {
     howToArrive?: true;
     coordinates?: true;
     slug?: true;
+    active?: true;
     _all?: true;
   };
 
@@ -2281,6 +2287,7 @@ export namespace Prisma {
     howToArrive: string | null;
     coordinates: number[];
     slug: string | null;
+    active: boolean;
     _count: BusinessCountAggregateOutputType | null;
     _avg: BusinessAvgAggregateOutputType | null;
     _sum: BusinessSumAggregateOutputType | null;
@@ -2313,6 +2320,7 @@ export namespace Prisma {
       howToArrive?: boolean;
       coordinates?: boolean;
       slug?: boolean;
+      active?: boolean;
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
       orders?: boolean | Business$ordersArgs<ExtArgs>;
@@ -2334,6 +2342,7 @@ export namespace Prisma {
       howToArrive?: boolean;
       coordinates?: boolean;
       slug?: boolean;
+      active?: boolean;
     },
     ExtArgs["result"]["business"]
   >;
@@ -2347,6 +2356,7 @@ export namespace Prisma {
     howToArrive?: boolean;
     coordinates?: boolean;
     slug?: boolean;
+    active?: boolean;
   };
 
   export type BusinessInclude<
@@ -2382,6 +2392,10 @@ export namespace Prisma {
         howToArrive: string | null;
         coordinates: number[];
         slug: string | null;
+        /**
+         * @zod.optional()
+         */
+        active: boolean;
       },
       ExtArgs["result"]["business"]
     >;
@@ -2919,6 +2933,7 @@ export namespace Prisma {
     readonly howToArrive: FieldRef<"Business", "String">;
     readonly coordinates: FieldRef<"Business", "Float[]">;
     readonly slug: FieldRef<"Business", "String">;
+    readonly active: FieldRef<"Business", "Boolean">;
   }
 
   // Custom InputTypes
@@ -15257,6 +15272,7 @@ export namespace Prisma {
     howToArrive: "howToArrive";
     coordinates: "coordinates";
     slug: "slug";
+    active: "active";
   };
 
   export type BusinessScalarFieldEnum =
@@ -15571,6 +15587,7 @@ export namespace Prisma {
     howToArrive?: StringNullableFilter<"Business"> | string | null;
     coordinates?: FloatNullableListFilter<"Business">;
     slug?: StringNullableFilter<"Business"> | string | null;
+    active?: BoolFilter<"Business"> | boolean;
     categories?: CategoryListRelationFilter;
     products?: ProductListRelationFilter;
     orders?: OrderListRelationFilter;
@@ -15586,6 +15603,7 @@ export namespace Prisma {
     howToArrive?: SortOrderInput | SortOrder;
     coordinates?: SortOrder;
     slug?: SortOrderInput | SortOrder;
+    active?: SortOrder;
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
     orders?: OrderOrderByRelationAggregateInput;
@@ -15605,6 +15623,7 @@ export namespace Prisma {
       phone?: StringNullableFilter<"Business"> | string | null;
       howToArrive?: StringNullableFilter<"Business"> | string | null;
       coordinates?: FloatNullableListFilter<"Business">;
+      active?: BoolFilter<"Business"> | boolean;
       categories?: CategoryListRelationFilter;
       products?: ProductListRelationFilter;
       orders?: OrderListRelationFilter;
@@ -15622,6 +15641,7 @@ export namespace Prisma {
     howToArrive?: SortOrderInput | SortOrder;
     coordinates?: SortOrder;
     slug?: SortOrderInput | SortOrder;
+    active?: SortOrder;
     _count?: BusinessCountOrderByAggregateInput;
     _avg?: BusinessAvgOrderByAggregateInput;
     _max?: BusinessMaxOrderByAggregateInput;
@@ -15651,6 +15671,7 @@ export namespace Prisma {
       | null;
     coordinates?: FloatNullableListFilter<"Business">;
     slug?: StringNullableWithAggregatesFilter<"Business"> | string | null;
+    active?: BoolWithAggregatesFilter<"Business"> | boolean;
   };
 
   export type CategoryWhereInput = {
@@ -16469,6 +16490,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -16484,6 +16506,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -16499,6 +16522,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -16514,6 +16538,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -16529,6 +16554,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
   };
 
   export type BusinessUpdateManyMutationInput = {
@@ -16540,6 +16566,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type BusinessUncheckedUpdateManyInput = {
@@ -16551,6 +16578,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type CategoryCreateInput = {
@@ -17354,6 +17382,11 @@ export namespace Prisma {
     isEmpty?: boolean;
   };
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
+  };
+
   export type CategoryListRelationFilter = {
     every?: CategoryWhereInput;
     some?: CategoryWhereInput;
@@ -17408,6 +17441,7 @@ export namespace Prisma {
     howToArrive?: SortOrder;
     coordinates?: SortOrder;
     slug?: SortOrder;
+    active?: SortOrder;
   };
 
   export type BusinessAvgOrderByAggregateInput = {
@@ -17422,6 +17456,7 @@ export namespace Prisma {
     phone?: SortOrder;
     howToArrive?: SortOrder;
     slug?: SortOrder;
+    active?: SortOrder;
   };
 
   export type BusinessMinOrderByAggregateInput = {
@@ -17432,6 +17467,7 @@ export namespace Prisma {
     phone?: SortOrder;
     howToArrive?: SortOrder;
     slug?: SortOrder;
+    active?: SortOrder;
   };
 
   export type BusinessSumOrderByAggregateInput = {
@@ -17477,9 +17513,12 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>;
   };
 
-  export type BoolFilter<$PrismaModel = never> = {
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedBoolFilter<$PrismaModel>;
+    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type IntFilter<$PrismaModel = never> = {
@@ -17531,14 +17570,6 @@ export namespace Prisma {
 
   export type CategorySumOrderByAggregateInput = {
     priority?: SortOrder;
-  };
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedBoolFilter<$PrismaModel>;
-    _max?: NestedBoolFilter<$PrismaModel>;
   };
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -18333,6 +18364,10 @@ export namespace Prisma {
     push?: number | number[];
   };
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean;
+  };
+
   export type CategoryUpdateManyWithoutBusinessNestedInput = {
     create?:
       | XOR<
@@ -18594,10 +18629,6 @@ export namespace Prisma {
       | ProductCreateOrConnectWithoutCategoryInput[];
     createMany?: ProductCreateManyCategoryInputEnvelope;
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[];
-  };
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean;
   };
 
   export type IntFieldUpdateOperationsInput = {
@@ -19630,6 +19661,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null;
   };
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
+    not?: NestedBoolFilter<$PrismaModel> | boolean;
+  };
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -19687,11 +19723,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>;
     gte?: number | IntFieldRefInput<$PrismaModel>;
     not?: NestedIntNullableFilter<$PrismaModel> | number | null;
-  };
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>;
-    not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -20252,6 +20283,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
@@ -20266,6 +20298,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
@@ -20336,6 +20369,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
@@ -20350,6 +20384,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -20364,6 +20399,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
@@ -20378,6 +20414,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
@@ -20475,6 +20512,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
@@ -20489,6 +20527,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -20965,6 +21004,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -20979,6 +21019,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -21081,6 +21122,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -21095,6 +21137,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -21176,6 +21219,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
@@ -21190,6 +21234,7 @@ export namespace Prisma {
     howToArrive?: string | null;
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
+    active?: boolean;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
@@ -21320,6 +21365,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
@@ -21334,6 +21380,7 @@ export namespace Prisma {
     howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
