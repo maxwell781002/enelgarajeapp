@@ -1,5 +1,6 @@
 {
   "Order": {
-    "phSearch": "Buscar por identificador o usuario."
+    "phSearch": "Buscar por identificador o usuario.",
+    "OrderList": "Pedidos"
   }
 }

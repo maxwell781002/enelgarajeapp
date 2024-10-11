@@ -20,7 +20,7 @@ export default async function Page({
   searchParams,
   params: { businessId },
 }: PageProps) {
-  const t = await getTranslations("Category");
+  const t = await getTranslations("Order");
   const { list, search } = crud(
     `/${businessId}/orders`,
     OrderRepository.name,
@@ -34,7 +34,7 @@ export default async function Page({
   const data = await list({ businessId });
   return (
     <TableLayout
-      title={t("CategoryList")}
+      title={t("OrderList")}
       filter={
         <Filter
           onChange={handleSearch}
