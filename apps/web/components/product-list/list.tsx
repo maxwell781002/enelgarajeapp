@@ -2,11 +2,13 @@
 
 import { CompleteProduct } from "@repo/model/zod/product";
 import { CardItem } from "@repo/ui/components/cardList/card";
-import { startTransition, useCallback, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 import ShowMore from "@repo/ui/components/show-more";
 import { useTranslations } from "next-intl";
 import ScrollTop from "@repo/ui/components/scroll-top";
 import { IProduct } from "@repo/model/types/product";
+import { useSearchParams } from "next/navigation";
+import { getSearchParams } from "@repo/ui/lib/url";
 
 export type ProductListProps = {
   data: CompleteProduct[];
@@ -27,19 +29,32 @@ export default function ProductList({
   const [currentHastMore, setCurrentHastMore] = useState(hastMore);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    setList(data);
+    setCurrentHastMore(hastMore);
+    setLoading(false);
+    setPage(1);
+  }, [searchParams]);
   const t = useTranslations("Product");
   const handleGetMore = useCallback(async () => {
     setLoading(true);
-    let route = `/api/products?businessId=${businessId}&page=${page + 1}`;
+    const urlParams: any = getSearchParams(searchParams);
+    const params: any = {
+      ...urlParams,
+      businessId,
+      pageIndex: page + 1,
+    };
     if (categoryId) {
-      route = route + `&categoryId=${categoryId}`;
+      params.categoryId = categoryId;
     }
+    const route = `/api/products?${new URLSearchParams(params)}`;
     const data = await fetch(route).then((res) => res.json());
     setList([...list, ...data.data]);
     setCurrentHastMore(data.hasMore);
     setPage(page + 1);
     setLoading(false);
-  }, [categoryId, businessId, page, list]);
+  }, [categoryId, businessId, page, list, searchParams]);
 
   const handleAdd = (item: any) => {
     startTransition(() => {
