@@ -4,7 +4,9 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 
 export default async function Page({
   params: { slug },
+  searchParams,
 }: {
+  searchParams: any;
   params: { slug: string };
 }) {
   const currentBusiness = (await getCurrentBusiness()) as CompleteBusiness;
@@ -14,6 +16,7 @@ export default async function Page({
       categorySlug={slug}
       baseUrl={`/c/${slug}`}
       businessId={currentBusiness.id}
+      searchParams={searchParams}
     />
   );
 }

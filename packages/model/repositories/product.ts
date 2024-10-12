@@ -104,9 +104,20 @@ export class ProductRepository extends BaseRepository<
     });
   }
 
-  paginateFrontend({ categoryId, businessId, ...props }: PaginateData = {}) {
+  paginateFrontend({
+    categoryId,
+    businessId,
+    query,
+    ...props
+  }: PaginateData = {}) {
     const where: any = { businessId, active: true };
     if (categoryId) where["categoryId"] = categoryId;
+    if (query) {
+      where["name"] = {
+        contains: query,
+        mode: "insensitive",
+      };
+    }
     return super.paginate({
       ...props,
       where,
