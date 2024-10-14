@@ -131,6 +131,13 @@ exports.Prisma.BusinessScalarFieldEnum = {
   active: 'active'
 };
 
+exports.Prisma.TelegramBusinessScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  invitationLink: 'invitationLink',
+  businessId: 'businessId'
+};
+
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -273,6 +280,7 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
 
 exports.Prisma.ModelName = {
   Business: 'Business',
+  TelegramBusiness: 'TelegramBusiness',
   Category: 'Category',
   Product: 'Product',
   User: 'User',

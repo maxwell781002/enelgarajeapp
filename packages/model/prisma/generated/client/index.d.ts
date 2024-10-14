@@ -17,6 +17,12 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>;
  */
 export type Business = $Result.DefaultSelection<Prisma.$BusinessPayload>;
 /**
+ * Model TelegramBusiness
+ *
+ */
+export type TelegramBusiness =
+  $Result.DefaultSelection<Prisma.$TelegramBusinessPayload>;
+/**
  * Model Category
  *
  */
@@ -265,6 +271,16 @@ export class PrismaClient<
    * ```
    */
   get business(): Prisma.BusinessDelegate<ExtArgs>;
+
+  /**
+   * `prisma.telegramBusiness`: Exposes CRUD operations for the **TelegramBusiness** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more TelegramBusinesses
+   * const telegramBusinesses = await prisma.telegramBusiness.findMany()
+   * ```
+   */
+  get telegramBusiness(): Prisma.TelegramBusinessDelegate<ExtArgs>;
 
   /**
    * `prisma.category`: Exposes CRUD operations for the **Category** model.
@@ -825,6 +841,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Business: "Business";
+    TelegramBusiness: "TelegramBusiness";
     Category: "Category";
     Product: "Product";
     User: "User";
@@ -861,6 +878,7 @@ export namespace Prisma {
     meta: {
       modelProps:
         | "business"
+        | "telegramBusiness"
         | "category"
         | "product"
         | "user"
@@ -941,6 +959,78 @@ export namespace Prisma {
           count: {
             args: Prisma.BusinessCountArgs<ExtArgs>;
             result: $Utils.Optional<BusinessCountAggregateOutputType> | number;
+          };
+        };
+      };
+      TelegramBusiness: {
+        payload: Prisma.$TelegramBusinessPayload<ExtArgs>;
+        fields: Prisma.TelegramBusinessFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.TelegramBusinessFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.TelegramBusinessFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>;
+          };
+          findFirst: {
+            args: Prisma.TelegramBusinessFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.TelegramBusinessFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>;
+          };
+          findMany: {
+            args: Prisma.TelegramBusinessFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>[];
+          };
+          create: {
+            args: Prisma.TelegramBusinessCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>;
+          };
+          createMany: {
+            args: Prisma.TelegramBusinessCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.TelegramBusinessCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>[];
+          };
+          delete: {
+            args: Prisma.TelegramBusinessDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>;
+          };
+          update: {
+            args: Prisma.TelegramBusinessUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>;
+          };
+          deleteMany: {
+            args: Prisma.TelegramBusinessDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.TelegramBusinessUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.TelegramBusinessUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$TelegramBusinessPayload>;
+          };
+          aggregate: {
+            args: Prisma.TelegramBusinessAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateTelegramBusiness>;
+          };
+          groupBy: {
+            args: Prisma.TelegramBusinessGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<TelegramBusinessGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.TelegramBusinessCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<TelegramBusinessCountAggregateOutputType>
+              | number;
           };
         };
       };
@@ -2321,6 +2411,7 @@ export namespace Prisma {
       coordinates?: boolean;
       slug?: boolean;
       active?: boolean;
+      telegram?: boolean | Business$telegramArgs<ExtArgs>;
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
       orders?: boolean | Business$ordersArgs<ExtArgs>;
@@ -2362,6 +2453,7 @@ export namespace Prisma {
   export type BusinessInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
+    telegram?: boolean | Business$telegramArgs<ExtArgs>;
     categories?: boolean | Business$categoriesArgs<ExtArgs>;
     products?: boolean | Business$productsArgs<ExtArgs>;
     orders?: boolean | Business$ordersArgs<ExtArgs>;
@@ -2377,6 +2469,7 @@ export namespace Prisma {
   > = {
     name: "Business";
     objects: {
+      telegram: Prisma.$TelegramBusinessPayload<ExtArgs> | null;
       categories: Prisma.$CategoryPayload<ExtArgs>[];
       products: Prisma.$ProductPayload<ExtArgs>[];
       orders: Prisma.$OrderPayload<ExtArgs>[];
@@ -2864,6 +2957,17 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
+    telegram<T extends Business$telegramArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$telegramArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<
+        Prisma.$TelegramBusinessPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     categories<T extends Business$categoriesArgs<ExtArgs> = {}>(
       args?: Subset<T, Business$categoriesArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
@@ -3282,6 +3386,23 @@ export namespace Prisma {
   };
 
   /**
+   * Business.telegram
+   */
+  export type Business$telegramArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    where?: TelegramBusinessWhereInput;
+  };
+
+  /**
    * Business.categories
    */
   export type Business$categoriesArgs<
@@ -3389,6 +3510,1135 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BusinessInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model TelegramBusiness
+   */
+
+  export type AggregateTelegramBusiness = {
+    _count: TelegramBusinessCountAggregateOutputType | null;
+    _min: TelegramBusinessMinAggregateOutputType | null;
+    _max: TelegramBusinessMaxAggregateOutputType | null;
+  };
+
+  export type TelegramBusinessMinAggregateOutputType = {
+    id: string | null;
+    groupId: string | null;
+    invitationLink: string | null;
+    businessId: string | null;
+  };
+
+  export type TelegramBusinessMaxAggregateOutputType = {
+    id: string | null;
+    groupId: string | null;
+    invitationLink: string | null;
+    businessId: string | null;
+  };
+
+  export type TelegramBusinessCountAggregateOutputType = {
+    id: number;
+    groupId: number;
+    invitationLink: number;
+    businessId: number;
+    _all: number;
+  };
+
+  export type TelegramBusinessMinAggregateInputType = {
+    id?: true;
+    groupId?: true;
+    invitationLink?: true;
+    businessId?: true;
+  };
+
+  export type TelegramBusinessMaxAggregateInputType = {
+    id?: true;
+    groupId?: true;
+    invitationLink?: true;
+    businessId?: true;
+  };
+
+  export type TelegramBusinessCountAggregateInputType = {
+    id?: true;
+    groupId?: true;
+    invitationLink?: true;
+    businessId?: true;
+    _all?: true;
+  };
+
+  export type TelegramBusinessAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which TelegramBusiness to aggregate.
+     */
+    where?: TelegramBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of TelegramBusinesses to fetch.
+     */
+    orderBy?:
+      | TelegramBusinessOrderByWithRelationInput
+      | TelegramBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: TelegramBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` TelegramBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` TelegramBusinesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned TelegramBusinesses
+     **/
+    _count?: true | TelegramBusinessCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: TelegramBusinessMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: TelegramBusinessMaxAggregateInputType;
+  };
+
+  export type GetTelegramBusinessAggregateType<
+    T extends TelegramBusinessAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateTelegramBusiness]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTelegramBusiness[P]>
+      : GetScalarType<T[P], AggregateTelegramBusiness[P]>;
+  };
+
+  export type TelegramBusinessGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: TelegramBusinessWhereInput;
+    orderBy?:
+      | TelegramBusinessOrderByWithAggregationInput
+      | TelegramBusinessOrderByWithAggregationInput[];
+    by: TelegramBusinessScalarFieldEnum[] | TelegramBusinessScalarFieldEnum;
+    having?: TelegramBusinessScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: TelegramBusinessCountAggregateInputType | true;
+    _min?: TelegramBusinessMinAggregateInputType;
+    _max?: TelegramBusinessMaxAggregateInputType;
+  };
+
+  export type TelegramBusinessGroupByOutputType = {
+    id: string;
+    groupId: string;
+    invitationLink: string;
+    businessId: string;
+    _count: TelegramBusinessCountAggregateOutputType | null;
+    _min: TelegramBusinessMinAggregateOutputType | null;
+    _max: TelegramBusinessMaxAggregateOutputType | null;
+  };
+
+  type GetTelegramBusinessGroupByPayload<
+    T extends TelegramBusinessGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TelegramBusinessGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof TelegramBusinessGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], TelegramBusinessGroupByOutputType[P]>
+          : GetScalarType<T[P], TelegramBusinessGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type TelegramBusinessSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      groupId?: boolean;
+      invitationLink?: boolean;
+      businessId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["telegramBusiness"]
+  >;
+
+  export type TelegramBusinessSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      groupId?: boolean;
+      invitationLink?: boolean;
+      businessId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["telegramBusiness"]
+  >;
+
+  export type TelegramBusinessSelectScalar = {
+    id?: boolean;
+    groupId?: boolean;
+    invitationLink?: boolean;
+    businessId?: boolean;
+  };
+
+  export type TelegramBusinessInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+  export type TelegramBusinessIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+
+  export type $TelegramBusinessPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "TelegramBusiness";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        groupId: string;
+        /**
+         * @zod.optional()
+         */
+        invitationLink: string;
+        businessId: string;
+      },
+      ExtArgs["result"]["telegramBusiness"]
+    >;
+    composites: {};
+  };
+
+  type TelegramBusinessGetPayload<
+    S extends boolean | null | undefined | TelegramBusinessDefaultArgs,
+  > = $Result.GetResult<Prisma.$TelegramBusinessPayload, S>;
+
+  type TelegramBusinessCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<TelegramBusinessFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: TelegramBusinessCountAggregateInputType | true;
+  };
+
+  export interface TelegramBusinessDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["TelegramBusiness"];
+      meta: { name: "TelegramBusiness" };
+    };
+    /**
+     * Find zero or one TelegramBusiness that matches the filter.
+     * @param {TelegramBusinessFindUniqueArgs} args - Arguments to find a TelegramBusiness
+     * @example
+     * // Get one TelegramBusiness
+     * const telegramBusiness = await prisma.telegramBusiness.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TelegramBusinessFindUniqueArgs>(
+      args: SelectSubset<T, TelegramBusinessFindUniqueArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<
+        Prisma.$TelegramBusinessPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one TelegramBusiness that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TelegramBusinessFindUniqueOrThrowArgs} args - Arguments to find a TelegramBusiness
+     * @example
+     * // Get one TelegramBusiness
+     * const telegramBusiness = await prisma.telegramBusiness.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TelegramBusinessFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, TelegramBusinessFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<
+        Prisma.$TelegramBusinessPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first TelegramBusiness that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessFindFirstArgs} args - Arguments to find a TelegramBusiness
+     * @example
+     * // Get one TelegramBusiness
+     * const telegramBusiness = await prisma.telegramBusiness.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TelegramBusinessFindFirstArgs>(
+      args?: SelectSubset<T, TelegramBusinessFindFirstArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<
+        Prisma.$TelegramBusinessPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first TelegramBusiness that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessFindFirstOrThrowArgs} args - Arguments to find a TelegramBusiness
+     * @example
+     * // Get one TelegramBusiness
+     * const telegramBusiness = await prisma.telegramBusiness.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TelegramBusinessFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, TelegramBusinessFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<
+        Prisma.$TelegramBusinessPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more TelegramBusinesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TelegramBusinesses
+     * const telegramBusinesses = await prisma.telegramBusiness.findMany()
+     *
+     * // Get first 10 TelegramBusinesses
+     * const telegramBusinesses = await prisma.telegramBusiness.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const telegramBusinessWithIdOnly = await prisma.telegramBusiness.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends TelegramBusinessFindManyArgs>(
+      args?: SelectSubset<T, TelegramBusinessFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$TelegramBusinessPayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a TelegramBusiness.
+     * @param {TelegramBusinessCreateArgs} args - Arguments to create a TelegramBusiness.
+     * @example
+     * // Create one TelegramBusiness
+     * const TelegramBusiness = await prisma.telegramBusiness.create({
+     *   data: {
+     *     // ... data to create a TelegramBusiness
+     *   }
+     * })
+     *
+     */
+    create<T extends TelegramBusinessCreateArgs>(
+      args: SelectSubset<T, TelegramBusinessCreateArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<Prisma.$TelegramBusinessPayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many TelegramBusinesses.
+     * @param {TelegramBusinessCreateManyArgs} args - Arguments to create many TelegramBusinesses.
+     * @example
+     * // Create many TelegramBusinesses
+     * const telegramBusiness = await prisma.telegramBusiness.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends TelegramBusinessCreateManyArgs>(
+      args?: SelectSubset<T, TelegramBusinessCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many TelegramBusinesses and returns the data saved in the database.
+     * @param {TelegramBusinessCreateManyAndReturnArgs} args - Arguments to create many TelegramBusinesses.
+     * @example
+     * // Create many TelegramBusinesses
+     * const telegramBusiness = await prisma.telegramBusiness.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many TelegramBusinesses and only return the `id`
+     * const telegramBusinessWithIdOnly = await prisma.telegramBusiness.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends TelegramBusinessCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, TelegramBusinessCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$TelegramBusinessPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a TelegramBusiness.
+     * @param {TelegramBusinessDeleteArgs} args - Arguments to delete one TelegramBusiness.
+     * @example
+     * // Delete one TelegramBusiness
+     * const TelegramBusiness = await prisma.telegramBusiness.delete({
+     *   where: {
+     *     // ... filter to delete one TelegramBusiness
+     *   }
+     * })
+     *
+     */
+    delete<T extends TelegramBusinessDeleteArgs>(
+      args: SelectSubset<T, TelegramBusinessDeleteArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<Prisma.$TelegramBusinessPayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one TelegramBusiness.
+     * @param {TelegramBusinessUpdateArgs} args - Arguments to update one TelegramBusiness.
+     * @example
+     * // Update one TelegramBusiness
+     * const telegramBusiness = await prisma.telegramBusiness.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends TelegramBusinessUpdateArgs>(
+      args: SelectSubset<T, TelegramBusinessUpdateArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<Prisma.$TelegramBusinessPayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more TelegramBusinesses.
+     * @param {TelegramBusinessDeleteManyArgs} args - Arguments to filter TelegramBusinesses to delete.
+     * @example
+     * // Delete a few TelegramBusinesses
+     * const { count } = await prisma.telegramBusiness.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends TelegramBusinessDeleteManyArgs>(
+      args?: SelectSubset<T, TelegramBusinessDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more TelegramBusinesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TelegramBusinesses
+     * const telegramBusiness = await prisma.telegramBusiness.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends TelegramBusinessUpdateManyArgs>(
+      args: SelectSubset<T, TelegramBusinessUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one TelegramBusiness.
+     * @param {TelegramBusinessUpsertArgs} args - Arguments to update or create a TelegramBusiness.
+     * @example
+     * // Update or create a TelegramBusiness
+     * const telegramBusiness = await prisma.telegramBusiness.upsert({
+     *   create: {
+     *     // ... data to create a TelegramBusiness
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TelegramBusiness we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TelegramBusinessUpsertArgs>(
+      args: SelectSubset<T, TelegramBusinessUpsertArgs<ExtArgs>>,
+    ): Prisma__TelegramBusinessClient<
+      $Result.GetResult<Prisma.$TelegramBusinessPayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of TelegramBusinesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessCountArgs} args - Arguments to filter TelegramBusinesses to count.
+     * @example
+     * // Count the number of TelegramBusinesses
+     * const count = await prisma.telegramBusiness.count({
+     *   where: {
+     *     // ... the filter for the TelegramBusinesses we want to count
+     *   }
+     * })
+     **/
+    count<T extends TelegramBusinessCountArgs>(
+      args?: Subset<T, TelegramBusinessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], TelegramBusinessCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a TelegramBusiness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends TelegramBusinessAggregateArgs>(
+      args: Subset<T, TelegramBusinessAggregateArgs>,
+    ): Prisma.PrismaPromise<GetTelegramBusinessAggregateType<T>>;
+
+    /**
+     * Group by TelegramBusiness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramBusinessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends TelegramBusinessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TelegramBusinessGroupByArgs["orderBy"] }
+        : { orderBy?: TelegramBusinessGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, TelegramBusinessGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetTelegramBusinessGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the TelegramBusiness model
+     */
+    readonly fields: TelegramBusinessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TelegramBusiness.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TelegramBusinessClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the TelegramBusiness model
+   */
+  interface TelegramBusinessFieldRefs {
+    readonly id: FieldRef<"TelegramBusiness", "String">;
+    readonly groupId: FieldRef<"TelegramBusiness", "String">;
+    readonly invitationLink: FieldRef<"TelegramBusiness", "String">;
+    readonly businessId: FieldRef<"TelegramBusiness", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * TelegramBusiness findUnique
+   */
+  export type TelegramBusinessFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which TelegramBusiness to fetch.
+     */
+    where: TelegramBusinessWhereUniqueInput;
+  };
+
+  /**
+   * TelegramBusiness findUniqueOrThrow
+   */
+  export type TelegramBusinessFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which TelegramBusiness to fetch.
+     */
+    where: TelegramBusinessWhereUniqueInput;
+  };
+
+  /**
+   * TelegramBusiness findFirst
+   */
+  export type TelegramBusinessFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which TelegramBusiness to fetch.
+     */
+    where?: TelegramBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of TelegramBusinesses to fetch.
+     */
+    orderBy?:
+      | TelegramBusinessOrderByWithRelationInput
+      | TelegramBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for TelegramBusinesses.
+     */
+    cursor?: TelegramBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` TelegramBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` TelegramBusinesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of TelegramBusinesses.
+     */
+    distinct?:
+      | TelegramBusinessScalarFieldEnum
+      | TelegramBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * TelegramBusiness findFirstOrThrow
+   */
+  export type TelegramBusinessFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which TelegramBusiness to fetch.
+     */
+    where?: TelegramBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of TelegramBusinesses to fetch.
+     */
+    orderBy?:
+      | TelegramBusinessOrderByWithRelationInput
+      | TelegramBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for TelegramBusinesses.
+     */
+    cursor?: TelegramBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` TelegramBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` TelegramBusinesses.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of TelegramBusinesses.
+     */
+    distinct?:
+      | TelegramBusinessScalarFieldEnum
+      | TelegramBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * TelegramBusiness findMany
+   */
+  export type TelegramBusinessFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter, which TelegramBusinesses to fetch.
+     */
+    where?: TelegramBusinessWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of TelegramBusinesses to fetch.
+     */
+    orderBy?:
+      | TelegramBusinessOrderByWithRelationInput
+      | TelegramBusinessOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing TelegramBusinesses.
+     */
+    cursor?: TelegramBusinessWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` TelegramBusinesses from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` TelegramBusinesses.
+     */
+    skip?: number;
+    distinct?:
+      | TelegramBusinessScalarFieldEnum
+      | TelegramBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * TelegramBusiness create
+   */
+  export type TelegramBusinessCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a TelegramBusiness.
+     */
+    data: XOR<
+      TelegramBusinessCreateInput,
+      TelegramBusinessUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * TelegramBusiness createMany
+   */
+  export type TelegramBusinessCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many TelegramBusinesses.
+     */
+    data: TelegramBusinessCreateManyInput | TelegramBusinessCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * TelegramBusiness createManyAndReturn
+   */
+  export type TelegramBusinessCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many TelegramBusinesses.
+     */
+    data: TelegramBusinessCreateManyInput | TelegramBusinessCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * TelegramBusiness update
+   */
+  export type TelegramBusinessUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a TelegramBusiness.
+     */
+    data: XOR<
+      TelegramBusinessUpdateInput,
+      TelegramBusinessUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which TelegramBusiness to update.
+     */
+    where: TelegramBusinessWhereUniqueInput;
+  };
+
+  /**
+   * TelegramBusiness updateMany
+   */
+  export type TelegramBusinessUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update TelegramBusinesses.
+     */
+    data: XOR<
+      TelegramBusinessUpdateManyMutationInput,
+      TelegramBusinessUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which TelegramBusinesses to update
+     */
+    where?: TelegramBusinessWhereInput;
+  };
+
+  /**
+   * TelegramBusiness upsert
+   */
+  export type TelegramBusinessUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the TelegramBusiness to update in case it exists.
+     */
+    where: TelegramBusinessWhereUniqueInput;
+    /**
+     * In case the TelegramBusiness found by the `where` argument doesn't exist, create a new TelegramBusiness with this data.
+     */
+    create: XOR<
+      TelegramBusinessCreateInput,
+      TelegramBusinessUncheckedCreateInput
+    >;
+    /**
+     * In case the TelegramBusiness was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      TelegramBusinessUpdateInput,
+      TelegramBusinessUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * TelegramBusiness delete
+   */
+  export type TelegramBusinessDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
+    /**
+     * Filter which TelegramBusiness to delete.
+     */
+    where: TelegramBusinessWhereUniqueInput;
+  };
+
+  /**
+   * TelegramBusiness deleteMany
+   */
+  export type TelegramBusinessDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which TelegramBusinesses to delete
+     */
+    where?: TelegramBusinessWhereInput;
+  };
+
+  /**
+   * TelegramBusiness without action
+   */
+  export type TelegramBusinessDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TelegramBusiness
+     */
+    select?: TelegramBusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramBusinessInclude<ExtArgs> | null;
   };
 
   /**
@@ -15278,6 +16528,16 @@ export namespace Prisma {
   export type BusinessScalarFieldEnum =
     (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum];
 
+  export const TelegramBusinessScalarFieldEnum: {
+    id: "id";
+    groupId: "groupId";
+    invitationLink: "invitationLink";
+    businessId: "businessId";
+  };
+
+  export type TelegramBusinessScalarFieldEnum =
+    (typeof TelegramBusinessScalarFieldEnum)[keyof typeof TelegramBusinessScalarFieldEnum];
+
   export const CategoryScalarFieldEnum: {
     id: "id";
     name: "name";
@@ -15588,6 +16848,10 @@ export namespace Prisma {
     coordinates?: FloatNullableListFilter<"Business">;
     slug?: StringNullableFilter<"Business"> | string | null;
     active?: BoolFilter<"Business"> | boolean;
+    telegram?: XOR<
+      TelegramBusinessNullableRelationFilter,
+      TelegramBusinessWhereInput
+    > | null;
     categories?: CategoryListRelationFilter;
     products?: ProductListRelationFilter;
     orders?: OrderListRelationFilter;
@@ -15604,6 +16868,7 @@ export namespace Prisma {
     coordinates?: SortOrder;
     slug?: SortOrderInput | SortOrder;
     active?: SortOrder;
+    telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
     orders?: OrderOrderByRelationAggregateInput;
@@ -15624,6 +16889,10 @@ export namespace Prisma {
       howToArrive?: StringNullableFilter<"Business"> | string | null;
       coordinates?: FloatNullableListFilter<"Business">;
       active?: BoolFilter<"Business"> | boolean;
+      telegram?: XOR<
+        TelegramBusinessNullableRelationFilter,
+        TelegramBusinessWhereInput
+      > | null;
       categories?: CategoryListRelationFilter;
       products?: ProductListRelationFilter;
       orders?: OrderListRelationFilter;
@@ -15672,6 +16941,63 @@ export namespace Prisma {
     coordinates?: FloatNullableListFilter<"Business">;
     slug?: StringNullableWithAggregatesFilter<"Business"> | string | null;
     active?: BoolWithAggregatesFilter<"Business"> | boolean;
+  };
+
+  export type TelegramBusinessWhereInput = {
+    AND?: TelegramBusinessWhereInput | TelegramBusinessWhereInput[];
+    OR?: TelegramBusinessWhereInput[];
+    NOT?: TelegramBusinessWhereInput | TelegramBusinessWhereInput[];
+    id?: StringFilter<"TelegramBusiness"> | string;
+    groupId?: StringFilter<"TelegramBusiness"> | string;
+    invitationLink?: StringFilter<"TelegramBusiness"> | string;
+    businessId?: StringFilter<"TelegramBusiness"> | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+  };
+
+  export type TelegramBusinessOrderByWithRelationInput = {
+    id?: SortOrder;
+    groupId?: SortOrder;
+    invitationLink?: SortOrder;
+    businessId?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+  };
+
+  export type TelegramBusinessWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      businessId?: string;
+      AND?: TelegramBusinessWhereInput | TelegramBusinessWhereInput[];
+      OR?: TelegramBusinessWhereInput[];
+      NOT?: TelegramBusinessWhereInput | TelegramBusinessWhereInput[];
+      groupId?: StringFilter<"TelegramBusiness"> | string;
+      invitationLink?: StringFilter<"TelegramBusiness"> | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    },
+    "id" | "businessId"
+  >;
+
+  export type TelegramBusinessOrderByWithAggregationInput = {
+    id?: SortOrder;
+    groupId?: SortOrder;
+    invitationLink?: SortOrder;
+    businessId?: SortOrder;
+    _count?: TelegramBusinessCountOrderByAggregateInput;
+    _max?: TelegramBusinessMaxOrderByAggregateInput;
+    _min?: TelegramBusinessMinOrderByAggregateInput;
+  };
+
+  export type TelegramBusinessScalarWhereWithAggregatesInput = {
+    AND?:
+      | TelegramBusinessScalarWhereWithAggregatesInput
+      | TelegramBusinessScalarWhereWithAggregatesInput[];
+    OR?: TelegramBusinessScalarWhereWithAggregatesInput[];
+    NOT?:
+      | TelegramBusinessScalarWhereWithAggregatesInput
+      | TelegramBusinessScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
+    groupId?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
+    invitationLink?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
+    businessId?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
   };
 
   export type CategoryWhereInput = {
@@ -16491,6 +17817,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -16507,6 +17834,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -16523,6 +17851,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -16539,6 +17868,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -16579,6 +17909,54 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+  };
+
+  export type TelegramBusinessCreateInput = {
+    id?: string;
+    groupId: string;
+    invitationLink?: string;
+    business: BusinessCreateNestedOneWithoutTelegramInput;
+  };
+
+  export type TelegramBusinessUncheckedCreateInput = {
+    id?: string;
+    groupId: string;
+    invitationLink?: string;
+    businessId: string;
+  };
+
+  export type TelegramBusinessUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    groupId?: StringFieldUpdateOperationsInput | string;
+    invitationLink?: StringFieldUpdateOperationsInput | string;
+    business?: BusinessUpdateOneRequiredWithoutTelegramNestedInput;
+  };
+
+  export type TelegramBusinessUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    groupId?: StringFieldUpdateOperationsInput | string;
+    invitationLink?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type TelegramBusinessCreateManyInput = {
+    id?: string;
+    groupId: string;
+    invitationLink?: string;
+    businessId: string;
+  };
+
+  export type TelegramBusinessUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    groupId?: StringFieldUpdateOperationsInput | string;
+    invitationLink?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type TelegramBusinessUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    groupId?: StringFieldUpdateOperationsInput | string;
+    invitationLink?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type CategoryCreateInput = {
@@ -17387,6 +18765,11 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
+  export type TelegramBusinessNullableRelationFilter = {
+    is?: TelegramBusinessWhereInput | null;
+    isNot?: TelegramBusinessWhereInput | null;
+  };
+
   export type CategoryListRelationFilter = {
     every?: CategoryWhereInput;
     some?: CategoryWhereInput;
@@ -17521,6 +18904,32 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>;
   };
 
+  export type BusinessRelationFilter = {
+    is?: BusinessWhereInput;
+    isNot?: BusinessWhereInput;
+  };
+
+  export type TelegramBusinessCountOrderByAggregateInput = {
+    id?: SortOrder;
+    groupId?: SortOrder;
+    invitationLink?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type TelegramBusinessMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    groupId?: SortOrder;
+    invitationLink?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type TelegramBusinessMinOrderByAggregateInput = {
+    id?: SortOrder;
+    groupId?: SortOrder;
+    invitationLink?: SortOrder;
+    businessId?: SortOrder;
+  };
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
     in?: number[] | ListIntFieldRefInput<$PrismaModel>;
@@ -17530,11 +18939,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>;
     gte?: number | IntFieldRefInput<$PrismaModel>;
     not?: NestedIntFilter<$PrismaModel> | number;
-  };
-
-  export type BusinessRelationFilter = {
-    is?: BusinessWhereInput;
-    isNot?: BusinessWhereInput;
   };
 
   export type CategoryCountOrderByAggregateInput = {
@@ -18231,6 +19635,15 @@ export namespace Prisma {
     set: number[];
   };
 
+  export type TelegramBusinessCreateNestedOneWithoutBusinessInput = {
+    create?: XOR<
+      TelegramBusinessCreateWithoutBusinessInput,
+      TelegramBusinessUncheckedCreateWithoutBusinessInput
+    >;
+    connectOrCreate?: TelegramBusinessCreateOrConnectWithoutBusinessInput;
+    connect?: TelegramBusinessWhereUniqueInput;
+  };
+
   export type CategoryCreateNestedManyWithoutBusinessInput = {
     create?:
       | XOR<
@@ -18289,6 +19702,15 @@ export namespace Prisma {
       | UserBusinessCreateOrConnectWithoutBusinessInput[];
     createMany?: UserBusinessCreateManyBusinessInputEnvelope;
     connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+  };
+
+  export type TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput = {
+    create?: XOR<
+      TelegramBusinessCreateWithoutBusinessInput,
+      TelegramBusinessUncheckedCreateWithoutBusinessInput
+    >;
+    connectOrCreate?: TelegramBusinessCreateOrConnectWithoutBusinessInput;
+    connect?: TelegramBusinessWhereUniqueInput;
   };
 
   export type CategoryUncheckedCreateNestedManyWithoutBusinessInput = {
@@ -18366,6 +19788,25 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean;
+  };
+
+  export type TelegramBusinessUpdateOneWithoutBusinessNestedInput = {
+    create?: XOR<
+      TelegramBusinessCreateWithoutBusinessInput,
+      TelegramBusinessUncheckedCreateWithoutBusinessInput
+    >;
+    connectOrCreate?: TelegramBusinessCreateOrConnectWithoutBusinessInput;
+    upsert?: TelegramBusinessUpsertWithoutBusinessInput;
+    disconnect?: TelegramBusinessWhereInput | boolean;
+    delete?: TelegramBusinessWhereInput | boolean;
+    connect?: TelegramBusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        TelegramBusinessUpdateToOneWithWhereWithoutBusinessInput,
+        TelegramBusinessUpdateWithoutBusinessInput
+      >,
+      TelegramBusinessUncheckedUpdateWithoutBusinessInput
+    >;
   };
 
   export type CategoryUpdateManyWithoutBusinessNestedInput = {
@@ -18480,6 +19921,25 @@ export namespace Prisma {
     deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
   };
 
+  export type TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput = {
+    create?: XOR<
+      TelegramBusinessCreateWithoutBusinessInput,
+      TelegramBusinessUncheckedCreateWithoutBusinessInput
+    >;
+    connectOrCreate?: TelegramBusinessCreateOrConnectWithoutBusinessInput;
+    upsert?: TelegramBusinessUpsertWithoutBusinessInput;
+    disconnect?: TelegramBusinessWhereInput | boolean;
+    delete?: TelegramBusinessWhereInput | boolean;
+    connect?: TelegramBusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        TelegramBusinessUpdateToOneWithWhereWithoutBusinessInput,
+        TelegramBusinessUpdateWithoutBusinessInput
+      >,
+      TelegramBusinessUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
   export type CategoryUncheckedUpdateManyWithoutBusinessNestedInput = {
     create?:
       | XOR<
@@ -18590,6 +20050,32 @@ export namespace Prisma {
       | UserBusinessUpdateManyWithWhereWithoutBusinessInput
       | UserBusinessUpdateManyWithWhereWithoutBusinessInput[];
     deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
+  };
+
+  export type BusinessCreateNestedOneWithoutTelegramInput = {
+    create?: XOR<
+      BusinessCreateWithoutTelegramInput,
+      BusinessUncheckedCreateWithoutTelegramInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutTelegramInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutTelegramNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutTelegramInput,
+      BusinessUncheckedCreateWithoutTelegramInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutTelegramInput;
+    upsert?: BusinessUpsertWithoutTelegramInput;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutTelegramInput,
+        BusinessUpdateWithoutTelegramInput
+      >,
+      BusinessUncheckedUpdateWithoutTelegramInput
+    >;
   };
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -19922,6 +21408,26 @@ export namespace Prisma {
       _max?: NestedEnumOrderStatusFilter<$PrismaModel>;
     };
 
+  export type TelegramBusinessCreateWithoutBusinessInput = {
+    id?: string;
+    groupId: string;
+    invitationLink?: string;
+  };
+
+  export type TelegramBusinessUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    groupId: string;
+    invitationLink?: string;
+  };
+
+  export type TelegramBusinessCreateOrConnectWithoutBusinessInput = {
+    where: TelegramBusinessWhereUniqueInput;
+    create: XOR<
+      TelegramBusinessCreateWithoutBusinessInput,
+      TelegramBusinessUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
   export type CategoryCreateWithoutBusinessInput = {
     id?: string;
     name: string;
@@ -20058,6 +21564,38 @@ export namespace Prisma {
       | UserBusinessCreateManyBusinessInput
       | UserBusinessCreateManyBusinessInput[];
     skipDuplicates?: boolean;
+  };
+
+  export type TelegramBusinessUpsertWithoutBusinessInput = {
+    update: XOR<
+      TelegramBusinessUpdateWithoutBusinessInput,
+      TelegramBusinessUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      TelegramBusinessCreateWithoutBusinessInput,
+      TelegramBusinessUncheckedCreateWithoutBusinessInput
+    >;
+    where?: TelegramBusinessWhereInput;
+  };
+
+  export type TelegramBusinessUpdateToOneWithWhereWithoutBusinessInput = {
+    where?: TelegramBusinessWhereInput;
+    data: XOR<
+      TelegramBusinessUpdateWithoutBusinessInput,
+      TelegramBusinessUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type TelegramBusinessUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    groupId?: StringFieldUpdateOperationsInput | string;
+    invitationLink?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type TelegramBusinessUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    groupId?: StringFieldUpdateOperationsInput | string;
+    invitationLink?: StringFieldUpdateOperationsInput | string;
   };
 
   export type CategoryUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -20227,6 +21765,98 @@ export namespace Prisma {
     businessId?: StringFilter<"UserBusiness"> | string;
   };
 
+  export type BusinessCreateWithoutTelegramInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutTelegramInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutTelegramInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutTelegramInput,
+      BusinessUncheckedCreateWithoutTelegramInput
+    >;
+  };
+
+  export type BusinessUpsertWithoutTelegramInput = {
+    update: XOR<
+      BusinessUpdateWithoutTelegramInput,
+      BusinessUncheckedUpdateWithoutTelegramInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutTelegramInput,
+      BusinessUncheckedCreateWithoutTelegramInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutTelegramInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutTelegramInput,
+      BusinessUncheckedUpdateWithoutTelegramInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutTelegramInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutTelegramInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
   export type ProductCreateWithoutCategoryInput = {
     id?: string;
     name: string;
@@ -20284,6 +21914,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
@@ -20299,6 +21930,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
@@ -20370,6 +22002,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
@@ -20385,6 +22018,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -20400,6 +22034,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
@@ -20415,6 +22050,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
@@ -20513,6 +22149,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
@@ -20528,6 +22165,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -21005,6 +22643,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -21020,6 +22659,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -21123,6 +22763,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -21138,6 +22779,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -21220,6 +22862,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
@@ -21235,6 +22878,7 @@ export namespace Prisma {
     coordinates?: BusinessCreatecoordinatesInput | number[];
     slug?: string | null;
     active?: boolean;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
@@ -21366,6 +23010,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
@@ -21381,6 +23026,7 @@ export namespace Prisma {
     coordinates?: BusinessUpdatecoordinatesInput | number[];
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -22371,6 +24017,12 @@ export namespace Prisma {
   export type BusinessArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = BusinessDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use TelegramBusinessDefaultArgs instead
+   */
+  export type TelegramBusinessArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = TelegramBusinessDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use CategoryDefaultArgs instead
    */
