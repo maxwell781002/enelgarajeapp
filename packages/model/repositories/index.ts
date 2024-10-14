@@ -3,6 +3,10 @@ import { businessRepository, BusinessRepository } from "./business";
 import { categoryRepository, CategoryRepository } from "./category";
 import { OrderRepository, orderRepository } from "./order";
 import { productRepository, ProductRepository } from "./product";
+import {
+  telegramBusinessRepository,
+  TelegramBusinessRepository,
+} from "./telegram-business";
 import { userRepository, UserRepository } from "./user";
 
 export default {
@@ -11,4 +15,5 @@ export default {
   [ProductRepository.name]: productRepository,
   [UserRepository.name]: userRepository,
   [CategoryRepository.name]: categoryRepository,
+  [TelegramBusinessRepository.name]: telegramBusinessRepository,
 } as Record<string, BaseRepository<any, any>>;
