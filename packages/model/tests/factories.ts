@@ -8,6 +8,7 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
+  await prisma.telegramBusiness.deleteMany();
   await prisma.userBusiness.deleteMany();
   await prisma.orderProduct.deleteMany();
   await prisma.product.deleteMany();

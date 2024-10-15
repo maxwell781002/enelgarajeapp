@@ -26,35 +26,22 @@ export class ProductRepository extends BaseRepository<
     this.addValidator("update", ProductUpdateValidation);
   }
 
-  protected getObject(data: FormData) {
-    const object: Partial<CompleteProduct> = super.getObject(data);
-    // TODO: Check how to fix this in the frontend
-    if (object.offerPrice) object.offerPrice = Number(object.offerPrice);
-    if (object.price) object.price = Number(object.price);
-    if (object.priority) object.priority = Number(object.priority);
-    if (object.active) object.active = (object.active as any) === "true";
-    if (object.isNew) object.isNew = (object.isNew as any) === "true";
-    if (object.outOfStock)
-      object.outOfStock = (object.outOfStock as any) === "true";
-    return object;
-  }
-
-  protected uploadImage(data: FormData) {
-    const imageFile = data.get("image") as File;
+  protected uploadImage(data: any) {
+    const imageFile = data.image as File;
     return put(imageFile.name, imageFile, {
       access: "public",
     });
   }
 
-  protected async doCreate(data: FormData) {
+  protected async doCreate(data: any) {
     const blob = await this.uploadImage(data);
     return this.model.create({
       data: { ...this.getObject(data), image: blob },
     });
   }
 
-  protected async doUpdate(id: string, data: FormData) {
-    const image = data.get("image");
+  protected async doUpdate(id: string, data: any) {
+    const image = data.image;
     const entity = await this.getById(id);
     if (image && typeof image === "object") {
       const blob = await this.uploadImage(data);

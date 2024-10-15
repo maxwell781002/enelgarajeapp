@@ -21,6 +21,7 @@ import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
 import React from "react";
+import TelegramBusiness from "./telegram-business";
 
 const resolver = zodResolver(BusinessValidation);
 
@@ -152,6 +153,7 @@ export default function BusinessForm({
             )}
           />
         )}
+        {isAdmin && <TelegramBusiness form={form} />}
         <Button type="submit">{t("btnSubmit")}</Button>
       </form>
     </Form>

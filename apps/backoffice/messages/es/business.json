@@ -19,7 +19,13 @@
     "General": "General",
     "phSearch": "Buscar...",
     "lbActive": "Activo",
-    "noPhone": "Sin teléfono"
+    "noPhone": "Sin teléfono",
+    "lbGroupId": "Telegram Grupo",
+    "phGroupId": "Telegram Grupo",
+    "lbInvitationLink": "Link de invitación",
+    "phInvitationLink": "Link de invitación",
+    "Required": "Requerido",
+    "Telegram": "Telegram"
   },
   "Totals": {
     "totalProducts": "Total de productos",

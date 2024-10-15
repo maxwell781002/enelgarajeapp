@@ -5,6 +5,15 @@ import BusinessForm from "../../../components/business-form";
 import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@repo/model/repository/user";
 import { userRepository, UserRoles } from "@repo/model/repositories/user";
+import { formDataToObject } from "@repo/ui/lib/form";
+import { CompleteBusiness } from "@repo/model/zod/business";
+
+const defaultValues = {
+  telegram: {
+    groupId: "",
+    invitationLink: "",
+  },
+};
 
 export default async function PageForm({
   params: { businessId },
@@ -19,13 +28,17 @@ export default async function PageForm({
     user.role === UserRoles.ADMIN ? await userRepository.getAll() : [];
   const action = async (props: any) => {
     "use server";
-    const { id } = await businessRepository.update(businessId, props);
+    const obj = formDataToObject(props) as CompleteBusiness;
+    if (!obj.telegram?.groupId && !obj.telegram?.invitationLink) {
+      delete obj.telegram;
+    }
+    const { id } = await businessRepository.update(businessId, obj);
     return redirect(`/${id}`);
   };
   return (
     <BackPage href={`/${businessId}`} urlTitle={t("backBusiness")}>
       <BusinessForm
-        defaultValues={{ ...business, userId: owner?.userId }}
+        defaultValues={{ ...defaultValues, ...business, userId: owner?.userId }}
         action={action}
         isAdmin={user?.role === UserRoles.ADMIN}
         users={users}

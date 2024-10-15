@@ -30,7 +30,7 @@ export abstract class BaseRepository<T extends Entity, M> {
     return this.model.findUnique({ where: { id }, ...query });
   }
 
-  create(data: FormData) {
+  create(data: any) {
     this.validate("create", data);
     return this.doCreate(data);
   }
@@ -39,23 +39,20 @@ export abstract class BaseRepository<T extends Entity, M> {
     return this.model.delete({ where: { id } });
   }
 
-  protected getObject(data: FormData) {
-    return Object.entries(Object.fromEntries(data.entries())).reduce(
-      (acc, [key, value]) => ({ ...acc, [key]: value }),
-      {},
-    );
+  protected getObject(data: any) {
+    return data;
   }
 
-  update(id: string, data: FormData) {
+  update(id: string, data: any) {
     this.validate("update", data);
     return this.doUpdate(id, data);
   }
 
-  protected doUpdate(id: string, data: FormData) {
+  protected doUpdate(id: string, data: any) {
     return this.model.update({ where: { id }, data: this.getObject(data) });
   }
 
-  protected doCreate(data: FormData) {
+  protected doCreate(data: any) {
     return this.model.create({ data: this.getObject(data) });
   }
 
@@ -63,7 +60,7 @@ export abstract class BaseRepository<T extends Entity, M> {
     return this.model.findUnique({ where: { id } });
   }
 
-  protected validate(action: string, data: FormData) {
+  protected validate(action: string, data: any) {
     const validator = this.validatorByAction[action] || this.validatorSchema;
     return validator.parse(this.getObject(data));
   }
