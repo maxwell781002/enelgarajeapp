@@ -3,7 +3,7 @@ import { CompleteBusiness, RelatedBusinessModel } from "./index";
 
 export const TelegramBusinessModel = z.object({
   id: z.string(),
-  groupId: z.string(),
+  groupId: z.string().min(1, { message: "Required" }),
   invitationLink: z.string().optional(),
   businessId: z.string(),
 });

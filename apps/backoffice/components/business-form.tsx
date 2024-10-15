@@ -20,7 +20,7 @@ import { Textarea } from "@repo/ui/components/ui/textarea";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TelegramBusiness from "./telegram-business";
 
 const resolver = zodResolver(BusinessValidation);
@@ -40,15 +40,28 @@ export default function BusinessForm({
 }: FormAction) {
   const { toast } = useToast();
   const t = useTranslations("Business");
+  const [showTelegram, setShowTelegram] = useState(!!defaultValues.telegram);
   const { form, onSubmit } = useFormProcess({
     resolver,
-    action,
+    action: (form: FormData) => {
+      if (!showTelegram) {
+        form.delete("telegram");
+      }
+      return action(form);
+    },
     defaultValues,
     onSuccess: () =>
       toast({
         title: defaultValues?.id ? t("businessUpdated") : t("businessCreated"),
       }),
   });
+  useEffect(() => {
+    if (showTelegram) {
+      form.register("telegram");
+    } else {
+      form.unregister("telegram");
+    }
+  }, [form.register, form.unregister, showTelegram]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -153,7 +166,20 @@ export default function BusinessForm({
             )}
           />
         )}
-        {isAdmin && <TelegramBusiness form={form} />}
+        {isAdmin && (
+          <div>
+            <h3>
+              {t("lbTelegram")}
+              <input
+                className="ml-2"
+                type="checkbox"
+                onChange={() => setShowTelegram(!showTelegram)}
+                checked={showTelegram}
+              />
+            </h3>
+            {showTelegram && <TelegramBusiness form={form} />}
+          </div>
+        )}
         <Button type="submit">{t("btnSubmit")}</Button>
       </form>
     </Form>

@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { clearBd } from "../../factories";
-import { businessRepository } from "../../../repositories/business";
+import { createOrUpdateBusiness } from "../../../repository/business";
+import { telegramBusinessRepository } from "../../../repositories/telegram-business";
 
 describe("business", () => {
   let business;
@@ -10,7 +11,7 @@ describe("business", () => {
   });
 
   it("Create without telegram", async () => {
-    business = await businessRepository.create({
+    business = await createOrUpdateBusiness({
       name: "Business",
       slug: "http://localhost:3000",
     });
@@ -22,11 +23,13 @@ describe("business", () => {
       groupId: "123",
       invitationLink: "http://localhost:3000",
     };
-    business = await businessRepository.create({
+    business = await createOrUpdateBusiness({
       name: "Business",
       telegram: data,
     });
-    const telegram = await businessRepository.getTelegram(business.id);
+    const telegram = await telegramBusinessRepository.getByBusinessId(
+      business.id,
+    );
     expect(telegram?.groupId).toEqual(data.groupId);
     expect(telegram?.invitationLink).toEqual(data.invitationLink);
     expect(telegram?.businessId).toEqual(business.id);
@@ -37,13 +40,31 @@ describe("business", () => {
       groupId: "456",
       invitationLink: "http://localhost:4000",
     };
-    business = await businessRepository.update(business.id, {
-      name: "Business",
-      telegram: data,
-    });
-    const telegram = await businessRepository.getTelegram(business.id);
+    business = await createOrUpdateBusiness(
+      {
+        name: "Business",
+        telegram: data,
+      },
+      business.id,
+    );
+    const telegram = await telegramBusinessRepository.getByBusinessId(
+      business.id,
+    );
     expect(telegram?.groupId).toEqual(data.groupId);
     expect(telegram?.invitationLink).toEqual(data.invitationLink);
     expect(telegram?.businessId).toEqual(business.id);
+  });
+
+  it("Remove telegram", async () => {
+    business = await createOrUpdateBusiness(
+      {
+        name: "Business",
+      },
+      business.id,
+    );
+    const telegram = await telegramBusinessRepository.getByBusinessId(
+      business.id,
+    );
+    expect(telegram).toBeNull();
   });
 });

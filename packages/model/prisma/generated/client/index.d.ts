@@ -3726,6 +3726,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         groupId: string;
         /**
          * @zod.optional()

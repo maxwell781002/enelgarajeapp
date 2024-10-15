@@ -28,24 +28,9 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  createOrUpdateTelegram(businessId: string, data: any) {
-    if (!data) return;
-    const dataBusiness = {
-      ...data,
-      businessId,
-    };
-    return prisma.telegramBusiness.upsert({
-      where: { businessId },
-      create: dataBusiness,
-      update: dataBusiness,
-    });
-  }
-
   async doCreate(data: any) {
     const userId = data.userId as string;
     delete data.userId;
-    const telegram = data.telegram;
-    delete data.telegram;
     const business = await super.doCreate(data);
     if (userId) {
       await prisma.userBusiness.create({
@@ -55,15 +40,12 @@ export class BusinessRepository extends BaseRepository<
         },
       });
     }
-    await this.createOrUpdateTelegram(business.id, telegram);
     return business;
   }
 
   async doUpdate(id: string, data: any) {
     const userId = data.userId as string;
     delete data.userId;
-    const telegram = data.telegram;
-    delete data.telegram;
     if (userId) {
       await prisma.userBusiness.deleteMany({
         where: { businessId: id },
@@ -75,14 +57,7 @@ export class BusinessRepository extends BaseRepository<
         },
       });
     }
-    await this.createOrUpdateTelegram(id, telegram);
     return super.doUpdate(id, data);
-  }
-
-  getTelegram(businessId: string) {
-    return prisma.telegramBusiness.findUnique({
-      where: { businessId },
-    });
   }
 
   getOwner(businessId: string) {

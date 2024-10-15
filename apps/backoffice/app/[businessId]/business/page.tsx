@@ -7,13 +7,10 @@ import { getCurrentUser } from "@repo/model/repository/user";
 import { userRepository, UserRoles } from "@repo/model/repositories/user";
 import { formDataToObject } from "@repo/ui/lib/form";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import { createOrUpdateBusiness } from "@repo/model/repository/business";
+import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
 
-const defaultValues = {
-  telegram: {
-    groupId: "",
-    invitationLink: "",
-  },
-};
+const defaultValues = {};
 
 export default async function PageForm({
   params: { businessId },
@@ -22,6 +19,7 @@ export default async function PageForm({
 }) {
   const t = await getTranslations("Business");
   const business = await businessRepository.getById(businessId);
+  const telegram = await telegramBusinessRepository.getByBusinessId(businessId);
   const user = await getCurrentUser();
   const owner = await businessRepository.getOwner(businessId);
   const users =
@@ -29,16 +27,18 @@ export default async function PageForm({
   const action = async (props: any) => {
     "use server";
     const obj = formDataToObject(props) as CompleteBusiness;
-    if (!obj.telegram?.groupId && !obj.telegram?.invitationLink) {
-      delete obj.telegram;
-    }
-    const { id } = await businessRepository.update(businessId, obj);
+    const { id } = await createOrUpdateBusiness(obj, businessId);
     return redirect(`/${id}`);
   };
   return (
     <BackPage href={`/${businessId}`} urlTitle={t("backBusiness")}>
       <BusinessForm
-        defaultValues={{ ...defaultValues, ...business, userId: owner?.userId }}
+        defaultValues={{
+          ...defaultValues,
+          ...business,
+          telegram,
+          userId: owner?.userId,
+        }}
         action={action}
         isAdmin={user?.role === UserRoles.ADMIN}
         users={users}
