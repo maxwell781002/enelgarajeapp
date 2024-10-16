@@ -47,27 +47,4 @@ export default async function Page({
       </TableContextProvider>
     </TableLayout>
   );
-  // return (
-  //   <Card>
-  //     <CardHeader className="px-7">
-  //       <div className="flex flex-1">
-  //         <div>
-  //           <CardTitle>{t("CategoryList")}</CardTitle>
-  //         </div>
-  //         <div className="flex-1 flex justify-end">
-  //           <DialogForm
-  //             title={t("createCategory")}
-  //             action={create}
-  //             defaultValues={{ businessId, active: true, priority: 0 }}
-  //           />
-  //         </div>
-  //       </div>
-  //     </CardHeader>
-  //     <CardContent>
-  //       <TableContextProvider update={update} remove={remove}>
-  //         <CategoryTable pagination={pagination as PaginationResult<any>} />
-  //       </TableContextProvider>
-  //     </CardContent>
-  //   </Card>
-  // );
 }

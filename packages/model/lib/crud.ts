@@ -2,6 +2,7 @@ import { PaginateData } from "../types/pagination";
 import { revalidatePath } from "next/cache";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
+import { formDataToObject } from "@repo/ui/lib/form";
 
 const PAGE_SIZE = 10;
 
@@ -53,7 +54,14 @@ export function crud<T extends Entity, U>(
   const update = async (id: string, props: any) => {
     "use server";
     const repository = await getRepository();
-    await repository.update(id, props);
+    await repository.update(id, formDataToObject(props));
+    revalidatePath(path);
+  };
+
+  const create = async (props: any) => {
+    "use server";
+    const repository = await getRepository();
+    await repository.create(formDataToObject(props));
     revalidatePath(path);
   };
 
@@ -61,7 +69,7 @@ export function crud<T extends Entity, U>(
     list,
     update,
     search,
-    create: buildMethod("create"),
+    create,
     remove: buildMethod("remove"),
   };
 }

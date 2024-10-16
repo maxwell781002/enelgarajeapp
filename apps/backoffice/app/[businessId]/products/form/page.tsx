@@ -3,6 +3,7 @@ import ProductForm from "./form";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { productRepository } from "@repo/model/repositories/product";
 import { redirect } from "next/navigation";
+import { formDataToObject } from "@repo/ui/lib/form";
 
 type FormAction = {
   params: { businessId: string };
@@ -28,10 +29,11 @@ export default async function PageForm({
 }: FormAction) {
   const action = async (formData: FormData) => {
     "use server";
-    formData.set("businessId", businessId);
+    const obj = formDataToObject(formData) as any;
+    obj.businessId = businessId;
     const { id: idFromDb } = id
-      ? await productRepository.update(id, formData)
-      : await productRepository.create(formData);
+      ? await productRepository.update(id, obj)
+      : await productRepository.create(obj);
     return redirect(`/${businessId}/products/${idFromDb}`);
   };
   const categories = await categoryRepository.getAll(businessId);

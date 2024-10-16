@@ -27,7 +27,10 @@ export const useFormProcess = <T extends FieldValues>({
         if (Object.prototype.toString.call(data[key]) == "[object Object]") {
           return transformer(data[key], formData, field);
         }
-        formData.append(field, JSON.stringify(data[key]));
+        const isFile =
+          Object.prototype.toString.call(data[key]) === "[object File]";
+        const valueData = isFile ? data[key] : JSON.stringify(data[key]);
+        formData.append(field, valueData);
       });
     return formData;
   };
