@@ -3,8 +3,6 @@ import slugify from "slugify";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { Pool } from "@neondatabase/serverless";
 
-import "../event-config"; // TODO: Check if I can move this for other place
-
 const randomString = () => Math.random().toString(36).substring(2, 7);
 
 const neon = new Pool({ connectionString: process.env.POSTGRES_PRISMA_URL });
