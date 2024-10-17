@@ -1,5 +1,6 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { TErrors, setErrors } from "../lib/form";
+import { isFile } from "@repo/model/lib/utils";
 
 type TUseFormProcess = {
   resolver: any;
@@ -20,18 +21,16 @@ export const useFormProcess = <T extends FieldValues>({
   });
 
   const transformer = (data: any, formData: FormData, parent = "") => {
-    Object.keys(data)
-      .filter((key) => !!data[key] || typeof data[key] === "boolean")
-      .forEach((key) => {
-        const field = parent ? `${parent}.${key}` : key;
-        if (Object.prototype.toString.call(data[key]) == "[object Object]") {
-          return transformer(data[key], formData, field);
-        }
-        const isFile =
-          Object.prototype.toString.call(data[key]) === "[object File]";
-        const valueData = isFile ? data[key] : JSON.stringify(data[key]);
-        formData.append(field, valueData);
-      });
+    Object.keys(data).forEach((key) => {
+      const field = parent ? `${parent}.${key}` : key;
+      if (Object.prototype.toString.call(data[key]) == "[object Object]") {
+        return transformer(data[key], formData, field);
+      }
+      const valueData = isFile(data[key])
+        ? data[key]
+        : JSON.stringify(data[key]);
+      formData.append(field, valueData);
+    });
     return formData;
   };
 

@@ -1,3 +1,4 @@
+import { isFile } from "@repo/model/lib/utils";
 import { FieldValues, UseFormSetError } from "react-hook-form";
 
 export type TErrors = {
@@ -25,8 +26,7 @@ export function formDataToObject(formData: FormData) {
   const computeObject = (data: any, parts: string[], value: any): any => {
     const field = parts.shift() as string;
     if (parts.length === 0) {
-      const isFile = Object.prototype.toString.call(value) === "[object File]";
-      const valueData = isFile ? value : JSON.parse(value);
+      const valueData = isFile(value) ? value : JSON.parse(value);
       return { [field]: valueData };
     }
     const currentData = data[field] || {};

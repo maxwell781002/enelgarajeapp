@@ -14,3 +14,6 @@ export const normalizePhone = (phone: string | null | undefined) => {
   }
   return phone;
 };
+
+export const isFile = (value: any) =>
+  Object.prototype.toString.call(value) === "[object File]";

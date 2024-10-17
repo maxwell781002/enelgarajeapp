@@ -9,6 +9,7 @@ import {
 } from "../validation/product";
 import { orderRepository } from "./order";
 import { clearWhere } from "../lib/util-query";
+import { isFile } from "../lib/utils";
 
 type PaginateData = {
   businessId?: string;
@@ -43,7 +44,7 @@ export class ProductRepository extends BaseRepository<
   protected async doUpdate(id: string, data: any) {
     const image = data.image;
     const entity = await this.getById(id);
-    if (image && typeof image === "object") {
+    if (image && isFile(image)) {
       const blob = await this.uploadImage(data);
       try {
         const newImage = await this.model.update({
@@ -57,7 +58,6 @@ export class ProductRepository extends BaseRepository<
         throw error;
       }
     }
-    data.delete("image");
     return super.doUpdate(id, data);
   }
 
