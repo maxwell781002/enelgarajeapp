@@ -1,23 +1,24 @@
+import { OrderSend } from "../lib/event-emitter/events";
 import { formatPrice } from "../lib/utils";
 import { CompleteOrderProduct, CompleteTelegramBusiness } from "../prisma/zod";
 import { CompleteOrder } from "../prisma/zod/order";
 import { orderRepository } from "../repositories/order";
 
-export const sendOrderToTelegram = async (order: CompleteOrder) => {
+export const sendOrderToTelegram = async (event: OrderSend) => {
   // TODO: To avoid send to telegram in testing
   if (!process.env.BOT_WEBHOOK_URL) {
     return;
   }
-  const orderAllData = (await orderRepository.getAllData(
-    order.id,
+  const order = (await orderRepository.getAllData(
+    event.data.id,
   )) as CompleteOrder;
-  const telegram = orderAllData.business?.telegram as CompleteTelegramBusiness;
+  const telegram = order.business?.telegram as CompleteTelegramBusiness;
   if (!telegram) {
     return;
   }
-  const customer = orderAllData.user;
+  const customer = order.user;
   const message = {
-    message_id: orderAllData.id,
+    message_id: order.id,
     group_id: telegram.groupId,
     message_type: "new_order",
     message: {
@@ -27,13 +28,13 @@ export const sendOrderToTelegram = async (order: CompleteOrder) => {
         name: customer?.name,
         phone: customer?.phone,
       },
-      items: orderAllData.items.map((item: CompleteOrderProduct) => ({
+      items: order.items.map((item: CompleteOrderProduct) => ({
         id: item.product.id,
         name: item.product.name,
         price: formatPrice(item.price),
         quantity: item.quantity,
       })),
-      total: formatPrice(orderAllData.total),
+      total: formatPrice(order.total),
     },
   };
   return fetch(process.env.BOT_WEBHOOK_URL, {

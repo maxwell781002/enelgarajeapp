@@ -9,10 +9,12 @@ import {
   userFactory,
 } from "../factories";
 import { sendOrderToTelegram } from "../../listeners/new-order";
+import { OrderSend } from "../../lib/event-emitter/events";
 
 describe("new-order", () => {
   let order;
   let business;
+  let event;
 
   beforeAll(async () => {
     process.env.BOT_WEBHOOK_URL = "https://some.url";
@@ -31,6 +33,7 @@ describe("new-order", () => {
       price: 100,
       position: 0,
     });
+    event = new OrderSend(order);
   });
 
   afterAll(async () => {
@@ -40,7 +43,7 @@ describe("new-order", () => {
   });
 
   it("no telegram configured", async () => {
-    await sendOrderToTelegram(order);
+    await sendOrderToTelegram(event);
     expect(global.fetch).toBeCalledTimes(0);
   });
 
@@ -49,7 +52,7 @@ describe("new-order", () => {
       businessId: business.id,
       groupId: "groupId",
     });
-    await sendOrderToTelegram(order);
+    await sendOrderToTelegram(event);
     expect(global.fetch).toBeCalledTimes(1);
   });
 });

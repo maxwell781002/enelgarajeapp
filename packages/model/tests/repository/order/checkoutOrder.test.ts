@@ -29,11 +29,16 @@ vi.mock("../../../repository/user", () => ({
   updateUser: userModule.updateUser,
 }));
 
-vi.mock("../../../lib/event-emitter", async (importOriginal) => {
-  const mod: any = await importOriginal();
-  mod.dispatch = vi.fn();
-  return mod;
-});
+const sendOrderToTelegram = vi.hoisted(() => vi.fn());
+vi.mock("../../../listeners/new-order", () => ({
+  sendOrderToTelegram: sendOrderToTelegram,
+}));
+
+// vi.mock("../../../lib/event-emitter", async (importOriginal) => {
+//   const mod: any = await importOriginal();
+//   mod.dispatch = vi.fn();
+//   return mod;
+// });
 
 const userData = {
   name: "test",
@@ -60,7 +65,7 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order", async () => {
-    const eventEmitter = await import("../../../lib/event-emitter");
+    // const eventEmitter = await import("../../../lib/event-emitter");
     const newOrder = await checkoutOrder(userData as any);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(1);
@@ -70,6 +75,7 @@ describe("checkoutOrder", () => {
     expect(mocksCookies.delete).toBeCalledWith("order_id");
     // TODO: Not it works
     // expect((eventEmitter as any).dispatch).toHaveBeenCalledOnce();
+    expect(sendOrderToTelegram).toBeCalledTimes(1);
   });
 
   it("new checkout order", async () => {
