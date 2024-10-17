@@ -1,4 +1,5 @@
 import { cn } from "@repo/ui/lib/utils";
+import { formatPrice as baseFormatPrice } from "@repo/model/lib/utils";
 
 interface PriceDisplayProps {
   price: number;
@@ -16,8 +17,7 @@ export default function PriceDisplay({
   acronym = "CUP",
 }: PriceDisplayProps) {
   const formatPrice = (amount: number, showAcronym = true) => {
-    const price = `${currency}${(amount / 100).toFixed(2)}`;
-    return showAcronym ? `${price} ${acronym}` : price;
+    return baseFormatPrice(amount, showAcronym, currency, acronym);
   };
 
   return (

@@ -28,15 +28,9 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  protected getObject(data: FormData) {
-    const object: Partial<CompleteBusiness> = super.getObject(data);
-    if (object.active) object.active = (object.active as any) === "true";
-    return object;
-  }
-
-  async doCreate(data: FormData) {
-    const userId = data.get("userId") as string;
-    data.delete("userId");
+  async doCreate(data: any) {
+    const userId = data.userId as string;
+    delete data.userId;
     const business = await super.doCreate(data);
     if (userId) {
       await prisma.userBusiness.create({
@@ -49,9 +43,9 @@ export class BusinessRepository extends BaseRepository<
     return business;
   }
 
-  async doUpdate(id: string, data: FormData) {
-    const userId = data.get("userId") as string;
-    data.delete("userId");
+  async doUpdate(id: string, data: any) {
+    const userId = data.userId as string;
+    delete data.userId;
     if (userId) {
       await prisma.userBusiness.deleteMany({
         where: { businessId: id },

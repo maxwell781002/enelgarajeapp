@@ -165,6 +165,22 @@ export class OrderRepository extends BaseRepository<
       totalReject: values[2],
     };
   }
+
+  getAllData(orderId: string) {
+    return prisma.order.findUnique({
+      where: { id: orderId },
+      include: {
+        user: true,
+        items: {
+          include: { product: true },
+          orderBy: { position: "asc" },
+        },
+        business: {
+          include: { telegram: true },
+        },
+      },
+    });
+  }
 }
 
 export const orderRepository = new OrderRepository();

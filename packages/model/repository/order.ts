@@ -14,6 +14,9 @@ import { getCurrentUser, updateUser } from "./user";
 import { TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
 import { orderRepository } from "../repositories/order";
+// import eventEmitter from "../lib/event-emitter";
+import { OrderSend } from "../lib/event-emitter/events";
+import { sendOrderToTelegram } from "../listeners/new-order";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -193,6 +196,9 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     business,
   );
   cookies().delete("order_id");
+  //TODO: When I configure the listener send the event instance of
+  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+  await sendOrderToTelegram(new OrderSend(newOrder as CompleteOrder));
   return newOrder;
 };
 

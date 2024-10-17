@@ -8,6 +8,7 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
+  await prisma.telegramBusiness.deleteMany();
   await prisma.userBusiness.deleteMany();
   await prisma.orderProduct.deleteMany();
   await prisma.product.deleteMany();
@@ -65,10 +66,19 @@ export const userFactory = async (data = {}) => {
   return prisma.user.create({
     data: {
       email: `${randomEmail()}@gmail.com`,
+      ...data,
     },
   });
 };
 
 export const orderFactory = async (data: any) => {
   return prisma.order.create({ data: { productsDetails: "[]", ...data } });
+};
+
+export const telegramBusinessFactory = async (data: any = {}) => {
+  return prisma.telegramBusiness.create({ data });
+};
+
+export const productOrderFactory = (data: any = {}) => {
+  return prisma.orderProduct.create({ data });
 };

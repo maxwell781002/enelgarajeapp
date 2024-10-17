@@ -21,20 +21,29 @@ datasource db {
 }
 
 model Business {
-  id          String  @id @default(uuid())
+  id          String            @id @default(uuid())
   name        String
   description String?
   address     String?
   phone       String?
   howToArrive String?
   coordinates Float[]
-  slug        String? @unique
-  active      Boolean @default(true) /// @zod.optional()
+  slug        String?           @unique
+  active      Boolean           @default(true) /// @zod.optional()
+  telegram    TelegramBusiness?
 
   categories Category[]
   products   Product[]
   orders     Order[]
   users      UserBusiness[]
+}
+
+model TelegramBusiness {
+  id             String   @id @default(uuid())
+  groupId        String /// @zod.min(1, { message: "Required" })
+  invitationLink String   @default("") /// @zod.optional()
+  business       Business @relation(fields: [businessId], references: [id])
+  businessId     String   @unique
 }
 
 model Category {
