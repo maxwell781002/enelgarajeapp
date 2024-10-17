@@ -22,7 +22,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
     group_id: telegram.groupId,
     message_type: "new_order",
     message: {
-      order_url: `https://backoffice.enelgaraje.com/${order.id}/orders/${order.id}`,
+      order_url: `https://backoffice.enelgaraje.com/${order.businessId}/orders/${order.id}`,
       customer: {
         id: customer?.id,
         name: customer?.name,
