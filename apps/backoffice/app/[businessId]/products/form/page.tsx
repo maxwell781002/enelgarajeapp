@@ -3,7 +3,7 @@ import ProductForm from "./form";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { productRepository } from "@repo/model/repositories/product";
 import { redirect } from "next/navigation";
-import { formDataToObject } from "@repo/ui/lib/form";
+import { formDataToObject } from "@repo/model/lib/utils";
 
 type FormAction = {
   params: { businessId: string };

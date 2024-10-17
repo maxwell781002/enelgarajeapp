@@ -5,7 +5,7 @@ import BusinessForm from "../../../components/business-form";
 import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@repo/model/repository/user";
 import { userRepository, UserRoles } from "@repo/model/repositories/user";
-import { formDataToObject } from "@repo/ui/lib/form";
+import { formDataToObject } from "@repo/model/lib/utils";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { createOrUpdateBusiness } from "@repo/model/repository/business";
 import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";

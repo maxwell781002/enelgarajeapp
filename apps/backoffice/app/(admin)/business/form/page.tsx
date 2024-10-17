@@ -4,7 +4,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { userRepository } from "@repo/model/repositories/user";
 import BusinessForm from "../../../../components/business-form";
 import { createOrUpdateBusiness } from "@repo/model/repository/business";
-import { formDataToObject } from "@repo/ui/lib/form";
+import { formDataToObject } from "@repo/model/lib/utils";
 
 const defaultValues = {
   name: "",

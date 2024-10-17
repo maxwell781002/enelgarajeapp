@@ -2,7 +2,7 @@ import { PaginateData } from "../types/pagination";
 import { revalidatePath } from "next/cache";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
-import { formDataToObject } from "@repo/ui/lib/form";
+import { formDataToObject } from "./utils";
 
 const PAGE_SIZE = 10;
 
