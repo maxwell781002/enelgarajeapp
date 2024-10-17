@@ -1,5 +1,5 @@
 import { OrderSend } from "../lib/event-emitter/events";
-import { formatPrice } from "../lib/utils";
+import { formatPrice, normalizePhone } from "../lib/utils";
 import { CompleteOrderProduct, CompleteTelegramBusiness } from "../prisma/zod";
 import { CompleteOrder } from "../prisma/zod/order";
 import { orderRepository } from "../repositories/order";
@@ -26,7 +26,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
       customer: {
         id: customer?.id,
         name: customer?.name,
-        phone: customer?.phone,
+        phone: normalizePhone(customer?.phone),
       },
       items: order.items.map((item: CompleteOrderProduct) => ({
         id: item.product.id,
