@@ -3,7 +3,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { WhatsappIcon } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
 
-export default async function ShopNotHave() {
+export default async function Page() {
   const whatsappNumber = process.env.PHONE_ADMIN_CONTACT;
   const t = await getTranslations("NoHaveShop");
   const whatsappMessage = encodeURIComponent(t("textChat"));
