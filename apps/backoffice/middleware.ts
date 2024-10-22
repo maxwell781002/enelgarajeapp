@@ -4,11 +4,16 @@ import { UserRoles } from "@repo/model/repositories/user";
 
 export const runtime = "experimental-edge";
 
+const NO_BUSINESS_PATHS = ["errors", "request-shop"];
+
 export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
   const isLogin = pathname === "/login";
   if (!session && !isLogin) {
     return "/login";
+  }
+  if (!session && isLogin) {
+    return;
   }
   if (isLogin) {
     pathname = "/";
@@ -35,8 +40,11 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   ) {
     return `/${user.businessIds[0]}`;
   }
-  const parts = pathname.split("/");
-  if (user.role === UserRoles.USER && !user.businessIds.includes(parts[1])) {
+  const firstPart = pathname.split("/")[1];
+  if (NO_BUSINESS_PATHS.includes(firstPart as string)) {
+    return;
+  }
+  if (user.role === UserRoles.USER && !businessIds.includes(firstPart)) {
     return "/errors/403";
   }
 };

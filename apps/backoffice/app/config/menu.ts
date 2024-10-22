@@ -10,12 +10,12 @@ import {
 
 export const coreMenu: LinkItem[] = [
   {
-    link: `/dashboard`,
+    link: `/admin/dashboard`,
     title: "Dashboard",
     Icon: Home,
   },
   {
-    link: `/business`,
+    link: `/admin/business`,
     title: "Negocios",
     Icon: BriefcaseBusinessIcon,
   },
