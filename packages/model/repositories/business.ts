@@ -85,6 +85,15 @@ export class BusinessRepository extends BaseRepository<
   getBySlugAndActive(slug: string) {
     return this.model.findFirst({ where: { slug, active: true } });
   }
+
+  async getBusinessIdByUser(userId: string) {
+    return (
+      await prisma.userBusiness.findMany({
+        where: { userId },
+        select: { businessId: true },
+      })
+    ).map(({ businessId }) => businessId);
+  }
 }
 
 export const businessRepository = new BusinessRepository();

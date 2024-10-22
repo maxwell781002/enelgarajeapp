@@ -33,7 +33,9 @@ export default async function RootLayout({
       ph="Negocio..."
       business={business as Item[]}
       onChangeBusiness={onChangeBusiness}
-      adminUrl={session?.user?.role === UserRoles.ADMIN ? "/dashboard" : ""}
+      adminUrl={
+        session?.user?.role === UserRoles.ADMIN ? "/admin/dashboard" : ""
+      }
     >
       {children}
     </LayoutMain>

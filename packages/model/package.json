@@ -36,8 +36,7 @@
     "prisma-generate": "prisma generate --schema=./prisma/schema.prisma",
     "prisma-create-migration": "prisma migrate dev --create-only --schema=./prisma/schema.prisma",
     "prisma-migration-deploy": "prisma migrate deploy --schema=./prisma/schema.prisma",
-    "prisma-reset": "prisma migrate reset --schema=./prisma/schema.prisma",
-    "test": "vitest"
+    "prisma-reset": "prisma migrate reset --schema=./prisma/schema.prisma"
   },
   "peerDependencies": {
     "next": "^14.2.11"
@@ -55,7 +54,6 @@
     "next": "^14.2.11",
     "prisma": "5.19.1",
     "ts-node": "^10.9.2",
-    "vitest": "^2.0.5",
     "zod-prisma": "^0.5.4"
   },
   "dependencies": {
