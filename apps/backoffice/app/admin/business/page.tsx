@@ -1,7 +1,10 @@
 import { crud } from "@repo/model/lib/crud";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { getTranslations } from "next-intl/server";
-import { BusinessRepository } from "@repo/model/repositories/business";
+import {
+  businessRepository,
+  BusinessRepository,
+} from "@repo/model/repositories/business";
 import BusinessTable from "./table";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
@@ -22,7 +25,7 @@ export default async function Page({
   const t = await getTranslations("Business");
   const { list, remove, search } = crud(
     "/admin/business",
-    BusinessRepository.name,
+    businessRepository.getRepositoryModelName(),
     searchParams,
   );
   const handleSearch = async (query: any) => {

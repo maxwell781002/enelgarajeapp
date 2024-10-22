@@ -1,7 +1,10 @@
 import { crud } from "@repo/model/lib/crud";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { getTranslations } from "next-intl/server";
-import { ProductRepository } from "@repo/model/repositories/product";
+import {
+  productRepository,
+  ProductRepository,
+} from "@repo/model/repositories/product";
 import ProductTable from "./table";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
@@ -23,7 +26,7 @@ export default async function Page({
   const t = await getTranslations("Product");
   const { list, remove, update, search } = crud(
     `/${businessId}/products`,
-    ProductRepository.name,
+    productRepository.getRepositoryModelName(),
     searchParams,
   );
   const pagination = await list({ businessId });

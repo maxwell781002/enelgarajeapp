@@ -17,7 +17,6 @@ describe("User", () => {
 
   it("Cookies is empty", async () => {
     const user = await getCurrentUser();
-    console.log(user);
     expect(user).toBeUndefined();
   });
 

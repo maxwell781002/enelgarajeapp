@@ -23,7 +23,7 @@ export default async function Page({
   const t = await getTranslations("Order");
   const { list, search } = crud(
     `/${businessId}/orders`,
-    OrderRepository.name,
+    orderRepository.getRepositoryModelName(),
     searchParams,
   );
   const handleSearch = async (query: any) => {
@@ -32,7 +32,6 @@ export default async function Page({
     return redirect(url);
   };
   const data = await list({ businessId });
-  console.log("orders", JSON.stringify(data)); // Is to debug the error in the orders
   return (
     <TableLayout
       title={t("OrderList")}

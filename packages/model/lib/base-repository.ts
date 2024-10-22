@@ -20,6 +20,10 @@ export abstract class BaseRepository<T extends Entity, M> {
     this.init();
   }
 
+  getRepositoryModelName() {
+    return this.model.name;
+  }
+
   protected addValidator(action: string, validator: ZodType) {
     this.validatorByAction[action] = validator;
   }

@@ -1,5 +1,8 @@
 import { crud } from "@repo/model/lib/crud";
-import { CategoryRepository } from "@repo/model/repositories/category";
+import {
+  categoryRepository,
+  CategoryRepository,
+} from "@repo/model/repositories/category";
 import CategoryTable from "./table";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { DialogForm } from "./DialogForm";
@@ -21,7 +24,7 @@ export default async function Page({
   const t = await getTranslations("Category");
   const { list, remove, update, create, search } = crud(
     `/${businessId}/categories`,
-    CategoryRepository.name,
+    categoryRepository.getRepositoryModelName(),
     searchParams,
   );
   const handleSearch = async (query: any) => {

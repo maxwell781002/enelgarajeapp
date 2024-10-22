@@ -13,7 +13,11 @@ export function crud<T extends Entity, U>(
 ) {
   const getRepository = async () => {
     "use server";
-    return repositories[repositoryName] as BaseRepository<T, U>;
+    const repository = (await repositories[repositoryName]) as BaseRepository<
+      T,
+      U
+    >;
+    return repository;
   };
 
   const buildMethod =
@@ -34,9 +38,12 @@ export function crud<T extends Entity, U>(
     query = { ...searchParams, ...query };
     const pageIndex = query.pageIndex ? Number(query.pageIndex) : 1;
     const pageSize = query.pageSize ? Number(query.pageSize) : PAGE_SIZE;
-    const { totalPage, ...data } = await (
-      await getRepository()
-    ).paginate({ ...query, pageIndex, pageSize });
+    const repository = await getRepository();
+    const { totalPage, ...data } = await repository.paginate({
+      ...query,
+      pageIndex,
+      pageSize,
+    });
     const paginate = ({ pageIndex, pageSize }: PaginateData) => {
       return `${path}?${new URLSearchParams({ ...searchParams, pageSize: pageSize || PAGE_SIZE, pageIndex })}`;
     };
