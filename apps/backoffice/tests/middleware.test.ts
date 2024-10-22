@@ -1,4 +1,4 @@
-import { vi, describe, it, expect } from "vitest";
+import { vi, describe, it, expect, afterAll } from "vitest";
 import { getRedirect } from "../middleware";
 import { NextRequest } from "next/server";
 import { UserRoles } from "@repo/model/repositories/user";
@@ -11,6 +11,9 @@ vi.mock("@repo/model/lib/auth", () => ({
 }));
 
 describe("Middleware", () => {
+  afterAll(() => {
+    vi.clearAllMocks();
+  });
   it("Not session", async () => {
     const url = await getRedirect(new NextRequest("http://localhost"), null);
     expect(url).toBe("/login");

@@ -14,7 +14,7 @@ describe("getBusinessIdByUser", () => {
   let user2;
 
   beforeAll(async () => {
-    business1 = await businessFactory({ slug: "http://localhost:3000" });
+    business1 = await businessFactory({ slug: "http://localhost:3001" });
     business2 = await businessFactory({ slug: "http://localhost:3002" });
     user1 = await userFactory();
     user2 = await userFactory();

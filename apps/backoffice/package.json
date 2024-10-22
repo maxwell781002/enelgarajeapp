@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
-    "vercel-build": "pnpm run prisma-generate && next build",
-    "test": "vitest"
+    "vercel-build": "pnpm run prisma-generate && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -37,7 +36,6 @@
     "eslint-config-next": "^14.2.11",
     "prisma": "5.19.1",
     "typescript": "^5",
-    "vitest": "^2.0.5",
     "zod-prisma": "^0.5.4"
   }
 }
