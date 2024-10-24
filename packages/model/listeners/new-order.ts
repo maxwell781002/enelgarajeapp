@@ -23,6 +23,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
     message_type: "new_order",
     message: {
       order_url: `https://backoffice.enelgaraje.com/${order.businessId}/orders/${order.id}`,
+      identifier: order.identifier,
       customer: {
         id: customer?.id,
         name: customer?.name,
