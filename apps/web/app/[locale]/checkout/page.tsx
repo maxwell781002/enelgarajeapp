@@ -17,6 +17,7 @@ import NoUser from "./no-user";
 import Image from "@repo/ui/components/image";
 import { userRepository } from "@repo/model/repositories/user";
 import PriceDisplay from "@repo/ui/components/price";
+import { getCurrentBusiness } from "@repo/model/repository/business";
 
 type PageProps = {
   params: {
@@ -28,6 +29,7 @@ export default async function Component({ params: { locale } }: PageProps) {
   const baseUrl = `/${locale}`;
   const t = await getTranslations("Checkout");
   const order = await getCurrentOrder();
+  const business = await getCurrentBusiness();
   if (!order || order.items.length === 0) {
     return <EmptyCart url={baseUrl} />;
   }
@@ -45,7 +47,11 @@ export default async function Component({ params: { locale } }: PageProps) {
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <CheckoutForm action={checkout} defaultValues={user} />
+        <CheckoutForm
+          action={checkout}
+          defaultValues={user}
+          business={business}
+        />
       </div>
       <div>
         <h1 className="text-2xl font-bold">{t("products")}</h1>

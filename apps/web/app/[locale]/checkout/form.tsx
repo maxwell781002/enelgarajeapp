@@ -18,13 +18,20 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Address from "@repo/ui/components/address/index";
+import { CompleteBusiness } from "@repo/model/zod/business";
 
 type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
   defaultValues?: TUserRegisterSchema;
+  business: CompleteBusiness;
 };
 
-export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
+export function CheckoutForm({
+  action,
+  defaultValues,
+  business,
+}: CheckoutFormProps) {
   const t = useTranslations("Checkout");
 
   const { formState, ...form } = useForm<TUserRegisterSchema>({
@@ -68,6 +75,7 @@ export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
             </FormItem>
           )}
         />
+        {business.requestAddress && <Address />}
         <Button type="submit" disabled={formState.isSubmitting}>
           {t("continue")}
         </Button>
