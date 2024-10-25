@@ -128,7 +128,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   howToArrive: 'howToArrive',
   coordinates: 'coordinates',
   slug: 'slug',
-  active: 'active'
+  active: 'active',
+  requestAddress: 'requestAddress'
 };
 
 exports.Prisma.TelegramBusinessScalarFieldEnum = {
@@ -242,6 +243,28 @@ exports.Prisma.AuthenticatorScalarFieldEnum = {
   transports: 'transports'
 };
 
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  alias: 'alias',
+  name: 'name',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  reference: 'reference'
+};
+
+exports.Prisma.UserAddressScalarFieldEnum = {
+  id: 'id',
+  addressId: 'addressId',
+  userId: 'userId'
+};
+
+exports.Prisma.OrderAddressScalarFieldEnum = {
+  id: 'id',
+  addressId: 'addressId',
+  orderId: 'orderId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -290,7 +313,10 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
-  Authenticator: 'Authenticator'
+  Authenticator: 'Authenticator',
+  Address: 'Address',
+  UserAddress: 'UserAddress',
+  OrderAddress: 'OrderAddress'
 };
 
 /**

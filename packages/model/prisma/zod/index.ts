@@ -10,3 +10,6 @@ export * from "./account";
 export * from "./session";
 export * from "./verificationtoken";
 export * from "./authenticator";
+export * from "./address";
+export * from "./useraddress";
+export * from "./orderaddress";
