@@ -15,5 +15,16 @@
     "authentication_required_description": "Para completar la comprar necesitamos que se autentique así el pedido podrá ser completado",
     "login": "Autenticarse",
     "total_cart": "Total"
+  },
+  "Address": {
+    "title": "Dirección",
+    "lbAlias": "Alias",
+    "phAlias": "Un nombre para poder identificar la dirección",
+    "lbName": "Nombre",
+    "phName": "Por quién preguntar en el lugar",
+    "lbAddress": "Dirección",
+    "phAddress": "Calle, Avenida, etc.",
+    "lbReference": "Referencia",
+    "phReference": "Alguna descripción que sirva de referencia para poder llegar."
   }
 }

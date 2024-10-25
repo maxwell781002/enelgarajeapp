@@ -1,3 +1,71 @@
-export default function AddressForm() {
-  return <div>Address Form</div>;
+import { useTranslations } from "next-intl";
+import { FormField } from "../ui/form";
+import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+
+export type AddressFormProps = {
+  form: any;
+  name: string;
+};
+
+export default function AddressForm({ form, name }: AddressFormProps) {
+  const t = useTranslations("Address");
+
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      <FormField
+        control={form.control}
+        name={`${name}.alias`}
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbAlias")}</FormLabel>
+            <FormControl>
+              <Input placeholder={t("phAlias")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`${name}.name`}
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbName")}</FormLabel>
+            <FormControl>
+              <Input placeholder={t("phName")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`${name}.address`}
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbAddress")}</FormLabel>
+            <FormControl>
+              <Textarea placeholder={t("phAddress")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`${name}.reference`}
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbReference")}</FormLabel>
+            <FormControl>
+              <Textarea placeholder={t("phReference")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+    </div>
+  );
 }

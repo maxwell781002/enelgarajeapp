@@ -75,7 +75,7 @@ export function CheckoutForm({
             </FormItem>
           )}
         />
-        {business.requestAddress && <Address />}
+        {business.requestAddress && <Address form={form} name="address" />}
         <Button type="submit" disabled={formState.isSubmitting}>
           {t("continue")}
         </Button>
