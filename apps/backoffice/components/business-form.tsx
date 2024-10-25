@@ -91,6 +91,23 @@ export default function BusinessForm({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="requestAddress"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbRequestAddress")}</FormLabel>
+              <FormControl>
+                <Switch
+                  {...field}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
         {isAdmin && (
           <FormField
             control={form.control}
