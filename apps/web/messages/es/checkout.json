@@ -29,7 +29,8 @@
     "phProvince": "Selecciona la provincia",
     "lbCity": "Ciudad",
     "phCity": "Selecciona la ciudad",
-    "lbSelectAddress": "Selecciona una dirección",
+    "tabSelectAddress": "Seleccionar una dirección",
+    "tabCreateAddress": "Crear una dirección nueva",
     "phReference": "Alguna descripción que sirva de referencia para poder llegar."
   }
 }

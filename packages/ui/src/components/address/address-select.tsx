@@ -6,44 +6,14 @@ import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
 import { Check } from "lucide-react";
 import { CompleteAddress } from "@repo/model/prisma/zod/address";
 
-interface AddressSelectorProps {
-  addresses?: CompleteAddress[];
+export interface AddressSelectorProps {
+  addresses: CompleteAddress[];
   defaultValue?: string;
   onChange?: (selectedId: string) => void;
 }
 
-const defaultAddresses: CompleteAddress[] = [
-  {
-    id: "1",
-    alias: "Home",
-    name: "Peter Parker",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-  {
-    id: "2",
-    alias: "Work",
-    name: "Bruce Wayne",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-  {
-    id: "3",
-    alias: "Other",
-    name: "Clark Kent",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-];
-
 export default function AddressSelectorWidget({
-  addresses = defaultAddresses,
+  addresses,
   onChange,
   ...props
 }: AddressSelectorProps) {

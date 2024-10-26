@@ -1,8 +1,13 @@
 import { useTranslations } from "next-intl";
-import { FormField } from "../ui/form";
-import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
+import { FormField } from "@repo/ui/components/ui/form";
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@repo/ui/components/ui/form";
+import { Input } from "@repo/ui/components/ui/input";
+import { Textarea } from "@repo/ui/components/ui/textarea";
 import { ProvinceSelect } from "@repo/ui/components/state-select";
 import { CitySelect } from "@repo/ui/components/city-select";
 
