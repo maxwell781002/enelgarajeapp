@@ -3,6 +3,8 @@ import { FormField } from "../ui/form";
 import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { ProvinceSelect } from "@repo/ui/components/state-select";
+import { CitySelect } from "@repo/ui/components/city-select";
 
 export type AddressFormProps = {
   form: any;
@@ -53,6 +55,34 @@ export default function AddressForm({ form, name }: AddressFormProps) {
           </FormItem>
         )}
       />
+      <div className="grid grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name={`${name}.province`}
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbProvince")}</FormLabel>
+              <FormControl>
+                <ProvinceSelect {...field} placeholder={t("phProvince")} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name={`${name}.city`}
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbCity")}</FormLabel>
+              <FormControl>
+                <CitySelect {...field} placeholder={t("phCity")} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+      </div>
       <FormField
         control={form.control}
         name={`${name}.reference`}

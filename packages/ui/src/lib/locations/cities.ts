@@ -1,3 +1,13 @@
+export type ICity = {
+  code: string;
+  municipality: string;
+  country: string;
+  region: number;
+  type: string;
+  state: string;
+  name: string;
+};
+
 export const CITIES = [
   {
     code: "532101",

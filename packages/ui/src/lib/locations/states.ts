@@ -1,4 +1,14 @@
-export const STATES = [
+export type IState = {
+  name: string;
+  country: string;
+  state: string;
+  code: string;
+  region: number;
+  type: string;
+  acronym: string;
+};
+
+export const STATES: IState[] = [
   {
     name: "Pinar del Río",
     country: "53",

@@ -25,6 +25,10 @@
     "lbAddress": "Dirección",
     "phAddress": "Calle, Avenida, etc.",
     "lbReference": "Referencia",
+    "lbProvince": "Provincia",
+    "phProvince": "Selecciona la provincia",
+    "lbCity": "Ciudad",
+    "phCity": "Selecciona la ciudad",
     "phReference": "Alguna descripción que sirva de referencia para poder llegar."
   }
 }
