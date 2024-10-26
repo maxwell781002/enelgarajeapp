@@ -24,7 +24,7 @@ export function ProvinceSelect({ onChange, ...props }: ProvinceSelectProps) {
       <SelectContent>
         <SelectGroup>
           {STATES.map((b: IState) => (
-            <SelectItem key={b.acronym} value={b.acronym as string}>
+            <SelectItem key={b.state} value={b.state as string}>
               {b.name}
             </SelectItem>
           ))}

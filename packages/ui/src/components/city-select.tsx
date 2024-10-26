@@ -17,6 +17,7 @@ export type CitySelectProps = {
   SelectValueProps;
 
 export function CitySelect({ onChange, state, ...props }: CitySelectProps) {
+  const cities = CITIES.filter((b) => b.state === state);
   return (
     <Select onValueChange={onChange} {...props}>
       <SelectTrigger className="w-full bg-white">
@@ -24,7 +25,7 @@ export function CitySelect({ onChange, state, ...props }: CitySelectProps) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {CITIES.map((b) => (
+          {cities.map((b) => (
             <SelectItem key={b.code} value={b.code as string}>
               {b.name}
             </SelectItem>

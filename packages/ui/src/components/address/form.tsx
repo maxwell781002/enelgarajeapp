@@ -18,6 +18,7 @@ export type AddressFormProps = {
 
 export default function AddressForm({ form, name }: AddressFormProps) {
   const t = useTranslations("Address");
+  const state = form.watch(`${name}.state`);
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -81,7 +82,12 @@ export default function AddressForm({ form, name }: AddressFormProps) {
             <FormItem>
               <FormLabel>{t("lbCity")}</FormLabel>
               <FormControl>
-                <CitySelect {...field} placeholder={t("phCity")} />
+                <CitySelect
+                  {...field}
+                  placeholder={t("phCity")}
+                  disabled={!state}
+                  state={state}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
