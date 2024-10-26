@@ -17,7 +17,7 @@ export type AddressProps = AddressFormProps & AddressSelectorProps;
 export default function Address({
   form,
   name,
-  addresses,
+  addresses = [],
   ...props
 }: AddressProps) {
   const t = useTranslations("Address");

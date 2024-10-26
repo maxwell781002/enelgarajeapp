@@ -18,11 +18,51 @@ import Image from "@repo/ui/components/image";
 import { userRepository } from "@repo/model/repositories/user";
 import PriceDisplay from "@repo/ui/components/price";
 import { getCurrentBusiness } from "@repo/model/repository/business";
+import { CompleteAddress } from "@repo/model/zod/address";
 
 type PageProps = {
   params: {
     locale: string;
   };
+};
+
+const defaultAddresses: CompleteAddress[] = [
+  {
+    id: "1",
+    alias: "Home",
+    name: "Peter Parker",
+    address: "123 Main St",
+    city: "Anytown",
+    state: "CA",
+    reference: "12345",
+  },
+  {
+    id: "2",
+    alias: "Work",
+    name: "Bruce Wayne",
+    address: "123 Main St",
+    city: "Anytown",
+    state: "CA",
+    reference: "12345",
+  },
+  {
+    id: "3",
+    alias: "Other",
+    name: "Clark Kent",
+    address: "123 Main St",
+    city: "Anytown",
+    state: "CA",
+    reference: "12345",
+  },
+];
+
+const address: Omit<CompleteAddress, "id"> = {
+  alias: "",
+  name: "",
+  address: "",
+  city: "",
+  state: "",
+  reference: "",
 };
 
 export default async function Component({ params: { locale } }: PageProps) {
@@ -35,8 +75,9 @@ export default async function Component({ params: { locale } }: PageProps) {
   }
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    await checkoutOrder(data);
-    await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
+    console.log(data);
+    // await checkoutOrder(data);
+    // await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
   const session = await auth();
   if (!session) {
@@ -49,8 +90,9 @@ export default async function Component({ params: { locale } }: PageProps) {
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <CheckoutForm
           action={checkout}
-          defaultValues={user}
+          defaultValues={{ ...user, address }}
           business={business}
+          address={[]}
         />
       </div>
       <div>

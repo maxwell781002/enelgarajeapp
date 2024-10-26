@@ -63,7 +63,7 @@ export default function AddressForm({ form, name }: AddressFormProps) {
       <div className="grid grid-cols-2 gap-4">
         <FormField
           control={form.control}
-          name={`${name}.province`}
+          name={`${name}.state`}
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
               <FormLabel>{t("lbProvince")}</FormLabel>

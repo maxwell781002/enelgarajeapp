@@ -26,42 +26,14 @@ type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
   defaultValues?: TUserRegisterSchema;
   business: CompleteBusiness;
+  address: CompleteAddress[];
 };
-
-const defaultAddresses: CompleteAddress[] = [
-  {
-    id: "1",
-    alias: "Home",
-    name: "Peter Parker",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-  {
-    id: "2",
-    alias: "Work",
-    name: "Bruce Wayne",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-  {
-    id: "3",
-    alias: "Other",
-    name: "Clark Kent",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-];
 
 export function CheckoutForm({
   action,
   defaultValues,
   business,
+  address,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
 
@@ -69,6 +41,11 @@ export function CheckoutForm({
     resolver: zodResolver(UserRegisterSchema),
     defaultValues,
   });
+
+  // console.log(formState.errors);
+
+  // const a = form.watch("address");
+  // console.log(a);
 
   return (
     <Form {...form} formState={formState}>
@@ -107,7 +84,7 @@ export function CheckoutForm({
           )}
         />
         {business.requestAddress && (
-          <Address form={form} name="address" addresses={defaultAddresses} />
+          <Address form={form} name="address" addresses={address} />
         )}
         <Button type="submit" disabled={formState.isSubmitting}>
           {t("continue")}
