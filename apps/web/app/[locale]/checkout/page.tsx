@@ -56,15 +56,6 @@ const defaultAddresses: CompleteAddress[] = [
   },
 ];
 
-const address: Omit<CompleteAddress, "id"> = {
-  alias: "",
-  name: "",
-  address: "",
-  city: "",
-  state: "",
-  reference: "",
-};
-
 export default async function Component({ params: { locale } }: PageProps) {
   const baseUrl = `/${locale}`;
   const t = await getTranslations("Checkout");
@@ -89,9 +80,9 @@ export default async function Component({ params: { locale } }: PageProps) {
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <CheckoutForm
           action={checkout}
-          defaultValues={{ ...user, address }}
+          defaultValues={user}
           business={business}
-          address={defaultAddresses}
+          addresses={defaultAddresses}
         />
       </div>
       <div>

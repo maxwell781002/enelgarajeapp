@@ -29,27 +29,40 @@ type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
   defaultValues?: TUserRegisterSchema;
   business: CompleteBusiness;
-  address: CompleteAddress[];
+  addresses: CompleteAddress[];
+};
+
+const address: Omit<CompleteAddress, "id"> = {
+  alias: "",
+  name: "",
+  address: "",
+  city: "",
+  state: "",
+  reference: "",
 };
 
 export function CheckoutForm({
   action,
   defaultValues,
   business,
-  address,
+  addresses,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
   const [addressType, setAddressType] = useState(AddressType.selectAddress);
   const schema = useMemo(
     () =>
       business.requestAddress
-        ? UserRegisterSchema.extend({ ...addressValidation[addressType] })
+        ? UserRegisterSchema.extend({
+            [addressType]: addressValidation[addressType],
+          })
         : UserRegisterSchema,
     [addressType],
   );
   const { formState, ...form } = useForm<TUserRegisterSchema>({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: business.requestAddress
+      ? ({ ...defaultValues, [AddressType.newAddress]: address } as any)
+      : defaultValues,
   });
   useEffect(() => {
     form.setValue("addressType", String(addressType));
@@ -94,7 +107,7 @@ export function CheckoutForm({
         {business.requestAddress && (
           <Address
             form={form}
-            addresses={address}
+            addresses={addresses}
             setAddressType={setAddressType}
           />
         )}
