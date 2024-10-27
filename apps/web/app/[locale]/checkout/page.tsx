@@ -18,43 +18,13 @@ import Image from "@repo/ui/components/image";
 import { userRepository } from "@repo/model/repositories/user";
 import PriceDisplay from "@repo/ui/components/price";
 import { getCurrentBusiness } from "@repo/model/repository/business";
-import { CompleteAddress } from "@repo/model/zod/address";
+import { userAddressRepository } from "@repo/model/repositories/user-address";
 
 type PageProps = {
   params: {
     locale: string;
   };
 };
-
-const defaultAddresses: CompleteAddress[] = [
-  {
-    id: "1",
-    alias: "Home",
-    name: "Peter Parker",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-  {
-    id: "2",
-    alias: "Work",
-    name: "Bruce Wayne",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-  {
-    id: "3",
-    alias: "Other",
-    name: "Clark Kent",
-    address: "123 Main St",
-    city: "Anytown",
-    state: "CA",
-    reference: "12345",
-  },
-];
 
 export default async function Component({ params: { locale } }: PageProps) {
   const baseUrl = `/${locale}`;
@@ -74,6 +44,9 @@ export default async function Component({ params: { locale } }: PageProps) {
     return <NoUser />;
   }
   const user = await userRepository.getById(session.user.id);
+  const addresses = business.requestAddress
+    ? await userAddressRepository.findByUserId(session.user.id)
+    : [];
   return (
     <div className="grid gap-6">
       <div>
@@ -82,7 +55,7 @@ export default async function Component({ params: { locale } }: PageProps) {
           action={checkout}
           defaultValues={user}
           business={business}
-          addresses={defaultAddresses}
+          addresses={addresses}
         />
       </div>
       <div>
