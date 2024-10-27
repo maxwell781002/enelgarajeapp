@@ -145,6 +145,22 @@ export class OrderRepository extends BaseRepository<
           orderBy: { position: "asc" },
         },
       },
+      orderBy: { sentAt: "desc" },
+    });
+  }
+
+  getOrderById(id: string) {
+    return prisma.order.findUnique({
+      where: { id },
+      include: {
+        orderAddress: {
+          include: { address: true },
+        },
+        items: {
+          include: { product: true },
+          orderBy: { position: "asc" },
+        },
+      },
     });
   }
 

@@ -214,15 +214,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
 };
 
 export const getOrderById = async (id: string) => {
-  return prisma.order.findUnique({
-    where: { id },
-    include: {
-      items: {
-        include: { product: true },
-        orderBy: { position: "asc" },
-      },
-    },
-  });
+  return orderRepository.getOrderById(id);
 };
 
 export const getOrderCurrentUser = async () => {
