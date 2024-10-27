@@ -17096,10 +17096,25 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         alias: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         name: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         address: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         city: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         state: string;
         /**
          * @zod.optional()

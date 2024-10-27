@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  AddressType,
+  addressValidation,
   TUserRegisterSchema,
   UserRegisterSchema,
 } from "@repo/model/validation/user";
@@ -21,6 +23,7 @@ import { useForm } from "react-hook-form";
 import Address from "@repo/ui/components/address/index";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteAddress } from "@repo/model/zod/address";
+import { useEffect, useMemo, useState } from "react";
 
 type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
@@ -36,16 +39,18 @@ export function CheckoutForm({
   address,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
-
+  const [addressType, setAddressType] = useState(AddressType.selectAddress);
+  const schema = useMemo(
+    () => UserRegisterSchema.extend({ ...addressValidation[addressType] }),
+    [addressType],
+  );
   const { formState, ...form } = useForm<TUserRegisterSchema>({
-    resolver: zodResolver(UserRegisterSchema),
+    resolver: zodResolver(schema),
     defaultValues,
   });
-
-  // console.log(formState.errors);
-
-  // const a = form.watch("address");
-  // console.log(a);
+  useEffect(() => {
+    form.setValue("addressType", String(addressType));
+  }, [addressType, form]);
 
   return (
     <Form {...form} formState={formState}>
@@ -84,7 +89,11 @@ export function CheckoutForm({
           )}
         />
         {business.requestAddress && (
-          <Address form={form} name="address" addresses={address} />
+          <Address
+            form={form}
+            addresses={address}
+            setAddressType={setAddressType}
+          />
         )}
         <Button type="submit" disabled={formState.isSubmitting}>
           {t("continue")}

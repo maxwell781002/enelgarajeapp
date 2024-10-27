@@ -209,11 +209,11 @@ model Authenticator {
 
 model Address {
   id        String  @id @default(uuid())
-  alias     String
-  name      String
-  address   String
-  city      String
-  state     String
+  alias     String /// @zod.min(1, { message: "Required" })
+  name      String /// @zod.min(1, { message: "Required" })
+  address   String /// @zod.min(1, { message: "Required" })
+  city      String /// @zod.min(1, { message: "Required" })
+  state     String /// @zod.min(1, { message: "Required" })
   reference String? /// @zod.optional()
 
   userAddress  UserAddress?

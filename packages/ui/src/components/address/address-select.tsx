@@ -23,7 +23,7 @@ export default function AddressSelect({
   return (
     <FormField
       control={form.control}
-      name={`${name}.alias`}
+      name={name}
       render={({ field, fieldState: { error } }: any) => (
         <FormItem>
           <FormControl>

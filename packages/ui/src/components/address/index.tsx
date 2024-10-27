@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { AddressType } from "@repo/model/validation/user";
 import AddressForm, {
   AddressFormProps,
 } from "@repo/ui/components/address/form";
@@ -12,34 +13,47 @@ import AddressSelect, {
   AddressSelectorProps,
 } from "@repo/ui/components/address/address-select";
 
-export type AddressProps = AddressFormProps & AddressSelectorProps;
+export type AddressProps = {
+  setAddressType: (type: AddressType) => void;
+} & Omit<AddressFormProps, "name"> &
+  Omit<AddressSelectorProps, "name">;
 
 export default function Address({
   form,
-  name,
+  setAddressType,
   addresses = [],
   ...props
 }: AddressProps) {
   const t = useTranslations("Address");
-  const formComponent = <AddressForm form={form} name={name} {...props} />;
+  const formCreate = <AddressForm form={form} {...props} name="address" />;
   return (
     <>
       <h1 className="text-1xl font-bold">{t("title")}</h1>
       {!addresses.length ? (
-        formComponent
+        { formCreate }
       ) : (
         <Tabs defaultValue="address">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="address">{t("tabSelectAddress")}</TabsTrigger>
-            <TabsTrigger value="form">{t("tabCreateAddress")}</TabsTrigger>
+            <TabsTrigger
+              value="address"
+              onClick={() => setAddressType(AddressType.selectAddress)}
+            >
+              {t("tabSelectAddress")}
+            </TabsTrigger>
+            <TabsTrigger
+              value="form"
+              onClick={() => setAddressType(AddressType.newAddress)}
+            >
+              {t("tabCreateAddress")}
+            </TabsTrigger>
           </TabsList>
-          <TabsContent value="form">{formComponent}</TabsContent>
+          <TabsContent value="form">{formCreate}</TabsContent>
           <TabsContent value="address">
             <AddressSelect
               form={form}
-              name={name}
               addresses={addresses}
               {...props}
+              name="addressSelected"
             />
           </TabsContent>
         </Tabs>

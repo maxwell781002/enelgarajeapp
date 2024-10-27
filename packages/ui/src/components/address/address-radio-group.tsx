@@ -5,11 +5,12 @@ import { Label } from "@repo/ui/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
 import { Check } from "lucide-react";
 import { CompleteAddress } from "@repo/model/prisma/zod/address";
+import { useCallback } from "react";
 
 export interface AddressRadioGroupProps {
   addresses: CompleteAddress[];
   defaultValue?: string;
-  onChange?: (selectedId: string) => void;
+  onChange?: (selected: any) => void;
 }
 
 export default function AddressRadioGroup({
@@ -17,11 +18,15 @@ export default function AddressRadioGroup({
   onChange,
   ...props
 }: AddressRadioGroupProps) {
+  const handleChange = useCallback((id: string) => {
+    const value = addresses.find((address) => address.id === id);
+    onChange?.(value);
+  }, []);
+
   return (
     <div className="w-full">
       <RadioGroup
-        onValueChange={onChange}
-        {...props}
+        onValueChange={handleChange}
         className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {addresses.map((address) => (
@@ -30,7 +35,6 @@ export default function AddressRadioGroup({
               value={address.id}
               id={address.id}
               className="peer sr-only"
-              {...props}
             />
             <Label htmlFor={address.id} className="block cursor-pointer">
               <Card className="border-2 transition-all peer-checked:border-primary">
@@ -51,7 +55,7 @@ export default function AddressRadioGroup({
                         {address.reference}
                       </p>
                     </div>
-                    {(props as any).value === address.id && (
+                    {(props as any).value?.id === address.id && (
                       <Check className="text-primary" />
                     )}
                   </div>

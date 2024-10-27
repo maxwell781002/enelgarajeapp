@@ -8,11 +8,11 @@ import {
 
 export const AddressModel = z.object({
   id: z.string(),
-  alias: z.string(),
-  name: z.string(),
-  address: z.string(),
-  city: z.string(),
-  state: z.string(),
+  alias: z.string().min(1, { message: "Required" }),
+  name: z.string().min(1, { message: "Required" }),
+  address: z.string().min(1, { message: "Required" }),
+  city: z.string().min(1, { message: "Required" }),
+  state: z.string().min(1, { message: "Required" }),
   reference: z.string().optional().nullish(),
 });
 

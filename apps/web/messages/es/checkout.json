@@ -31,6 +31,7 @@
     "phCity": "Selecciona la ciudad",
     "tabSelectAddress": "Seleccionar",
     "tabCreateAddress": "Crear nueva",
+    "Required": "Requerido",
     "phReference": "Alguna descripción que sirva de referencia para poder llegar."
   }
 }

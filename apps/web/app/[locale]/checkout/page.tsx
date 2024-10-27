@@ -92,7 +92,7 @@ export default async function Component({ params: { locale } }: PageProps) {
           action={checkout}
           defaultValues={{ ...user, address }}
           business={business}
-          address={[]}
+          address={defaultAddresses}
         />
       </div>
       <div>
