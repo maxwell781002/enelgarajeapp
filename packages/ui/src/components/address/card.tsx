@@ -1,6 +1,8 @@
 import { CompleteAddress } from "@repo/model/zod/address";
 import { Card, CardContent } from "../ui/card";
 import { Check } from "lucide-react";
+import { getCityByCode } from "@repo/ui/lib/locations/index";
+import { getStateByCode } from "../../lib/locations/index";
 
 export type AddressCardProps = {
   address: CompleteAddress;
@@ -17,7 +19,8 @@ export default function AddressCard({ address, selected }: AddressCardProps) {
             <p className="text-sm text-muted-foreground">{address.name}</p>
             <p className="text-sm text-muted-foreground">{address.address}</p>
             <p className="text-sm text-muted-foreground">
-              {address.city}, {address.state}
+              {getCityByCode(address.city)?.name},{" "}
+              {getStateByCode(address.state)?.name}
             </p>
             <p className="text-sm text-muted-foreground">{address.reference}</p>
           </div>
