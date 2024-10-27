@@ -4,6 +4,8 @@ import OrderDetail from "@repo/ui/components/order-detail";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import ChangeStatus from "./changeStatus";
 import { revalidatePath } from "next/cache";
+import { getOrderById } from "@repo/model/repository/order";
+import { CompleteOrder } from "@repo/model/zod/order";
 
 type OrderDetailProps = {
   params: { businessId: string; id: string };
@@ -12,7 +14,7 @@ type OrderDetailProps = {
 export default async function Page({
   params: { businessId, id },
 }: OrderDetailProps) {
-  const order = await orderRepository.get(id);
+  const order = (await getOrderById(id)) as CompleteOrder;
   const changeStatus = async (status: string) => {
     "use server";
     await orderRepository.changeStatus(id, status as any);
@@ -37,11 +39,11 @@ export default async function Page({
           <dl className="grid gap-2">
             <div className="grid grid-cols-3 gap-1">
               <dt className="font-medium">Nombre:</dt>
-              <dd className="col-span-2">{order.user.name}</dd>
+              <dd className="col-span-2">{order?.user?.name}</dd>
             </div>
             <div className="grid grid-cols-3 gap-1">
               <dt className="font-medium">Teléfono:</dt>
-              <dd className="col-span-2">{order.user.phone}</dd>
+              <dd className="col-span-2">{order?.user?.phone}</dd>
             </div>
           </dl>
         </CardContent>

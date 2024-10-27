@@ -59,6 +59,10 @@ export default async function BusinessPage({
             <span>{t("lbActive")}</span>
           </div>
           <div className="flex items-center space-x-2">
+            <BooleanValue value={business.requestAddress} />
+            <span>{t("lbRequestAddress")}</span>
+          </div>
+          <div className="flex items-center space-x-2">
             <Phone className="h-5 w-5 text-muted-foreground" />
             <span>{business.phone || t("noPhone")}</span>
           </div>

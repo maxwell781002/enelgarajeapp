@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  AddressType,
+  addressValidation,
   TUserRegisterSchema,
   UserRegisterSchema,
 } from "@repo/model/validation/user";
@@ -18,19 +20,55 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Address from "@repo/ui/components/address/index";
+import { CompleteBusiness } from "@repo/model/zod/business";
+import { CompleteAddress } from "@repo/model/zod/address";
+import { useEffect, useMemo, useState } from "react";
 
 type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
   defaultValues?: TUserRegisterSchema;
+  business: CompleteBusiness;
+  addresses: CompleteAddress[];
 };
 
-export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
-  const t = useTranslations("Checkout");
+const address: Omit<CompleteAddress, "id"> = {
+  alias: "",
+  name: "",
+  address: "",
+  city: "",
+  state: "",
+  reference: "",
+};
 
+export function CheckoutForm({
+  action,
+  defaultValues,
+  business,
+  addresses,
+}: CheckoutFormProps) {
+  const t = useTranslations("Checkout");
+  const [addressType, setAddressType] = useState(
+    addresses.length ? AddressType.selectAddress : AddressType.newAddress,
+  );
+  const schema = useMemo(
+    () =>
+      business.requestAddress
+        ? UserRegisterSchema.extend({
+            [addressType]: addressValidation[addressType],
+          })
+        : UserRegisterSchema,
+    [addressType],
+  );
   const { formState, ...form } = useForm<TUserRegisterSchema>({
-    resolver: zodResolver(UserRegisterSchema),
-    defaultValues,
+    resolver: zodResolver(schema),
+    defaultValues: business.requestAddress
+      ? ({ ...defaultValues, [AddressType.newAddress]: address } as any)
+      : defaultValues,
   });
+  useEffect(() => {
+    form.setValue("addressType", String(addressType));
+  }, [addressType, form]);
 
   return (
     <Form {...form} formState={formState}>
@@ -68,6 +106,13 @@ export function CheckoutForm({ action, defaultValues }: CheckoutFormProps) {
             </FormItem>
           )}
         />
+        {business.requestAddress && (
+          <Address
+            form={form}
+            addresses={addresses}
+            setAddressType={setAddressType}
+          />
+        )}
         <Button type="submit" disabled={formState.isSubmitting}>
           {t("continue")}
         </Button>

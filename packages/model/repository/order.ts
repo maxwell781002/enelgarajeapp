@@ -11,12 +11,14 @@ import {
   CompleteUser,
 } from "../prisma/zod";
 import { getCurrentUser, updateUser } from "./user";
-import { TUserRegisterSchema } from "../validation/user";
+import { AddressType, TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
 import { orderRepository } from "../repositories/order";
 // import eventEmitter from "../lib/event-emitter";
 import { OrderSend } from "../lib/event-emitter/events";
 import { sendOrderToTelegram } from "../listeners/new-order";
+import { orderAddressRepository } from "../repositories/order-address";
+import { userAddressRepository } from "../repositories/user-address";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
@@ -188,13 +190,22 @@ export const addToOrder = async (productId: string) => {
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const userEntity = (await getCurrentUser()) as CompleteUser;
   const business = (await getCurrentBusiness()) as CompleteBusiness;
-  await updateUser(userEntity.id, user);
+  const { addressType, newAddress, selectAddress, ...userData } = user;
+  await updateUser(userEntity.id, userData);
   const order = await getOrCrateOrder();
   const newOrder = await orderRepository.placeOrder(
     order,
     userEntity,
     business,
   );
+  if (business.requestAddress) {
+    const { id, ...address } =
+      AddressType.newAddress === addressType ? newAddress : selectAddress;
+    await orderAddressRepository.createNew(newOrder.id, address);
+    if (addressType === AddressType.newAddress) {
+      await userAddressRepository.createNew(userEntity.id, address);
+    }
+  }
   cookies().delete("order_id");
   //TODO: When I configure the listener send the event instance of
   // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
@@ -203,15 +214,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
 };
 
 export const getOrderById = async (id: string) => {
-  return prisma.order.findUnique({
-    where: { id },
-    include: {
-      items: {
-        include: { product: true },
-        orderBy: { position: "asc" },
-      },
-    },
-  });
+  return orderRepository.getOrderById(id);
 };
 
 export const getOrderCurrentUser = async () => {

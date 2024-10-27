@@ -17,6 +17,8 @@ import NoUser from "./no-user";
 import Image from "@repo/ui/components/image";
 import { userRepository } from "@repo/model/repositories/user";
 import PriceDisplay from "@repo/ui/components/price";
+import { getCurrentBusiness } from "@repo/model/repository/business";
+import { userAddressRepository } from "@repo/model/repositories/user-address";
 
 type PageProps = {
   params: {
@@ -28,6 +30,7 @@ export default async function Component({ params: { locale } }: PageProps) {
   const baseUrl = `/${locale}`;
   const t = await getTranslations("Checkout");
   const order = await getCurrentOrder();
+  const business = await getCurrentBusiness();
   if (!order || order.items.length === 0) {
     return <EmptyCart url={baseUrl} />;
   }
@@ -41,11 +44,19 @@ export default async function Component({ params: { locale } }: PageProps) {
     return <NoUser />;
   }
   const user = await userRepository.getById(session.user.id);
+  const addresses = business.requestAddress
+    ? await userAddressRepository.findByUserId(session.user.id)
+    : [];
   return (
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <CheckoutForm action={checkout} defaultValues={user} />
+        <CheckoutForm
+          action={checkout}
+          defaultValues={user}
+          business={business}
+          addresses={addresses}
+        />
       </div>
       <div>
         <h1 className="text-2xl font-bold">{t("products")}</h1>
