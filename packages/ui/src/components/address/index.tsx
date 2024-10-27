@@ -32,7 +32,7 @@ export default function Address({
     <>
       <h1 className="text-1xl font-bold">{t("title")}</h1>
       {!addresses.length ? (
-        { formCreate }
+        formCreate
       ) : (
         <Tabs defaultValue="address">
           <TabsList className="grid w-full grid-cols-2">

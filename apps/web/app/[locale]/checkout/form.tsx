@@ -48,7 +48,9 @@ export function CheckoutForm({
   addresses,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
-  const [addressType, setAddressType] = useState(AddressType.selectAddress);
+  const [addressType, setAddressType] = useState(
+    addresses.length ? AddressType.selectAddress : AddressType.newAddress,
+  );
   const schema = useMemo(
     () =>
       business.requestAddress
