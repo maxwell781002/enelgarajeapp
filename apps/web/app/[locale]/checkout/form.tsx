@@ -41,7 +41,10 @@ export function CheckoutForm({
   const t = useTranslations("Checkout");
   const [addressType, setAddressType] = useState(AddressType.selectAddress);
   const schema = useMemo(
-    () => UserRegisterSchema.extend({ ...addressValidation[addressType] }),
+    () =>
+      business.requestAddress
+        ? UserRegisterSchema.extend({ ...addressValidation[addressType] })
+        : UserRegisterSchema,
     [addressType],
   );
   const { formState, ...form } = useForm<TUserRegisterSchema>({

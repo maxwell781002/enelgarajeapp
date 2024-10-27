@@ -15,7 +15,7 @@ export const UserRegisterSchema = UserModel.omit({
   phone: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  addressType: z.string().min(1, { message: "Required" }),
+  addressType: z.string().optional(),
 });
 
 export type TUserRegisterSchema = z.infer<typeof UserRegisterSchema>;

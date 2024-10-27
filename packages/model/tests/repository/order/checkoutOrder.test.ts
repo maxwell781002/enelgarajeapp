@@ -1,6 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { checkoutOrder, getOrCrateOrder } from "../../../repository/order";
 import { businessFactory, clearBd, userFactory } from "../../factories";
+import prisma from "../../../prisma/prisma-client";
+import { AddressType } from "../../../validation/user";
+import { businessRepository } from "../../../repositories/business";
 
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -86,5 +89,45 @@ describe("checkoutOrder", () => {
     expect(newOrder.identifier?.split("-")[1]).toBe("2");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);
     expect(mocksCookies.delete).toBeCalledWith("order_id");
+    const address = await prisma.orderAddress.findMany({
+      where: { orderId: newOrder.id },
+    });
+    expect(address.length).toBe(0);
+  });
+
+  it("Send address", async () => {
+    await businessRepository.update(business.id, {
+      ...business,
+      requestAddress: true,
+    });
+    const newOrder = await checkoutOrder({
+      ...userData,
+      addressType: AddressType.selectAddress,
+      [AddressType.selectAddress]: {
+        id: "1",
+        alias: "Home",
+        name: "Peter Parker",
+        address: "123 Main St",
+        city: "city",
+        state: "state",
+        reference: "12345",
+      },
+    } as any);
+    expect(newOrder).not.toBeNull();
+    expect(newOrder.position).toBe(3);
+    expect(newOrder.status).toBe("SEND");
+    expect(newOrder.identifier?.split("-")[1]).toBe("3");
+    expect(userModule.updateUser).toBeCalledWith(user.id, userData);
+    expect(mocksCookies.delete).toBeCalledWith("order_id");
+    const address = await prisma.orderAddress.findMany({
+      where: { orderId: newOrder.id },
+      include: { address: true },
+    });
+    expect(address.length).toBe(1);
+    expect(address[0].address.name).toBe("Peter Parker");
+    expect(address[0].address.address).toBe("123 Main St");
+    expect(address[0].address.city).toBe("city");
+    expect(address[0].address.state).toBe("state");
+    expect(address[0].address.reference).toBe("12345");
   });
 });

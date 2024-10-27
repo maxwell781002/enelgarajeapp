@@ -25,7 +25,9 @@ export default function Address({
   ...props
 }: AddressProps) {
   const t = useTranslations("Address");
-  const formCreate = <AddressForm form={form} {...props} name="address" />;
+  const formCreate = (
+    <AddressForm form={form} {...props} name={AddressType.newAddress} />
+  );
   return (
     <>
       <h1 className="text-1xl font-bold">{t("title")}</h1>
@@ -53,7 +55,7 @@ export default function Address({
               form={form}
               addresses={addresses}
               {...props}
-              name="addressSelected"
+              name={AddressType.selectAddress}
             />
           </TabsContent>
         </Tabs>

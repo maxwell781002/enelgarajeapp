@@ -75,9 +75,8 @@ export default async function Component({ params: { locale } }: PageProps) {
   }
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    console.log(data);
-    // await checkoutOrder(data);
-    // await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
+    await checkoutOrder(data);
+    await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
   const session = await auth();
   if (!session) {
