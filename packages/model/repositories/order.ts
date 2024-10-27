@@ -153,6 +153,7 @@ export class OrderRepository extends BaseRepository<
     return prisma.order.findUnique({
       where: { id },
       include: {
+        user: true,
         orderAddress: {
           include: { address: true },
         },
