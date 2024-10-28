@@ -1,7 +1,7 @@
 import BackPage from "@repo/ui/components/back-page";
 import { redirect } from "next/navigation";
 import { businessRepository } from "@repo/model/repositories/business";
-import BusinessForm from "../../../components/business-form";
+import BusinessForm from "../../../components/business-form/index";
 import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@repo/model/repository/user";
 import { userRepository, UserRoles } from "@repo/model/repositories/user";

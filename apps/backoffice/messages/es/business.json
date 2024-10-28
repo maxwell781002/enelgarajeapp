@@ -27,7 +27,9 @@
     "Required": "Requerido",
     "lbRequestAddress": "¿Desea que cliente ponga la dirección para el envío?",
     "lbTelegram": "¿Tiene canal de telegram?",
-    "Telegram": "Telegram"
+    "Telegram": "Telegram",
+    "tabGeneral": "General",
+    "tabAdmin": "Administración"
   },
   "Totals": {
     "totalProducts": "Total de productos",
