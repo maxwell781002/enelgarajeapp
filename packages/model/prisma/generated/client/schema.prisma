@@ -21,16 +21,17 @@ datasource db {
 }
 
 model Business {
-  id             String  @id @default(uuid())
+  id             String       @id @default(uuid())
   name           String
   description    String?
   address        String?
   phone          String?
   howToArrive    String?
   coordinates    Float[]
-  slug           String? @unique
-  active         Boolean @default(true) /// @zod.optional()
-  requestAddress Boolean @default(false) /// @zod.optional()
+  slug           String?      @unique
+  active         Boolean      @default(true) /// @zod.optional()
+  requestAddress Boolean      @default(false) /// @zod.optional()
+  plan           BusinessPlan @default(BASIC)
 
   telegram   TelegramBusiness?
   categories Category[]
@@ -61,10 +62,10 @@ model Category {
 
 model Product {
   id          String  @id @default(uuid())
-  name        String
+  name        String /// @zod.min(1, { message: "Required" })
   slug        String? @unique
   image       Json
-  description String
+  description String /// @zod.min(1, { message: "Required" })
   price       Int /// @zod.gte(0)
   offerPrice  Int? /// @zod.gte(0)
   images      Json[]
@@ -75,8 +76,8 @@ model Product {
 
   business   Business       @relation(fields: [businessId], references: [id])
   businessId String
-  category   Category       @relation(fields: [categoryId], references: [id])
-  categoryId String
+  category   Category?      @relation(fields: [categoryId], references: [id])
+  categoryId String?
   orderItems OrderProduct[]
 }
 
@@ -143,6 +144,11 @@ model OrderProduct {
 enum UserRoles {
   USER
   ADMIN
+}
+
+enum BusinessPlan {
+  BASIC
+  ENTERPRISE
 }
 
 enum OrderStatus {

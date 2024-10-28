@@ -18,10 +18,10 @@ const jsonSchema: z.ZodSchema<Json> = z.lazy(() =>
 
 export const ProductModel = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().min(1, { message: "Required" }),
   slug: z.string().nullish(),
   image: jsonSchema,
-  description: z.string(),
+  description: z.string().min(1, { message: "Required" }),
   price: z.number().int().gte(0),
   offerPrice: z.number().int().gte(0).nullish(),
   images: jsonSchema.array(),
@@ -30,12 +30,12 @@ export const ProductModel = z.object({
   outOfStock: z.boolean().optional(),
   priority: z.number().int().optional(),
   businessId: z.string(),
-  categoryId: z.string(),
+  categoryId: z.string().nullish(),
 });
 
 export interface CompleteProduct extends z.infer<typeof ProductModel> {
   business: CompleteBusiness;
-  category: CompleteCategory;
+  category?: CompleteCategory | null;
   orderItems: CompleteOrderProduct[];
 }
 
@@ -47,7 +47,7 @@ export interface CompleteProduct extends z.infer<typeof ProductModel> {
 export const RelatedProductModel: z.ZodSchema<CompleteProduct> = z.lazy(() =>
   ProductModel.extend({
     business: RelatedBusinessModel,
-    category: RelatedCategoryModel,
+    category: RelatedCategoryModel.nullish(),
     orderItems: RelatedOrderProductModel.array(),
   }),
 );

@@ -97,6 +97,13 @@ export type OrderAddress =
  * Enums
  */
 export namespace $Enums {
+  export const BusinessPlan: {
+    BASIC: "BASIC";
+    ENTERPRISE: "ENTERPRISE";
+  };
+
+  export type BusinessPlan = (typeof BusinessPlan)[keyof typeof BusinessPlan];
+
   export const UserRoles: {
     USER: "USER";
     ADMIN: "ADMIN";
@@ -113,6 +120,10 @@ export namespace $Enums {
 
   export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 }
+
+export type BusinessPlan = $Enums.BusinessPlan;
+
+export const BusinessPlan: typeof $Enums.BusinessPlan;
 
 export type UserRoles = $Enums.UserRoles;
 
@@ -2486,6 +2497,7 @@ export namespace Prisma {
     slug: string | null;
     active: boolean | null;
     requestAddress: boolean | null;
+    plan: $Enums.BusinessPlan | null;
   };
 
   export type BusinessMaxAggregateOutputType = {
@@ -2498,6 +2510,7 @@ export namespace Prisma {
     slug: string | null;
     active: boolean | null;
     requestAddress: boolean | null;
+    plan: $Enums.BusinessPlan | null;
   };
 
   export type BusinessCountAggregateOutputType = {
@@ -2511,6 +2524,7 @@ export namespace Prisma {
     slug: number;
     active: number;
     requestAddress: number;
+    plan: number;
     _all: number;
   };
 
@@ -2532,6 +2546,7 @@ export namespace Prisma {
     slug?: true;
     active?: true;
     requestAddress?: true;
+    plan?: true;
   };
 
   export type BusinessMaxAggregateInputType = {
@@ -2544,6 +2559,7 @@ export namespace Prisma {
     slug?: true;
     active?: true;
     requestAddress?: true;
+    plan?: true;
   };
 
   export type BusinessCountAggregateInputType = {
@@ -2557,6 +2573,7 @@ export namespace Prisma {
     slug?: true;
     active?: true;
     requestAddress?: true;
+    plan?: true;
     _all?: true;
   };
 
@@ -2662,6 +2679,7 @@ export namespace Prisma {
     slug: string | null;
     active: boolean;
     requestAddress: boolean;
+    plan: $Enums.BusinessPlan;
     _count: BusinessCountAggregateOutputType | null;
     _avg: BusinessAvgAggregateOutputType | null;
     _sum: BusinessSumAggregateOutputType | null;
@@ -2696,6 +2714,7 @@ export namespace Prisma {
       slug?: boolean;
       active?: boolean;
       requestAddress?: boolean;
+      plan?: boolean;
       telegram?: boolean | Business$telegramArgs<ExtArgs>;
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
@@ -2720,6 +2739,7 @@ export namespace Prisma {
       slug?: boolean;
       active?: boolean;
       requestAddress?: boolean;
+      plan?: boolean;
     },
     ExtArgs["result"]["business"]
   >;
@@ -2735,6 +2755,7 @@ export namespace Prisma {
     slug?: boolean;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: boolean;
   };
 
   export type BusinessInclude<
@@ -2780,6 +2801,7 @@ export namespace Prisma {
          * @zod.optional()
          */
         requestAddress: boolean;
+        plan: $Enums.BusinessPlan;
       },
       ExtArgs["result"]["business"]
     >;
@@ -3330,6 +3352,7 @@ export namespace Prisma {
     readonly slug: FieldRef<"Business", "String">;
     readonly active: FieldRef<"Business", "Boolean">;
     readonly requestAddress: FieldRef<"Business", "Boolean">;
+    readonly plan: FieldRef<"Business", "BusinessPlan">;
   }
 
   // Custom InputTypes
@@ -6376,7 +6399,7 @@ export namespace Prisma {
     outOfStock: boolean;
     priority: number;
     businessId: string;
-    categoryId: string;
+    categoryId: string | null;
     _count: ProductCountAggregateOutputType | null;
     _avg: ProductAvgAggregateOutputType | null;
     _sum: ProductSumAggregateOutputType | null;
@@ -6416,7 +6439,7 @@ export namespace Prisma {
       businessId?: boolean;
       categoryId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
-      category?: boolean | CategoryDefaultArgs<ExtArgs>;
+      category?: boolean | Product$categoryArgs<ExtArgs>;
       orderItems?: boolean | Product$orderItemsArgs<ExtArgs>;
       _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>;
     },
@@ -6442,7 +6465,7 @@ export namespace Prisma {
       businessId?: boolean;
       categoryId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
-      category?: boolean | CategoryDefaultArgs<ExtArgs>;
+      category?: boolean | Product$categoryArgs<ExtArgs>;
     },
     ExtArgs["result"]["product"]
   >;
@@ -6468,7 +6491,7 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
-    category?: boolean | CategoryDefaultArgs<ExtArgs>;
+    category?: boolean | Product$categoryArgs<ExtArgs>;
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>;
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>;
   };
@@ -6476,7 +6499,7 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
-    category?: boolean | CategoryDefaultArgs<ExtArgs>;
+    category?: boolean | Product$categoryArgs<ExtArgs>;
   };
 
   export type $ProductPayload<
@@ -6485,15 +6508,21 @@ export namespace Prisma {
     name: "Product";
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>;
-      category: Prisma.$CategoryPayload<ExtArgs>;
+      category: Prisma.$CategoryPayload<ExtArgs> | null;
       orderItems: Prisma.$OrderProductPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         name: string;
         slug: string | null;
         image: Prisma.JsonValue;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         description: string;
         /**
          * @zod.gte(0)
@@ -6521,7 +6550,7 @@ export namespace Prisma {
          */
         priority: number;
         businessId: string;
-        categoryId: string;
+        categoryId: string | null;
       },
       ExtArgs["result"]["product"]
     >;
@@ -6993,16 +7022,15 @@ export namespace Prisma {
       Null,
       ExtArgs
     >;
-    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(
-      args?: Subset<T, CategoryDefaultArgs<ExtArgs>>,
+    category<T extends Product$categoryArgs<ExtArgs> = {}>(
+      args?: Subset<T, Product$categoryArgs<ExtArgs>>,
     ): Prisma__CategoryClient<
-      | $Result.GetResult<
-          Prisma.$CategoryPayload<ExtArgs>,
-          T,
-          "findUniqueOrThrow"
-        >
-      | Null,
-      Null,
+      $Result.GetResult<
+        Prisma.$CategoryPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
       ExtArgs
     >;
     orderItems<T extends Product$orderItemsArgs<ExtArgs> = {}>(
@@ -7411,6 +7439,23 @@ export namespace Prisma {
      * Filter which Products to delete
      */
     where?: ProductWhereInput;
+  };
+
+  /**
+   * Product.category
+   */
+  export type Product$categoryArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null;
+    where?: CategoryWhereInput;
   };
 
   /**
@@ -20278,6 +20323,7 @@ export namespace Prisma {
     slug: "slug";
     active: "active";
     requestAddress: "requestAddress";
+    plan: "plan";
   };
 
   export type BusinessScalarFieldEnum =
@@ -20540,6 +20586,20 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'BusinessPlan'
+   */
+  export type EnumBusinessPlanFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "BusinessPlan"
+  >;
+
+  /**
+   * Reference to a field of type 'BusinessPlan[]'
+   */
+  export type ListEnumBusinessPlanFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "BusinessPlan[]">;
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -20635,6 +20695,7 @@ export namespace Prisma {
     slug?: StringNullableFilter<"Business"> | string | null;
     active?: BoolFilter<"Business"> | boolean;
     requestAddress?: BoolFilter<"Business"> | boolean;
+    plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
     telegram?: XOR<
       TelegramBusinessNullableRelationFilter,
       TelegramBusinessWhereInput
@@ -20656,6 +20717,7 @@ export namespace Prisma {
     slug?: SortOrderInput | SortOrder;
     active?: SortOrder;
     requestAddress?: SortOrder;
+    plan?: SortOrder;
     telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
@@ -20678,6 +20740,7 @@ export namespace Prisma {
       coordinates?: FloatNullableListFilter<"Business">;
       active?: BoolFilter<"Business"> | boolean;
       requestAddress?: BoolFilter<"Business"> | boolean;
+      plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
       telegram?: XOR<
         TelegramBusinessNullableRelationFilter,
         TelegramBusinessWhereInput
@@ -20701,6 +20764,7 @@ export namespace Prisma {
     slug?: SortOrderInput | SortOrder;
     active?: SortOrder;
     requestAddress?: SortOrder;
+    plan?: SortOrder;
     _count?: BusinessCountOrderByAggregateInput;
     _avg?: BusinessAvgOrderByAggregateInput;
     _max?: BusinessMaxOrderByAggregateInput;
@@ -20732,6 +20796,9 @@ export namespace Prisma {
     slug?: StringNullableWithAggregatesFilter<"Business"> | string | null;
     active?: BoolWithAggregatesFilter<"Business"> | boolean;
     requestAddress?: BoolWithAggregatesFilter<"Business"> | boolean;
+    plan?:
+      | EnumBusinessPlanWithAggregatesFilter<"Business">
+      | $Enums.BusinessPlan;
   };
 
   export type TelegramBusinessWhereInput = {
@@ -20880,9 +20947,9 @@ export namespace Prisma {
     outOfStock?: BoolFilter<"Product"> | boolean;
     priority?: IntFilter<"Product"> | number;
     businessId?: StringFilter<"Product"> | string;
-    categoryId?: StringFilter<"Product"> | string;
+    categoryId?: StringNullableFilter<"Product"> | string | null;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
-    category?: XOR<CategoryRelationFilter, CategoryWhereInput>;
+    category?: XOR<CategoryNullableRelationFilter, CategoryWhereInput> | null;
     orderItems?: OrderProductListRelationFilter;
   };
 
@@ -20900,7 +20967,7 @@ export namespace Prisma {
     outOfStock?: SortOrder;
     priority?: SortOrder;
     businessId?: SortOrder;
-    categoryId?: SortOrder;
+    categoryId?: SortOrderInput | SortOrder;
     business?: BusinessOrderByWithRelationInput;
     category?: CategoryOrderByWithRelationInput;
     orderItems?: OrderProductOrderByRelationAggregateInput;
@@ -20924,9 +20991,9 @@ export namespace Prisma {
       outOfStock?: BoolFilter<"Product"> | boolean;
       priority?: IntFilter<"Product"> | number;
       businessId?: StringFilter<"Product"> | string;
-      categoryId?: StringFilter<"Product"> | string;
+      categoryId?: StringNullableFilter<"Product"> | string | null;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
-      category?: XOR<CategoryRelationFilter, CategoryWhereInput>;
+      category?: XOR<CategoryNullableRelationFilter, CategoryWhereInput> | null;
       orderItems?: OrderProductListRelationFilter;
     },
     "id" | "slug"
@@ -20946,7 +21013,7 @@ export namespace Prisma {
     outOfStock?: SortOrder;
     priority?: SortOrder;
     businessId?: SortOrder;
-    categoryId?: SortOrder;
+    categoryId?: SortOrderInput | SortOrder;
     _count?: ProductCountOrderByAggregateInput;
     _avg?: ProductAvgOrderByAggregateInput;
     _max?: ProductMaxOrderByAggregateInput;
@@ -20975,7 +21042,7 @@ export namespace Prisma {
     outOfStock?: BoolWithAggregatesFilter<"Product"> | boolean;
     priority?: IntWithAggregatesFilter<"Product"> | number;
     businessId?: StringWithAggregatesFilter<"Product"> | string;
-    categoryId?: StringWithAggregatesFilter<"Product"> | string;
+    categoryId?: StringNullableWithAggregatesFilter<"Product"> | string | null;
   };
 
   export type UserWhereInput = {
@@ -21818,6 +21885,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -21836,6 +21904,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -21854,6 +21923,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -21872,6 +21942,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -21890,6 +21961,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
   };
 
   export type BusinessUpdateManyMutationInput = {
@@ -21903,6 +21975,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
   };
 
   export type BusinessUncheckedUpdateManyInput = {
@@ -21916,6 +21989,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
   };
 
   export type TelegramBusinessCreateInput = {
@@ -22046,7 +22120,7 @@ export namespace Prisma {
     outOfStock?: boolean;
     priority?: number;
     business: BusinessCreateNestedOneWithoutProductsInput;
-    category: CategoryCreateNestedOneWithoutProductsInput;
+    category?: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
 
@@ -22064,7 +22138,7 @@ export namespace Prisma {
     outOfStock?: boolean;
     priority?: number;
     businessId: string;
-    categoryId: string;
+    categoryId?: string | null;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
 
@@ -22082,7 +22156,7 @@ export namespace Prisma {
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
-    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
+    category?: CategoryUpdateOneWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
 
@@ -22100,7 +22174,7 @@ export namespace Prisma {
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
     businessId?: StringFieldUpdateOperationsInput | string;
-    categoryId?: StringFieldUpdateOperationsInput | string;
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
 
@@ -22118,7 +22192,7 @@ export namespace Prisma {
     outOfStock?: boolean;
     priority?: number;
     businessId: string;
-    categoryId: string;
+    categoryId?: string | null;
   };
 
   export type ProductUpdateManyMutationInput = {
@@ -22150,7 +22224,7 @@ export namespace Prisma {
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
     businessId?: StringFieldUpdateOperationsInput | string;
-    categoryId?: StringFieldUpdateOperationsInput | string;
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type UserCreateInput = {
@@ -22938,6 +23012,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
+  export type EnumBusinessPlanFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessPlan | EnumBusinessPlanFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.BusinessPlan[]
+      | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.BusinessPlan[]
+      | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+    not?: NestedEnumBusinessPlanFilter<$PrismaModel> | $Enums.BusinessPlan;
+  };
+
   export type TelegramBusinessNullableRelationFilter = {
     is?: TelegramBusinessWhereInput | null;
     isNot?: TelegramBusinessWhereInput | null;
@@ -22999,6 +23084,7 @@ export namespace Prisma {
     slug?: SortOrder;
     active?: SortOrder;
     requestAddress?: SortOrder;
+    plan?: SortOrder;
   };
 
   export type BusinessAvgOrderByAggregateInput = {
@@ -23015,6 +23101,7 @@ export namespace Prisma {
     slug?: SortOrder;
     active?: SortOrder;
     requestAddress?: SortOrder;
+    plan?: SortOrder;
   };
 
   export type BusinessMinOrderByAggregateInput = {
@@ -23027,6 +23114,7 @@ export namespace Prisma {
     slug?: SortOrder;
     active?: SortOrder;
     requestAddress?: SortOrder;
+    plan?: SortOrder;
   };
 
   export type BusinessSumOrderByAggregateInput = {
@@ -23078,6 +23166,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedBoolFilter<$PrismaModel>;
     _max?: NestedBoolFilter<$PrismaModel>;
+  };
+
+  export type EnumBusinessPlanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessPlan | EnumBusinessPlanFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.BusinessPlan[]
+      | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.BusinessPlan[]
+      | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumBusinessPlanWithAggregatesFilter<$PrismaModel>
+      | $Enums.BusinessPlan;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumBusinessPlanFilter<$PrismaModel>;
+    _max?: NestedEnumBusinessPlanFilter<$PrismaModel>;
   };
 
   export type BusinessRelationFilter = {
@@ -23232,9 +23336,9 @@ export namespace Prisma {
     isEmpty?: boolean;
   };
 
-  export type CategoryRelationFilter = {
-    is?: CategoryWhereInput;
-    isNot?: CategoryWhereInput;
+  export type CategoryNullableRelationFilter = {
+    is?: CategoryWhereInput | null;
+    isNot?: CategoryWhereInput | null;
   };
 
   export type OrderProductListRelationFilter = {
@@ -24057,6 +24161,10 @@ export namespace Prisma {
     set?: boolean;
   };
 
+  export type EnumBusinessPlanFieldUpdateOperationsInput = {
+    set?: $Enums.BusinessPlan;
+  };
+
   export type TelegramBusinessUpdateOneWithoutBusinessNestedInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -24547,13 +24655,15 @@ export namespace Prisma {
     >;
   };
 
-  export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
+  export type CategoryUpdateOneWithoutProductsNestedInput = {
     create?: XOR<
       CategoryCreateWithoutProductsInput,
       CategoryUncheckedCreateWithoutProductsInput
     >;
     connectOrCreate?: CategoryCreateOrConnectWithoutProductsInput;
     upsert?: CategoryUpsertWithoutProductsInput;
+    disconnect?: CategoryWhereInput | boolean;
+    delete?: CategoryWhereInput | boolean;
     connect?: CategoryWhereUniqueInput;
     update?: XOR<
       XOR<
@@ -25777,6 +25887,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean;
   };
 
+  export type NestedEnumBusinessPlanFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessPlan | EnumBusinessPlanFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.BusinessPlan[]
+      | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.BusinessPlan[]
+      | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+    not?: NestedEnumBusinessPlanFilter<$PrismaModel> | $Enums.BusinessPlan;
+  };
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -25843,6 +25964,25 @@ export namespace Prisma {
     _min?: NestedBoolFilter<$PrismaModel>;
     _max?: NestedBoolFilter<$PrismaModel>;
   };
+
+  export type NestedEnumBusinessPlanWithAggregatesFilter<$PrismaModel = never> =
+    {
+      equals?:
+        | $Enums.BusinessPlan
+        | EnumBusinessPlanFieldRefInput<$PrismaModel>;
+      in?:
+        | $Enums.BusinessPlan[]
+        | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+      notIn?:
+        | $Enums.BusinessPlan[]
+        | ListEnumBusinessPlanFieldRefInput<$PrismaModel>;
+      not?:
+        | NestedEnumBusinessPlanWithAggregatesFilter<$PrismaModel>
+        | $Enums.BusinessPlan;
+      _count?: NestedIntFilter<$PrismaModel>;
+      _min?: NestedEnumBusinessPlanFilter<$PrismaModel>;
+      _max?: NestedEnumBusinessPlanFilter<$PrismaModel>;
+    };
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
@@ -26097,7 +26237,7 @@ export namespace Prisma {
     isNew?: boolean;
     outOfStock?: boolean;
     priority?: number;
-    category: CategoryCreateNestedOneWithoutProductsInput;
+    category?: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
 
@@ -26114,7 +26254,7 @@ export namespace Prisma {
     isNew?: boolean;
     outOfStock?: boolean;
     priority?: number;
-    categoryId: string;
+    categoryId?: string | null;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
 
@@ -26310,7 +26450,7 @@ export namespace Prisma {
     outOfStock?: BoolFilter<"Product"> | boolean;
     priority?: IntFilter<"Product"> | number;
     businessId?: StringFilter<"Product"> | string;
-    categoryId?: StringFilter<"Product"> | string;
+    categoryId?: StringNullableFilter<"Product"> | string | null;
   };
 
   export type OrderUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -26403,6 +26543,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -26420,6 +26561,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -26465,6 +26607,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -26482,6 +26625,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -26546,6 +26690,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -26563,6 +26708,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -26636,6 +26782,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -26653,6 +26800,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -26670,6 +26818,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -26687,6 +26836,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -26787,6 +26937,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -26804,6 +26955,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -27347,6 +27499,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -27364,6 +27517,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -27471,6 +27625,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -27488,6 +27643,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -27574,6 +27730,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -27591,6 +27748,7 @@ export namespace Prisma {
     slug?: string | null;
     active?: boolean;
     requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -27744,6 +27902,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -27761,6 +27920,7 @@ export namespace Prisma {
     slug?: NullableStringFieldUpdateOperationsInput | string | null;
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -27811,7 +27971,7 @@ export namespace Prisma {
     outOfStock?: boolean;
     priority?: number;
     business: BusinessCreateNestedOneWithoutProductsInput;
-    category: CategoryCreateNestedOneWithoutProductsInput;
+    category?: CategoryCreateNestedOneWithoutProductsInput;
   };
 
   export type ProductUncheckedCreateWithoutOrderItemsInput = {
@@ -27828,7 +27988,7 @@ export namespace Prisma {
     outOfStock?: boolean;
     priority?: number;
     businessId: string;
-    categoryId: string;
+    categoryId?: string | null;
   };
 
   export type ProductCreateOrConnectWithoutOrderItemsInput = {
@@ -27907,7 +28067,7 @@ export namespace Prisma {
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
-    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
+    category?: CategoryUpdateOneWithoutProductsNestedInput;
   };
 
   export type ProductUncheckedUpdateWithoutOrderItemsInput = {
@@ -27924,7 +28084,7 @@ export namespace Prisma {
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
     businessId?: StringFieldUpdateOperationsInput | string;
-    categoryId?: StringFieldUpdateOperationsInput | string;
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type OrderUpsertWithoutItemsInput = {
@@ -28730,7 +28890,7 @@ export namespace Prisma {
     isNew?: boolean;
     outOfStock?: boolean;
     priority?: number;
-    categoryId: string;
+    categoryId?: string | null;
   };
 
   export type OrderCreateManyBusinessInput = {
@@ -28787,7 +28947,7 @@ export namespace Prisma {
     isNew?: BoolFieldUpdateOperationsInput | boolean;
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
-    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput;
+    category?: CategoryUpdateOneWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
 
@@ -28804,7 +28964,7 @@ export namespace Prisma {
     isNew?: BoolFieldUpdateOperationsInput | boolean;
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
-    categoryId?: StringFieldUpdateOperationsInput | string;
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
 
@@ -28821,7 +28981,7 @@ export namespace Prisma {
     isNew?: BoolFieldUpdateOperationsInput | boolean;
     outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
-    categoryId?: StringFieldUpdateOperationsInput | string;
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type OrderUpdateWithoutBusinessInput = {

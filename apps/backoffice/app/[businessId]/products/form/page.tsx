@@ -30,6 +30,9 @@ export default async function PageForm({
   const action = async (formData: FormData) => {
     "use server";
     const obj = formDataToObject(formData) as any;
+    if (!obj.categoryId) {
+      delete obj.categoryId;
+    }
     obj.businessId = businessId;
     const { id: idFromDb } = id
       ? await productRepository.update(id, obj)

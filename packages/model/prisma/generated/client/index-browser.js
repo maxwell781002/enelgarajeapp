@@ -129,7 +129,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   coordinates: 'coordinates',
   slug: 'slug',
   active: 'active',
-  requestAddress: 'requestAddress'
+  requestAddress: 'requestAddress',
+  plan: 'plan'
 };
 
 exports.Prisma.TelegramBusinessScalarFieldEnum = {
@@ -289,6 +290,11 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.BusinessPlan = exports.$Enums.BusinessPlan = {
+  BASIC: 'BASIC',
+  ENTERPRISE: 'ENTERPRISE'
+};
+
 exports.UserRoles = exports.$Enums.UserRoles = {
   USER: 'USER',
   ADMIN: 'ADMIN'
