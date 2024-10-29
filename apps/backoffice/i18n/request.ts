@@ -11,6 +11,7 @@ export default getRequestConfig(async () => {
     ...(await import(`../messages/${locale}/no-have-shop.json`)).default,
     ...(await import(`../messages/${locale}/security.json`)).default,
     ...(await import(`../messages/${locale}/order.json`)).default,
+    ...(await import(`../messages/${locale}/upgrade-plan.json`)).default,
   };
 
   return {

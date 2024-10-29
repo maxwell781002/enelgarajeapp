@@ -8,6 +8,10 @@ export const getCurrentBusiness = async () => {
   return hostname ? businessRepository.getBySlugAndActive(hostname) : null;
 };
 
+export const getBusinessById = async (businessId: string) => {
+  return businessRepository.getById(businessId);
+};
+
 export const createOrUpdateBusiness = async (
   business: any,
   businessId: string = "",

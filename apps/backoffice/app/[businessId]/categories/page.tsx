@@ -1,8 +1,5 @@
 import { crud } from "@repo/model/lib/crud";
-import {
-  categoryRepository,
-  CategoryRepository,
-} from "@repo/model/repositories/category";
+import { categoryRepository } from "@repo/model/repositories/category";
 import CategoryTable from "./table";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { DialogForm } from "./DialogForm";
@@ -11,6 +8,9 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import TableLayout from "@repo/ui/components/table-layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
+import { getBusinessById } from "@repo/model/repository/business";
+import { getPlanFeature } from "@repo/model/lib/plans-feature";
+import UpgradePlan from "@repo/ui/components/upgrade-plan";
 
 type PageProps = {
   searchParams: any;
@@ -21,6 +21,10 @@ export default async function Page({
   searchParams,
   params: { businessId },
 }: PageProps) {
+  const business = await getBusinessById(businessId);
+  if (!getPlanFeature("CAN_CREATE_CATEGORY", business)) {
+    return <UpgradePlan business={business} />;
+  }
   const t = await getTranslations("Category");
   const { list, remove, update, create, search } = crud(
     `/${businessId}/categories`,

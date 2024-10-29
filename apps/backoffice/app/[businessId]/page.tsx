@@ -91,7 +91,7 @@ export default async function BusinessPage({
           <div className="flex items-center space-x-2">
             <DoorOpen className="h-5 w-5 text-muted-foreground" />
             <span>
-              {t('yourPlan')}: <strong>{t(business.plan)}</strong>
+              {t("yourPlan")}: <strong>{t(business.plan)}</strong>
             </span>
           </div>
           <p className="text-muted-foreground">{business.description}</p>

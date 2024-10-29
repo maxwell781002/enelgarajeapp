@@ -1,5 +1,7 @@
-import { PLANS, TFeatureKey } from "../configs/plans";
+import { PLANS, TFeatureKey, INFINITE_NUMBER } from "../configs/plans";
 import { CompleteBusiness } from "../prisma/zod/business";
+
+export { PLANS, INFINITE_NUMBER };
 
 export const PLANS_KEYS = Object.keys(PLANS);
 
