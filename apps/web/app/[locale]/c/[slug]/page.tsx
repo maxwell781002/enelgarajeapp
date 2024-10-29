@@ -15,7 +15,7 @@ export default async function Page({
       currentBusiness={currentBusiness}
       categorySlug={slug}
       baseUrl={`/c/${slug}`}
-      businessId={currentBusiness.id}
+      business={currentBusiness}
       searchParams={searchParams}
     />
   );
