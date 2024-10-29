@@ -4,6 +4,9 @@ import { categoryRepository } from "@repo/model/repositories/category";
 import { productRepository } from "@repo/model/repositories/product";
 import { redirect } from "next/navigation";
 import { formDataToObject } from "@repo/model/lib/utils";
+import { getBusinessById } from "@repo/model/repository/business";
+import { isLimited } from "@repo/model/repository/product";
+import UpgradePlan from "@repo/ui/components/upgrade-plan";
 
 type FormAction = {
   params: { businessId: string };
@@ -27,6 +30,10 @@ export default async function PageForm({
   params: { businessId },
   searchParams: { id },
 }: FormAction) {
+  const business = await getBusinessById(businessId);
+  if (business && (await isLimited(business))) {
+    return <UpgradePlan business={business} />;
+  }
   const action = async (formData: FormData) => {
     "use server";
     const obj = formDataToObject(formData) as any;
