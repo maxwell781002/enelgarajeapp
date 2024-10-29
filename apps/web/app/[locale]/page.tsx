@@ -9,7 +9,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     <ProductList
       currentBusiness={currentBusiness as CompleteBusiness}
       baseUrl="/"
-      businessId={currentBusiness.id}
+      business={currentBusiness}
       searchParams={searchParams}
     />
   );

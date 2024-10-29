@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import { Edit, Globe, Phone, Send } from "lucide-react";
+import { Edit, Globe, Phone, Send, DoorOpen } from "lucide-react";
 import { businessRepository } from "@repo/model/repositories/business";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
@@ -87,6 +87,12 @@ export default async function BusinessPage({
             >
               {business.slug}
             </a>
+          </div>
+          <div className="flex items-center space-x-2">
+            <DoorOpen className="h-5 w-5 text-muted-foreground" />
+            <span>
+              {t("yourPlan")}: <strong>{t(business.plan)}</strong>
+            </span>
           </div>
           <p className="text-muted-foreground">{business.description}</p>
         </CardContent>

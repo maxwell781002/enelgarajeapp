@@ -27,7 +27,14 @@
     "Required": "Requerido",
     "lbRequestAddress": "¿Desea que cliente ponga la dirección para el envío?",
     "lbTelegram": "¿Tiene canal de telegram?",
-    "Telegram": "Telegram"
+    "Telegram": "Telegram",
+    "tabGeneral": "General",
+    "lbPlan": "Plan",
+    "yourPlan": "Tu plan activo",
+    "phPlan": "Seleccionar plan",
+    "BASIC": "Básico",
+    "ENTERPRISE": "Empresarial",
+    "tabAdmin": "Administración"
   },
   "Totals": {
     "totalProducts": "Total de productos",
@@ -36,5 +43,9 @@
     "totalOrders": "Total de pedidos",
     "orderPayed": "Pedidos pagados",
     "orderReject": "Pedidos rechazados"
+  },
+  "PlanSelect": {
+    "BASIC": "Básico",
+    "ENTERPRISE": "Empresarial"
   }
 }

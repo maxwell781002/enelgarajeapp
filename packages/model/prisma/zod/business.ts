@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { BusinessPlan } from "../generated/client";
 import {
   CompleteTelegramBusiness,
   RelatedTelegramBusinessModel,
@@ -23,6 +24,7 @@ export const BusinessModel = z.object({
   slug: z.string().nullish(),
   active: z.boolean().optional(),
   requestAddress: z.boolean().optional(),
+  plan: z.nativeEnum(BusinessPlan),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {

@@ -7,24 +7,27 @@ import { revalidatePath } from "next/cache";
 import { paginateFrontend } from "@repo/model/repository/product";
 import SearchInput from "@repo/ui/components/search";
 import { redirect } from "next/navigation";
+import { getPlanFeature } from "@repo/model/lib/plans-feature";
+
+export type ProductListWrapperProps = {
+  currentBusiness: CompleteBusiness;
+  categorySlug?: string;
+  baseUrl: string;
+  business: CompleteBusiness;
+  searchParams: any;
+};
 
 export default async function ProductListWrapper({
   currentBusiness,
   categorySlug,
   baseUrl,
-  businessId,
+  business,
   searchParams,
-}: {
-  currentBusiness: CompleteBusiness;
-  categorySlug?: string;
-  baseUrl: string;
-  businessId: string;
-  searchParams: any;
-}) {
+}: ProductListWrapperProps) {
   const categories = await categoryRepository.getAll(currentBusiness.id);
   const currenItem = categories.find((item: any) => item.slug === categorySlug);
   const { data, hasMore } = await paginateFrontend({
-    businessId,
+    businessId: business.id,
     categoryId: currenItem?.id,
     ...searchParams,
   });
@@ -41,14 +44,16 @@ export default async function ProductListWrapper({
   return (
     <>
       <SearchInput className="mb-2" onChange={search} />
-      <div className="mb-8">
-        <CategoryMenu items={categories} active={currenItem} />
-      </div>
+      {getPlanFeature<boolean>("CAN_CREATE_CATEGORY", business) && (
+        <div className="mb-8">
+          <CategoryMenu items={categories} active={currenItem} />
+        </div>
+      )}
       <ProductList
         data={data}
         hastMore={hasMore}
         categoryId={currenItem?.id}
-        businessId={businessId}
+        businessId={business.id}
         add={add}
       />
     </>

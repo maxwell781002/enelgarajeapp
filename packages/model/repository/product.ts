@@ -1,4 +1,7 @@
+import { INFINITE_NUMBER, NUMBER_OF_PRODUCTS } from "../configs/plans";
+import { getPlanFeature } from "../lib/plans-feature";
 import prisma from "../prisma/prisma-client";
+import { CompleteBusiness } from "../prisma/zod";
 import { productRepository } from "../repositories/product";
 import { getCurrentOrder, hasProduct, ShopCartOrder } from "./order";
 
@@ -34,4 +37,15 @@ export const paginateFrontend = async (parameters: any) => {
     data: await Promise.all(products),
     ...props,
   };
+};
+
+export const isLimited = async (business: CompleteBusiness) => {
+  const featureValue = getPlanFeature<number>(NUMBER_OF_PRODUCTS, business);
+  if (featureValue === INFINITE_NUMBER) {
+    return false;
+  }
+  const { totalActive, totalInactive } = await productRepository.getTotals(
+    business.id,
+  );
+  return totalActive + totalInactive >= featureValue;
 };

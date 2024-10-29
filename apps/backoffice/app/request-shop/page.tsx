@@ -1,10 +1,9 @@
 import { Store } from "lucide-react";
-import { Button } from "@repo/ui/components/ui/button";
-import { WhatsappIcon } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
+import WhatsappButton from "@repo/ui/components/whatsapp-button";
 
 export default async function Page() {
-  const whatsappNumber = process.env.PHONE_ADMIN_CONTACT;
+  const whatsappNumber = process.env.PHONE_ADMIN_CONTACT as string;
   const t = await getTranslations("NoHaveShop");
   const whatsappMessage = encodeURIComponent(t("textChat"));
 
@@ -15,16 +14,11 @@ export default async function Page() {
       <p className="text-muted-foreground mb-6 text-center max-w-md">
         {t("message")}
       </p>
-      <Button asChild className="flex items-center space-x-2">
-        <a
-          href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <WhatsappIcon className="w-5 h-5" />
-          <span>{t("btnSubmit")}</span>
-        </a>
-      </Button>
+      <WhatsappButton
+        whatsappNumber={whatsappNumber}
+        whatsappMessage={whatsappMessage}
+        text={t("btnSubmit")}
+      />
     </div>
   );
 }
