@@ -14,6 +14,7 @@ import { Switch } from "@repo/ui/components/ui/switch";
 import { useTranslations } from "next-intl";
 import React from "react";
 import TelegramBusiness from "./telegram-business";
+import { PlanSelect } from "@repo/ui/components/plan-select";
 
 export type BusinessAdminFormProps = {
   form: any;
@@ -42,6 +43,23 @@ export default function BusinessAdminForm({
                 {...field}
                 checked={field.value}
                 onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="plan"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbPlan")}</FormLabel>
+            <FormControl>
+              <PlanSelect
+                {...field}
+                onCheckedChange={field.onChange}
+                placeholder={t("phPlan")}
               />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>

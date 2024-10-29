@@ -39,7 +39,7 @@ export default async function Page({
       title={t("BusinessList")}
       filter={<Filter onChange={handleSearch} />}
       buttons={
-        <Link href={`/business/form`}>
+        <Link href="/admin/business/form">
           <Button>{t("createBusiness")}</Button>
         </Link>
       }

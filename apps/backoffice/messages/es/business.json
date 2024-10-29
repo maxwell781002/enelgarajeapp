@@ -29,6 +29,8 @@
     "lbTelegram": "¿Tiene canal de telegram?",
     "Telegram": "Telegram",
     "tabGeneral": "General",
+    "lbPlan": "Plan",
+    "phPlan": "Seleccionar plan",
     "tabAdmin": "Administración"
   },
   "Totals": {
@@ -38,5 +40,9 @@
     "totalOrders": "Total de pedidos",
     "orderPayed": "Pedidos pagados",
     "orderReject": "Pedidos rechazados"
+  },
+  "PlanSelect": {
+    "BASIC": "Básico",
+    "ENTERPRISE": "Empresarial"
   }
 }

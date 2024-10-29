@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -56,7 +56,7 @@ export default function BusinessMasterForm({
       form.unregister("telegram");
     }
   }, [form.register, form.unregister, showTelegram]);
-  const formBusiness = <BusinessForm form={form} {...props} />
+  const formBusiness = <BusinessForm form={form} {...props} />;
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -68,9 +68,7 @@ export default function BusinessMasterForm({
               <TabsTrigger value="general">{t("tabGeneral")}</TabsTrigger>
               <TabsTrigger value="admin">{t("tabAdmin")}</TabsTrigger>
             </TabsList>
-            <TabsContent value="general">
-              {formBusiness}
-            </TabsContent>
+            <TabsContent value="general">{formBusiness}</TabsContent>
             <TabsContent value="admin">
               <BusinessAdminForm
                 form={form}
