@@ -7,6 +7,7 @@ import { formDataToObject } from "@repo/model/lib/utils";
 import { getBusinessById } from "@repo/model/repository/business";
 import { isLimited } from "@repo/model/repository/product";
 import UpgradePlan from "@repo/ui/components/upgrade-plan";
+import { getTranslations } from "next-intl/server";
 
 type FormAction = {
   params: { businessId: string };
@@ -31,8 +32,9 @@ export default async function PageForm({
   searchParams: { id },
 }: FormAction) {
   const business = await getBusinessById(businessId);
+  const t = await getTranslations("Product");
   if (business && (await isLimited(business))) {
-    return <UpgradePlan business={business} />;
+    return <UpgradePlan business={business} title={t("upgrade_plan_title")} />;
   }
   const action = async (formData: FormData) => {
     "use server";

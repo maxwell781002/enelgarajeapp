@@ -16,6 +16,7 @@ import WhatsappButton from "./whatsapp-button";
 export type UpgradePlanProps = {
   className?: string;
   business: CompleteBusiness;
+  title?: string;
 };
 
 const Item = ({
@@ -51,6 +52,7 @@ const Item = ({
 export default async function UpgradePlan({
   className,
   business,
+  title,
 }: UpgradePlanProps) {
   const t = await getTranslations("UpgradePlan");
   const features = PLANS[business.plan];
@@ -58,36 +60,41 @@ export default async function UpgradePlan({
   const whatsappMessage = encodeURIComponent(t("textChat"));
   return (
     <div className={cn("flex justify-center items-center md:pt-10", className)}>
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">
-            {t("your_plan")}: {t(business.plan)}
-          </CardTitle>
-          <CardDescription>{t("description")}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            {Object.entries(features).map(([name, value]) => (
-              <Item key={name} name={name} value={value} t={t} />
-            ))}
-          </div>
-          <div
-            className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
-            role="alert"
-          >
-            <p className="font-bold">{t("upgrade_required")}</p>
-            <p>{t("upgrade_description")}</p>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <WhatsappButton
-            whatsappNumber={whatsappNumber}
-            whatsappMessage={whatsappMessage}
-            text={t("btnSubmit")}
-            className="w-full"
-          />
-        </CardFooter>
-      </Card>
+      <div>
+        {title && (
+          <h1 className="text-3xl font-bold text-center mb-10">{title}</h1>
+        )}
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold">
+              {t("your_plan")}: {t(business.plan)}
+            </CardTitle>
+            <CardDescription>{t("description")}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              {Object.entries(features).map(([name, value]) => (
+                <Item key={name} name={name} value={value} t={t} />
+              ))}
+            </div>
+            <div
+              className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
+              role="alert"
+            >
+              <p className="font-bold">{t("upgrade_required")}</p>
+              <p>{t("upgrade_description")}</p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <WhatsappButton
+              whatsappNumber={whatsappNumber}
+              whatsappMessage={whatsappMessage}
+              text={t("btnSubmit")}
+              className="w-full"
+            />
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -21,11 +21,11 @@ export default async function Page({
   searchParams,
   params: { businessId },
 }: PageProps) {
+  const t = await getTranslations("Category");
   const business = await getBusinessById(businessId);
   if (!getPlanFeature("CAN_CREATE_CATEGORY", business)) {
-    return <UpgradePlan business={business} />;
+    return <UpgradePlan business={business} title={t("upgrade_plan_title")} />;
   }
-  const t = await getTranslations("Category");
   const { list, remove, update, create, search } = crud(
     `/${businessId}/categories`,
     categoryRepository.getRepositoryModelName(),
