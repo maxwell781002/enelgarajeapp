@@ -30,7 +30,10 @@
     "Telegram": "Telegram",
     "tabGeneral": "General",
     "lbPlan": "Plan",
+    "yourPlan": "Tu plan activo",
     "phPlan": "Seleccionar plan",
+    "BASIC": "Básico",
+    "ENTERPRISE": "Empresarial",
     "tabAdmin": "Administración"
   },
   "Totals": {
