@@ -59,6 +59,9 @@ ${products}
 };
 
 const sendToPrivateGroup = (order: CompleteOrder, data: any) => {
+  if (!order.business?.sendOrderToWhatsapp) {
+    return;
+  }
   const message_whatsapp = "Hola%20tiene%20una%20nueva%20orden";
   const message = `
 ${generateText(data)}

@@ -16,6 +16,7 @@ describe("business", () => {
       name: "Business",
       slug: "http://localhost:3000",
       plan: BusinessPlan.BASIC,
+      sendOrderToWhatsapp: false,
     });
     expect(business).toBeDefined();
   });
@@ -29,6 +30,7 @@ describe("business", () => {
       name: "Business",
       telegram: data,
       plan: BusinessPlan.BASIC,
+      sendOrderToWhatsapp: false,
     });
     const telegram = await telegramBusinessRepository.getByBusinessId(
       business.id,
@@ -48,6 +50,7 @@ describe("business", () => {
         name: "Business",
         telegram: data,
         plan: BusinessPlan.BASIC,
+        sendOrderToWhatsapp: false,
       },
       business.id,
     );
@@ -64,6 +67,7 @@ describe("business", () => {
       {
         name: "Business",
         plan: BusinessPlan.BASIC,
+        sendOrderToWhatsapp: false,
       },
       business.id,
     );

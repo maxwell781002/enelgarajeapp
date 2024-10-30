@@ -19,7 +19,9 @@ describe("new-order", () => {
   beforeAll(async () => {
     process.env.BOT_WEBHOOK_URL = "https://some.url";
     global.fetch = vi.fn();
-    business = await businessFactory();
+    business = await businessFactory({
+      sendOrderToWhatsapp: true,
+    });
     const user = await userFactory({
       name: "Pepe",
       phone: "+5353024637",
@@ -44,7 +46,7 @@ describe("new-order", () => {
 
   it("no telegram configured", async () => {
     await sendOrderToTelegram(event);
-    expect(global.fetch).toBeCalledTimes(0);
+    expect(global.fetch).toBeCalledTimes(1);
   });
 
   it("with telegram configured", async () => {
@@ -53,6 +55,6 @@ describe("new-order", () => {
       groupId: "groupId",
     });
     await sendOrderToTelegram(event);
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(3);
   });
 });
