@@ -2,6 +2,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { clearBd } from "../../factories";
 import { createOrUpdateBusiness } from "../../../repository/business";
 import { telegramBusinessRepository } from "../../../repositories/telegram-business";
+import { BusinessPlan } from "../../../prisma/generated/client";
 
 describe("business", () => {
   let business;
@@ -14,6 +15,8 @@ describe("business", () => {
     business = await createOrUpdateBusiness({
       name: "Business",
       slug: "http://localhost:3000",
+      plan: BusinessPlan.BASIC,
+      sendOrderToWhatsapp: false,
     });
     expect(business).toBeDefined();
   });
@@ -26,6 +29,8 @@ describe("business", () => {
     business = await createOrUpdateBusiness({
       name: "Business",
       telegram: data,
+      plan: BusinessPlan.BASIC,
+      sendOrderToWhatsapp: false,
     });
     const telegram = await telegramBusinessRepository.getByBusinessId(
       business.id,
@@ -44,6 +49,8 @@ describe("business", () => {
       {
         name: "Business",
         telegram: data,
+        plan: BusinessPlan.BASIC,
+        sendOrderToWhatsapp: false,
       },
       business.id,
     );
@@ -59,6 +66,8 @@ describe("business", () => {
     business = await createOrUpdateBusiness(
       {
         name: "Business",
+        plan: BusinessPlan.BASIC,
+        sendOrderToWhatsapp: false,
       },
       business.id,
     );
