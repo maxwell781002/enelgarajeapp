@@ -34,6 +34,7 @@
     "phPlan": "Seleccionar plan",
     "BASIC": "Básico",
     "ENTERPRISE": "Empresarial",
+    "lbSendOrderToWhatsapp": "¿Mandar los mensajes para Whatsapp?",
     "tabAdmin": "Administración"
   },
   "Totals": {
