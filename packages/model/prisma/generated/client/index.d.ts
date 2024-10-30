@@ -2498,6 +2498,7 @@ export namespace Prisma {
     active: boolean | null;
     requestAddress: boolean | null;
     plan: $Enums.BusinessPlan | null;
+    sendOrderToWhatsapp: boolean | null;
   };
 
   export type BusinessMaxAggregateOutputType = {
@@ -2511,6 +2512,7 @@ export namespace Prisma {
     active: boolean | null;
     requestAddress: boolean | null;
     plan: $Enums.BusinessPlan | null;
+    sendOrderToWhatsapp: boolean | null;
   };
 
   export type BusinessCountAggregateOutputType = {
@@ -2525,6 +2527,7 @@ export namespace Prisma {
     active: number;
     requestAddress: number;
     plan: number;
+    sendOrderToWhatsapp: number;
     _all: number;
   };
 
@@ -2547,6 +2550,7 @@ export namespace Prisma {
     active?: true;
     requestAddress?: true;
     plan?: true;
+    sendOrderToWhatsapp?: true;
   };
 
   export type BusinessMaxAggregateInputType = {
@@ -2560,6 +2564,7 @@ export namespace Prisma {
     active?: true;
     requestAddress?: true;
     plan?: true;
+    sendOrderToWhatsapp?: true;
   };
 
   export type BusinessCountAggregateInputType = {
@@ -2574,6 +2579,7 @@ export namespace Prisma {
     active?: true;
     requestAddress?: true;
     plan?: true;
+    sendOrderToWhatsapp?: true;
     _all?: true;
   };
 
@@ -2680,6 +2686,7 @@ export namespace Prisma {
     active: boolean;
     requestAddress: boolean;
     plan: $Enums.BusinessPlan;
+    sendOrderToWhatsapp: boolean;
     _count: BusinessCountAggregateOutputType | null;
     _avg: BusinessAvgAggregateOutputType | null;
     _sum: BusinessSumAggregateOutputType | null;
@@ -2715,6 +2722,7 @@ export namespace Prisma {
       active?: boolean;
       requestAddress?: boolean;
       plan?: boolean;
+      sendOrderToWhatsapp?: boolean;
       telegram?: boolean | Business$telegramArgs<ExtArgs>;
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
@@ -2740,6 +2748,7 @@ export namespace Prisma {
       active?: boolean;
       requestAddress?: boolean;
       plan?: boolean;
+      sendOrderToWhatsapp?: boolean;
     },
     ExtArgs["result"]["business"]
   >;
@@ -2756,6 +2765,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: boolean;
+    sendOrderToWhatsapp?: boolean;
   };
 
   export type BusinessInclude<
@@ -2802,6 +2812,7 @@ export namespace Prisma {
          */
         requestAddress: boolean;
         plan: $Enums.BusinessPlan;
+        sendOrderToWhatsapp: boolean;
       },
       ExtArgs["result"]["business"]
     >;
@@ -3353,6 +3364,7 @@ export namespace Prisma {
     readonly active: FieldRef<"Business", "Boolean">;
     readonly requestAddress: FieldRef<"Business", "Boolean">;
     readonly plan: FieldRef<"Business", "BusinessPlan">;
+    readonly sendOrderToWhatsapp: FieldRef<"Business", "Boolean">;
   }
 
   // Custom InputTypes
@@ -20324,6 +20336,7 @@ export namespace Prisma {
     active: "active";
     requestAddress: "requestAddress";
     plan: "plan";
+    sendOrderToWhatsapp: "sendOrderToWhatsapp";
   };
 
   export type BusinessScalarFieldEnum =
@@ -20696,6 +20709,7 @@ export namespace Prisma {
     active?: BoolFilter<"Business"> | boolean;
     requestAddress?: BoolFilter<"Business"> | boolean;
     plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
     telegram?: XOR<
       TelegramBusinessNullableRelationFilter,
       TelegramBusinessWhereInput
@@ -20718,6 +20732,7 @@ export namespace Prisma {
     active?: SortOrder;
     requestAddress?: SortOrder;
     plan?: SortOrder;
+    sendOrderToWhatsapp?: SortOrder;
     telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
@@ -20741,6 +20756,7 @@ export namespace Prisma {
       active?: BoolFilter<"Business"> | boolean;
       requestAddress?: BoolFilter<"Business"> | boolean;
       plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
+      sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
       telegram?: XOR<
         TelegramBusinessNullableRelationFilter,
         TelegramBusinessWhereInput
@@ -20765,6 +20781,7 @@ export namespace Prisma {
     active?: SortOrder;
     requestAddress?: SortOrder;
     plan?: SortOrder;
+    sendOrderToWhatsapp?: SortOrder;
     _count?: BusinessCountOrderByAggregateInput;
     _avg?: BusinessAvgOrderByAggregateInput;
     _max?: BusinessMaxOrderByAggregateInput;
@@ -20799,6 +20816,7 @@ export namespace Prisma {
     plan?:
       | EnumBusinessPlanWithAggregatesFilter<"Business">
       | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolWithAggregatesFilter<"Business"> | boolean;
   };
 
   export type TelegramBusinessWhereInput = {
@@ -21886,6 +21904,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -21905,6 +21924,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -21924,6 +21944,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -21943,6 +21964,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -21962,6 +21984,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
   };
 
   export type BusinessUpdateManyMutationInput = {
@@ -21976,6 +21999,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type BusinessUncheckedUpdateManyInput = {
@@ -21990,6 +22014,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type TelegramBusinessCreateInput = {
@@ -23085,6 +23110,7 @@ export namespace Prisma {
     active?: SortOrder;
     requestAddress?: SortOrder;
     plan?: SortOrder;
+    sendOrderToWhatsapp?: SortOrder;
   };
 
   export type BusinessAvgOrderByAggregateInput = {
@@ -23102,6 +23128,7 @@ export namespace Prisma {
     active?: SortOrder;
     requestAddress?: SortOrder;
     plan?: SortOrder;
+    sendOrderToWhatsapp?: SortOrder;
   };
 
   export type BusinessMinOrderByAggregateInput = {
@@ -23115,6 +23142,7 @@ export namespace Prisma {
     active?: SortOrder;
     requestAddress?: SortOrder;
     plan?: SortOrder;
+    sendOrderToWhatsapp?: SortOrder;
   };
 
   export type BusinessSumOrderByAggregateInput = {
@@ -26544,6 +26572,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -26562,6 +26591,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -26608,6 +26638,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -26626,6 +26657,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -26691,6 +26723,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -26709,6 +26742,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -26783,6 +26817,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -26801,6 +26836,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -26819,6 +26855,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -26837,6 +26874,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -26938,6 +26976,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -26956,6 +26995,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -27500,6 +27540,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -27518,6 +27559,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -27626,6 +27668,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -27644,6 +27687,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -27731,6 +27775,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -27749,6 +27794,7 @@ export namespace Prisma {
     active?: boolean;
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -27903,6 +27949,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -27921,6 +27968,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean;
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;

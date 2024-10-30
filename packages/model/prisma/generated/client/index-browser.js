@@ -130,7 +130,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   slug: 'slug',
   active: 'active',
   requestAddress: 'requestAddress',
-  plan: 'plan'
+  plan: 'plan',
+  sendOrderToWhatsapp: 'sendOrderToWhatsapp'
 };
 
 exports.Prisma.TelegramBusinessScalarFieldEnum = {

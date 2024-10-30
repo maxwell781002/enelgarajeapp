@@ -21,17 +21,18 @@ datasource db {
 }
 
 model Business {
-  id             String       @id @default(uuid())
-  name           String
-  description    String?
-  address        String?
-  phone          String?
-  howToArrive    String?
-  coordinates    Float[]
-  slug           String?      @unique
-  active         Boolean      @default(true) /// @zod.optional()
-  requestAddress Boolean      @default(false) /// @zod.optional()
-  plan           BusinessPlan @default(BASIC)
+  id                  String       @id @default(uuid())
+  name                String
+  description         String?
+  address             String?
+  phone               String?
+  howToArrive         String?
+  coordinates         Float[]
+  slug                String?      @unique
+  active              Boolean      @default(true) /// @zod.optional()
+  requestAddress      Boolean      @default(false) /// @zod.optional()
+  plan                BusinessPlan @default(BASIC)
+  sendOrderToWhatsapp Boolean      @default(false)
 
   telegram   TelegramBusiness?
   categories Category[]

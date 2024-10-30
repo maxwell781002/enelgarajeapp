@@ -25,6 +25,7 @@ export const BusinessModel = z.object({
   active: z.boolean().optional(),
   requestAddress: z.boolean().optional(),
   plan: z.nativeEnum(BusinessPlan),
+  sendOrderToWhatsapp: z.boolean(),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
