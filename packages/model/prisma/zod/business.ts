@@ -1,6 +1,8 @@
 import * as z from "zod";
 import { BusinessPlan } from "../generated/client";
 import {
+  CompletePaymentMethod,
+  RelatedPaymentMethodModel,
   CompleteTelegramBusiness,
   RelatedTelegramBusinessModel,
   CompleteCategory,
@@ -26,14 +28,17 @@ export const BusinessModel = z.object({
   requestAddress: z.boolean().optional(),
   plan: z.nativeEnum(BusinessPlan),
   sendOrderToWhatsapp: z.boolean(),
+  defaultPaymentMethodId: z.string().nullish(),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
+  defaultPaymentMehtod?: CompletePaymentMethod | null;
   telegram?: CompleteTelegramBusiness | null;
   categories: CompleteCategory[];
   products: CompleteProduct[];
   orders: CompleteOrder[];
   users: CompleteUserBusiness[];
+  paymentMethod: CompletePaymentMethod[];
 }
 
 /**
@@ -43,10 +48,12 @@ export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
  */
 export const RelatedBusinessModel: z.ZodSchema<CompleteBusiness> = z.lazy(() =>
   BusinessModel.extend({
+    defaultPaymentMehtod: RelatedPaymentMethodModel.nullish(),
     telegram: RelatedTelegramBusinessModel.nullish(),
     categories: RelatedCategoryModel.array(),
     products: RelatedProductModel.array(),
     orders: RelatedOrderModel.array(),
     users: RelatedUserBusinessModel.array(),
+    paymentMethod: RelatedPaymentMethodModel.array(),
   }),
 );

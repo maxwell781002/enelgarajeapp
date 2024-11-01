@@ -23,6 +23,12 @@ export type Business = $Result.DefaultSelection<Prisma.$BusinessPayload>;
 export type TelegramBusiness =
   $Result.DefaultSelection<Prisma.$TelegramBusinessPayload>;
 /**
+ * Model PaymentMethod
+ *
+ */
+export type PaymentMethod =
+  $Result.DefaultSelection<Prisma.$PaymentMethodPayload>;
+/**
  * Model Category
  *
  */
@@ -104,6 +110,14 @@ export namespace $Enums {
 
   export type BusinessPlan = (typeof BusinessPlan)[keyof typeof BusinessPlan];
 
+  export const PaymentMethodType: {
+    TRANSFERMOVIL: "TRANSFERMOVIL";
+    ENZONA: "ENZONA";
+  };
+
+  export type PaymentMethodType =
+    (typeof PaymentMethodType)[keyof typeof PaymentMethodType];
+
   export const UserRoles: {
     USER: "USER";
     ADMIN: "ADMIN";
@@ -124,6 +138,10 @@ export namespace $Enums {
 export type BusinessPlan = $Enums.BusinessPlan;
 
 export const BusinessPlan: typeof $Enums.BusinessPlan;
+
+export type PaymentMethodType = $Enums.PaymentMethodType;
+
+export const PaymentMethodType: typeof $Enums.PaymentMethodType;
 
 export type UserRoles = $Enums.UserRoles;
 
@@ -308,6 +326,16 @@ export class PrismaClient<
    * ```
    */
   get telegramBusiness(): Prisma.TelegramBusinessDelegate<ExtArgs>;
+
+  /**
+   * `prisma.paymentMethod`: Exposes CRUD operations for the **PaymentMethod** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more PaymentMethods
+   * const paymentMethods = await prisma.paymentMethod.findMany()
+   * ```
+   */
+  get paymentMethod(): Prisma.PaymentMethodDelegate<ExtArgs>;
 
   /**
    * `prisma.category`: Exposes CRUD operations for the **Category** model.
@@ -899,6 +927,7 @@ export namespace Prisma {
   export const ModelName: {
     Business: "Business";
     TelegramBusiness: "TelegramBusiness";
+    PaymentMethod: "PaymentMethod";
     Category: "Category";
     Product: "Product";
     User: "User";
@@ -939,6 +968,7 @@ export namespace Prisma {
       modelProps:
         | "business"
         | "telegramBusiness"
+        | "paymentMethod"
         | "category"
         | "product"
         | "user"
@@ -1093,6 +1123,78 @@ export namespace Prisma {
             args: Prisma.TelegramBusinessCountArgs<ExtArgs>;
             result:
               | $Utils.Optional<TelegramBusinessCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      PaymentMethod: {
+        payload: Prisma.$PaymentMethodPayload<ExtArgs>;
+        fields: Prisma.PaymentMethodFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentMethodFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.PaymentMethodFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>;
+          };
+          findFirst: {
+            args: Prisma.PaymentMethodFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.PaymentMethodFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>;
+          };
+          findMany: {
+            args: Prisma.PaymentMethodFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>[];
+          };
+          create: {
+            args: Prisma.PaymentMethodCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>;
+          };
+          createMany: {
+            args: Prisma.PaymentMethodCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.PaymentMethodCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>[];
+          };
+          delete: {
+            args: Prisma.PaymentMethodDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>;
+          };
+          update: {
+            args: Prisma.PaymentMethodUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>;
+          };
+          deleteMany: {
+            args: Prisma.PaymentMethodDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.PaymentMethodUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.PaymentMethodUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PaymentMethodPayload>;
+          };
+          aggregate: {
+            args: Prisma.PaymentMethodAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregatePaymentMethod>;
+          };
+          groupBy: {
+            args: Prisma.PaymentMethodGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<PaymentMethodGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.PaymentMethodCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<PaymentMethodCountAggregateOutputType>
               | number;
           };
         };
@@ -2204,6 +2306,7 @@ export namespace Prisma {
     products: number;
     orders: number;
     users: number;
+    paymentMethod: number;
   };
 
   export type BusinessCountOutputTypeSelect<
@@ -2213,6 +2316,7 @@ export namespace Prisma {
     products?: boolean | BusinessCountOutputTypeCountProductsArgs;
     orders?: boolean | BusinessCountOutputTypeCountOrdersArgs;
     users?: boolean | BusinessCountOutputTypeCountUsersArgs;
+    paymentMethod?: boolean | BusinessCountOutputTypeCountPaymentMethodArgs;
   };
 
   // Custom InputTypes
@@ -2262,6 +2366,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: UserBusinessWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountPaymentMethodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PaymentMethodWhereInput;
   };
 
   /**
@@ -2499,6 +2612,7 @@ export namespace Prisma {
     requestAddress: boolean | null;
     plan: $Enums.BusinessPlan | null;
     sendOrderToWhatsapp: boolean | null;
+    defaultPaymentMethodId: string | null;
   };
 
   export type BusinessMaxAggregateOutputType = {
@@ -2513,6 +2627,7 @@ export namespace Prisma {
     requestAddress: boolean | null;
     plan: $Enums.BusinessPlan | null;
     sendOrderToWhatsapp: boolean | null;
+    defaultPaymentMethodId: string | null;
   };
 
   export type BusinessCountAggregateOutputType = {
@@ -2528,6 +2643,7 @@ export namespace Prisma {
     requestAddress: number;
     plan: number;
     sendOrderToWhatsapp: number;
+    defaultPaymentMethodId: number;
     _all: number;
   };
 
@@ -2551,6 +2667,7 @@ export namespace Prisma {
     requestAddress?: true;
     plan?: true;
     sendOrderToWhatsapp?: true;
+    defaultPaymentMethodId?: true;
   };
 
   export type BusinessMaxAggregateInputType = {
@@ -2565,6 +2682,7 @@ export namespace Prisma {
     requestAddress?: true;
     plan?: true;
     sendOrderToWhatsapp?: true;
+    defaultPaymentMethodId?: true;
   };
 
   export type BusinessCountAggregateInputType = {
@@ -2580,6 +2698,7 @@ export namespace Prisma {
     requestAddress?: true;
     plan?: true;
     sendOrderToWhatsapp?: true;
+    defaultPaymentMethodId?: true;
     _all?: true;
   };
 
@@ -2687,6 +2806,7 @@ export namespace Prisma {
     requestAddress: boolean;
     plan: $Enums.BusinessPlan;
     sendOrderToWhatsapp: boolean;
+    defaultPaymentMethodId: string | null;
     _count: BusinessCountAggregateOutputType | null;
     _avg: BusinessAvgAggregateOutputType | null;
     _sum: BusinessSumAggregateOutputType | null;
@@ -2723,11 +2843,16 @@ export namespace Prisma {
       requestAddress?: boolean;
       plan?: boolean;
       sendOrderToWhatsapp?: boolean;
+      defaultPaymentMethodId?: boolean;
+      defaultPaymentMehtod?:
+        | boolean
+        | Business$defaultPaymentMehtodArgs<ExtArgs>;
       telegram?: boolean | Business$telegramArgs<ExtArgs>;
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
       orders?: boolean | Business$ordersArgs<ExtArgs>;
       users?: boolean | Business$usersArgs<ExtArgs>;
+      paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
@@ -2749,6 +2874,10 @@ export namespace Prisma {
       requestAddress?: boolean;
       plan?: boolean;
       sendOrderToWhatsapp?: boolean;
+      defaultPaymentMethodId?: boolean;
+      defaultPaymentMehtod?:
+        | boolean
+        | Business$defaultPaymentMehtodArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
   >;
@@ -2766,32 +2895,39 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: boolean;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: boolean;
   };
 
   export type BusinessInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
+    defaultPaymentMehtod?: boolean | Business$defaultPaymentMehtodArgs<ExtArgs>;
     telegram?: boolean | Business$telegramArgs<ExtArgs>;
     categories?: boolean | Business$categoriesArgs<ExtArgs>;
     products?: boolean | Business$productsArgs<ExtArgs>;
     orders?: boolean | Business$ordersArgs<ExtArgs>;
     users?: boolean | Business$usersArgs<ExtArgs>;
+    paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type BusinessIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {};
+  > = {
+    defaultPaymentMehtod?: boolean | Business$defaultPaymentMehtodArgs<ExtArgs>;
+  };
 
   export type $BusinessPayload<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     name: "Business";
     objects: {
+      defaultPaymentMehtod: Prisma.$PaymentMethodPayload<ExtArgs> | null;
       telegram: Prisma.$TelegramBusinessPayload<ExtArgs> | null;
       categories: Prisma.$CategoryPayload<ExtArgs>[];
       products: Prisma.$ProductPayload<ExtArgs>[];
       orders: Prisma.$OrderPayload<ExtArgs>[];
       users: Prisma.$UserBusinessPayload<ExtArgs>[];
+      paymentMethod: Prisma.$PaymentMethodPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -2813,6 +2949,7 @@ export namespace Prisma {
         requestAddress: boolean;
         plan: $Enums.BusinessPlan;
         sendOrderToWhatsapp: boolean;
+        defaultPaymentMethodId: string | null;
       },
       ExtArgs["result"]["business"]
     >;
@@ -3281,6 +3418,19 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
+    defaultPaymentMehtod<
+      T extends Business$defaultPaymentMehtodArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, Business$defaultPaymentMehtodArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<
+        Prisma.$PaymentMethodPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     telegram<T extends Business$telegramArgs<ExtArgs> = {}>(
       args?: Subset<T, Business$telegramArgs<ExtArgs>>,
     ): Prisma__TelegramBusinessClient<
@@ -3311,6 +3461,12 @@ export namespace Prisma {
       args?: Subset<T, Business$usersArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "findMany">
+      | Null
+    >;
+    paymentMethod<T extends Business$paymentMethodArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$paymentMethodArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany">
       | Null
     >;
     /**
@@ -3365,6 +3521,7 @@ export namespace Prisma {
     readonly requestAddress: FieldRef<"Business", "Boolean">;
     readonly plan: FieldRef<"Business", "BusinessPlan">;
     readonly sendOrderToWhatsapp: FieldRef<"Business", "Boolean">;
+    readonly defaultPaymentMethodId: FieldRef<"Business", "String">;
   }
 
   // Custom InputTypes
@@ -3607,6 +3764,10 @@ export namespace Prisma {
      */
     data: BusinessCreateManyInput | BusinessCreateManyInput[];
     skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessIncludeCreateManyAndReturn<ExtArgs> | null;
   };
 
   /**
@@ -3710,6 +3871,23 @@ export namespace Prisma {
      * Filter which Businesses to delete
      */
     where?: BusinessWhereInput;
+  };
+
+  /**
+   * Business.defaultPaymentMehtod
+   */
+  export type Business$defaultPaymentMehtodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    where?: PaymentMethodWhereInput;
   };
 
   /**
@@ -3821,6 +3999,30 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * Business.paymentMethod
+   */
+  export type Business$paymentMethodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    where?: PaymentMethodWhereInput;
+    orderBy?:
+      | PaymentMethodOrderByWithRelationInput
+      | PaymentMethodOrderByWithRelationInput[];
+    cursor?: PaymentMethodWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: PaymentMethodScalarFieldEnum | PaymentMethodScalarFieldEnum[];
   };
 
   /**
@@ -4969,6 +5171,1150 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TelegramBusinessInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model PaymentMethod
+   */
+
+  export type AggregatePaymentMethod = {
+    _count: PaymentMethodCountAggregateOutputType | null;
+    _min: PaymentMethodMinAggregateOutputType | null;
+    _max: PaymentMethodMaxAggregateOutputType | null;
+  };
+
+  export type PaymentMethodMinAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    type: $Enums.PaymentMethodType | null;
+    businessId: string | null;
+  };
+
+  export type PaymentMethodMaxAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    type: $Enums.PaymentMethodType | null;
+    businessId: string | null;
+  };
+
+  export type PaymentMethodCountAggregateOutputType = {
+    id: number;
+    name: number;
+    type: number;
+    data: number;
+    businessId: number;
+    _all: number;
+  };
+
+  export type PaymentMethodMinAggregateInputType = {
+    id?: true;
+    name?: true;
+    type?: true;
+    businessId?: true;
+  };
+
+  export type PaymentMethodMaxAggregateInputType = {
+    id?: true;
+    name?: true;
+    type?: true;
+    businessId?: true;
+  };
+
+  export type PaymentMethodCountAggregateInputType = {
+    id?: true;
+    name?: true;
+    type?: true;
+    data?: true;
+    businessId?: true;
+    _all?: true;
+  };
+
+  export type PaymentMethodAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PaymentMethod to aggregate.
+     */
+    where?: PaymentMethodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PaymentMethods to fetch.
+     */
+    orderBy?:
+      | PaymentMethodOrderByWithRelationInput
+      | PaymentMethodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: PaymentMethodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PaymentMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PaymentMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned PaymentMethods
+     **/
+    _count?: true | PaymentMethodCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: PaymentMethodMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: PaymentMethodMaxAggregateInputType;
+  };
+
+  export type GetPaymentMethodAggregateType<
+    T extends PaymentMethodAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregatePaymentMethod]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePaymentMethod[P]>
+      : GetScalarType<T[P], AggregatePaymentMethod[P]>;
+  };
+
+  export type PaymentMethodGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PaymentMethodWhereInput;
+    orderBy?:
+      | PaymentMethodOrderByWithAggregationInput
+      | PaymentMethodOrderByWithAggregationInput[];
+    by: PaymentMethodScalarFieldEnum[] | PaymentMethodScalarFieldEnum;
+    having?: PaymentMethodScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: PaymentMethodCountAggregateInputType | true;
+    _min?: PaymentMethodMinAggregateInputType;
+    _max?: PaymentMethodMaxAggregateInputType;
+  };
+
+  export type PaymentMethodGroupByOutputType = {
+    id: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonValue;
+    businessId: string;
+    _count: PaymentMethodCountAggregateOutputType | null;
+    _min: PaymentMethodMinAggregateOutputType | null;
+    _max: PaymentMethodMaxAggregateOutputType | null;
+  };
+
+  type GetPaymentMethodGroupByPayload<T extends PaymentMethodGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<PaymentMethodGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof PaymentMethodGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentMethodGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentMethodGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type PaymentMethodSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      name?: boolean;
+      type?: boolean;
+      data?: boolean;
+      businessId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      defaultBusiness?: boolean | PaymentMethod$defaultBusinessArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["paymentMethod"]
+  >;
+
+  export type PaymentMethodSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      name?: boolean;
+      type?: boolean;
+      data?: boolean;
+      businessId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["paymentMethod"]
+  >;
+
+  export type PaymentMethodSelectScalar = {
+    id?: boolean;
+    name?: boolean;
+    type?: boolean;
+    data?: boolean;
+    businessId?: boolean;
+  };
+
+  export type PaymentMethodInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    defaultBusiness?: boolean | PaymentMethod$defaultBusinessArgs<ExtArgs>;
+  };
+  export type PaymentMethodIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+
+  export type $PaymentMethodPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "PaymentMethod";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+      defaultBusiness: Prisma.$BusinessPayload<ExtArgs> | null;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        name: string;
+        type: $Enums.PaymentMethodType;
+        data: Prisma.JsonValue;
+        businessId: string;
+      },
+      ExtArgs["result"]["paymentMethod"]
+    >;
+    composites: {};
+  };
+
+  type PaymentMethodGetPayload<
+    S extends boolean | null | undefined | PaymentMethodDefaultArgs,
+  > = $Result.GetResult<Prisma.$PaymentMethodPayload, S>;
+
+  type PaymentMethodCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<PaymentMethodFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: PaymentMethodCountAggregateInputType | true;
+  };
+
+  export interface PaymentMethodDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["PaymentMethod"];
+      meta: { name: "PaymentMethod" };
+    };
+    /**
+     * Find zero or one PaymentMethod that matches the filter.
+     * @param {PaymentMethodFindUniqueArgs} args - Arguments to find a PaymentMethod
+     * @example
+     * // Get one PaymentMethod
+     * const paymentMethod = await prisma.paymentMethod.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentMethodFindUniqueArgs>(
+      args: SelectSubset<T, PaymentMethodFindUniqueArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<
+        Prisma.$PaymentMethodPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one PaymentMethod that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PaymentMethodFindUniqueOrThrowArgs} args - Arguments to find a PaymentMethod
+     * @example
+     * // Get one PaymentMethod
+     * const paymentMethod = await prisma.paymentMethod.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentMethodFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, PaymentMethodFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<
+        Prisma.$PaymentMethodPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first PaymentMethod that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodFindFirstArgs} args - Arguments to find a PaymentMethod
+     * @example
+     * // Get one PaymentMethod
+     * const paymentMethod = await prisma.paymentMethod.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentMethodFindFirstArgs>(
+      args?: SelectSubset<T, PaymentMethodFindFirstArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<
+        Prisma.$PaymentMethodPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first PaymentMethod that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodFindFirstOrThrowArgs} args - Arguments to find a PaymentMethod
+     * @example
+     * // Get one PaymentMethod
+     * const paymentMethod = await prisma.paymentMethod.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentMethodFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PaymentMethodFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<
+        Prisma.$PaymentMethodPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more PaymentMethods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PaymentMethods
+     * const paymentMethods = await prisma.paymentMethod.findMany()
+     *
+     * // Get first 10 PaymentMethods
+     * const paymentMethods = await prisma.paymentMethod.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const paymentMethodWithIdOnly = await prisma.paymentMethod.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends PaymentMethodFindManyArgs>(
+      args?: SelectSubset<T, PaymentMethodFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a PaymentMethod.
+     * @param {PaymentMethodCreateArgs} args - Arguments to create a PaymentMethod.
+     * @example
+     * // Create one PaymentMethod
+     * const PaymentMethod = await prisma.paymentMethod.create({
+     *   data: {
+     *     // ... data to create a PaymentMethod
+     *   }
+     * })
+     *
+     */
+    create<T extends PaymentMethodCreateArgs>(
+      args: SelectSubset<T, PaymentMethodCreateArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many PaymentMethods.
+     * @param {PaymentMethodCreateManyArgs} args - Arguments to create many PaymentMethods.
+     * @example
+     * // Create many PaymentMethods
+     * const paymentMethod = await prisma.paymentMethod.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends PaymentMethodCreateManyArgs>(
+      args?: SelectSubset<T, PaymentMethodCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many PaymentMethods and returns the data saved in the database.
+     * @param {PaymentMethodCreateManyAndReturnArgs} args - Arguments to create many PaymentMethods.
+     * @example
+     * // Create many PaymentMethods
+     * const paymentMethod = await prisma.paymentMethod.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many PaymentMethods and only return the `id`
+     * const paymentMethodWithIdOnly = await prisma.paymentMethod.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends PaymentMethodCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, PaymentMethodCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PaymentMethodPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a PaymentMethod.
+     * @param {PaymentMethodDeleteArgs} args - Arguments to delete one PaymentMethod.
+     * @example
+     * // Delete one PaymentMethod
+     * const PaymentMethod = await prisma.paymentMethod.delete({
+     *   where: {
+     *     // ... filter to delete one PaymentMethod
+     *   }
+     * })
+     *
+     */
+    delete<T extends PaymentMethodDeleteArgs>(
+      args: SelectSubset<T, PaymentMethodDeleteArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one PaymentMethod.
+     * @param {PaymentMethodUpdateArgs} args - Arguments to update one PaymentMethod.
+     * @example
+     * // Update one PaymentMethod
+     * const paymentMethod = await prisma.paymentMethod.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends PaymentMethodUpdateArgs>(
+      args: SelectSubset<T, PaymentMethodUpdateArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more PaymentMethods.
+     * @param {PaymentMethodDeleteManyArgs} args - Arguments to filter PaymentMethods to delete.
+     * @example
+     * // Delete a few PaymentMethods
+     * const { count } = await prisma.paymentMethod.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends PaymentMethodDeleteManyArgs>(
+      args?: SelectSubset<T, PaymentMethodDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PaymentMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PaymentMethods
+     * const paymentMethod = await prisma.paymentMethod.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends PaymentMethodUpdateManyArgs>(
+      args: SelectSubset<T, PaymentMethodUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one PaymentMethod.
+     * @param {PaymentMethodUpsertArgs} args - Arguments to update or create a PaymentMethod.
+     * @example
+     * // Update or create a PaymentMethod
+     * const paymentMethod = await prisma.paymentMethod.upsert({
+     *   create: {
+     *     // ... data to create a PaymentMethod
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PaymentMethod we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentMethodUpsertArgs>(
+      args: SelectSubset<T, PaymentMethodUpsertArgs<ExtArgs>>,
+    ): Prisma__PaymentMethodClient<
+      $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of PaymentMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodCountArgs} args - Arguments to filter PaymentMethods to count.
+     * @example
+     * // Count the number of PaymentMethods
+     * const count = await prisma.paymentMethod.count({
+     *   where: {
+     *     // ... the filter for the PaymentMethods we want to count
+     *   }
+     * })
+     **/
+    count<T extends PaymentMethodCountArgs>(
+      args?: Subset<T, PaymentMethodCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], PaymentMethodCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a PaymentMethod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends PaymentMethodAggregateArgs>(
+      args: Subset<T, PaymentMethodAggregateArgs>,
+    ): Prisma.PrismaPromise<GetPaymentMethodAggregateType<T>>;
+
+    /**
+     * Group by PaymentMethod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentMethodGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends PaymentMethodGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentMethodGroupByArgs["orderBy"] }
+        : { orderBy?: PaymentMethodGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, PaymentMethodGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetPaymentMethodGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the PaymentMethod model
+     */
+    readonly fields: PaymentMethodFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PaymentMethod.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentMethodClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    defaultBusiness<T extends PaymentMethod$defaultBusinessArgs<ExtArgs> = {}>(
+      args?: Subset<T, PaymentMethod$defaultBusinessArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      $Result.GetResult<
+        Prisma.$BusinessPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the PaymentMethod model
+   */
+  interface PaymentMethodFieldRefs {
+    readonly id: FieldRef<"PaymentMethod", "String">;
+    readonly name: FieldRef<"PaymentMethod", "String">;
+    readonly type: FieldRef<"PaymentMethod", "PaymentMethodType">;
+    readonly data: FieldRef<"PaymentMethod", "Json">;
+    readonly businessId: FieldRef<"PaymentMethod", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * PaymentMethod findUnique
+   */
+  export type PaymentMethodFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * Filter, which PaymentMethod to fetch.
+     */
+    where: PaymentMethodWhereUniqueInput;
+  };
+
+  /**
+   * PaymentMethod findUniqueOrThrow
+   */
+  export type PaymentMethodFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * Filter, which PaymentMethod to fetch.
+     */
+    where: PaymentMethodWhereUniqueInput;
+  };
+
+  /**
+   * PaymentMethod findFirst
+   */
+  export type PaymentMethodFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * Filter, which PaymentMethod to fetch.
+     */
+    where?: PaymentMethodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PaymentMethods to fetch.
+     */
+    orderBy?:
+      | PaymentMethodOrderByWithRelationInput
+      | PaymentMethodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PaymentMethods.
+     */
+    cursor?: PaymentMethodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PaymentMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PaymentMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PaymentMethods.
+     */
+    distinct?: PaymentMethodScalarFieldEnum | PaymentMethodScalarFieldEnum[];
+  };
+
+  /**
+   * PaymentMethod findFirstOrThrow
+   */
+  export type PaymentMethodFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * Filter, which PaymentMethod to fetch.
+     */
+    where?: PaymentMethodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PaymentMethods to fetch.
+     */
+    orderBy?:
+      | PaymentMethodOrderByWithRelationInput
+      | PaymentMethodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PaymentMethods.
+     */
+    cursor?: PaymentMethodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PaymentMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PaymentMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PaymentMethods.
+     */
+    distinct?: PaymentMethodScalarFieldEnum | PaymentMethodScalarFieldEnum[];
+  };
+
+  /**
+   * PaymentMethod findMany
+   */
+  export type PaymentMethodFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * Filter, which PaymentMethods to fetch.
+     */
+    where?: PaymentMethodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PaymentMethods to fetch.
+     */
+    orderBy?:
+      | PaymentMethodOrderByWithRelationInput
+      | PaymentMethodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing PaymentMethods.
+     */
+    cursor?: PaymentMethodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PaymentMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PaymentMethods.
+     */
+    skip?: number;
+    distinct?: PaymentMethodScalarFieldEnum | PaymentMethodScalarFieldEnum[];
+  };
+
+  /**
+   * PaymentMethod create
+   */
+  export type PaymentMethodCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a PaymentMethod.
+     */
+    data: XOR<PaymentMethodCreateInput, PaymentMethodUncheckedCreateInput>;
+  };
+
+  /**
+   * PaymentMethod createMany
+   */
+  export type PaymentMethodCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many PaymentMethods.
+     */
+    data: PaymentMethodCreateManyInput | PaymentMethodCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * PaymentMethod createManyAndReturn
+   */
+  export type PaymentMethodCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many PaymentMethods.
+     */
+    data: PaymentMethodCreateManyInput | PaymentMethodCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PaymentMethod update
+   */
+  export type PaymentMethodUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a PaymentMethod.
+     */
+    data: XOR<PaymentMethodUpdateInput, PaymentMethodUncheckedUpdateInput>;
+    /**
+     * Choose, which PaymentMethod to update.
+     */
+    where: PaymentMethodWhereUniqueInput;
+  };
+
+  /**
+   * PaymentMethod updateMany
+   */
+  export type PaymentMethodUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update PaymentMethods.
+     */
+    data: XOR<
+      PaymentMethodUpdateManyMutationInput,
+      PaymentMethodUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PaymentMethods to update
+     */
+    where?: PaymentMethodWhereInput;
+  };
+
+  /**
+   * PaymentMethod upsert
+   */
+  export type PaymentMethodUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the PaymentMethod to update in case it exists.
+     */
+    where: PaymentMethodWhereUniqueInput;
+    /**
+     * In case the PaymentMethod found by the `where` argument doesn't exist, create a new PaymentMethod with this data.
+     */
+    create: XOR<PaymentMethodCreateInput, PaymentMethodUncheckedCreateInput>;
+    /**
+     * In case the PaymentMethod was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentMethodUpdateInput, PaymentMethodUncheckedUpdateInput>;
+  };
+
+  /**
+   * PaymentMethod delete
+   */
+  export type PaymentMethodDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
+    /**
+     * Filter which PaymentMethod to delete.
+     */
+    where: PaymentMethodWhereUniqueInput;
+  };
+
+  /**
+   * PaymentMethod deleteMany
+   */
+  export type PaymentMethodDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PaymentMethods to delete
+     */
+    where?: PaymentMethodWhereInput;
+  };
+
+  /**
+   * PaymentMethod.defaultBusiness
+   */
+  export type PaymentMethod$defaultBusinessArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null;
+    where?: BusinessWhereInput;
+  };
+
+  /**
+   * PaymentMethod without action
+   */
+  export type PaymentMethodDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PaymentMethod
+     */
+    select?: PaymentMethodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentMethodInclude<ExtArgs> | null;
   };
 
   /**
@@ -20337,6 +21683,7 @@ export namespace Prisma {
     requestAddress: "requestAddress";
     plan: "plan";
     sendOrderToWhatsapp: "sendOrderToWhatsapp";
+    defaultPaymentMethodId: "defaultPaymentMethodId";
   };
 
   export type BusinessScalarFieldEnum =
@@ -20351,6 +21698,17 @@ export namespace Prisma {
 
   export type TelegramBusinessScalarFieldEnum =
     (typeof TelegramBusinessScalarFieldEnum)[keyof typeof TelegramBusinessScalarFieldEnum];
+
+  export const PaymentMethodScalarFieldEnum: {
+    id: "id";
+    name: "name";
+    type: "type";
+    data: "data";
+    businessId: "businessId";
+  };
+
+  export type PaymentMethodScalarFieldEnum =
+    (typeof PaymentMethodScalarFieldEnum)[keyof typeof PaymentMethodScalarFieldEnum];
 
   export const CategoryScalarFieldEnum: {
     id: "id";
@@ -20613,6 +21971,26 @@ export namespace Prisma {
     FieldRefInputType<$PrismaModel, "BusinessPlan[]">;
 
   /**
+   * Reference to a field of type 'PaymentMethodType'
+   */
+  export type EnumPaymentMethodTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "PaymentMethodType">;
+
+  /**
+   * Reference to a field of type 'PaymentMethodType[]'
+   */
+  export type ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "PaymentMethodType[]">;
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Json"
+  >;
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -20626,14 +22004,6 @@ export namespace Prisma {
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<
     $PrismaModel,
     "Int[]"
-  >;
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<
-    $PrismaModel,
-    "Json"
   >;
 
   /**
@@ -20710,6 +22080,11 @@ export namespace Prisma {
     requestAddress?: BoolFilter<"Business"> | boolean;
     plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
+    defaultPaymentMethodId?: StringNullableFilter<"Business"> | string | null;
+    defaultPaymentMehtod?: XOR<
+      PaymentMethodNullableRelationFilter,
+      PaymentMethodWhereInput
+    > | null;
     telegram?: XOR<
       TelegramBusinessNullableRelationFilter,
       TelegramBusinessWhereInput
@@ -20718,6 +22093,7 @@ export namespace Prisma {
     products?: ProductListRelationFilter;
     orders?: OrderListRelationFilter;
     users?: UserBusinessListRelationFilter;
+    paymentMethod?: PaymentMethodListRelationFilter;
   };
 
   export type BusinessOrderByWithRelationInput = {
@@ -20733,17 +22109,21 @@ export namespace Prisma {
     requestAddress?: SortOrder;
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
+    defaultPaymentMethodId?: SortOrderInput | SortOrder;
+    defaultPaymentMehtod?: PaymentMethodOrderByWithRelationInput;
     telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
     orders?: OrderOrderByRelationAggregateInput;
     users?: UserBusinessOrderByRelationAggregateInput;
+    paymentMethod?: PaymentMethodOrderByRelationAggregateInput;
   };
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<
     {
       id?: string;
       slug?: string;
+      defaultPaymentMethodId?: string;
       AND?: BusinessWhereInput | BusinessWhereInput[];
       OR?: BusinessWhereInput[];
       NOT?: BusinessWhereInput | BusinessWhereInput[];
@@ -20757,6 +22137,10 @@ export namespace Prisma {
       requestAddress?: BoolFilter<"Business"> | boolean;
       plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
       sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
+      defaultPaymentMehtod?: XOR<
+        PaymentMethodNullableRelationFilter,
+        PaymentMethodWhereInput
+      > | null;
       telegram?: XOR<
         TelegramBusinessNullableRelationFilter,
         TelegramBusinessWhereInput
@@ -20765,8 +22149,9 @@ export namespace Prisma {
       products?: ProductListRelationFilter;
       orders?: OrderListRelationFilter;
       users?: UserBusinessListRelationFilter;
+      paymentMethod?: PaymentMethodListRelationFilter;
     },
-    "id" | "slug"
+    "id" | "slug" | "defaultPaymentMethodId"
   >;
 
   export type BusinessOrderByWithAggregationInput = {
@@ -20782,6 +22167,7 @@ export namespace Prisma {
     requestAddress?: SortOrder;
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
+    defaultPaymentMethodId?: SortOrderInput | SortOrder;
     _count?: BusinessCountOrderByAggregateInput;
     _avg?: BusinessAvgOrderByAggregateInput;
     _max?: BusinessMaxOrderByAggregateInput;
@@ -20817,6 +22203,10 @@ export namespace Prisma {
       | EnumBusinessPlanWithAggregatesFilter<"Business">
       | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolWithAggregatesFilter<"Business"> | boolean;
+    defaultPaymentMethodId?:
+      | StringNullableWithAggregatesFilter<"Business">
+      | string
+      | null;
   };
 
   export type TelegramBusinessWhereInput = {
@@ -20874,6 +22264,83 @@ export namespace Prisma {
     groupId?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
     invitationLink?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
     businessId?: StringWithAggregatesFilter<"TelegramBusiness"> | string;
+  };
+
+  export type PaymentMethodWhereInput = {
+    AND?: PaymentMethodWhereInput | PaymentMethodWhereInput[];
+    OR?: PaymentMethodWhereInput[];
+    NOT?: PaymentMethodWhereInput | PaymentMethodWhereInput[];
+    id?: StringFilter<"PaymentMethod"> | string;
+    name?: StringFilter<"PaymentMethod"> | string;
+    type?:
+      | EnumPaymentMethodTypeFilter<"PaymentMethod">
+      | $Enums.PaymentMethodType;
+    data?: JsonFilter<"PaymentMethod">;
+    businessId?: StringFilter<"PaymentMethod"> | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    defaultBusiness?: XOR<
+      BusinessNullableRelationFilter,
+      BusinessWhereInput
+    > | null;
+  };
+
+  export type PaymentMethodOrderByWithRelationInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    type?: SortOrder;
+    data?: SortOrder;
+    businessId?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+    defaultBusiness?: BusinessOrderByWithRelationInput;
+  };
+
+  export type PaymentMethodWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: PaymentMethodWhereInput | PaymentMethodWhereInput[];
+      OR?: PaymentMethodWhereInput[];
+      NOT?: PaymentMethodWhereInput | PaymentMethodWhereInput[];
+      name?: StringFilter<"PaymentMethod"> | string;
+      type?:
+        | EnumPaymentMethodTypeFilter<"PaymentMethod">
+        | $Enums.PaymentMethodType;
+      data?: JsonFilter<"PaymentMethod">;
+      businessId?: StringFilter<"PaymentMethod"> | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+      defaultBusiness?: XOR<
+        BusinessNullableRelationFilter,
+        BusinessWhereInput
+      > | null;
+    },
+    "id"
+  >;
+
+  export type PaymentMethodOrderByWithAggregationInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    type?: SortOrder;
+    data?: SortOrder;
+    businessId?: SortOrder;
+    _count?: PaymentMethodCountOrderByAggregateInput;
+    _max?: PaymentMethodMaxOrderByAggregateInput;
+    _min?: PaymentMethodMinOrderByAggregateInput;
+  };
+
+  export type PaymentMethodScalarWhereWithAggregatesInput = {
+    AND?:
+      | PaymentMethodScalarWhereWithAggregatesInput
+      | PaymentMethodScalarWhereWithAggregatesInput[];
+    OR?: PaymentMethodScalarWhereWithAggregatesInput[];
+    NOT?:
+      | PaymentMethodScalarWhereWithAggregatesInput
+      | PaymentMethodScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"PaymentMethod"> | string;
+    name?: StringWithAggregatesFilter<"PaymentMethod"> | string;
+    type?:
+      | EnumPaymentMethodTypeWithAggregatesFilter<"PaymentMethod">
+      | $Enums.PaymentMethodType;
+    data?: JsonWithAggregatesFilter<"PaymentMethod">;
+    businessId?: StringWithAggregatesFilter<"PaymentMethod"> | string;
   };
 
   export type CategoryWhereInput = {
@@ -21905,11 +23372,13 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateInput = {
@@ -21925,11 +23394,13 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUpdateInput = {
@@ -21945,11 +23416,13 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateInput = {
@@ -21965,11 +23438,16 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateManyInput = {
@@ -21985,6 +23463,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
   };
 
   export type BusinessUpdateManyMutationInput = {
@@ -22015,6 +23494,10 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
   };
 
   export type TelegramBusinessCreateInput = {
@@ -22062,6 +23545,73 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     groupId?: StringFieldUpdateOperationsInput | string;
     invitationLink?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type PaymentMethodCreateInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    business: BusinessCreateNestedOneWithoutPaymentMethodInput;
+    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMehtodInput;
+  };
+
+  export type PaymentMethodUncheckedCreateInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    businessId: string;
+    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMehtodInput;
+  };
+
+  export type PaymentMethodUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+    business?: BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput;
+    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+  };
+
+  export type PaymentMethodUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+  };
+
+  export type PaymentMethodCreateManyInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    businessId: string;
+  };
+
+  export type PaymentMethodUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+  };
+
+  export type PaymentMethodUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 
@@ -23048,6 +24598,11 @@ export namespace Prisma {
     not?: NestedEnumBusinessPlanFilter<$PrismaModel> | $Enums.BusinessPlan;
   };
 
+  export type PaymentMethodNullableRelationFilter = {
+    is?: PaymentMethodWhereInput | null;
+    isNot?: PaymentMethodWhereInput | null;
+  };
+
   export type TelegramBusinessNullableRelationFilter = {
     is?: TelegramBusinessWhereInput | null;
     isNot?: TelegramBusinessWhereInput | null;
@@ -23077,6 +24632,12 @@ export namespace Prisma {
     none?: UserBusinessWhereInput;
   };
 
+  export type PaymentMethodListRelationFilter = {
+    every?: PaymentMethodWhereInput;
+    some?: PaymentMethodWhereInput;
+    none?: PaymentMethodWhereInput;
+  };
+
   export type SortOrderInput = {
     sort: SortOrder;
     nulls?: NullsOrder;
@@ -23098,6 +24659,10 @@ export namespace Prisma {
     _count?: SortOrder;
   };
 
+  export type PaymentMethodOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
   export type BusinessCountOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
@@ -23111,6 +24676,7 @@ export namespace Prisma {
     requestAddress?: SortOrder;
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
+    defaultPaymentMethodId?: SortOrder;
   };
 
   export type BusinessAvgOrderByAggregateInput = {
@@ -23129,6 +24695,7 @@ export namespace Prisma {
     requestAddress?: SortOrder;
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
+    defaultPaymentMethodId?: SortOrder;
   };
 
   export type BusinessMinOrderByAggregateInput = {
@@ -23143,6 +24710,7 @@ export namespace Prisma {
     requestAddress?: SortOrder;
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
+    defaultPaymentMethodId?: SortOrder;
   };
 
   export type BusinessSumOrderByAggregateInput = {
@@ -23238,6 +24806,137 @@ export namespace Prisma {
     businessId?: SortOrder;
   };
 
+  export type EnumPaymentMethodTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.PaymentMethodType
+      | EnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.PaymentMethodType[]
+      | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.PaymentMethodType[]
+      | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumPaymentMethodTypeFilter<$PrismaModel>
+      | $Enums.PaymentMethodType;
+  };
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonFilterBase<$PrismaModel>>,
+          Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, "path">
+        >,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, "path">>;
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+  };
+
+  export type BusinessNullableRelationFilter = {
+    is?: BusinessWhereInput | null;
+    isNot?: BusinessWhereInput | null;
+  };
+
+  export type PaymentMethodCountOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    type?: SortOrder;
+    data?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type PaymentMethodMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    type?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type PaymentMethodMinOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    type?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type EnumPaymentMethodTypeWithAggregatesFilter<$PrismaModel = never> =
+    {
+      equals?:
+        | $Enums.PaymentMethodType
+        | EnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+      in?:
+        | $Enums.PaymentMethodType[]
+        | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+      notIn?:
+        | $Enums.PaymentMethodType[]
+        | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+      not?:
+        | NestedEnumPaymentMethodTypeWithAggregatesFilter<$PrismaModel>
+        | $Enums.PaymentMethodType;
+      _count?: NestedIntFilter<$PrismaModel>;
+      _min?: NestedEnumPaymentMethodTypeFilter<$PrismaModel>;
+      _max?: NestedEnumPaymentMethodTypeFilter<$PrismaModel>;
+    };
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<
+          Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
+          Exclude<
+            keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
+            "path"
+          >
+        >,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<
+        Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, "path">
+      >;
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    path?: string[];
+    string_contains?: string | StringFieldRefInput<$PrismaModel>;
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
+    not?:
+      | InputJsonValue
+      | JsonFieldRefInput<$PrismaModel>
+      | JsonNullValueFilter;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedJsonFilter<$PrismaModel>;
+    _max?: NestedJsonFilter<$PrismaModel>;
+  };
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>;
     in?: number[] | ListIntFieldRefInput<$PrismaModel>;
@@ -23298,37 +24997,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>;
     _min?: NestedIntFilter<$PrismaModel>;
     _max?: NestedIntFilter<$PrismaModel>;
-  };
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<
-          Required<JsonFilterBase<$PrismaModel>>,
-          Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, "path">
-        >,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, "path">>;
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    path?: string[];
-    string_contains?: string | StringFieldRefInput<$PrismaModel>;
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    not?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
   };
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -23436,45 +25104,6 @@ export namespace Prisma {
     price?: SortOrder;
     offerPrice?: SortOrder;
     priority?: SortOrder;
-  };
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<
-          Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
-          Exclude<
-            keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>,
-            "path"
-          >
-        >,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<
-        Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, "path">
-      >;
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    path?: string[];
-    string_contains?: string | StringFieldRefInput<$PrismaModel>;
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>;
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>;
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null;
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>;
-    not?:
-      | InputJsonValue
-      | JsonFieldRefInput<$PrismaModel>
-      | JsonNullValueFilter;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedJsonFilter<$PrismaModel>;
-    _max?: NestedJsonFilter<$PrismaModel>;
   };
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -23679,11 +25308,6 @@ export namespace Prisma {
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null;
     isNot?: UserWhereInput | null;
-  };
-
-  export type BusinessNullableRelationFilter = {
-    is?: BusinessWhereInput | null;
-    isNot?: BusinessWhereInput | null;
   };
 
   export type OrderAddressNullableRelationFilter = {
@@ -24034,6 +25658,15 @@ export namespace Prisma {
     set: number[];
   };
 
+  export type PaymentMethodCreateNestedOneWithoutDefaultBusinessInput = {
+    create?: XOR<
+      PaymentMethodCreateWithoutDefaultBusinessInput,
+      PaymentMethodUncheckedCreateWithoutDefaultBusinessInput
+    >;
+    connectOrCreate?: PaymentMethodCreateOrConnectWithoutDefaultBusinessInput;
+    connect?: PaymentMethodWhereUniqueInput;
+  };
+
   export type TelegramBusinessCreateNestedOneWithoutBusinessInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -24101,6 +25734,21 @@ export namespace Prisma {
       | UserBusinessCreateOrConnectWithoutBusinessInput[];
     createMany?: UserBusinessCreateManyBusinessInputEnvelope;
     connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+  };
+
+  export type PaymentMethodCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          PaymentMethodCreateWithoutBusinessInput,
+          PaymentMethodUncheckedCreateWithoutBusinessInput
+        >
+      | PaymentMethodCreateWithoutBusinessInput[]
+      | PaymentMethodUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | PaymentMethodCreateOrConnectWithoutBusinessInput
+      | PaymentMethodCreateOrConnectWithoutBusinessInput[];
+    createMany?: PaymentMethodCreateManyBusinessInputEnvelope;
+    connect?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
   };
 
   export type TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput = {
@@ -24172,6 +25820,21 @@ export namespace Prisma {
     connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
   };
 
+  export type PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          PaymentMethodCreateWithoutBusinessInput,
+          PaymentMethodUncheckedCreateWithoutBusinessInput
+        >
+      | PaymentMethodCreateWithoutBusinessInput[]
+      | PaymentMethodUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | PaymentMethodCreateOrConnectWithoutBusinessInput
+      | PaymentMethodCreateOrConnectWithoutBusinessInput[];
+    createMany?: PaymentMethodCreateManyBusinessInputEnvelope;
+    connect?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+  };
+
   export type StringFieldUpdateOperationsInput = {
     set?: string;
   };
@@ -24191,6 +25854,25 @@ export namespace Prisma {
 
   export type EnumBusinessPlanFieldUpdateOperationsInput = {
     set?: $Enums.BusinessPlan;
+  };
+
+  export type PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput = {
+    create?: XOR<
+      PaymentMethodCreateWithoutDefaultBusinessInput,
+      PaymentMethodUncheckedCreateWithoutDefaultBusinessInput
+    >;
+    connectOrCreate?: PaymentMethodCreateOrConnectWithoutDefaultBusinessInput;
+    upsert?: PaymentMethodUpsertWithoutDefaultBusinessInput;
+    disconnect?: PaymentMethodWhereInput | boolean;
+    delete?: PaymentMethodWhereInput | boolean;
+    connect?: PaymentMethodWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PaymentMethodUpdateToOneWithWhereWithoutDefaultBusinessInput,
+        PaymentMethodUpdateWithoutDefaultBusinessInput
+      >,
+      PaymentMethodUncheckedUpdateWithoutDefaultBusinessInput
+    >;
   };
 
   export type TelegramBusinessUpdateOneWithoutBusinessNestedInput = {
@@ -24324,6 +26006,38 @@ export namespace Prisma {
     deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
   };
 
+  export type PaymentMethodUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          PaymentMethodCreateWithoutBusinessInput,
+          PaymentMethodUncheckedCreateWithoutBusinessInput
+        >
+      | PaymentMethodCreateWithoutBusinessInput[]
+      | PaymentMethodUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | PaymentMethodCreateOrConnectWithoutBusinessInput
+      | PaymentMethodCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput
+      | PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: PaymentMethodCreateManyBusinessInputEnvelope;
+    set?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+    disconnect?:
+      | PaymentMethodWhereUniqueInput
+      | PaymentMethodWhereUniqueInput[];
+    delete?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+    connect?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+    update?:
+      | PaymentMethodUpdateWithWhereUniqueWithoutBusinessInput
+      | PaymentMethodUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | PaymentMethodUpdateManyWithWhereWithoutBusinessInput
+      | PaymentMethodUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | PaymentMethodScalarWhereInput
+      | PaymentMethodScalarWhereInput[];
+  };
+
   export type TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -24455,6 +26169,38 @@ export namespace Prisma {
     deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
   };
 
+  export type PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          PaymentMethodCreateWithoutBusinessInput,
+          PaymentMethodUncheckedCreateWithoutBusinessInput
+        >
+      | PaymentMethodCreateWithoutBusinessInput[]
+      | PaymentMethodUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | PaymentMethodCreateOrConnectWithoutBusinessInput
+      | PaymentMethodCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput
+      | PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: PaymentMethodCreateManyBusinessInputEnvelope;
+    set?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+    disconnect?:
+      | PaymentMethodWhereUniqueInput
+      | PaymentMethodWhereUniqueInput[];
+    delete?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+    connect?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+    update?:
+      | PaymentMethodUpdateWithWhereUniqueWithoutBusinessInput
+      | PaymentMethodUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | PaymentMethodUpdateManyWithWhereWithoutBusinessInput
+      | PaymentMethodUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | PaymentMethodScalarWhereInput
+      | PaymentMethodScalarWhereInput[];
+  };
+
   export type BusinessCreateNestedOneWithoutTelegramInput = {
     create?: XOR<
       BusinessCreateWithoutTelegramInput,
@@ -24480,6 +26226,94 @@ export namespace Prisma {
       BusinessUncheckedUpdateWithoutTelegramInput
     >;
   };
+
+  export type BusinessCreateNestedOneWithoutPaymentMethodInput = {
+    create?: XOR<
+      BusinessCreateWithoutPaymentMethodInput,
+      BusinessUncheckedCreateWithoutPaymentMethodInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutPaymentMethodInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type BusinessCreateNestedOneWithoutDefaultPaymentMehtodInput = {
+    create?: XOR<
+      BusinessCreateWithoutDefaultPaymentMehtodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMehtodInput =
+    {
+      create?: XOR<
+        BusinessCreateWithoutDefaultPaymentMehtodInput,
+        BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+      >;
+      connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
+      connect?: BusinessWhereUniqueInput;
+    };
+
+  export type EnumPaymentMethodTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PaymentMethodType;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutPaymentMethodInput,
+      BusinessUncheckedCreateWithoutPaymentMethodInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutPaymentMethodInput;
+    upsert?: BusinessUpsertWithoutPaymentMethodInput;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutPaymentMethodInput,
+        BusinessUpdateWithoutPaymentMethodInput
+      >,
+      BusinessUncheckedUpdateWithoutPaymentMethodInput
+    >;
+  };
+
+  export type BusinessUpdateOneWithoutDefaultPaymentMehtodNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutDefaultPaymentMehtodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
+    upsert?: BusinessUpsertWithoutDefaultPaymentMehtodInput;
+    disconnect?: BusinessWhereInput | boolean;
+    delete?: BusinessWhereInput | boolean;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutDefaultPaymentMehtodInput,
+        BusinessUpdateWithoutDefaultPaymentMehtodInput
+      >,
+      BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+    >;
+  };
+
+  export type BusinessUncheckedUpdateOneWithoutDefaultPaymentMehtodNestedInput =
+    {
+      create?: XOR<
+        BusinessCreateWithoutDefaultPaymentMehtodInput,
+        BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+      >;
+      connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
+      upsert?: BusinessUpsertWithoutDefaultPaymentMehtodInput;
+      disconnect?: BusinessWhereInput | boolean;
+      delete?: BusinessWhereInput | boolean;
+      connect?: BusinessWhereUniqueInput;
+      update?: XOR<
+        XOR<
+          BusinessUpdateToOneWithWhereWithoutDefaultPaymentMehtodInput,
+          BusinessUpdateWithoutDefaultPaymentMehtodInput
+        >,
+        BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+      >;
+    };
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?:
@@ -26012,31 +27846,39 @@ export namespace Prisma {
       _max?: NestedEnumBusinessPlanFilter<$PrismaModel>;
     };
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>;
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
-    lt?: number | IntFieldRefInput<$PrismaModel>;
-    lte?: number | IntFieldRefInput<$PrismaModel>;
-    gt?: number | IntFieldRefInput<$PrismaModel>;
-    gte?: number | IntFieldRefInput<$PrismaModel>;
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
-    _count?: NestedIntFilter<$PrismaModel>;
-    _avg?: NestedFloatFilter<$PrismaModel>;
-    _sum?: NestedIntFilter<$PrismaModel>;
-    _min?: NestedIntFilter<$PrismaModel>;
-    _max?: NestedIntFilter<$PrismaModel>;
+  export type NestedEnumPaymentMethodTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.PaymentMethodType
+      | EnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.PaymentMethodType[]
+      | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.PaymentMethodType[]
+      | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumPaymentMethodTypeFilter<$PrismaModel>
+      | $Enums.PaymentMethodType;
   };
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>;
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>;
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>;
-    lt?: number | FloatFieldRefInput<$PrismaModel>;
-    lte?: number | FloatFieldRefInput<$PrismaModel>;
-    gt?: number | FloatFieldRefInput<$PrismaModel>;
-    gte?: number | FloatFieldRefInput<$PrismaModel>;
-    not?: NestedFloatFilter<$PrismaModel> | number;
+  export type NestedEnumPaymentMethodTypeWithAggregatesFilter<
+    $PrismaModel = never,
+  > = {
+    equals?:
+      | $Enums.PaymentMethodType
+      | EnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.PaymentMethodType[]
+      | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.PaymentMethodType[]
+      | ListEnumPaymentMethodTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumPaymentMethodTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.PaymentMethodType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumPaymentMethodTypeFilter<$PrismaModel>;
+    _max?: NestedEnumPaymentMethodTypeFilter<$PrismaModel>;
   };
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -26068,6 +27910,33 @@ export namespace Prisma {
       | InputJsonValue
       | JsonFieldRefInput<$PrismaModel>
       | JsonNullValueFilter;
+  };
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
+  };
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>;
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    lt?: number | FloatFieldRefInput<$PrismaModel>;
+    lte?: number | FloatFieldRefInput<$PrismaModel>;
+    gt?: number | FloatFieldRefInput<$PrismaModel>;
+    gte?: number | FloatFieldRefInput<$PrismaModel>;
+    not?: NestedFloatFilter<$PrismaModel> | number;
   };
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -26200,6 +28069,30 @@ export namespace Prisma {
       _min?: NestedEnumOrderStatusFilter<$PrismaModel>;
       _max?: NestedEnumOrderStatusFilter<$PrismaModel>;
     };
+
+  export type PaymentMethodCreateWithoutDefaultBusinessInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    business: BusinessCreateNestedOneWithoutPaymentMethodInput;
+  };
+
+  export type PaymentMethodUncheckedCreateWithoutDefaultBusinessInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    businessId: string;
+  };
+
+  export type PaymentMethodCreateOrConnectWithoutDefaultBusinessInput = {
+    where: PaymentMethodWhereUniqueInput;
+    create: XOR<
+      PaymentMethodCreateWithoutDefaultBusinessInput,
+      PaymentMethodUncheckedCreateWithoutDefaultBusinessInput
+    >;
+  };
 
   export type TelegramBusinessCreateWithoutBusinessInput = {
     id?: string;
@@ -26359,6 +28252,77 @@ export namespace Prisma {
       | UserBusinessCreateManyBusinessInput
       | UserBusinessCreateManyBusinessInput[];
     skipDuplicates?: boolean;
+  };
+
+  export type PaymentMethodCreateWithoutBusinessInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMehtodInput;
+  };
+
+  export type PaymentMethodUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMehtodInput;
+  };
+
+  export type PaymentMethodCreateOrConnectWithoutBusinessInput = {
+    where: PaymentMethodWhereUniqueInput;
+    create: XOR<
+      PaymentMethodCreateWithoutBusinessInput,
+      PaymentMethodUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type PaymentMethodCreateManyBusinessInputEnvelope = {
+    data:
+      | PaymentMethodCreateManyBusinessInput
+      | PaymentMethodCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type PaymentMethodUpsertWithoutDefaultBusinessInput = {
+    update: XOR<
+      PaymentMethodUpdateWithoutDefaultBusinessInput,
+      PaymentMethodUncheckedUpdateWithoutDefaultBusinessInput
+    >;
+    create: XOR<
+      PaymentMethodCreateWithoutDefaultBusinessInput,
+      PaymentMethodUncheckedCreateWithoutDefaultBusinessInput
+    >;
+    where?: PaymentMethodWhereInput;
+  };
+
+  export type PaymentMethodUpdateToOneWithWhereWithoutDefaultBusinessInput = {
+    where?: PaymentMethodWhereInput;
+    data: XOR<
+      PaymentMethodUpdateWithoutDefaultBusinessInput,
+      PaymentMethodUncheckedUpdateWithoutDefaultBusinessInput
+    >;
+  };
+
+  export type PaymentMethodUpdateWithoutDefaultBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+    business?: BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput;
+  };
+
+  export type PaymentMethodUncheckedUpdateWithoutDefaultBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+    businessId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type TelegramBusinessUpsertWithoutBusinessInput = {
@@ -26560,6 +28524,47 @@ export namespace Prisma {
     businessId?: StringFilter<"UserBusiness"> | string;
   };
 
+  export type PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: PaymentMethodWhereUniqueInput;
+    update: XOR<
+      PaymentMethodUpdateWithoutBusinessInput,
+      PaymentMethodUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      PaymentMethodCreateWithoutBusinessInput,
+      PaymentMethodUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type PaymentMethodUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: PaymentMethodWhereUniqueInput;
+    data: XOR<
+      PaymentMethodUpdateWithoutBusinessInput,
+      PaymentMethodUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type PaymentMethodUpdateManyWithWhereWithoutBusinessInput = {
+    where: PaymentMethodScalarWhereInput;
+    data: XOR<
+      PaymentMethodUpdateManyMutationInput,
+      PaymentMethodUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type PaymentMethodScalarWhereInput = {
+    AND?: PaymentMethodScalarWhereInput | PaymentMethodScalarWhereInput[];
+    OR?: PaymentMethodScalarWhereInput[];
+    NOT?: PaymentMethodScalarWhereInput | PaymentMethodScalarWhereInput[];
+    id?: StringFilter<"PaymentMethod"> | string;
+    name?: StringFilter<"PaymentMethod"> | string;
+    type?:
+      | EnumPaymentMethodTypeFilter<"PaymentMethod">
+      | $Enums.PaymentMethodType;
+    data?: JsonFilter<"PaymentMethod">;
+    businessId?: StringFilter<"PaymentMethod"> | string;
+  };
+
   export type BusinessCreateWithoutTelegramInput = {
     id?: string;
     name: string;
@@ -26573,10 +28578,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutTelegramInput = {
@@ -26592,10 +28599,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutTelegramInput = {
@@ -26639,10 +28648,12 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutTelegramInput = {
@@ -26658,10 +28669,242 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessCreateWithoutPaymentMethodInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutPaymentMethodInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutPaymentMethodInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutPaymentMethodInput,
+      BusinessUncheckedCreateWithoutPaymentMethodInput
+    >;
+  };
+
+  export type BusinessCreateWithoutDefaultPaymentMehtodInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutDefaultPaymentMehtodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+    >;
+  };
+
+  export type BusinessUpsertWithoutPaymentMethodInput = {
+    update: XOR<
+      BusinessUpdateWithoutPaymentMethodInput,
+      BusinessUncheckedUpdateWithoutPaymentMethodInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutPaymentMethodInput,
+      BusinessUncheckedCreateWithoutPaymentMethodInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutPaymentMethodInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutPaymentMethodInput,
+      BusinessUncheckedUpdateWithoutPaymentMethodInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutPaymentMethodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutPaymentMethodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUpsertWithoutDefaultPaymentMehtodInput = {
+    update: XOR<
+      BusinessUpdateWithoutDefaultPaymentMehtodInput,
+      BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutDefaultPaymentMehtodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutDefaultPaymentMehtodInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutDefaultPaymentMehtodInput,
+      BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutDefaultPaymentMehtodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductCreateWithoutCategoryInput = {
@@ -26724,10 +28967,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCategoriesInput = {
@@ -26743,10 +28988,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCategoriesInput = {
@@ -26818,10 +29065,12 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCategoriesInput = {
@@ -26837,10 +29086,15 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateWithoutProductsInput = {
@@ -26856,10 +29110,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -26875,10 +29131,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -26977,10 +29235,12 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -26996,10 +29256,15 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -27541,10 +29806,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUsersInput = {
@@ -27560,10 +29827,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUsersInput = {
@@ -27669,10 +29938,12 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUsersInput = {
@@ -27688,10 +29959,15 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserCreateWithoutOrdersInput = {
@@ -27776,10 +30052,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutOrdersInput = {
@@ -27795,10 +30073,12 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutOrdersInput = {
@@ -27950,10 +30230,12 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutOrdersInput = {
@@ -27969,10 +30251,15 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type OrderAddressUpsertWithoutOrderInput = {
@@ -28956,6 +31243,13 @@ export namespace Prisma {
     userId: string;
   };
 
+  export type PaymentMethodCreateManyBusinessInput = {
+    id?: string;
+    name: string;
+    type: $Enums.PaymentMethodType;
+    data: JsonNullValueInput | InputJsonValue;
+  };
+
   export type CategoryUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
@@ -29079,6 +31373,35 @@ export namespace Prisma {
 
   export type UserBusinessUncheckedUpdateManyWithoutBusinessInput = {
     userId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type PaymentMethodUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+  };
+
+  export type PaymentMethodUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
+    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+  };
+
+  export type PaymentMethodUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumPaymentMethodTypeFieldUpdateOperationsInput
+      | $Enums.PaymentMethodType;
+    data?: JsonNullValueInput | InputJsonValue;
   };
 
   export type ProductCreateManyCategoryInput = {
@@ -29460,6 +31783,12 @@ export namespace Prisma {
   export type TelegramBusinessArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = TelegramBusinessDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use PaymentMethodDefaultArgs instead
+   */
+  export type PaymentMethodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = PaymentMethodDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use CategoryDefaultArgs instead
    */

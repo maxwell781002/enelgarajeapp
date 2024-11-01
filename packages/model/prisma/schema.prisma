@@ -21,24 +21,26 @@ datasource db {
 }
 
 model Business {
-  id                  String       @id @default(uuid())
-  name                String
-  description         String?
-  address             String?
-  phone               String?
-  howToArrive         String?
-  coordinates         Float[]
-  slug                String?      @unique
-  active              Boolean      @default(true) /// @zod.optional()
-  requestAddress      Boolean      @default(false) /// @zod.optional()
-  plan                BusinessPlan @default(BASIC)
-  sendOrderToWhatsapp Boolean      @default(false)
-
-  telegram   TelegramBusiness?
-  categories Category[]
-  products   Product[]
-  orders     Order[]
-  users      UserBusiness[]
+  id                     String            @id @default(uuid())
+  name                   String
+  description            String?
+  address                String?
+  phone                  String?
+  howToArrive            String?
+  coordinates            Float[]
+  slug                   String?           @unique
+  active                 Boolean           @default(true) /// @zod.optional()
+  requestAddress         Boolean           @default(false) /// @zod.optional()
+  plan                   BusinessPlan      @default(BASIC)
+  sendOrderToWhatsapp    Boolean           @default(false)
+  defaultPaymentMehtod   PaymentMethod?    @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
+  defaultPaymentMethodId String?           @unique()
+  telegram               TelegramBusiness?
+  categories             Category[]
+  products               Product[]
+  orders                 Order[]
+  users                  UserBusiness[]
+  paymentMethod          PaymentMethod[]   @relation("paymentMehtods")
 }
 
 model TelegramBusiness {
@@ -47,6 +49,21 @@ model TelegramBusiness {
   invitationLink String   @default("") /// @zod.optional()
   business       Business @relation(fields: [businessId], references: [id])
   businessId     String   @unique
+}
+
+model PaymentMethod {
+  id              String            @id @default(uuid())
+  name            String
+  type            PaymentMethodType
+  data            Json
+  business        Business          @relation("paymentMehtods", fields: [businessId], references: [id])
+  businessId      String
+  defaultBusiness Business?         @relation("defaultPaymentMehtod")
+}
+
+enum PaymentMethodType {
+  TRANSFERMOVIL
+  ENZONA
 }
 
 model Category {
