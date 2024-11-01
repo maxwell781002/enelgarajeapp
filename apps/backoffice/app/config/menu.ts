@@ -4,6 +4,7 @@ import {
   Package2,
   Settings,
   TagsIcon,
+  DollarSignIcon,
   ShoppingBasketIcon,
   BriefcaseBusinessIcon,
 } from "lucide-react";
@@ -39,6 +40,12 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     link: `/${businessId}/categories`,
     title: "Categorías",
     Icon: TagsIcon,
+    active: true,
+  },
+  {
+    link: `/${businessId}/payment-methods`,
+    title: "Métodos de pago",
+    Icon: DollarSignIcon,
     active: true,
   },
   {
