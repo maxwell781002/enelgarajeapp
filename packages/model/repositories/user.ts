@@ -16,6 +16,15 @@ export class UserRepository extends BaseRepository<
   getAll() {
     return this.model.findMany();
   }
+
+  getUserWithBusinesses(id: string) {
+    return this.model.findUnique({
+      where: { id },
+      include: {
+        business: true,
+      },
+    });
+  }
 }
 
 export const userRepository = new UserRepository();

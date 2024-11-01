@@ -34,7 +34,7 @@ export const getRedirect = async (request: NextRequest, session: any) => {
     return "/request-shop";
   }
   if (
-    pathname === "/" &&
+    (pathname === "/" || pathname === "/request-shop") &&
     user.role === UserRoles.USER &&
     businessIds.length > 0
   ) {
