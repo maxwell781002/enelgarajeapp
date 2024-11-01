@@ -13,6 +13,7 @@ const defaultValues = {
   active: true,
   plan: DEFAULT_PLAN,
   sendOrderToWhatsapp: false,
+  requestAddress: false,
 };
 
 export default async function PageForm() {
