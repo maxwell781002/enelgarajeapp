@@ -25,7 +25,7 @@ export default async function PageForm() {
   };
   const users = await userRepository.getAll();
   return (
-    <BackPage href="/business" urlTitle="Ir a negocios">
+    <BackPage href="/admin/business" urlTitle="Ir a negocios">
       <BusinessForm
         defaultValues={defaultValues as CompleteBusiness}
         action={action}
