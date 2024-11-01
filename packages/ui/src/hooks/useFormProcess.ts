@@ -22,6 +22,7 @@ export const useFormProcess = <T extends FieldValues>({
 
   const transformer = (data: any, formData: FormData, parent = "") => {
     Object.keys(data).forEach((key) => {
+      if (data[key] === undefined) return;
       const field = parent ? `${parent}.${key}` : key;
       if (Object.prototype.toString.call(data[key]) == "[object Object]") {
         return transformer(data[key], formData, field);
