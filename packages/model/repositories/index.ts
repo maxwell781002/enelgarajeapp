@@ -3,6 +3,7 @@ import { businessRepository } from "./business";
 import { categoryRepository } from "./category";
 import { orderRepository } from "./order";
 import { orderAddressRepository } from "./order-address";
+import { paymentMethodRepository } from "./payment-method";
 import { productRepository } from "./product";
 import { telegramBusinessRepository } from "./telegram-business";
 import { userRepository } from "./user";
@@ -16,6 +17,7 @@ export default {
   [categoryRepository.getRepositoryModelName()]: categoryRepository,
   [userAddressRepository.getRepositoryModelName()]: userAddressRepository,
   [orderAddressRepository.getRepositoryModelName()]: orderAddressRepository,
+  [paymentMethodRepository.getRepositoryModelName()]: paymentMethodRepository,
   [telegramBusinessRepository.getRepositoryModelName()]:
     telegramBusinessRepository,
 } as Record<string, BaseRepository<any, any>>;
