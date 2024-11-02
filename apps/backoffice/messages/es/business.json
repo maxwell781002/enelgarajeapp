@@ -37,7 +37,8 @@
     "BASIC": "Básico",
     "ENTERPRISE": "Empresarial",
     "lbSendOrderToWhatsapp": "¿Mandar los mensajes para Whatsapp?",
-    "tabAdmin": "Administración"
+    "tabAdmin": "Administración",
+    "noPaymentMethod": "No tiene ningún medio de pago configurado."
   },
   "Totals": {
     "totalProducts": "Total de productos",

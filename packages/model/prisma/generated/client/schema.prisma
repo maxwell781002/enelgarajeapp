@@ -33,7 +33,7 @@ model Business {
   requestAddress         Boolean           @default(false) /// @zod.optional()
   plan                   BusinessPlan      @default(BASIC)
   sendOrderToWhatsapp    Boolean           @default(false)
-  defaultPaymentMehtod   PaymentMethod?    @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
+  defaultPaymentMethod   PaymentMethod?    @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
   defaultPaymentMethodId String?           @unique()
   telegram               TelegramBusiness?
   categories             Category[]

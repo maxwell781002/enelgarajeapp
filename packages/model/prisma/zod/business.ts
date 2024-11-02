@@ -32,7 +32,7 @@ export const BusinessModel = z.object({
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
-  defaultPaymentMehtod?: CompletePaymentMethod | null;
+  defaultPaymentMethod?: CompletePaymentMethod | null;
   telegram?: CompleteTelegramBusiness | null;
   categories: CompleteCategory[];
   products: CompleteProduct[];
@@ -48,7 +48,7 @@ export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
  */
 export const RelatedBusinessModel: z.ZodSchema<CompleteBusiness> = z.lazy(() =>
   BusinessModel.extend({
-    defaultPaymentMehtod: RelatedPaymentMethodModel.nullish(),
+    defaultPaymentMethod: RelatedPaymentMethodModel.nullish(),
     telegram: RelatedTelegramBusinessModel.nullish(),
     categories: RelatedCategoryModel.array(),
     products: RelatedProductModel.array(),

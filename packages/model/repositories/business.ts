@@ -94,6 +94,13 @@ export class BusinessRepository extends BaseRepository<
       })
     ).map(({ businessId }) => businessId);
   }
+
+  getAllBusinessData(id: string) {
+    return this.model.findUnique({
+      where: { id },
+      include: { telegram: true, defaultPaymentMethod: true },
+    });
+  }
 }
 
 export const businessRepository = new BusinessRepository();

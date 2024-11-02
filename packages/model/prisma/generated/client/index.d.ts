@@ -2844,9 +2844,9 @@ export namespace Prisma {
       plan?: boolean;
       sendOrderToWhatsapp?: boolean;
       defaultPaymentMethodId?: boolean;
-      defaultPaymentMehtod?:
+      defaultPaymentMethod?:
         | boolean
-        | Business$defaultPaymentMehtodArgs<ExtArgs>;
+        | Business$defaultPaymentMethodArgs<ExtArgs>;
       telegram?: boolean | Business$telegramArgs<ExtArgs>;
       categories?: boolean | Business$categoriesArgs<ExtArgs>;
       products?: boolean | Business$productsArgs<ExtArgs>;
@@ -2875,9 +2875,9 @@ export namespace Prisma {
       plan?: boolean;
       sendOrderToWhatsapp?: boolean;
       defaultPaymentMethodId?: boolean;
-      defaultPaymentMehtod?:
+      defaultPaymentMethod?:
         | boolean
-        | Business$defaultPaymentMehtodArgs<ExtArgs>;
+        | Business$defaultPaymentMethodArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
   >;
@@ -2901,7 +2901,7 @@ export namespace Prisma {
   export type BusinessInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    defaultPaymentMehtod?: boolean | Business$defaultPaymentMehtodArgs<ExtArgs>;
+    defaultPaymentMethod?: boolean | Business$defaultPaymentMethodArgs<ExtArgs>;
     telegram?: boolean | Business$telegramArgs<ExtArgs>;
     categories?: boolean | Business$categoriesArgs<ExtArgs>;
     products?: boolean | Business$productsArgs<ExtArgs>;
@@ -2913,7 +2913,7 @@ export namespace Prisma {
   export type BusinessIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    defaultPaymentMehtod?: boolean | Business$defaultPaymentMehtodArgs<ExtArgs>;
+    defaultPaymentMethod?: boolean | Business$defaultPaymentMethodArgs<ExtArgs>;
   };
 
   export type $BusinessPayload<
@@ -2921,7 +2921,7 @@ export namespace Prisma {
   > = {
     name: "Business";
     objects: {
-      defaultPaymentMehtod: Prisma.$PaymentMethodPayload<ExtArgs> | null;
+      defaultPaymentMethod: Prisma.$PaymentMethodPayload<ExtArgs> | null;
       telegram: Prisma.$TelegramBusinessPayload<ExtArgs> | null;
       categories: Prisma.$CategoryPayload<ExtArgs>[];
       products: Prisma.$ProductPayload<ExtArgs>[];
@@ -3433,10 +3433,10 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    defaultPaymentMehtod<
-      T extends Business$defaultPaymentMehtodArgs<ExtArgs> = {},
+    defaultPaymentMethod<
+      T extends Business$defaultPaymentMethodArgs<ExtArgs> = {},
     >(
-      args?: Subset<T, Business$defaultPaymentMehtodArgs<ExtArgs>>,
+      args?: Subset<T, Business$defaultPaymentMethodArgs<ExtArgs>>,
     ): Prisma__PaymentMethodClient<
       $Result.GetResult<
         Prisma.$PaymentMethodPayload<ExtArgs>,
@@ -3889,9 +3889,9 @@ export namespace Prisma {
   };
 
   /**
-   * Business.defaultPaymentMehtod
+   * Business.defaultPaymentMethod
    */
-  export type Business$defaultPaymentMehtodArgs<
+  export type Business$defaultPaymentMethodArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
@@ -22099,7 +22099,7 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
     defaultPaymentMethodId?: StringNullableFilter<"Business"> | string | null;
-    defaultPaymentMehtod?: XOR<
+    defaultPaymentMethod?: XOR<
       PaymentMethodNullableRelationFilter,
       PaymentMethodWhereInput
     > | null;
@@ -22128,7 +22128,7 @@ export namespace Prisma {
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrderInput | SortOrder;
-    defaultPaymentMehtod?: PaymentMethodOrderByWithRelationInput;
+    defaultPaymentMethod?: PaymentMethodOrderByWithRelationInput;
     telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
     products?: ProductOrderByRelationAggregateInput;
@@ -22155,7 +22155,7 @@ export namespace Prisma {
       requestAddress?: BoolFilter<"Business"> | boolean;
       plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
       sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
-      defaultPaymentMehtod?: XOR<
+      defaultPaymentMethod?: XOR<
         PaymentMethodNullableRelationFilter,
         PaymentMethodWhereInput
       > | null;
@@ -23390,7 +23390,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -23434,7 +23434,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -23572,7 +23572,7 @@ export namespace Prisma {
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
     business: BusinessCreateNestedOneWithoutPaymentMethodInput;
-    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMehtodInput;
+    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMethodInput;
   };
 
   export type PaymentMethodUncheckedCreateInput = {
@@ -23581,7 +23581,7 @@ export namespace Prisma {
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
     businessId: string;
-    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMehtodInput;
+    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput;
   };
 
   export type PaymentMethodUpdateInput = {
@@ -23592,7 +23592,7 @@ export namespace Prisma {
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
     business?: BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput;
-    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateInput = {
@@ -23603,7 +23603,7 @@ export namespace Prisma {
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
     businessId?: StringFieldUpdateOperationsInput | string;
-    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput;
   };
 
   export type PaymentMethodCreateManyInput = {
@@ -26254,22 +26254,22 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput;
   };
 
-  export type BusinessCreateNestedOneWithoutDefaultPaymentMehtodInput = {
+  export type BusinessCreateNestedOneWithoutDefaultPaymentMethodInput = {
     create?: XOR<
-      BusinessCreateWithoutDefaultPaymentMehtodInput,
-      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+      BusinessCreateWithoutDefaultPaymentMethodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMethodInput
     >;
-    connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
+    connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMethodInput;
     connect?: BusinessWhereUniqueInput;
   };
 
-  export type BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMehtodInput =
+  export type BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput =
     {
       create?: XOR<
-        BusinessCreateWithoutDefaultPaymentMehtodInput,
-        BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+        BusinessCreateWithoutDefaultPaymentMethodInput,
+        BusinessUncheckedCreateWithoutDefaultPaymentMethodInput
       >;
-      connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
+      connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMethodInput;
       connect?: BusinessWhereUniqueInput;
     };
 
@@ -26294,42 +26294,42 @@ export namespace Prisma {
     >;
   };
 
-  export type BusinessUpdateOneWithoutDefaultPaymentMehtodNestedInput = {
+  export type BusinessUpdateOneWithoutDefaultPaymentMethodNestedInput = {
     create?: XOR<
-      BusinessCreateWithoutDefaultPaymentMehtodInput,
-      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+      BusinessCreateWithoutDefaultPaymentMethodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMethodInput
     >;
-    connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
-    upsert?: BusinessUpsertWithoutDefaultPaymentMehtodInput;
+    connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMethodInput;
+    upsert?: BusinessUpsertWithoutDefaultPaymentMethodInput;
     disconnect?: BusinessWhereInput | boolean;
     delete?: BusinessWhereInput | boolean;
     connect?: BusinessWhereUniqueInput;
     update?: XOR<
       XOR<
-        BusinessUpdateToOneWithWhereWithoutDefaultPaymentMehtodInput,
-        BusinessUpdateWithoutDefaultPaymentMehtodInput
+        BusinessUpdateToOneWithWhereWithoutDefaultPaymentMethodInput,
+        BusinessUpdateWithoutDefaultPaymentMethodInput
       >,
-      BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+      BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput
     >;
   };
 
-  export type BusinessUncheckedUpdateOneWithoutDefaultPaymentMehtodNestedInput =
+  export type BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput =
     {
       create?: XOR<
-        BusinessCreateWithoutDefaultPaymentMehtodInput,
-        BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+        BusinessCreateWithoutDefaultPaymentMethodInput,
+        BusinessUncheckedCreateWithoutDefaultPaymentMethodInput
       >;
-      connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput;
-      upsert?: BusinessUpsertWithoutDefaultPaymentMehtodInput;
+      connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMethodInput;
+      upsert?: BusinessUpsertWithoutDefaultPaymentMethodInput;
       disconnect?: BusinessWhereInput | boolean;
       delete?: BusinessWhereInput | boolean;
       connect?: BusinessWhereUniqueInput;
       update?: XOR<
         XOR<
-          BusinessUpdateToOneWithWhereWithoutDefaultPaymentMehtodInput,
-          BusinessUpdateWithoutDefaultPaymentMehtodInput
+          BusinessUpdateToOneWithWhereWithoutDefaultPaymentMethodInput,
+          BusinessUpdateWithoutDefaultPaymentMethodInput
         >,
-        BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+        BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput
       >;
     };
 
@@ -28277,7 +28277,7 @@ export namespace Prisma {
     name: string;
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
-    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMehtodInput;
+    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMethodInput;
   };
 
   export type PaymentMethodUncheckedCreateWithoutBusinessInput = {
@@ -28285,7 +28285,7 @@ export namespace Prisma {
     name: string;
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
-    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMehtodInput;
+    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput;
   };
 
   export type PaymentMethodCreateOrConnectWithoutBusinessInput = {
@@ -28596,7 +28596,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -28666,7 +28666,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -28711,7 +28711,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -28748,7 +28748,7 @@ export namespace Prisma {
     >;
   };
 
-  export type BusinessCreateWithoutDefaultPaymentMehtodInput = {
+  export type BusinessCreateWithoutDefaultPaymentMethodInput = {
     id?: string;
     name: string;
     description?: string | null;
@@ -28769,7 +28769,7 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
-  export type BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput = {
+  export type BusinessUncheckedCreateWithoutDefaultPaymentMethodInput = {
     id?: string;
     name: string;
     description?: string | null;
@@ -28790,11 +28790,11 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
-  export type BusinessCreateOrConnectWithoutDefaultPaymentMehtodInput = {
+  export type BusinessCreateOrConnectWithoutDefaultPaymentMethodInput = {
     where: BusinessWhereUniqueInput;
     create: XOR<
-      BusinessCreateWithoutDefaultPaymentMehtodInput,
-      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+      BusinessCreateWithoutDefaultPaymentMethodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMethodInput
     >;
   };
 
@@ -28831,7 +28831,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -28863,27 +28863,27 @@ export namespace Prisma {
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
-  export type BusinessUpsertWithoutDefaultPaymentMehtodInput = {
+  export type BusinessUpsertWithoutDefaultPaymentMethodInput = {
     update: XOR<
-      BusinessUpdateWithoutDefaultPaymentMehtodInput,
-      BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+      BusinessUpdateWithoutDefaultPaymentMethodInput,
+      BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput
     >;
     create: XOR<
-      BusinessCreateWithoutDefaultPaymentMehtodInput,
-      BusinessUncheckedCreateWithoutDefaultPaymentMehtodInput
+      BusinessCreateWithoutDefaultPaymentMethodInput,
+      BusinessUncheckedCreateWithoutDefaultPaymentMethodInput
     >;
     where?: BusinessWhereInput;
   };
 
-  export type BusinessUpdateToOneWithWhereWithoutDefaultPaymentMehtodInput = {
+  export type BusinessUpdateToOneWithWhereWithoutDefaultPaymentMethodInput = {
     where?: BusinessWhereInput;
     data: XOR<
-      BusinessUpdateWithoutDefaultPaymentMehtodInput,
-      BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput
+      BusinessUpdateWithoutDefaultPaymentMethodInput,
+      BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput
     >;
   };
 
-  export type BusinessUpdateWithoutDefaultPaymentMehtodInput = {
+  export type BusinessUpdateWithoutDefaultPaymentMethodInput = {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -28904,7 +28904,7 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
-  export type BusinessUncheckedUpdateWithoutDefaultPaymentMehtodInput = {
+  export type BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput = {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
     description?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -28985,7 +28985,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -29083,7 +29083,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -29128,7 +29128,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
@@ -29253,7 +29253,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
@@ -29824,7 +29824,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -29956,7 +29956,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -30070,7 +30070,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
-    defaultPaymentMehtod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -30248,7 +30248,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
-    defaultPaymentMehtod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -31400,7 +31400,7 @@ export namespace Prisma {
       | EnumPaymentMethodTypeFieldUpdateOperationsInput
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
-    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateWithoutBusinessInput = {
@@ -31410,7 +31410,7 @@ export namespace Prisma {
       | EnumPaymentMethodTypeFieldUpdateOperationsInput
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
-    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMehtodNestedInput;
+    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateManyWithoutBusinessInput = {
