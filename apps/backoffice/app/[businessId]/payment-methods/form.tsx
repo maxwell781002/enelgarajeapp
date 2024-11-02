@@ -18,9 +18,10 @@ import {
   CompletePaymentMethod,
   PaymentMethodModel,
 } from "@repo/model/zod/paymentmethod";
-import TransfermovilForm from "./formt-types/transfermovil";
 import { SelectWidget } from "@repo/ui/components/select";
 import { PaymentMethodType } from "@repo/model/validation/payment-method";
+import { useMemo } from "react";
+import { ComponentByType } from "./formt-types";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -47,6 +48,11 @@ export default function PaymentMethodForm({
   const paymentMethodTypeItems = Object.entries(PaymentMethodType).map(
     ([label, value]) => ({ label, value }),
   );
+  const type = form.watch("type");
+  const PaymentMethodComponent = useMemo(
+    () => (type ? ComponentByType[type as PaymentMethodType] : null),
+    [type],
+  );
 
   return (
     <Form {...form}>
@@ -67,7 +73,10 @@ export default function PaymentMethodForm({
         <FormField
           control={form.control}
           name="type"
-          render={({ field: { ref, ...field }, fieldState: { error } }: any) => (
+          render={({
+            field: { ref, ...field },
+            fieldState: { error },
+          }: any) => (
             <FormItem>
               <FormLabel>{t("lbType")}</FormLabel>
               <FormControl>
@@ -81,18 +90,26 @@ export default function PaymentMethodForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="data"
-          render={({ field: { ref, ...field }, fieldState: { error } }: any) => (
-            <FormItem>
-              <FormControl>
-                <TransfermovilForm placeholder={t("phName")} {...field} />
-              </FormControl>
-              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-            </FormItem>
-          )}
-        />
+        {PaymentMethodComponent && (
+          <>
+            <h3 className="font-bold">{t(`titles.${type}`)}</h3>
+            <FormField
+              control={form.control}
+              name="data"
+              render={({
+                field: { ref, ...field },
+                fieldState: { error },
+              }: any) => (
+                <FormItem>
+                  <FormControl>
+                    <PaymentMethodComponent placeholder={t("phName")} {...field} />
+                  </FormControl>
+                  <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+                </FormItem>
+              )}
+            />
+          </>
+        )}
         <Button type="submit">{t("btnSubmit")}</Button>
       </form>
     </Form>

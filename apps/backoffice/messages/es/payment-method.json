@@ -17,10 +17,20 @@
     "required": "Requerido",
     "lbType": "Tipo",
     "phType": "Selecciona el tipo de medio de pago.",
+    "titles": {
+      "TRANSFERMOVIL": "Transfermovil",
+      "ENZONA": "Enzona"
+    },
     "transfermovil": {
       "cardNumber": "Número de tarjeta",
       "phCardNumber": "Escriba el número de tarjeta",
       "phone": "Teléfono",
+      "phPhone": "Escriba el teléfono"
+    },
+    "Enzona": {
+      "lbAccountId": "Cuenta de Enzona",
+      "phAccountId": "Escriba la cuenta de Enzona",
+      "lbPhone": "Teléfono",
       "phPhone": "Escriba el teléfono"
     }
   }
