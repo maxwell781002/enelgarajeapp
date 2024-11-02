@@ -14,6 +14,14 @@
     "create": "Crear método de pago",
     "phSearch": "Buscar...",
     "upgrade_plan_title": "Creación de método de pago",
-    "required": "Requerido"
+    "required": "Requerido",
+    "lbType": "Tipo",
+    "phType": "Selecciona el tipo de medio de pago.",
+    "transfermovil": {
+      "cardNumber": "Número de tarjeta",
+      "phCardNumber": "Escriba el número de tarjeta",
+      "phone": "Teléfono",
+      "phPhone": "Escriba el teléfono"
+    }
   }
 }

@@ -18,6 +18,9 @@ import {
   CompletePaymentMethod,
   PaymentMethodModel,
 } from "@repo/model/zod/paymentmethod";
+import TransfermovilForm from "./formt-types/transfermovil";
+import { SelectWidget } from "@repo/ui/components/select";
+import { PaymentMethodType } from "@repo/model/validation/payment-method";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -41,6 +44,9 @@ export default function PaymentMethodForm({
         title: defaultValues?.id ? t("updated") : t("created"),
       }),
   });
+  const paymentMethodTypeItems = Object.entries(PaymentMethodType).map(
+    ([label, value]) => ({ label, value }),
+  );
 
   return (
     <Form {...form}>
@@ -53,6 +59,35 @@ export default function PaymentMethodForm({
               <FormLabel>{t("lblName")}</FormLabel>
               <FormControl>
                 <Input placeholder={t("phName")} {...field} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field: { ref, ...field }, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbType")}</FormLabel>
+              <FormControl>
+                <SelectWidget
+                  placeholder={t("phType")}
+                  {...field}
+                  items={paymentMethodTypeItems}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="data"
+          render={({ field: { ref, ...field }, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormControl>
+                <TransfermovilForm placeholder={t("phName")} {...field} />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>

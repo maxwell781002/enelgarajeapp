@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { PaymentMethodType } from "../prisma/generated/client";
 
+export { PaymentMethodType };
+
 const Transfermovil = z.object({
   cardNumber: z.string(),
   phone: z.string(),
