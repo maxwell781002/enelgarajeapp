@@ -14,13 +14,13 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
-import {
-  CompletePaymentMethod,
-  PaymentMethodModel,
-} from "@repo/model/zod/paymentmethod";
+import { CompletePaymentMethod } from "@repo/model/zod/paymentmethod";
 import { SelectWidget } from "@repo/ui/components/select";
-import { PaymentMethodType } from "@repo/model/validation/payment-method";
-import { useMemo } from "react";
+import {
+  getValidation,
+  PaymentMethodType,
+} from "@repo/model/validation/payment-method";
+import { useEffect, useMemo, useState } from "react";
 import { ComponentByType } from "./formt-types";
 
 type FormAction = {
@@ -28,16 +28,15 @@ type FormAction = {
   defaultValues: CompletePaymentMethod;
 };
 
-const resolver = zodResolver(PaymentMethodModel.omit({ id: true }));
-
 export default function PaymentMethodForm({
   action,
   defaultValues,
 }: FormAction) {
   const t = useTranslations("PaymentMethod");
+  const [resolver, setResolver] = useState(getValidation());
   const { toast } = useToast();
   const { form, onSubmit } = useFormProcess({
-    resolver,
+    resolver: zodResolver(resolver),
     action,
     defaultValues,
     onSuccess: () =>
@@ -49,6 +48,10 @@ export default function PaymentMethodForm({
     ([label, value]) => ({ label, value }),
   );
   const type = form.watch("type");
+  useEffect(() => {
+    setResolver(getValidation(type));
+    form.setValue("data", {});
+  }, [type, form]);
   const PaymentMethodComponent = useMemo(
     () => (type ? ComponentByType[type as PaymentMethodType] : null),
     [type],
@@ -102,9 +105,14 @@ export default function PaymentMethodForm({
               }: any) => (
                 <FormItem>
                   <FormControl>
-                    <PaymentMethodComponent placeholder={t("phName")} {...field} />
+                    <PaymentMethodComponent
+                      placeholder={t("phName")}
+                      {...field}
+                    />
                   </FormControl>
-                  <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+                  <FormMessage>
+                    {!!error?.message && t(error?.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />

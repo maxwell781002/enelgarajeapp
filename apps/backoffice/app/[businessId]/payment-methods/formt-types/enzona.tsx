@@ -1,4 +1,9 @@
-import { FormControl, FormItem, FormLabel } from "@repo/ui/components/ui/form";
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
 
@@ -6,12 +11,14 @@ export type EnzonaFormProps = {
   onChange: (value: any) => void;
   value: any;
   name: string;
+  error: any;
 };
 
 export default function EnzonaForm({
   name: globalName,
   value: globalValue,
   onChange,
+  error,
 }: EnzonaFormProps) {
   const t = useTranslations("PaymentMethod");
   const handleChange = ({
@@ -34,18 +41,7 @@ export default function EnzonaForm({
             onChange={handleChange}
           />
         </FormControl>
-        {/* <FormMessage>{!!error?.message && t(error?.message)}</FormMessage> */}
-      </FormItem>
-      <FormItem>
-        <FormLabel>{t("Enzona.lbPhone")}</FormLabel>
-        <FormControl>
-          <Input
-            placeholder={t("Enzona.phPhone")}
-            name="phone"
-            onChange={handleChange}
-          />
-        </FormControl>
-        {/* <FormMessage>{!!error?.message && t(error?.message)}</FormMessage> */}
+        <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
       </FormItem>
     </>
   );

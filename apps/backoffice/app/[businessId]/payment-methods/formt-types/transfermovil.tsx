@@ -1,4 +1,9 @@
-import { FormControl, FormItem, FormLabel } from "@repo/ui/components/ui/form";
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
 
@@ -6,12 +11,14 @@ export type TransfermovilFormProps = {
   onChange: (value: any) => void;
   value: any;
   name: string;
+  error: any;
 };
 
 export default function TransfermovilForm({
   name: globalName,
   value: globalValue,
   onChange,
+  error,
 }: TransfermovilFormProps) {
   const t = useTranslations("PaymentMethod");
   const handleChange = ({
@@ -34,7 +41,7 @@ export default function TransfermovilForm({
             onChange={handleChange}
           />
         </FormControl>
-        {/* <FormMessage>{!!error?.message && t(error?.message)}</FormMessage> */}
+        <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
       </FormItem>
       <FormItem>
         <FormLabel>{t("transfermovil.phone")}</FormLabel>
@@ -45,7 +52,7 @@ export default function TransfermovilForm({
             onChange={handleChange}
           />
         </FormControl>
-        {/* <FormMessage>{!!error?.message && t(error?.message)}</FormMessage> */}
+        <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
       </FormItem>
     </>
   );

@@ -17,6 +17,7 @@
     "required": "Requerido",
     "lbType": "Tipo",
     "phType": "Selecciona el tipo de medio de pago.",
+    "Required": "Requerido",
     "titles": {
       "TRANSFERMOVIL": "Transfermovil",
       "ENZONA": "Enzona"
