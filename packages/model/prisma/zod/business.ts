@@ -17,13 +17,13 @@ import {
 
 export const BusinessModel = z.object({
   id: z.string(),
-  name: z.string(),
-  description: z.string().nullish(),
-  address: z.string().nullish(),
-  phone: z.string().nullish(),
+  name: z.string().min(1, { message: "required" }),
+  description: z.string().min(1, { message: "required" }).nullish(),
+  address: z.string().min(1, { message: "required" }).nullish(),
+  phone: z.string().min(1, { message: "required" }).nullish(),
   howToArrive: z.string().nullish(),
   coordinates: z.number().array(),
-  slug: z.string().nullish(),
+  slug: z.string().min(1, { message: "required" }).nullish(),
   active: z.boolean().optional(),
   requestAddress: z.boolean().optional(),
   plan: z.nativeEnum(BusinessPlan),

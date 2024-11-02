@@ -12,7 +12,7 @@ const jsonSchema: z.ZodSchema<Json> = z.lazy(() =>
 
 export const PaymentMethodModel = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().min(1, { message: "required" }),
   type: z.nativeEnum(PaymentMethodType),
   data: jsonSchema,
   businessId: z.string(),

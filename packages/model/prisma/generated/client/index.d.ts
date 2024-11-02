@@ -2932,12 +2932,27 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
+        /**
+         * @zod.min(1, { message: "required" })
+         */
         name: string;
+        /**
+         * @zod.min(1, { message: "required" })
+         */
         description: string | null;
+        /**
+         * @zod.min(1, { message: "required" })
+         */
         address: string | null;
+        /**
+         * @zod.min(1, { message: "required" })
+         */
         phone: string | null;
         howToArrive: string | null;
         coordinates: number[];
+        /**
+         * @zod.min(1, { message: "required" })
+         */
         slug: string | null;
         /**
          * @zod.optional()
@@ -5393,6 +5408,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
+        /**
+         * @zod.min(1, { message: "required" })
+         */
         name: string;
         type: $Enums.PaymentMethodType;
         data: Prisma.JsonValue;

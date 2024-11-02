@@ -22,13 +22,13 @@ datasource db {
 
 model Business {
   id                     String            @id @default(uuid())
-  name                   String
-  description            String?
-  address                String?
-  phone                  String?
+  name                   String /// @zod.min(1, { message: "required" })
+  description            String? /// @zod.min(1, { message: "required" })
+  address                String? /// @zod.min(1, { message: "required" })
+  phone                  String? /// @zod.min(1, { message: "required" })
   howToArrive            String?
   coordinates            Float[]
-  slug                   String?           @unique
+  slug                   String?           @unique /// @zod.min(1, { message: "required" })
   active                 Boolean           @default(true) /// @zod.optional()
   requestAddress         Boolean           @default(false) /// @zod.optional()
   plan                   BusinessPlan      @default(BASIC)
@@ -53,7 +53,7 @@ model TelegramBusiness {
 
 model PaymentMethod {
   id              String            @id @default(uuid())
-  name            String
+  name            String /// @zod.min(1, { message: "required" })
   type            PaymentMethodType
   data            Json
   business        Business          @relation("paymentMehtods", fields: [businessId], references: [id])
