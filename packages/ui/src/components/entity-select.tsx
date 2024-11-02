@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
+import { useCallback } from "react";
 
 export type Item = {
   name: string;
@@ -16,7 +17,7 @@ export type Item = {
 export type EntitySelectProps = {
   placeholder?: string;
   items: Item[];
-  onChange?: (value: string) => void;
+  onChange?: (value: string | null) => void;
 } & SelectProps &
   SelectValueProps;
 
@@ -25,8 +26,12 @@ export default function EntitySelect({
   onChange,
   ...props
 }: EntitySelectProps) {
+  const handleChange = useCallback(
+    (value: string) => onChange?.(value || null),
+    [onChange],
+  );
   return (
-    <Select onValueChange={onChange} {...props}>
+    <Select onValueChange={handleChange} {...props}>
       <SelectTrigger className="w-full bg-white">
         <SelectValue {...props} />
       </SelectTrigger>

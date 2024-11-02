@@ -7,7 +7,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@repo/ui/components/ui/tabs";
-import BusinessForm from "./business-form";
+import BusinessForm, { BusinessFormProps } from "./business-form";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { useTranslations } from "next-intl";
 import { useToast } from "@repo/ui/components/ui/use-toast";
@@ -24,7 +24,8 @@ export type BusinessMasterFormProps = {
   action: (object: any) => Promise<any>;
   defaultValues: CompleteBusiness;
   isAdmin?: boolean;
-} & Pick<BusinessAdminFormProps, "users">;
+} & Pick<BusinessAdminFormProps, "users"> &
+  Omit<BusinessFormProps, "form">;
 
 export default function BusinessMasterForm({
   action,
