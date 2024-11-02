@@ -39,6 +39,7 @@ export default function TransfermovilForm({
             placeholder={t("transfermovil.phCardNumber")}
             name="cardNumber"
             onChange={handleChange}
+            value={globalValue?.cardNumber}
           />
         </FormControl>
         <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
@@ -50,6 +51,7 @@ export default function TransfermovilForm({
             placeholder={t("transfermovil.phPhone")}
             name="phone"
             onChange={handleChange}
+            value={globalValue?.phone}
           />
         </FormControl>
         <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>

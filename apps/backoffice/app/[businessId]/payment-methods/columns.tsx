@@ -43,6 +43,12 @@ export const columns: ColumnDef<any>[] = [
       value,
   },
   {
+    header: "Tipo",
+    accessorKey: "type",
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) =>
+      value,
+  },
+  {
     header: "Acciones",
     accessorKey: "name",
     cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {

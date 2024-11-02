@@ -50,8 +50,9 @@ export default function PaymentMethodForm({
   const type = form.watch("type");
   useEffect(() => {
     setResolver(getValidation(type));
-    form.setValue("data", {});
-  }, [type, form]);
+    const { data } = defaultValues.type === type ? defaultValues : { data: {} };
+    form.setValue("data", data);
+  }, [type, form, defaultValues]);
   const PaymentMethodComponent = useMemo(
     () => (type ? ComponentByType[type as PaymentMethodType] : null),
     [type],

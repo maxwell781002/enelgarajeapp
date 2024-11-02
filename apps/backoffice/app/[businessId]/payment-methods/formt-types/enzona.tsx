@@ -39,6 +39,7 @@ export default function EnzonaForm({
             placeholder={t("Enzona.phAccountId")}
             name="accountId"
             onChange={handleChange}
+            value={globalValue?.accountId}
           />
         </FormControl>
         <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
