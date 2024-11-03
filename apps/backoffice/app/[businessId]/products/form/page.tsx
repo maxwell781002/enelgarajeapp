@@ -33,7 +33,8 @@ export default async function PageForm({
 }: FormAction) {
   const business = await getBusinessById(businessId);
   const t = await getTranslations("Product");
-  if (business && (await isLimited(business))) {
+  // If we have business, is new object and is limited
+  if (business && !id && (await isLimited(business))) {
     return <UpgradePlan business={business} title={t("upgrade_plan_title")} />;
   }
   const action = async (formData: FormData) => {
