@@ -8,6 +8,8 @@ import Filter from "./filters";
 import { redirect } from "next/navigation";
 import PaymentMethodTable from "./table";
 import { paymentMethodRepository } from "@repo/model/repositories/payment-method";
+import { getBusinessById } from "@repo/model/repository/business";
+import { isPaymentMethodLimited } from "@repo/model/repository/payment-method";
 
 type PageProps = {
   searchParams: any;
@@ -29,6 +31,7 @@ export default async function Page({
     const url = await search(query);
     return redirect(url);
   };
+  const business = await getBusinessById(businessId);
   const pagination = await list({ ...searchParams, businessId });
   return (
     <TableLayout
@@ -39,6 +42,8 @@ export default async function Page({
           title={t("create")}
           action={create}
           defaultValues={{ businessId, name: "", data: {} }}
+          business={business}
+          isLimited={await isPaymentMethodLimited(business)}
         />
       }
     >

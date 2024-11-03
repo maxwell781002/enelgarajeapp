@@ -25,6 +25,12 @@ export class PaymentMethodRepository extends BaseRepository<
     });
   }
 
+  countByBusiness(businessId: string) {
+    return this.model.count({
+      where: { businessId },
+    });
+  }
+
   paginate({ businessId, query, ...data }: PaginateData = {}) {
     const where = clearWhere({
       businessId,

@@ -11,9 +11,9 @@ import { cn } from "@repo/ui/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { CompleteBusiness } from "@repo/model/prisma/zod/business";
 import { PLANS, INFINITE_NUMBER } from "@repo/model/lib/plans-feature";
-import WhatsappButton from "./whatsapp-button";
+import WhatsappButton from "@repo/ui/components/whatsapp-button";
 
-export type UpgradePlanProps = {
+export type DetailProps = {
   className?: string;
   business: CompleteBusiness;
   title?: string;
@@ -49,11 +49,11 @@ const Item = ({
   );
 };
 
-export default async function UpgradePlan({
+export default async function DetailPlan({
   className,
   business,
   title,
-}: UpgradePlanProps) {
+}: DetailProps) {
   const t = await getTranslations("UpgradePlan");
   const features = PLANS[business.plan];
   const whatsappNumber = process.env.PHONE_ADMIN_CONTACT as string;

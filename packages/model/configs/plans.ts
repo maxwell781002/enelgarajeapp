@@ -4,6 +4,7 @@ export const INFINITE_NUMBER = -1;
 
 export const CAN_CREATE_CATEGORY = "CAN_CREATE_CATEGORY";
 export const NUMBER_OF_PRODUCTS = "NUMBER_OF_PRODUCTS";
+export const NUMBER_OF_CARD_NUMBERS = "NUMBER_OF_CARD_NUMBERS";
 
 export type TFeatureKey =
   | keyof (typeof PLANS)["BASIC"]
@@ -12,10 +13,12 @@ export type TFeatureKey =
 export const PLANS = {
   [BusinessPlan.BASIC]: {
     [NUMBER_OF_PRODUCTS]: 10,
+    [NUMBER_OF_CARD_NUMBERS]: 1,
     [CAN_CREATE_CATEGORY]: false,
   },
   [BusinessPlan.ENTERPRISE]: {
     [CAN_CREATE_CATEGORY]: true,
     [NUMBER_OF_PRODUCTS]: INFINITE_NUMBER,
+    [NUMBER_OF_CARD_NUMBERS]: INFINITE_NUMBER,
   },
 };

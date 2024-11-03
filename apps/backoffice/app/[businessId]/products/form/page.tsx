@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { formDataToObject } from "@repo/model/lib/utils";
 import { getBusinessById } from "@repo/model/repository/business";
 import { isLimited } from "@repo/model/repository/product";
-import UpgradePlan from "@repo/ui/components/upgrade-plan";
+import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { getTranslations } from "next-intl/server";
 
 type FormAction = {
