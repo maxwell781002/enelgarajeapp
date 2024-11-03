@@ -5,8 +5,8 @@ import { DialogForm } from "./DialogForm";
 import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
-import { Check } from "lucide-react";
 import { CompletePaymentMethod } from "@repo/model/zod/paymentmethod";
+import { Detail } from "./detail";
 
 type ActionProps = {
   row: CompletePaymentMethod;
@@ -17,6 +17,7 @@ function RowActions({ row }: ActionProps) {
   const t = useTranslations("PaymentMethod");
   return (
     <BtnList>
+      <Detail data={row} />
       <DialogForm
         title={t("edit")}
         action={(data) => update(row.id, data)}

@@ -20,7 +20,6 @@ import Totals from "../../components/totals";
 import { productRepository } from "@repo/model/repositories/product";
 import { orderRepository } from "@repo/model/repositories/order";
 import BooleanValue from "@repo/ui/components/boolean-value";
-import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
 
 export default async function BusinessPage({
   params: { businessId },

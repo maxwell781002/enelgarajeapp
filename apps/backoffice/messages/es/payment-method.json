@@ -33,6 +33,10 @@
       "phAccountId": "Escriba la cuenta de Enzona",
       "lbPhone": "Teléfono",
       "phPhone": "Escriba el teléfono"
+    },
+    "detail": {
+      "title": "Datos del medio de pago",
+      "description": "Estos datos puede copiarlos y pegarlos para mandarlos por el medio de su interés."
     }
   }
 }
