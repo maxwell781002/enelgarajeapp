@@ -1,23 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, PropsWithChildren } from "react";
 import { Button } from "@repo/ui/components/ui/button";
 import { Check, Copy } from "lucide-react";
 
-interface CopyTextProps {
-  text: string;
-  buttonText?: string;
-}
+export type CopyTextProps = {
+  action: () => void;
+} & PropsWithChildren;
 
-export default function CopyToClipboard({
-  text,
-  buttonText = "",
+export default function BaseCopyToClipboard({
+  action,
+  children,
 }: CopyTextProps) {
   const [isCopied, setIsCopied] = useState(false);
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(text);
+      await action();
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
     } catch (err) {
@@ -27,7 +26,7 @@ export default function CopyToClipboard({
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-sm text-muted-foreground">{text}</span>
+      {children}
       <Button
         variant="outline"
         size="sm"

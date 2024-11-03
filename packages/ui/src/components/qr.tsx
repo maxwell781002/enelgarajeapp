@@ -1,6 +1,7 @@
 import { QRCodeSVG } from "qrcode.react";
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import html2canvas from "html2canvas";
+import BaseCopyToClipboard from "@repo/ui/components/copy-to-clipboard/base";
 
 const size = 200;
 
@@ -11,7 +12,7 @@ export type QrProps = {
 
 export default function Qr({ value, addCopy = false }: QrProps) {
   const ref = useRef(null);
-  const handleCopy = useCallback(() => {
+  const handleCopy = () => {
     html2canvas(ref.current).then(function (canvas: any) {
       canvas.toBlob(function (blob: any) {
         navigator.clipboard
@@ -29,18 +30,12 @@ export default function Qr({ value, addCopy = false }: QrProps) {
           });
       });
     });
-  }, [ref]);
+  };
+  const qr = <QRCodeSVG value={value} size={size} />;
+  if (!addCopy) return qr;
   return (
-    <div>
-      <div
-        style={{ width: size, height: size }}
-        className="flex justify-center"
-      >
-        <div ref={ref}>
-          <QRCodeSVG value={value} size={size} />
-        </div>
-      </div>
-      {addCopy && <button onClick={handleCopy}>Copy</button>}
-    </div>
+    <BaseCopyToClipboard action={handleCopy}>
+      <div ref={ref}>{qr}</div>
+    </BaseCopyToClipboard>
   );
 }
