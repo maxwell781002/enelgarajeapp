@@ -14,7 +14,11 @@ export default function EnzonaDetail({ data }: EnzonaProps) {
       <CardContent className="flex flex-col items-center p-6 space-y-4">
         <h3 className="font-bold">{t(`titles.${data.type}`)}</h3>
         <div className="w-full max-w-[200px] aspect-square">
-          <Qr value={(data.data as any)?.accountId} addCopy={true} />
+          <Qr
+            value={(data.data as any)?.accountId}
+            addCopy={true}
+            image="/enzonaIcon.jpg"
+          />
         </div>
       </CardContent>
     </Card>

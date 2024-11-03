@@ -10,12 +10,14 @@ const size = 200;
 export type QrProps = {
   addCopy?: boolean;
   value: string;
+  image?: string;
 };
 
-export default function Qr({ value, addCopy = false }: QrProps) {
+export default function Qr({ value, image, addCopy = false }: QrProps) {
   const ref = useRef(null);
   const handleCopy = () => {
-    html2canvas(ref.current).then(function (canvas: any) {
+    if (!ref.current) return;
+    html2canvas(ref.current as any).then(function (canvas: any) {
       canvas.toBlob(function (blob: any) {
         navigator.clipboard
           .write([
@@ -33,7 +35,12 @@ export default function Qr({ value, addCopy = false }: QrProps) {
       });
     });
   };
-  const qr = <QRCodeSVG value={value} size={size} />;
+  const imageSettings = image
+    ? { src: image, height: 50, width: 50, excavate: true }
+    : undefined;
+  const qr = (
+    <QRCodeSVG value={value} size={size} imageSettings={imageSettings} />
+  );
   if (!addCopy) return qr;
   return (
     <BaseCopyToClipboard action={handleCopy}>

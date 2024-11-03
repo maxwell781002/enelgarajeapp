@@ -19,7 +19,7 @@ export default function TransfermovilDetail({ data }: TransfermovilProps) {
       <CardContent className="flex flex-col items-center p-6 space-y-4">
         <h3 className="font-bold">{t(`titles.${data.type}`)}</h3>
         <div className="w-full max-w-[200px] aspect-square">
-          <Qr value={text} addCopy={true} />
+          <Qr value={text} addCopy={true} image="/transfermovilIcon.jpg" />
         </div>
         <div className="w-full space-y-2">
           <div className="flex items-center space-x-2">
