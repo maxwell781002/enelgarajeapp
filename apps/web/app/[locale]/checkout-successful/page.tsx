@@ -1,8 +1,12 @@
-import { getCurrentBusiness } from "@repo/model/repository/business";
+import {
+  getAllBusinessData,
+  getCurrentBusiness,
+} from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
 import OrderDetail from "@repo/ui/components/order-detail";
+import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -24,7 +28,8 @@ export default async function Page({
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
-  const business = await getCurrentBusiness();
+  const currentBusiness = await getCurrentBusiness();
+  const business = await getAllBusinessData(currentBusiness?.id || "");
   const whatsappMessage = encodeURIComponent(
     t("orderMessage", { reference: order?.identifier }),
   );
@@ -32,7 +37,7 @@ export default async function Page({
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12">
           <div className="container px-4 md:px-6 text-center">
             <div className="max-w-xl mx-auto space-y-4">
               <CircleCheckIcon className="mx-auto size-12 text-green-500" />
@@ -45,6 +50,11 @@ export default async function Page({
             </div>
           </div>
         </section>
+        {business.defaultPaymentMethod && (
+          <div className="mb-8">
+            <PaymentMethodDetail data={business.defaultPaymentMethod} />
+          </div>
+        )}
         <OrderDetail
           order={order as CompleteOrder}
           titleLb={to("title")}

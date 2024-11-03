@@ -12,6 +12,10 @@ export const getBusinessById = async (businessId: string) => {
   return businessRepository.getById(businessId);
 };
 
+export const getAllBusinessData = (businessId: string) => {
+  return businessRepository.getAllBusinessData(businessId);
+};
+
 export const createOrUpdateBusiness = async (
   business: any,
   businessId: string = "",
