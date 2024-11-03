@@ -131,13 +131,22 @@ exports.Prisma.BusinessScalarFieldEnum = {
   active: 'active',
   requestAddress: 'requestAddress',
   plan: 'plan',
-  sendOrderToWhatsapp: 'sendOrderToWhatsapp'
+  sendOrderToWhatsapp: 'sendOrderToWhatsapp',
+  defaultPaymentMethodId: 'defaultPaymentMethodId'
 };
 
 exports.Prisma.TelegramBusinessScalarFieldEnum = {
   id: 'id',
   groupId: 'groupId',
   invitationLink: 'invitationLink',
+  businessId: 'businessId'
+};
+
+exports.Prisma.PaymentMethodScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  data: 'data',
   businessId: 'businessId'
 };
 
@@ -296,6 +305,11 @@ exports.BusinessPlan = exports.$Enums.BusinessPlan = {
   ENTERPRISE: 'ENTERPRISE'
 };
 
+exports.PaymentMethodType = exports.$Enums.PaymentMethodType = {
+  TRANSFERMOVIL: 'TRANSFERMOVIL',
+  ENZONA: 'ENZONA'
+};
+
 exports.UserRoles = exports.$Enums.UserRoles = {
   USER: 'USER',
   ADMIN: 'ADMIN'
@@ -311,6 +325,7 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
 exports.Prisma.ModelName = {
   Business: 'Business',
   TelegramBusiness: 'TelegramBusiness',
+  PaymentMethod: 'PaymentMethod',
   Category: 'Category',
   Product: 'Product',
   User: 'User',

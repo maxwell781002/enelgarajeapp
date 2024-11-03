@@ -10,7 +10,7 @@ import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { getBusinessById } from "@repo/model/repository/business";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
-import UpgradePlan from "@repo/ui/components/upgrade-plan";
+import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 
 type PageProps = {
   searchParams: any;

@@ -4,7 +4,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import { Edit, Globe, Phone, Send, DoorOpen } from "lucide-react";
+import {
+  Edit,
+  Globe,
+  Phone,
+  Send,
+  DoorOpen,
+  DollarSignIcon,
+} from "lucide-react";
 import { businessRepository } from "@repo/model/repositories/business";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
@@ -13,15 +20,13 @@ import Totals from "../../components/totals";
 import { productRepository } from "@repo/model/repositories/product";
 import { orderRepository } from "@repo/model/repositories/order";
 import BooleanValue from "@repo/ui/components/boolean-value";
-import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
 
 export default async function BusinessPage({
   params: { businessId },
 }: {
   params: { businessId: string };
 }) {
-  const business = await businessRepository.getById(businessId);
-  const telegram = await telegramBusinessRepository.getByBusinessId(businessId);
+  const business = await businessRepository.getAllBusinessData(businessId);
   const t = await getTranslations("Business");
   const { totalActive, totalInactive } =
     await productRepository.getTotals(businessId);
@@ -66,15 +71,21 @@ export default async function BusinessPage({
             <Phone className="h-5 w-5 text-muted-foreground" />
             <span>{business.phone || t("noPhone")}</span>
           </div>
-          {telegram && (
+          <div className="flex items-center space-x-2">
+            <DollarSignIcon className="h-5 w-5 text-muted-foreground" />
+            <span>
+              {business.defaultPaymentMethod?.name || t("noPaymentMethod")}
+            </span>
+          </div>
+          {business.telegram && (
             <div className="flex items-center space-x-2">
               <Send className="h-5 w-5 text-muted-foreground" />
               <a
-                href={telegram.invitationLink}
+                href={business.telegram.invitationLink}
                 className="text-blue-600 hover:underline"
                 target="_blank"
               >
-                {telegram.invitationLink}
+                {business.telegram.invitationLink}
               </a>
             </div>
           )}

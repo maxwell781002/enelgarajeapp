@@ -1,5 +1,6 @@
 export * from "./business";
 export * from "./telegrambusiness";
+export * from "./paymentmethod";
 export * from "./category";
 export * from "./product";
 export * from "./user";

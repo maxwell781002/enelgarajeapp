@@ -1,6 +1,8 @@
 {
   "Business": {
     "BusinessList": "Negocios",
+    "lbPaymentMethod": "Método de pago",
+    "phPaymentMethod": "Selecionar método de pago",
     "createBusiness": "Crear negocio",
     "lbName": "Nombre",
     "phName": "Nombre del negocio",
@@ -35,7 +37,8 @@
     "BASIC": "Básico",
     "ENTERPRISE": "Empresarial",
     "lbSendOrderToWhatsapp": "¿Mandar los mensajes para Whatsapp?",
-    "tabAdmin": "Administración"
+    "tabAdmin": "Administración",
+    "noPaymentMethod": "No tiene ningún medio de pago configurado."
   },
   "Totals": {
     "totalProducts": "Total de productos",

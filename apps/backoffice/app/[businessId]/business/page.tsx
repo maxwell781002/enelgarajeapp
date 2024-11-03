@@ -9,6 +9,7 @@ import { formDataToObject } from "@repo/model/lib/utils";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { createOrUpdateBusiness } from "@repo/model/repository/business";
 import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
+import { paymentMethodRepository } from "@repo/model/repositories/payment-method";
 
 const defaultValues = {};
 
@@ -30,6 +31,7 @@ export default async function PageForm({
     const { id } = await createOrUpdateBusiness(obj, businessId);
     return redirect(`/${id}`);
   };
+  const paymentMethods = await paymentMethodRepository.getAll(businessId);
   return (
     <BackPage href={`/${businessId}`} urlTitle={t("backBusiness")}>
       <BusinessForm
@@ -39,6 +41,7 @@ export default async function PageForm({
           telegram,
           userId: owner?.userId,
         }}
+        paymentMethods={paymentMethods}
         action={action}
         isAdmin={user?.role === UserRoles.ADMIN}
         users={users}

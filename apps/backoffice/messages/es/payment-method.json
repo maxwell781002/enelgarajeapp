@@ -1,0 +1,42 @@
+{
+  "PaymentMethod": {
+    "lblName": "Nombre",
+    "phName": "Escriba su nombre",
+    "updated": "Método de pago actualizado",
+    "created": "Método de pago creado",
+    "List": "Métodos de pago",
+    "btnSubmit": "Salvar",
+    "edit": "Actualizar método de pago",
+    "remove": "¿Está seguro que va a eliminar el método de pago?",
+    "removeDescription": "El método de pago será eliminado completamente.",
+    "removeContinue": "Continuar",
+    "removeCancel": "Cancelar",
+    "create": "Crear método de pago",
+    "phSearch": "Buscar...",
+    "upgrade_plan_title": "Creación de método de pago",
+    "required": "Requerido",
+    "lbType": "Tipo",
+    "phType": "Selecciona el tipo de medio de pago.",
+    "Required": "Requerido",
+    "titles": {
+      "TRANSFERMOVIL": "Transfermovil",
+      "ENZONA": "Enzona"
+    },
+    "transfermovil": {
+      "cardNumber": "Número de tarjeta",
+      "phCardNumber": "Escriba el número de tarjeta",
+      "phone": "Teléfono",
+      "phPhone": "Escriba el teléfono"
+    },
+    "Enzona": {
+      "lbAccountId": "Cuenta de Enzona",
+      "phAccountId": "Escriba la cuenta de Enzona",
+      "lbPhone": "Teléfono",
+      "phPhone": "Escriba el teléfono"
+    },
+    "detail": {
+      "title": "Datos del medio de pago",
+      "description": "Estos datos puede copiarlos y pegarlos para mandarlos por el medio de su interés."
+    }
+  }
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import { CompletePaymentMethod } from "@repo/model/zod/paymentmethod";
+import EntitySelect from "@repo/ui/components/entity-select";
 import {
   FormControl,
   FormField,
@@ -13,11 +15,15 @@ import { Textarea } from "@repo/ui/components/ui/textarea";
 import { useTranslations } from "next-intl";
 import React from "react";
 
-export type BusinessFormAction = {
+export type BusinessFormProps = {
   form: any;
+  paymentMethods?: CompletePaymentMethod[];
 };
 
-export default function BusinessForm({ form }: BusinessFormAction) {
+export default function BusinessForm({
+  form,
+  paymentMethods = [],
+}: BusinessFormProps) {
   const t = useTranslations("Business");
   return (
     <>
@@ -42,6 +48,24 @@ export default function BusinessForm({ form }: BusinessFormAction) {
             <FormLabel>{t("lbPhone")}</FormLabel>
             <FormControl>
               <Input placeholder={t("phPhone")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="defaultPaymentMethodId"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbPaymentMethod")}</FormLabel>
+            <FormControl>
+              <EntitySelect
+                items={[{ name: "Ninguno", id: null }, ...paymentMethods]}
+                placeholder={t("phPaymentMethod")}
+                className="bg-withe"
+                {...field}
+              />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>
