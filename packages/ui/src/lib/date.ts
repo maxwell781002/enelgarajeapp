@@ -1,3 +1,6 @@
 export const formatDate = (date: Date) => {
-  return `${new Date(date).toLocaleDateString()}  ${new Date(date).toLocaleTimeString()}`;
+  const hourDifference: number = Number(process.env.HOUR_TZ) ?? 5;
+  const time = new Date(date.getTime()).setHours(date.getHours() - hourDifference);
+  const newDate = new Date(time);
+  return `${newDate.toLocaleDateString()}  ${newDate.toLocaleTimeString()}`;
 };
