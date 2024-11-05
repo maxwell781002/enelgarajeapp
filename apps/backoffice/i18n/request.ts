@@ -13,6 +13,7 @@ export default getRequestConfig(async () => {
     ...(await import(`../messages/${locale}/order.json`)).default,
     ...(await import(`../messages/${locale}/upgrade-plan.json`)).default,
     ...(await import(`../messages/${locale}/payment-method.json`)).default,
+    ...(await import(`../messages/${locale}/errors-page.json`)).default,
   };
 
   return {

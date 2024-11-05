@@ -1,0 +1,9 @@
+{
+  "403Page": {
+    "title": "Acceso denegado",
+    "btnWhatsappSubmit": "Contactar con soporte",
+    "loginAgain": "Entrar de nuevo",
+    "contactSupport": "Si el problema persiste puede contactar soporte.",
+    "textChat": "Hola, necesito ayuda."
+  }
+}
