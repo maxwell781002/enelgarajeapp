@@ -1,7 +1,18 @@
 import Link from "next/link";
-import { ShieldX } from "lucide-react";
+import { LogOut, ShieldX } from "lucide-react";
+import WhatsappButton from "@repo/ui/components/whatsapp-button";
+import { getTranslations } from "next-intl/server";
+import { signOut } from "@repo/model/lib/auth";
+import { BtnServerAction } from "@repo/ui/components/btn-server-action";
 
-export default function PaginaErrorProhibido() {
+export default async function Error403() {
+  const whatsappNumber = process.env.PHONE_ADMIN_CONTACT as string;
+  const t = await getTranslations("403Page");
+  const whatsappMessage = encodeURIComponent(t("textChat"));
+  const logoutAction = async () => {
+    "use server";
+    return signOut();
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 py-8">
       <div className="text-center">
@@ -9,18 +20,17 @@ export default function PaginaErrorProhibido() {
           className="mx-auto h-24 w-24 text-red-500 mb-8"
           aria-hidden="true"
         />
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          403 - Acceso Prohibido
-        </h1>
-        <p className="text-lg text-gray-600 mb-8">
-          Lo sentimos, no tienes permiso para acceder a esta página.
-        </p>
-        {/* <Link
-          href="/"
-          className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
-        >
-          Volver a la página principal
-        </Link> */}
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("title")}</h1>
+        <BtnServerAction action={logoutAction} className="mb-8">
+          <LogOut className="h-4 w-4 mr-2" />
+          <div className="ml-2">{t("loginAgain")}</div>
+        </BtnServerAction>
+        <p className="text-lg text-gray-600 mb-4">{t("contactSupport")}</p>
+        <WhatsappButton
+          whatsappNumber={whatsappNumber}
+          whatsappMessage={whatsappMessage}
+          text={t("btnWhatsappSubmit")}
+        />
       </div>
     </div>
   );
