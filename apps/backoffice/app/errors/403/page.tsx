@@ -21,7 +21,11 @@ export default async function Error403() {
           aria-hidden="true"
         />
         <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("title")}</h1>
-        <BtnServerAction action={logoutAction} className="mb-8" variant={"outline"}>
+        <BtnServerAction
+          action={logoutAction}
+          className="mb-8"
+          variant={"outline"}
+        >
           <LogOut className="h-4 w-4 mr-2" />
           <div className="ml-2">{t("loginAgain")}</div>
         </BtnServerAction>

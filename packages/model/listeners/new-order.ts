@@ -4,6 +4,8 @@ import { CompleteOrderProduct, CompleteTelegramBusiness } from "../prisma/zod";
 import { CompleteOrder } from "../prisma/zod/order";
 import { orderRepository } from "../repositories/order";
 
+const HOST = "https://backoffice.enelgaraje.com";
+
 export const sendOrderToTelegram = async (event: OrderSend) => {
   // TODO: To avoid send to telegram in testing
   if (!process.env.BOT_WEBHOOK_URL) {
@@ -14,7 +16,8 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
   )) as CompleteOrder;
   const customer = order.user;
   const message = {
-    order_url: `https://backoffice.enelgaraje.com/${order.businessId}/orders/${order.id}`,
+    order_url: `${HOST}/${order.businessId}/orders/${order.id}`,
+    businessId: order.businessId,
     identifier: order.identifier,
     customer: {
       id: customer?.id,
@@ -37,8 +40,12 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
 
 const generateText = (data: any) => {
   const message_whatsapp = "Hola%20ha%20comprado%20en%20nuestra%20tienda";
+  const productUrl = (item) => `${HOST}/${data.businessId}/products/${item.id}`;
   const products = data.items
-    .map((item: any) => `👉 ${item.name} - ${item.price} - ${item.quantity}`)
+    .map(
+      (item: any) =>
+        `👉 [${item.name}](${productUrl(item)}) - ${item.price} - ${item.quantity}`,
+    )
     .join("\n");
   return `
 🛒 *Nueva orden*
