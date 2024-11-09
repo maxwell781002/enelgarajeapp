@@ -23,7 +23,6 @@ const defaultValues = {
   offerPrice: 0,
   active: true,
   isNew: false,
-  outOfStock: false,
   priority: 0,
 };
 

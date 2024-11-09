@@ -15,9 +15,6 @@ export function BtnAddCart({
   action?: () => any;
 }) {
   const handle = useCallback(() => {
-    if (product.outOfStock) {
-      return;
-    }
     action?.();
   }, [product, action]);
   return (
@@ -27,10 +24,7 @@ export function BtnAddCart({
           <CheckIcon className="h-3.5 w-3.5 text-primary-foreground" />
         </div>
       )}
-      <Button
-        className={cn("px-3", product.outOfStock && "opacity-50")}
-        onClick={handle}
-      >
+      <Button className={cn("px-3")} onClick={handle}>
         <ShoppingCartIcon className="w-4 h-4" />
       </Button>
     </div>

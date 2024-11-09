@@ -7554,12 +7554,14 @@ export namespace Prisma {
     price: number | null;
     offerPrice: number | null;
     priority: number | null;
+    stock: number | null;
   };
 
   export type ProductSumAggregateOutputType = {
     price: number | null;
     offerPrice: number | null;
     priority: number | null;
+    stock: number | null;
   };
 
   export type ProductMinAggregateOutputType = {
@@ -7571,8 +7573,10 @@ export namespace Prisma {
     offerPrice: number | null;
     active: boolean | null;
     isNew: boolean | null;
-    outOfStock: boolean | null;
     priority: number | null;
+    stock: number | null;
+    allowOrderOutOfStock: boolean | null;
+    isExhaustible: boolean | null;
     businessId: string | null;
     categoryId: string | null;
   };
@@ -7586,8 +7590,10 @@ export namespace Prisma {
     offerPrice: number | null;
     active: boolean | null;
     isNew: boolean | null;
-    outOfStock: boolean | null;
     priority: number | null;
+    stock: number | null;
+    allowOrderOutOfStock: boolean | null;
+    isExhaustible: boolean | null;
     businessId: string | null;
     categoryId: string | null;
   };
@@ -7603,8 +7609,10 @@ export namespace Prisma {
     images: number;
     active: number;
     isNew: number;
-    outOfStock: number;
     priority: number;
+    stock: number;
+    allowOrderOutOfStock: number;
+    isExhaustible: number;
     businessId: number;
     categoryId: number;
     _all: number;
@@ -7614,12 +7622,14 @@ export namespace Prisma {
     price?: true;
     offerPrice?: true;
     priority?: true;
+    stock?: true;
   };
 
   export type ProductSumAggregateInputType = {
     price?: true;
     offerPrice?: true;
     priority?: true;
+    stock?: true;
   };
 
   export type ProductMinAggregateInputType = {
@@ -7631,8 +7641,10 @@ export namespace Prisma {
     offerPrice?: true;
     active?: true;
     isNew?: true;
-    outOfStock?: true;
     priority?: true;
+    stock?: true;
+    allowOrderOutOfStock?: true;
+    isExhaustible?: true;
     businessId?: true;
     categoryId?: true;
   };
@@ -7646,8 +7658,10 @@ export namespace Prisma {
     offerPrice?: true;
     active?: true;
     isNew?: true;
-    outOfStock?: true;
     priority?: true;
+    stock?: true;
+    allowOrderOutOfStock?: true;
+    isExhaustible?: true;
     businessId?: true;
     categoryId?: true;
   };
@@ -7663,8 +7677,10 @@ export namespace Prisma {
     images?: true;
     active?: true;
     isNew?: true;
-    outOfStock?: true;
     priority?: true;
+    stock?: true;
+    allowOrderOutOfStock?: true;
+    isExhaustible?: true;
     businessId?: true;
     categoryId?: true;
     _all?: true;
@@ -7772,8 +7788,10 @@ export namespace Prisma {
     images: JsonValue[];
     active: boolean;
     isNew: boolean;
-    outOfStock: boolean;
     priority: number;
+    stock: number;
+    allowOrderOutOfStock: boolean;
+    isExhaustible: boolean;
     businessId: string;
     categoryId: string | null;
     _count: ProductCountAggregateOutputType | null;
@@ -7810,8 +7828,10 @@ export namespace Prisma {
       images?: boolean;
       active?: boolean;
       isNew?: boolean;
-      outOfStock?: boolean;
       priority?: boolean;
+      stock?: boolean;
+      allowOrderOutOfStock?: boolean;
+      isExhaustible?: boolean;
       businessId?: boolean;
       categoryId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
@@ -7836,8 +7856,10 @@ export namespace Prisma {
       images?: boolean;
       active?: boolean;
       isNew?: boolean;
-      outOfStock?: boolean;
       priority?: boolean;
+      stock?: boolean;
+      allowOrderOutOfStock?: boolean;
+      isExhaustible?: boolean;
       businessId?: boolean;
       categoryId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
@@ -7857,8 +7879,10 @@ export namespace Prisma {
     images?: boolean;
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: boolean;
+    stock?: boolean;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     businessId?: boolean;
     categoryId?: boolean;
   };
@@ -7920,11 +7944,10 @@ export namespace Prisma {
         /**
          * @zod.optional()
          */
-        outOfStock: boolean;
-        /**
-         * @zod.optional()
-         */
         priority: number;
+        stock: number;
+        allowOrderOutOfStock: boolean;
+        isExhaustible: boolean;
         businessId: string;
         categoryId: string | null;
       },
@@ -8465,8 +8488,10 @@ export namespace Prisma {
     readonly images: FieldRef<"Product", "Json[]">;
     readonly active: FieldRef<"Product", "Boolean">;
     readonly isNew: FieldRef<"Product", "Boolean">;
-    readonly outOfStock: FieldRef<"Product", "Boolean">;
     readonly priority: FieldRef<"Product", "Int">;
+    readonly stock: FieldRef<"Product", "Int">;
+    readonly allowOrderOutOfStock: FieldRef<"Product", "Boolean">;
+    readonly isExhaustible: FieldRef<"Product", "Boolean">;
     readonly businessId: FieldRef<"Product", "String">;
     readonly categoryId: FieldRef<"Product", "String">;
   }
@@ -21751,8 +21776,10 @@ export namespace Prisma {
     images: "images";
     active: "active";
     isNew: "isNew";
-    outOfStock: "outOfStock";
     priority: "priority";
+    stock: "stock";
+    allowOrderOutOfStock: "allowOrderOutOfStock";
+    isExhaustible: "isExhaustible";
     businessId: "businessId";
     categoryId: "categoryId";
   };
@@ -22447,8 +22474,10 @@ export namespace Prisma {
     images?: JsonNullableListFilter<"Product">;
     active?: BoolFilter<"Product"> | boolean;
     isNew?: BoolFilter<"Product"> | boolean;
-    outOfStock?: BoolFilter<"Product"> | boolean;
     priority?: IntFilter<"Product"> | number;
+    stock?: IntFilter<"Product"> | number;
+    allowOrderOutOfStock?: BoolFilter<"Product"> | boolean;
+    isExhaustible?: BoolFilter<"Product"> | boolean;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringNullableFilter<"Product"> | string | null;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -22467,8 +22496,10 @@ export namespace Prisma {
     images?: SortOrder;
     active?: SortOrder;
     isNew?: SortOrder;
-    outOfStock?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
+    allowOrderOutOfStock?: SortOrder;
+    isExhaustible?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrderInput | SortOrder;
     business?: BusinessOrderByWithRelationInput;
@@ -22491,8 +22522,10 @@ export namespace Prisma {
       images?: JsonNullableListFilter<"Product">;
       active?: BoolFilter<"Product"> | boolean;
       isNew?: BoolFilter<"Product"> | boolean;
-      outOfStock?: BoolFilter<"Product"> | boolean;
       priority?: IntFilter<"Product"> | number;
+      stock?: IntFilter<"Product"> | number;
+      allowOrderOutOfStock?: BoolFilter<"Product"> | boolean;
+      isExhaustible?: BoolFilter<"Product"> | boolean;
       businessId?: StringFilter<"Product"> | string;
       categoryId?: StringNullableFilter<"Product"> | string | null;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
@@ -22513,8 +22546,10 @@ export namespace Prisma {
     images?: SortOrder;
     active?: SortOrder;
     isNew?: SortOrder;
-    outOfStock?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
+    allowOrderOutOfStock?: SortOrder;
+    isExhaustible?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrderInput | SortOrder;
     _count?: ProductCountOrderByAggregateInput;
@@ -22542,8 +22577,10 @@ export namespace Prisma {
     images?: JsonNullableListFilter<"Product">;
     active?: BoolWithAggregatesFilter<"Product"> | boolean;
     isNew?: BoolWithAggregatesFilter<"Product"> | boolean;
-    outOfStock?: BoolWithAggregatesFilter<"Product"> | boolean;
     priority?: IntWithAggregatesFilter<"Product"> | number;
+    stock?: IntWithAggregatesFilter<"Product"> | number;
+    allowOrderOutOfStock?: BoolWithAggregatesFilter<"Product"> | boolean;
+    isExhaustible?: BoolWithAggregatesFilter<"Product"> | boolean;
     businessId?: StringWithAggregatesFilter<"Product"> | string;
     categoryId?: StringNullableWithAggregatesFilter<"Product"> | string | null;
   };
@@ -23710,8 +23747,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     business: BusinessCreateNestedOneWithoutProductsInput;
     category?: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
@@ -23728,8 +23767,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     businessId: string;
     categoryId?: string | null;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
@@ -23746,8 +23787,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
@@ -23764,8 +23807,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
@@ -23782,8 +23827,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     businessId: string;
     categoryId?: string | null;
   };
@@ -23799,8 +23846,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type ProductUncheckedUpdateManyInput = {
@@ -23814,8 +23863,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
@@ -25076,8 +25127,10 @@ export namespace Prisma {
     images?: SortOrder;
     active?: SortOrder;
     isNew?: SortOrder;
-    outOfStock?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
+    allowOrderOutOfStock?: SortOrder;
+    isExhaustible?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
   };
@@ -25086,6 +25139,7 @@ export namespace Prisma {
     price?: SortOrder;
     offerPrice?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
   };
 
   export type ProductMaxOrderByAggregateInput = {
@@ -25097,8 +25151,10 @@ export namespace Prisma {
     offerPrice?: SortOrder;
     active?: SortOrder;
     isNew?: SortOrder;
-    outOfStock?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
+    allowOrderOutOfStock?: SortOrder;
+    isExhaustible?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
   };
@@ -25112,8 +25168,10 @@ export namespace Prisma {
     offerPrice?: SortOrder;
     active?: SortOrder;
     isNew?: SortOrder;
-    outOfStock?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
+    allowOrderOutOfStock?: SortOrder;
+    isExhaustible?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrder;
   };
@@ -25122,6 +25180,7 @@ export namespace Prisma {
     price?: SortOrder;
     offerPrice?: SortOrder;
     priority?: SortOrder;
+    stock?: SortOrder;
   };
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -28174,8 +28233,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     category?: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -28191,8 +28252,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     categoryId?: string | null;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
@@ -28457,8 +28520,10 @@ export namespace Prisma {
     images?: JsonNullableListFilter<"Product">;
     active?: BoolFilter<"Product"> | boolean;
     isNew?: BoolFilter<"Product"> | boolean;
-    outOfStock?: BoolFilter<"Product"> | boolean;
     priority?: IntFilter<"Product"> | number;
+    stock?: IntFilter<"Product"> | number;
+    allowOrderOutOfStock?: BoolFilter<"Product"> | boolean;
+    isExhaustible?: BoolFilter<"Product"> | boolean;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringNullableFilter<"Product"> | string | null;
   };
@@ -28936,8 +29001,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     business: BusinessCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -28953,8 +29020,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     businessId: string;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
@@ -30321,8 +30390,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     business: BusinessCreateNestedOneWithoutProductsInput;
     category?: CategoryCreateNestedOneWithoutProductsInput;
   };
@@ -30338,8 +30409,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     businessId: string;
     categoryId?: string | null;
   };
@@ -30417,8 +30490,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneWithoutProductsNestedInput;
   };
@@ -30434,8 +30509,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
@@ -31241,8 +31318,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     categoryId?: string | null;
   };
 
@@ -31305,8 +31384,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     category?: CategoryUpdateOneWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -31322,8 +31403,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
@@ -31339,8 +31422,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
@@ -31433,8 +31518,10 @@ export namespace Prisma {
     images?: ProductCreateimagesInput | InputJsonValue[];
     active?: boolean;
     isNew?: boolean;
-    outOfStock?: boolean;
     priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
     businessId: string;
   };
 
@@ -31449,8 +31536,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -31466,8 +31555,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
@@ -31483,8 +31574,10 @@ export namespace Prisma {
     images?: ProductUpdateimagesInput | InputJsonValue[];
     active?: BoolFieldUpdateOperationsInput | boolean;
     isNew?: BoolFieldUpdateOperationsInput | boolean;
-    outOfStock?: BoolFieldUpdateOperationsInput | boolean;
     priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 

@@ -150,25 +150,6 @@ export default function ProductForm({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="outOfStock"
-            render={({ field, fieldState: { error } }: any) => (
-              <FormItem>
-                <FormLabel>{t("lbOutOfStock")}</FormLabel>
-                <FormControl>
-                  <Switch
-                    {...field}
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {!!error?.message && t(error?.message)}
-                </FormMessage>
-              </FormItem>
-            )}
-          />
         </div>
         <FormField
           control={form.control}

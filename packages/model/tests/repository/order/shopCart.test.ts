@@ -46,7 +46,6 @@ describe("shopCart", () => {
     product3 = await productFactory({
       businessId: business.id,
       price: 20,
-      outOfStock: true,
     });
   });
 
@@ -58,11 +57,6 @@ describe("shopCart", () => {
   it("no order", async () => {
     const order = await getCurrentOrder();
     expect(order).toBeNull();
-  });
-
-  it("Add product out of stock", async () => {
-    const order = await addToOrder(product3.id);
-    expect(order).toBeUndefined();
   });
 
   it("add product", async () => {

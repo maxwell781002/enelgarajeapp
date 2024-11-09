@@ -23,7 +23,6 @@
     "price_should_be_less_than_offer_price": "El precio debe ser menor que el precio de oferta.",
     "btnSubmit": "Salvar",
     "lbIsNew": "¿Es nuevo?",
-    "lbOutOfStock": "¿Está agotado?",
     "lbPriority": "Prioridad",
     "phPriority": "Prioridad",
     "phSearch": "Buscar por nombre",

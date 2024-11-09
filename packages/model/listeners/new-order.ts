@@ -1,6 +1,10 @@
 import { OrderSend } from "../lib/event-emitter/events";
 import { formatPrice, normalizePhone } from "../lib/utils";
-import { CompleteOrderProduct, CompleteProduct, CompleteTelegramBusiness } from "../prisma/zod";
+import {
+  CompleteOrderProduct,
+  CompleteProduct,
+  CompleteTelegramBusiness,
+} from "../prisma/zod";
 import { CompleteOrder } from "../prisma/zod/order";
 import { orderRepository } from "../repositories/order";
 
@@ -40,7 +44,8 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
 
 const generateText = (data: any) => {
   const message_whatsapp = "Hola%20ha%20comprado%20en%20nuestra%20tienda";
-  const productUrl = (item: CompleteProduct) => `${HOST}/${data.businessId}/products/${item.id}`;
+  const productUrl = (item: CompleteProduct) =>
+    `${HOST}/${data.businessId}/products/${item.id}`;
   const products = data.items
     .map(
       (item: any) =>
