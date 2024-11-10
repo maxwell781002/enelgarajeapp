@@ -32,13 +32,18 @@ export const Prisma = _prisma;
 
 let currentPrismaClient = _prisma;
 
-export const transaction = (callback) =>
+export const transaction = (callback: any) =>
   Prisma.$transaction(async (tx: any) => {
     currentPrismaClient = tx;
-    return callback(tx).then((result) => {
-      currentPrismaClient = _prisma;
-      return result;
-    });
+    return callback(tx)
+      .then((result: any) => {
+        currentPrismaClient = _prisma;
+        return result;
+      })
+      .catch((error: any) => {
+        currentPrismaClient = _prisma;
+        throw error;
+      });
   });
 
 export default () => currentPrismaClient;

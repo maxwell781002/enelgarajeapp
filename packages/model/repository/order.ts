@@ -21,6 +21,7 @@ import { orderAddressRepository } from "../repositories/order-address";
 import { userAddressRepository } from "../repositories/user-address";
 import { productRepository } from "../repositories/product";
 import { ShopCartOrder } from "../types/shop-cart";
+import { BadRequestError } from "../errors/bad-request";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
@@ -184,10 +185,10 @@ export const addToOrder = async (productId: string) => {
 };
 
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
-  return transaction(async () => {
+  const newOrder = await transaction(async () => {
     const order = await getOrCrateOrder();
     if (order.hasProductOutOfStock) {
-      throw new Error("out_of_stock");
+      throw new BadRequestError("out_of_stock");
     }
     const userEntity = (await getCurrentUser()) as CompleteUser;
     const business = (await getCurrentBusiness()) as CompleteBusiness;
@@ -210,12 +211,13 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
         await userAddressRepository.createNew(userEntity.id, address);
       }
     }
-    cookies().delete("order_id");
-    //TODO: When I configure the listener send the event instance of
-    // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
-    await sendOrderToTelegram(new OrderSend(newOrder as CompleteOrder));
     return newOrder;
   });
+  cookies().delete("order_id");
+  //TODO: When I configure the listener send the event instance of
+  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+  await sendOrderToTelegram(new OrderSend(newOrder as CompleteOrder));
+  return newOrder;
 };
 
 export const getOrderById = async (id: string) => {

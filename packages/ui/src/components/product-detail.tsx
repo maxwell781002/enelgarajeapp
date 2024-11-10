@@ -23,9 +23,12 @@ export default function ProductDetail({
           <Image
             src={product.image}
             alt={product.name}
-            layout="fill"
             objectFit="cover"
             className="rounded-lg"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "100%", height: "auto" }}
           />
         </div>
 

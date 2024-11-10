@@ -27,6 +27,9 @@
     ],
     "./prisma/*": [
       "./prisma/*.ts"
+    ],
+    "./errors/*": [
+      "./errors/*.ts"
     ]
   },
   "prisma": {

@@ -24,12 +24,14 @@ import Address from "@repo/ui/components/address/index";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteAddress } from "@repo/model/zod/address";
 import { useEffect, useMemo, useState } from "react";
+import AlertMessage from "@repo/ui/components/alert-message";
 
 type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
   defaultValues?: TUserRegisterSchema;
   business: CompleteBusiness;
   addresses: CompleteAddress[];
+  shopCartHasError?: boolean;
 };
 
 const address: Omit<CompleteAddress, "id"> = {
@@ -46,8 +48,10 @@ export function CheckoutForm({
   defaultValues,
   business,
   addresses,
+  shopCartHasError: _shopCartHasError = false,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
+  const [shopCartHasError, setShopCartHasError] = useState(_shopCartHasError);
   const [addressType, setAddressType] = useState(
     addresses.length ? AddressType.selectAddress : AddressType.newAddress,
   );
@@ -69,12 +73,21 @@ export function CheckoutForm({
   useEffect(() => {
     form.setValue("addressType", String(addressType));
   }, [addressType, form]);
+  const handleAction = async (data: TUserRegisterSchema) => {
+    try {
+      await action(data);
+    } catch (error: any) {
+      if (error.message === "out_of_stock") {
+        setShopCartHasError(true);
+      }
+    }
+  };
 
   return (
     <Form {...form} formState={formState}>
       <form
         onSubmit={form.handleSubmit((data) =>
-          action({ ...defaultValues, ...data }),
+          handleAction({ ...defaultValues, ...data }),
         )}
         className="space-y-8"
       >
@@ -113,7 +126,16 @@ export function CheckoutForm({
             setAddressType={setAddressType}
           />
         )}
-        <Button type="submit" disabled={formState.isSubmitting}>
+        {shopCartHasError && (
+          <AlertMessage
+            variant="destructive"
+            text={t("errors.has_out_of_stock")}
+          />
+        )}
+        <Button
+          type="submit"
+          disabled={shopCartHasError || formState.isSubmitting}
+        >
           {t("continue")}
         </Button>
       </form>

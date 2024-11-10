@@ -56,6 +56,7 @@ export default async function Component({ params: { locale } }: PageProps) {
           defaultValues={user}
           business={business}
           addresses={addresses}
+          shopCartHasError={order.hasProductOutOfStock}
         />
       </div>
       <div>
