@@ -19,7 +19,7 @@ import { OrderSend } from "../lib/event-emitter/events";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
 import { userAddressRepository } from "../repositories/user-address";
-import { productRepository } from "../repositories/product";
+import { productRepository, UpdateStockItem } from "../repositories/product";
 import { ShopCartItem, ShopCartOrder } from "../types/shop-cart";
 import { BadRequestError } from "../errors/bad-request";
 
@@ -199,8 +199,8 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
       userEntity,
       business,
     );
-    const productToUpdate: [string, number][] = order.items.map(
-      ({ product, quantity }) => [product.id, quantity],
+    const productToUpdate: UpdateStockItem[] = order.items.map(
+      ({ product, quantity }) => [product, quantity],
     );
     await productRepository.updateStock(productToUpdate);
     if (business.requestAddress) {

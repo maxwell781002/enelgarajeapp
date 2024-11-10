@@ -54,26 +54,41 @@ const userData = {
   phone: "125",
 };
 
+const getProductStock = async (product: any) => {
+  return (
+    await prisma().product.findFirst({
+      where: { id: product.id },
+    })
+  )?.stock;
+};
+
 describe("checkoutOrder", () => {
   let order;
   let user;
   let business;
-  let product;
+  let product1;
+  let product2;
 
   beforeAll(async () => {
     user = await userFactory();
     business = await businessFactory();
     userModule.getOrCreateUser.mockReturnValue(user);
     userModule.getCurrentUser.mockReturnValue(user);
-    product = await productFactory({
-      name: "Product",
+    product1 = await productFactory({
+      name: "Product 1",
+      businessId: business.id,
+      stock: 30,
+      isExhaustible: true,
+    });
+    product2 = await productFactory({
+      name: "Product 2 ",
       businessId: business.id,
       stock: 30,
     });
     order = await getOrCrateOrder();
     await productOrderFactory({
       orderId: order.id,
-      productId: product.id,
+      productId: product1.id,
       quantity: 10,
       position: 1,
       price: 100,
@@ -98,10 +113,8 @@ describe("checkoutOrder", () => {
     // TODO: Not it works
     // expect((eventEmitter as any).dispatch).toHaveBeenCalledOnce();
     expect(sendOrderToTelegram).toBeCalledTimes(1);
-    const productDb = await prisma().product.findFirst({
-      where: { id: product.id },
-    });
-    expect(productDb?.stock).toBe(20);
+    expect(await getProductStock(product1)).toBe(20);
+    expect(await getProductStock(product2)).toBe(30);
   });
 
   it("new checkout order", async () => {
@@ -116,10 +129,8 @@ describe("checkoutOrder", () => {
       where: { orderId: newOrder.id },
     });
     expect(address.length).toBe(0);
-    const productDb = await prisma().product.findFirst({
-      where: { id: product.id },
-    });
-    expect(productDb?.stock).toBe(10);
+    expect(await getProductStock(product1)).toBe(10);
+    expect(await getProductStock(product2)).toBe(30);
   });
 
   it("Send address", async () => {
@@ -156,10 +167,8 @@ describe("checkoutOrder", () => {
     expect(address[0].address.city).toBe("city");
     expect(address[0].address.state).toBe("state");
     expect(address[0].address.reference).toBe("12345");
-    const productDb = await prisma().product.findFirst({
-      where: { id: product.id },
-    });
-    expect(productDb?.stock).toBe(0);
+    expect(await getProductStock(product1)).toBe(0);
+    expect(await getProductStock(product2)).toBe(30);
   });
 
   // it("new checkout order", async () => {

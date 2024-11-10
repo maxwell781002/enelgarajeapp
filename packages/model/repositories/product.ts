@@ -18,6 +18,8 @@ type PaginateData = {
 
 export const PAGE_SIZE_FRONTEND = 6;
 
+export type UpdateStockItem = [product: CompleteProduct, quantity: number];
+
 export class ProductRepository extends BaseRepository<
   CompleteProduct,
   typeof Prisma.product
@@ -130,17 +132,19 @@ export class ProductRepository extends BaseRepository<
     return { totalActive: values[0], totalInactive: values[1] };
   }
 
-  updateStock(products: [string, number][]) {
-    const promises = products.map(([id, decrement]) => {
-      return this.model.update({
-        where: { id },
-        data: {
-          stock: {
-            decrement,
+  updateStock(products: UpdateStockItem[]) {
+    const promises = products
+      .filter(([product]) => product.isExhaustible)
+      .map(([product, decrement]) => {
+        return this.model.update({
+          where: { id: product.id },
+          data: {
+            stock: {
+              decrement,
+            },
           },
-        },
+        });
       });
-    });
     return Promise.all(promises);
   }
 }
