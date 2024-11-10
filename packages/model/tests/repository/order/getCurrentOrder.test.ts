@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import prisma from "../../../prisma/prisma-client";
-import { getCurrentOrder, ShopCartOrder } from "../../../repository/order";
+import { getCurrentOrder } from "../../../repository/order";
 import { businessFactory, clearBd, productFactory } from "../../factories";
+import { ShopCartOrder } from "../../../types/shop-cart";
 
 const mocksGet = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),

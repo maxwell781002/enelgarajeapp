@@ -3,7 +3,8 @@ import { getPlanFeature } from "../lib/plans-feature";
 import prisma from "../prisma/prisma-client";
 import { CompleteBusiness } from "../prisma/zod";
 import { productRepository } from "../repositories/product";
-import { getCurrentOrder, hasProduct, ShopCartOrder } from "./order";
+import { ShopCartOrder } from "../types/shop-cart";
+import { getCurrentOrder, hasProduct } from "./order";
 
 export const getBySlug = async (slug: string) => {
   const order = await getCurrentOrder();

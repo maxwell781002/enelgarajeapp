@@ -20,17 +20,7 @@ import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
 import { userAddressRepository } from "../repositories/user-address";
 import { productRepository } from "../repositories/product";
-
-export type ShopCartOrder = {
-  numberOfItems: number | undefined;
-  items: ShopCartItem[];
-  hasProductOutOfStock: boolean;
-} & CompleteOrder;
-
-export type ShopCartItem = {
-  total: number;
-  outOfStock: boolean;
-} & CompleteOrderProduct;
+import { ShopCartOrder } from "../types/shop-cart";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined

@@ -6,8 +6,8 @@ import {
   getCurrentOrder,
   incrementItem,
   removeFromOrder,
-  ShopCartOrder,
 } from "../../../repository/order";
+import { ShopCartOrder } from "../../../types/shop-cart";
 
 const mocksGet = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),

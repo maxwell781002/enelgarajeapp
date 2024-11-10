@@ -11,6 +11,7 @@ import CardItem from "./card";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import PriceDisplay from "@repo/ui/components/price";
+import AlertMessage from "../../../../../packages/ui/src/components/alert-message";
 
 type PageProps = {
   params: {
@@ -50,6 +51,12 @@ export default async function Page({ params: { locale } }: PageProps) {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         {t("title")}
       </h1>
+      {order.hasProductOutOfStock && (
+        <AlertMessage
+          variant="destructive"
+          text={t("errors.has_out_of_stock")}
+        />
+      )}
       <div className="overflow-auto">
         {order.items.map((item) => (
           <div key={item.productId} className="mb-2">
@@ -79,7 +86,9 @@ export default async function Page({ params: { locale } }: PageProps) {
             className="w-full"
             prefetch={false}
           >
-            <Button className="w-full">{t("checkout")}</Button>
+            <Button className="w-full" disabled={order.hasProductOutOfStock}>
+              {t("checkout")}
+            </Button>
           </Link>
         </div>
       </div>
