@@ -8,13 +8,17 @@ import { getBusinessById } from "@repo/model/repository/business";
 import { isLimited } from "@repo/model/repository/product";
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { getTranslations } from "next-intl/server";
+import { CompleteProduct } from "@repo/model/zod/product";
 
 type FormAction = {
   params: { businessId: string };
   searchParams: { id?: string };
 };
 
-const defaultValues = {
+const defaultValues: Omit<
+  CompleteProduct,
+  "id" | "businessId" | "images" | "business" | "orderItems"
+> = {
   name: "",
   image: "",
   categoryId: "",
@@ -24,6 +28,9 @@ const defaultValues = {
   active: true,
   isNew: false,
   priority: 0,
+  stock: 0,
+  isExhaustible: false,
+  allowOrderOutOfStock: false,
 };
 
 export default async function PageForm({

@@ -28,7 +28,7 @@ export const ProductModel = z.object({
   active: z.boolean().optional(),
   isNew: z.boolean().optional(),
   priority: z.number().int().optional(),
-  stock: z.number().int(),
+  stock: z.number().int().min(0),
   allowOrderOutOfStock: z.boolean(),
   isExhaustible: z.boolean(),
   businessId: z.string(),

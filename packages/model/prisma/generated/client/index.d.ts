@@ -7945,6 +7945,9 @@ export namespace Prisma {
          * @zod.optional()
          */
         priority: number;
+        /**
+         * @zod.min(0)
+         */
         stock: number;
         allowOrderOutOfStock: boolean;
         isExhaustible: boolean;

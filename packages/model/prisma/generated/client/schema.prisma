@@ -90,7 +90,7 @@ model Product {
   active               Boolean @default(true) /// @zod.optional()
   isNew                Boolean @default(false) /// @zod.optional()
   priority             Int     @default(0) /// @zod.optional()
-  stock                Int     @default(0)
+  stock                Int     @default(0) /// @zod.min(0)
   allowOrderOutOfStock Boolean @default(false)
   isExhaustible        Boolean @default(false)
 

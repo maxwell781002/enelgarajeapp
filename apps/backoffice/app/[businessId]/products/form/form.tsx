@@ -150,7 +150,62 @@ export default function ProductForm({
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="isExhaustible"
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbIsExhaustible")}</FormLabel>
+                <FormControl>
+                  <Switch
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="allowOrderOutOfStock"
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbAllowOrderOutOfStock")}</FormLabel>
+                <FormControl>
+                  <Switch
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
         </div>
+        <FormField
+          control={form.control}
+          name="stock"
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbStock")}</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={t("phStock")}
+                  {...field}
+                  onChange={(event: any) => field.onChange(+event.target.value)}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="image"
