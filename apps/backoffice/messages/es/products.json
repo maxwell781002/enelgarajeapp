@@ -28,8 +28,8 @@
     "phSearch": "Buscar por nombre",
     "lbStock": "Stock",
     "phStock": "Stock",
-    "lbIsExhaustible": "¿El producto se agota?",
-    "lbAllowOrderOutOfStock": "¿Permitir pedidos sin stock?",
+    "lbIsExhaustible": "¿Puede agotarse?",
+    "lbAllowOrderOutOfStock": "¿Vender sin stock?",
     "upgrade_plan_title": "Crear producto",
     "remove_dialog": {
       "title": "¿Deseas borrar este producto?",
