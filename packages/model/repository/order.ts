@@ -20,7 +20,7 @@ import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
 import { userAddressRepository } from "../repositories/user-address";
 import { productRepository } from "../repositories/product";
-import { ShopCartOrder } from "../types/shop-cart";
+import { ShopCartItem, ShopCartOrder } from "../types/shop-cart";
 import { BadRequestError } from "../errors/bad-request";
 
 export const getCurrentOrder = async (): Promise<

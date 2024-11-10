@@ -2,9 +2,9 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@repo/model/prisma/prisma-client";
-import { businessRepository } from "../repositories/business";
+import { businessRepository } from "@repo/model/repositories/business";
 
-const adapter: any = PrismaAdapter(prisma);
+const adapter: any = PrismaAdapter(prisma());
 const getUserByAccount = async (provider_providerAccountId: any) => {
   const user = await adapter.getUserByAccount(provider_providerAccountId);
   if (!user) return null;
