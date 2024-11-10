@@ -79,18 +79,20 @@ model Category {
 }
 
 model Product {
-  id          String  @id @default(uuid())
-  name        String /// @zod.min(1, { message: "Required" })
-  slug        String? @unique
-  image       Json
-  description String /// @zod.min(1, { message: "Required" })
-  price       Int /// @zod.gte(0)
-  offerPrice  Int? /// @zod.gte(0)
-  images      Json[]
-  active      Boolean @default(true) /// @zod.optional()
-  isNew       Boolean @default(false) /// @zod.optional()
-  outOfStock  Boolean @default(false) /// @zod.optional()
-  priority    Int     @default(0) /// @zod.optional()
+  id                   String  @id @default(uuid())
+  name                 String /// @zod.min(1, { message: "Required" })
+  slug                 String? @unique
+  image                Json
+  description          String /// @zod.min(1, { message: "Required" })
+  price                Int /// @zod.gte(0)
+  offerPrice           Int? /// @zod.gte(0)
+  images               Json[]
+  active               Boolean @default(true) /// @zod.optional()
+  isNew                Boolean @default(false) /// @zod.optional()
+  priority             Int     @default(0) /// @zod.optional()
+  stock                Int     @default(0) /// @zod.min(0)
+  allowOrderOutOfStock Boolean @default(false)
+  isExhaustible        Boolean @default(false)
 
   business   Business       @relation(fields: [businessId], references: [id])
   businessId String

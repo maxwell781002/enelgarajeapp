@@ -50,10 +50,15 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
         </div>
         <div className="flex flex-col sm:flex-row sm:gap-4 bg-muted-foreground rounded-lg p-4 text-white">
           {t("lbActive")}: <BooleanValue value={product.active} />
-          {t("lbOutOfStock")}: <BooleanValue value={product.outOfStock} />
           {t("lbIsNew")}: <BooleanValue value={product.isNew} />
+          {t("lbIsExhaustible")}: <BooleanValue value={product.isExhaustible} />
+          {t("lbAllowOrderOutOfStock")}:{" "}
+          <BooleanValue value={product.allowOrderOutOfStock} />
           <div>
             {t("lbPriority")}: {product.priority}
+          </div>
+          <div>
+            {t("lbStock")}: {product.stock}
           </div>
         </div>
         <ProductDetail product={product as IProduct} t={t} />

@@ -78,7 +78,7 @@ export abstract class BaseRepository<T extends Entity, M> {
   }: PaginateData = {}): Promise<PaginationResult<T>> {
     let skip = (pageIndex - 1) * pageSize;
     skip = skip < 0 ? 0 : skip;
-    const [data, total] = await prisma.$transaction([
+    const [data, total] = await prisma().$transaction([
       this.model.findMany({ take: pageSize, skip, where, include, orderBy }),
       this.model.count({ where }),
     ]);

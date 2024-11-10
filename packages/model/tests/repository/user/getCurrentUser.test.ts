@@ -12,7 +12,7 @@ vi.mock("@repo/model/lib/auth", () => ({
 describe("User", () => {
   afterEach(async () => {
     vi.clearAllMocks();
-    await prisma.user.deleteMany();
+    await prisma().user.deleteMany();
   });
 
   it("Cookies is empty", async () => {

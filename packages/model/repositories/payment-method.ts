@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompletePaymentMethod, PaymentMethodModel } from "../prisma/zod";
 import { PaymentMethodType as BasePaymentMethodType } from "../prisma/generated/client";
@@ -13,10 +13,10 @@ type PaginateData = {
 
 export class PaymentMethodRepository extends BaseRepository<
   CompletePaymentMethod,
-  typeof prisma.paymentMethod
+  typeof Prisma.paymentMethod
 > {
   constructor() {
-    super(PaymentMethodModel.omit({ id: true }), prisma.paymentMethod);
+    super(PaymentMethodModel.omit({ id: true }), Prisma.paymentMethod);
   }
 
   getAll(businessId: string) {

@@ -3,18 +3,19 @@ import { getPlanFeature } from "../lib/plans-feature";
 import prisma from "../prisma/prisma-client";
 import { CompleteBusiness } from "../prisma/zod";
 import { productRepository } from "../repositories/product";
-import { getCurrentOrder, hasProduct, ShopCartOrder } from "./order";
+import { ShopCartOrder } from "../types/shop-cart";
+import { getCurrentOrder, hasProduct } from "./order";
 
 export const getBySlug = async (slug: string) => {
   const order = await getCurrentOrder();
   return addProductFields(
-    await prisma.product.findUnique({ where: { slug } }),
+    await prisma().product.findUnique({ where: { slug } }),
     order,
   );
 };
 
 export const getById = (id: string) => {
-  return prisma.product.findUnique({ where: { id } });
+  return prisma().product.findUnique({ where: { id } });
 };
 
 export const addProductFields = async (
@@ -25,6 +26,10 @@ export const addProductFields = async (
     ...product,
     _inCart: order && (await hasProduct(product.id, order)),
     _isOffer: product.offerPrice && product.offerPrice < product.price,
+    _outOfStock:
+      !product.allowOrderOutOfStock &&
+      product.isExhaustible &&
+      product.stock <= 0,
   };
 };
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import prisma from "../prisma/prisma-client";
+import prisma, { transaction } from "../prisma/prisma-client";
 import { getById } from "./product";
 import {
   CompleteBusiness,
@@ -19,15 +19,9 @@ import { OrderSend } from "../lib/event-emitter/events";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
 import { userAddressRepository } from "../repositories/user-address";
-
-export type ShopCartOrder = {
-  numberOfItems: number | undefined;
-  items: ShopCartItem[];
-} & CompleteOrder;
-
-export type ShopCartItem = {
-  total: number;
-} & CompleteOrderProduct;
+import { productRepository } from "../repositories/product";
+import { ShopCartOrder } from "../types/shop-cart";
+import { BadRequestError } from "../errors/bad-request";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
@@ -46,14 +40,20 @@ export const getCurrentOrder = async (): Promise<
     0,
   );
   const items: ShopCartItem[] = order.items.map(
-    ({ price, quantity, ...item }) => ({
+    ({ price, quantity, product, ...item }) => ({
       ...item,
       price,
+      product,
       quantity,
       total: price * quantity,
+      outOfStock:
+        !product.allowOrderOutOfStock &&
+        product.isExhaustible &&
+        product.stock < quantity,
     }),
   );
   order.total = items.reduce((acc, item: any) => acc + item.total, 0);
+  order.hasProductOutOfStock = items.some(({ outOfStock }) => outOfStock);
   return { ...order, items };
 };
 
@@ -70,7 +70,7 @@ export const hasProduct = (
 export const getOrCrateOrder = async () => {
   let order = await getCurrentOrder();
   if (!order) {
-    order = (await prisma.order.create({
+    order = (await prisma().order.create({
       data: { productsDetails: [] },
     })) as ShopCartOrder;
     cookies().set("order_id", order.id);
@@ -106,7 +106,7 @@ const incrementDecrementItem = async (
   if (!find) {
     return;
   }
-  return prisma.order.update({
+  return prisma().order.update({
     where: { id: order.id },
     data: {
       items: {
@@ -124,7 +124,7 @@ export const removeFromOrder = async (productId: string) => {
   const order = await getOrCrateOrder();
   let products = order.productsDetails as Array<any>;
   products = products.filter((product: any) => product.id !== productId);
-  return prisma.order.update({
+  return prisma().order.update({
     where: { id: order.id },
     data: {
       productsDetails: products,
@@ -143,9 +143,6 @@ export const removeFromOrder = async (productId: string) => {
 
 export const addToOrder = async (productId: string) => {
   const product = (await getById(productId)) as CompleteProduct;
-  if (product.outOfStock) {
-    return;
-  }
   const order = await getOrCrateOrder();
   let products = order.productsDetails as Array<any>;
   const find = (order.items || []).find(
@@ -153,7 +150,7 @@ export const addToOrder = async (productId: string) => {
   );
   const position =
     (
-      await prisma.orderProduct.findFirst({
+      await prisma().orderProduct.findFirst({
         where: { orderId: order.id },
         orderBy: { position: "desc" },
       })
@@ -161,7 +158,7 @@ export const addToOrder = async (productId: string) => {
   if (!find) {
     products = [...products, product];
   }
-  return prisma.order.update({
+  return prisma().order.update({
     where: { id: order.id },
     data: {
       productsDetails: products,
@@ -188,24 +185,34 @@ export const addToOrder = async (productId: string) => {
 };
 
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
-  const userEntity = (await getCurrentUser()) as CompleteUser;
-  const business = (await getCurrentBusiness()) as CompleteBusiness;
-  const { addressType, newAddress, selectAddress, ...userData } = user;
-  await updateUser(userEntity.id, userData);
-  const order = await getOrCrateOrder();
-  const newOrder = await orderRepository.placeOrder(
-    order,
-    userEntity,
-    business,
-  );
-  if (business.requestAddress) {
-    const { id, ...address } =
-      AddressType.newAddress === addressType ? newAddress : selectAddress;
-    await orderAddressRepository.createNew(newOrder.id, address);
-    if (addressType === AddressType.newAddress) {
-      await userAddressRepository.createNew(userEntity.id, address);
+  const newOrder = await transaction(async () => {
+    const order = await getOrCrateOrder();
+    if (order.hasProductOutOfStock) {
+      throw new BadRequestError("out_of_stock");
     }
-  }
+    const userEntity = (await getCurrentUser()) as CompleteUser;
+    const business = (await getCurrentBusiness()) as CompleteBusiness;
+    const { addressType, newAddress, selectAddress, ...userData } = user;
+    await updateUser(userEntity.id, userData);
+    const newOrder = await orderRepository.placeOrder(
+      order,
+      userEntity,
+      business,
+    );
+    const productToUpdate: [string, number][] = order.items.map(
+      ({ product, quantity }) => [product.id, quantity],
+    );
+    await productRepository.updateStock(productToUpdate);
+    if (business.requestAddress) {
+      const { id, ...address } =
+        AddressType.newAddress === addressType ? newAddress : selectAddress;
+      await orderAddressRepository.createNew(newOrder.id, address);
+      if (addressType === AddressType.newAddress) {
+        await userAddressRepository.createNew(userEntity.id, address);
+      }
+    }
+    return newOrder;
+  });
   cookies().delete("order_id");
   //TODO: When I configure the listener send the event instance of
   // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));

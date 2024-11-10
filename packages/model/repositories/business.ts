@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
@@ -8,10 +8,10 @@ import { PaginateData } from "../types/pagination";
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
-  typeof prisma.business
+  typeof Prisma.business
 > {
   constructor() {
-    super(BusinessValidation, prisma.business);
+    super(BusinessValidation, Prisma.business);
   }
 
   paginate({ query, ...data }: PaginateData = {}) {
@@ -33,7 +33,7 @@ export class BusinessRepository extends BaseRepository<
     delete data.userId;
     const business = await super.doCreate(data);
     if (userId) {
-      await prisma.userBusiness.create({
+      await prisma().userBusiness.create({
         data: {
           userId,
           businessId: business.id,
@@ -47,10 +47,10 @@ export class BusinessRepository extends BaseRepository<
     const userId = data.userId as string;
     delete data.userId;
     if (userId) {
-      await prisma.userBusiness.deleteMany({
+      await prisma().userBusiness.deleteMany({
         where: { businessId: id },
       });
-      await prisma.userBusiness.create({
+      await prisma().userBusiness.create({
         data: {
           userId,
           businessId: id,
@@ -61,7 +61,7 @@ export class BusinessRepository extends BaseRepository<
   }
 
   getOwner(businessId: string) {
-    return prisma.userBusiness.findFirst({
+    return prisma().userBusiness.findFirst({
       where: { businessId },
       include: { user: true },
     });
@@ -88,7 +88,7 @@ export class BusinessRepository extends BaseRepository<
 
   async getBusinessIdByUser(userId: string) {
     return (
-      await prisma.userBusiness.findMany({
+      await prisma().userBusiness.findMany({
         where: { userId },
         select: { businessId: true },
       })

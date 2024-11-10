@@ -16,7 +16,7 @@ export const getUserAndBusinessById = async (id: string) => {
 
 export const updateUser = async (id: string, data: any) => {
   UserRegisterSchema.parse(data);
-  return prisma.user.update({
+  return prisma().user.update({
     where: { id },
     data,
   });

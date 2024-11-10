@@ -30,7 +30,7 @@ describe("priority", () => {
 
   it("business not active", async () => {
     business.active = false;
-    await prisma.business.update({
+    await prisma().business.update({
       where: { id: business.id },
       data: business,
     });

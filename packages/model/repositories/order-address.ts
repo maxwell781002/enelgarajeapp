@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteAddress,
@@ -9,15 +9,15 @@ import { addressRepository } from "./address";
 
 export class OrderAddressRepository extends BaseRepository<
   CompleteOrderAddress,
-  typeof prisma.orderAddress
+  typeof Prisma.orderAddress
 > {
   constructor() {
-    super(OrderAddressModel.omit({ id: true }), prisma.orderAddress);
+    super(OrderAddressModel.omit({ id: true }), Prisma.orderAddress);
   }
 
   async createNew(orderId: string, data: Omit<CompleteAddress, "id">) {
     const address = await addressRepository.create(data);
-    return prisma.orderAddress.create({
+    return prisma().orderAddress.create({
       data: { addressId: address.id, orderId },
     });
   }

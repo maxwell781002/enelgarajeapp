@@ -1,6 +1,5 @@
 "use client";
 
-import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import { MinusIcon, PlusIcon, Trash2Icon } from "@repo/ui/components/icons";
 import { Button } from "@repo/ui/components/ui/button";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
@@ -9,9 +8,11 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
+import AlertMessage from "@repo/ui/components/alert-message";
+import { ShopCartItem } from "@repo/model/types/shop-cart";
 
 type Props = {
-  item: CompleteOrderProduct;
+  item: ShopCartItem;
   url: string;
   onRemove: () => void;
   add: () => void;
@@ -58,7 +59,7 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
                 </Button>
               </div>
               <div>
-                <PriceDisplay price={(item as any).total} />
+                <PriceDisplay price={item.total} />
               </div>
               <BtnConfirm
                 btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
@@ -69,6 +70,12 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
                 btnContinueText={t("remove_dialog.continue")}
               />
             </div>
+            {item.outOfStock && (
+              <AlertMessage
+                variant="destructive"
+                text={t("errors.item_out_of_stock")}
+              />
+            )}
           </div>
         </CardContent>
       </Card>

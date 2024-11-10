@@ -12,6 +12,10 @@
       "description": "¿Estás seguro de querer borrar este producto?",
       "cancel": "No",
       "continue": "Si"
+    },
+    "errors": {
+      "has_out_of_stock": "Tiene productos que no tienen stock disponible.",
+      "item_out_of_stock": "Este producto no tiene stock disponible."
     }
   },
   "CheckoutSuccessful": {

@@ -170,8 +170,10 @@ exports.Prisma.ProductScalarFieldEnum = {
   images: 'images',
   active: 'active',
   isNew: 'isNew',
-  outOfStock: 'outOfStock',
   priority: 'priority',
+  stock: 'stock',
+  allowOrderOutOfStock: 'allowOrderOutOfStock',
+  isExhaustible: 'isExhaustible',
   businessId: 'businessId',
   categoryId: 'categoryId'
 };

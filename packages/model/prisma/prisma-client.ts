@@ -17,7 +17,7 @@ export const createSlug = ({ args, query }: any) => {
   return query(args);
 };
 
-const prisma = new PrismaClient({ adapter }).$extends({
+const _prisma = new PrismaClient({ adapter }).$extends({
   query: {
     product: {
       create: createSlug,
@@ -28,4 +28,22 @@ const prisma = new PrismaClient({ adapter }).$extends({
   },
 });
 
-export default prisma;
+export const Prisma = _prisma;
+
+let currentPrismaClient = _prisma;
+
+export const transaction = (callback: any) =>
+  Prisma.$transaction(async (tx: any) => {
+    currentPrismaClient = tx;
+    return callback(tx)
+      .then((result: any) => {
+        currentPrismaClient = _prisma;
+        return result;
+      })
+      .catch((error: any) => {
+        currentPrismaClient = _prisma;
+        throw error;
+      });
+  });
+
+export default () => currentPrismaClient;

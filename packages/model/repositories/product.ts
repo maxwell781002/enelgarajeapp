@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteProduct } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -20,10 +20,10 @@ export const PAGE_SIZE_FRONTEND = 6;
 
 export class ProductRepository extends BaseRepository<
   CompleteProduct,
-  typeof prisma.product
+  typeof Prisma.product
 > {
   constructor() {
-    super(ProductValidation, prisma.product);
+    super(ProductValidation, Prisma.product);
     this.addValidator("update", ProductUpdateValidation);
   }
 
@@ -128,6 +128,20 @@ export class ProductRepository extends BaseRepository<
     });
     const values = await Promise.all([totalActive, totalInactive]);
     return { totalActive: values[0], totalInactive: values[1] };
+  }
+
+  updateStock(products: [string, number][]) {
+    const promises = products.map(([id, decrement]) => {
+      return this.model.update({
+        where: { id },
+        data: {
+          stock: {
+            decrement,
+          },
+        },
+      });
+    });
+    return Promise.all(promises);
   }
 }
 

@@ -14,7 +14,10 @@
     "authentication_required": "Necesita autenticarse",
     "authentication_required_description": "Para completar la comprar necesitamos que se autentique así el pedido podrá ser completado",
     "login": "Autenticarse",
-    "total_cart": "Total"
+    "total_cart": "Total",
+    "errors": {
+      "has_out_of_stock": "Uno o más de los productos no tienen stock disponible."
+    }
   },
   "Address": {
     "title": "Dirección",

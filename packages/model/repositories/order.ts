@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteBusiness,
@@ -24,10 +24,10 @@ type PaginateData = {
 
 export class OrderRepository extends BaseRepository<
   CompleteOrder,
-  typeof prisma.order
+  typeof Prisma.order
 > {
   constructor() {
-    super(OrderModel, prisma.order);
+    super(OrderModel, Prisma.order);
   }
 
   orderToChange() {
@@ -37,7 +37,7 @@ export class OrderRepository extends BaseRepository<
   }
 
   changeStatus(id: string, status: OrderStatus) {
-    return prisma.order.update({
+    return prisma().order.update({
       where: { id },
       data: { status },
     });
@@ -96,7 +96,7 @@ export class OrderRepository extends BaseRepository<
   protected async getLastPosition(businessId: string) {
     return (
       (
-        await prisma.order.findFirst({
+        await prisma().order.findFirst({
           where: { businessId },
           orderBy: { position: "desc" },
         })
@@ -110,7 +110,7 @@ export class OrderRepository extends BaseRepository<
     business: CompleteBusiness,
   ) {
     const newPosition = (await this.getLastPosition(business.id)) + 1;
-    return prisma.order.update({
+    return prisma().order.update({
       where: { id: order.id },
       data: {
         userId: user.id,
@@ -125,7 +125,7 @@ export class OrderRepository extends BaseRepository<
   }
 
   hasOrders(productId: string) {
-    return prisma.order.count({
+    return prisma().order.count({
       where: {
         items: {
           some: {
@@ -137,7 +137,7 @@ export class OrderRepository extends BaseRepository<
   }
 
   getByBusinessAndUser(userId: string, businessId: string) {
-    return prisma.order.findMany({
+    return prisma().order.findMany({
       where: { userId, businessId, NOT: { status: OrderStatus.CREATED } },
       include: {
         items: {
@@ -150,7 +150,7 @@ export class OrderRepository extends BaseRepository<
   }
 
   getOrderById(id: string) {
-    return prisma.order.findUnique({
+    return prisma().order.findUnique({
       where: { id },
       include: {
         user: true,
@@ -166,13 +166,13 @@ export class OrderRepository extends BaseRepository<
   }
 
   async getTotals(businessId: string) {
-    const totalSend = prisma.order.count({
+    const totalSend = prisma().order.count({
       where: { businessId, status: OrderStatus.SEND },
     });
-    const totalPayed = prisma.order.count({
+    const totalPayed = prisma().order.count({
       where: { businessId, status: OrderStatus.PAYED },
     });
-    const totalReject = prisma.order.count({
+    const totalReject = prisma().order.count({
       where: { businessId, status: OrderStatus.REJECTED },
     });
     const values = await Promise.all([totalSend, totalPayed, totalReject]);
@@ -184,7 +184,7 @@ export class OrderRepository extends BaseRepository<
   }
 
   getAllData(orderId: string) {
-    return prisma.order.findUnique({
+    return prisma().order.findUnique({
       where: { id: orderId },
       include: {
         user: true,

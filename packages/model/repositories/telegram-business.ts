@@ -1,13 +1,13 @@
-import prisma from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteTelegramBusiness, TelegramBusinessModel } from "../prisma/zod";
 
 export class TelegramBusinessRepository extends BaseRepository<
   CompleteTelegramBusiness,
-  typeof prisma.telegramBusiness
+  typeof Prisma.telegramBusiness
 > {
   constructor() {
-    super(TelegramBusinessModel.omit({ id: true }), prisma.telegramBusiness);
+    super(TelegramBusinessModel.omit({ id: true }), Prisma.telegramBusiness);
   }
 
   getAll() {
@@ -20,7 +20,7 @@ export class TelegramBusinessRepository extends BaseRepository<
       ...data,
       businessId,
     };
-    return prisma.telegramBusiness.upsert({
+    return prisma().telegramBusiness.upsert({
       where: { businessId },
       create: dataBusiness,
       update: dataBusiness,
@@ -28,7 +28,7 @@ export class TelegramBusinessRepository extends BaseRepository<
   }
 
   removeByBusinessId(businessId: string) {
-    return prisma.telegramBusiness.deleteMany({ where: { businessId } });
+    return prisma().telegramBusiness.deleteMany({ where: { businessId } });
   }
 
   getByBusinessId(businessId: string) {

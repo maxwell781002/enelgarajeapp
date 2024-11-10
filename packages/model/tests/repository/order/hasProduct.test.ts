@@ -22,7 +22,7 @@ describe("hasProduct", () => {
     product2 = await productFactory({
       businessId: (await businessFactory({ slug: "http://localhost:3002" })).id,
     });
-    order = await prisma.order.create({
+    order = await prisma().order.create({
       data: {
         productsDetails: "[]",
         items: {
