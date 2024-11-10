@@ -25,6 +25,10 @@ export const addProductFields = async (
     ...product,
     _inCart: order && (await hasProduct(product.id, order)),
     _isOffer: product.offerPrice && product.offerPrice < product.price,
+    _outOfStock:
+      !product.allowOrderOutOfStock &&
+      product.isExhaustible &&
+      product.stock <= 0,
   };
 };
 

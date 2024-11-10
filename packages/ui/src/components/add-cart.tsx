@@ -24,7 +24,7 @@ export function BtnAddCart({
           <CheckIcon className="h-3.5 w-3.5 text-primary-foreground" />
         </div>
       )}
-      <Button className={cn("px-3")} onClick={handle}>
+      <Button disabled={product._outOfStock} className={cn("px-3")} onClick={handle}>
         <ShoppingCartIcon className="w-4 h-4" />
       </Button>
     </div>
