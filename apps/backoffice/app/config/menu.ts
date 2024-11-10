@@ -7,6 +7,7 @@ import {
   DollarSignIcon,
   ShoppingBasketIcon,
   BriefcaseBusinessIcon,
+  MapPinIcon,
 } from "lucide-react";
 
 export const coreMenu: LinkItem[] = [
@@ -19,6 +20,11 @@ export const coreMenu: LinkItem[] = [
     link: `/admin/business`,
     title: "Negocios",
     Icon: BriefcaseBusinessIcon,
+  },
+  {
+    link: `/admin/neighborhood`,
+    title: "Repartos",
+    Icon: MapPinIcon,
   },
 ];
 
