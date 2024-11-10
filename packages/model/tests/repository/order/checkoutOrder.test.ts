@@ -1,6 +1,12 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { checkoutOrder, getOrCrateOrder } from "../../../repository/order";
-import { businessFactory, clearBd, userFactory } from "../../factories";
+import {
+  businessFactory,
+  clearBd,
+  productFactory,
+  productOrderFactory,
+  userFactory,
+} from "../../factories";
 import prisma from "../../../prisma/prisma-client";
 import { AddressType } from "../../../validation/user";
 import { businessRepository } from "../../../repositories/business";
@@ -52,13 +58,26 @@ describe("checkoutOrder", () => {
   let order;
   let user;
   let business;
+  let product;
 
   beforeAll(async () => {
     user = await userFactory();
     business = await businessFactory();
     userModule.getOrCreateUser.mockReturnValue(user);
     userModule.getCurrentUser.mockReturnValue(user);
+    product = await productFactory({
+      name: "Product",
+      businessId: business.id,
+      stock: 30,
+    });
     order = await getOrCrateOrder();
+    await productOrderFactory({
+      orderId: order.id,
+      productId: product.id,
+      quantity: 10,
+      position: 1,
+      price: 100,
+    });
     mocksCookies.get.mockReturnValue({ value: order.id });
   });
 
@@ -79,6 +98,10 @@ describe("checkoutOrder", () => {
     // TODO: Not it works
     // expect((eventEmitter as any).dispatch).toHaveBeenCalledOnce();
     expect(sendOrderToTelegram).toBeCalledTimes(1);
+    const productDb = await prisma().product.findFirst({
+      where: { id: product.id },
+    });
+    expect(productDb?.stock).toBe(20);
   });
 
   it("new checkout order", async () => {
@@ -93,6 +116,10 @@ describe("checkoutOrder", () => {
       where: { orderId: newOrder.id },
     });
     expect(address.length).toBe(0);
+    const productDb = await prisma().product.findFirst({
+      where: { id: product.id },
+    });
+    expect(productDb?.stock).toBe(10);
   });
 
   it("Send address", async () => {
@@ -129,5 +156,19 @@ describe("checkoutOrder", () => {
     expect(address[0].address.city).toBe("city");
     expect(address[0].address.state).toBe("state");
     expect(address[0].address.reference).toBe("12345");
+    const productDb = await prisma().product.findFirst({
+      where: { id: product.id },
+    });
+    expect(productDb?.stock).toBe(0);
   });
+
+  // it("new checkout order", async () => {
+  //   try {
+  //     await checkoutOrder(userData as any);
+  //     expect(true).toBe(false);
+  //   } catch (error) {
+  //     expect(error.message).toBe("out_of_stock");
+  //   }
+  //   // return expect(checkoutOrder(userData as any)).rejects.toThrowError();
+  // });
 });

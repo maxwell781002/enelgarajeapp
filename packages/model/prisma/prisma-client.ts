@@ -30,4 +30,15 @@ const _prisma = new PrismaClient({ adapter }).$extends({
 
 export const Prisma = _prisma;
 
-export default () => _prisma;
+let currentPrismaClient = _prisma;
+
+export const transaction = (callback) =>
+  Prisma.$transaction(async (tx: any) => {
+    currentPrismaClient = tx;
+    return callback(tx).then((result) => {
+      currentPrismaClient = _prisma;
+      return result;
+    });
+  });
+
+export default () => currentPrismaClient;

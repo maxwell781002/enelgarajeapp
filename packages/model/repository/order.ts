@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import prisma from "../prisma/prisma-client";
+import prisma, { transaction } from "../prisma/prisma-client";
 import { getById } from "./product";
 import {
   CompleteBusiness,
@@ -19,14 +19,17 @@ import { OrderSend } from "../lib/event-emitter/events";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
 import { userAddressRepository } from "../repositories/user-address";
+import { productRepository } from "../repositories/product";
 
 export type ShopCartOrder = {
   numberOfItems: number | undefined;
   items: ShopCartItem[];
+  hasProductOutOfStock: boolean;
 } & CompleteOrder;
 
 export type ShopCartItem = {
   total: number;
+  outOfStock: boolean;
 } & CompleteOrderProduct;
 
 export const getCurrentOrder = async (): Promise<
@@ -46,14 +49,20 @@ export const getCurrentOrder = async (): Promise<
     0,
   );
   const items: ShopCartItem[] = order.items.map(
-    ({ price, quantity, ...item }) => ({
+    ({ price, quantity, product, ...item }) => ({
       ...item,
       price,
+      product,
       quantity,
       total: price * quantity,
+      outOfStock:
+        !product.allowOrderOutOfStock &&
+        product.isExhaustible &&
+        product.stock < quantity,
     }),
   );
   order.total = items.reduce((acc, item: any) => acc + item.total, 0);
+  order.hasProductOutOfStock = items.some(({ outOfStock }) => outOfStock);
   return { ...order, items };
 };
 
@@ -185,29 +194,38 @@ export const addToOrder = async (productId: string) => {
 };
 
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
-  const userEntity = (await getCurrentUser()) as CompleteUser;
-  const business = (await getCurrentBusiness()) as CompleteBusiness;
-  const { addressType, newAddress, selectAddress, ...userData } = user;
-  await updateUser(userEntity.id, userData);
-  const order = await getOrCrateOrder();
-  const newOrder = await orderRepository.placeOrder(
-    order,
-    userEntity,
-    business,
-  );
-  if (business.requestAddress) {
-    const { id, ...address } =
-      AddressType.newAddress === addressType ? newAddress : selectAddress;
-    await orderAddressRepository.createNew(newOrder.id, address);
-    if (addressType === AddressType.newAddress) {
-      await userAddressRepository.createNew(userEntity.id, address);
+  return transaction(async () => {
+    const order = await getOrCrateOrder();
+    if (order.hasProductOutOfStock) {
+      throw new Error("out_of_stock");
     }
-  }
-  cookies().delete("order_id");
-  //TODO: When I configure the listener send the event instance of
-  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
-  await sendOrderToTelegram(new OrderSend(newOrder as CompleteOrder));
-  return newOrder;
+    const userEntity = (await getCurrentUser()) as CompleteUser;
+    const business = (await getCurrentBusiness()) as CompleteBusiness;
+    const { addressType, newAddress, selectAddress, ...userData } = user;
+    await updateUser(userEntity.id, userData);
+    const newOrder = await orderRepository.placeOrder(
+      order,
+      userEntity,
+      business,
+    );
+    const productToUpdate: [string, number][] = order.items.map(
+      ({ product, quantity }) => [product.id, quantity],
+    );
+    await productRepository.updateStock(productToUpdate);
+    if (business.requestAddress) {
+      const { id, ...address } =
+        AddressType.newAddress === addressType ? newAddress : selectAddress;
+      await orderAddressRepository.createNew(newOrder.id, address);
+      if (addressType === AddressType.newAddress) {
+        await userAddressRepository.createNew(userEntity.id, address);
+      }
+    }
+    cookies().delete("order_id");
+    //TODO: When I configure the listener send the event instance of
+    // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+    await sendOrderToTelegram(new OrderSend(newOrder as CompleteOrder));
+    return newOrder;
+  });
 };
 
 export const getOrderById = async (id: string) => {

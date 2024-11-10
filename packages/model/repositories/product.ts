@@ -129,6 +129,20 @@ export class ProductRepository extends BaseRepository<
     const values = await Promise.all([totalActive, totalInactive]);
     return { totalActive: values[0], totalInactive: values[1] };
   }
+
+  updateStock(products: [string, number][]) {
+    const promises = products.map(([id, decrement]) => {
+      return this.model.update({
+        where: { id },
+        data: {
+          stock: {
+            decrement,
+          },
+        },
+      });
+    });
+    return Promise.all(promises);
+  }
 }
 
 export const productRepository = new ProductRepository();

@@ -25,10 +25,14 @@ describe("CurrentOrder", () => {
     const product1 = await productFactory({
       name: "Product 1",
       businessId: business.id,
+      isExhaustible: true,
+      stock: 0,
     });
     const product2 = await productFactory({
       name: "Product 2",
       businessId: business.id,
+      isExhaustible: true,
+      stock: 100,
     });
     orderId = (
       await prisma().order.create({
@@ -72,5 +76,8 @@ describe("CurrentOrder", () => {
     expect(order.items.length).toBe(2);
     expect(order.items[0].total).toBe(1);
     expect(order.items[1].total).toBe(20);
+    expect(order.items[0].outOfStock).toBeTruthy();
+    expect(order.items[1].outOfStock).toBeFalsy();
+    expect(order.hasProductOutOfStock).toBeTruthy();
   });
 });
