@@ -15,7 +15,7 @@ describe("updateUser", () => {
 
   beforeEach(async () => {
     userId = (
-      await prisma.user.create({
+      await prisma().user.create({
         data: {
           email: "test",
           name: "test",
@@ -27,7 +27,7 @@ describe("updateUser", () => {
 
   afterEach(async () => {
     vi.clearAllMocks();
-    await prisma.user.deleteMany();
+    await prisma().user.deleteMany();
   });
 
   it("updateUser", async () => {

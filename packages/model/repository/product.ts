@@ -8,13 +8,13 @@ import { getCurrentOrder, hasProduct, ShopCartOrder } from "./order";
 export const getBySlug = async (slug: string) => {
   const order = await getCurrentOrder();
   return addProductFields(
-    await prisma.product.findUnique({ where: { slug } }),
+    await prisma().product.findUnique({ where: { slug } }),
     order,
   );
 };
 
 export const getById = (id: string) => {
-  return prisma.product.findUnique({ where: { id } });
+  return prisma().product.findUnique({ where: { id } });
 };
 
 export const addProductFields = async (

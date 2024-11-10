@@ -2,12 +2,12 @@ import prisma from "./prisma-client";
 import sampleData from "./sample-data/data";
 
 async function createBusiness(data: any) {
-  const business = await prisma.business.create({
+  const business = await prisma().business.create({
     data,
   });
   return Promise.all(
     sampleData.map(async ({ products, ...category }) => {
-      const categoryEntity = await prisma.category.create({
+      const categoryEntity = await prisma().category.create({
         data: {
           ...category,
           businessId: business.id,
@@ -16,7 +16,7 @@ async function createBusiness(data: any) {
 
       return Promise.all(
         products.map(async (product) =>
-          prisma.product.create({
+          prisma().product.create({
             data: {
               ...product,
               businessId: business.id,
@@ -67,10 +67,10 @@ Camina hacia el este por la Avenida Paseo de Martí (Prado) desde el Parque Cent
 }
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await prisma().$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
+    await prisma().$disconnect();
     process.exit(1);
   });

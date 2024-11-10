@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteAddress,
@@ -9,21 +9,21 @@ import { addressRepository } from "./address";
 
 export class UserAddressRepository extends BaseRepository<
   CompleteUserAddress,
-  typeof prisma.userAddress
+  typeof Prisma.userAddress
 > {
   constructor() {
-    super(UserAddressModel.omit({ id: true }), prisma.userAddress);
+    super(UserAddressModel.omit({ id: true }), Prisma.userAddress);
   }
 
   async createNew(userId: string, data: Omit<CompleteAddress, "id">) {
     const address = await addressRepository.create(data);
-    return prisma.userAddress.create({
+    return prisma().userAddress.create({
       data: { addressId: address.id, userId },
     });
   }
 
   async findByUserId(userId: string) {
-    const addresses = await prisma.userAddress.findMany({
+    const addresses = await prisma().userAddress.findMany({
       where: { userId },
       include: { address: true },
     });

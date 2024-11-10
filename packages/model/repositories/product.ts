@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteProduct } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -20,10 +20,10 @@ export const PAGE_SIZE_FRONTEND = 6;
 
 export class ProductRepository extends BaseRepository<
   CompleteProduct,
-  typeof prisma.product
+  typeof Prisma.product
 > {
   constructor() {
-    super(ProductValidation, prisma.product);
+    super(ProductValidation, Prisma.product);
     this.addValidator("update", ProductUpdateValidation);
   }
 

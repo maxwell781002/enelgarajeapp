@@ -1,4 +1,4 @@
-import prisma from "../prisma/prisma-client";
+import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CategoryModel, CompleteCategory } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -9,10 +9,10 @@ type PaginateData = {
 
 export class CategoryRepository extends BaseRepository<
   CompleteCategory,
-  typeof prisma.category
+  typeof Prisma.category
 > {
   constructor() {
-    super(CategoryModel.omit({ id: true }), prisma.category);
+    super(CategoryModel.omit({ id: true }), Prisma.category);
   }
 
   getAll(businessId: string) {

@@ -89,7 +89,7 @@ describe("checkoutOrder", () => {
     expect(newOrder.identifier?.split("-")[1]).toBe("2");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);
     expect(mocksCookies.delete).toBeCalledWith("order_id");
-    const address = await prisma.orderAddress.findMany({
+    const address = await prisma().orderAddress.findMany({
       where: { orderId: newOrder.id },
     });
     expect(address.length).toBe(0);
@@ -119,7 +119,7 @@ describe("checkoutOrder", () => {
     expect(newOrder.identifier?.split("-")[1]).toBe("3");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);
     expect(mocksCookies.delete).toBeCalledWith("order_id");
-    const address = await prisma.orderAddress.findMany({
+    const address = await prisma().orderAddress.findMany({
       where: { orderId: newOrder.id },
       include: { address: true },
     });

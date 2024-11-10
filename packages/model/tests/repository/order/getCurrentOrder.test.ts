@@ -31,7 +31,7 @@ describe("CurrentOrder", () => {
       businessId: business.id,
     });
     orderId = (
-      await prisma.order.create({
+      await prisma().order.create({
         data: {
           productsDetails: "[]",
           items: {

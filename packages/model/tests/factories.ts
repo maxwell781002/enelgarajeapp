@@ -8,20 +8,20 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
-  await prisma.userAddress.deleteMany();
-  await prisma.orderAddress.deleteMany();
-  await prisma.address.deleteMany();
-  await prisma.telegramBusiness.deleteMany();
-  await prisma.userBusiness.deleteMany();
-  await prisma.orderProduct.deleteMany();
-  await prisma.product.deleteMany();
-  await prisma.category.deleteMany();
-  await prisma.order.deleteMany();
-  await prisma.business.deleteMany();
+  await prisma().userAddress.deleteMany();
+  await prisma().orderAddress.deleteMany();
+  await prisma().address.deleteMany();
+  await prisma().telegramBusiness.deleteMany();
+  await prisma().userBusiness.deleteMany();
+  await prisma().orderProduct.deleteMany();
+  await prisma().product.deleteMany();
+  await prisma().category.deleteMany();
+  await prisma().order.deleteMany();
+  await prisma().business.deleteMany();
 };
 
 export const categoryFactory = (data: any = {}) => {
-  return prisma.category.create({
+  return prisma().category.create({
     data: {
       name: "Category",
       ...data,
@@ -30,7 +30,7 @@ export const categoryFactory = (data: any = {}) => {
 };
 
 export const businessFactory = (data = {}) => {
-  return prisma.business.create({
+  return prisma().business.create({
     data: {
       name: "Business",
       slug: "http://localhost:3000",
@@ -40,7 +40,7 @@ export const businessFactory = (data = {}) => {
 };
 
 export const userBusinessFactory = (data: any) => {
-  return prisma.userBusiness.create({
+  return prisma().userBusiness.create({
     data,
   });
 };
@@ -54,7 +54,7 @@ export const productFactory = async (data: any = {}) => {
       await categoryFactory({ businessId: data.businessId })
     ).id;
   }
-  return prisma.product.create({
+  return prisma().product.create({
     data: {
       name: "Product",
       description: "Description",
@@ -66,7 +66,7 @@ export const productFactory = async (data: any = {}) => {
 };
 
 export const userFactory = async (data = {}) => {
-  return prisma.user.create({
+  return prisma().user.create({
     data: {
       email: `${randomEmail()}@gmail.com`,
       ...data,
@@ -75,13 +75,13 @@ export const userFactory = async (data = {}) => {
 };
 
 export const orderFactory = async (data: any) => {
-  return prisma.order.create({ data: { productsDetails: "[]", ...data } });
+  return prisma().order.create({ data: { productsDetails: "[]", ...data } });
 };
 
 export const telegramBusinessFactory = async (data: any = {}) => {
-  return prisma.telegramBusiness.create({ data });
+  return prisma().telegramBusiness.create({ data });
 };
 
 export const productOrderFactory = (data: any = {}) => {
-  return prisma.orderProduct.create({ data });
+  return prisma().orderProduct.create({ data });
 };

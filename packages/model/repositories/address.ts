@@ -1,13 +1,13 @@
-import prisma from "../prisma/prisma-client";
+import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { AddressModel, CompleteAddress } from "../prisma/zod";
 
 export class AddressRepository extends BaseRepository<
   CompleteAddress,
-  typeof prisma.address
+  typeof Prisma.address
 > {
   constructor() {
-    super(AddressModel.omit({ id: true }), prisma.address);
+    super(AddressModel.omit({ id: true }), Prisma.address);
   }
 }
 

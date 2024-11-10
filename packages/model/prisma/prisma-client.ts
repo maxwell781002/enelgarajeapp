@@ -17,7 +17,7 @@ export const createSlug = ({ args, query }: any) => {
   return query(args);
 };
 
-const prisma = new PrismaClient({ adapter }).$extends({
+const _prisma = new PrismaClient({ adapter }).$extends({
   query: {
     product: {
       create: createSlug,
@@ -28,4 +28,6 @@ const prisma = new PrismaClient({ adapter }).$extends({
   },
 });
 
-export default prisma;
+export const Prisma = _prisma;
+
+export default () => _prisma;
