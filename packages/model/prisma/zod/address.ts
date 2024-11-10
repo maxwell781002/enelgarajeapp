@@ -1,5 +1,7 @@
 import * as z from "zod";
 import {
+  CompleteNeighborhood,
+  RelatedNeighborhoodModel,
   CompleteUserAddress,
   RelatedUserAddressModel,
   CompleteOrderAddress,
@@ -14,9 +16,11 @@ export const AddressModel = z.object({
   city: z.string().min(1, { message: "Required" }),
   state: z.string().min(1, { message: "Required" }),
   reference: z.string().optional().nullish(),
+  neighborhoodId: z.string().nullish(),
 });
 
 export interface CompleteAddress extends z.infer<typeof AddressModel> {
+  neighborhood?: CompleteNeighborhood | null;
   userAddress?: CompleteUserAddress | null;
   orderAddress?: CompleteOrderAddress | null;
 }
@@ -28,6 +32,7 @@ export interface CompleteAddress extends z.infer<typeof AddressModel> {
  */
 export const RelatedAddressModel: z.ZodSchema<CompleteAddress> = z.lazy(() =>
   AddressModel.extend({
+    neighborhood: RelatedNeighborhoodModel.nullish(),
     userAddress: RelatedUserAddressModel.nullish(),
     orderAddress: RelatedOrderAddressModel.nullish(),
   }),

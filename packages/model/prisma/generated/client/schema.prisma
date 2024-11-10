@@ -21,26 +21,27 @@ datasource db {
 }
 
 model Business {
-  id                     String            @id @default(uuid())
+  id                     String                 @id @default(uuid())
   name                   String /// @zod.min(1, { message: "required" })
   description            String? /// @zod.min(1, { message: "required" })
   address                String? /// @zod.min(1, { message: "required" })
   phone                  String? /// @zod.min(1, { message: "required" })
   howToArrive            String?
   coordinates            Float[]
-  slug                   String?           @unique /// @zod.min(1, { message: "required" })
-  active                 Boolean           @default(true) /// @zod.optional()
-  requestAddress         Boolean           @default(false) /// @zod.optional()
-  plan                   BusinessPlan      @default(BASIC)
-  sendOrderToWhatsapp    Boolean           @default(false)
-  defaultPaymentMethod   PaymentMethod?    @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
-  defaultPaymentMethodId String?           @unique()
+  slug                   String?                @unique /// @zod.min(1, { message: "required" })
+  active                 Boolean                @default(true) /// @zod.optional()
+  requestAddress         Boolean                @default(false) /// @zod.optional()
+  plan                   BusinessPlan           @default(BASIC)
+  sendOrderToWhatsapp    Boolean                @default(false)
+  defaultPaymentMethod   PaymentMethod?         @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
+  defaultPaymentMethodId String?                @unique()
   telegram               TelegramBusiness?
   categories             Category[]
   products               Product[]
   orders                 Order[]
   users                  UserBusiness[]
-  paymentMethod          PaymentMethod[]   @relation("paymentMehtods")
+  businessNeighborhood   BusinessNeighborhood[]
+  paymentMethod          PaymentMethod[]        @relation("paymentMehtods")
 }
 
 model TelegramBusiness {
@@ -137,6 +138,8 @@ model Order {
   userId          String?
   items           OrderProduct[]
   productsDetails Json
+  shipping        Int            @default(0)
+  hasShipping     Boolean        @default(false)
   total           Int            @default(0)
   status          OrderStatus    @default(CREATED)
   sentAt          DateTime?
@@ -242,8 +245,19 @@ model Address {
   state     String /// @zod.min(1, { message: "Required" })
   reference String? /// @zod.optional()
 
-  userAddress  UserAddress?
-  orderAddress OrderAddress?
+  neighborhood   Neighborhood? @relation(fields: [neighborhoodId], references: [id])
+  neighborhoodId String?
+  userAddress    UserAddress?
+  orderAddress   OrderAddress?
+}
+
+model Neighborhood {
+  id   String @id @default(uuid())
+  name String /// @zod.min(1, { message: "Required" })
+  city String /// @zod.min(1, { message: "Required" })
+
+  addresses            Address[]
+  businessNeighborhood BusinessNeighborhood[]
 }
 
 model UserAddress {
@@ -260,4 +274,15 @@ model OrderAddress {
   addressId String  @unique
   order     Order   @relation(fields: [orderId], references: [id])
   orderId   String  @unique
+}
+
+model BusinessNeighborhood {
+  id       String  @id @default(uuid())
+  shipping Int     @default(0)
+  active   Boolean @default(true)
+
+  business       Business     @relation(fields: [businessId], references: [id])
+  businessId     String
+  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
+  neighborhoodId String
 }

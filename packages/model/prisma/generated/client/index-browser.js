@@ -199,6 +199,8 @@ exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   productsDetails: 'productsDetails',
+  shipping: 'shipping',
+  hasShipping: 'hasShipping',
   total: 'total',
   status: 'status',
   sentAt: 'sentAt',
@@ -263,7 +265,14 @@ exports.Prisma.AddressScalarFieldEnum = {
   address: 'address',
   city: 'city',
   state: 'state',
-  reference: 'reference'
+  reference: 'reference',
+  neighborhoodId: 'neighborhoodId'
+};
+
+exports.Prisma.NeighborhoodScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  city: 'city'
 };
 
 exports.Prisma.UserAddressScalarFieldEnum = {
@@ -276,6 +285,14 @@ exports.Prisma.OrderAddressScalarFieldEnum = {
   id: 'id',
   addressId: 'addressId',
   orderId: 'orderId'
+};
+
+exports.Prisma.BusinessNeighborhoodScalarFieldEnum = {
+  id: 'id',
+  shipping: 'shipping',
+  active: 'active',
+  businessId: 'businessId',
+  neighborhoodId: 'neighborhoodId'
 };
 
 exports.Prisma.SortOrder = {
@@ -339,8 +356,10 @@ exports.Prisma.ModelName = {
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
   Address: 'Address',
+  Neighborhood: 'Neighborhood',
   UserAddress: 'UserAddress',
-  OrderAddress: 'OrderAddress'
+  OrderAddress: 'OrderAddress',
+  BusinessNeighborhood: 'BusinessNeighborhood'
 };
 
 /**

@@ -12,5 +12,7 @@ export * from "./session";
 export * from "./verificationtoken";
 export * from "./authenticator";
 export * from "./address";
+export * from "./neighborhood";
 export * from "./useraddress";
 export * from "./orderaddress";
+export * from "./businessneighborhood";

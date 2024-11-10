@@ -23,6 +23,8 @@ export const OrderModel = z.object({
   id: z.string(),
   userId: z.string().nullish(),
   productsDetails: jsonSchema,
+  shipping: z.number().int(),
+  hasShipping: z.boolean(),
   total: z.number().int(),
   status: z.nativeEnum(OrderStatus),
   sentAt: z.date().nullish(),
