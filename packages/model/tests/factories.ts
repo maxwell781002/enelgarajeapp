@@ -8,6 +8,8 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
+  await prisma().businessNeighborhood.deleteMany();
+  await prisma().neighborhood.deleteMany();
   await prisma().userAddress.deleteMany();
   await prisma().orderAddress.deleteMany();
   await prisma().address.deleteMany();
@@ -84,4 +86,12 @@ export const telegramBusinessFactory = async (data: any = {}) => {
 
 export const productOrderFactory = (data: any = {}) => {
   return prisma().orderProduct.create({ data });
+};
+
+export const neighborhoodFactory = async (data: any = {}) => {
+  return prisma().neighborhood.create({ data });
+};
+
+export const businessNeighborhoodFactory = async (data: any = {}) => {
+  return prisma().businessNeighborhood.create({ data });
 };

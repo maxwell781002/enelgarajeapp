@@ -41,6 +41,12 @@ export class BusinessNeighborhoodRepository extends BaseRepository<
       },
     });
   }
+
+  getByCityAndBusiness(businessId: string, city: string) {
+    return this.model.findMany({
+      where: { neighborhood: { city }, businessId },
+    });
+  }
 }
 
 export const businessNeighborhoodRepository =
