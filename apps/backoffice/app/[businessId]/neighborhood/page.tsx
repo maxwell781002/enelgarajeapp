@@ -6,18 +6,22 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import TableLayout from "@repo/ui/components/table-layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
-import { neighborhoodRepository } from "@repo/model/repositories/neighborhood";
 import NeighborhoodTable from "./table";
+import { businessNeighborhoodRepository } from "@repo/model/repositories/business-neighborhood";
 
 type PageProps = {
   searchParams: any;
+  params: { businessId: string };
 };
 
-export default async function Page({ searchParams }: PageProps) {
-  const t = await getTranslations("Neighborhood");
+export default async function Page({
+  searchParams,
+  params: { businessId },
+}: PageProps) {
+  const t = await getTranslations("BusinessNeighborhood");
   const { list, remove, update, create, search } = crud(
-    "/admin/neighborhood",
-    neighborhoodRepository.getRepositoryModelName(),
+    `/${businessId}/neighborhood`,
+    businessNeighborhoodRepository.getRepositoryModelName(),
     searchParams,
   );
   const handleSearch = async (query: any) => {
@@ -25,7 +29,7 @@ export default async function Page({ searchParams }: PageProps) {
     const url = await search(query);
     return redirect(url);
   };
-  const pagination = await list({ ...searchParams });
+  const pagination = await list({ ...searchParams, businessId });
   return (
     <TableLayout
       title={t("NeighborhoodList")}
@@ -34,7 +38,7 @@ export default async function Page({ searchParams }: PageProps) {
         <DialogForm
           title={t("create")}
           action={create}
-          defaultValues={{ active: true }}
+          defaultValues={{ active: true, businessId }}
         />
       }
     >

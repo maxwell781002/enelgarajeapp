@@ -1,5 +1,6 @@
 import { BaseRepository } from "../lib/base-repository";
 import { businessRepository } from "./business";
+import { businessNeighborhoodRepository } from "./business-neighborhood";
 import { categoryRepository } from "./category";
 import { neighborhoodRepository } from "./neighborhood";
 import { orderRepository } from "./order";
@@ -20,6 +21,8 @@ export default {
   [orderAddressRepository.getRepositoryModelName()]: orderAddressRepository,
   [paymentMethodRepository.getRepositoryModelName()]: paymentMethodRepository,
   [neighborhoodRepository.getRepositoryModelName()]: neighborhoodRepository,
+  [businessNeighborhoodRepository.getRepositoryModelName()]:
+    businessNeighborhoodRepository,
   [telegramBusinessRepository.getRepositoryModelName()]:
     telegramBusinessRepository,
 } as Record<string, BaseRepository<any, any>>;

@@ -60,6 +60,11 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     Icon: Package2,
     active: true,
   },
+  {
+    link: `/${businessId}/neighborhood`,
+    title: "Repartos",
+    Icon: MapPinIcon,
+  },
 ];
 
 export const secondaryMenu: LinkItem[] = [

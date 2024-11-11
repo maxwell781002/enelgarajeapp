@@ -17,7 +17,7 @@ export default function PriceDisplay({
   acronym = "CUP",
 }: PriceDisplayProps) {
   const formatPrice = (amount: number, showAcronym = true) => {
-    return baseFormatPrice(amount, showAcronym, currency, acronym);
+    return amount && baseFormatPrice(amount, showAcronym, currency, acronym);
   };
 
   return (

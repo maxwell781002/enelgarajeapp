@@ -6,9 +6,7 @@ import {
   NeighborhoodModel,
 } from "../prisma/zod/neighborhood";
 
-type PaginateData = {
-  businessId?: string;
-} & BasePaginateData;
+type PaginateData = BasePaginateData;
 
 export class NeighborhoodRepository extends BaseRepository<
   CompleteNeighborhood,
@@ -18,10 +16,8 @@ export class NeighborhoodRepository extends BaseRepository<
     super(NeighborhoodModel.omit({ id: true }), Prisma.neighborhood);
   }
 
-  paginate({ businessId, query, ...data }: PaginateData = {}) {
-    const where: any = {
-      businessId,
-    };
+  paginate({ query, ...data }: PaginateData = {}) {
+    const where: any = {};
     if (query) {
       where["name"] = {
         contains: query,
@@ -32,6 +28,10 @@ export class NeighborhoodRepository extends BaseRepository<
       ...data,
       where,
     });
+  }
+
+  getByCity(city: string) {
+    return this.model.findMany({ where: { city } });
   }
 }
 
