@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AddressType,
-  addressValidation,
-  TUserRegisterSchema,
-  UserRegisterSchema,
-} from "@repo/model/validation/user";
+import { AddressType, TUserRegisterSchema } from "@repo/model/validation/user";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Form,
@@ -18,13 +13,11 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import Address from "@repo/ui/components/address/index";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteAddress } from "@repo/model/zod/address";
-import { useEffect, useMemo, useState } from "react";
 import AlertMessage from "@repo/ui/components/alert-message";
+import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 
 type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
@@ -32,15 +25,9 @@ type CheckoutFormProps = {
   business: CompleteBusiness;
   addresses: CompleteAddress[];
   shopCartHasError?: boolean;
-};
-
-const address: Omit<CompleteAddress, "id"> = {
-  alias: "",
-  name: "",
-  address: "",
-  city: "",
-  state: "",
-  reference: "",
+  form: any;
+  setAddressType: (type: AddressType) => void;
+  neighborhoods?: NeighborhoodWithShipping[];
 };
 
 export function CheckoutForm({
@@ -48,46 +35,17 @@ export function CheckoutForm({
   defaultValues,
   business,
   addresses,
-  shopCartHasError: _shopCartHasError = false,
+  shopCartHasError = false,
+  form: { formState, ...form },
+  setAddressType,
+  neighborhoods = [],
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
-  const [shopCartHasError, setShopCartHasError] = useState(_shopCartHasError);
-  const [addressType, setAddressType] = useState(
-    addresses.length ? AddressType.selectAddress : AddressType.newAddress,
-  );
-  const schema = useMemo(
-    () =>
-      business.requestAddress
-        ? UserRegisterSchema.extend({
-            [addressType]: addressValidation[addressType],
-          })
-        : UserRegisterSchema,
-    [addressType],
-  );
-  const { formState, ...form } = useForm<TUserRegisterSchema>({
-    resolver: zodResolver(schema),
-    defaultValues: business.requestAddress
-      ? ({ ...defaultValues, [AddressType.newAddress]: address } as any)
-      : defaultValues,
-  });
-  useEffect(() => {
-    form.setValue("addressType", String(addressType));
-  }, [addressType, form]);
-  const handleAction = async (data: TUserRegisterSchema) => {
-    try {
-      await action(data);
-    } catch (error: any) {
-      if (error.message === "out_of_stock") {
-        setShopCartHasError(true);
-      }
-    }
-  };
-
   return (
     <Form {...form} formState={formState}>
       <form
-        onSubmit={form.handleSubmit((data) =>
-          handleAction({ ...defaultValues, ...data }),
+        onSubmit={form.handleSubmit((data: any) =>
+          action({ ...defaultValues, ...data }),
         )}
         className="space-y-8"
       >
@@ -124,6 +82,7 @@ export function CheckoutForm({
             form={form}
             addresses={addresses}
             setAddressType={setAddressType}
+            neighborhoods={neighborhoods}
           />
         )}
         {shopCartHasError && (

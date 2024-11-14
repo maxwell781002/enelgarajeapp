@@ -35,6 +35,8 @@
     "tabSelectAddress": "Seleccionar",
     "tabCreateAddress": "Crear nueva",
     "Required": "Requerido",
+    "lbNeighborhoodId": "Reparto",
+    "phNeighborhoodId": "Reparto",
     "phReference": "Alguna descripción que sirva de referencia para poder llegar."
   }
 }
