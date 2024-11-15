@@ -3,6 +3,7 @@
     "title": "Solicitar pedido",
     "lblName": "Nombre",
     "lbPhone": "Teléfono",
+    "lbWantDomicile": "¿Desea que se le envíe a su domicilio?",
     "phName": "Escriba su nombre",
     "phPhone": "Escriba su teléfono",
     "continue": "Enviar pedido",

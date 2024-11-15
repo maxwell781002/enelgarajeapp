@@ -18,6 +18,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteAddress } from "@repo/model/zod/address";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
+import { Switch } from "@repo/ui/components/ui/switch";
 
 type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
@@ -28,6 +29,7 @@ type CheckoutFormProps = {
   form: any;
   setAddressType: (type: AddressType) => void;
   neighborhoods?: NeighborhoodWithShipping[];
+  showWantDomicile?: boolean;
 };
 
 export function CheckoutForm({
@@ -39,6 +41,7 @@ export function CheckoutForm({
   form: { formState, ...form },
   setAddressType,
   neighborhoods = [],
+  showWantDomicile = false,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
   return (
@@ -89,6 +92,25 @@ export function CheckoutForm({
           <AlertMessage
             variant="destructive"
             text={t("errors.has_out_of_stock")}
+          />
+        )}
+        {showWantDomicile && (
+          <FormField
+            control={form.control}
+            name="wantDomicile"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("lbWantDomicile")}</FormLabel>
+                <FormControl>
+                  <Switch
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         )}
         <Button

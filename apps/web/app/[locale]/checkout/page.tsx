@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import { checkoutOrder, getCurrentOrder } from "@repo/model/repository/order";
 import EmptyCart from "../../../components/emptyCart";
 import { TUserRegisterSchema } from "@repo/model/validation/user";
@@ -18,7 +17,6 @@ type PageProps = {
 
 export default async function Component({ params: { locale } }: PageProps) {
   const baseUrl = `/${locale}`;
-  const t = await getTranslations("Checkout");
   const order = await getCurrentOrder();
   const business = await getCurrentBusiness();
   if (!order || order.items.length === 0) {
@@ -40,7 +38,7 @@ export default async function Component({ params: { locale } }: PageProps) {
   return (
     <CheckoutView
       checkout={checkout}
-      user={user}
+      user={{ ...user, wantDomicile: true }}
       business={business}
       addresses={addresses}
       order={order}

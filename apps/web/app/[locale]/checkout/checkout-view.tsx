@@ -58,9 +58,11 @@ export default function CheckoutView({
     neighborhoodId,
     form,
   );
+  const wantDomicile = form.watch("wantDomicile");
   const { total, shippingPrice, subtotal } = useOrder(
     order,
     currentNeighborhood,
+    wantDomicile as boolean,
   );
 
   return (
@@ -75,11 +77,12 @@ export default function CheckoutView({
           shopCartHasError={shopCartHasError}
           neighborhoods={neighborhoods}
           setAddressType={setAddressType}
+          showWantDomicile={shippingPrice > 0}
           form={form}
         />
       </div>
       <div className="w-full space-y-2">
-        {!!shippingPrice && (
+        {!!shippingPrice && wantDomicile && (
           <>
             <div className="flex justify-between">
               <span>{t("subtotal")}:</span>
