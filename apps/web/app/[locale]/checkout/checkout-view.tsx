@@ -17,7 +17,13 @@ import { CompleteAddress } from "@repo/model/zod/address";
 import { ShopCartOrder } from "@repo/model/types/shop-cart";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { useCheckoutForm, useCurrentAddress, useNeighborhoods } from "./hooks";
+import {
+  useCheckoutForm,
+  useCurrentAddress,
+  useNeighborhoods,
+  useOrder,
+} from "./hooks";
+import { Separator } from "@repo/ui/components/ui/separator";
 
 type CheckoutViewProps = {
   checkout: (data: TUserRegisterSchema) => Promise<any>;
@@ -52,7 +58,10 @@ export default function CheckoutView({
     neighborhoodId,
     form,
   );
-  console.log(neighborhoodId, currentNeighborhood);
+  const { total, shippingPrice, subtotal } = useOrder(
+    order,
+    currentNeighborhood,
+  );
 
   return (
     <div className="grid gap-6">
@@ -68,6 +77,31 @@ export default function CheckoutView({
           setAddressType={setAddressType}
           form={form}
         />
+      </div>
+      <div className="w-full space-y-2">
+        {!!shippingPrice && (
+          <>
+            <div className="flex justify-between">
+              <span>{t("subtotal")}:</span>
+              <span>
+                <PriceDisplay price={subtotal} />
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span>{t("shipping_price_cart")}:</span>
+              <span>
+                <PriceDisplay price={shippingPrice} />
+              </span>
+            </div>
+            <Separator />
+          </>
+        )}
+        <div className="flex justify-between font-semibold">
+          <span>{t("total_cart")}:</span>
+          <span>
+            <PriceDisplay price={total} />
+          </span>
+        </div>
       </div>
       <div>
         <h1 className="text-2xl font-bold">{t("products")}</h1>
@@ -107,12 +141,6 @@ export default function CheckoutView({
             </TableBody>
           </Table>
         </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <span className="text-lg font-semibold">{t("total_cart")}</span>
-        <span className="text-2xl font-bold">
-          <PriceDisplay price={order.total} />
-        </span>
       </div>
     </div>
   );

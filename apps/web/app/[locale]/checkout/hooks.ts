@@ -93,3 +93,16 @@ export const useCheckoutForm = (
   };
   return { form, handleAction, shopCartHasError };
 };
+
+export const useOrder = (
+  order: ShopCartOrder,
+  neighborhood: NeighborhoodWithShipping | undefined,
+) => {
+  const shippingPrice = neighborhood?.shipping || 0;
+  const total = order.total + shippingPrice;
+  return {
+    shippingPrice,
+    subtotal: order.total,
+    total,
+  };
+};
