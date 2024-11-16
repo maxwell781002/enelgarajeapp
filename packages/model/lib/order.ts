@@ -5,11 +5,13 @@ export const calculateShippingPrice = (
   neighborhoodShippingPrice: number,
   wantDomicile: boolean,
 ) => {
-  const shippingPrice = wantDomicile ? neighborhoodShippingPrice || 0 : 0;
+  const shipping = neighborhoodShippingPrice || 0;
+  const shippingPrice = wantDomicile ? shipping : 0;
   const total = wantDomicile ? order.total + shippingPrice : order.total;
   return {
     shippingPrice,
     subtotal: order.total,
+    hasShipping: !!shipping,
     total,
   };
 };

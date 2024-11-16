@@ -216,7 +216,13 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     }
     const userEntity = (await getCurrentUser()) as CompleteUser;
     const business = (await getCurrentBusiness()) as CompleteBusiness;
-    const { addressType, newAddress, selectAddress, ...userData } = user;
+    const {
+      addressType,
+      newAddress,
+      selectAddress,
+      wantDomicile,
+      ...userData
+    } = user;
     await updateUser(userEntity.id, userData);
     const { id, ...address } =
       (AddressType.newAddress === addressType ? newAddress : selectAddress) ||
@@ -224,7 +230,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     order = await getShippingPrice(
       order,
       address.neighborhoodId,
-      user.wantDomicile,
+      wantDomicile,
       business.id,
     );
     const newOrder = await orderRepository.placeOrder(

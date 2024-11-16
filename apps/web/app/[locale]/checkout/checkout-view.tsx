@@ -55,11 +55,12 @@ export default function CheckoutView({
     form,
   );
   const wantDomicile = form.watch("wantDomicile");
-  const { total, shippingPrice, subtotal } = calculateShippingPrice(
-    order,
-    currentNeighborhood?.shipping || 0,
-    wantDomicile as boolean,
-  );
+  const { total, shippingPrice, subtotal, hasShipping } =
+    calculateShippingPrice(
+      order,
+      currentNeighborhood?.shipping || 0,
+      wantDomicile as boolean,
+    );
 
   return (
     <div className="grid gap-6">
@@ -73,7 +74,7 @@ export default function CheckoutView({
           shopCartHasError={shopCartHasError}
           neighborhoods={neighborhoods}
           setAddressType={setAddressType}
-          showWantDomicile={shippingPrice > 0}
+          showWantDomicile={hasShipping}
           form={form}
         />
       </div>
