@@ -1,8 +1,8 @@
 import { CompleteAddress } from "@repo/model/zod/address";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { Check } from "lucide-react";
 import { getCityByCode } from "@repo/ui/lib/locations/index";
-import { getStateByCode } from "../../lib/locations/index";
+import { getStateByCode } from "@repo/ui/lib/locations/index";
 
 export type AddressCardProps = {
   address: CompleteAddress;
