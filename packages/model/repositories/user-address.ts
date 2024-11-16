@@ -17,6 +17,12 @@ export class UserAddressRepository extends BaseRepository<
     });
     return addresses.map((address) => address.address);
   }
+
+  findByAddressIdAndUserId(addressId: string, userId: string) {
+    return prisma().userAddress.findFirst({
+      where: { addressId, userId },
+    });
+  }
 }
 
 export const userAddressRepository = new UserAddressRepository();

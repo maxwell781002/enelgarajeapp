@@ -47,11 +47,19 @@ export default function AddressUserForm({
       });
     }
   }, [city]);
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const handleSubmit = async (props: any) => {
+    setBtnDisabled(true);
+    await onSubmit(props);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <AddressForm neighborhoods={neighborhoods} form={form} />
-        <Button type="submit">{t("save")}</Button>
+        <Button type="submit" disabled={btnDisabled}>
+          {t("save")}
+        </Button>
       </form>
     </Form>
   );

@@ -22,6 +22,10 @@
     "save": "Salvar",
     "addressUpdated": "La dirección fue actualizada",
     "addressCreated": "La dirección fue creada",
-    "phReference": "Alguna descripción que sirva de referencia para poder llegar."
+    "phReference": "Alguna descripción que sirva de referencia para poder llegar.",
+    "removeAddress": "¿Está seguro que va a eliminar la dirección?",
+    "removeAddressDescription": "La dirección sera eliminada completamente.",
+    "removeAddressContinue": "Continuar",
+    "removeAddressCancel": "Cancelar"
   }
 }

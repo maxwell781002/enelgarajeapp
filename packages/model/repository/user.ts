@@ -28,3 +28,19 @@ export const addAddressToUser = async (userId: string, data: any) => {
   const address = await addressRepository.create(data);
   return userAddressRepository.create({ addressId: address.id, userId });
 };
+
+export const removeAddressFromUser = async (
+  userId: string,
+  addressId: string,
+) => {
+  console.log(userId, addressId);
+  const userAddress = await userAddressRepository.findByAddressIdAndUserId(
+    addressId,
+    userId,
+  );
+  if (!userAddress) {
+    throw new Error("Address not found");
+  }
+  await userAddressRepository.remove(userAddress.id);
+  await addressRepository.remove(userAddress.addressId);
+};
