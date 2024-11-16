@@ -3,24 +3,36 @@ import BackPage from "@repo/ui/components/back-page";
 import AddressUserForm from "./form";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { getTranslations } from "next-intl/server";
-import { addAddressToUser, getCurrentUser } from "@repo/model/repository/user";
+import {
+  addAddressToUser,
+  getCurrentUser,
+  updateUserAddress,
+} from "@repo/model/repository/user";
 import { redirect } from "next/navigation";
 import { formDataToObject } from "@repo/model/lib/utils";
+import { addressRepository } from "@repo/model/repositories/address";
 
-export default async function AddressUserFormPage() {
+export default async function AddressUserFormPage({
+  searchParams: { id },
+}: any) {
   const t = await getTranslations("Address");
   const business = await getCurrentBusiness();
   const userEntity = await getCurrentUser();
   const action = async (data: FormData) => {
     "use server";
-    await addAddressToUser(userEntity.id, formDataToObject(data));
+    if (id) {
+      await updateUserAddress(userEntity.id, id, formDataToObject(data));
+    } else {
+      await addAddressToUser(userEntity.id, formDataToObject(data));
+    }
     return redirect("/address-user");
   };
+  const defaultValues = id ? await addressRepository.get(id) : {};
   return (
     <BackPage href="/address-user" urlTitle={t("back-address")}>
       <AddressUserForm
         action={action}
-        defaultValues={{} as CompleteAddress}
+        defaultValues={defaultValues as CompleteAddress}
         business={business?.id}
       />
     </BackPage>

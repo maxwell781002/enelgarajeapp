@@ -44,3 +44,18 @@ export const removeAddressFromUser = async (
   await userAddressRepository.remove(userAddress.id);
   await addressRepository.remove(userAddress.addressId);
 };
+
+export const updateUserAddress = async (
+  userId: string,
+  addressId: string,
+  data: any,
+) => {
+  const userAddress = await userAddressRepository.findByAddressIdAndUserId(
+    addressId,
+    userId,
+  );
+  if (!userAddress) {
+    throw new Error("Address not found");
+  }
+  return addressRepository.update(addressId, data);
+};

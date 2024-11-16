@@ -32,6 +32,7 @@ export default async function Page() {
             key={item.id}
             address={item as CompleteAddress}
             onDelete={handleDelete.bind(null, item.id)}
+            urlEdit={`/address-user/form?id=${item.id}`}
           />
         ))}
       </div>
