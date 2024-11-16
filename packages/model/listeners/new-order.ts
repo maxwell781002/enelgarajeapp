@@ -62,6 +62,7 @@ const generateText = (data: any) => {
 *Productos*
 ${products}
 
+🚚 ${data.shipping > 0 ? "✅ Pagó el envío" : "❌ No pagó el envío"}
 *Total*: ${data.total}
 
 🔗[${data.identifier}](${data.order_url})
