@@ -18,6 +18,8 @@
     "total_cart": "Total a pagar",
     "shipping_price_cart": "Precio de envío",
     "subtotal": "Subtotal",
+    "shipping_suggestion": "Sugerencia",
+    "shipping_suggestion_text": "Si selecciona un reparto, se le sugerirá un precio de envío",
     "errors": {
       "has_out_of_stock": "Uno o más de los productos no tienen stock disponible."
     }

@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useCheckoutForm, useCurrentAddress, useNeighborhoods } from "./hooks";
 import { calculateShippingPrice } from "@repo/model/lib/order";
 import { Separator } from "@repo/ui/components/ui/separator";
+import ShippingAlert from "./shpping-alert";
 
 type CheckoutViewProps = {
   checkout: (data: TUserRegisterSchema) => Promise<any>;
@@ -79,6 +80,7 @@ export default function CheckoutView({
         />
       </div>
       <div className="w-full space-y-2">
+        {!neighborhoodId && <ShippingAlert />}
         {!!shippingPrice && wantDomicile && (
           <>
             <div className="flex justify-between">

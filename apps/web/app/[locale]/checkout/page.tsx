@@ -8,6 +8,7 @@ import { userRepository } from "@repo/model/repositories/user";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
 import CheckoutView from "./checkout-view";
+import { CompleteAddress } from "@repo/model/zod/address";
 
 type PageProps = {
   params: {
@@ -40,7 +41,7 @@ export default async function Component({ params: { locale } }: PageProps) {
       checkout={checkout}
       user={{ ...user, wantDomicile: true }}
       business={business}
-      addresses={addresses}
+      addresses={addresses as CompleteAddress[]}
       order={order}
     />
   );
