@@ -23,25 +23,5 @@
     "errors": {
       "has_out_of_stock": "Uno o más de los productos no tienen stock disponible."
     }
-  },
-  "Address": {
-    "title": "Dirección",
-    "lbAlias": "Alias",
-    "phAlias": "Un nombre para poder identificar la dirección",
-    "lbName": "Nombre",
-    "phName": "Por quién preguntar en el lugar",
-    "lbAddress": "Dirección",
-    "phAddress": "Calle, Avenida, etc.",
-    "lbReference": "Referencia",
-    "lbProvince": "Provincia",
-    "phProvince": "Selecciona la provincia",
-    "lbCity": "Ciudad",
-    "phCity": "Selecciona la ciudad",
-    "tabSelectAddress": "Seleccionar",
-    "tabCreateAddress": "Crear nueva",
-    "Required": "Requerido",
-    "lbNeighborhoodId": "Reparto",
-    "phNeighborhoodId": "Reparto",
-    "phReference": "Alguna descripción que sirva de referencia para poder llegar."
   }
 }

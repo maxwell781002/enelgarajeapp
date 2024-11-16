@@ -4,6 +4,8 @@ import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 import { auth } from "../lib/auth";
 import { userRepository } from "../repositories/user";
+import { addressRepository } from "../repositories/address";
+import { userAddressRepository } from "../repositories/user-address";
 
 export const getCurrentUser = async () => {
   const session = await auth();
@@ -20,4 +22,9 @@ export const updateUser = async (id: string, data: any) => {
     where: { id },
     data,
   });
+};
+
+export const addAddressToUser = async (userId: string, data: any) => {
+  const address = await addressRepository.create(data);
+  return userAddressRepository.create({ addressId: address.id, userId });
 };

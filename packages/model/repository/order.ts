@@ -10,7 +10,7 @@ import {
   CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
-import { getCurrentUser, updateUser } from "./user";
+import { addAddressToUser, getCurrentUser, updateUser } from "./user";
 import { AddressType, TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
 import { orderRepository } from "../repositories/order";
@@ -18,7 +18,6 @@ import { orderRepository } from "../repositories/order";
 import { OrderSend } from "../lib/event-emitter/events";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
-import { userAddressRepository } from "../repositories/user-address";
 import { productRepository, UpdateStockItem } from "../repositories/product";
 import { ShopCartItem, ShopCartOrder } from "../types/shop-cart";
 import { BadRequestError } from "../errors/bad-request";
@@ -245,7 +244,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     if (business.requestAddress) {
       await orderAddressRepository.createNew(newOrder.id, address);
       if (addressType === AddressType.newAddress) {
-        await userAddressRepository.createNew(userEntity.id, address);
+        await addAddressToUser(userEntity.id, address);
       }
     }
     return newOrder;

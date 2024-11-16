@@ -1,11 +1,6 @@
 import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
-import {
-  CompleteAddress,
-  CompleteUserAddress,
-  UserAddressModel,
-} from "../prisma/zod";
-import { addressRepository } from "./address";
+import { CompleteUserAddress, UserAddressModel } from "../prisma/zod";
 
 export class UserAddressRepository extends BaseRepository<
   CompleteUserAddress,
@@ -13,13 +8,6 @@ export class UserAddressRepository extends BaseRepository<
 > {
   constructor() {
     super(UserAddressModel.omit({ id: true }), Prisma.userAddress);
-  }
-
-  async createNew(userId: string, data: Omit<CompleteAddress, "id">) {
-    const address = await addressRepository.create(data);
-    return prisma().userAddress.create({
-      data: { addressId: address.id, userId },
-    });
   }
 
   async findByUserId(userId: string) {

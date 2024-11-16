@@ -1,0 +1,27 @@
+{
+  "Address": {
+    "title": "Dirección",
+    "lbAlias": "Alias",
+    "phAlias": "Un nombre para poder identificar la dirección",
+    "lbName": "Nombre",
+    "phName": "Por quién preguntar en el lugar",
+    "lbAddress": "Dirección",
+    "phAddress": "Calle, Avenida, etc.",
+    "lbReference": "Referencia",
+    "lbProvince": "Provincia",
+    "phProvince": "Selecciona la provincia",
+    "lbCity": "Ciudad",
+    "phCity": "Selecciona la ciudad",
+    "tabSelectAddress": "Seleccionar",
+    "tabCreateAddress": "Crear nueva",
+    "Required": "Requerido",
+    "lbNeighborhoodId": "Reparto",
+    "phNeighborhoodId": "Reparto",
+    "btn_add_new_address": "Nueva",
+    "back-address": "Mis direcciones",
+    "save": "Salvar",
+    "addressUpdated": "La dirección fue actualizada",
+    "addressCreated": "La dirección fue creada",
+    "phReference": "Alguna descripción que sirva de referencia para poder llegar."
+  }
+}
