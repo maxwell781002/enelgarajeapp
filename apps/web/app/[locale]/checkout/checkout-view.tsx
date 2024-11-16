@@ -17,12 +17,8 @@ import { CompleteAddress } from "@repo/model/zod/address";
 import { ShopCartOrder } from "@repo/model/types/shop-cart";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import {
-  useCheckoutForm,
-  useCurrentAddress,
-  useNeighborhoods,
-  useOrder,
-} from "./hooks";
+import { useCheckoutForm, useCurrentAddress, useNeighborhoods } from "./hooks";
+import { calculateShippingPrice } from "@repo/model/lib/order";
 import { Separator } from "@repo/ui/components/ui/separator";
 
 type CheckoutViewProps = {
@@ -59,9 +55,9 @@ export default function CheckoutView({
     form,
   );
   const wantDomicile = form.watch("wantDomicile");
-  const { total, shippingPrice, subtotal } = useOrder(
+  const { total, shippingPrice, subtotal } = calculateShippingPrice(
     order,
-    currentNeighborhood,
+    currentNeighborhood?.shipping || 0,
     wantDomicile as boolean,
   );
 

@@ -93,17 +93,3 @@ export const useCheckoutForm = (
   };
   return { form, handleAction, shopCartHasError };
 };
-
-export const useOrder = (
-  order: ShopCartOrder,
-  neighborhood: NeighborhoodWithShipping | undefined,
-  wantDomicile: boolean,
-) => {
-  const shippingPrice = neighborhood?.shipping || 0;
-  const total = wantDomicile ? order.total + shippingPrice : order.total;
-  return {
-    shippingPrice,
-    subtotal: order.total,
-    total,
-  };
-};

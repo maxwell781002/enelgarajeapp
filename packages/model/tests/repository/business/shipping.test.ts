@@ -4,8 +4,8 @@ import {
   businessNeighborhoodFactory,
   clearBd,
   neighborhoodFactory,
-} from "../factories";
-import { businessShipping } from "../../repository/business-neighborhood";
+} from "../../factories";
+import { businessShipping } from "../../../repository/business-neighborhood";
 
 describe("Shipping", () => {
   const city = "city1";

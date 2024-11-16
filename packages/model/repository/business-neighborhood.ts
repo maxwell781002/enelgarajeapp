@@ -24,3 +24,15 @@ export const businessShipping = async (
     };
   });
 };
+
+export const getBusinessShippingPrice = async (
+  businessId: string,
+  neighborhoodId: string,
+) => {
+  const neighborhood =
+    await businessNeighborhoodRepository.getByBusinessIdAndNeighborhoodId(
+      businessId,
+      neighborhoodId,
+    );
+  return neighborhood?.shipping || 0;
+};

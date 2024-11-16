@@ -47,6 +47,12 @@ export class BusinessNeighborhoodRepository extends BaseRepository<
       where: { neighborhood: { city }, businessId },
     });
   }
+
+  getByBusinessIdAndNeighborhoodId(businessId: string, neighborhoodId: string) {
+    return this.model.findFirst({
+      where: { businessId, neighborhoodId },
+    });
+  }
 }
 
 export const businessNeighborhoodRepository =
