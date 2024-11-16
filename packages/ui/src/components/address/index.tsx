@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { AddressType } from "@repo/model/validation/user";
+import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 import AddressForm, {
   AddressFormProps,
 } from "@repo/ui/components/address/form";
@@ -15,6 +16,7 @@ import AddressSelect, {
 
 export type AddressProps = {
   setAddressType: (type: AddressType) => void;
+  neighborhoods?: NeighborhoodWithShipping[];
 } & Omit<AddressFormProps, "name"> &
   Omit<AddressSelectorProps, "name">;
 
@@ -22,11 +24,17 @@ export default function Address({
   form,
   setAddressType,
   addresses = [],
+  neighborhoods = [],
   ...props
 }: AddressProps) {
   const t = useTranslations("Address");
   const formCreate = (
-    <AddressForm form={form} {...props} name={AddressType.newAddress} />
+    <AddressForm
+      form={form}
+      neighborhoods={neighborhoods}
+      {...props}
+      name={AddressType.newAddress}
+    />
   );
   return (
     <>

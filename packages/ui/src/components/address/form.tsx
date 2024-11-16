@@ -10,15 +10,23 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { ProvinceSelect } from "@repo/ui/components/state-select";
 import { CitySelect } from "@repo/ui/components/city-select";
+import EntitySelect from "@repo/ui/components/entity-select";
+import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 
 export type AddressFormProps = {
   form: any;
   name: string;
+  neighborhoods: NeighborhoodWithShipping[];
 };
 
-export default function AddressForm({ form, name }: AddressFormProps) {
+export default function AddressForm({
+  form,
+  name,
+  neighborhoods,
+}: AddressFormProps) {
   const t = useTranslations("Address");
   const state = form.watch(`${name}.state`);
+  const city = form.watch(`${name}.city`);
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -61,7 +69,7 @@ export default function AddressForm({ form, name }: AddressFormProps) {
           </FormItem>
         )}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-3 gap-4">
         <FormField
           control={form.control}
           name={`${name}.state`}
@@ -87,6 +95,24 @@ export default function AddressForm({ form, name }: AddressFormProps) {
                   placeholder={t("phCity")}
                   disabled={!state}
                   state={state}
+                />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name={`${name}.neighborhoodId`}
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbNeighborhoodId")}</FormLabel>
+              <FormControl>
+                <EntitySelect
+                  {...field}
+                  placeholder={t("phNeighborhoodId")}
+                  disabled={!city}
+                  items={neighborhoods}
                 />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>

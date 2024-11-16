@@ -22,6 +22,8 @@ import { userAddressRepository } from "../repositories/user-address";
 import { productRepository, UpdateStockItem } from "../repositories/product";
 import { ShopCartItem, ShopCartOrder } from "../types/shop-cart";
 import { BadRequestError } from "../errors/bad-request";
+import { getBusinessShippingPrice } from "./business-neighborhood";
+import { calculateShippingPrice } from "../lib/order";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
@@ -184,16 +186,53 @@ export const addToOrder = async (productId: string) => {
   });
 };
 
+const getShippingPrice = async (
+  order: ShopCartOrder,
+  neighborhoodId: string | null = null,
+  wantDomicile: boolean = false,
+  businessId?: string,
+) => {
+  if (neighborhoodId) {
+    const neighborhoodShippingPrice = await getBusinessShippingPrice(
+      businessId as string,
+      neighborhoodId,
+    );
+    const { shippingPrice, total } = calculateShippingPrice(
+      order,
+      neighborhoodShippingPrice,
+      wantDomicile,
+    );
+    order.total = total;
+    order.shipping = shippingPrice;
+  }
+  return order;
+};
+
 export const checkoutOrder = async (user: TUserRegisterSchema) => {
   const newOrder = await transaction(async () => {
-    const order = await getOrCrateOrder();
+    let order = await getOrCrateOrder();
     if (order.hasProductOutOfStock) {
       throw new BadRequestError("out_of_stock");
     }
     const userEntity = (await getCurrentUser()) as CompleteUser;
     const business = (await getCurrentBusiness()) as CompleteBusiness;
-    const { addressType, newAddress, selectAddress, ...userData } = user;
+    const {
+      addressType,
+      newAddress,
+      selectAddress,
+      wantDomicile,
+      ...userData
+    } = user;
     await updateUser(userEntity.id, userData);
+    const { id, ...address } =
+      (AddressType.newAddress === addressType ? newAddress : selectAddress) ||
+      {};
+    order = await getShippingPrice(
+      order,
+      address.neighborhoodId,
+      wantDomicile,
+      business.id,
+    );
     const newOrder = await orderRepository.placeOrder(
       order,
       userEntity,
@@ -204,8 +243,6 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     );
     await productRepository.updateStock(productToUpdate);
     if (business.requestAddress) {
-      const { id, ...address } =
-        AddressType.newAddress === addressType ? newAddress : selectAddress;
       await orderAddressRepository.createNew(newOrder.id, address);
       if (addressType === AddressType.newAddress) {
         await userAddressRepository.createNew(userEntity.id, address);

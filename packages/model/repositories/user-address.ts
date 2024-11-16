@@ -25,7 +25,7 @@ export class UserAddressRepository extends BaseRepository<
   async findByUserId(userId: string) {
     const addresses = await prisma().userAddress.findMany({
       where: { userId },
-      include: { address: true },
+      include: { address: { include: { neighborhood: true } } },
     });
     return addresses.map((address) => address.address);
   }

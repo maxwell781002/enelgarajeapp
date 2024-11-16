@@ -23,6 +23,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
     order_url: `${HOST}/${order.businessId}/orders/${order.id}`,
     businessId: order.businessId,
     identifier: order.identifier,
+    shipping: order.shipping,
     customer: {
       id: customer?.id,
       name: customer?.name,
@@ -62,6 +63,7 @@ const generateText = (data: any) => {
 *Productos*
 ${products}
 
+🚚 ${data.shipping > 0 ? "✅ Pagó el envío" : "❌ No pagó el envío"}
 *Total*: ${data.total}
 
 🔗[${data.identifier}](${data.order_url})

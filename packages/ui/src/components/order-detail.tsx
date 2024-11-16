@@ -41,6 +41,16 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                     </>
                   ))}
                 </div>
+                {!!order.shipping && (
+                  <div className="flex items-center justify-between font-medium">
+                    <div>
+                      <strong>Envio</strong>
+                    </div>
+                    <div>
+                      <PriceDisplay price={order.shipping} />
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-center justify-between font-medium">
                   <div>
                     <strong>Total</strong>

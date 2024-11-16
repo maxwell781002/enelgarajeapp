@@ -17,6 +17,7 @@ export const UserRegisterSchema = UserModel.omit({
     message: "Username must be at least 2 characters.",
   }),
   addressType: z.string().optional(),
+  wantDomicile: z.boolean().optional(),
 });
 
 export type TUserRegisterSchema = z.infer<typeof UserRegisterSchema> & {

@@ -88,6 +88,12 @@ export type Authenticator =
  */
 export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>;
 /**
+ * Model Neighborhood
+ *
+ */
+export type Neighborhood =
+  $Result.DefaultSelection<Prisma.$NeighborhoodPayload>;
+/**
  * Model UserAddress
  *
  */
@@ -98,6 +104,12 @@ export type UserAddress = $Result.DefaultSelection<Prisma.$UserAddressPayload>;
  */
 export type OrderAddress =
   $Result.DefaultSelection<Prisma.$OrderAddressPayload>;
+/**
+ * Model BusinessNeighborhood
+ *
+ */
+export type BusinessNeighborhood =
+  $Result.DefaultSelection<Prisma.$BusinessNeighborhoodPayload>;
 
 /**
  * Enums
@@ -448,6 +460,16 @@ export class PrismaClient<
   get address(): Prisma.AddressDelegate<ExtArgs>;
 
   /**
+   * `prisma.neighborhood`: Exposes CRUD operations for the **Neighborhood** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Neighborhoods
+   * const neighborhoods = await prisma.neighborhood.findMany()
+   * ```
+   */
+  get neighborhood(): Prisma.NeighborhoodDelegate<ExtArgs>;
+
+  /**
    * `prisma.userAddress`: Exposes CRUD operations for the **UserAddress** model.
    * Example usage:
    * ```ts
@@ -466,6 +488,16 @@ export class PrismaClient<
    * ```
    */
   get orderAddress(): Prisma.OrderAddressDelegate<ExtArgs>;
+
+  /**
+   * `prisma.businessNeighborhood`: Exposes CRUD operations for the **BusinessNeighborhood** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more BusinessNeighborhoods
+   * const businessNeighborhoods = await prisma.businessNeighborhood.findMany()
+   * ```
+   */
+  get businessNeighborhood(): Prisma.BusinessNeighborhoodDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -939,8 +971,10 @@ export namespace Prisma {
     VerificationToken: "VerificationToken";
     Authenticator: "Authenticator";
     Address: "Address";
+    Neighborhood: "Neighborhood";
     UserAddress: "UserAddress";
     OrderAddress: "OrderAddress";
+    BusinessNeighborhood: "BusinessNeighborhood";
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -980,8 +1014,10 @@ export namespace Prisma {
         | "verificationToken"
         | "authenticator"
         | "address"
+        | "neighborhood"
         | "userAddress"
-        | "orderAddress";
+        | "orderAddress"
+        | "businessNeighborhood";
       txIsolationLevel: Prisma.TransactionIsolationLevel;
     };
     model: {
@@ -1977,6 +2013,78 @@ export namespace Prisma {
           };
         };
       };
+      Neighborhood: {
+        payload: Prisma.$NeighborhoodPayload<ExtArgs>;
+        fields: Prisma.NeighborhoodFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.NeighborhoodFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.NeighborhoodFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>;
+          };
+          findFirst: {
+            args: Prisma.NeighborhoodFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.NeighborhoodFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>;
+          };
+          findMany: {
+            args: Prisma.NeighborhoodFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>[];
+          };
+          create: {
+            args: Prisma.NeighborhoodCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>;
+          };
+          createMany: {
+            args: Prisma.NeighborhoodCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.NeighborhoodCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>[];
+          };
+          delete: {
+            args: Prisma.NeighborhoodDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>;
+          };
+          update: {
+            args: Prisma.NeighborhoodUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>;
+          };
+          deleteMany: {
+            args: Prisma.NeighborhoodDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.NeighborhoodUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.NeighborhoodUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$NeighborhoodPayload>;
+          };
+          aggregate: {
+            args: Prisma.NeighborhoodAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateNeighborhood>;
+          };
+          groupBy: {
+            args: Prisma.NeighborhoodGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<NeighborhoodGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.NeighborhoodCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<NeighborhoodCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
       UserAddress: {
         payload: Prisma.$UserAddressPayload<ExtArgs>;
         fields: Prisma.UserAddressFieldRefs;
@@ -2117,6 +2225,78 @@ export namespace Prisma {
             args: Prisma.OrderAddressCountArgs<ExtArgs>;
             result:
               | $Utils.Optional<OrderAddressCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      BusinessNeighborhood: {
+        payload: Prisma.$BusinessNeighborhoodPayload<ExtArgs>;
+        fields: Prisma.BusinessNeighborhoodFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.BusinessNeighborhoodFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.BusinessNeighborhoodFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>;
+          };
+          findFirst: {
+            args: Prisma.BusinessNeighborhoodFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.BusinessNeighborhoodFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>;
+          };
+          findMany: {
+            args: Prisma.BusinessNeighborhoodFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>[];
+          };
+          create: {
+            args: Prisma.BusinessNeighborhoodCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>;
+          };
+          createMany: {
+            args: Prisma.BusinessNeighborhoodCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.BusinessNeighborhoodCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>[];
+          };
+          delete: {
+            args: Prisma.BusinessNeighborhoodDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>;
+          };
+          update: {
+            args: Prisma.BusinessNeighborhoodUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>;
+          };
+          deleteMany: {
+            args: Prisma.BusinessNeighborhoodDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.BusinessNeighborhoodUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.BusinessNeighborhoodUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$BusinessNeighborhoodPayload>;
+          };
+          aggregate: {
+            args: Prisma.BusinessNeighborhoodAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateBusinessNeighborhood>;
+          };
+          groupBy: {
+            args: Prisma.BusinessNeighborhoodGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<BusinessNeighborhoodGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.BusinessNeighborhoodCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<BusinessNeighborhoodCountAggregateOutputType>
               | number;
           };
         };
@@ -2306,6 +2486,7 @@ export namespace Prisma {
     products: number;
     orders: number;
     users: number;
+    businessNeighborhood: number;
     paymentMethod: number;
   };
 
@@ -2316,6 +2497,9 @@ export namespace Prisma {
     products?: boolean | BusinessCountOutputTypeCountProductsArgs;
     orders?: boolean | BusinessCountOutputTypeCountOrdersArgs;
     users?: boolean | BusinessCountOutputTypeCountUsersArgs;
+    businessNeighborhood?:
+      | boolean
+      | BusinessCountOutputTypeCountBusinessNeighborhoodArgs;
     paymentMethod?: boolean | BusinessCountOutputTypeCountPaymentMethodArgs;
   };
 
@@ -2366,6 +2550,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: UserBusinessWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountBusinessNeighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: BusinessNeighborhoodWhereInput;
   };
 
   /**
@@ -2574,6 +2767,55 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: OrderProductWhereInput;
+  };
+
+  /**
+   * Count Type NeighborhoodCountOutputType
+   */
+
+  export type NeighborhoodCountOutputType = {
+    addresses: number;
+    businessNeighborhood: number;
+  };
+
+  export type NeighborhoodCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    addresses?: boolean | NeighborhoodCountOutputTypeCountAddressesArgs;
+    businessNeighborhood?:
+      | boolean
+      | NeighborhoodCountOutputTypeCountBusinessNeighborhoodArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * NeighborhoodCountOutputType without action
+   */
+  export type NeighborhoodCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the NeighborhoodCountOutputType
+     */
+    select?: NeighborhoodCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * NeighborhoodCountOutputType without action
+   */
+  export type NeighborhoodCountOutputTypeCountAddressesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: AddressWhereInput;
+  };
+
+  /**
+   * NeighborhoodCountOutputType without action
+   */
+  export type NeighborhoodCountOutputTypeCountBusinessNeighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: BusinessNeighborhoodWhereInput;
   };
 
   /**
@@ -2852,6 +3094,9 @@ export namespace Prisma {
       products?: boolean | Business$productsArgs<ExtArgs>;
       orders?: boolean | Business$ordersArgs<ExtArgs>;
       users?: boolean | Business$usersArgs<ExtArgs>;
+      businessNeighborhood?:
+        | boolean
+        | Business$businessNeighborhoodArgs<ExtArgs>;
       paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
@@ -2907,6 +3152,7 @@ export namespace Prisma {
     products?: boolean | Business$productsArgs<ExtArgs>;
     orders?: boolean | Business$ordersArgs<ExtArgs>;
     users?: boolean | Business$usersArgs<ExtArgs>;
+    businessNeighborhood?: boolean | Business$businessNeighborhoodArgs<ExtArgs>;
     paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
@@ -2927,6 +3173,7 @@ export namespace Prisma {
       products: Prisma.$ProductPayload<ExtArgs>[];
       orders: Prisma.$OrderPayload<ExtArgs>[];
       users: Prisma.$UserBusinessPayload<ExtArgs>[];
+      businessNeighborhood: Prisma.$BusinessNeighborhoodPayload<ExtArgs>[];
       paymentMethod: Prisma.$PaymentMethodPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
@@ -3478,6 +3725,18 @@ export namespace Prisma {
       | $Result.GetResult<Prisma.$UserBusinessPayload<ExtArgs>, T, "findMany">
       | Null
     >;
+    businessNeighborhood<
+      T extends Business$businessNeighborhoodArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, Business$businessNeighborhoodArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
     paymentMethod<T extends Business$paymentMethodArgs<ExtArgs> = {}>(
       args?: Subset<T, Business$paymentMethodArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
@@ -4014,6 +4273,32 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: UserBusinessScalarFieldEnum | UserBusinessScalarFieldEnum[];
+  };
+
+  /**
+   * Business.businessNeighborhood
+   */
+  export type Business$businessNeighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    where?: BusinessNeighborhoodWhereInput;
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithRelationInput
+      | BusinessNeighborhoodOrderByWithRelationInput[];
+    cursor?: BusinessNeighborhoodWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | BusinessNeighborhoodScalarFieldEnum
+      | BusinessNeighborhoodScalarFieldEnum[];
   };
 
   /**
@@ -11310,11 +11595,13 @@ export namespace Prisma {
   };
 
   export type OrderAvgAggregateOutputType = {
+    shipping: number | null;
     total: number | null;
     position: number | null;
   };
 
   export type OrderSumAggregateOutputType = {
+    shipping: number | null;
     total: number | null;
     position: number | null;
   };
@@ -11322,6 +11609,8 @@ export namespace Prisma {
   export type OrderMinAggregateOutputType = {
     id: string | null;
     userId: string | null;
+    shipping: number | null;
+    hasShipping: boolean | null;
     total: number | null;
     status: $Enums.OrderStatus | null;
     sentAt: Date | null;
@@ -11333,6 +11622,8 @@ export namespace Prisma {
   export type OrderMaxAggregateOutputType = {
     id: string | null;
     userId: string | null;
+    shipping: number | null;
+    hasShipping: boolean | null;
     total: number | null;
     status: $Enums.OrderStatus | null;
     sentAt: Date | null;
@@ -11345,6 +11636,8 @@ export namespace Prisma {
     id: number;
     userId: number;
     productsDetails: number;
+    shipping: number;
+    hasShipping: number;
     total: number;
     status: number;
     sentAt: number;
@@ -11355,11 +11648,13 @@ export namespace Prisma {
   };
 
   export type OrderAvgAggregateInputType = {
+    shipping?: true;
     total?: true;
     position?: true;
   };
 
   export type OrderSumAggregateInputType = {
+    shipping?: true;
     total?: true;
     position?: true;
   };
@@ -11367,6 +11662,8 @@ export namespace Prisma {
   export type OrderMinAggregateInputType = {
     id?: true;
     userId?: true;
+    shipping?: true;
+    hasShipping?: true;
     total?: true;
     status?: true;
     sentAt?: true;
@@ -11378,6 +11675,8 @@ export namespace Prisma {
   export type OrderMaxAggregateInputType = {
     id?: true;
     userId?: true;
+    shipping?: true;
+    hasShipping?: true;
     total?: true;
     status?: true;
     sentAt?: true;
@@ -11390,6 +11689,8 @@ export namespace Prisma {
     id?: true;
     userId?: true;
     productsDetails?: true;
+    shipping?: true;
+    hasShipping?: true;
     total?: true;
     status?: true;
     sentAt?: true;
@@ -11492,6 +11793,8 @@ export namespace Prisma {
     id: string;
     userId: string | null;
     productsDetails: JsonValue;
+    shipping: number;
+    hasShipping: boolean;
     total: number;
     status: $Enums.OrderStatus;
     sentAt: Date | null;
@@ -11525,6 +11828,8 @@ export namespace Prisma {
       id?: boolean;
       userId?: boolean;
       productsDetails?: boolean;
+      shipping?: boolean;
+      hasShipping?: boolean;
       total?: boolean;
       status?: boolean;
       sentAt?: boolean;
@@ -11547,6 +11852,8 @@ export namespace Prisma {
       id?: boolean;
       userId?: boolean;
       productsDetails?: boolean;
+      shipping?: boolean;
+      hasShipping?: boolean;
       total?: boolean;
       status?: boolean;
       sentAt?: boolean;
@@ -11563,6 +11870,8 @@ export namespace Prisma {
     id?: boolean;
     userId?: boolean;
     productsDetails?: boolean;
+    shipping?: boolean;
+    hasShipping?: boolean;
     total?: boolean;
     status?: boolean;
     sentAt?: boolean;
@@ -11602,6 +11911,8 @@ export namespace Prisma {
         id: string;
         userId: string | null;
         productsDetails: Prisma.JsonValue;
+        shipping: number;
+        hasShipping: boolean;
         total: number;
         status: $Enums.OrderStatus;
         sentAt: Date | null;
@@ -12137,6 +12448,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Order", "String">;
     readonly userId: FieldRef<"Order", "String">;
     readonly productsDetails: FieldRef<"Order", "Json">;
+    readonly shipping: FieldRef<"Order", "Int">;
+    readonly hasShipping: FieldRef<"Order", "Boolean">;
     readonly total: FieldRef<"Order", "Int">;
     readonly status: FieldRef<"Order", "OrderStatus">;
     readonly sentAt: FieldRef<"Order", "DateTime">;
@@ -18325,6 +18638,7 @@ export namespace Prisma {
     city: string | null;
     state: string | null;
     reference: string | null;
+    neighborhoodId: string | null;
   };
 
   export type AddressMaxAggregateOutputType = {
@@ -18335,6 +18649,7 @@ export namespace Prisma {
     city: string | null;
     state: string | null;
     reference: string | null;
+    neighborhoodId: string | null;
   };
 
   export type AddressCountAggregateOutputType = {
@@ -18345,6 +18660,7 @@ export namespace Prisma {
     city: number;
     state: number;
     reference: number;
+    neighborhoodId: number;
     _all: number;
   };
 
@@ -18356,6 +18672,7 @@ export namespace Prisma {
     city?: true;
     state?: true;
     reference?: true;
+    neighborhoodId?: true;
   };
 
   export type AddressMaxAggregateInputType = {
@@ -18366,6 +18683,7 @@ export namespace Prisma {
     city?: true;
     state?: true;
     reference?: true;
+    neighborhoodId?: true;
   };
 
   export type AddressCountAggregateInputType = {
@@ -18376,6 +18694,7 @@ export namespace Prisma {
     city?: true;
     state?: true;
     reference?: true;
+    neighborhoodId?: true;
     _all?: true;
   };
 
@@ -18464,6 +18783,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference: string | null;
+    neighborhoodId: string | null;
     _count: AddressCountAggregateOutputType | null;
     _min: AddressMinAggregateOutputType | null;
     _max: AddressMaxAggregateOutputType | null;
@@ -18493,6 +18813,8 @@ export namespace Prisma {
       city?: boolean;
       state?: boolean;
       reference?: boolean;
+      neighborhoodId?: boolean;
+      neighborhood?: boolean | Address$neighborhoodArgs<ExtArgs>;
       userAddress?: boolean | Address$userAddressArgs<ExtArgs>;
       orderAddress?: boolean | Address$orderAddressArgs<ExtArgs>;
     },
@@ -18510,6 +18832,8 @@ export namespace Prisma {
       city?: boolean;
       state?: boolean;
       reference?: boolean;
+      neighborhoodId?: boolean;
+      neighborhood?: boolean | Address$neighborhoodArgs<ExtArgs>;
     },
     ExtArgs["result"]["address"]
   >;
@@ -18522,23 +18846,28 @@ export namespace Prisma {
     city?: boolean;
     state?: boolean;
     reference?: boolean;
+    neighborhoodId?: boolean;
   };
 
   export type AddressInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
+    neighborhood?: boolean | Address$neighborhoodArgs<ExtArgs>;
     userAddress?: boolean | Address$userAddressArgs<ExtArgs>;
     orderAddress?: boolean | Address$orderAddressArgs<ExtArgs>;
   };
   export type AddressIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {};
+  > = {
+    neighborhood?: boolean | Address$neighborhoodArgs<ExtArgs>;
+  };
 
   export type $AddressPayload<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     name: "Address";
     objects: {
+      neighborhood: Prisma.$NeighborhoodPayload<ExtArgs> | null;
       userAddress: Prisma.$UserAddressPayload<ExtArgs> | null;
       orderAddress: Prisma.$OrderAddressPayload<ExtArgs> | null;
     };
@@ -18569,6 +18898,7 @@ export namespace Prisma {
          * @zod.optional()
          */
         reference: string | null;
+        neighborhoodId: string | null;
       },
       ExtArgs["result"]["address"]
     >;
@@ -19028,6 +19358,17 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
+    neighborhood<T extends Address$neighborhoodArgs<ExtArgs> = {}>(
+      args?: Subset<T, Address$neighborhoodArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$NeighborhoodPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     userAddress<T extends Address$userAddressArgs<ExtArgs> = {}>(
       args?: Subset<T, Address$userAddressArgs<ExtArgs>>,
     ): Prisma__UserAddressClient<
@@ -19097,6 +19438,7 @@ export namespace Prisma {
     readonly city: FieldRef<"Address", "String">;
     readonly state: FieldRef<"Address", "String">;
     readonly reference: FieldRef<"Address", "String">;
+    readonly neighborhoodId: FieldRef<"Address", "String">;
   }
 
   // Custom InputTypes
@@ -19339,6 +19681,10 @@ export namespace Prisma {
      */
     data: AddressCreateManyInput | AddressCreateManyInput[];
     skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressIncludeCreateManyAndReturn<ExtArgs> | null;
   };
 
   /**
@@ -19442,6 +19788,23 @@ export namespace Prisma {
   };
 
   /**
+   * Address.neighborhood
+   */
+  export type Address$neighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    where?: NeighborhoodWhereInput;
+  };
+
+  /**
    * Address.userAddress
    */
   export type Address$userAddressArgs<
@@ -19489,6 +19852,1162 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AddressInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model Neighborhood
+   */
+
+  export type AggregateNeighborhood = {
+    _count: NeighborhoodCountAggregateOutputType | null;
+    _min: NeighborhoodMinAggregateOutputType | null;
+    _max: NeighborhoodMaxAggregateOutputType | null;
+  };
+
+  export type NeighborhoodMinAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    city: string | null;
+  };
+
+  export type NeighborhoodMaxAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    city: string | null;
+  };
+
+  export type NeighborhoodCountAggregateOutputType = {
+    id: number;
+    name: number;
+    city: number;
+    _all: number;
+  };
+
+  export type NeighborhoodMinAggregateInputType = {
+    id?: true;
+    name?: true;
+    city?: true;
+  };
+
+  export type NeighborhoodMaxAggregateInputType = {
+    id?: true;
+    name?: true;
+    city?: true;
+  };
+
+  export type NeighborhoodCountAggregateInputType = {
+    id?: true;
+    name?: true;
+    city?: true;
+    _all?: true;
+  };
+
+  export type NeighborhoodAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Neighborhood to aggregate.
+     */
+    where?: NeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Neighborhoods to fetch.
+     */
+    orderBy?:
+      | NeighborhoodOrderByWithRelationInput
+      | NeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: NeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Neighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Neighborhoods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Neighborhoods
+     **/
+    _count?: true | NeighborhoodCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: NeighborhoodMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: NeighborhoodMaxAggregateInputType;
+  };
+
+  export type GetNeighborhoodAggregateType<
+    T extends NeighborhoodAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateNeighborhood]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNeighborhood[P]>
+      : GetScalarType<T[P], AggregateNeighborhood[P]>;
+  };
+
+  export type NeighborhoodGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: NeighborhoodWhereInput;
+    orderBy?:
+      | NeighborhoodOrderByWithAggregationInput
+      | NeighborhoodOrderByWithAggregationInput[];
+    by: NeighborhoodScalarFieldEnum[] | NeighborhoodScalarFieldEnum;
+    having?: NeighborhoodScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: NeighborhoodCountAggregateInputType | true;
+    _min?: NeighborhoodMinAggregateInputType;
+    _max?: NeighborhoodMaxAggregateInputType;
+  };
+
+  export type NeighborhoodGroupByOutputType = {
+    id: string;
+    name: string;
+    city: string;
+    _count: NeighborhoodCountAggregateOutputType | null;
+    _min: NeighborhoodMinAggregateOutputType | null;
+    _max: NeighborhoodMaxAggregateOutputType | null;
+  };
+
+  type GetNeighborhoodGroupByPayload<T extends NeighborhoodGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<NeighborhoodGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof NeighborhoodGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NeighborhoodGroupByOutputType[P]>
+            : GetScalarType<T[P], NeighborhoodGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type NeighborhoodSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      name?: boolean;
+      city?: boolean;
+      addresses?: boolean | Neighborhood$addressesArgs<ExtArgs>;
+      businessNeighborhood?:
+        | boolean
+        | Neighborhood$businessNeighborhoodArgs<ExtArgs>;
+      _count?: boolean | NeighborhoodCountOutputTypeDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["neighborhood"]
+  >;
+
+  export type NeighborhoodSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      name?: boolean;
+      city?: boolean;
+    },
+    ExtArgs["result"]["neighborhood"]
+  >;
+
+  export type NeighborhoodSelectScalar = {
+    id?: boolean;
+    name?: boolean;
+    city?: boolean;
+  };
+
+  export type NeighborhoodInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    addresses?: boolean | Neighborhood$addressesArgs<ExtArgs>;
+    businessNeighborhood?:
+      | boolean
+      | Neighborhood$businessNeighborhoodArgs<ExtArgs>;
+    _count?: boolean | NeighborhoodCountOutputTypeDefaultArgs<ExtArgs>;
+  };
+  export type NeighborhoodIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {};
+
+  export type $NeighborhoodPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Neighborhood";
+    objects: {
+      addresses: Prisma.$AddressPayload<ExtArgs>[];
+      businessNeighborhood: Prisma.$BusinessNeighborhoodPayload<ExtArgs>[];
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
+        name: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
+        city: string;
+      },
+      ExtArgs["result"]["neighborhood"]
+    >;
+    composites: {};
+  };
+
+  type NeighborhoodGetPayload<
+    S extends boolean | null | undefined | NeighborhoodDefaultArgs,
+  > = $Result.GetResult<Prisma.$NeighborhoodPayload, S>;
+
+  type NeighborhoodCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<NeighborhoodFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: NeighborhoodCountAggregateInputType | true;
+  };
+
+  export interface NeighborhoodDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Neighborhood"];
+      meta: { name: "Neighborhood" };
+    };
+    /**
+     * Find zero or one Neighborhood that matches the filter.
+     * @param {NeighborhoodFindUniqueArgs} args - Arguments to find a Neighborhood
+     * @example
+     * // Get one Neighborhood
+     * const neighborhood = await prisma.neighborhood.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NeighborhoodFindUniqueArgs>(
+      args: SelectSubset<T, NeighborhoodFindUniqueArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$NeighborhoodPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one Neighborhood that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NeighborhoodFindUniqueOrThrowArgs} args - Arguments to find a Neighborhood
+     * @example
+     * // Get one Neighborhood
+     * const neighborhood = await prisma.neighborhood.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NeighborhoodFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, NeighborhoodFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$NeighborhoodPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first Neighborhood that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodFindFirstArgs} args - Arguments to find a Neighborhood
+     * @example
+     * // Get one Neighborhood
+     * const neighborhood = await prisma.neighborhood.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NeighborhoodFindFirstArgs>(
+      args?: SelectSubset<T, NeighborhoodFindFirstArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$NeighborhoodPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first Neighborhood that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodFindFirstOrThrowArgs} args - Arguments to find a Neighborhood
+     * @example
+     * // Get one Neighborhood
+     * const neighborhood = await prisma.neighborhood.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NeighborhoodFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, NeighborhoodFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$NeighborhoodPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more Neighborhoods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Neighborhoods
+     * const neighborhoods = await prisma.neighborhood.findMany()
+     *
+     * // Get first 10 Neighborhoods
+     * const neighborhoods = await prisma.neighborhood.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const neighborhoodWithIdOnly = await prisma.neighborhood.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends NeighborhoodFindManyArgs>(
+      args?: SelectSubset<T, NeighborhoodFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$NeighborhoodPayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a Neighborhood.
+     * @param {NeighborhoodCreateArgs} args - Arguments to create a Neighborhood.
+     * @example
+     * // Create one Neighborhood
+     * const Neighborhood = await prisma.neighborhood.create({
+     *   data: {
+     *     // ... data to create a Neighborhood
+     *   }
+     * })
+     *
+     */
+    create<T extends NeighborhoodCreateArgs>(
+      args: SelectSubset<T, NeighborhoodCreateArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<Prisma.$NeighborhoodPayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many Neighborhoods.
+     * @param {NeighborhoodCreateManyArgs} args - Arguments to create many Neighborhoods.
+     * @example
+     * // Create many Neighborhoods
+     * const neighborhood = await prisma.neighborhood.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends NeighborhoodCreateManyArgs>(
+      args?: SelectSubset<T, NeighborhoodCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Neighborhoods and returns the data saved in the database.
+     * @param {NeighborhoodCreateManyAndReturnArgs} args - Arguments to create many Neighborhoods.
+     * @example
+     * // Create many Neighborhoods
+     * const neighborhood = await prisma.neighborhood.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Neighborhoods and only return the `id`
+     * const neighborhoodWithIdOnly = await prisma.neighborhood.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends NeighborhoodCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, NeighborhoodCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$NeighborhoodPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a Neighborhood.
+     * @param {NeighborhoodDeleteArgs} args - Arguments to delete one Neighborhood.
+     * @example
+     * // Delete one Neighborhood
+     * const Neighborhood = await prisma.neighborhood.delete({
+     *   where: {
+     *     // ... filter to delete one Neighborhood
+     *   }
+     * })
+     *
+     */
+    delete<T extends NeighborhoodDeleteArgs>(
+      args: SelectSubset<T, NeighborhoodDeleteArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<Prisma.$NeighborhoodPayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one Neighborhood.
+     * @param {NeighborhoodUpdateArgs} args - Arguments to update one Neighborhood.
+     * @example
+     * // Update one Neighborhood
+     * const neighborhood = await prisma.neighborhood.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends NeighborhoodUpdateArgs>(
+      args: SelectSubset<T, NeighborhoodUpdateArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<Prisma.$NeighborhoodPayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more Neighborhoods.
+     * @param {NeighborhoodDeleteManyArgs} args - Arguments to filter Neighborhoods to delete.
+     * @example
+     * // Delete a few Neighborhoods
+     * const { count } = await prisma.neighborhood.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends NeighborhoodDeleteManyArgs>(
+      args?: SelectSubset<T, NeighborhoodDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Neighborhoods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Neighborhoods
+     * const neighborhood = await prisma.neighborhood.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends NeighborhoodUpdateManyArgs>(
+      args: SelectSubset<T, NeighborhoodUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one Neighborhood.
+     * @param {NeighborhoodUpsertArgs} args - Arguments to update or create a Neighborhood.
+     * @example
+     * // Update or create a Neighborhood
+     * const neighborhood = await prisma.neighborhood.upsert({
+     *   create: {
+     *     // ... data to create a Neighborhood
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Neighborhood we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NeighborhoodUpsertArgs>(
+      args: SelectSubset<T, NeighborhoodUpsertArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      $Result.GetResult<Prisma.$NeighborhoodPayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of Neighborhoods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodCountArgs} args - Arguments to filter Neighborhoods to count.
+     * @example
+     * // Count the number of Neighborhoods
+     * const count = await prisma.neighborhood.count({
+     *   where: {
+     *     // ... the filter for the Neighborhoods we want to count
+     *   }
+     * })
+     **/
+    count<T extends NeighborhoodCountArgs>(
+      args?: Subset<T, NeighborhoodCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], NeighborhoodCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Neighborhood.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends NeighborhoodAggregateArgs>(
+      args: Subset<T, NeighborhoodAggregateArgs>,
+    ): Prisma.PrismaPromise<GetNeighborhoodAggregateType<T>>;
+
+    /**
+     * Group by Neighborhood.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NeighborhoodGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends NeighborhoodGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NeighborhoodGroupByArgs["orderBy"] }
+        : { orderBy?: NeighborhoodGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, NeighborhoodGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetNeighborhoodGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Neighborhood model
+     */
+    readonly fields: NeighborhoodFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Neighborhood.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NeighborhoodClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    addresses<T extends Neighborhood$addressesArgs<ExtArgs> = {}>(
+      args?: Subset<T, Neighborhood$addressesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany"> | Null
+    >;
+    businessNeighborhood<
+      T extends Neighborhood$businessNeighborhoodArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, Neighborhood$businessNeighborhoodArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Neighborhood model
+   */
+  interface NeighborhoodFieldRefs {
+    readonly id: FieldRef<"Neighborhood", "String">;
+    readonly name: FieldRef<"Neighborhood", "String">;
+    readonly city: FieldRef<"Neighborhood", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * Neighborhood findUnique
+   */
+  export type NeighborhoodFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which Neighborhood to fetch.
+     */
+    where: NeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * Neighborhood findUniqueOrThrow
+   */
+  export type NeighborhoodFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which Neighborhood to fetch.
+     */
+    where: NeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * Neighborhood findFirst
+   */
+  export type NeighborhoodFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which Neighborhood to fetch.
+     */
+    where?: NeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Neighborhoods to fetch.
+     */
+    orderBy?:
+      | NeighborhoodOrderByWithRelationInput
+      | NeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Neighborhoods.
+     */
+    cursor?: NeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Neighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Neighborhoods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Neighborhoods.
+     */
+    distinct?: NeighborhoodScalarFieldEnum | NeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * Neighborhood findFirstOrThrow
+   */
+  export type NeighborhoodFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which Neighborhood to fetch.
+     */
+    where?: NeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Neighborhoods to fetch.
+     */
+    orderBy?:
+      | NeighborhoodOrderByWithRelationInput
+      | NeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Neighborhoods.
+     */
+    cursor?: NeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Neighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Neighborhoods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Neighborhoods.
+     */
+    distinct?: NeighborhoodScalarFieldEnum | NeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * Neighborhood findMany
+   */
+  export type NeighborhoodFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which Neighborhoods to fetch.
+     */
+    where?: NeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Neighborhoods to fetch.
+     */
+    orderBy?:
+      | NeighborhoodOrderByWithRelationInput
+      | NeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Neighborhoods.
+     */
+    cursor?: NeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Neighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Neighborhoods.
+     */
+    skip?: number;
+    distinct?: NeighborhoodScalarFieldEnum | NeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * Neighborhood create
+   */
+  export type NeighborhoodCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Neighborhood.
+     */
+    data: XOR<NeighborhoodCreateInput, NeighborhoodUncheckedCreateInput>;
+  };
+
+  /**
+   * Neighborhood createMany
+   */
+  export type NeighborhoodCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Neighborhoods.
+     */
+    data: NeighborhoodCreateManyInput | NeighborhoodCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Neighborhood createManyAndReturn
+   */
+  export type NeighborhoodCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many Neighborhoods.
+     */
+    data: NeighborhoodCreateManyInput | NeighborhoodCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Neighborhood update
+   */
+  export type NeighborhoodUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Neighborhood.
+     */
+    data: XOR<NeighborhoodUpdateInput, NeighborhoodUncheckedUpdateInput>;
+    /**
+     * Choose, which Neighborhood to update.
+     */
+    where: NeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * Neighborhood updateMany
+   */
+  export type NeighborhoodUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Neighborhoods.
+     */
+    data: XOR<
+      NeighborhoodUpdateManyMutationInput,
+      NeighborhoodUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which Neighborhoods to update
+     */
+    where?: NeighborhoodWhereInput;
+  };
+
+  /**
+   * Neighborhood upsert
+   */
+  export type NeighborhoodUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Neighborhood to update in case it exists.
+     */
+    where: NeighborhoodWhereUniqueInput;
+    /**
+     * In case the Neighborhood found by the `where` argument doesn't exist, create a new Neighborhood with this data.
+     */
+    create: XOR<NeighborhoodCreateInput, NeighborhoodUncheckedCreateInput>;
+    /**
+     * In case the Neighborhood was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NeighborhoodUpdateInput, NeighborhoodUncheckedUpdateInput>;
+  };
+
+  /**
+   * Neighborhood delete
+   */
+  export type NeighborhoodDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter which Neighborhood to delete.
+     */
+    where: NeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * Neighborhood deleteMany
+   */
+  export type NeighborhoodDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Neighborhoods to delete
+     */
+    where?: NeighborhoodWhereInput;
+  };
+
+  /**
+   * Neighborhood.addresses
+   */
+  export type Neighborhood$addressesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null;
+    where?: AddressWhereInput;
+    orderBy?:
+      | AddressOrderByWithRelationInput
+      | AddressOrderByWithRelationInput[];
+    cursor?: AddressWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[];
+  };
+
+  /**
+   * Neighborhood.businessNeighborhood
+   */
+  export type Neighborhood$businessNeighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    where?: BusinessNeighborhoodWhereInput;
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithRelationInput
+      | BusinessNeighborhoodOrderByWithRelationInput[];
+    cursor?: BusinessNeighborhoodWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | BusinessNeighborhoodScalarFieldEnum
+      | BusinessNeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * Neighborhood without action
+   */
+  export type NeighborhoodDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Neighborhood
+     */
+    select?: NeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NeighborhoodInclude<ExtArgs> | null;
   };
 
   /**
@@ -21703,6 +23222,1230 @@ export namespace Prisma {
   };
 
   /**
+   * Model BusinessNeighborhood
+   */
+
+  export type AggregateBusinessNeighborhood = {
+    _count: BusinessNeighborhoodCountAggregateOutputType | null;
+    _avg: BusinessNeighborhoodAvgAggregateOutputType | null;
+    _sum: BusinessNeighborhoodSumAggregateOutputType | null;
+    _min: BusinessNeighborhoodMinAggregateOutputType | null;
+    _max: BusinessNeighborhoodMaxAggregateOutputType | null;
+  };
+
+  export type BusinessNeighborhoodAvgAggregateOutputType = {
+    shipping: number | null;
+  };
+
+  export type BusinessNeighborhoodSumAggregateOutputType = {
+    shipping: number | null;
+  };
+
+  export type BusinessNeighborhoodMinAggregateOutputType = {
+    id: string | null;
+    shipping: number | null;
+    active: boolean | null;
+    businessId: string | null;
+    neighborhoodId: string | null;
+  };
+
+  export type BusinessNeighborhoodMaxAggregateOutputType = {
+    id: string | null;
+    shipping: number | null;
+    active: boolean | null;
+    businessId: string | null;
+    neighborhoodId: string | null;
+  };
+
+  export type BusinessNeighborhoodCountAggregateOutputType = {
+    id: number;
+    shipping: number;
+    active: number;
+    businessId: number;
+    neighborhoodId: number;
+    _all: number;
+  };
+
+  export type BusinessNeighborhoodAvgAggregateInputType = {
+    shipping?: true;
+  };
+
+  export type BusinessNeighborhoodSumAggregateInputType = {
+    shipping?: true;
+  };
+
+  export type BusinessNeighborhoodMinAggregateInputType = {
+    id?: true;
+    shipping?: true;
+    active?: true;
+    businessId?: true;
+    neighborhoodId?: true;
+  };
+
+  export type BusinessNeighborhoodMaxAggregateInputType = {
+    id?: true;
+    shipping?: true;
+    active?: true;
+    businessId?: true;
+    neighborhoodId?: true;
+  };
+
+  export type BusinessNeighborhoodCountAggregateInputType = {
+    id?: true;
+    shipping?: true;
+    active?: true;
+    businessId?: true;
+    neighborhoodId?: true;
+    _all?: true;
+  };
+
+  export type BusinessNeighborhoodAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which BusinessNeighborhood to aggregate.
+     */
+    where?: BusinessNeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of BusinessNeighborhoods to fetch.
+     */
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithRelationInput
+      | BusinessNeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: BusinessNeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` BusinessNeighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` BusinessNeighborhoods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned BusinessNeighborhoods
+     **/
+    _count?: true | BusinessNeighborhoodCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+     **/
+    _avg?: BusinessNeighborhoodAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: BusinessNeighborhoodSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: BusinessNeighborhoodMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: BusinessNeighborhoodMaxAggregateInputType;
+  };
+
+  export type GetBusinessNeighborhoodAggregateType<
+    T extends BusinessNeighborhoodAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateBusinessNeighborhood]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBusinessNeighborhood[P]>
+      : GetScalarType<T[P], AggregateBusinessNeighborhood[P]>;
+  };
+
+  export type BusinessNeighborhoodGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: BusinessNeighborhoodWhereInput;
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithAggregationInput
+      | BusinessNeighborhoodOrderByWithAggregationInput[];
+    by:
+      | BusinessNeighborhoodScalarFieldEnum[]
+      | BusinessNeighborhoodScalarFieldEnum;
+    having?: BusinessNeighborhoodScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: BusinessNeighborhoodCountAggregateInputType | true;
+    _avg?: BusinessNeighborhoodAvgAggregateInputType;
+    _sum?: BusinessNeighborhoodSumAggregateInputType;
+    _min?: BusinessNeighborhoodMinAggregateInputType;
+    _max?: BusinessNeighborhoodMaxAggregateInputType;
+  };
+
+  export type BusinessNeighborhoodGroupByOutputType = {
+    id: string;
+    shipping: number;
+    active: boolean;
+    businessId: string;
+    neighborhoodId: string;
+    _count: BusinessNeighborhoodCountAggregateOutputType | null;
+    _avg: BusinessNeighborhoodAvgAggregateOutputType | null;
+    _sum: BusinessNeighborhoodSumAggregateOutputType | null;
+    _min: BusinessNeighborhoodMinAggregateOutputType | null;
+    _max: BusinessNeighborhoodMaxAggregateOutputType | null;
+  };
+
+  type GetBusinessNeighborhoodGroupByPayload<
+    T extends BusinessNeighborhoodGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BusinessNeighborhoodGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof BusinessNeighborhoodGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], BusinessNeighborhoodGroupByOutputType[P]>
+          : GetScalarType<T[P], BusinessNeighborhoodGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type BusinessNeighborhoodSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      shipping?: boolean;
+      active?: boolean;
+      businessId?: boolean;
+      neighborhoodId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      neighborhood?: boolean | NeighborhoodDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["businessNeighborhood"]
+  >;
+
+  export type BusinessNeighborhoodSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      shipping?: boolean;
+      active?: boolean;
+      businessId?: boolean;
+      neighborhoodId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      neighborhood?: boolean | NeighborhoodDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["businessNeighborhood"]
+  >;
+
+  export type BusinessNeighborhoodSelectScalar = {
+    id?: boolean;
+    shipping?: boolean;
+    active?: boolean;
+    businessId?: boolean;
+    neighborhoodId?: boolean;
+  };
+
+  export type BusinessNeighborhoodInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    neighborhood?: boolean | NeighborhoodDefaultArgs<ExtArgs>;
+  };
+  export type BusinessNeighborhoodIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    neighborhood?: boolean | NeighborhoodDefaultArgs<ExtArgs>;
+  };
+
+  export type $BusinessNeighborhoodPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "BusinessNeighborhood";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+      neighborhood: Prisma.$NeighborhoodPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        shipping: number;
+        active: boolean;
+        businessId: string;
+        neighborhoodId: string;
+      },
+      ExtArgs["result"]["businessNeighborhood"]
+    >;
+    composites: {};
+  };
+
+  type BusinessNeighborhoodGetPayload<
+    S extends boolean | null | undefined | BusinessNeighborhoodDefaultArgs,
+  > = $Result.GetResult<Prisma.$BusinessNeighborhoodPayload, S>;
+
+  type BusinessNeighborhoodCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    BusinessNeighborhoodFindManyArgs,
+    "select" | "include" | "distinct"
+  > & {
+    select?: BusinessNeighborhoodCountAggregateInputType | true;
+  };
+
+  export interface BusinessNeighborhoodDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["BusinessNeighborhood"];
+      meta: { name: "BusinessNeighborhood" };
+    };
+    /**
+     * Find zero or one BusinessNeighborhood that matches the filter.
+     * @param {BusinessNeighborhoodFindUniqueArgs} args - Arguments to find a BusinessNeighborhood
+     * @example
+     * // Get one BusinessNeighborhood
+     * const businessNeighborhood = await prisma.businessNeighborhood.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BusinessNeighborhoodFindUniqueArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodFindUniqueArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one BusinessNeighborhood that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BusinessNeighborhoodFindUniqueOrThrowArgs} args - Arguments to find a BusinessNeighborhood
+     * @example
+     * // Get one BusinessNeighborhood
+     * const businessNeighborhood = await prisma.businessNeighborhood.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BusinessNeighborhoodFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first BusinessNeighborhood that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodFindFirstArgs} args - Arguments to find a BusinessNeighborhood
+     * @example
+     * // Get one BusinessNeighborhood
+     * const businessNeighborhood = await prisma.businessNeighborhood.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BusinessNeighborhoodFindFirstArgs>(
+      args?: SelectSubset<T, BusinessNeighborhoodFindFirstArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first BusinessNeighborhood that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodFindFirstOrThrowArgs} args - Arguments to find a BusinessNeighborhood
+     * @example
+     * // Get one BusinessNeighborhood
+     * const businessNeighborhood = await prisma.businessNeighborhood.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BusinessNeighborhoodFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, BusinessNeighborhoodFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more BusinessNeighborhoods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BusinessNeighborhoods
+     * const businessNeighborhoods = await prisma.businessNeighborhood.findMany()
+     *
+     * // Get first 10 BusinessNeighborhoods
+     * const businessNeighborhoods = await prisma.businessNeighborhood.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const businessNeighborhoodWithIdOnly = await prisma.businessNeighborhood.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends BusinessNeighborhoodFindManyArgs>(
+      args?: SelectSubset<T, BusinessNeighborhoodFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "findMany"
+      >
+    >;
+
+    /**
+     * Create a BusinessNeighborhood.
+     * @param {BusinessNeighborhoodCreateArgs} args - Arguments to create a BusinessNeighborhood.
+     * @example
+     * // Create one BusinessNeighborhood
+     * const BusinessNeighborhood = await prisma.businessNeighborhood.create({
+     *   data: {
+     *     // ... data to create a BusinessNeighborhood
+     *   }
+     * })
+     *
+     */
+    create<T extends BusinessNeighborhoodCreateArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodCreateArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "create"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many BusinessNeighborhoods.
+     * @param {BusinessNeighborhoodCreateManyArgs} args - Arguments to create many BusinessNeighborhoods.
+     * @example
+     * // Create many BusinessNeighborhoods
+     * const businessNeighborhood = await prisma.businessNeighborhood.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends BusinessNeighborhoodCreateManyArgs>(
+      args?: SelectSubset<T, BusinessNeighborhoodCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many BusinessNeighborhoods and returns the data saved in the database.
+     * @param {BusinessNeighborhoodCreateManyAndReturnArgs} args - Arguments to create many BusinessNeighborhoods.
+     * @example
+     * // Create many BusinessNeighborhoods
+     * const businessNeighborhood = await prisma.businessNeighborhood.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many BusinessNeighborhoods and only return the `id`
+     * const businessNeighborhoodWithIdOnly = await prisma.businessNeighborhood.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends BusinessNeighborhoodCreateManyAndReturnArgs>(
+      args?: SelectSubset<
+        T,
+        BusinessNeighborhoodCreateManyAndReturnArgs<ExtArgs>
+      >,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a BusinessNeighborhood.
+     * @param {BusinessNeighborhoodDeleteArgs} args - Arguments to delete one BusinessNeighborhood.
+     * @example
+     * // Delete one BusinessNeighborhood
+     * const BusinessNeighborhood = await prisma.businessNeighborhood.delete({
+     *   where: {
+     *     // ... filter to delete one BusinessNeighborhood
+     *   }
+     * })
+     *
+     */
+    delete<T extends BusinessNeighborhoodDeleteArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodDeleteArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "delete"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one BusinessNeighborhood.
+     * @param {BusinessNeighborhoodUpdateArgs} args - Arguments to update one BusinessNeighborhood.
+     * @example
+     * // Update one BusinessNeighborhood
+     * const businessNeighborhood = await prisma.businessNeighborhood.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends BusinessNeighborhoodUpdateArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodUpdateArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "update"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more BusinessNeighborhoods.
+     * @param {BusinessNeighborhoodDeleteManyArgs} args - Arguments to filter BusinessNeighborhoods to delete.
+     * @example
+     * // Delete a few BusinessNeighborhoods
+     * const { count } = await prisma.businessNeighborhood.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends BusinessNeighborhoodDeleteManyArgs>(
+      args?: SelectSubset<T, BusinessNeighborhoodDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more BusinessNeighborhoods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BusinessNeighborhoods
+     * const businessNeighborhood = await prisma.businessNeighborhood.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends BusinessNeighborhoodUpdateManyArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one BusinessNeighborhood.
+     * @param {BusinessNeighborhoodUpsertArgs} args - Arguments to update or create a BusinessNeighborhood.
+     * @example
+     * // Update or create a BusinessNeighborhood
+     * const businessNeighborhood = await prisma.businessNeighborhood.upsert({
+     *   create: {
+     *     // ... data to create a BusinessNeighborhood
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BusinessNeighborhood we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BusinessNeighborhoodUpsertArgs>(
+      args: SelectSubset<T, BusinessNeighborhoodUpsertArgs<ExtArgs>>,
+    ): Prisma__BusinessNeighborhoodClient<
+      $Result.GetResult<
+        Prisma.$BusinessNeighborhoodPayload<ExtArgs>,
+        T,
+        "upsert"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of BusinessNeighborhoods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodCountArgs} args - Arguments to filter BusinessNeighborhoods to count.
+     * @example
+     * // Count the number of BusinessNeighborhoods
+     * const count = await prisma.businessNeighborhood.count({
+     *   where: {
+     *     // ... the filter for the BusinessNeighborhoods we want to count
+     *   }
+     * })
+     **/
+    count<T extends BusinessNeighborhoodCountArgs>(
+      args?: Subset<T, BusinessNeighborhoodCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<
+              T["select"],
+              BusinessNeighborhoodCountAggregateOutputType
+            >
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a BusinessNeighborhood.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends BusinessNeighborhoodAggregateArgs>(
+      args: Subset<T, BusinessNeighborhoodAggregateArgs>,
+    ): Prisma.PrismaPromise<GetBusinessNeighborhoodAggregateType<T>>;
+
+    /**
+     * Group by BusinessNeighborhood.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessNeighborhoodGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends BusinessNeighborhoodGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BusinessNeighborhoodGroupByArgs["orderBy"] }
+        : { orderBy?: BusinessNeighborhoodGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, BusinessNeighborhoodGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetBusinessNeighborhoodGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the BusinessNeighborhood model
+     */
+    readonly fields: BusinessNeighborhoodFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BusinessNeighborhood.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BusinessNeighborhoodClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    neighborhood<T extends NeighborhoodDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, NeighborhoodDefaultArgs<ExtArgs>>,
+    ): Prisma__NeighborhoodClient<
+      | $Result.GetResult<
+          Prisma.$NeighborhoodPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the BusinessNeighborhood model
+   */
+  interface BusinessNeighborhoodFieldRefs {
+    readonly id: FieldRef<"BusinessNeighborhood", "String">;
+    readonly shipping: FieldRef<"BusinessNeighborhood", "Int">;
+    readonly active: FieldRef<"BusinessNeighborhood", "Boolean">;
+    readonly businessId: FieldRef<"BusinessNeighborhood", "String">;
+    readonly neighborhoodId: FieldRef<"BusinessNeighborhood", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * BusinessNeighborhood findUnique
+   */
+  export type BusinessNeighborhoodFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which BusinessNeighborhood to fetch.
+     */
+    where: BusinessNeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * BusinessNeighborhood findUniqueOrThrow
+   */
+  export type BusinessNeighborhoodFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which BusinessNeighborhood to fetch.
+     */
+    where: BusinessNeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * BusinessNeighborhood findFirst
+   */
+  export type BusinessNeighborhoodFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which BusinessNeighborhood to fetch.
+     */
+    where?: BusinessNeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of BusinessNeighborhoods to fetch.
+     */
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithRelationInput
+      | BusinessNeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for BusinessNeighborhoods.
+     */
+    cursor?: BusinessNeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` BusinessNeighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` BusinessNeighborhoods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of BusinessNeighborhoods.
+     */
+    distinct?:
+      | BusinessNeighborhoodScalarFieldEnum
+      | BusinessNeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * BusinessNeighborhood findFirstOrThrow
+   */
+  export type BusinessNeighborhoodFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which BusinessNeighborhood to fetch.
+     */
+    where?: BusinessNeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of BusinessNeighborhoods to fetch.
+     */
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithRelationInput
+      | BusinessNeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for BusinessNeighborhoods.
+     */
+    cursor?: BusinessNeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` BusinessNeighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` BusinessNeighborhoods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of BusinessNeighborhoods.
+     */
+    distinct?:
+      | BusinessNeighborhoodScalarFieldEnum
+      | BusinessNeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * BusinessNeighborhood findMany
+   */
+  export type BusinessNeighborhoodFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter, which BusinessNeighborhoods to fetch.
+     */
+    where?: BusinessNeighborhoodWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of BusinessNeighborhoods to fetch.
+     */
+    orderBy?:
+      | BusinessNeighborhoodOrderByWithRelationInput
+      | BusinessNeighborhoodOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing BusinessNeighborhoods.
+     */
+    cursor?: BusinessNeighborhoodWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` BusinessNeighborhoods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` BusinessNeighborhoods.
+     */
+    skip?: number;
+    distinct?:
+      | BusinessNeighborhoodScalarFieldEnum
+      | BusinessNeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * BusinessNeighborhood create
+   */
+  export type BusinessNeighborhoodCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a BusinessNeighborhood.
+     */
+    data: XOR<
+      BusinessNeighborhoodCreateInput,
+      BusinessNeighborhoodUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * BusinessNeighborhood createMany
+   */
+  export type BusinessNeighborhoodCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many BusinessNeighborhoods.
+     */
+    data:
+      | BusinessNeighborhoodCreateManyInput
+      | BusinessNeighborhoodCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * BusinessNeighborhood createManyAndReturn
+   */
+  export type BusinessNeighborhoodCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many BusinessNeighborhoods.
+     */
+    data:
+      | BusinessNeighborhoodCreateManyInput
+      | BusinessNeighborhoodCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * BusinessNeighborhood update
+   */
+  export type BusinessNeighborhoodUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a BusinessNeighborhood.
+     */
+    data: XOR<
+      BusinessNeighborhoodUpdateInput,
+      BusinessNeighborhoodUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which BusinessNeighborhood to update.
+     */
+    where: BusinessNeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * BusinessNeighborhood updateMany
+   */
+  export type BusinessNeighborhoodUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update BusinessNeighborhoods.
+     */
+    data: XOR<
+      BusinessNeighborhoodUpdateManyMutationInput,
+      BusinessNeighborhoodUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which BusinessNeighborhoods to update
+     */
+    where?: BusinessNeighborhoodWhereInput;
+  };
+
+  /**
+   * BusinessNeighborhood upsert
+   */
+  export type BusinessNeighborhoodUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the BusinessNeighborhood to update in case it exists.
+     */
+    where: BusinessNeighborhoodWhereUniqueInput;
+    /**
+     * In case the BusinessNeighborhood found by the `where` argument doesn't exist, create a new BusinessNeighborhood with this data.
+     */
+    create: XOR<
+      BusinessNeighborhoodCreateInput,
+      BusinessNeighborhoodUncheckedCreateInput
+    >;
+    /**
+     * In case the BusinessNeighborhood was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      BusinessNeighborhoodUpdateInput,
+      BusinessNeighborhoodUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * BusinessNeighborhood delete
+   */
+  export type BusinessNeighborhoodDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+    /**
+     * Filter which BusinessNeighborhood to delete.
+     */
+    where: BusinessNeighborhoodWhereUniqueInput;
+  };
+
+  /**
+   * BusinessNeighborhood deleteMany
+   */
+  export type BusinessNeighborhoodDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which BusinessNeighborhoods to delete
+     */
+    where?: BusinessNeighborhoodWhereInput;
+  };
+
+  /**
+   * BusinessNeighborhood without action
+   */
+  export type BusinessNeighborhoodDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the BusinessNeighborhood
+     */
+    select?: BusinessNeighborhoodSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessNeighborhoodInclude<ExtArgs> | null;
+  };
+
+  /**
    * Enums
    */
 
@@ -21817,6 +24560,8 @@ export namespace Prisma {
     id: "id";
     userId: "userId";
     productsDetails: "productsDetails";
+    shipping: "shipping";
+    hasShipping: "hasShipping";
     total: "total";
     status: "status";
     sentAt: "sentAt";
@@ -21900,10 +24645,20 @@ export namespace Prisma {
     city: "city";
     state: "state";
     reference: "reference";
+    neighborhoodId: "neighborhoodId";
   };
 
   export type AddressScalarFieldEnum =
     (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum];
+
+  export const NeighborhoodScalarFieldEnum: {
+    id: "id";
+    name: "name";
+    city: "city";
+  };
+
+  export type NeighborhoodScalarFieldEnum =
+    (typeof NeighborhoodScalarFieldEnum)[keyof typeof NeighborhoodScalarFieldEnum];
 
   export const UserAddressScalarFieldEnum: {
     id: "id";
@@ -21922,6 +24677,17 @@ export namespace Prisma {
 
   export type OrderAddressScalarFieldEnum =
     (typeof OrderAddressScalarFieldEnum)[keyof typeof OrderAddressScalarFieldEnum];
+
+  export const BusinessNeighborhoodScalarFieldEnum: {
+    id: "id";
+    shipping: "shipping";
+    active: "active";
+    businessId: "businessId";
+    neighborhoodId: "neighborhoodId";
+  };
+
+  export type BusinessNeighborhoodScalarFieldEnum =
+    (typeof BusinessNeighborhoodScalarFieldEnum)[keyof typeof BusinessNeighborhoodScalarFieldEnum];
 
   export const SortOrder: {
     asc: "asc";
@@ -22141,6 +24907,7 @@ export namespace Prisma {
     products?: ProductListRelationFilter;
     orders?: OrderListRelationFilter;
     users?: UserBusinessListRelationFilter;
+    businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
     paymentMethod?: PaymentMethodListRelationFilter;
   };
 
@@ -22164,6 +24931,7 @@ export namespace Prisma {
     products?: ProductOrderByRelationAggregateInput;
     orders?: OrderOrderByRelationAggregateInput;
     users?: UserBusinessOrderByRelationAggregateInput;
+    businessNeighborhood?: BusinessNeighborhoodOrderByRelationAggregateInput;
     paymentMethod?: PaymentMethodOrderByRelationAggregateInput;
   };
 
@@ -22197,6 +24965,7 @@ export namespace Prisma {
       products?: ProductListRelationFilter;
       orders?: OrderListRelationFilter;
       users?: UserBusinessListRelationFilter;
+      businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
       paymentMethod?: PaymentMethodListRelationFilter;
     },
     "id" | "slug" | "defaultPaymentMethodId"
@@ -22747,6 +25516,8 @@ export namespace Prisma {
     id?: StringFilter<"Order"> | string;
     userId?: StringNullableFilter<"Order"> | string | null;
     productsDetails?: JsonFilter<"Order">;
+    shipping?: IntFilter<"Order"> | number;
+    hasShipping?: BoolFilter<"Order"> | boolean;
     total?: IntFilter<"Order"> | number;
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus;
     sentAt?: DateTimeNullableFilter<"Order"> | Date | string | null;
@@ -22766,6 +25537,8 @@ export namespace Prisma {
     id?: SortOrder;
     userId?: SortOrderInput | SortOrder;
     productsDetails?: SortOrder;
+    shipping?: SortOrder;
+    hasShipping?: SortOrder;
     total?: SortOrder;
     status?: SortOrder;
     sentAt?: SortOrderInput | SortOrder;
@@ -22786,6 +25559,8 @@ export namespace Prisma {
       NOT?: OrderWhereInput | OrderWhereInput[];
       userId?: StringNullableFilter<"Order"> | string | null;
       productsDetails?: JsonFilter<"Order">;
+      shipping?: IntFilter<"Order"> | number;
+      hasShipping?: BoolFilter<"Order"> | boolean;
       total?: IntFilter<"Order"> | number;
       status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus;
       sentAt?: DateTimeNullableFilter<"Order"> | Date | string | null;
@@ -22807,6 +25582,8 @@ export namespace Prisma {
     id?: SortOrder;
     userId?: SortOrderInput | SortOrder;
     productsDetails?: SortOrder;
+    shipping?: SortOrder;
+    hasShipping?: SortOrder;
     total?: SortOrder;
     status?: SortOrder;
     sentAt?: SortOrderInput | SortOrder;
@@ -22831,6 +25608,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Order"> | string;
     userId?: StringNullableWithAggregatesFilter<"Order"> | string | null;
     productsDetails?: JsonWithAggregatesFilter<"Order">;
+    shipping?: IntWithAggregatesFilter<"Order"> | number;
+    hasShipping?: BoolWithAggregatesFilter<"Order"> | boolean;
     total?: IntWithAggregatesFilter<"Order"> | number;
     status?: EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus;
     sentAt?:
@@ -23231,6 +26010,11 @@ export namespace Prisma {
     city?: StringFilter<"Address"> | string;
     state?: StringFilter<"Address"> | string;
     reference?: StringNullableFilter<"Address"> | string | null;
+    neighborhoodId?: StringNullableFilter<"Address"> | string | null;
+    neighborhood?: XOR<
+      NeighborhoodNullableRelationFilter,
+      NeighborhoodWhereInput
+    > | null;
     userAddress?: XOR<
       UserAddressNullableRelationFilter,
       UserAddressWhereInput
@@ -23249,6 +26033,8 @@ export namespace Prisma {
     city?: SortOrder;
     state?: SortOrder;
     reference?: SortOrderInput | SortOrder;
+    neighborhoodId?: SortOrderInput | SortOrder;
+    neighborhood?: NeighborhoodOrderByWithRelationInput;
     userAddress?: UserAddressOrderByWithRelationInput;
     orderAddress?: OrderAddressOrderByWithRelationInput;
   };
@@ -23265,6 +26051,11 @@ export namespace Prisma {
       city?: StringFilter<"Address"> | string;
       state?: StringFilter<"Address"> | string;
       reference?: StringNullableFilter<"Address"> | string | null;
+      neighborhoodId?: StringNullableFilter<"Address"> | string | null;
+      neighborhood?: XOR<
+        NeighborhoodNullableRelationFilter,
+        NeighborhoodWhereInput
+      > | null;
       userAddress?: XOR<
         UserAddressNullableRelationFilter,
         UserAddressWhereInput
@@ -23285,6 +26076,7 @@ export namespace Prisma {
     city?: SortOrder;
     state?: SortOrder;
     reference?: SortOrderInput | SortOrder;
+    neighborhoodId?: SortOrderInput | SortOrder;
     _count?: AddressCountOrderByAggregateInput;
     _max?: AddressMaxOrderByAggregateInput;
     _min?: AddressMinOrderByAggregateInput;
@@ -23305,6 +26097,65 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter<"Address"> | string;
     state?: StringWithAggregatesFilter<"Address"> | string;
     reference?: StringNullableWithAggregatesFilter<"Address"> | string | null;
+    neighborhoodId?:
+      | StringNullableWithAggregatesFilter<"Address">
+      | string
+      | null;
+  };
+
+  export type NeighborhoodWhereInput = {
+    AND?: NeighborhoodWhereInput | NeighborhoodWhereInput[];
+    OR?: NeighborhoodWhereInput[];
+    NOT?: NeighborhoodWhereInput | NeighborhoodWhereInput[];
+    id?: StringFilter<"Neighborhood"> | string;
+    name?: StringFilter<"Neighborhood"> | string;
+    city?: StringFilter<"Neighborhood"> | string;
+    addresses?: AddressListRelationFilter;
+    businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
+  };
+
+  export type NeighborhoodOrderByWithRelationInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    city?: SortOrder;
+    addresses?: AddressOrderByRelationAggregateInput;
+    businessNeighborhood?: BusinessNeighborhoodOrderByRelationAggregateInput;
+  };
+
+  export type NeighborhoodWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: NeighborhoodWhereInput | NeighborhoodWhereInput[];
+      OR?: NeighborhoodWhereInput[];
+      NOT?: NeighborhoodWhereInput | NeighborhoodWhereInput[];
+      name?: StringFilter<"Neighborhood"> | string;
+      city?: StringFilter<"Neighborhood"> | string;
+      addresses?: AddressListRelationFilter;
+      businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
+    },
+    "id"
+  >;
+
+  export type NeighborhoodOrderByWithAggregationInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    city?: SortOrder;
+    _count?: NeighborhoodCountOrderByAggregateInput;
+    _max?: NeighborhoodMaxOrderByAggregateInput;
+    _min?: NeighborhoodMinOrderByAggregateInput;
+  };
+
+  export type NeighborhoodScalarWhereWithAggregatesInput = {
+    AND?:
+      | NeighborhoodScalarWhereWithAggregatesInput
+      | NeighborhoodScalarWhereWithAggregatesInput[];
+    OR?: NeighborhoodScalarWhereWithAggregatesInput[];
+    NOT?:
+      | NeighborhoodScalarWhereWithAggregatesInput
+      | NeighborhoodScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"Neighborhood"> | string;
+    name?: StringWithAggregatesFilter<"Neighborhood"> | string;
+    city?: StringWithAggregatesFilter<"Neighborhood"> | string;
   };
 
   export type UserAddressWhereInput = {
@@ -23417,6 +26268,75 @@ export namespace Prisma {
     orderId?: StringWithAggregatesFilter<"OrderAddress"> | string;
   };
 
+  export type BusinessNeighborhoodWhereInput = {
+    AND?: BusinessNeighborhoodWhereInput | BusinessNeighborhoodWhereInput[];
+    OR?: BusinessNeighborhoodWhereInput[];
+    NOT?: BusinessNeighborhoodWhereInput | BusinessNeighborhoodWhereInput[];
+    id?: StringFilter<"BusinessNeighborhood"> | string;
+    shipping?: IntFilter<"BusinessNeighborhood"> | number;
+    active?: BoolFilter<"BusinessNeighborhood"> | boolean;
+    businessId?: StringFilter<"BusinessNeighborhood"> | string;
+    neighborhoodId?: StringFilter<"BusinessNeighborhood"> | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    neighborhood?: XOR<NeighborhoodRelationFilter, NeighborhoodWhereInput>;
+  };
+
+  export type BusinessNeighborhoodOrderByWithRelationInput = {
+    id?: SortOrder;
+    shipping?: SortOrder;
+    active?: SortOrder;
+    businessId?: SortOrder;
+    neighborhoodId?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+    neighborhood?: NeighborhoodOrderByWithRelationInput;
+  };
+
+  export type BusinessNeighborhoodWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: BusinessNeighborhoodWhereInput | BusinessNeighborhoodWhereInput[];
+      OR?: BusinessNeighborhoodWhereInput[];
+      NOT?: BusinessNeighborhoodWhereInput | BusinessNeighborhoodWhereInput[];
+      shipping?: IntFilter<"BusinessNeighborhood"> | number;
+      active?: BoolFilter<"BusinessNeighborhood"> | boolean;
+      businessId?: StringFilter<"BusinessNeighborhood"> | string;
+      neighborhoodId?: StringFilter<"BusinessNeighborhood"> | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+      neighborhood?: XOR<NeighborhoodRelationFilter, NeighborhoodWhereInput>;
+    },
+    "id"
+  >;
+
+  export type BusinessNeighborhoodOrderByWithAggregationInput = {
+    id?: SortOrder;
+    shipping?: SortOrder;
+    active?: SortOrder;
+    businessId?: SortOrder;
+    neighborhoodId?: SortOrder;
+    _count?: BusinessNeighborhoodCountOrderByAggregateInput;
+    _avg?: BusinessNeighborhoodAvgOrderByAggregateInput;
+    _max?: BusinessNeighborhoodMaxOrderByAggregateInput;
+    _min?: BusinessNeighborhoodMinOrderByAggregateInput;
+    _sum?: BusinessNeighborhoodSumOrderByAggregateInput;
+  };
+
+  export type BusinessNeighborhoodScalarWhereWithAggregatesInput = {
+    AND?:
+      | BusinessNeighborhoodScalarWhereWithAggregatesInput
+      | BusinessNeighborhoodScalarWhereWithAggregatesInput[];
+    OR?: BusinessNeighborhoodScalarWhereWithAggregatesInput[];
+    NOT?:
+      | BusinessNeighborhoodScalarWhereWithAggregatesInput
+      | BusinessNeighborhoodScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"BusinessNeighborhood"> | string;
+    shipping?: IntWithAggregatesFilter<"BusinessNeighborhood"> | number;
+    active?: BoolWithAggregatesFilter<"BusinessNeighborhood"> | boolean;
+    businessId?: StringWithAggregatesFilter<"BusinessNeighborhood"> | string;
+    neighborhoodId?:
+      | StringWithAggregatesFilter<"BusinessNeighborhood">
+      | string;
+  };
+
   export type BusinessCreateInput = {
     id?: string;
     name: string;
@@ -23436,6 +26356,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -23458,6 +26379,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -23480,6 +26402,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -23505,6 +26428,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -24033,6 +26957,8 @@ export namespace Prisma {
   export type OrderCreateInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -24048,6 +26974,8 @@ export namespace Prisma {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -24061,6 +26989,8 @@ export namespace Prisma {
   export type OrderUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -24076,6 +27006,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -24090,6 +27022,8 @@ export namespace Prisma {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -24101,6 +27035,8 @@ export namespace Prisma {
   export type OrderUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -24112,6 +27048,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -24466,6 +27404,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhood?: NeighborhoodCreateNestedOneWithoutAddressesInput;
     userAddress?: UserAddressCreateNestedOneWithoutAddressInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutAddressInput;
   };
@@ -24478,6 +27417,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhoodId?: string | null;
     userAddress?: UserAddressUncheckedCreateNestedOneWithoutAddressInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutAddressInput;
   };
@@ -24490,6 +27430,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhood?: NeighborhoodUpdateOneWithoutAddressesNestedInput;
     userAddress?: UserAddressUpdateOneWithoutAddressNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutAddressNestedInput;
   };
@@ -24502,6 +27443,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhoodId?: NullableStringFieldUpdateOperationsInput | string | null;
     userAddress?: UserAddressUncheckedUpdateOneWithoutAddressNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutAddressNestedInput;
   };
@@ -24514,6 +27456,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhoodId?: string | null;
   };
 
   export type AddressUpdateManyMutationInput = {
@@ -24534,6 +27477,57 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhoodId?: NullableStringFieldUpdateOperationsInput | string | null;
+  };
+
+  export type NeighborhoodCreateInput = {
+    id?: string;
+    name: string;
+    city: string;
+    addresses?: AddressCreateNestedManyWithoutNeighborhoodInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutNeighborhoodInput;
+  };
+
+  export type NeighborhoodUncheckedCreateInput = {
+    id?: string;
+    name: string;
+    city: string;
+    addresses?: AddressUncheckedCreateNestedManyWithoutNeighborhoodInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutNeighborhoodInput;
+  };
+
+  export type NeighborhoodUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    addresses?: AddressUpdateManyWithoutNeighborhoodNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutNeighborhoodNestedInput;
+  };
+
+  export type NeighborhoodUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    addresses?: AddressUncheckedUpdateManyWithoutNeighborhoodNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutNeighborhoodNestedInput;
+  };
+
+  export type NeighborhoodCreateManyInput = {
+    id?: string;
+    name: string;
+    city: string;
+  };
+
+  export type NeighborhoodUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type NeighborhoodUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
   };
 
   export type UserAddressCreateInput = {
@@ -24614,6 +27608,60 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
     orderId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type BusinessNeighborhoodCreateInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    business: BusinessCreateNestedOneWithoutBusinessNeighborhoodInput;
+    neighborhood: NeighborhoodCreateNestedOneWithoutBusinessNeighborhoodInput;
+  };
+
+  export type BusinessNeighborhoodUncheckedCreateInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    businessId: string;
+    neighborhoodId: string;
+  };
+
+  export type BusinessNeighborhoodUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutBusinessNeighborhoodNestedInput;
+    neighborhood?: NeighborhoodUpdateOneRequiredWithoutBusinessNeighborhoodNestedInput;
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    neighborhoodId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type BusinessNeighborhoodCreateManyInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    businessId: string;
+    neighborhoodId: string;
+  };
+
+  export type BusinessNeighborhoodUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    neighborhoodId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type StringFilter<$PrismaModel = never> = {
@@ -24704,6 +27752,12 @@ export namespace Prisma {
     none?: UserBusinessWhereInput;
   };
 
+  export type BusinessNeighborhoodListRelationFilter = {
+    every?: BusinessNeighborhoodWhereInput;
+    some?: BusinessNeighborhoodWhereInput;
+    none?: BusinessNeighborhoodWhereInput;
+  };
+
   export type PaymentMethodListRelationFilter = {
     every?: PaymentMethodWhereInput;
     some?: PaymentMethodWhereInput;
@@ -24728,6 +27782,10 @@ export namespace Prisma {
   };
 
   export type UserBusinessOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type BusinessNeighborhoodOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -25399,6 +28457,8 @@ export namespace Prisma {
     id?: SortOrder;
     userId?: SortOrder;
     productsDetails?: SortOrder;
+    shipping?: SortOrder;
+    hasShipping?: SortOrder;
     total?: SortOrder;
     status?: SortOrder;
     sentAt?: SortOrder;
@@ -25408,6 +28468,7 @@ export namespace Prisma {
   };
 
   export type OrderAvgOrderByAggregateInput = {
+    shipping?: SortOrder;
     total?: SortOrder;
     position?: SortOrder;
   };
@@ -25415,6 +28476,8 @@ export namespace Prisma {
   export type OrderMaxOrderByAggregateInput = {
     id?: SortOrder;
     userId?: SortOrder;
+    shipping?: SortOrder;
+    hasShipping?: SortOrder;
     total?: SortOrder;
     status?: SortOrder;
     sentAt?: SortOrder;
@@ -25426,6 +28489,8 @@ export namespace Prisma {
   export type OrderMinOrderByAggregateInput = {
     id?: SortOrder;
     userId?: SortOrder;
+    shipping?: SortOrder;
+    hasShipping?: SortOrder;
     total?: SortOrder;
     status?: SortOrder;
     sentAt?: SortOrder;
@@ -25435,6 +28500,7 @@ export namespace Prisma {
   };
 
   export type OrderSumOrderByAggregateInput = {
+    shipping?: SortOrder;
     total?: SortOrder;
     position?: SortOrder;
   };
@@ -25658,6 +28724,11 @@ export namespace Prisma {
     counter?: SortOrder;
   };
 
+  export type NeighborhoodNullableRelationFilter = {
+    is?: NeighborhoodWhereInput | null;
+    isNot?: NeighborhoodWhereInput | null;
+  };
+
   export type UserAddressNullableRelationFilter = {
     is?: UserAddressWhereInput | null;
     isNot?: UserAddressWhereInput | null;
@@ -25671,6 +28742,7 @@ export namespace Prisma {
     city?: SortOrder;
     state?: SortOrder;
     reference?: SortOrder;
+    neighborhoodId?: SortOrder;
   };
 
   export type AddressMaxOrderByAggregateInput = {
@@ -25681,6 +28753,7 @@ export namespace Prisma {
     city?: SortOrder;
     state?: SortOrder;
     reference?: SortOrder;
+    neighborhoodId?: SortOrder;
   };
 
   export type AddressMinOrderByAggregateInput = {
@@ -25691,6 +28764,35 @@ export namespace Prisma {
     city?: SortOrder;
     state?: SortOrder;
     reference?: SortOrder;
+    neighborhoodId?: SortOrder;
+  };
+
+  export type AddressListRelationFilter = {
+    every?: AddressWhereInput;
+    some?: AddressWhereInput;
+    none?: AddressWhereInput;
+  };
+
+  export type AddressOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type NeighborhoodCountOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    city?: SortOrder;
+  };
+
+  export type NeighborhoodMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    city?: SortOrder;
+  };
+
+  export type NeighborhoodMinOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    city?: SortOrder;
   };
 
   export type AddressRelationFilter = {
@@ -25732,6 +28834,43 @@ export namespace Prisma {
     id?: SortOrder;
     addressId?: SortOrder;
     orderId?: SortOrder;
+  };
+
+  export type NeighborhoodRelationFilter = {
+    is?: NeighborhoodWhereInput;
+    isNot?: NeighborhoodWhereInput;
+  };
+
+  export type BusinessNeighborhoodCountOrderByAggregateInput = {
+    id?: SortOrder;
+    shipping?: SortOrder;
+    active?: SortOrder;
+    businessId?: SortOrder;
+    neighborhoodId?: SortOrder;
+  };
+
+  export type BusinessNeighborhoodAvgOrderByAggregateInput = {
+    shipping?: SortOrder;
+  };
+
+  export type BusinessNeighborhoodMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    shipping?: SortOrder;
+    active?: SortOrder;
+    businessId?: SortOrder;
+    neighborhoodId?: SortOrder;
+  };
+
+  export type BusinessNeighborhoodMinOrderByAggregateInput = {
+    id?: SortOrder;
+    shipping?: SortOrder;
+    active?: SortOrder;
+    businessId?: SortOrder;
+    neighborhoodId?: SortOrder;
+  };
+
+  export type BusinessNeighborhoodSumOrderByAggregateInput = {
+    shipping?: SortOrder;
   };
 
   export type BusinessCreatecoordinatesInput = {
@@ -25814,6 +28953,23 @@ export namespace Prisma {
       | UserBusinessCreateOrConnectWithoutBusinessInput[];
     createMany?: UserBusinessCreateManyBusinessInputEnvelope;
     connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
+  };
+
+  export type BusinessNeighborhoodCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          BusinessNeighborhoodCreateWithoutBusinessInput,
+          BusinessNeighborhoodUncheckedCreateWithoutBusinessInput
+        >
+      | BusinessNeighborhoodCreateWithoutBusinessInput[]
+      | BusinessNeighborhoodUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput
+      | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput[];
+    createMany?: BusinessNeighborhoodCreateManyBusinessInputEnvelope;
+    connect?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
   };
 
   export type PaymentMethodCreateNestedManyWithoutBusinessInput = {
@@ -25899,6 +29055,24 @@ export namespace Prisma {
     createMany?: UserBusinessCreateManyBusinessInputEnvelope;
     connect?: UserBusinessWhereUniqueInput | UserBusinessWhereUniqueInput[];
   };
+
+  export type BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput =
+    {
+      create?:
+        | XOR<
+            BusinessNeighborhoodCreateWithoutBusinessInput,
+            BusinessNeighborhoodUncheckedCreateWithoutBusinessInput
+          >
+        | BusinessNeighborhoodCreateWithoutBusinessInput[]
+        | BusinessNeighborhoodUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput
+        | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput[];
+      createMany?: BusinessNeighborhoodCreateManyBusinessInputEnvelope;
+      connect?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+    };
 
   export type PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput = {
     create?:
@@ -26086,6 +29260,44 @@ export namespace Prisma {
     deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
   };
 
+  export type BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          BusinessNeighborhoodCreateWithoutBusinessInput,
+          BusinessNeighborhoodUncheckedCreateWithoutBusinessInput
+        >
+      | BusinessNeighborhoodCreateWithoutBusinessInput[]
+      | BusinessNeighborhoodUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput
+      | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | BusinessNeighborhoodUpsertWithWhereUniqueWithoutBusinessInput
+      | BusinessNeighborhoodUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: BusinessNeighborhoodCreateManyBusinessInputEnvelope;
+    set?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    disconnect?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    delete?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    connect?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    update?:
+      | BusinessNeighborhoodUpdateWithWhereUniqueWithoutBusinessInput
+      | BusinessNeighborhoodUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | BusinessNeighborhoodUpdateManyWithWhereWithoutBusinessInput
+      | BusinessNeighborhoodUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | BusinessNeighborhoodScalarWhereInput
+      | BusinessNeighborhoodScalarWhereInput[];
+  };
+
   export type PaymentMethodUpdateManyWithoutBusinessNestedInput = {
     create?:
       | XOR<
@@ -26248,6 +29460,45 @@ export namespace Prisma {
       | UserBusinessUpdateManyWithWhereWithoutBusinessInput[];
     deleteMany?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
   };
+
+  export type BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput =
+    {
+      create?:
+        | XOR<
+            BusinessNeighborhoodCreateWithoutBusinessInput,
+            BusinessNeighborhoodUncheckedCreateWithoutBusinessInput
+          >
+        | BusinessNeighborhoodCreateWithoutBusinessInput[]
+        | BusinessNeighborhoodUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput
+        | BusinessNeighborhoodCreateOrConnectWithoutBusinessInput[];
+      upsert?:
+        | BusinessNeighborhoodUpsertWithWhereUniqueWithoutBusinessInput
+        | BusinessNeighborhoodUpsertWithWhereUniqueWithoutBusinessInput[];
+      createMany?: BusinessNeighborhoodCreateManyBusinessInputEnvelope;
+      set?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      disconnect?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      delete?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      connect?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      update?:
+        | BusinessNeighborhoodUpdateWithWhereUniqueWithoutBusinessInput
+        | BusinessNeighborhoodUpdateWithWhereUniqueWithoutBusinessInput[];
+      updateMany?:
+        | BusinessNeighborhoodUpdateManyWithWhereWithoutBusinessInput
+        | BusinessNeighborhoodUpdateManyWithWhereWithoutBusinessInput[];
+      deleteMany?:
+        | BusinessNeighborhoodScalarWhereInput
+        | BusinessNeighborhoodScalarWhereInput[];
+    };
 
   export type PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput = {
     create?:
@@ -27580,6 +30831,15 @@ export namespace Prisma {
     >;
   };
 
+  export type NeighborhoodCreateNestedOneWithoutAddressesInput = {
+    create?: XOR<
+      NeighborhoodCreateWithoutAddressesInput,
+      NeighborhoodUncheckedCreateWithoutAddressesInput
+    >;
+    connectOrCreate?: NeighborhoodCreateOrConnectWithoutAddressesInput;
+    connect?: NeighborhoodWhereUniqueInput;
+  };
+
   export type UserAddressCreateNestedOneWithoutAddressInput = {
     create?: XOR<
       UserAddressCreateWithoutAddressInput,
@@ -27614,6 +30874,25 @@ export namespace Prisma {
     >;
     connectOrCreate?: OrderAddressCreateOrConnectWithoutAddressInput;
     connect?: OrderAddressWhereUniqueInput;
+  };
+
+  export type NeighborhoodUpdateOneWithoutAddressesNestedInput = {
+    create?: XOR<
+      NeighborhoodCreateWithoutAddressesInput,
+      NeighborhoodUncheckedCreateWithoutAddressesInput
+    >;
+    connectOrCreate?: NeighborhoodCreateOrConnectWithoutAddressesInput;
+    upsert?: NeighborhoodUpsertWithoutAddressesInput;
+    disconnect?: NeighborhoodWhereInput | boolean;
+    delete?: NeighborhoodWhereInput | boolean;
+    connect?: NeighborhoodWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        NeighborhoodUpdateToOneWithWhereWithoutAddressesInput,
+        NeighborhoodUpdateWithoutAddressesInput
+      >,
+      NeighborhoodUncheckedUpdateWithoutAddressesInput
+    >;
   };
 
   export type UserAddressUpdateOneWithoutAddressNestedInput = {
@@ -27691,6 +30970,204 @@ export namespace Prisma {
       OrderAddressUncheckedUpdateWithoutAddressInput
     >;
   };
+
+  export type AddressCreateNestedManyWithoutNeighborhoodInput = {
+    create?:
+      | XOR<
+          AddressCreateWithoutNeighborhoodInput,
+          AddressUncheckedCreateWithoutNeighborhoodInput
+        >
+      | AddressCreateWithoutNeighborhoodInput[]
+      | AddressUncheckedCreateWithoutNeighborhoodInput[];
+    connectOrCreate?:
+      | AddressCreateOrConnectWithoutNeighborhoodInput
+      | AddressCreateOrConnectWithoutNeighborhoodInput[];
+    createMany?: AddressCreateManyNeighborhoodInputEnvelope;
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+  };
+
+  export type BusinessNeighborhoodCreateNestedManyWithoutNeighborhoodInput = {
+    create?:
+      | XOR<
+          BusinessNeighborhoodCreateWithoutNeighborhoodInput,
+          BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput
+        >
+      | BusinessNeighborhoodCreateWithoutNeighborhoodInput[]
+      | BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput[];
+    connectOrCreate?:
+      | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput
+      | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput[];
+    createMany?: BusinessNeighborhoodCreateManyNeighborhoodInputEnvelope;
+    connect?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+  };
+
+  export type AddressUncheckedCreateNestedManyWithoutNeighborhoodInput = {
+    create?:
+      | XOR<
+          AddressCreateWithoutNeighborhoodInput,
+          AddressUncheckedCreateWithoutNeighborhoodInput
+        >
+      | AddressCreateWithoutNeighborhoodInput[]
+      | AddressUncheckedCreateWithoutNeighborhoodInput[];
+    connectOrCreate?:
+      | AddressCreateOrConnectWithoutNeighborhoodInput
+      | AddressCreateOrConnectWithoutNeighborhoodInput[];
+    createMany?: AddressCreateManyNeighborhoodInputEnvelope;
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+  };
+
+  export type BusinessNeighborhoodUncheckedCreateNestedManyWithoutNeighborhoodInput =
+    {
+      create?:
+        | XOR<
+            BusinessNeighborhoodCreateWithoutNeighborhoodInput,
+            BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput
+          >
+        | BusinessNeighborhoodCreateWithoutNeighborhoodInput[]
+        | BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput[];
+      connectOrCreate?:
+        | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput
+        | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput[];
+      createMany?: BusinessNeighborhoodCreateManyNeighborhoodInputEnvelope;
+      connect?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+    };
+
+  export type AddressUpdateManyWithoutNeighborhoodNestedInput = {
+    create?:
+      | XOR<
+          AddressCreateWithoutNeighborhoodInput,
+          AddressUncheckedCreateWithoutNeighborhoodInput
+        >
+      | AddressCreateWithoutNeighborhoodInput[]
+      | AddressUncheckedCreateWithoutNeighborhoodInput[];
+    connectOrCreate?:
+      | AddressCreateOrConnectWithoutNeighborhoodInput
+      | AddressCreateOrConnectWithoutNeighborhoodInput[];
+    upsert?:
+      | AddressUpsertWithWhereUniqueWithoutNeighborhoodInput
+      | AddressUpsertWithWhereUniqueWithoutNeighborhoodInput[];
+    createMany?: AddressCreateManyNeighborhoodInputEnvelope;
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    update?:
+      | AddressUpdateWithWhereUniqueWithoutNeighborhoodInput
+      | AddressUpdateWithWhereUniqueWithoutNeighborhoodInput[];
+    updateMany?:
+      | AddressUpdateManyWithWhereWithoutNeighborhoodInput
+      | AddressUpdateManyWithWhereWithoutNeighborhoodInput[];
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[];
+  };
+
+  export type BusinessNeighborhoodUpdateManyWithoutNeighborhoodNestedInput = {
+    create?:
+      | XOR<
+          BusinessNeighborhoodCreateWithoutNeighborhoodInput,
+          BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput
+        >
+      | BusinessNeighborhoodCreateWithoutNeighborhoodInput[]
+      | BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput[];
+    connectOrCreate?:
+      | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput
+      | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput[];
+    upsert?:
+      | BusinessNeighborhoodUpsertWithWhereUniqueWithoutNeighborhoodInput
+      | BusinessNeighborhoodUpsertWithWhereUniqueWithoutNeighborhoodInput[];
+    createMany?: BusinessNeighborhoodCreateManyNeighborhoodInputEnvelope;
+    set?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    disconnect?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    delete?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    connect?:
+      | BusinessNeighborhoodWhereUniqueInput
+      | BusinessNeighborhoodWhereUniqueInput[];
+    update?:
+      | BusinessNeighborhoodUpdateWithWhereUniqueWithoutNeighborhoodInput
+      | BusinessNeighborhoodUpdateWithWhereUniqueWithoutNeighborhoodInput[];
+    updateMany?:
+      | BusinessNeighborhoodUpdateManyWithWhereWithoutNeighborhoodInput
+      | BusinessNeighborhoodUpdateManyWithWhereWithoutNeighborhoodInput[];
+    deleteMany?:
+      | BusinessNeighborhoodScalarWhereInput
+      | BusinessNeighborhoodScalarWhereInput[];
+  };
+
+  export type AddressUncheckedUpdateManyWithoutNeighborhoodNestedInput = {
+    create?:
+      | XOR<
+          AddressCreateWithoutNeighborhoodInput,
+          AddressUncheckedCreateWithoutNeighborhoodInput
+        >
+      | AddressCreateWithoutNeighborhoodInput[]
+      | AddressUncheckedCreateWithoutNeighborhoodInput[];
+    connectOrCreate?:
+      | AddressCreateOrConnectWithoutNeighborhoodInput
+      | AddressCreateOrConnectWithoutNeighborhoodInput[];
+    upsert?:
+      | AddressUpsertWithWhereUniqueWithoutNeighborhoodInput
+      | AddressUpsertWithWhereUniqueWithoutNeighborhoodInput[];
+    createMany?: AddressCreateManyNeighborhoodInputEnvelope;
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[];
+    update?:
+      | AddressUpdateWithWhereUniqueWithoutNeighborhoodInput
+      | AddressUpdateWithWhereUniqueWithoutNeighborhoodInput[];
+    updateMany?:
+      | AddressUpdateManyWithWhereWithoutNeighborhoodInput
+      | AddressUpdateManyWithWhereWithoutNeighborhoodInput[];
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[];
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateManyWithoutNeighborhoodNestedInput =
+    {
+      create?:
+        | XOR<
+            BusinessNeighborhoodCreateWithoutNeighborhoodInput,
+            BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput
+          >
+        | BusinessNeighborhoodCreateWithoutNeighborhoodInput[]
+        | BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput[];
+      connectOrCreate?:
+        | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput
+        | BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput[];
+      upsert?:
+        | BusinessNeighborhoodUpsertWithWhereUniqueWithoutNeighborhoodInput
+        | BusinessNeighborhoodUpsertWithWhereUniqueWithoutNeighborhoodInput[];
+      createMany?: BusinessNeighborhoodCreateManyNeighborhoodInputEnvelope;
+      set?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      disconnect?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      delete?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      connect?:
+        | BusinessNeighborhoodWhereUniqueInput
+        | BusinessNeighborhoodWhereUniqueInput[];
+      update?:
+        | BusinessNeighborhoodUpdateWithWhereUniqueWithoutNeighborhoodInput
+        | BusinessNeighborhoodUpdateWithWhereUniqueWithoutNeighborhoodInput[];
+      updateMany?:
+        | BusinessNeighborhoodUpdateManyWithWhereWithoutNeighborhoodInput
+        | BusinessNeighborhoodUpdateManyWithWhereWithoutNeighborhoodInput[];
+      deleteMany?:
+        | BusinessNeighborhoodScalarWhereInput
+        | BusinessNeighborhoodScalarWhereInput[];
+    };
 
   export type AddressCreateNestedOneWithoutUserAddressInput = {
     create?: XOR<
@@ -27795,6 +31272,60 @@ export namespace Prisma {
       OrderUncheckedUpdateWithoutOrderAddressInput
     >;
   };
+
+  export type BusinessCreateNestedOneWithoutBusinessNeighborhoodInput = {
+    create?: XOR<
+      BusinessCreateWithoutBusinessNeighborhoodInput,
+      BusinessUncheckedCreateWithoutBusinessNeighborhoodInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutBusinessNeighborhoodInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type NeighborhoodCreateNestedOneWithoutBusinessNeighborhoodInput = {
+    create?: XOR<
+      NeighborhoodCreateWithoutBusinessNeighborhoodInput,
+      NeighborhoodUncheckedCreateWithoutBusinessNeighborhoodInput
+    >;
+    connectOrCreate?: NeighborhoodCreateOrConnectWithoutBusinessNeighborhoodInput;
+    connect?: NeighborhoodWhereUniqueInput;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutBusinessNeighborhoodNestedInput =
+    {
+      create?: XOR<
+        BusinessCreateWithoutBusinessNeighborhoodInput,
+        BusinessUncheckedCreateWithoutBusinessNeighborhoodInput
+      >;
+      connectOrCreate?: BusinessCreateOrConnectWithoutBusinessNeighborhoodInput;
+      upsert?: BusinessUpsertWithoutBusinessNeighborhoodInput;
+      connect?: BusinessWhereUniqueInput;
+      update?: XOR<
+        XOR<
+          BusinessUpdateToOneWithWhereWithoutBusinessNeighborhoodInput,
+          BusinessUpdateWithoutBusinessNeighborhoodInput
+        >,
+        BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput
+      >;
+    };
+
+  export type NeighborhoodUpdateOneRequiredWithoutBusinessNeighborhoodNestedInput =
+    {
+      create?: XOR<
+        NeighborhoodCreateWithoutBusinessNeighborhoodInput,
+        NeighborhoodUncheckedCreateWithoutBusinessNeighborhoodInput
+      >;
+      connectOrCreate?: NeighborhoodCreateOrConnectWithoutBusinessNeighborhoodInput;
+      upsert?: NeighborhoodUpsertWithoutBusinessNeighborhoodInput;
+      connect?: NeighborhoodWhereUniqueInput;
+      update?: XOR<
+        XOR<
+          NeighborhoodUpdateToOneWithWhereWithoutBusinessNeighborhoodInput,
+          NeighborhoodUpdateWithoutBusinessNeighborhoodInput
+        >,
+        NeighborhoodUncheckedUpdateWithoutBusinessNeighborhoodInput
+      >;
+    };
 
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
@@ -28279,6 +31810,8 @@ export namespace Prisma {
   export type OrderCreateWithoutBusinessInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -28293,6 +31826,8 @@ export namespace Prisma {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -28335,6 +31870,35 @@ export namespace Prisma {
     data:
       | UserBusinessCreateManyBusinessInput
       | UserBusinessCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type BusinessNeighborhoodCreateWithoutBusinessInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    neighborhood: NeighborhoodCreateNestedOneWithoutBusinessNeighborhoodInput;
+  };
+
+  export type BusinessNeighborhoodUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    neighborhoodId: string;
+  };
+
+  export type BusinessNeighborhoodCreateOrConnectWithoutBusinessInput = {
+    where: BusinessNeighborhoodWhereUniqueInput;
+    create: XOR<
+      BusinessNeighborhoodCreateWithoutBusinessInput,
+      BusinessNeighborhoodUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type BusinessNeighborhoodCreateManyBusinessInputEnvelope = {
+    data:
+      | BusinessNeighborhoodCreateManyBusinessInput
+      | BusinessNeighborhoodCreateManyBusinessInput[];
     skipDuplicates?: boolean;
   };
 
@@ -28566,6 +32130,8 @@ export namespace Prisma {
     id?: StringFilter<"Order"> | string;
     userId?: StringNullableFilter<"Order"> | string | null;
     productsDetails?: JsonFilter<"Order">;
+    shipping?: IntFilter<"Order"> | number;
+    hasShipping?: BoolFilter<"Order"> | boolean;
     total?: IntFilter<"Order"> | number;
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus;
     sentAt?: DateTimeNullableFilter<"Order"> | Date | string | null;
@@ -28608,6 +32174,49 @@ export namespace Prisma {
     NOT?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
     userId?: StringFilter<"UserBusiness"> | string;
     businessId?: StringFilter<"UserBusiness"> | string;
+  };
+
+  export type BusinessNeighborhoodUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: BusinessNeighborhoodWhereUniqueInput;
+    update: XOR<
+      BusinessNeighborhoodUpdateWithoutBusinessInput,
+      BusinessNeighborhoodUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      BusinessNeighborhoodCreateWithoutBusinessInput,
+      BusinessNeighborhoodUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type BusinessNeighborhoodUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: BusinessNeighborhoodWhereUniqueInput;
+    data: XOR<
+      BusinessNeighborhoodUpdateWithoutBusinessInput,
+      BusinessNeighborhoodUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type BusinessNeighborhoodUpdateManyWithWhereWithoutBusinessInput = {
+    where: BusinessNeighborhoodScalarWhereInput;
+    data: XOR<
+      BusinessNeighborhoodUpdateManyMutationInput,
+      BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type BusinessNeighborhoodScalarWhereInput = {
+    AND?:
+      | BusinessNeighborhoodScalarWhereInput
+      | BusinessNeighborhoodScalarWhereInput[];
+    OR?: BusinessNeighborhoodScalarWhereInput[];
+    NOT?:
+      | BusinessNeighborhoodScalarWhereInput
+      | BusinessNeighborhoodScalarWhereInput[];
+    id?: StringFilter<"BusinessNeighborhood"> | string;
+    shipping?: IntFilter<"BusinessNeighborhood"> | number;
+    active?: BoolFilter<"BusinessNeighborhood"> | boolean;
+    businessId?: StringFilter<"BusinessNeighborhood"> | string;
+    neighborhoodId?: StringFilter<"BusinessNeighborhood"> | string;
   };
 
   export type PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -28669,6 +32278,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -28690,6 +32300,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -28739,6 +32350,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -28763,6 +32375,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -28785,6 +32398,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutPaymentMethodInput = {
@@ -28806,6 +32420,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutPaymentMethodInput = {
@@ -28834,6 +32449,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -28855,6 +32471,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -28905,6 +32522,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutPaymentMethodInput = {
@@ -28929,6 +32547,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUpsertWithoutDefaultPaymentMethodInput = {
@@ -28969,6 +32588,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -28990,6 +32610,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -29062,6 +32683,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -29083,6 +32705,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -29160,6 +32783,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -29184,6 +32808,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -29205,6 +32830,7 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -29226,6 +32852,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -29330,6 +32957,7 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -29354,6 +32982,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -29437,6 +33066,8 @@ export namespace Prisma {
   export type OrderCreateWithoutUserInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -29450,6 +33081,8 @@ export namespace Prisma {
   export type OrderUncheckedCreateWithoutUserInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -29901,6 +33534,7 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -29922,6 +33556,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -30033,6 +33668,7 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -30057,6 +33693,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -30147,6 +33784,7 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -30168,6 +33806,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -30325,6 +33964,7 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -30349,6 +33989,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -30431,6 +34072,8 @@ export namespace Prisma {
   export type OrderCreateWithoutItemsInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -30445,6 +34088,8 @@ export namespace Prisma {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -30543,6 +34188,8 @@ export namespace Prisma {
   export type OrderUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -30557,6 +34204,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -30878,6 +34527,28 @@ export namespace Prisma {
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
   };
 
+  export type NeighborhoodCreateWithoutAddressesInput = {
+    id?: string;
+    name: string;
+    city: string;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutNeighborhoodInput;
+  };
+
+  export type NeighborhoodUncheckedCreateWithoutAddressesInput = {
+    id?: string;
+    name: string;
+    city: string;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutNeighborhoodInput;
+  };
+
+  export type NeighborhoodCreateOrConnectWithoutAddressesInput = {
+    where: NeighborhoodWhereUniqueInput;
+    create: XOR<
+      NeighborhoodCreateWithoutAddressesInput,
+      NeighborhoodUncheckedCreateWithoutAddressesInput
+    >;
+  };
+
   export type UserAddressCreateWithoutAddressInput = {
     id?: string;
     user: UserCreateNestedOneWithoutAddressInput;
@@ -30912,6 +34583,40 @@ export namespace Prisma {
       OrderAddressCreateWithoutAddressInput,
       OrderAddressUncheckedCreateWithoutAddressInput
     >;
+  };
+
+  export type NeighborhoodUpsertWithoutAddressesInput = {
+    update: XOR<
+      NeighborhoodUpdateWithoutAddressesInput,
+      NeighborhoodUncheckedUpdateWithoutAddressesInput
+    >;
+    create: XOR<
+      NeighborhoodCreateWithoutAddressesInput,
+      NeighborhoodUncheckedCreateWithoutAddressesInput
+    >;
+    where?: NeighborhoodWhereInput;
+  };
+
+  export type NeighborhoodUpdateToOneWithWhereWithoutAddressesInput = {
+    where?: NeighborhoodWhereInput;
+    data: XOR<
+      NeighborhoodUpdateWithoutAddressesInput,
+      NeighborhoodUncheckedUpdateWithoutAddressesInput
+    >;
+  };
+
+  export type NeighborhoodUpdateWithoutAddressesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutNeighborhoodNestedInput;
+  };
+
+  export type NeighborhoodUncheckedUpdateWithoutAddressesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutNeighborhoodNestedInput;
   };
 
   export type UserAddressUpsertWithoutAddressInput = {
@@ -30974,6 +34679,147 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string;
   };
 
+  export type AddressCreateWithoutNeighborhoodInput = {
+    id?: string;
+    alias: string;
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    reference?: string | null;
+    userAddress?: UserAddressCreateNestedOneWithoutAddressInput;
+    orderAddress?: OrderAddressCreateNestedOneWithoutAddressInput;
+  };
+
+  export type AddressUncheckedCreateWithoutNeighborhoodInput = {
+    id?: string;
+    alias: string;
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    reference?: string | null;
+    userAddress?: UserAddressUncheckedCreateNestedOneWithoutAddressInput;
+    orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutAddressInput;
+  };
+
+  export type AddressCreateOrConnectWithoutNeighborhoodInput = {
+    where: AddressWhereUniqueInput;
+    create: XOR<
+      AddressCreateWithoutNeighborhoodInput,
+      AddressUncheckedCreateWithoutNeighborhoodInput
+    >;
+  };
+
+  export type AddressCreateManyNeighborhoodInputEnvelope = {
+    data:
+      | AddressCreateManyNeighborhoodInput
+      | AddressCreateManyNeighborhoodInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type BusinessNeighborhoodCreateWithoutNeighborhoodInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    business: BusinessCreateNestedOneWithoutBusinessNeighborhoodInput;
+  };
+
+  export type BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    businessId: string;
+  };
+
+  export type BusinessNeighborhoodCreateOrConnectWithoutNeighborhoodInput = {
+    where: BusinessNeighborhoodWhereUniqueInput;
+    create: XOR<
+      BusinessNeighborhoodCreateWithoutNeighborhoodInput,
+      BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput
+    >;
+  };
+
+  export type BusinessNeighborhoodCreateManyNeighborhoodInputEnvelope = {
+    data:
+      | BusinessNeighborhoodCreateManyNeighborhoodInput
+      | BusinessNeighborhoodCreateManyNeighborhoodInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type AddressUpsertWithWhereUniqueWithoutNeighborhoodInput = {
+    where: AddressWhereUniqueInput;
+    update: XOR<
+      AddressUpdateWithoutNeighborhoodInput,
+      AddressUncheckedUpdateWithoutNeighborhoodInput
+    >;
+    create: XOR<
+      AddressCreateWithoutNeighborhoodInput,
+      AddressUncheckedCreateWithoutNeighborhoodInput
+    >;
+  };
+
+  export type AddressUpdateWithWhereUniqueWithoutNeighborhoodInput = {
+    where: AddressWhereUniqueInput;
+    data: XOR<
+      AddressUpdateWithoutNeighborhoodInput,
+      AddressUncheckedUpdateWithoutNeighborhoodInput
+    >;
+  };
+
+  export type AddressUpdateManyWithWhereWithoutNeighborhoodInput = {
+    where: AddressScalarWhereInput;
+    data: XOR<
+      AddressUpdateManyMutationInput,
+      AddressUncheckedUpdateManyWithoutNeighborhoodInput
+    >;
+  };
+
+  export type AddressScalarWhereInput = {
+    AND?: AddressScalarWhereInput | AddressScalarWhereInput[];
+    OR?: AddressScalarWhereInput[];
+    NOT?: AddressScalarWhereInput | AddressScalarWhereInput[];
+    id?: StringFilter<"Address"> | string;
+    alias?: StringFilter<"Address"> | string;
+    name?: StringFilter<"Address"> | string;
+    address?: StringFilter<"Address"> | string;
+    city?: StringFilter<"Address"> | string;
+    state?: StringFilter<"Address"> | string;
+    reference?: StringNullableFilter<"Address"> | string | null;
+    neighborhoodId?: StringNullableFilter<"Address"> | string | null;
+  };
+
+  export type BusinessNeighborhoodUpsertWithWhereUniqueWithoutNeighborhoodInput =
+    {
+      where: BusinessNeighborhoodWhereUniqueInput;
+      update: XOR<
+        BusinessNeighborhoodUpdateWithoutNeighborhoodInput,
+        BusinessNeighborhoodUncheckedUpdateWithoutNeighborhoodInput
+      >;
+      create: XOR<
+        BusinessNeighborhoodCreateWithoutNeighborhoodInput,
+        BusinessNeighborhoodUncheckedCreateWithoutNeighborhoodInput
+      >;
+    };
+
+  export type BusinessNeighborhoodUpdateWithWhereUniqueWithoutNeighborhoodInput =
+    {
+      where: BusinessNeighborhoodWhereUniqueInput;
+      data: XOR<
+        BusinessNeighborhoodUpdateWithoutNeighborhoodInput,
+        BusinessNeighborhoodUncheckedUpdateWithoutNeighborhoodInput
+      >;
+    };
+
+  export type BusinessNeighborhoodUpdateManyWithWhereWithoutNeighborhoodInput =
+    {
+      where: BusinessNeighborhoodScalarWhereInput;
+      data: XOR<
+        BusinessNeighborhoodUpdateManyMutationInput,
+        BusinessNeighborhoodUncheckedUpdateManyWithoutNeighborhoodInput
+      >;
+    };
+
   export type AddressCreateWithoutUserAddressInput = {
     id?: string;
     alias: string;
@@ -30982,6 +34828,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhood?: NeighborhoodCreateNestedOneWithoutAddressesInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutAddressInput;
   };
 
@@ -30993,6 +34840,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhoodId?: string | null;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutAddressInput;
   };
 
@@ -31074,6 +34922,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhood?: NeighborhoodUpdateOneWithoutAddressesNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutAddressNestedInput;
   };
 
@@ -31085,6 +34934,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhoodId?: NullableStringFieldUpdateOperationsInput | string | null;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutAddressNestedInput;
   };
 
@@ -31158,6 +35008,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhood?: NeighborhoodCreateNestedOneWithoutAddressesInput;
     userAddress?: UserAddressCreateNestedOneWithoutAddressInput;
   };
 
@@ -31169,6 +35020,7 @@ export namespace Prisma {
     city: string;
     state: string;
     reference?: string | null;
+    neighborhoodId?: string | null;
     userAddress?: UserAddressUncheckedCreateNestedOneWithoutAddressInput;
   };
 
@@ -31183,6 +35035,8 @@ export namespace Prisma {
   export type OrderCreateWithoutOrderAddressInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -31197,6 +35051,8 @@ export namespace Prisma {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -31242,6 +35098,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhood?: NeighborhoodUpdateOneWithoutAddressesNestedInput;
     userAddress?: UserAddressUpdateOneWithoutAddressNestedInput;
   };
 
@@ -31253,6 +35110,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string;
     state?: StringFieldUpdateOperationsInput | string;
     reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    neighborhoodId?: NullableStringFieldUpdateOperationsInput | string | null;
     userAddress?: UserAddressUncheckedUpdateOneWithoutAddressNestedInput;
   };
 
@@ -31279,6 +35137,8 @@ export namespace Prisma {
   export type OrderUpdateWithoutOrderAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31293,6 +35153,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31300,6 +35162,182 @@ export namespace Prisma {
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
+  };
+
+  export type BusinessCreateWithoutBusinessNeighborhoodInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutBusinessNeighborhoodInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutBusinessNeighborhoodInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutBusinessNeighborhoodInput,
+      BusinessUncheckedCreateWithoutBusinessNeighborhoodInput
+    >;
+  };
+
+  export type NeighborhoodCreateWithoutBusinessNeighborhoodInput = {
+    id?: string;
+    name: string;
+    city: string;
+    addresses?: AddressCreateNestedManyWithoutNeighborhoodInput;
+  };
+
+  export type NeighborhoodUncheckedCreateWithoutBusinessNeighborhoodInput = {
+    id?: string;
+    name: string;
+    city: string;
+    addresses?: AddressUncheckedCreateNestedManyWithoutNeighborhoodInput;
+  };
+
+  export type NeighborhoodCreateOrConnectWithoutBusinessNeighborhoodInput = {
+    where: NeighborhoodWhereUniqueInput;
+    create: XOR<
+      NeighborhoodCreateWithoutBusinessNeighborhoodInput,
+      NeighborhoodUncheckedCreateWithoutBusinessNeighborhoodInput
+    >;
+  };
+
+  export type BusinessUpsertWithoutBusinessNeighborhoodInput = {
+    update: XOR<
+      BusinessUpdateWithoutBusinessNeighborhoodInput,
+      BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutBusinessNeighborhoodInput,
+      BusinessUncheckedCreateWithoutBusinessNeighborhoodInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutBusinessNeighborhoodInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutBusinessNeighborhoodInput,
+      BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutBusinessNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type NeighborhoodUpsertWithoutBusinessNeighborhoodInput = {
+    update: XOR<
+      NeighborhoodUpdateWithoutBusinessNeighborhoodInput,
+      NeighborhoodUncheckedUpdateWithoutBusinessNeighborhoodInput
+    >;
+    create: XOR<
+      NeighborhoodCreateWithoutBusinessNeighborhoodInput,
+      NeighborhoodUncheckedCreateWithoutBusinessNeighborhoodInput
+    >;
+    where?: NeighborhoodWhereInput;
+  };
+
+  export type NeighborhoodUpdateToOneWithWhereWithoutBusinessNeighborhoodInput =
+    {
+      where?: NeighborhoodWhereInput;
+      data: XOR<
+        NeighborhoodUpdateWithoutBusinessNeighborhoodInput,
+        NeighborhoodUncheckedUpdateWithoutBusinessNeighborhoodInput
+      >;
+    };
+
+  export type NeighborhoodUpdateWithoutBusinessNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    addresses?: AddressUpdateManyWithoutNeighborhoodNestedInput;
+  };
+
+  export type NeighborhoodUncheckedUpdateWithoutBusinessNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    addresses?: AddressUncheckedUpdateManyWithoutNeighborhoodNestedInput;
   };
 
   export type CategoryCreateManyBusinessInput = {
@@ -31332,6 +35370,8 @@ export namespace Prisma {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -31341,6 +35381,13 @@ export namespace Prisma {
 
   export type UserBusinessCreateManyBusinessInput = {
     userId: string;
+  };
+
+  export type BusinessNeighborhoodCreateManyBusinessInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    neighborhoodId: string;
   };
 
   export type PaymentMethodCreateManyBusinessInput = {
@@ -31435,6 +35482,8 @@ export namespace Prisma {
   export type OrderUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31449,6 +35498,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31462,6 +35513,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31479,6 +35532,27 @@ export namespace Prisma {
 
   export type UserBusinessUncheckedUpdateManyWithoutBusinessInput = {
     userId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type BusinessNeighborhoodUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    neighborhood?: NeighborhoodUpdateOneRequiredWithoutBusinessNeighborhoodNestedInput;
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    neighborhoodId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    neighborhoodId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type PaymentMethodUpdateWithoutBusinessInput = {
@@ -31615,6 +35689,8 @@ export namespace Prisma {
   export type OrderCreateManyUserInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
     total?: number;
     status?: $Enums.OrderStatus;
     sentAt?: Date | string | null;
@@ -31667,6 +35743,8 @@ export namespace Prisma {
   export type OrderUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31680,6 +35758,8 @@ export namespace Prisma {
   export type OrderUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31693,6 +35773,8 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
     total?: IntFieldUpdateOperationsInput | number;
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -31852,6 +35934,79 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number;
   };
 
+  export type AddressCreateManyNeighborhoodInput = {
+    id?: string;
+    alias: string;
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    reference?: string | null;
+  };
+
+  export type BusinessNeighborhoodCreateManyNeighborhoodInput = {
+    id?: string;
+    shipping?: number;
+    active?: boolean;
+    businessId: string;
+  };
+
+  export type AddressUpdateWithoutNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    alias?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    address?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    state?: StringFieldUpdateOperationsInput | string;
+    reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    userAddress?: UserAddressUpdateOneWithoutAddressNestedInput;
+    orderAddress?: OrderAddressUpdateOneWithoutAddressNestedInput;
+  };
+
+  export type AddressUncheckedUpdateWithoutNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    alias?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    address?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    state?: StringFieldUpdateOperationsInput | string;
+    reference?: NullableStringFieldUpdateOperationsInput | string | null;
+    userAddress?: UserAddressUncheckedUpdateOneWithoutAddressNestedInput;
+    orderAddress?: OrderAddressUncheckedUpdateOneWithoutAddressNestedInput;
+  };
+
+  export type AddressUncheckedUpdateManyWithoutNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    alias?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    address?: StringFieldUpdateOperationsInput | string;
+    city?: StringFieldUpdateOperationsInput | string;
+    state?: StringFieldUpdateOperationsInput | string;
+    reference?: NullableStringFieldUpdateOperationsInput | string | null;
+  };
+
+  export type BusinessNeighborhoodUpdateWithoutNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutBusinessNeighborhoodNestedInput;
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateWithoutNeighborhoodInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type BusinessNeighborhoodUncheckedUpdateManyWithoutNeighborhoodInput =
+    {
+      id?: StringFieldUpdateOperationsInput | string;
+      shipping?: IntFieldUpdateOperationsInput | number;
+      active?: BoolFieldUpdateOperationsInput | boolean;
+      businessId?: StringFieldUpdateOperationsInput | string;
+    };
+
   /**
    * Aliases for legacy arg types
    */
@@ -31885,6 +36040,12 @@ export namespace Prisma {
   export type OrderCountOutputTypeArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = OrderCountOutputTypeDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use NeighborhoodCountOutputTypeDefaultArgs instead
+   */
+  export type NeighborhoodCountOutputTypeArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = NeighborhoodCountOutputTypeDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use BusinessDefaultArgs instead
    */
@@ -31970,6 +36131,12 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = AddressDefaultArgs<ExtArgs>;
   /**
+   * @deprecated Use NeighborhoodDefaultArgs instead
+   */
+  export type NeighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = NeighborhoodDefaultArgs<ExtArgs>;
+  /**
    * @deprecated Use UserAddressDefaultArgs instead
    */
   export type UserAddressArgs<
@@ -31981,6 +36148,12 @@ export namespace Prisma {
   export type OrderAddressArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = OrderAddressDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use BusinessNeighborhoodDefaultArgs instead
+   */
+  export type BusinessNeighborhoodArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = BusinessNeighborhoodDefaultArgs<ExtArgs>;
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

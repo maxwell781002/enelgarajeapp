@@ -19,6 +19,7 @@ export default function AddressCard({ address, selected }: AddressCardProps) {
             <p className="text-sm text-muted-foreground">{address.name}</p>
             <p className="text-sm text-muted-foreground">{address.address}</p>
             <p className="text-sm text-muted-foreground">
+              {!!address.neighborhood && `${address.neighborhood?.name},`}
               {getCityByCode(address.city)?.name},{" "}
               {getStateByCode(address.state)?.name}
             </p>
