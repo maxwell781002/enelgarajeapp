@@ -244,7 +244,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     if (business.requestAddress) {
       await orderAddressRepository.createNew(newOrder.id, address);
       if (addressType === AddressType.newAddress) {
-        await addAddressToUser(userEntity.id, address);
+        await addAddressToUser(userEntity.id, business.id, address);
       }
     }
     return newOrder;

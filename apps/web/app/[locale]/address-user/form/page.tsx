@@ -23,7 +23,11 @@ export default async function AddressUserFormPage({
     if (id) {
       await updateUserAddress(userEntity.id, id, formDataToObject(data));
     } else {
-      await addAddressToUser(userEntity.id, formDataToObject(data));
+      await addAddressToUser(
+        userEntity.id,
+        business.id,
+        formDataToObject(data),
+      );
     }
     return redirect("/address-user");
   };

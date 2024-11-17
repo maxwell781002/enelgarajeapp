@@ -24,9 +24,17 @@ export const updateUser = async (id: string, data: any) => {
   });
 };
 
-export const addAddressToUser = async (userId: string, data: any) => {
+export const addAddressToUser = async (
+  userId: string,
+  businessId: string,
+  data: any,
+) => {
   const address = await addressRepository.create(data);
-  return userAddressRepository.create({ addressId: address.id, userId });
+  return userAddressRepository.create({
+    addressId: address.id,
+    userId,
+    businessId,
+  });
 };
 
 export const removeAddressFromUser = async (
