@@ -6,6 +6,7 @@
     "login": "Autenticarse",
     "logout": "Salir",
     "order": "Mis ordenes",
+    "address-user": "Mis direcciones",
     "AllCategory": "Todas"
   }
 }

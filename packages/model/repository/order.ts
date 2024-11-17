@@ -18,12 +18,12 @@ import { orderRepository } from "../repositories/order";
 import { OrderSend } from "../lib/event-emitter/events";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { orderAddressRepository } from "../repositories/order-address";
-import { userAddressRepository } from "../repositories/user-address";
 import { productRepository, UpdateStockItem } from "../repositories/product";
 import { ShopCartItem, ShopCartOrder } from "../types/shop-cart";
 import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
 import { calculateShippingPrice } from "../lib/order";
+import { addAddressToUser } from "./address";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
@@ -245,7 +245,7 @@ export const checkoutOrder = async (user: TUserRegisterSchema) => {
     if (business.requestAddress) {
       await orderAddressRepository.createNew(newOrder.id, address);
       if (addressType === AddressType.newAddress) {
-        await userAddressRepository.createNew(userEntity.id, address);
+        await addAddressToUser(userEntity.id, business.id, address);
       }
     }
     return newOrder;

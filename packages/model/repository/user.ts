@@ -4,6 +4,8 @@ import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 import { auth } from "../lib/auth";
 import { userRepository } from "../repositories/user";
+import { addressRepository } from "../repositories/address";
+import { userAddressRepository } from "../repositories/user-address";
 
 export const getCurrentUser = async () => {
   const session = await auth();

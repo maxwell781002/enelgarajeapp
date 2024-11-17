@@ -15,24 +15,25 @@ import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 
 export type AddressFormProps = {
   form: any;
-  name: string;
+  name?: string;
   neighborhoods: NeighborhoodWithShipping[];
 };
 
 export default function AddressForm({
   form,
-  name,
+  name = "",
   neighborhoods,
 }: AddressFormProps) {
   const t = useTranslations("Address");
-  const state = form.watch(`${name}.state`);
-  const city = form.watch(`${name}.city`);
+  name = name ? `${name}.` : "";
+  const state = form.watch(`${name}state`);
+  const city = form.watch(`${name}city`);
 
   return (
     <div className="grid grid-cols-1 gap-4">
       <FormField
         control={form.control}
-        name={`${name}.alias`}
+        name={`${name}alias`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbAlias")}</FormLabel>
@@ -45,7 +46,7 @@ export default function AddressForm({
       />
       <FormField
         control={form.control}
-        name={`${name}.name`}
+        name={`${name}name`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbName")}</FormLabel>
@@ -58,7 +59,7 @@ export default function AddressForm({
       />
       <FormField
         control={form.control}
-        name={`${name}.address`}
+        name={`${name}address`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbAddress")}</FormLabel>
@@ -72,7 +73,7 @@ export default function AddressForm({
       <div className="grid sm:grid-cols-3 gap-4">
         <FormField
           control={form.control}
-          name={`${name}.state`}
+          name={`${name}state`}
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
               <FormLabel>{t("lbProvince")}</FormLabel>
@@ -85,7 +86,7 @@ export default function AddressForm({
         />
         <FormField
           control={form.control}
-          name={`${name}.city`}
+          name={`${name}city`}
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
               <FormLabel>{t("lbCity")}</FormLabel>
@@ -103,7 +104,7 @@ export default function AddressForm({
         />
         <FormField
           control={form.control}
-          name={`${name}.neighborhoodId`}
+          name={`${name}neighborhoodId`}
           render={({ field, fieldState: { error } }: any) => (
             <FormItem>
               <FormLabel>{t("lbNeighborhoodId")}</FormLabel>
@@ -122,7 +123,7 @@ export default function AddressForm({
       </div>
       <FormField
         control={form.control}
-        name={`${name}.reference`}
+        name={`${name}reference`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbReference")}</FormLabel>
