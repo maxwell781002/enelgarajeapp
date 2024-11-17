@@ -3,14 +3,14 @@ import BackPage from "@repo/ui/components/back-page";
 import AddressUserForm from "./form";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { getTranslations } from "next-intl/server";
-import {
-  addAddressToUser,
-  getCurrentUser,
-  updateUserAddress,
-} from "@repo/model/repository/user";
+import { getCurrentUser } from "@repo/model/repository/user";
 import { redirect } from "next/navigation";
 import { formDataToObject } from "@repo/model/lib/utils";
 import { addressRepository } from "@repo/model/repositories/address";
+import {
+  addAddressToUser,
+  updateUserAddress,
+} from "@repo/model/repository/address";
 
 export default async function AddressUserFormPage({
   searchParams: { id },

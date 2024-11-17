@@ -10,7 +10,7 @@ import {
   CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
-import { addAddressToUser, getCurrentUser, updateUser } from "./user";
+import { getCurrentUser, updateUser } from "./user";
 import { AddressType, TUserRegisterSchema } from "../validation/user";
 import { getCurrentBusiness } from "./business";
 import { orderRepository } from "../repositories/order";
@@ -23,6 +23,7 @@ import { ShopCartItem, ShopCartOrder } from "../types/shop-cart";
 import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
 import { calculateShippingPrice } from "../lib/order";
+import { addAddressToUser } from "./address";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
