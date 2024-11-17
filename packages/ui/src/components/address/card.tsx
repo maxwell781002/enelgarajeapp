@@ -45,8 +45,7 @@ export default function AddressCard({
             </p>
             <p className="text-sm text-muted-foreground">{address.reference}</p>
           </div>
-          {selected && <Check className="text-primary" />}
-          <div>
+          <div className="flex items-center">
             {!!urlEdit && (
               <Button size={"icon"} asChild className="mr-2">
                 <Link href={urlEdit}>
@@ -66,6 +65,7 @@ export default function AddressCard({
               />
             )}
           </div>
+          {selected && <Check className="text-primary" />}
         </div>
       </CardContent>
     </Card>

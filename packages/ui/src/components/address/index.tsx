@@ -13,6 +13,7 @@ import {
 import AddressSelect, {
   AddressSelectorProps,
 } from "@repo/ui/components/address/address-select";
+import Link from "next/link";
 
 export type AddressProps = {
   setAddressType: (type: AddressType) => void;
@@ -59,6 +60,12 @@ export default function Address({
           </TabsList>
           <TabsContent value="form">{formCreate}</TabsContent>
           <TabsContent value="address">
+            <Link
+              href="/address-user"
+              className="text-sm text-green-600 hover:text-green-800 transition-colors text-center block mb-2"
+            >
+              {t("linkMyAddresses")}
+            </Link>
             <AddressSelect
               form={form}
               addresses={addresses}

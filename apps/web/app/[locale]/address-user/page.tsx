@@ -1,8 +1,5 @@
 import { userAddressRepository } from "@repo/model/repositories/user-address";
-import {
-  getCurrentUser,
-  removeAddressFromUser,
-} from "@repo/model/repository/user";
+import { getCurrentUser } from "@repo/model/repository/user";
 import { CompleteAddress } from "@repo/model/zod/address";
 import AddressCard from "@repo/ui/components/address/card";
 import { getTranslations } from "next-intl/server";
@@ -11,6 +8,7 @@ import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import NoAddress from "./no-address";
+import { removeAddressFromUser } from "@repo/model/repository/address";
 
 export default async function Page() {
   const user = await getCurrentUser();
