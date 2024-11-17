@@ -4,17 +4,21 @@ import {
   RelatedAddressModel,
   CompleteUser,
   RelatedUserModel,
+  CompleteBusiness,
+  RelatedBusinessModel,
 } from "./index";
 
 export const UserAddressModel = z.object({
   id: z.string(),
   addressId: z.string(),
   userId: z.string(),
+  businessId: z.string().nullish(),
 });
 
 export interface CompleteUserAddress extends z.infer<typeof UserAddressModel> {
   address: CompleteAddress;
   user: CompleteUser;
+  business?: CompleteBusiness | null;
 }
 
 /**
@@ -27,5 +31,6 @@ export const RelatedUserAddressModel: z.ZodSchema<CompleteUserAddress> = z.lazy(
     UserAddressModel.extend({
       address: RelatedAddressModel,
       user: RelatedUserModel,
+      business: RelatedBusinessModel.nullish(),
     }),
 );

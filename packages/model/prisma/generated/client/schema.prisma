@@ -41,6 +41,7 @@ model Business {
   orders                 Order[]
   users                  UserBusiness[]
   businessNeighborhood   BusinessNeighborhood[]
+  userAddress            UserAddress[]
   paymentMethod          PaymentMethod[]        @relation("paymentMehtods")
 }
 
@@ -261,11 +262,13 @@ model Neighborhood {
 }
 
 model UserAddress {
-  id        String  @id @default(uuid())
-  address   Address @relation(fields: [addressId], references: [id])
-  addressId String  @unique
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String
+  id         String    @id @default(uuid())
+  address    Address   @relation(fields: [addressId], references: [id])
+  addressId  String    @unique
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  business   Business? @relation(fields: [businessId], references: [id])
+  businessId String?
 }
 
 model OrderAddress {

@@ -15,6 +15,8 @@ import {
   RelatedUserBusinessModel,
   CompleteBusinessNeighborhood,
   RelatedBusinessNeighborhoodModel,
+  CompleteUserAddress,
+  RelatedUserAddressModel,
 } from "./index";
 
 export const BusinessModel = z.object({
@@ -41,6 +43,7 @@ export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
   orders: CompleteOrder[];
   users: CompleteUserBusiness[];
   businessNeighborhood: CompleteBusinessNeighborhood[];
+  userAddress: CompleteUserAddress[];
   paymentMethod: CompletePaymentMethod[];
 }
 
@@ -58,6 +61,7 @@ export const RelatedBusinessModel: z.ZodSchema<CompleteBusiness> = z.lazy(() =>
     orders: RelatedOrderModel.array(),
     users: RelatedUserBusinessModel.array(),
     businessNeighborhood: RelatedBusinessNeighborhoodModel.array(),
+    userAddress: RelatedUserAddressModel.array(),
     paymentMethod: RelatedPaymentMethodModel.array(),
   }),
 );

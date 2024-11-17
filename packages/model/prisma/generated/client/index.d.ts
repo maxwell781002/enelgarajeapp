@@ -2487,6 +2487,7 @@ export namespace Prisma {
     orders: number;
     users: number;
     businessNeighborhood: number;
+    userAddress: number;
     paymentMethod: number;
   };
 
@@ -2500,6 +2501,7 @@ export namespace Prisma {
     businessNeighborhood?:
       | boolean
       | BusinessCountOutputTypeCountBusinessNeighborhoodArgs;
+    userAddress?: boolean | BusinessCountOutputTypeCountUserAddressArgs;
     paymentMethod?: boolean | BusinessCountOutputTypeCountPaymentMethodArgs;
   };
 
@@ -2559,6 +2561,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: BusinessNeighborhoodWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountUserAddressArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserAddressWhereInput;
   };
 
   /**
@@ -3097,6 +3108,7 @@ export namespace Prisma {
       businessNeighborhood?:
         | boolean
         | Business$businessNeighborhoodArgs<ExtArgs>;
+      userAddress?: boolean | Business$userAddressArgs<ExtArgs>;
       paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
@@ -3153,6 +3165,7 @@ export namespace Prisma {
     orders?: boolean | Business$ordersArgs<ExtArgs>;
     users?: boolean | Business$usersArgs<ExtArgs>;
     businessNeighborhood?: boolean | Business$businessNeighborhoodArgs<ExtArgs>;
+    userAddress?: boolean | Business$userAddressArgs<ExtArgs>;
     paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
@@ -3174,6 +3187,7 @@ export namespace Prisma {
       orders: Prisma.$OrderPayload<ExtArgs>[];
       users: Prisma.$UserBusinessPayload<ExtArgs>[];
       businessNeighborhood: Prisma.$BusinessNeighborhoodPayload<ExtArgs>[];
+      userAddress: Prisma.$UserAddressPayload<ExtArgs>[];
       paymentMethod: Prisma.$PaymentMethodPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
@@ -3735,6 +3749,12 @@ export namespace Prisma {
           T,
           "findMany"
         >
+      | Null
+    >;
+    userAddress<T extends Business$userAddressArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$userAddressArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany">
       | Null
     >;
     paymentMethod<T extends Business$paymentMethodArgs<ExtArgs> = {}>(
@@ -4299,6 +4319,30 @@ export namespace Prisma {
     distinct?:
       | BusinessNeighborhoodScalarFieldEnum
       | BusinessNeighborhoodScalarFieldEnum[];
+  };
+
+  /**
+   * Business.userAddress
+   */
+  export type Business$userAddressArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserAddress
+     */
+    select?: UserAddressSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserAddressInclude<ExtArgs> | null;
+    where?: UserAddressWhereInput;
+    orderBy?:
+      | UserAddressOrderByWithRelationInput
+      | UserAddressOrderByWithRelationInput[];
+    cursor?: UserAddressWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserAddressScalarFieldEnum | UserAddressScalarFieldEnum[];
   };
 
   /**
@@ -21024,18 +21068,21 @@ export namespace Prisma {
     id: string | null;
     addressId: string | null;
     userId: string | null;
+    businessId: string | null;
   };
 
   export type UserAddressMaxAggregateOutputType = {
     id: string | null;
     addressId: string | null;
     userId: string | null;
+    businessId: string | null;
   };
 
   export type UserAddressCountAggregateOutputType = {
     id: number;
     addressId: number;
     userId: number;
+    businessId: number;
     _all: number;
   };
 
@@ -21043,18 +21090,21 @@ export namespace Prisma {
     id?: true;
     addressId?: true;
     userId?: true;
+    businessId?: true;
   };
 
   export type UserAddressMaxAggregateInputType = {
     id?: true;
     addressId?: true;
     userId?: true;
+    businessId?: true;
   };
 
   export type UserAddressCountAggregateInputType = {
     id?: true;
     addressId?: true;
     userId?: true;
+    businessId?: true;
     _all?: true;
   };
 
@@ -21140,6 +21190,7 @@ export namespace Prisma {
     id: string;
     addressId: string;
     userId: string;
+    businessId: string | null;
     _count: UserAddressCountAggregateOutputType | null;
     _min: UserAddressMinAggregateOutputType | null;
     _max: UserAddressMaxAggregateOutputType | null;
@@ -21166,8 +21217,10 @@ export namespace Prisma {
       id?: boolean;
       addressId?: boolean;
       userId?: boolean;
+      businessId?: boolean;
       address?: boolean | AddressDefaultArgs<ExtArgs>;
       user?: boolean | UserDefaultArgs<ExtArgs>;
+      business?: boolean | UserAddress$businessArgs<ExtArgs>;
     },
     ExtArgs["result"]["userAddress"]
   >;
@@ -21179,8 +21232,10 @@ export namespace Prisma {
       id?: boolean;
       addressId?: boolean;
       userId?: boolean;
+      businessId?: boolean;
       address?: boolean | AddressDefaultArgs<ExtArgs>;
       user?: boolean | UserDefaultArgs<ExtArgs>;
+      business?: boolean | UserAddress$businessArgs<ExtArgs>;
     },
     ExtArgs["result"]["userAddress"]
   >;
@@ -21189,6 +21244,7 @@ export namespace Prisma {
     id?: boolean;
     addressId?: boolean;
     userId?: boolean;
+    businessId?: boolean;
   };
 
   export type UserAddressInclude<
@@ -21196,12 +21252,14 @@ export namespace Prisma {
   > = {
     address?: boolean | AddressDefaultArgs<ExtArgs>;
     user?: boolean | UserDefaultArgs<ExtArgs>;
+    business?: boolean | UserAddress$businessArgs<ExtArgs>;
   };
   export type UserAddressIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     address?: boolean | AddressDefaultArgs<ExtArgs>;
     user?: boolean | UserDefaultArgs<ExtArgs>;
+    business?: boolean | UserAddress$businessArgs<ExtArgs>;
   };
 
   export type $UserAddressPayload<
@@ -21211,12 +21269,14 @@ export namespace Prisma {
     objects: {
       address: Prisma.$AddressPayload<ExtArgs>;
       user: Prisma.$UserPayload<ExtArgs>;
+      business: Prisma.$BusinessPayload<ExtArgs> | null;
     };
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
         addressId: string;
         userId: string;
+        businessId: string | null;
       },
       ExtArgs["result"]["userAddress"]
     >;
@@ -21705,6 +21765,17 @@ export namespace Prisma {
       Null,
       ExtArgs
     >;
+    business<T extends UserAddress$businessArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserAddress$businessArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      $Result.GetResult<
+        Prisma.$BusinessPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21748,6 +21819,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserAddress", "String">;
     readonly addressId: FieldRef<"UserAddress", "String">;
     readonly userId: FieldRef<"UserAddress", "String">;
+    readonly businessId: FieldRef<"UserAddress", "String">;
   }
 
   // Custom InputTypes
@@ -22097,6 +22169,23 @@ export namespace Prisma {
      * Filter which UserAddresses to delete
      */
     where?: UserAddressWhereInput;
+  };
+
+  /**
+   * UserAddress.business
+   */
+  export type UserAddress$businessArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null;
+    where?: BusinessWhereInput;
   };
 
   /**
@@ -24664,6 +24753,7 @@ export namespace Prisma {
     id: "id";
     addressId: "addressId";
     userId: "userId";
+    businessId: "businessId";
   };
 
   export type UserAddressScalarFieldEnum =
@@ -24908,6 +24998,7 @@ export namespace Prisma {
     orders?: OrderListRelationFilter;
     users?: UserBusinessListRelationFilter;
     businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
+    userAddress?: UserAddressListRelationFilter;
     paymentMethod?: PaymentMethodListRelationFilter;
   };
 
@@ -24932,6 +25023,7 @@ export namespace Prisma {
     orders?: OrderOrderByRelationAggregateInput;
     users?: UserBusinessOrderByRelationAggregateInput;
     businessNeighborhood?: BusinessNeighborhoodOrderByRelationAggregateInput;
+    userAddress?: UserAddressOrderByRelationAggregateInput;
     paymentMethod?: PaymentMethodOrderByRelationAggregateInput;
   };
 
@@ -24966,6 +25058,7 @@ export namespace Prisma {
       orders?: OrderListRelationFilter;
       users?: UserBusinessListRelationFilter;
       businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
+      userAddress?: UserAddressListRelationFilter;
       paymentMethod?: PaymentMethodListRelationFilter;
     },
     "id" | "slug" | "defaultPaymentMethodId"
@@ -26165,16 +26258,20 @@ export namespace Prisma {
     id?: StringFilter<"UserAddress"> | string;
     addressId?: StringFilter<"UserAddress"> | string;
     userId?: StringFilter<"UserAddress"> | string;
+    businessId?: StringNullableFilter<"UserAddress"> | string | null;
     address?: XOR<AddressRelationFilter, AddressWhereInput>;
     user?: XOR<UserRelationFilter, UserWhereInput>;
+    business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
   };
 
   export type UserAddressOrderByWithRelationInput = {
     id?: SortOrder;
     addressId?: SortOrder;
     userId?: SortOrder;
+    businessId?: SortOrderInput | SortOrder;
     address?: AddressOrderByWithRelationInput;
     user?: UserOrderByWithRelationInput;
+    business?: BusinessOrderByWithRelationInput;
   };
 
   export type UserAddressWhereUniqueInput = Prisma.AtLeast<
@@ -26185,8 +26282,10 @@ export namespace Prisma {
       OR?: UserAddressWhereInput[];
       NOT?: UserAddressWhereInput | UserAddressWhereInput[];
       userId?: StringFilter<"UserAddress"> | string;
+      businessId?: StringNullableFilter<"UserAddress"> | string | null;
       address?: XOR<AddressRelationFilter, AddressWhereInput>;
       user?: XOR<UserRelationFilter, UserWhereInput>;
+      business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
     },
     "id" | "addressId"
   >;
@@ -26195,6 +26294,7 @@ export namespace Prisma {
     id?: SortOrder;
     addressId?: SortOrder;
     userId?: SortOrder;
+    businessId?: SortOrderInput | SortOrder;
     _count?: UserAddressCountOrderByAggregateInput;
     _max?: UserAddressMaxOrderByAggregateInput;
     _min?: UserAddressMinOrderByAggregateInput;
@@ -26211,6 +26311,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserAddress"> | string;
     addressId?: StringWithAggregatesFilter<"UserAddress"> | string;
     userId?: StringWithAggregatesFilter<"UserAddress"> | string;
+    businessId?:
+      | StringNullableWithAggregatesFilter<"UserAddress">
+      | string
+      | null;
   };
 
   export type OrderAddressWhereInput = {
@@ -26357,6 +26461,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -26380,6 +26485,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -26403,6 +26509,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -26429,6 +26536,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -27534,30 +27642,35 @@ export namespace Prisma {
     id?: string;
     address: AddressCreateNestedOneWithoutUserAddressInput;
     user: UserCreateNestedOneWithoutAddressInput;
+    business?: BusinessCreateNestedOneWithoutUserAddressInput;
   };
 
   export type UserAddressUncheckedCreateInput = {
     id?: string;
     addressId: string;
     userId: string;
+    businessId?: string | null;
   };
 
   export type UserAddressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     address?: AddressUpdateOneRequiredWithoutUserAddressNestedInput;
     user?: UserUpdateOneRequiredWithoutAddressNestedInput;
+    business?: BusinessUpdateOneWithoutUserAddressNestedInput;
   };
 
   export type UserAddressUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type UserAddressCreateManyInput = {
     id?: string;
     addressId: string;
     userId: string;
+    businessId?: string | null;
   };
 
   export type UserAddressUpdateManyMutationInput = {
@@ -27568,6 +27681,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type OrderAddressCreateInput = {
@@ -27758,6 +27872,12 @@ export namespace Prisma {
     none?: BusinessNeighborhoodWhereInput;
   };
 
+  export type UserAddressListRelationFilter = {
+    every?: UserAddressWhereInput;
+    some?: UserAddressWhereInput;
+    none?: UserAddressWhereInput;
+  };
+
   export type PaymentMethodListRelationFilter = {
     every?: PaymentMethodWhereInput;
     some?: PaymentMethodWhereInput;
@@ -27786,6 +27906,10 @@ export namespace Prisma {
   };
 
   export type BusinessNeighborhoodOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type UserAddressOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -28307,12 +28431,6 @@ export namespace Prisma {
     none?: AuthenticatorWhereInput;
   };
 
-  export type UserAddressListRelationFilter = {
-    every?: UserAddressWhereInput;
-    some?: UserAddressWhereInput;
-    none?: UserAddressWhereInput;
-  };
-
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
@@ -28322,10 +28440,6 @@ export namespace Prisma {
   };
 
   export type AuthenticatorOrderByRelationAggregateInput = {
-    _count?: SortOrder;
-  };
-
-  export type UserAddressOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -28804,18 +28918,21 @@ export namespace Prisma {
     id?: SortOrder;
     addressId?: SortOrder;
     userId?: SortOrder;
+    businessId?: SortOrder;
   };
 
   export type UserAddressMaxOrderByAggregateInput = {
     id?: SortOrder;
     addressId?: SortOrder;
     userId?: SortOrder;
+    businessId?: SortOrder;
   };
 
   export type UserAddressMinOrderByAggregateInput = {
     id?: SortOrder;
     addressId?: SortOrder;
     userId?: SortOrder;
+    businessId?: SortOrder;
   };
 
   export type OrderAddressCountOrderByAggregateInput = {
@@ -28972,6 +29089,21 @@ export namespace Prisma {
       | BusinessNeighborhoodWhereUniqueInput[];
   };
 
+  export type UserAddressCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          UserAddressCreateWithoutBusinessInput,
+          UserAddressUncheckedCreateWithoutBusinessInput
+        >
+      | UserAddressCreateWithoutBusinessInput[]
+      | UserAddressUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserAddressCreateOrConnectWithoutBusinessInput
+      | UserAddressCreateOrConnectWithoutBusinessInput[];
+    createMany?: UserAddressCreateManyBusinessInputEnvelope;
+    connect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+  };
+
   export type PaymentMethodCreateNestedManyWithoutBusinessInput = {
     create?:
       | XOR<
@@ -29073,6 +29205,21 @@ export namespace Prisma {
         | BusinessNeighborhoodWhereUniqueInput
         | BusinessNeighborhoodWhereUniqueInput[];
     };
+
+  export type UserAddressUncheckedCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          UserAddressCreateWithoutBusinessInput,
+          UserAddressUncheckedCreateWithoutBusinessInput
+        >
+      | UserAddressCreateWithoutBusinessInput[]
+      | UserAddressUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserAddressCreateOrConnectWithoutBusinessInput
+      | UserAddressCreateOrConnectWithoutBusinessInput[];
+    createMany?: UserAddressCreateManyBusinessInputEnvelope;
+    connect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+  };
 
   export type PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput = {
     create?:
@@ -29298,6 +29445,34 @@ export namespace Prisma {
       | BusinessNeighborhoodScalarWhereInput[];
   };
 
+  export type UserAddressUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          UserAddressCreateWithoutBusinessInput,
+          UserAddressUncheckedCreateWithoutBusinessInput
+        >
+      | UserAddressCreateWithoutBusinessInput[]
+      | UserAddressUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserAddressCreateOrConnectWithoutBusinessInput
+      | UserAddressCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | UserAddressUpsertWithWhereUniqueWithoutBusinessInput
+      | UserAddressUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: UserAddressCreateManyBusinessInputEnvelope;
+    set?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    disconnect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    delete?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    connect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    update?:
+      | UserAddressUpdateWithWhereUniqueWithoutBusinessInput
+      | UserAddressUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | UserAddressUpdateManyWithWhereWithoutBusinessInput
+      | UserAddressUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
+  };
+
   export type PaymentMethodUpdateManyWithoutBusinessNestedInput = {
     create?:
       | XOR<
@@ -29499,6 +29674,34 @@ export namespace Prisma {
         | BusinessNeighborhoodScalarWhereInput
         | BusinessNeighborhoodScalarWhereInput[];
     };
+
+  export type UserAddressUncheckedUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          UserAddressCreateWithoutBusinessInput,
+          UserAddressUncheckedCreateWithoutBusinessInput
+        >
+      | UserAddressCreateWithoutBusinessInput[]
+      | UserAddressUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | UserAddressCreateOrConnectWithoutBusinessInput
+      | UserAddressCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | UserAddressUpsertWithWhereUniqueWithoutBusinessInput
+      | UserAddressUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: UserAddressCreateManyBusinessInputEnvelope;
+    set?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    disconnect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    delete?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    connect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[];
+    update?:
+      | UserAddressUpdateWithWhereUniqueWithoutBusinessInput
+      | UserAddressUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | UserAddressUpdateManyWithWhereWithoutBusinessInput
+      | UserAddressUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
+  };
 
   export type PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput = {
     create?:
@@ -31187,6 +31390,15 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
+  export type BusinessCreateNestedOneWithoutUserAddressInput = {
+    create?: XOR<
+      BusinessCreateWithoutUserAddressInput,
+      BusinessUncheckedCreateWithoutUserAddressInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutUserAddressInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
   export type AddressUpdateOneRequiredWithoutUserAddressNestedInput = {
     create?: XOR<
       AddressCreateWithoutUserAddressInput,
@@ -31218,6 +31430,25 @@ export namespace Prisma {
         UserUpdateWithoutAddressInput
       >,
       UserUncheckedUpdateWithoutAddressInput
+    >;
+  };
+
+  export type BusinessUpdateOneWithoutUserAddressNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutUserAddressInput,
+      BusinessUncheckedCreateWithoutUserAddressInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutUserAddressInput;
+    upsert?: BusinessUpsertWithoutUserAddressInput;
+    disconnect?: BusinessWhereInput | boolean;
+    delete?: BusinessWhereInput | boolean;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutUserAddressInput,
+        BusinessUpdateWithoutUserAddressInput
+      >,
+      BusinessUncheckedUpdateWithoutUserAddressInput
     >;
   };
 
@@ -31902,6 +32133,33 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type UserAddressCreateWithoutBusinessInput = {
+    id?: string;
+    address: AddressCreateNestedOneWithoutUserAddressInput;
+    user: UserCreateNestedOneWithoutAddressInput;
+  };
+
+  export type UserAddressUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    addressId: string;
+    userId: string;
+  };
+
+  export type UserAddressCreateOrConnectWithoutBusinessInput = {
+    where: UserAddressWhereUniqueInput;
+    create: XOR<
+      UserAddressCreateWithoutBusinessInput,
+      UserAddressUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type UserAddressCreateManyBusinessInputEnvelope = {
+    data:
+      | UserAddressCreateManyBusinessInput
+      | UserAddressCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type PaymentMethodCreateWithoutBusinessInput = {
     id?: string;
     name: string;
@@ -32219,6 +32477,44 @@ export namespace Prisma {
     neighborhoodId?: StringFilter<"BusinessNeighborhood"> | string;
   };
 
+  export type UserAddressUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: UserAddressWhereUniqueInput;
+    update: XOR<
+      UserAddressUpdateWithoutBusinessInput,
+      UserAddressUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      UserAddressCreateWithoutBusinessInput,
+      UserAddressUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type UserAddressUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: UserAddressWhereUniqueInput;
+    data: XOR<
+      UserAddressUpdateWithoutBusinessInput,
+      UserAddressUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type UserAddressUpdateManyWithWhereWithoutBusinessInput = {
+    where: UserAddressScalarWhereInput;
+    data: XOR<
+      UserAddressUpdateManyMutationInput,
+      UserAddressUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type UserAddressScalarWhereInput = {
+    AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
+    OR?: UserAddressScalarWhereInput[];
+    NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
+    id?: StringFilter<"UserAddress"> | string;
+    addressId?: StringFilter<"UserAddress"> | string;
+    userId?: StringFilter<"UserAddress"> | string;
+    businessId?: StringNullableFilter<"UserAddress"> | string | null;
+  };
+
   export type PaymentMethodUpsertWithWhereUniqueWithoutBusinessInput = {
     where: PaymentMethodWhereUniqueInput;
     update: XOR<
@@ -32279,6 +32575,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32301,6 +32598,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32351,6 +32649,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32376,6 +32675,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32399,6 +32699,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutPaymentMethodInput = {
@@ -32421,6 +32722,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutPaymentMethodInput = {
@@ -32450,6 +32752,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32472,6 +32775,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32523,6 +32827,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutPaymentMethodInput = {
@@ -32548,6 +32853,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUpsertWithoutDefaultPaymentMethodInput = {
@@ -32589,6 +32895,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32611,6 +32918,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32684,6 +32992,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32706,6 +33015,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32784,6 +33094,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32809,6 +33120,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32831,6 +33143,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32853,6 +33166,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -32958,6 +33272,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -32983,6 +33298,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -33233,11 +33549,13 @@ export namespace Prisma {
   export type UserAddressCreateWithoutUserInput = {
     id?: string;
     address: AddressCreateNestedOneWithoutUserAddressInput;
+    business?: BusinessCreateNestedOneWithoutUserAddressInput;
   };
 
   export type UserAddressUncheckedCreateWithoutUserInput = {
     id?: string;
     addressId: string;
+    businessId?: string | null;
   };
 
   export type UserAddressCreateOrConnectWithoutUserInput = {
@@ -33465,15 +33783,6 @@ export namespace Prisma {
     >;
   };
 
-  export type UserAddressScalarWhereInput = {
-    AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
-    OR?: UserAddressScalarWhereInput[];
-    NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
-    id?: StringFilter<"UserAddress"> | string;
-    addressId?: StringFilter<"UserAddress"> | string;
-    userId?: StringFilter<"UserAddress"> | string;
-  };
-
   export type UserCreateWithoutBusinessInput = {
     id?: string;
     role?: $Enums.UserRoles;
@@ -33535,6 +33844,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -33557,6 +33867,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -33669,6 +33980,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -33694,6 +34006,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -33785,6 +34098,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -33807,6 +34121,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -33965,6 +34280,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -33990,6 +34306,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -34552,11 +34869,13 @@ export namespace Prisma {
   export type UserAddressCreateWithoutAddressInput = {
     id?: string;
     user: UserCreateNestedOneWithoutAddressInput;
+    business?: BusinessCreateNestedOneWithoutUserAddressInput;
   };
 
   export type UserAddressUncheckedCreateWithoutAddressInput = {
     id?: string;
     userId: string;
+    businessId?: string | null;
   };
 
   export type UserAddressCreateOrConnectWithoutAddressInput = {
@@ -34642,11 +34961,13 @@ export namespace Prisma {
   export type UserAddressUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
     user?: UserUpdateOneRequiredWithoutAddressNestedInput;
+    business?: BusinessUpdateOneWithoutUserAddressNestedInput;
   };
 
   export type UserAddressUncheckedUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type OrderAddressUpsertWithoutAddressInput = {
@@ -34894,6 +35215,60 @@ export namespace Prisma {
     >;
   };
 
+  export type BusinessCreateWithoutUserAddressInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutUserAddressInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutUserAddressInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutUserAddressInput,
+      BusinessUncheckedCreateWithoutUserAddressInput
+    >;
+  };
+
   export type AddressUpsertWithoutUserAddressInput = {
     update: XOR<
       AddressUpdateWithoutUserAddressInput,
@@ -34998,6 +35373,75 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type BusinessUpsertWithoutUserAddressInput = {
+    update: XOR<
+      BusinessUpdateWithoutUserAddressInput,
+      BusinessUncheckedUpdateWithoutUserAddressInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutUserAddressInput,
+      BusinessUncheckedCreateWithoutUserAddressInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutUserAddressInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutUserAddressInput,
+      BusinessUncheckedUpdateWithoutUserAddressInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutUserAddressInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutUserAddressInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type AddressCreateWithoutOrderAddressInput = {
@@ -35183,6 +35627,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutBusinessInput;
     orders?: OrderCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
   };
 
@@ -35205,6 +35650,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
@@ -35277,6 +35723,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -35302,6 +35749,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
@@ -35388,6 +35836,12 @@ export namespace Prisma {
     shipping?: number;
     active?: boolean;
     neighborhoodId: string;
+  };
+
+  export type UserAddressCreateManyBusinessInput = {
+    id?: string;
+    addressId: string;
+    userId: string;
   };
 
   export type PaymentMethodCreateManyBusinessInput = {
@@ -35553,6 +36007,24 @@ export namespace Prisma {
     shipping?: IntFieldUpdateOperationsInput | number;
     active?: BoolFieldUpdateOperationsInput | boolean;
     neighborhoodId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type UserAddressUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    address?: AddressUpdateOneRequiredWithoutUserAddressNestedInput;
+    user?: UserUpdateOneRequiredWithoutAddressNestedInput;
+  };
+
+  export type UserAddressUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    addressId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type UserAddressUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    addressId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type PaymentMethodUpdateWithoutBusinessInput = {
@@ -35738,6 +36210,7 @@ export namespace Prisma {
   export type UserAddressCreateManyUserInput = {
     id?: string;
     addressId: string;
+    businessId?: string | null;
   };
 
   export type OrderUpdateWithoutUserInput = {
@@ -35894,16 +36367,19 @@ export namespace Prisma {
   export type UserAddressUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     address?: AddressUpdateOneRequiredWithoutUserAddressNestedInput;
+    business?: BusinessUpdateOneWithoutUserAddressNestedInput;
   };
 
   export type UserAddressUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type UserAddressUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type OrderProductCreateManyOrderInput = {
