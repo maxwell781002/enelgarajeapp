@@ -34,7 +34,10 @@ export default async function Component({ params: { locale } }: PageProps) {
   }
   const user = await userRepository.getById(session.user.id);
   const addresses = business.requestAddress
-    ? await userAddressRepository.findByUserId(session.user.id)
+    ? await userAddressRepository.findByUserIdAndBusinessId(
+        session.user.id,
+        business.id,
+      )
     : [];
   return (
     <CheckoutView

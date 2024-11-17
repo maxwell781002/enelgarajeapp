@@ -10,9 +10,9 @@ export class UserAddressRepository extends BaseRepository<
     super(UserAddressModel.omit({ id: true }), Prisma.userAddress);
   }
 
-  async findByUserId(userId: string) {
+  async findByUserIdAndBusinessId(userId: string, businessId: string) {
     const addresses = await prisma().userAddress.findMany({
-      where: { userId },
+      where: { userId, businessId },
       include: { address: { include: { neighborhood: true } } },
     });
     return addresses.map((address) => address.address);

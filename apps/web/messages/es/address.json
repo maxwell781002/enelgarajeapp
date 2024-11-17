@@ -26,6 +26,9 @@
     "removeAddress": "¿Está seguro que va a eliminar la dirección?",
     "removeAddressDescription": "La dirección sera eliminada completamente.",
     "removeAddressContinue": "Continuar",
-    "removeAddressCancel": "Cancelar"
+    "removeAddressCancel": "Cancelar",
+    "noAddress": "No tienes direcciones",
+    "noAddressDescription": "Puedes crear tu primera dirección haciendo clic en el botón de abajo.",
+    "addNewAddress": "Crear nueva"
   }
 }

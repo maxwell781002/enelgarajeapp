@@ -9,16 +9,25 @@ import { getTranslations } from "next-intl/server";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import { getCurrentBusiness } from "@repo/model/repository/business";
+import NoAddress from "./no-address";
 
 export default async function Page() {
   const user = await getCurrentUser();
-  const addresses = await userAddressRepository.findByUserId(user.id);
+  const business = await getCurrentBusiness();
+  const addresses = await userAddressRepository.findByUserIdAndBusinessId(
+    user.id,
+    business.id,
+  );
   const t = await getTranslations("Address");
   const handleDelete = async (id: string) => {
     "use server";
     await removeAddressFromUser(user.id, id);
     revalidatePath("/address-user");
   };
+  if (addresses.length === 0) {
+    return <NoAddress newLink="/address-user/form" />;
+  }
   return (
     <div>
       <div className="flex justify-end mb-4">
