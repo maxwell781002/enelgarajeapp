@@ -55,6 +55,7 @@ const defaultAddress: Omit<CompleteAddress, "id"> = {
   city: "",
   state: "",
   reference: "",
+  neighborhoodId: null,
 };
 
 export const useCheckoutForm = (

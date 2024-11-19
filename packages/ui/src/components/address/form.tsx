@@ -102,24 +102,28 @@ export default function AddressForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name={`${name}neighborhoodId`}
-          render={({ field, fieldState: { error } }: any) => (
-            <FormItem>
-              <FormLabel>{t("lbNeighborhoodId")}</FormLabel>
-              <FormControl>
-                <EntitySelect
-                  {...field}
-                  placeholder={t("phNeighborhoodId")}
-                  disabled={!city}
-                  items={neighborhoods}
-                />
-              </FormControl>
-              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-            </FormItem>
-          )}
-        />
+        {neighborhoods.length > 0 && (
+          <FormField
+            control={form.control}
+            name={`${name}neighborhoodId`}
+            render={({ field, fieldState: { error } }: any) => (
+              <FormItem>
+                <FormLabel>{t("lbNeighborhoodId")}</FormLabel>
+                <FormControl>
+                  <EntitySelect
+                    {...field}
+                    placeholder={t("phNeighborhoodId")}
+                    disabled={!city}
+                    items={neighborhoods}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {!!error?.message && t(error?.message)}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+        )}
       </div>
       <FormField
         control={form.control}
