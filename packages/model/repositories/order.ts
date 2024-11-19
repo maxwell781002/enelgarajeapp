@@ -156,7 +156,7 @@ export class OrderRepository extends BaseRepository<
       include: {
         user: true,
         orderAddress: {
-          include: { address: true },
+          include: { address: { include: { neighborhood: true } } },
         },
         items: {
           include: { product: true },
