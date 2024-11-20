@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { UserBusinessType } from "../generated/client";
 import {
   CompleteUser,
   RelatedUserModel,
@@ -9,6 +10,7 @@ import {
 export const UserBusinessModel = z.object({
   userId: z.string(),
   businessId: z.string(),
+  type: z.nativeEnum(UserBusinessType),
 });
 
 export interface CompleteUserBusiness
