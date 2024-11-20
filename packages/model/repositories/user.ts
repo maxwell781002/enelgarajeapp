@@ -1,9 +1,17 @@
 import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteUser, UserModel } from "../prisma/zod";
-import { UserRoles as BaseUserRoles } from "../prisma/generated/client";
+import {
+  UserRoles as BaseUserRoles,
+  UserBusinessType,
+} from "../prisma/generated/client";
+import { PaginateData as BasePaginateData } from "../types/pagination";
 
 export const UserRoles = BaseUserRoles;
+
+type PaginateData = {
+  businessId?: string;
+} & BasePaginateData;
 
 export class UserRepository extends BaseRepository<
   CompleteUser,
@@ -23,6 +31,27 @@ export class UserRepository extends BaseRepository<
       include: {
         business: true,
       },
+    });
+  }
+
+  paginate({ businessId, query, ...data }: PaginateData = {}) {
+    const where: any = {
+      business: {
+        some: {
+          businessId,
+          type: UserBusinessType.COLLABORATOR,
+        },
+      },
+    };
+    if (query) {
+      where["name"] = {
+        contains: query,
+        mode: "insensitive",
+      };
+    }
+    return super.paginate({
+      ...data,
+      where,
     });
   }
 }
