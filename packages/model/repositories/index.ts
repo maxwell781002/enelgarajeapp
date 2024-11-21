@@ -2,6 +2,7 @@ import { BaseRepository } from "../lib/base-repository";
 import { businessRepository } from "./business";
 import { businessNeighborhoodRepository } from "./business-neighborhood";
 import { categoryRepository } from "./category";
+import { invitationLinkRepository } from "./invitation-link";
 import { neighborhoodRepository } from "./neighborhood";
 import { orderRepository } from "./order";
 import { orderAddressRepository } from "./order-address";
@@ -18,6 +19,7 @@ export default {
   [userRepository.getRepositoryModelName()]: userRepository,
   [categoryRepository.getRepositoryModelName()]: categoryRepository,
   [userAddressRepository.getRepositoryModelName()]: userAddressRepository,
+  [invitationLinkRepository.getRepositoryModelName()]: invitationLinkRepository,
   [orderAddressRepository.getRepositoryModelName()]: orderAddressRepository,
   [paymentMethodRepository.getRepositoryModelName()]: paymentMethodRepository,
   [neighborhoodRepository.getRepositoryModelName()]: neighborhoodRepository,

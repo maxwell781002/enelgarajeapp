@@ -34,6 +34,10 @@ const Item = ({
   }
   if (typeof value === "number") {
     value = value === INFINITE_NUMBER ? t("unlimited") : value;
+    if (value === 0) {
+      check = <X className="mr-2 h-4 w-4 text-red-500" />;
+    }
+    value = value === 0 ? "0" : value;
   }
   if (typeof value === "boolean") {
     value = null;

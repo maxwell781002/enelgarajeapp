@@ -6,10 +6,10 @@ import TableLayout from "@repo/ui/components/table-layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { getBusinessById } from "@repo/model/repository/business";
-import { getPlanFeature } from "@repo/model/lib/plans-feature";
-import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { userRepository } from "@repo/model/repositories/user";
 import UserTable from "./table";
+import { CreateInvitation } from "./invitation-modal";
+import { getPlanFeature } from "@repo/model/lib/plans-feature";
 
 type PageProps = {
   searchParams: any;
@@ -22,9 +22,6 @@ export default async function Page({
 }: PageProps) {
   const t = await getTranslations("User");
   const business = await getBusinessById(businessId);
-  if (!getPlanFeature("NUMBER_BUSINESS_USER", business)) {
-    return <UpgradePlan business={business} title={t("upgrade_plan_title")} />;
-  }
   const { list, remove, update, search } = crud(
     `/${businessId}/users`,
     userRepository.getRepositoryModelName(),
@@ -35,11 +32,13 @@ export default async function Page({
     const url = await search(query);
     return redirect(url);
   };
+  const hasPlan = getPlanFeature<number>("NUMBER_BUSINESS_USER", business);
   const pagination = await list({ ...searchParams, businessId });
   return (
     <TableLayout
       title={t("UserList")}
       filter={<Filter onChange={handleSearch} />}
+      buttons={<CreateInvitation business={business} hasPlan={hasPlan !== 0} />}
     >
       <TableContextProvider update={update} remove={remove}>
         <UserTable pagination={pagination as PaginationResult<any>} />

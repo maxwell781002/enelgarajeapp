@@ -2,6 +2,12 @@
   "User": {
     "upgrade_plan_title": "Creación de colaboradores",
     "UserList": "Colaboradores",
-    "phSearch": "Buscar..."
+    "phSearch": "Buscar...",
+    "generateLink": "Generar link",
+    "invitation": {
+      "title": "Crear invitación",
+      "description": "Aqui puedes copiar el link de invitaciones para que los usuarios se registren en tu negocio.",
+      "close": "Cerrar"
+    }
   }
 }
