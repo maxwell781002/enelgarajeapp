@@ -99,6 +99,9 @@ export class BusinessRepository extends BaseRepository<
     userId: string,
     type: UserBusinessType,
   ) {
+    if (!userId) {
+      return [];
+    }
     return (
       await prisma().userBusiness.findMany({
         where: {
