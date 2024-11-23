@@ -25,13 +25,11 @@ export class InvitationLinkRepository extends BaseRepository<
       where: {
         code,
       },
+      include: {
+        business: true,
+      },
     });
     if (!invitationLink) {
-      return null;
-    }
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dateDiff = new Date().getTime() - invitationLink.createdAt.getTime();
-    if (dateDiff > oneDay) {
       return null;
     }
     return invitationLink;

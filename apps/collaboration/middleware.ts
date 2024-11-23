@@ -9,20 +9,30 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
   const isLogin = pathname === "/login";
   if (!session && !isLogin) {
-    return "/login";
+    return `/login?redirectAfterLogin=${pathname}`;
   }
   if (!session && isLogin) {
     return;
   }
   if (isLogin) {
-    return "/";
+    return request.nextUrl.searchParams.get("redirectAfterLogin") || "/";
   }
   const user = session.user;
   const firstPart = pathname.split("/")[1];
+  const businessIds = user.businessCollaboratorIds || [];
+  console.log(businessIds, firstPart, pathname.split("/")[2]);
+  if (
+    firstPart === "onboarding" &&
+    businessIds.includes(pathname.split("/")[2])
+  ) {
+    return `/${pathname.split("/")[2]}`;
+  }
   if (NO_BUSINESS_PATHS.includes(firstPart as string)) {
     return;
   }
-  const businessIds = user.businessCollaboratorIds || [];
+  if (pathname === "/" && businessIds.length > 0) {
+    return `/${businessIds[0]}`;
+  }
   if (!businessIds.includes(firstPart)) {
     return "/errors/403";
   }

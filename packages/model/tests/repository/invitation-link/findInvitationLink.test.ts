@@ -59,7 +59,7 @@ describe("findInvitationLink", () => {
       user.id,
       invitationLinkOutOfDate.code,
     );
-    expect(result).toBe(ErrorType.INVITATION_LINK_NOT_FOUND);
+    expect(result).toBe(ErrorType.LINK_EXPIRED);
   });
 
   it("User In", async () => {

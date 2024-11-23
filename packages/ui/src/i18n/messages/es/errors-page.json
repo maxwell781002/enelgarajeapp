@@ -5,5 +5,16 @@
     "loginAgain": "Entrar de nuevo",
     "contactSupport": "Si el problema persiste puede contactar soporte.",
     "textChat": "Hola, necesito ayuda."
+  },
+  "404Page": {
+    "title": "Pagina no encontrada"
+  },
+  "ExpiredLink": {
+    "title": "Link expirado",
+    "description": "El link a la cual intentas acceder ya no es valido"
+  },
+  "AlreadyCollaborator": {
+    "title": "Ya eres colaborador",
+    "description": "Ya eres colaborador de este negocio"
   }
 }

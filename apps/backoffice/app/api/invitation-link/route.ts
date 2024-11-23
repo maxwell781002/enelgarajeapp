@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     params.businessId,
   );
   return NextResponse.json({
-    code: `${process.env.COLLABORATOR_ONBOARDING_URL}/${code}`,
+    link: `${process.env.COLLABORATOR_ONBOARDING_URL}/${code}`,
     ...data,
   });
 }

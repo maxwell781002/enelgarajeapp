@@ -18,7 +18,7 @@ export default function GenerateLink({ businessId }: GenerateLinkProps) {
       method: "POST",
     });
     const json = await data.json();
-    setCode(json.code);
+    setCode(json.link);
   };
   return (
     <>
