@@ -3,6 +3,7 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
 import { PaginateData } from "../types/pagination";
+import { UserBusinessType } from "../prisma/generated/client";
 
 // TODO: I am working with userBusiness using only one user.
 
@@ -86,20 +87,39 @@ export class BusinessRepository extends BaseRepository<
     return this.model.findFirst({ where: { slug, active: true } });
   }
 
-  async getBusinessIdByUser(userId: string) {
-    return (
-      await prisma().userBusiness.findMany({
-        where: { userId },
-        select: { businessId: true },
-      })
-    ).map(({ businessId }) => businessId);
-  }
-
   getAllBusinessData(id: string) {
     return this.model.findUnique({
       where: { id },
       include: { telegram: true, defaultPaymentMethod: true },
     });
+  }
+
+  //UserBusiness
+  private async getBusinessIdByUserIdAndType(
+    userId: string,
+    type: UserBusinessType,
+  ) {
+    return (
+      await prisma().userBusiness.findMany({
+        where: {
+          userId,
+          business: { active: true },
+          type,
+        },
+        select: { businessId: true },
+      })
+    ).map(({ businessId }) => businessId);
+  }
+
+  async getBusinessIdByUser(userId: string) {
+    return this.getBusinessIdByUserIdAndType(userId, UserBusinessType.OWNER);
+  }
+
+  async getBusinessIdCollaboratorByUser(userId: string) {
+    return this.getBusinessIdByUserIdAndType(
+      userId,
+      UserBusinessType.COLLABORATOR,
+    );
   }
 }
 
