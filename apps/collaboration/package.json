@@ -6,9 +6,12 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
+    "vercel-build": "pnpm run prisma-generate && next build"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@repo/model": "workspace:*",
     "@repo/ui": "workspace:*",
     "@sentry/nextjs": "^8",
@@ -19,7 +22,7 @@
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
     "react-hook-form": "^7.52.2",
-    "zod": "link:@hookform/resolvers/zod"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

@@ -8,6 +8,10 @@
       "title": "Crear invitación",
       "description": "Aqui puedes copiar el link de invitaciones para que los usuarios se registren en tu negocio.",
       "close": "Cerrar"
-    }
+    },
+    "remove": "¿Está seguro que va a eliminar el usuario?",
+    "removeDescription": "El usuario será eliminado completamente.",
+    "removeContinue": "Continuar",
+    "removeCancel": "Cancelar"
   }
 }

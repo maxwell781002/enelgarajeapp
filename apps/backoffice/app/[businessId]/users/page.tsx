@@ -10,6 +10,7 @@ import { userRepository } from "@repo/model/repositories/user";
 import UserTable from "./table";
 import { CreateInvitation } from "./invitation-modal";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
+import { revalidatePath } from "next/cache";
 
 type PageProps = {
   searchParams: any;
@@ -22,7 +23,7 @@ export default async function Page({
 }: PageProps) {
   const t = await getTranslations("User");
   const business = await getBusinessById(businessId);
-  const { list, remove, update, search } = crud(
+  const { list, update, search } = crud(
     `/${businessId}/users`,
     userRepository.getRepositoryModelName(),
     searchParams,
@@ -34,6 +35,11 @@ export default async function Page({
   };
   const hasPlan = getPlanFeature<number>("NUMBER_BUSINESS_USER", business);
   const pagination = await list({ ...searchParams, businessId });
+  const remove = async (id: string) => {
+    "use server";
+    await userRepository.removeFromBusiness(id, businessId);
+    revalidatePath(`/${businessId}/users`);
+  };
   return (
     <TableLayout
       title={t("UserList")}

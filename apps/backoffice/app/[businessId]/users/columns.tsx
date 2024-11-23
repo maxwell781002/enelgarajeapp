@@ -17,10 +17,10 @@ function RowActions({ row }: ActionProps) {
       <BtnRemove
         action={remove}
         entityId={row.id}
-        title={t("removeUser")}
-        description={t("removeUserDescription")}
-        btnContinueText={t("removeUserContinue")}
-        btnCancelText={t("removeUserCancel")}
+        title={t("remove")}
+        description={t("removeDescription")}
+        btnContinueText={t("removeContinue")}
+        btnCancelText={t("removeCancel")}
       />
     </BtnList>
   );

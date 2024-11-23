@@ -112,6 +112,9 @@ importers:
 
   apps/collaboration:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.9.0
+        version: 3.9.0(react-hook-form@7.52.2(react@19.0.0-rc-f994737d14-20240522))
       '@repo/model':
         specifier: workspace:*
         version: link:../../packages/model
@@ -143,8 +146,8 @@ importers:
         specifier: ^7.52.2
         version: 7.52.2(react@19.0.0-rc-f994737d14-20240522)
       zod:
-        specifier: link:@hookform/resolvers/zod
-        version: link:@hookform/resolvers/zod
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*

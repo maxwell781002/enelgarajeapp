@@ -1,4 +1,4 @@
-import { Prisma } from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteUser, UserModel } from "../prisma/zod";
 import {
@@ -52,6 +52,12 @@ export class UserRepository extends BaseRepository<
     return super.paginate({
       ...data,
       where,
+    });
+  }
+
+  removeFromBusiness(userId: string, businessId: string) {
+    return prisma().userBusiness.deleteMany({
+      where: { userId, businessId },
     });
   }
 }
