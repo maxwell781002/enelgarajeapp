@@ -1,0 +1,17 @@
+{
+  "User": {
+    "upgrade_plan_title": "Creación de colaboradores",
+    "UserList": "Colaboradores",
+    "phSearch": "Buscar...",
+    "generateLink": "Generar link",
+    "invitation": {
+      "title": "Crear invitación",
+      "description": "Aqui puedes copiar el link de invitaciones para que los usuarios se registren en tu negocio.",
+      "close": "Cerrar"
+    },
+    "remove": "¿Está seguro que va a eliminar el usuario?",
+    "removeDescription": "El usuario será eliminado completamente.",
+    "removeContinue": "Continuar",
+    "removeCancel": "Cancelar"
+  }
+}

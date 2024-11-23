@@ -8,10 +8,11 @@ const adapter: any = PrismaAdapter(prisma());
 const getUserByAccount = async (provider_providerAccountId: any) => {
   const user = await adapter.getUserByAccount(provider_providerAccountId);
   if (!user) return null;
-  const businessIds = user?.id
-    ? await businessRepository.getBusinessIdByUser(user.id)
-    : [];
-  user.businessIds = businessIds;
+  user.businessIds = await businessRepository.getBusinessIdByUserOwner(
+    user?.id,
+  );
+  user.businessCollaboratorIds =
+    await businessRepository.getBusinessIdByUserCollaborator(user?.id);
   return user;
 };
 

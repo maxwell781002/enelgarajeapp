@@ -12,7 +12,8 @@
     "feature": {
       "CAN_CREATE_CATEGORY": "Crear categorías",
       "NUMBER_OF_PRODUCTS": "Número de productos",
-      "NUMBER_OF_CARD_NUMBERS": "Número de medios de pagos"
+      "NUMBER_OF_CARD_NUMBERS": "Número de medios de pagos",
+      "NUMBER_BUSINESS_USER": "Número de usuarios"
     }
   }
 }

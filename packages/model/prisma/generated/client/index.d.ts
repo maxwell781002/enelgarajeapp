@@ -50,6 +50,12 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>;
 export type UserBusiness =
   $Result.DefaultSelection<Prisma.$UserBusinessPayload>;
 /**
+ * Model InvitationLink
+ *
+ */
+export type InvitationLink =
+  $Result.DefaultSelection<Prisma.$InvitationLinkPayload>;
+/**
  * Model Order
  *
  */
@@ -137,6 +143,14 @@ export namespace $Enums {
 
   export type UserRoles = (typeof UserRoles)[keyof typeof UserRoles];
 
+  export const UserBusinessType: {
+    OWNER: "OWNER";
+    COLLABORATOR: "COLLABORATOR";
+  };
+
+  export type UserBusinessType =
+    (typeof UserBusinessType)[keyof typeof UserBusinessType];
+
   export const OrderStatus: {
     CREATED: "CREATED";
     SEND: "SEND";
@@ -158,6 +172,10 @@ export const PaymentMethodType: typeof $Enums.PaymentMethodType;
 export type UserRoles = $Enums.UserRoles;
 
 export const UserRoles: typeof $Enums.UserRoles;
+
+export type UserBusinessType = $Enums.UserBusinessType;
+
+export const UserBusinessType: typeof $Enums.UserBusinessType;
 
 export type OrderStatus = $Enums.OrderStatus;
 
@@ -388,6 +406,16 @@ export class PrismaClient<
    * ```
    */
   get userBusiness(): Prisma.UserBusinessDelegate<ExtArgs>;
+
+  /**
+   * `prisma.invitationLink`: Exposes CRUD operations for the **InvitationLink** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more InvitationLinks
+   * const invitationLinks = await prisma.invitationLink.findMany()
+   * ```
+   */
+  get invitationLink(): Prisma.InvitationLinkDelegate<ExtArgs>;
 
   /**
    * `prisma.order`: Exposes CRUD operations for the **Order** model.
@@ -964,6 +992,7 @@ export namespace Prisma {
     Product: "Product";
     User: "User";
     UserBusiness: "UserBusiness";
+    InvitationLink: "InvitationLink";
     Order: "Order";
     OrderProduct: "OrderProduct";
     Account: "Account";
@@ -1007,6 +1036,7 @@ export namespace Prisma {
         | "product"
         | "user"
         | "userBusiness"
+        | "invitationLink"
         | "order"
         | "orderProduct"
         | "account"
@@ -1513,6 +1543,78 @@ export namespace Prisma {
             args: Prisma.UserBusinessCountArgs<ExtArgs>;
             result:
               | $Utils.Optional<UserBusinessCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      InvitationLink: {
+        payload: Prisma.$InvitationLinkPayload<ExtArgs>;
+        fields: Prisma.InvitationLinkFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.InvitationLinkFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.InvitationLinkFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>;
+          };
+          findFirst: {
+            args: Prisma.InvitationLinkFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.InvitationLinkFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>;
+          };
+          findMany: {
+            args: Prisma.InvitationLinkFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>[];
+          };
+          create: {
+            args: Prisma.InvitationLinkCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>;
+          };
+          createMany: {
+            args: Prisma.InvitationLinkCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.InvitationLinkCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>[];
+          };
+          delete: {
+            args: Prisma.InvitationLinkDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>;
+          };
+          update: {
+            args: Prisma.InvitationLinkUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>;
+          };
+          deleteMany: {
+            args: Prisma.InvitationLinkDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.InvitationLinkUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.InvitationLinkUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$InvitationLinkPayload>;
+          };
+          aggregate: {
+            args: Prisma.InvitationLinkAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateInvitationLink>;
+          };
+          groupBy: {
+            args: Prisma.InvitationLinkGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<InvitationLinkGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.InvitationLinkCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<InvitationLinkCountAggregateOutputType>
               | number;
           };
         };
@@ -2489,6 +2591,7 @@ export namespace Prisma {
     businessNeighborhood: number;
     userAddress: number;
     paymentMethod: number;
+    invitationLinks: number;
   };
 
   export type BusinessCountOutputTypeSelect<
@@ -2503,6 +2606,7 @@ export namespace Prisma {
       | BusinessCountOutputTypeCountBusinessNeighborhoodArgs;
     userAddress?: boolean | BusinessCountOutputTypeCountUserAddressArgs;
     paymentMethod?: boolean | BusinessCountOutputTypeCountPaymentMethodArgs;
+    invitationLinks?: boolean | BusinessCountOutputTypeCountInvitationLinksArgs;
   };
 
   // Custom InputTypes
@@ -2579,6 +2683,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: PaymentMethodWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountInvitationLinksArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: InvitationLinkWhereInput;
   };
 
   /**
@@ -3110,6 +3223,7 @@ export namespace Prisma {
         | Business$businessNeighborhoodArgs<ExtArgs>;
       userAddress?: boolean | Business$userAddressArgs<ExtArgs>;
       paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
+      invitationLinks?: boolean | Business$invitationLinksArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
@@ -3167,6 +3281,7 @@ export namespace Prisma {
     businessNeighborhood?: boolean | Business$businessNeighborhoodArgs<ExtArgs>;
     userAddress?: boolean | Business$userAddressArgs<ExtArgs>;
     paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
+    invitationLinks?: boolean | Business$invitationLinksArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type BusinessIncludeCreateManyAndReturn<
@@ -3189,6 +3304,7 @@ export namespace Prisma {
       businessNeighborhood: Prisma.$BusinessNeighborhoodPayload<ExtArgs>[];
       userAddress: Prisma.$UserAddressPayload<ExtArgs>[];
       paymentMethod: Prisma.$PaymentMethodPayload<ExtArgs>[];
+      invitationLinks: Prisma.$InvitationLinkPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -3761,6 +3877,12 @@ export namespace Prisma {
       args?: Subset<T, Business$paymentMethodArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany">
+      | Null
+    >;
+    invitationLinks<T extends Business$invitationLinksArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$invitationLinksArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<Prisma.$InvitationLinkPayload<ExtArgs>, T, "findMany">
       | Null
     >;
     /**
@@ -4367,6 +4489,30 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: PaymentMethodScalarFieldEnum | PaymentMethodScalarFieldEnum[];
+  };
+
+  /**
+   * Business.invitationLinks
+   */
+  export type Business$invitationLinksArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    where?: InvitationLinkWhereInput;
+    orderBy?:
+      | InvitationLinkOrderByWithRelationInput
+      | InvitationLinkOrderByWithRelationInput[];
+    cursor?: InvitationLinkWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: InvitationLinkScalarFieldEnum | InvitationLinkScalarFieldEnum[];
   };
 
   /**
@@ -10545,32 +10691,38 @@ export namespace Prisma {
   export type UserBusinessMinAggregateOutputType = {
     userId: string | null;
     businessId: string | null;
+    type: $Enums.UserBusinessType | null;
   };
 
   export type UserBusinessMaxAggregateOutputType = {
     userId: string | null;
     businessId: string | null;
+    type: $Enums.UserBusinessType | null;
   };
 
   export type UserBusinessCountAggregateOutputType = {
     userId: number;
     businessId: number;
+    type: number;
     _all: number;
   };
 
   export type UserBusinessMinAggregateInputType = {
     userId?: true;
     businessId?: true;
+    type?: true;
   };
 
   export type UserBusinessMaxAggregateInputType = {
     userId?: true;
     businessId?: true;
+    type?: true;
   };
 
   export type UserBusinessCountAggregateInputType = {
     userId?: true;
     businessId?: true;
+    type?: true;
     _all?: true;
   };
 
@@ -10656,6 +10808,7 @@ export namespace Prisma {
   export type UserBusinessGroupByOutputType = {
     userId: string;
     businessId: string;
+    type: $Enums.UserBusinessType;
     _count: UserBusinessCountAggregateOutputType | null;
     _min: UserBusinessMinAggregateOutputType | null;
     _max: UserBusinessMaxAggregateOutputType | null;
@@ -10681,6 +10834,7 @@ export namespace Prisma {
     {
       userId?: boolean;
       businessId?: boolean;
+      type?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
     },
@@ -10693,6 +10847,7 @@ export namespace Prisma {
     {
       userId?: boolean;
       businessId?: boolean;
+      type?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
     },
@@ -10702,6 +10857,7 @@ export namespace Prisma {
   export type UserBusinessSelectScalar = {
     userId?: boolean;
     businessId?: boolean;
+    type?: boolean;
   };
 
   export type UserBusinessInclude<
@@ -10729,6 +10885,7 @@ export namespace Prisma {
       {
         userId: string;
         businessId: string;
+        type: $Enums.UserBusinessType;
       },
       ExtArgs["result"]["userBusiness"]
     >;
@@ -11259,6 +11416,7 @@ export namespace Prisma {
   interface UserBusinessFieldRefs {
     readonly userId: FieldRef<"UserBusiness", "String">;
     readonly businessId: FieldRef<"UserBusiness", "String">;
+    readonly type: FieldRef<"UserBusiness", "UserBusinessType">;
   }
 
   // Custom InputTypes
@@ -11624,6 +11782,1111 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserBusinessInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model InvitationLink
+   */
+
+  export type AggregateInvitationLink = {
+    _count: InvitationLinkCountAggregateOutputType | null;
+    _min: InvitationLinkMinAggregateOutputType | null;
+    _max: InvitationLinkMaxAggregateOutputType | null;
+  };
+
+  export type InvitationLinkMinAggregateOutputType = {
+    id: string | null;
+    code: string | null;
+    businessId: string | null;
+    createdAt: Date | null;
+  };
+
+  export type InvitationLinkMaxAggregateOutputType = {
+    id: string | null;
+    code: string | null;
+    businessId: string | null;
+    createdAt: Date | null;
+  };
+
+  export type InvitationLinkCountAggregateOutputType = {
+    id: number;
+    code: number;
+    businessId: number;
+    createdAt: number;
+    _all: number;
+  };
+
+  export type InvitationLinkMinAggregateInputType = {
+    id?: true;
+    code?: true;
+    businessId?: true;
+    createdAt?: true;
+  };
+
+  export type InvitationLinkMaxAggregateInputType = {
+    id?: true;
+    code?: true;
+    businessId?: true;
+    createdAt?: true;
+  };
+
+  export type InvitationLinkCountAggregateInputType = {
+    id?: true;
+    code?: true;
+    businessId?: true;
+    createdAt?: true;
+    _all?: true;
+  };
+
+  export type InvitationLinkAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which InvitationLink to aggregate.
+     */
+    where?: InvitationLinkWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of InvitationLinks to fetch.
+     */
+    orderBy?:
+      | InvitationLinkOrderByWithRelationInput
+      | InvitationLinkOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: InvitationLinkWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` InvitationLinks from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` InvitationLinks.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned InvitationLinks
+     **/
+    _count?: true | InvitationLinkCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: InvitationLinkMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: InvitationLinkMaxAggregateInputType;
+  };
+
+  export type GetInvitationLinkAggregateType<
+    T extends InvitationLinkAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateInvitationLink]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInvitationLink[P]>
+      : GetScalarType<T[P], AggregateInvitationLink[P]>;
+  };
+
+  export type InvitationLinkGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: InvitationLinkWhereInput;
+    orderBy?:
+      | InvitationLinkOrderByWithAggregationInput
+      | InvitationLinkOrderByWithAggregationInput[];
+    by: InvitationLinkScalarFieldEnum[] | InvitationLinkScalarFieldEnum;
+    having?: InvitationLinkScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: InvitationLinkCountAggregateInputType | true;
+    _min?: InvitationLinkMinAggregateInputType;
+    _max?: InvitationLinkMaxAggregateInputType;
+  };
+
+  export type InvitationLinkGroupByOutputType = {
+    id: string;
+    code: string;
+    businessId: string;
+    createdAt: Date;
+    _count: InvitationLinkCountAggregateOutputType | null;
+    _min: InvitationLinkMinAggregateOutputType | null;
+    _max: InvitationLinkMaxAggregateOutputType | null;
+  };
+
+  type GetInvitationLinkGroupByPayload<T extends InvitationLinkGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<InvitationLinkGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof InvitationLinkGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InvitationLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], InvitationLinkGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type InvitationLinkSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      code?: boolean;
+      businessId?: boolean;
+      createdAt?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["invitationLink"]
+  >;
+
+  export type InvitationLinkSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      code?: boolean;
+      businessId?: boolean;
+      createdAt?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["invitationLink"]
+  >;
+
+  export type InvitationLinkSelectScalar = {
+    id?: boolean;
+    code?: boolean;
+    businessId?: boolean;
+    createdAt?: boolean;
+  };
+
+  export type InvitationLinkInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+  export type InvitationLinkIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+
+  export type $InvitationLinkPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "InvitationLink";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        code: string;
+        businessId: string;
+        createdAt: Date;
+      },
+      ExtArgs["result"]["invitationLink"]
+    >;
+    composites: {};
+  };
+
+  type InvitationLinkGetPayload<
+    S extends boolean | null | undefined | InvitationLinkDefaultArgs,
+  > = $Result.GetResult<Prisma.$InvitationLinkPayload, S>;
+
+  type InvitationLinkCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<InvitationLinkFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: InvitationLinkCountAggregateInputType | true;
+  };
+
+  export interface InvitationLinkDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["InvitationLink"];
+      meta: { name: "InvitationLink" };
+    };
+    /**
+     * Find zero or one InvitationLink that matches the filter.
+     * @param {InvitationLinkFindUniqueArgs} args - Arguments to find a InvitationLink
+     * @example
+     * // Get one InvitationLink
+     * const invitationLink = await prisma.invitationLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InvitationLinkFindUniqueArgs>(
+      args: SelectSubset<T, InvitationLinkFindUniqueArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<
+        Prisma.$InvitationLinkPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one InvitationLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InvitationLinkFindUniqueOrThrowArgs} args - Arguments to find a InvitationLink
+     * @example
+     * // Get one InvitationLink
+     * const invitationLink = await prisma.invitationLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InvitationLinkFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, InvitationLinkFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<
+        Prisma.$InvitationLinkPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first InvitationLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkFindFirstArgs} args - Arguments to find a InvitationLink
+     * @example
+     * // Get one InvitationLink
+     * const invitationLink = await prisma.invitationLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InvitationLinkFindFirstArgs>(
+      args?: SelectSubset<T, InvitationLinkFindFirstArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<
+        Prisma.$InvitationLinkPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first InvitationLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkFindFirstOrThrowArgs} args - Arguments to find a InvitationLink
+     * @example
+     * // Get one InvitationLink
+     * const invitationLink = await prisma.invitationLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InvitationLinkFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, InvitationLinkFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<
+        Prisma.$InvitationLinkPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more InvitationLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InvitationLinks
+     * const invitationLinks = await prisma.invitationLink.findMany()
+     *
+     * // Get first 10 InvitationLinks
+     * const invitationLinks = await prisma.invitationLink.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const invitationLinkWithIdOnly = await prisma.invitationLink.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends InvitationLinkFindManyArgs>(
+      args?: SelectSubset<T, InvitationLinkFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$InvitationLinkPayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a InvitationLink.
+     * @param {InvitationLinkCreateArgs} args - Arguments to create a InvitationLink.
+     * @example
+     * // Create one InvitationLink
+     * const InvitationLink = await prisma.invitationLink.create({
+     *   data: {
+     *     // ... data to create a InvitationLink
+     *   }
+     * })
+     *
+     */
+    create<T extends InvitationLinkCreateArgs>(
+      args: SelectSubset<T, InvitationLinkCreateArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<Prisma.$InvitationLinkPayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many InvitationLinks.
+     * @param {InvitationLinkCreateManyArgs} args - Arguments to create many InvitationLinks.
+     * @example
+     * // Create many InvitationLinks
+     * const invitationLink = await prisma.invitationLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends InvitationLinkCreateManyArgs>(
+      args?: SelectSubset<T, InvitationLinkCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many InvitationLinks and returns the data saved in the database.
+     * @param {InvitationLinkCreateManyAndReturnArgs} args - Arguments to create many InvitationLinks.
+     * @example
+     * // Create many InvitationLinks
+     * const invitationLink = await prisma.invitationLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many InvitationLinks and only return the `id`
+     * const invitationLinkWithIdOnly = await prisma.invitationLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends InvitationLinkCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, InvitationLinkCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$InvitationLinkPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a InvitationLink.
+     * @param {InvitationLinkDeleteArgs} args - Arguments to delete one InvitationLink.
+     * @example
+     * // Delete one InvitationLink
+     * const InvitationLink = await prisma.invitationLink.delete({
+     *   where: {
+     *     // ... filter to delete one InvitationLink
+     *   }
+     * })
+     *
+     */
+    delete<T extends InvitationLinkDeleteArgs>(
+      args: SelectSubset<T, InvitationLinkDeleteArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<Prisma.$InvitationLinkPayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one InvitationLink.
+     * @param {InvitationLinkUpdateArgs} args - Arguments to update one InvitationLink.
+     * @example
+     * // Update one InvitationLink
+     * const invitationLink = await prisma.invitationLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends InvitationLinkUpdateArgs>(
+      args: SelectSubset<T, InvitationLinkUpdateArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<Prisma.$InvitationLinkPayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more InvitationLinks.
+     * @param {InvitationLinkDeleteManyArgs} args - Arguments to filter InvitationLinks to delete.
+     * @example
+     * // Delete a few InvitationLinks
+     * const { count } = await prisma.invitationLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends InvitationLinkDeleteManyArgs>(
+      args?: SelectSubset<T, InvitationLinkDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more InvitationLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InvitationLinks
+     * const invitationLink = await prisma.invitationLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends InvitationLinkUpdateManyArgs>(
+      args: SelectSubset<T, InvitationLinkUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one InvitationLink.
+     * @param {InvitationLinkUpsertArgs} args - Arguments to update or create a InvitationLink.
+     * @example
+     * // Update or create a InvitationLink
+     * const invitationLink = await prisma.invitationLink.upsert({
+     *   create: {
+     *     // ... data to create a InvitationLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InvitationLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InvitationLinkUpsertArgs>(
+      args: SelectSubset<T, InvitationLinkUpsertArgs<ExtArgs>>,
+    ): Prisma__InvitationLinkClient<
+      $Result.GetResult<Prisma.$InvitationLinkPayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of InvitationLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkCountArgs} args - Arguments to filter InvitationLinks to count.
+     * @example
+     * // Count the number of InvitationLinks
+     * const count = await prisma.invitationLink.count({
+     *   where: {
+     *     // ... the filter for the InvitationLinks we want to count
+     *   }
+     * })
+     **/
+    count<T extends InvitationLinkCountArgs>(
+      args?: Subset<T, InvitationLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], InvitationLinkCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a InvitationLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends InvitationLinkAggregateArgs>(
+      args: Subset<T, InvitationLinkAggregateArgs>,
+    ): Prisma.PrismaPromise<GetInvitationLinkAggregateType<T>>;
+
+    /**
+     * Group by InvitationLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends InvitationLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InvitationLinkGroupByArgs["orderBy"] }
+        : { orderBy?: InvitationLinkGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, InvitationLinkGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetInvitationLinkGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the InvitationLink model
+     */
+    readonly fields: InvitationLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InvitationLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InvitationLinkClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the InvitationLink model
+   */
+  interface InvitationLinkFieldRefs {
+    readonly id: FieldRef<"InvitationLink", "String">;
+    readonly code: FieldRef<"InvitationLink", "String">;
+    readonly businessId: FieldRef<"InvitationLink", "String">;
+    readonly createdAt: FieldRef<"InvitationLink", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * InvitationLink findUnique
+   */
+  export type InvitationLinkFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * Filter, which InvitationLink to fetch.
+     */
+    where: InvitationLinkWhereUniqueInput;
+  };
+
+  /**
+   * InvitationLink findUniqueOrThrow
+   */
+  export type InvitationLinkFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * Filter, which InvitationLink to fetch.
+     */
+    where: InvitationLinkWhereUniqueInput;
+  };
+
+  /**
+   * InvitationLink findFirst
+   */
+  export type InvitationLinkFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * Filter, which InvitationLink to fetch.
+     */
+    where?: InvitationLinkWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of InvitationLinks to fetch.
+     */
+    orderBy?:
+      | InvitationLinkOrderByWithRelationInput
+      | InvitationLinkOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for InvitationLinks.
+     */
+    cursor?: InvitationLinkWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` InvitationLinks from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` InvitationLinks.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of InvitationLinks.
+     */
+    distinct?: InvitationLinkScalarFieldEnum | InvitationLinkScalarFieldEnum[];
+  };
+
+  /**
+   * InvitationLink findFirstOrThrow
+   */
+  export type InvitationLinkFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * Filter, which InvitationLink to fetch.
+     */
+    where?: InvitationLinkWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of InvitationLinks to fetch.
+     */
+    orderBy?:
+      | InvitationLinkOrderByWithRelationInput
+      | InvitationLinkOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for InvitationLinks.
+     */
+    cursor?: InvitationLinkWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` InvitationLinks from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` InvitationLinks.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of InvitationLinks.
+     */
+    distinct?: InvitationLinkScalarFieldEnum | InvitationLinkScalarFieldEnum[];
+  };
+
+  /**
+   * InvitationLink findMany
+   */
+  export type InvitationLinkFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * Filter, which InvitationLinks to fetch.
+     */
+    where?: InvitationLinkWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of InvitationLinks to fetch.
+     */
+    orderBy?:
+      | InvitationLinkOrderByWithRelationInput
+      | InvitationLinkOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing InvitationLinks.
+     */
+    cursor?: InvitationLinkWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` InvitationLinks from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` InvitationLinks.
+     */
+    skip?: number;
+    distinct?: InvitationLinkScalarFieldEnum | InvitationLinkScalarFieldEnum[];
+  };
+
+  /**
+   * InvitationLink create
+   */
+  export type InvitationLinkCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a InvitationLink.
+     */
+    data: XOR<InvitationLinkCreateInput, InvitationLinkUncheckedCreateInput>;
+  };
+
+  /**
+   * InvitationLink createMany
+   */
+  export type InvitationLinkCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many InvitationLinks.
+     */
+    data: InvitationLinkCreateManyInput | InvitationLinkCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * InvitationLink createManyAndReturn
+   */
+  export type InvitationLinkCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many InvitationLinks.
+     */
+    data: InvitationLinkCreateManyInput | InvitationLinkCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * InvitationLink update
+   */
+  export type InvitationLinkUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a InvitationLink.
+     */
+    data: XOR<InvitationLinkUpdateInput, InvitationLinkUncheckedUpdateInput>;
+    /**
+     * Choose, which InvitationLink to update.
+     */
+    where: InvitationLinkWhereUniqueInput;
+  };
+
+  /**
+   * InvitationLink updateMany
+   */
+  export type InvitationLinkUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update InvitationLinks.
+     */
+    data: XOR<
+      InvitationLinkUpdateManyMutationInput,
+      InvitationLinkUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which InvitationLinks to update
+     */
+    where?: InvitationLinkWhereInput;
+  };
+
+  /**
+   * InvitationLink upsert
+   */
+  export type InvitationLinkUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the InvitationLink to update in case it exists.
+     */
+    where: InvitationLinkWhereUniqueInput;
+    /**
+     * In case the InvitationLink found by the `where` argument doesn't exist, create a new InvitationLink with this data.
+     */
+    create: XOR<InvitationLinkCreateInput, InvitationLinkUncheckedCreateInput>;
+    /**
+     * In case the InvitationLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InvitationLinkUpdateInput, InvitationLinkUncheckedUpdateInput>;
+  };
+
+  /**
+   * InvitationLink delete
+   */
+  export type InvitationLinkDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
+    /**
+     * Filter which InvitationLink to delete.
+     */
+    where: InvitationLinkWhereUniqueInput;
+  };
+
+  /**
+   * InvitationLink deleteMany
+   */
+  export type InvitationLinkDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which InvitationLinks to delete
+     */
+    where?: InvitationLinkWhereInput;
+  };
+
+  /**
+   * InvitationLink without action
+   */
+  export type InvitationLinkDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the InvitationLink
+     */
+    select?: InvitationLinkSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationLinkInclude<ExtArgs> | null;
   };
 
   /**
@@ -24640,10 +25903,21 @@ export namespace Prisma {
   export const UserBusinessScalarFieldEnum: {
     userId: "userId";
     businessId: "businessId";
+    type: "type";
   };
 
   export type UserBusinessScalarFieldEnum =
     (typeof UserBusinessScalarFieldEnum)[keyof typeof UserBusinessScalarFieldEnum];
+
+  export const InvitationLinkScalarFieldEnum: {
+    id: "id";
+    code: "code";
+    businessId: "businessId";
+    createdAt: "createdAt";
+  };
+
+  export type InvitationLinkScalarFieldEnum =
+    (typeof InvitationLinkScalarFieldEnum)[keyof typeof InvitationLinkScalarFieldEnum];
 
   export const OrderScalarFieldEnum: {
     id: "id";
@@ -24951,6 +26225,18 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'UserBusinessType'
+   */
+  export type EnumUserBusinessTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "UserBusinessType">;
+
+  /**
+   * Reference to a field of type 'UserBusinessType[]'
+   */
+  export type ListEnumUserBusinessTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "UserBusinessType[]">;
+
+  /**
    * Reference to a field of type 'OrderStatus'
    */
   export type EnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -25000,6 +26286,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
     userAddress?: UserAddressListRelationFilter;
     paymentMethod?: PaymentMethodListRelationFilter;
+    invitationLinks?: InvitationLinkListRelationFilter;
   };
 
   export type BusinessOrderByWithRelationInput = {
@@ -25025,6 +26312,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodOrderByRelationAggregateInput;
     userAddress?: UserAddressOrderByRelationAggregateInput;
     paymentMethod?: PaymentMethodOrderByRelationAggregateInput;
+    invitationLinks?: InvitationLinkOrderByRelationAggregateInput;
   };
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<
@@ -25060,6 +26348,7 @@ export namespace Prisma {
       businessNeighborhood?: BusinessNeighborhoodListRelationFilter;
       userAddress?: UserAddressListRelationFilter;
       paymentMethod?: PaymentMethodListRelationFilter;
+      invitationLinks?: InvitationLinkListRelationFilter;
     },
     "id" | "slug" | "defaultPaymentMethodId"
   >;
@@ -25557,6 +26846,7 @@ export namespace Prisma {
     NOT?: UserBusinessWhereInput | UserBusinessWhereInput[];
     userId?: StringFilter<"UserBusiness"> | string;
     businessId?: StringFilter<"UserBusiness"> | string;
+    type?: EnumUserBusinessTypeFilter<"UserBusiness"> | $Enums.UserBusinessType;
     user?: XOR<UserRelationFilter, UserWhereInput>;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
   };
@@ -25564,6 +26854,7 @@ export namespace Prisma {
   export type UserBusinessOrderByWithRelationInput = {
     userId?: SortOrder;
     businessId?: SortOrder;
+    type?: SortOrder;
     user?: UserOrderByWithRelationInput;
     business?: BusinessOrderByWithRelationInput;
   };
@@ -25576,6 +26867,9 @@ export namespace Prisma {
       NOT?: UserBusinessWhereInput | UserBusinessWhereInput[];
       userId?: StringFilter<"UserBusiness"> | string;
       businessId?: StringFilter<"UserBusiness"> | string;
+      type?:
+        | EnumUserBusinessTypeFilter<"UserBusiness">
+        | $Enums.UserBusinessType;
       user?: XOR<UserRelationFilter, UserWhereInput>;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
     },
@@ -25585,6 +26879,7 @@ export namespace Prisma {
   export type UserBusinessOrderByWithAggregationInput = {
     userId?: SortOrder;
     businessId?: SortOrder;
+    type?: SortOrder;
     _count?: UserBusinessCountOrderByAggregateInput;
     _max?: UserBusinessMaxOrderByAggregateInput;
     _min?: UserBusinessMinOrderByAggregateInput;
@@ -25600,6 +26895,66 @@ export namespace Prisma {
       | UserBusinessScalarWhereWithAggregatesInput[];
     userId?: StringWithAggregatesFilter<"UserBusiness"> | string;
     businessId?: StringWithAggregatesFilter<"UserBusiness"> | string;
+    type?:
+      | EnumUserBusinessTypeWithAggregatesFilter<"UserBusiness">
+      | $Enums.UserBusinessType;
+  };
+
+  export type InvitationLinkWhereInput = {
+    AND?: InvitationLinkWhereInput | InvitationLinkWhereInput[];
+    OR?: InvitationLinkWhereInput[];
+    NOT?: InvitationLinkWhereInput | InvitationLinkWhereInput[];
+    id?: StringFilter<"InvitationLink"> | string;
+    code?: StringFilter<"InvitationLink"> | string;
+    businessId?: StringFilter<"InvitationLink"> | string;
+    createdAt?: DateTimeFilter<"InvitationLink"> | Date | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+  };
+
+  export type InvitationLinkOrderByWithRelationInput = {
+    id?: SortOrder;
+    code?: SortOrder;
+    businessId?: SortOrder;
+    createdAt?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+  };
+
+  export type InvitationLinkWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: InvitationLinkWhereInput | InvitationLinkWhereInput[];
+      OR?: InvitationLinkWhereInput[];
+      NOT?: InvitationLinkWhereInput | InvitationLinkWhereInput[];
+      code?: StringFilter<"InvitationLink"> | string;
+      businessId?: StringFilter<"InvitationLink"> | string;
+      createdAt?: DateTimeFilter<"InvitationLink"> | Date | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    },
+    "id"
+  >;
+
+  export type InvitationLinkOrderByWithAggregationInput = {
+    id?: SortOrder;
+    code?: SortOrder;
+    businessId?: SortOrder;
+    createdAt?: SortOrder;
+    _count?: InvitationLinkCountOrderByAggregateInput;
+    _max?: InvitationLinkMaxOrderByAggregateInput;
+    _min?: InvitationLinkMinOrderByAggregateInput;
+  };
+
+  export type InvitationLinkScalarWhereWithAggregatesInput = {
+    AND?:
+      | InvitationLinkScalarWhereWithAggregatesInput
+      | InvitationLinkScalarWhereWithAggregatesInput[];
+    OR?: InvitationLinkScalarWhereWithAggregatesInput[];
+    NOT?:
+      | InvitationLinkScalarWhereWithAggregatesInput
+      | InvitationLinkScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"InvitationLink"> | string;
+    code?: StringWithAggregatesFilter<"InvitationLink"> | string;
+    businessId?: StringWithAggregatesFilter<"InvitationLink"> | string;
+    createdAt?: DateTimeWithAggregatesFilter<"InvitationLink"> | Date | string;
   };
 
   export type OrderWhereInput = {
@@ -26463,6 +27818,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateInput = {
@@ -26487,6 +27843,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUpdateInput = {
@@ -26511,6 +27868,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateInput = {
@@ -26538,6 +27896,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateManyInput = {
@@ -27031,6 +28390,7 @@ export namespace Prisma {
   };
 
   export type UserBusinessCreateInput = {
+    type?: $Enums.UserBusinessType;
     user: UserCreateNestedOneWithoutBusinessInput;
     business: BusinessCreateNestedOneWithoutUsersInput;
   };
@@ -27038,9 +28398,13 @@ export namespace Prisma {
   export type UserBusinessUncheckedCreateInput = {
     userId: string;
     businessId: string;
+    type?: $Enums.UserBusinessType;
   };
 
   export type UserBusinessUpdateInput = {
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
     user?: UserUpdateOneRequiredWithoutBusinessNestedInput;
     business?: BusinessUpdateOneRequiredWithoutUsersNestedInput;
   };
@@ -27048,18 +28412,77 @@ export namespace Prisma {
   export type UserBusinessUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
   };
 
   export type UserBusinessCreateManyInput = {
     userId: string;
     businessId: string;
+    type?: $Enums.UserBusinessType;
   };
 
-  export type UserBusinessUpdateManyMutationInput = {};
+  export type UserBusinessUpdateManyMutationInput = {
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
+  };
 
   export type UserBusinessUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
+  };
+
+  export type InvitationLinkCreateInput = {
+    id?: string;
+    code: string;
+    createdAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutInvitationLinksInput;
+  };
+
+  export type InvitationLinkUncheckedCreateInput = {
+    id?: string;
+    code: string;
+    businessId: string;
+    createdAt?: Date | string;
+  };
+
+  export type InvitationLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutInvitationLinksNestedInput;
+  };
+
+  export type InvitationLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InvitationLinkCreateManyInput = {
+    id?: string;
+    code: string;
+    businessId: string;
+    createdAt?: Date | string;
+  };
+
+  export type InvitationLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InvitationLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type OrderCreateInput = {
@@ -27884,6 +29307,12 @@ export namespace Prisma {
     none?: PaymentMethodWhereInput;
   };
 
+  export type InvitationLinkListRelationFilter = {
+    every?: InvitationLinkWhereInput;
+    some?: InvitationLinkWhereInput;
+    none?: InvitationLinkWhereInput;
+  };
+
   export type SortOrderInput = {
     sort: SortOrder;
     nulls?: NullsOrder;
@@ -27914,6 +29343,10 @@ export namespace Prisma {
   };
 
   export type PaymentMethodOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type InvitationLinkOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -28523,6 +29956,21 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>;
   };
 
+  export type EnumUserBusinessTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.UserBusinessType
+      | EnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumUserBusinessTypeFilter<$PrismaModel>
+      | $Enums.UserBusinessType;
+  };
+
   export type UserRelationFilter = {
     is?: UserWhereInput;
     isNot?: UserWhereInput;
@@ -28536,16 +29984,58 @@ export namespace Prisma {
   export type UserBusinessCountOrderByAggregateInput = {
     userId?: SortOrder;
     businessId?: SortOrder;
+    type?: SortOrder;
   };
 
   export type UserBusinessMaxOrderByAggregateInput = {
     userId?: SortOrder;
     businessId?: SortOrder;
+    type?: SortOrder;
   };
 
   export type UserBusinessMinOrderByAggregateInput = {
     userId?: SortOrder;
     businessId?: SortOrder;
+    type?: SortOrder;
+  };
+
+  export type EnumUserBusinessTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.UserBusinessType
+      | EnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumUserBusinessTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.UserBusinessType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
+    _max?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
+  };
+
+  export type InvitationLinkCountOrderByAggregateInput = {
+    id?: SortOrder;
+    code?: SortOrder;
+    businessId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type InvitationLinkMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    code?: SortOrder;
+    businessId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type InvitationLinkMinOrderByAggregateInput = {
+    id?: SortOrder;
+    code?: SortOrder;
+    businessId?: SortOrder;
+    createdAt?: SortOrder;
   };
 
   export type EnumOrderStatusFilter<$PrismaModel = never> = {
@@ -29119,6 +30609,21 @@ export namespace Prisma {
     connect?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
   };
 
+  export type InvitationLinkCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          InvitationLinkCreateWithoutBusinessInput,
+          InvitationLinkUncheckedCreateWithoutBusinessInput
+        >
+      | InvitationLinkCreateWithoutBusinessInput[]
+      | InvitationLinkUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | InvitationLinkCreateOrConnectWithoutBusinessInput
+      | InvitationLinkCreateOrConnectWithoutBusinessInput[];
+    createMany?: InvitationLinkCreateManyBusinessInputEnvelope;
+    connect?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+  };
+
   export type TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -29234,6 +30739,21 @@ export namespace Prisma {
       | PaymentMethodCreateOrConnectWithoutBusinessInput[];
     createMany?: PaymentMethodCreateManyBusinessInputEnvelope;
     connect?: PaymentMethodWhereUniqueInput | PaymentMethodWhereUniqueInput[];
+  };
+
+  export type InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          InvitationLinkCreateWithoutBusinessInput,
+          InvitationLinkUncheckedCreateWithoutBusinessInput
+        >
+      | InvitationLinkCreateWithoutBusinessInput[]
+      | InvitationLinkUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | InvitationLinkCreateOrConnectWithoutBusinessInput
+      | InvitationLinkCreateOrConnectWithoutBusinessInput[];
+    createMany?: InvitationLinkCreateManyBusinessInputEnvelope;
+    connect?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
   };
 
   export type StringFieldUpdateOperationsInput = {
@@ -29505,6 +31025,38 @@ export namespace Prisma {
       | PaymentMethodScalarWhereInput[];
   };
 
+  export type InvitationLinkUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          InvitationLinkCreateWithoutBusinessInput,
+          InvitationLinkUncheckedCreateWithoutBusinessInput
+        >
+      | InvitationLinkCreateWithoutBusinessInput[]
+      | InvitationLinkUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | InvitationLinkCreateOrConnectWithoutBusinessInput
+      | InvitationLinkCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | InvitationLinkUpsertWithWhereUniqueWithoutBusinessInput
+      | InvitationLinkUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: InvitationLinkCreateManyBusinessInputEnvelope;
+    set?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+    disconnect?:
+      | InvitationLinkWhereUniqueInput
+      | InvitationLinkWhereUniqueInput[];
+    delete?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+    connect?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+    update?:
+      | InvitationLinkUpdateWithWhereUniqueWithoutBusinessInput
+      | InvitationLinkUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | InvitationLinkUpdateManyWithWhereWithoutBusinessInput
+      | InvitationLinkUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | InvitationLinkScalarWhereInput
+      | InvitationLinkScalarWhereInput[];
+  };
+
   export type TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -29733,6 +31285,38 @@ export namespace Prisma {
     deleteMany?:
       | PaymentMethodScalarWhereInput
       | PaymentMethodScalarWhereInput[];
+  };
+
+  export type InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          InvitationLinkCreateWithoutBusinessInput,
+          InvitationLinkUncheckedCreateWithoutBusinessInput
+        >
+      | InvitationLinkCreateWithoutBusinessInput[]
+      | InvitationLinkUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | InvitationLinkCreateOrConnectWithoutBusinessInput
+      | InvitationLinkCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | InvitationLinkUpsertWithWhereUniqueWithoutBusinessInput
+      | InvitationLinkUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: InvitationLinkCreateManyBusinessInputEnvelope;
+    set?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+    disconnect?:
+      | InvitationLinkWhereUniqueInput
+      | InvitationLinkWhereUniqueInput[];
+    delete?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+    connect?: InvitationLinkWhereUniqueInput | InvitationLinkWhereUniqueInput[];
+    update?:
+      | InvitationLinkUpdateWithWhereUniqueWithoutBusinessInput
+      | InvitationLinkUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | InvitationLinkUpdateManyWithWhereWithoutBusinessInput
+      | InvitationLinkUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | InvitationLinkScalarWhereInput
+      | InvitationLinkScalarWhereInput[];
   };
 
   export type BusinessCreateNestedOneWithoutTelegramInput = {
@@ -30668,6 +32252,10 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput;
   };
 
+  export type EnumUserBusinessTypeFieldUpdateOperationsInput = {
+    set?: $Enums.UserBusinessType;
+  };
+
   export type UserUpdateOneRequiredWithoutBusinessNestedInput = {
     create?: XOR<
       UserCreateWithoutBusinessInput,
@@ -30699,6 +32287,32 @@ export namespace Prisma {
         BusinessUpdateWithoutUsersInput
       >,
       BusinessUncheckedUpdateWithoutUsersInput
+    >;
+  };
+
+  export type BusinessCreateNestedOneWithoutInvitationLinksInput = {
+    create?: XOR<
+      BusinessCreateWithoutInvitationLinksInput,
+      BusinessUncheckedCreateWithoutInvitationLinksInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutInvitationLinksInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutInvitationLinksNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutInvitationLinksInput,
+      BusinessUncheckedCreateWithoutInvitationLinksInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutInvitationLinksInput;
+    upsert?: BusinessUpsertWithoutInvitationLinksInput;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutInvitationLinksInput,
+        BusinessUpdateWithoutInvitationLinksInput
+      >,
+      BusinessUncheckedUpdateWithoutInvitationLinksInput
     >;
   };
 
@@ -31886,6 +33500,41 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>;
   };
 
+  export type NestedEnumUserBusinessTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.UserBusinessType
+      | EnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumUserBusinessTypeFilter<$PrismaModel>
+      | $Enums.UserBusinessType;
+  };
+
+  export type NestedEnumUserBusinessTypeWithAggregatesFilter<
+    $PrismaModel = never,
+  > = {
+    equals?:
+      | $Enums.UserBusinessType
+      | EnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.UserBusinessType[]
+      | ListEnumUserBusinessTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumUserBusinessTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.UserBusinessType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
+    _max?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
+  };
+
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>;
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>;
@@ -32082,11 +33731,13 @@ export namespace Prisma {
   };
 
   export type UserBusinessCreateWithoutBusinessInput = {
+    type?: $Enums.UserBusinessType;
     user: UserCreateNestedOneWithoutBusinessInput;
   };
 
   export type UserBusinessUncheckedCreateWithoutBusinessInput = {
     userId: string;
+    type?: $Enums.UserBusinessType;
   };
 
   export type UserBusinessCreateOrConnectWithoutBusinessInput = {
@@ -32188,6 +33839,33 @@ export namespace Prisma {
     data:
       | PaymentMethodCreateManyBusinessInput
       | PaymentMethodCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type InvitationLinkCreateWithoutBusinessInput = {
+    id?: string;
+    code: string;
+    createdAt?: Date | string;
+  };
+
+  export type InvitationLinkUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    code: string;
+    createdAt?: Date | string;
+  };
+
+  export type InvitationLinkCreateOrConnectWithoutBusinessInput = {
+    where: InvitationLinkWhereUniqueInput;
+    create: XOR<
+      InvitationLinkCreateWithoutBusinessInput,
+      InvitationLinkUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type InvitationLinkCreateManyBusinessInputEnvelope = {
+    data:
+      | InvitationLinkCreateManyBusinessInput
+      | InvitationLinkCreateManyBusinessInput[];
     skipDuplicates?: boolean;
   };
 
@@ -32432,6 +34110,7 @@ export namespace Prisma {
     NOT?: UserBusinessScalarWhereInput | UserBusinessScalarWhereInput[];
     userId?: StringFilter<"UserBusiness"> | string;
     businessId?: StringFilter<"UserBusiness"> | string;
+    type?: EnumUserBusinessTypeFilter<"UserBusiness"> | $Enums.UserBusinessType;
   };
 
   export type BusinessNeighborhoodUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -32556,6 +34235,44 @@ export namespace Prisma {
     businessId?: StringFilter<"PaymentMethod"> | string;
   };
 
+  export type InvitationLinkUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: InvitationLinkWhereUniqueInput;
+    update: XOR<
+      InvitationLinkUpdateWithoutBusinessInput,
+      InvitationLinkUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      InvitationLinkCreateWithoutBusinessInput,
+      InvitationLinkUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type InvitationLinkUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: InvitationLinkWhereUniqueInput;
+    data: XOR<
+      InvitationLinkUpdateWithoutBusinessInput,
+      InvitationLinkUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type InvitationLinkUpdateManyWithWhereWithoutBusinessInput = {
+    where: InvitationLinkScalarWhereInput;
+    data: XOR<
+      InvitationLinkUpdateManyMutationInput,
+      InvitationLinkUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type InvitationLinkScalarWhereInput = {
+    AND?: InvitationLinkScalarWhereInput | InvitationLinkScalarWhereInput[];
+    OR?: InvitationLinkScalarWhereInput[];
+    NOT?: InvitationLinkScalarWhereInput | InvitationLinkScalarWhereInput[];
+    id?: StringFilter<"InvitationLink"> | string;
+    code?: StringFilter<"InvitationLink"> | string;
+    businessId?: StringFilter<"InvitationLink"> | string;
+    createdAt?: DateTimeFilter<"InvitationLink"> | Date | string;
+  };
+
   export type BusinessCreateWithoutTelegramInput = {
     id?: string;
     name: string;
@@ -32577,6 +34294,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutTelegramInput = {
@@ -32600,6 +34318,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutTelegramInput = {
@@ -32651,6 +34370,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutTelegramInput = {
@@ -32677,6 +34397,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateWithoutPaymentMethodInput = {
@@ -32700,6 +34421,7 @@ export namespace Prisma {
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutPaymentMethodInput = {
@@ -32723,6 +34445,7 @@ export namespace Prisma {
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutPaymentMethodInput = {
@@ -32754,6 +34477,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutDefaultPaymentMethodInput = {
@@ -32777,6 +34501,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutDefaultPaymentMethodInput = {
@@ -32828,6 +34553,7 @@ export namespace Prisma {
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutPaymentMethodInput = {
@@ -32854,6 +34580,7 @@ export namespace Prisma {
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUpsertWithoutDefaultPaymentMethodInput = {
@@ -32897,6 +34624,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput = {
@@ -32920,6 +34648,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductCreateWithoutCategoryInput = {
@@ -32994,6 +34723,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCategoriesInput = {
@@ -33017,6 +34747,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCategoriesInput = {
@@ -33096,6 +34827,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCategoriesInput = {
@@ -33122,6 +34854,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateWithoutProductsInput = {
@@ -33145,6 +34878,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -33168,6 +34902,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -33274,6 +35009,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -33300,6 +35036,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -33526,11 +35263,13 @@ export namespace Prisma {
   };
 
   export type UserBusinessCreateWithoutUserInput = {
+    type?: $Enums.UserBusinessType;
     business: BusinessCreateNestedOneWithoutUsersInput;
   };
 
   export type UserBusinessUncheckedCreateWithoutUserInput = {
     businessId: string;
+    type?: $Enums.UserBusinessType;
   };
 
   export type UserBusinessCreateOrConnectWithoutUserInput = {
@@ -33846,6 +35585,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUsersInput = {
@@ -33869,6 +35609,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUsersInput = {
@@ -33982,6 +35723,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUsersInput = {
@@ -34005,6 +35747,134 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessCreateWithoutInvitationLinksInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutInvitationLinksInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutInvitationLinksInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutInvitationLinksInput,
+      BusinessUncheckedCreateWithoutInvitationLinksInput
+    >;
+  };
+
+  export type BusinessUpsertWithoutInvitationLinksInput = {
+    update: XOR<
+      BusinessUpdateWithoutInvitationLinksInput,
+      BusinessUncheckedUpdateWithoutInvitationLinksInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutInvitationLinksInput,
+      BusinessUncheckedCreateWithoutInvitationLinksInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutInvitationLinksInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutInvitationLinksInput,
+      BusinessUncheckedUpdateWithoutInvitationLinksInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutInvitationLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutInvitationLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -34100,6 +35970,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutOrdersInput = {
@@ -34123,6 +35994,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutOrdersInput = {
@@ -34282,6 +36154,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutOrdersInput = {
@@ -34308,6 +36181,7 @@ export namespace Prisma {
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type OrderAddressUpsertWithoutOrderInput = {
@@ -35236,6 +37110,7 @@ export namespace Prisma {
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUserAddressInput = {
@@ -35259,6 +37134,7 @@ export namespace Prisma {
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUserAddressInput = {
@@ -35416,6 +37292,7 @@ export namespace Prisma {
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUserAddressInput = {
@@ -35442,6 +37319,7 @@ export namespace Prisma {
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type AddressCreateWithoutOrderAddressInput = {
@@ -35629,6 +37507,7 @@ export namespace Prisma {
     users?: UserBusinessCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutBusinessNeighborhoodInput = {
@@ -35652,6 +37531,7 @@ export namespace Prisma {
     users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutBusinessNeighborhoodInput = {
@@ -35725,6 +37605,7 @@ export namespace Prisma {
     users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput = {
@@ -35751,6 +37632,7 @@ export namespace Prisma {
     users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type NeighborhoodUpsertWithoutBusinessNeighborhoodInput = {
@@ -35829,6 +37711,7 @@ export namespace Prisma {
 
   export type UserBusinessCreateManyBusinessInput = {
     userId: string;
+    type?: $Enums.UserBusinessType;
   };
 
   export type BusinessNeighborhoodCreateManyBusinessInput = {
@@ -35849,6 +37732,12 @@ export namespace Prisma {
     name: string;
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
+  };
+
+  export type InvitationLinkCreateManyBusinessInput = {
+    id?: string;
+    code: string;
+    createdAt?: Date | string;
   };
 
   export type CategoryUpdateWithoutBusinessInput = {
@@ -35977,15 +37866,24 @@ export namespace Prisma {
   };
 
   export type UserBusinessUpdateWithoutBusinessInput = {
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
     user?: UserUpdateOneRequiredWithoutBusinessNestedInput;
   };
 
   export type UserBusinessUncheckedUpdateWithoutBusinessInput = {
     userId?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
   };
 
   export type UserBusinessUncheckedUpdateManyWithoutBusinessInput = {
     userId?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
   };
 
   export type BusinessNeighborhoodUpdateWithoutBusinessInput = {
@@ -36054,6 +37952,24 @@ export namespace Prisma {
       | EnumPaymentMethodTypeFieldUpdateOperationsInput
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
+  };
+
+  export type InvitationLinkUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InvitationLinkUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type InvitationLinkUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    code?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type ProductCreateManyCategoryInput = {
@@ -36205,6 +38121,7 @@ export namespace Prisma {
 
   export type UserBusinessCreateManyUserInput = {
     businessId: string;
+    type?: $Enums.UserBusinessType;
   };
 
   export type UserAddressCreateManyUserInput = {
@@ -36353,15 +38270,24 @@ export namespace Prisma {
   };
 
   export type UserBusinessUpdateWithoutUserInput = {
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
     business?: BusinessUpdateOneRequiredWithoutUsersNestedInput;
   };
 
   export type UserBusinessUncheckedUpdateWithoutUserInput = {
     businessId?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
   };
 
   export type UserBusinessUncheckedUpdateManyWithoutUserInput = {
     businessId?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumUserBusinessTypeFieldUpdateOperationsInput
+      | $Enums.UserBusinessType;
   };
 
   export type UserAddressUpdateWithoutUserInput = {
@@ -36564,6 +38490,12 @@ export namespace Prisma {
   export type UserBusinessArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = UserBusinessDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use InvitationLinkDefaultArgs instead
+   */
+  export type InvitationLinkArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = InvitationLinkDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use OrderDefaultArgs instead
    */

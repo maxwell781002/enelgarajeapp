@@ -5,6 +5,7 @@ export * from "./category";
 export * from "./product";
 export * from "./user";
 export * from "./userbusiness";
+export * from "./invitationlink";
 export * from "./order";
 export * from "./orderproduct";
 export * from "./account";

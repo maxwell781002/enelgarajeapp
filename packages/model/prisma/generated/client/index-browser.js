@@ -192,7 +192,15 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.UserBusinessScalarFieldEnum = {
   userId: 'userId',
-  businessId: 'businessId'
+  businessId: 'businessId',
+  type: 'type'
+};
+
+exports.Prisma.InvitationLinkScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  businessId: 'businessId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {
@@ -335,6 +343,11 @@ exports.UserRoles = exports.$Enums.UserRoles = {
   ADMIN: 'ADMIN'
 };
 
+exports.UserBusinessType = exports.$Enums.UserBusinessType = {
+  OWNER: 'OWNER',
+  COLLABORATOR: 'COLLABORATOR'
+};
+
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   CREATED: 'CREATED',
   SEND: 'SEND',
@@ -350,6 +363,7 @@ exports.Prisma.ModelName = {
   Product: 'Product',
   User: 'User',
   UserBusiness: 'UserBusiness',
+  InvitationLink: 'InvitationLink',
   Order: 'Order',
   OrderProduct: 'OrderProduct',
   Account: 'Account',

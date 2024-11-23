@@ -3,6 +3,7 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
 import { PaginateData } from "../types/pagination";
+import { UserBusinessType } from "../prisma/generated/client";
 
 // TODO: I am working with userBusiness using only one user.
 
@@ -37,6 +38,7 @@ export class BusinessRepository extends BaseRepository<
         data: {
           userId,
           businessId: business.id,
+          type: UserBusinessType.OWNER,
         },
       });
     }
@@ -48,12 +50,13 @@ export class BusinessRepository extends BaseRepository<
     delete data.userId;
     if (userId) {
       await prisma().userBusiness.deleteMany({
-        where: { businessId: id },
+        where: { businessId: id, type: UserBusinessType.OWNER },
       });
       await prisma().userBusiness.create({
         data: {
           userId,
           businessId: id,
+          type: UserBusinessType.OWNER,
         },
       });
     }
@@ -62,7 +65,7 @@ export class BusinessRepository extends BaseRepository<
 
   getOwner(businessId: string) {
     return prisma().userBusiness.findFirst({
-      where: { businessId },
+      where: { businessId, type: UserBusinessType.OWNER },
       include: { user: true },
     });
   }
@@ -86,19 +89,54 @@ export class BusinessRepository extends BaseRepository<
     return this.model.findFirst({ where: { slug, active: true } });
   }
 
-  async getBusinessIdByUser(userId: string) {
+  getAllBusinessData(id: string) {
+    return this.model.findUnique({
+      where: { id },
+      include: { telegram: true, defaultPaymentMethod: true },
+    });
+  }
+
+  //UserBusiness
+  async getBusinessIdByUserId(
+    userId: string,
+    type: UserBusinessType | null = null,
+  ) {
+    if (!userId) {
+      return [];
+    }
+    let where: any = {
+      userId,
+      business: { active: true },
+    };
+    if (type) {
+      where = {
+        ...where,
+        type,
+      };
+    }
     return (
       await prisma().userBusiness.findMany({
-        where: { userId },
+        where,
         select: { businessId: true },
       })
     ).map(({ businessId }) => businessId);
   }
 
-  getAllBusinessData(id: string) {
-    return this.model.findUnique({
-      where: { id },
-      include: { telegram: true, defaultPaymentMethod: true },
+  async getBusinessIdByUserOwner(userId: string) {
+    return this.getBusinessIdByUserId(userId, UserBusinessType.OWNER);
+  }
+
+  async getBusinessIdByUserCollaborator(userId: string) {
+    return this.getBusinessIdByUserId(userId, UserBusinessType.COLLABORATOR);
+  }
+
+  createCollaborator(userId: string, businessId: string) {
+    return prisma().userBusiness.create({
+      data: {
+        userId,
+        businessId,
+        type: UserBusinessType.COLLABORATOR,
+      },
     });
   }
 }
