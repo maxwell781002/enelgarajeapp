@@ -7,7 +7,7 @@ import {
 } from "../../factories";
 import { businessRepository } from "../../../repositories/business";
 
-describe("getBusinessIdByUser", () => {
+describe("getBusinessIdByUserOwner", () => {
   let business1;
   let business2;
   let user1;
@@ -26,13 +26,13 @@ describe("getBusinessIdByUser", () => {
   });
 
   it("business by user1", async () => {
-    const data = await businessRepository.getBusinessIdByUser(user1.id);
+    const data = await businessRepository.getBusinessIdByUserOwner(user1.id);
     expect(data.length).toEqual(1);
     expect(data[0]).toEqual(business1.id);
   });
 
   it("business by user2", async () => {
-    const data = await businessRepository.getBusinessIdByUser(user2.id);
+    const data = await businessRepository.getBusinessIdByUserOwner(user2.id);
     expect(data.length).toEqual(0);
   });
 });

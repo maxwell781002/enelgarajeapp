@@ -8,7 +8,7 @@ import {
 import { businessRepository } from "../../../repositories/business";
 import { UserBusinessType } from "../../../prisma/generated/client";
 
-describe("getBusinessIdCollaboratorByUser", () => {
+describe("getBusinessIdByUserCollaborator", () => {
   let business1;
   let business2;
   let user1;
@@ -31,7 +31,7 @@ describe("getBusinessIdCollaboratorByUser", () => {
   });
 
   it("business by user1", async () => {
-    const data = await businessRepository.getBusinessIdCollaboratorByUser(
+    const data = await businessRepository.getBusinessIdByUserCollaborator(
       user1.id,
     );
     expect(data.length).toEqual(1);
@@ -39,7 +39,7 @@ describe("getBusinessIdCollaboratorByUser", () => {
   });
 
   it("business by user2", async () => {
-    const data = await businessRepository.getBusinessIdCollaboratorByUser(
+    const data = await businessRepository.getBusinessIdByUserCollaborator(
       user2.id,
     );
     expect(data.length).toEqual(0);

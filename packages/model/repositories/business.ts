@@ -95,34 +95,37 @@ export class BusinessRepository extends BaseRepository<
   }
 
   //UserBusiness
-  private async getBusinessIdByUserIdAndType(
+  async getBusinessIdByUserId(
     userId: string,
-    type: UserBusinessType,
+    type: UserBusinessType | null = null,
   ) {
     if (!userId) {
       return [];
     }
+    let where: any = {
+      userId,
+      business: { active: true },
+    };
+    if (type) {
+      where = {
+        ...where,
+        type,
+      };
+    }
     return (
       await prisma().userBusiness.findMany({
-        where: {
-          userId,
-          business: { active: true },
-          type,
-        },
+        where,
         select: { businessId: true },
       })
     ).map(({ businessId }) => businessId);
   }
 
-  async getBusinessIdByUser(userId: string) {
-    return this.getBusinessIdByUserIdAndType(userId, UserBusinessType.OWNER);
+  async getBusinessIdByUserOwner(userId: string) {
+    return this.getBusinessIdByUserId(userId, UserBusinessType.OWNER);
   }
 
-  async getBusinessIdCollaboratorByUser(userId: string) {
-    return this.getBusinessIdByUserIdAndType(
-      userId,
-      UserBusinessType.COLLABORATOR,
-    );
+  async getBusinessIdByUserCollaborator(userId: string) {
+    return this.getBusinessIdByUserId(userId, UserBusinessType.COLLABORATOR);
   }
 }
 

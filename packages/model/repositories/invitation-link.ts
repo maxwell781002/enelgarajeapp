@@ -19,6 +19,23 @@ export class InvitationLinkRepository extends BaseRepository<
       },
     });
   }
+
+  async findByCode(code: string) {
+    const invitationLink = await this.model.findFirst({
+      where: {
+        code,
+      },
+    });
+    if (!invitationLink) {
+      return null;
+    }
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dateDiff = new Date().getTime() - invitationLink.createdAt.getTime();
+    if (dateDiff > oneDay) {
+      return null;
+    }
+    return invitationLink;
+  }
 }
 
 export const invitationLinkRepository = new InvitationLinkRepository();
