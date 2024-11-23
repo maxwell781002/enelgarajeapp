@@ -12,6 +12,7 @@ import {
   userFactory,
 } from "../../factories";
 import { businessRepository } from "../../../repositories/business";
+import { UserCollaborationRegisterSchema } from "../../../validation/user";
 
 const userModule = vi.hoisted(() => ({
   updateUser: vi.fn(),
@@ -75,7 +76,11 @@ describe("findInvitationLink", () => {
   it("Link user to business", async () => {
     await businessUserLink(user, invitationLinkOut.code);
     const { id, ...userData } = user;
-    expect(userModule.updateUser).toBeCalledWith(id, userData);
+    expect(userModule.updateUser).toBeCalledWith(
+      id,
+      userData,
+      UserCollaborationRegisterSchema,
+    );
     const businessIds =
       await businessRepository.getBusinessIdByUserCollaborator(id);
     expect(businessIds.includes(invitationLinkOut.businessId)).toBeTruthy();

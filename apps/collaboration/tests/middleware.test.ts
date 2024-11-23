@@ -15,7 +15,7 @@ describe("Middleware", () => {
   });
   it("Not session", async () => {
     const url = await getRedirect(new NextRequest("http://localhost"), null);
-    expect(url).toBe("/login");
+    expect(url).toBe("/login?redirectAfterLogin=/");
   });
 
   it("got to errors", async () => {

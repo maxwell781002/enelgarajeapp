@@ -18,7 +18,6 @@ export const removeAddressFromUser = async (
   userId: string,
   addressId: string,
 ) => {
-  console.log(userId, addressId);
   const userAddress = await userAddressRepository.findByAddressIdAndUserId(
     addressId,
     userId,

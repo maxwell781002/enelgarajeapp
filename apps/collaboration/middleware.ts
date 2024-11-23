@@ -20,7 +20,6 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   const user = session.user;
   const firstPart = pathname.split("/")[1];
   const businessIds = user.businessCollaboratorIds || [];
-  console.log(businessIds, firstPart, pathname.split("/")[2]);
   if (
     firstPart === "onboarding" &&
     businessIds.includes(pathname.split("/")[2])
