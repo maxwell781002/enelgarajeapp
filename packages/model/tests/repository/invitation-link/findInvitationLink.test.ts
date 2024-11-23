@@ -1,5 +1,6 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
+  businessUserLink,
   ErrorType,
   findInvitationLink,
 } from "../../../repository/invitation-link";
@@ -10,6 +11,14 @@ import {
   userBusinessFactory,
   userFactory,
 } from "../../factories";
+import { businessRepository } from "../../../repositories/business";
+
+const userModule = vi.hoisted(() => ({
+  updateUser: vi.fn(),
+}));
+vi.mock("../../../repository/user", () => ({
+  updateUser: userModule.updateUser,
+}));
 
 describe("findInvitationLink", () => {
   let user;
@@ -61,5 +70,14 @@ describe("findInvitationLink", () => {
   it("New user", async () => {
     const result = await findInvitationLink(user.id, invitationLinkOut.code);
     expect(result.id).toBe(invitationLinkOut.id);
+  });
+
+  it("Link user to business", async () => {
+    await businessUserLink(user, invitationLinkOut.code);
+    const { id, ...userData } = user;
+    expect(userModule.updateUser).toBeCalledWith(id, userData);
+    const businessIds =
+      await businessRepository.getBusinessIdByUserCollaborator(id);
+    expect(businessIds.includes(invitationLinkOut.businessId)).toBeTruthy();
   });
 });

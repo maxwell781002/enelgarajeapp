@@ -7,6 +7,14 @@ export enum AddressType {
   selectAddress = "selectAddress",
 }
 
+export const UserCollaborationRegisterSchema = UserModel.omit({
+  phone: true,
+}).extend({
+  phone: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
+
 export const UserRegisterSchema = UserModel.omit({
   id: true,
   phone: true,

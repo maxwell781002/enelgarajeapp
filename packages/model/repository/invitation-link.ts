@@ -1,5 +1,9 @@
 import { businessRepository } from "../repositories/business";
 import { invitationLinkRepository } from "../repositories/invitation-link";
+import { UserCollaborationRegisterSchema } from "../validation/user";
+import { z } from "zod";
+import { updateUser } from "./user";
+import { transaction } from "../prisma/prisma-client";
 
 export enum ErrorType {
   INVITATION_LINK_NOT_FOUND = "INVITATION_LINK_NOT_FOUND",
@@ -16,4 +20,20 @@ export const findInvitationLink = async (userId: string, code: string) => {
     return ErrorType.USER_ALREADY_EXISTS;
   }
   return invitationLink;
+};
+
+export const businessUserLink = async (
+  user: z.infer<typeof UserCollaborationRegisterSchema>,
+  code: string,
+) => {
+  const { id, ...userData } = user;
+  const invitationLink = await findInvitationLink(id, code);
+  if (Object.values(ErrorType).includes(invitationLink)) {
+    return;
+  }
+  return transaction(async (tx: any) => {
+    await updateUser(id, userData);
+    await invitationLinkRepository.remove(invitationLink.id);
+    return businessRepository.createCollaborator(id, invitationLink.businessId);
+  });
 };

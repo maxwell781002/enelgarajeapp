@@ -38,6 +38,7 @@ export class BusinessRepository extends BaseRepository<
         data: {
           userId,
           businessId: business.id,
+          type: UserBusinessType.OWNER,
         },
       });
     }
@@ -49,12 +50,13 @@ export class BusinessRepository extends BaseRepository<
     delete data.userId;
     if (userId) {
       await prisma().userBusiness.deleteMany({
-        where: { businessId: id },
+        where: { businessId: id, type: UserBusinessType.OWNER },
       });
       await prisma().userBusiness.create({
         data: {
           userId,
           businessId: id,
+          type: UserBusinessType.OWNER,
         },
       });
     }
@@ -63,7 +65,7 @@ export class BusinessRepository extends BaseRepository<
 
   getOwner(businessId: string) {
     return prisma().userBusiness.findFirst({
-      where: { businessId },
+      where: { businessId, type: UserBusinessType.OWNER },
       include: { user: true },
     });
   }
@@ -126,6 +128,16 @@ export class BusinessRepository extends BaseRepository<
 
   async getBusinessIdByUserCollaborator(userId: string) {
     return this.getBusinessIdByUserId(userId, UserBusinessType.COLLABORATOR);
+  }
+
+  createCollaborator(userId: string, businessId: string) {
+    return prisma().userBusiness.create({
+      data: {
+        userId,
+        businessId,
+        type: UserBusinessType.COLLABORATOR,
+      },
+    });
   }
 }
 
