@@ -1,0 +1,17 @@
+{
+  "InvitationLink": {
+    "title": "Tienda asignada",
+    "description": "Ya está vinculado a la tienda. Debe autenticarse otra vez para poder comenzar a utilizarla.",
+    "loginAgain": "Entrar de nuevo"
+  },
+  "InvitationLinkForm": {
+    "title": "Registrarse como colaborador",
+    "description": "Ingresa tu nombre y teléfono para ser adicionado como colaborador",
+    "lbName": "Nombre",
+    "lbPhone": "Teléfono",
+    "phName": "Nombre",
+    "phPhone": "Teléfono",
+    "submit": "Enviar",
+    "required": "Requerido"
+  }
+}

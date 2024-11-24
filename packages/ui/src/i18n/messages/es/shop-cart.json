@@ -1,0 +1,29 @@
+{
+  "ShopCart": {
+    "title": "Tu compra",
+    "continue_shopping": "Continuar comprando",
+    "total_cart": "Total:",
+    "checkout": "Solicitar pedido",
+    "emptyCart": "Tu carrito se encuentra vacío",
+    "emptyCartDescription": "Para seguir comprando, haz clic en el botón de continuar comprando.",
+    "continueShopping": "Continuar comprando",
+    "remove_dialog": {
+      "title": "Confirmar",
+      "description": "¿Estás seguro de querer borrar este producto?",
+      "cancel": "No",
+      "continue": "Si"
+    },
+    "errors": {
+      "has_out_of_stock": "Tiene productos que no tienen stock disponible.",
+      "item_out_of_stock": "Este producto no tiene stock disponible."
+    }
+  },
+  "CheckoutSuccessful": {
+    "title": "Solictud enviada",
+    "description": "Gracias por su compra, en breve nos pondremos en contacto con usted.",
+    "continue_shopping": "Continuar comprando",
+    "show_orders": "Ver órdenes",
+    "btnWhatsappSubmit": "Contactar con el vendor vía WhatsApp",
+    "orderMessage": "Hola, hice la compra {reference}"
+  }
+}

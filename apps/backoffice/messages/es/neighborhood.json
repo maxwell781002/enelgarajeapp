@@ -1,0 +1,24 @@
+{
+  "Neighborhood": {
+    "lblName": "Nombre",
+    "phName": "Escriba su nombre",
+    "neighborhoodUpdated": "Reparto actualizado",
+    "neighborhoodCreated": "Reparto creado",
+    "NeighborhoodList": "Repartos",
+    "btnSubmit": "Salvar",
+    "edit": "Actualizar reparto",
+    "remove": "¿Está seguro que va a eliminar el reparto?",
+    "removeDescription": "El reparto será eliminado completamente.",
+    "removeContinue": "Continuar",
+    "removeCancel": "Cancelar",
+    "create": "Crear reparto",
+    "lbActive": "Activo",
+    "lbPriority": "Prioridad",
+    "phSearch": "Buscar...",
+    "required": "Requerido",
+    "lbProvince": "Provincia",
+    "phProvince": "Provincia",
+    "lbCity": "Ciudad",
+    "phCity": "Ciudad"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "Checkout": {
+    "title": "Solicitar pedido",
+    "lblName": "Nombre",
+    "lbPhone": "Teléfono",
+    "lbWantDomicile": "¿Desea que se le envíe a su domicilio?",
+    "phName": "Escriba su nombre",
+    "phPhone": "Escriba su teléfono",
+    "continue": "Enviar pedido",
+    "products": "Productos",
+    "image": "Imagen",
+    "name": "Nombre",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "authentication_required": "Necesita autenticarse",
+    "authentication_required_description": "Para completar la comprar necesitamos que se autentique asi el pedido podra ser completado",
+    "login": "Autenticarse",
+    "total_cart": "Total a pagar",
+    "shipping_price_cart": "Precio de envío",
+    "subtotal": "Subtotal",
+    "shipping_suggestion": "Sugerencia",
+    "shipping_suggestion_text": "Si selecciona un reparto, se le sugerirá un precio de envío",
+    "errors": {
+      "has_out_of_stock": "Uno o más de los productos no tienen stock disponible."
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "Category": {
+    "lblName": "Nombre",
+    "phName": "Escriba su nombre",
+    "categoryUpdated": "Categoría actualizada",
+    "categoryCreated": "Categoría creada",
+    "CategoryList": "Categorías",
+    "btnSubmit": "Salvar",
+    "editCategory": "Actualizar categoría",
+    "removeCategory": "¿Está seguro que va a eliminar la categoría?",
+    "removeCategoryDescription": "La categoría será eliminada completamente.",
+    "removeCategoryContinue": "Continuar",
+    "removeCategoryCancel": "Cancelar",
+    "createCategory": "Crear categoría",
+    "lbActive": "Activo",
+    "lbPriority": "Prioridad",
+    "phSearch": "Buscar...",
+    "upgrade_plan_title": "Creación de categoría",
+    "required": "Requerido"
+  }
+}

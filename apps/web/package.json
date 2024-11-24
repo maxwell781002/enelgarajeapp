@@ -1,0 +1,39 @@
+{
+  "name": "web",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma-migration-deploy": "prisma migrate deploy --schema=../../packages/model/prisma/schema.prisma",
+    "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
+    "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && next build"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@repo/model": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@sentry/nextjs": "^8",
+    "lucide-react": "^0.428.0",
+    "next": "^14.2.11",
+    "next-intl": "^3.17.2",
+    "react": "19.0.0-rc-f994737d14-20240522",
+    "react-dom": "19.0.0-rc-f994737d14-20240522",
+    "react-hook-form": "^7.52.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "^14.2.11",
+    "prisma": "5.19.1",
+    "typescript": "^5",
+    "zod-prisma": "^0.5.4"
+  }
+}

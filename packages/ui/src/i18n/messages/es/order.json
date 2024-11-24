@@ -1,0 +1,16 @@
+{
+  "OrderDetail": {
+    "title": "Resumen del pedido",
+    "order": "Orden",
+    "back": "Ir al listado de órdenes"
+  },
+  "Orders": {
+    "identifier": "Order",
+    "total": "Total",
+    "status": "Estado",
+    "sentAt": "Fecha",
+    "emptyOrders": "Ordenes vacías",
+    "emptyOrdersDescription": "Para seguir comprando, haz clic en el botón de continuar comprando.",
+    "continueShopping": "Comenzar a comprar"
+  }
+}

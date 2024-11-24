@@ -1,0 +1,41 @@
+{
+  "Product": {
+    "ProductList": "Productos",
+    "photos": "Fotos",
+    "createProduct": "Crear producto",
+    "lbName": "Nombre",
+    "phName": "Nombre del producto",
+    "lbActive": "Activo",
+    "lbYes": "Si",
+    "lbNo": "No",
+    "lbCategoryId": "Categoría",
+    "phCategoryId": "Selecciona la Categoría",
+    "lbImage": "Imagen",
+    "phImage": "Selecciona Imagen",
+    "lbPrice": "Precio",
+    "phPrice": "Precio del producto",
+    "lbOfferPrice": "Precio de oferta",
+    "phOfferPrice": "Precio de oferta del producto",
+    "lbDescription": "Descripción",
+    "phDescription": "Descripción del producto",
+    "productUpdated": "Producto actualizado",
+    "productCreated": "Producto creado",
+    "price_should_be_less_than_offer_price": "El precio debe ser menor que el precio de oferta.",
+    "btnSubmit": "Salvar",
+    "lbIsNew": "¿Es nuevo?",
+    "lbPriority": "Prioridad",
+    "phPriority": "Prioridad",
+    "phSearch": "Buscar por nombre",
+    "lbStock": "Stock",
+    "phStock": "Stock",
+    "lbIsExhaustible": "¿Puede agotarse?",
+    "lbAllowOrderOutOfStock": "¿Vender sin stock?",
+    "upgrade_plan_title": "Crear producto",
+    "remove_dialog": {
+      "title": "¿Deseas borrar este producto?",
+      "description": "Solo puede borrar un producto si no se ha hecho ninguna compra con él.",
+      "cancel": "Cancelar",
+      "continue": "Borrar"
+    }
+  }
+}

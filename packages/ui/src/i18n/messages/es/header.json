@@ -1,0 +1,12 @@
+{
+  "Header": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "login": "Autenticarse",
+    "logout": "Salir",
+    "order": "Mis ordenes",
+    "address-user": "Mis direcciones",
+    "AllCategory": "Todas"
+  }
+}

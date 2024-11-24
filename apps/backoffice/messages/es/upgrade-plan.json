@@ -1,0 +1,19 @@
+{
+  "UpgradePlan": {
+    "your_plan": "Su plan activo es",
+    "BASIC": "Básico",
+    "ENTERPRISE": "Empresarial",
+    "description": "Mejora la funcionalidad de tu negocio, cambiando de plan.",
+    "unlimited": "ilimitado",
+    "upgrade_required": "Necesita actualizar el plan",
+    "upgrade_description": "Has alcanzado los límites de tu plan actual. Actualízalo ahora para desbloquear todas las funciones.",
+    "btnSubmit": "Contactar por WhatsApp",
+    "textChat": "Hola, quiero aumentar el plan de mi tienda en el garaje.",
+    "feature": {
+      "CAN_CREATE_CATEGORY": "Crear categorías",
+      "NUMBER_OF_PRODUCTS": "Número de productos",
+      "NUMBER_OF_CARD_NUMBERS": "Número de medios de pagos",
+      "NUMBER_BUSINESS_USER": "Número de usuarios"
+    }
+  }
+}

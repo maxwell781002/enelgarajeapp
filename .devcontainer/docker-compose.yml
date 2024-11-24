@@ -1,0 +1,25 @@
+version: '3'
+services:
+  # app:
+  #   build: .
+  #   command: sleep infinity
+  #   volumes:
+  #     - ..:/app
+  #   links:
+  #     - postgres
+  #   env_file:
+  #     - ../.env
+
+  postgres:
+    image: postgres:15-alpine3.18
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - catalog_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  catalog_postgres_data: {}
+  catalog_postgres_data_backups: {}

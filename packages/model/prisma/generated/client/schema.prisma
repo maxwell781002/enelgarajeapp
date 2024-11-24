@@ -1,0 +1,306 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "./generated/client"
+  previewFeatures = ["driverAdapters"]
+}
+
+generator zod {
+  provider = "zod-prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Business {
+  id                     String                 @id @default(uuid())
+  name                   String /// @zod.min(1, { message: "required" })
+  description            String? /// @zod.min(1, { message: "required" })
+  address                String? /// @zod.min(1, { message: "required" })
+  phone                  String? /// @zod.min(1, { message: "required" })
+  howToArrive            String?
+  coordinates            Float[]
+  slug                   String?                @unique /// @zod.min(1, { message: "required" })
+  active                 Boolean                @default(true) /// @zod.optional()
+  requestAddress         Boolean                @default(false) /// @zod.optional()
+  plan                   BusinessPlan           @default(BASIC)
+  sendOrderToWhatsapp    Boolean                @default(false)
+  defaultPaymentMethod   PaymentMethod?         @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
+  defaultPaymentMethodId String?                @unique()
+  telegram               TelegramBusiness?
+  categories             Category[]
+  products               Product[]
+  orders                 Order[]
+  users                  UserBusiness[]
+  businessNeighborhood   BusinessNeighborhood[]
+  userAddress            UserAddress[]
+  paymentMethod          PaymentMethod[]        @relation("paymentMehtods")
+  invitationLinks        InvitationLink[]
+}
+
+model TelegramBusiness {
+  id             String   @id @default(uuid())
+  groupId        String /// @zod.min(1, { message: "Required" })
+  invitationLink String   @default("") /// @zod.optional()
+  business       Business @relation(fields: [businessId], references: [id])
+  businessId     String   @unique
+}
+
+model PaymentMethod {
+  id              String            @id @default(uuid())
+  name            String /// @zod.min(1, { message: "required" })
+  type            PaymentMethodType
+  data            Json
+  business        Business          @relation("paymentMehtods", fields: [businessId], references: [id])
+  businessId      String
+  defaultBusiness Business?         @relation("defaultPaymentMehtod")
+}
+
+enum PaymentMethodType {
+  TRANSFERMOVIL
+  ENZONA
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String /// @zod.min(1, { message: "required" })
+  slug     String?   @unique
+  products Product[]
+  active   Boolean   @default(true) /// @zod.optional()
+  priority Int       @default(0) /// @zod.optional()
+
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String
+}
+
+model Product {
+  id                   String  @id @default(uuid())
+  name                 String /// @zod.min(1, { message: "Required" })
+  slug                 String? @unique
+  image                Json
+  description          String /// @zod.min(1, { message: "Required" })
+  price                Int /// @zod.gte(0)
+  offerPrice           Int? /// @zod.gte(0)
+  images               Json[]
+  active               Boolean @default(true) /// @zod.optional()
+  isNew                Boolean @default(false) /// @zod.optional()
+  priority             Int     @default(0) /// @zod.optional()
+  stock                Int     @default(0) /// @zod.min(0)
+  allowOrderOutOfStock Boolean @default(false)
+  isExhaustible        Boolean @default(false)
+
+  business   Business       @relation(fields: [businessId], references: [id])
+  businessId String
+  category   Category?      @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  orderItems OrderProduct[]
+}
+
+model User {
+  id            String          @id @default(uuid())
+  role          UserRoles       @default(USER)
+  name          String?
+  phone         String?
+  orders        Order[]
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  business UserBusiness[]
+  address  UserAddress[]
+}
+
+model UserBusiness {
+  user       User             @relation(fields: [userId], references: [id])
+  userId     String
+  business   Business         @relation(fields: [businessId], references: [id])
+  businessId String
+  type       UserBusinessType @default(OWNER)
+
+  @@id([userId, businessId])
+}
+
+enum UserBusinessType {
+  OWNER
+  COLLABORATOR
+}
+
+model InvitationLink {
+  id         String   @id @default(uuid())
+  code       String
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String
+  createdAt  DateTime @default(now())
+}
+
+model Order {
+  id              String         @id @default(uuid())
+  user            User?          @relation(fields: [userId], references: [id])
+  userId          String?
+  items           OrderProduct[]
+  productsDetails Json
+  shipping        Int            @default(0)
+  hasShipping     Boolean        @default(false)
+  total           Int            @default(0)
+  status          OrderStatus    @default(CREATED)
+  sentAt          DateTime?
+  position        Int?
+  business        Business?      @relation(fields: [businessId], references: [id])
+  businessId      String?
+  identifier      String?
+
+  orderAddress OrderAddress?
+}
+
+model OrderProduct {
+  product   Product @relation(fields: [productId], references: [id])
+  productId String // relation scalar field (used in the `@relation` attribute above)
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String // relation scalar field (used in the `@relation` attribute above)
+  price     Int
+  position  Int     @default(1)
+
+  quantity Int
+
+  @@id([productId, orderId])
+}
+
+enum UserRoles {
+  USER
+  ADMIN
+}
+
+enum BusinessPlan {
+  BASIC
+  ENTERPRISE
+}
+
+enum OrderStatus {
+  CREATED
+  SEND
+  PAYED
+  REJECTED
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Address {
+  id        String  @id @default(uuid())
+  alias     String /// @zod.min(1, { message: "Required" })
+  name      String /// @zod.min(1, { message: "Required" })
+  address   String /// @zod.min(1, { message: "Required" })
+  city      String /// @zod.min(1, { message: "Required" })
+  state     String /// @zod.min(1, { message: "Required" })
+  reference String? /// @zod.optional()
+
+  neighborhood   Neighborhood? @relation(fields: [neighborhoodId], references: [id])
+  neighborhoodId String?
+  userAddress    UserAddress?
+  orderAddress   OrderAddress?
+}
+
+model Neighborhood {
+  id   String @id @default(uuid())
+  name String /// @zod.min(1, { message: "Required" })
+  city String /// @zod.min(1, { message: "Required" })
+
+  addresses            Address[]
+  businessNeighborhood BusinessNeighborhood[]
+}
+
+model UserAddress {
+  id         String    @id @default(uuid())
+  address    Address   @relation(fields: [addressId], references: [id])
+  addressId  String    @unique
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  business   Business? @relation(fields: [businessId], references: [id])
+  businessId String?
+}
+
+model OrderAddress {
+  id        String  @id @default(uuid())
+  address   Address @relation(fields: [addressId], references: [id])
+  addressId String  @unique
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String  @unique
+}
+
+model BusinessNeighborhood {
+  id       String  @id @default(uuid())
+  shipping Int     @default(0)
+  active   Boolean @default(true)
+
+  business       Business     @relation(fields: [businessId], references: [id])
+  businessId     String
+  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id])
+  neighborhoodId String
+}
