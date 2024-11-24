@@ -14,18 +14,22 @@ import PriceDisplay from "@repo/ui/components/price";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
-export default async function ShoppingCartPage() {
+export type ShoppingCartProps = {
+  baseUrl?: string;
+};
+
+export default async function ShoppingCartPage({baseUrl}: ShoppingCartProps) {
   const order = await getCurrentOrder();
   const remove = async (productId: string) => {
     "use server";
     await removeFromOrder(productId);
-    revalidatePath(`/shopping-cart`);
+    revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
   const increment = async (productId: string) => {
     "use server";
     await incrementItem(productId);
-    revalidatePath(`/shopping-cart`);
+    revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
   const decrement = async (productId: string) => {
@@ -59,7 +63,7 @@ export default async function ShoppingCartPage() {
               onRemove={remove.bind(null, item.productId)}
               add={increment.bind(null, item.productId)}
               sub={decrement.bind(null, item.productId)}
-              url="/"
+              url={baseUrl || "/"}
             />
           </div>
         ))}
@@ -72,10 +76,10 @@ export default async function ShoppingCartPage() {
           </span>
         </div>
         <div className="flex flex-col gap-2">
-          <Link href="/" className="w-full" prefetch={false}>
+          <Link href={baseUrl || "/"} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
-          <Link href="/checkout" className="w-full" prefetch={false}>
+          <Link href={`${baseUrl}/checkout`} className="w-full" prefetch={false}>
             <Button className="w-full" disabled={order.hasProductOutOfStock}>
               {t("checkout")}
             </Button>
