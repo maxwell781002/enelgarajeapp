@@ -8,6 +8,9 @@ import { redirect } from "next/navigation";
 import TableLayout from "@repo/ui/components/table-layout";
 import ProductTable from "./table";
 import { PaginationResult } from "@repo/model/types/pagination";
+import { addToOrder, getCurrentOrder } from "@repo/model/repository/order";
+import { revalidatePath } from "next/cache";
+import { addProductFields } from "@repo/model/repository/product";
 
 type PageProps = {
   searchParams: any;
@@ -27,20 +30,32 @@ export default async function Page({
       paginateMethod: "collaborationPaginate",
     },
   );
-  const pagination = await list({ businessId });
+  let { data, ...pagination } = await list({ businessId });
   const categories = await categoryRepository.getAll(businessId);
   const handleSearch = async (query: any) => {
     "use server";
     const url = await search(query);
     return redirect(url);
   };
+  const add = async (productId: string) => {
+    "use server";
+    await addToOrder(productId);
+    revalidatePath(`/${businessId}/products`);
+  };
+  const order = await getCurrentOrder();
+  data = await Promise.all(
+    data.map(async (item: any) => addProductFields(item, order)),
+  );
   return (
     <TableLayout
       title={t("ProductList")}
       filter={<Filter onChange={handleSearch} categories={categories} />}
     >
       <TableContextProvider update={update} remove={remove}>
-        <ProductTable pagination={pagination as PaginationResult<any>} />
+        <ProductTable
+          pagination={{ data, ...pagination } as PaginationResult<any>}
+          add={add}
+        />
       </TableContextProvider>
     </TableLayout>
   );
