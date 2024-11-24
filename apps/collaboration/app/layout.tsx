@@ -1,7 +1,6 @@
 import "@repo/ui/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
