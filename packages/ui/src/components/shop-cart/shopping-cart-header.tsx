@@ -5,14 +5,16 @@ import { CompleteOrder } from "@repo/model/zod/order";
 export default function ShoppingCartHeader({
   order,
   className,
+  url = "/shopping-cart",
 }: {
   order: CompleteOrder | undefined | null;
   className?: string;
+  url?: string;
 }) {
   return (
     <div className={className}>
       <Link
-        href="/shopping-cart"
+        href={url}
         className="flex items-center gap-2"
         prefetch={false}
       >

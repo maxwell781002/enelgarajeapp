@@ -27,6 +27,7 @@ export default async function RootLayout({
           <ShoppingCartHeader
             order={order}
             className="flex flex-1 justify-end"
+            url={`/${businessId}/shopping-cart`}
           />
         }
       >
