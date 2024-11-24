@@ -263,9 +263,9 @@ export const getOrderById = async (id: string) => {
   return orderRepository.getOrderById(id);
 };
 
-export const getOrderCurrentUser = async () => {
+export const getOrderCurrentUser = async (business: CompleteBusiness) => {
   const userId = (await getCurrentUser())?.id;
-  const businessId = (await getCurrentBusiness())?.id;
+  const businessId = business?.id;
   if (!userId || !businessId) {
     return null;
   }

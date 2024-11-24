@@ -6,7 +6,7 @@ import { getOrderById } from "@repo/model/repository/order";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
-import OrderDetail from "@repo/ui/components/order-detail";
+import OrderDetail from "@repo/ui/components/order-page/order-detail";
 import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";

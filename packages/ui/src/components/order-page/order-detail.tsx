@@ -1,7 +1,7 @@
-import { formatDate } from "../lib/date";
-import AddressCard from "./address/card";
-import PriceDisplay from "./price";
-import { Separator } from "./ui/separator";
+import { formatDate } from "@repo/ui/lib/date";
+import AddressCard from "@repo/ui/components/address/card";
+import PriceDisplay from "@repo/ui/components/price";
+import { Separator } from "@repo/ui/components/ui/separator";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
