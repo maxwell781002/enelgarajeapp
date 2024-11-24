@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Backoffice de el EnElGaraje",
-  description: "Backoffice de el EnElGaraje",
+  title: "Plataforma de afiliados de el EnElGaraje",
+  description: "Plataforma de afiliados de el EnElGaraje",
 };
 
 export default async function RootLayout({
