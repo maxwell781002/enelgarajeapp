@@ -3,6 +3,7 @@ import {
   getCurrentBusiness,
 } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
+import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
 import OrderDetail from "@repo/ui/components/order-detail";
@@ -12,19 +13,20 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 export type CheckoutSuccessfulPageProps = {
+  business: CompleteBusiness;
   searchParams: {
     orderId: string;
   };
 };
 
 export default async function CheckoutSuccessfulPage({
+  business,
   searchParams: { orderId },
 }: CheckoutSuccessfulPageProps) {
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
-  const currentBusiness = await getCurrentBusiness();
-  const business = await getAllBusinessData(currentBusiness?.id || "");
+  business = await getAllBusinessData(business.id as string);
   const whatsappMessage = encodeURIComponent(
     t("orderMessage", { reference: order?.identifier }),
   );
