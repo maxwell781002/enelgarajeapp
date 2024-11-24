@@ -170,9 +170,15 @@ importers:
       eslint-config-next:
         specifier: ^14.2.11
         version: 14.2.11(eslint@8.57.0)(typescript@5.5.4)
+      prisma:
+        specifier: 5.19.1
+        version: 5.19.1
       typescript:
         specifier: ^5
         version: 5.5.4
+      zod-prisma:
+        specifier: ^0.5.4
+        version: 0.5.4(decimal.js@10.4.3)(prisma@5.19.1)(zod@3.23.8)
 
   apps/web:
     dependencies:
