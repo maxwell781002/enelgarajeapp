@@ -7,9 +7,11 @@ import Pagination from "@repo/ui/components/table/pagination";
 export default function ProductTable({
   pagination: { data, ...pagination },
   add,
+  baseUrl,
 }: {
   pagination: PaginationResult<any>;
   add: (productId: string) => void;
+  baseUrl: string;
 }) {
   return (
     <div>
@@ -24,7 +26,7 @@ export default function ProductTable({
                 _inCart: item._inCart,
               } as IProduct
             }
-            baseUrl={""}
+            baseUrl={baseUrl}
           />
         ))}
       </div>
