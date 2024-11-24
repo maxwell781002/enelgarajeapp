@@ -5,7 +5,7 @@ import { CardItem } from "@repo/ui/components/cardList/card";
 import { startTransition, useEffect, useMemo } from "react";
 import { IProduct } from "@repo/model/types/product";
 import { useSearchParams } from "next/navigation";
-import { getSearchParams } from "@repo/ui/lib/url";
+import { getSearchParams } from "@repo/model/lib/url";
 import HasMorePaginator, {
   useHasMorePaginator,
 } from "@repo/ui/components/has-more-paginator";

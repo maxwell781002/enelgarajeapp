@@ -1,6 +1,6 @@
 import { paginateFrontend } from "@repo/model/repository/product";
 import { NextRequest, NextResponse } from "next/server";
-import { getSearchParams } from "@repo/ui/lib/url";
+import { getSearchParams } from "@repo/model/lib/url";
 
 export async function GET(req: NextRequest) {
   const params: any = getSearchParams(req.nextUrl.searchParams);

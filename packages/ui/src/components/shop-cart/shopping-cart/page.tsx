@@ -18,7 +18,7 @@ export type ShoppingCartProps = {
   baseUrl?: string;
 };
 
-export default async function ShoppingCartPage({baseUrl}: ShoppingCartProps) {
+export default async function ShoppingCartPage({ baseUrl }: ShoppingCartProps) {
   const order = await getCurrentOrder();
   const remove = async (productId: string) => {
     "use server";
@@ -79,7 +79,11 @@ export default async function ShoppingCartPage({baseUrl}: ShoppingCartProps) {
           <Link href={baseUrl || "/"} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
-          <Link href={`${baseUrl}/checkout`} className="w-full" prefetch={false}>
+          <Link
+            href={`${baseUrl}/checkout`}
+            className="w-full"
+            prefetch={false}
+          >
             <Button className="w-full" disabled={order.hasProductOutOfStock}>
               {t("checkout")}
             </Button>

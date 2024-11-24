@@ -208,14 +208,16 @@ const getShippingPrice = async (
   return order;
 };
 
-export const checkoutOrder = async (user: TUserRegisterSchema) => {
+export const checkoutOrder = async (
+  user: TUserRegisterSchema,
+  business: CompleteBusiness,
+) => {
   const newOrder = await transaction(async () => {
     let order = await getOrCrateOrder();
     if (order.hasProductOutOfStock) {
       throw new BadRequestError("out_of_stock");
     }
     const userEntity = (await getCurrentUser()) as CompleteUser;
-    const business = (await getCurrentBusiness()) as CompleteBusiness;
     const {
       addressType,
       newAddress,

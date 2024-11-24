@@ -13,11 +13,7 @@ export default function ShoppingCartHeader({
 }) {
   return (
     <div className={className}>
-      <Link
-        href={url}
-        className="flex items-center gap-2"
-        prefetch={false}
-      >
+      <Link href={url} className="flex items-center gap-2" prefetch={false}>
         <ShoppingCartIcon className="w-6 h-6" />
         <span className="bg-accent text-accent-foreground rounded-full px-2 py-0.5 text-xs font-medium">
           {order?.numberOfItems || 0}

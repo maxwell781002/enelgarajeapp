@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getNeighborhoodsByCityAndBusiness } from "@repo/model/api/neighborhood";
+import { getNeighborhoodsByCityAndBusiness } from "@repo/model/api/neighborhood/callback";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 import { AddressModel, CompleteAddress } from "@repo/model/zod/address";
 import AddressForm from "@repo/ui/components/address/form";

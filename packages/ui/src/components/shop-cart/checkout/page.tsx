@@ -5,21 +5,28 @@ import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import NoUser from "@repo/ui/components/shop-cart/checkout/no-user";
 import { userRepository } from "@repo/model/repositories/user";
-import { getCurrentBusiness } from "@repo/model/repository/business";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
 import CheckoutView from "@repo/ui/components/shop-cart/checkout/checkout-view";
 import { CompleteAddress } from "@repo/model/zod/address";
+import { CompleteBusiness } from "@repo/model/zod/business";
 
-export default async function CheckoutPage() {
+export type CheckoutPageProps = {
+  business: CompleteBusiness;
+  baseUrl?: string;
+};
+
+export default async function CheckoutPage({
+  business,
+  baseUrl,
+}: CheckoutPageProps) {
   const order = await getCurrentOrder();
-  const business = await getCurrentBusiness();
   if (!order || order.items.length === 0) {
-    return <EmptyCart url="/" />;
+    return <EmptyCart url={baseUrl || "/"} />;
   }
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    await checkoutOrder(data);
-    await redirect(`/checkout-successful?orderId=${order.id}`);
+    await checkoutOrder(data, business);
+    await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
   const session = await auth();
   if (!session) {
@@ -29,7 +36,7 @@ export default async function CheckoutPage() {
   const addresses = business.requestAddress
     ? await userAddressRepository.findByUserIdAndBusinessId(
         session.user.id,
-        business.id,
+        business.id as string,
       )
     : [];
   return (

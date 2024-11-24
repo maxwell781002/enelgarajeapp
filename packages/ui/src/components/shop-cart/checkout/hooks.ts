@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getNeighborhoodsByCityAndBusiness } from "@repo/model/api/neighborhood";
+import { getNeighborhoodsByCityAndBusiness } from "@repo/model/api/neighborhood/callback";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 import { ShopCartOrder } from "@repo/model/types/shop-cart";
 import {

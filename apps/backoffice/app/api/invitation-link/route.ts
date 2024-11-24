@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSearchParams } from "@repo/ui/lib/url";
+import { getSearchParams } from "@repo/model/lib/url";
 import { invitationLinkRepository } from "@repo/model/repositories/invitation-link";
 
 export async function POST(req: NextRequest) {
