@@ -11,20 +11,15 @@ import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-type Props = {
+export type CheckoutSuccessfulPageProps = {
   searchParams: {
     orderId: string;
   };
-  params: {
-    locale: string;
-  };
 };
 
-export default async function Page({
+export default async function CheckoutSuccessfulPage({
   searchParams: { orderId },
-  params: { locale },
-}: Props) {
-  const baseUrl = `/${locale}`;
+}: CheckoutSuccessfulPageProps) {
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
@@ -77,14 +72,14 @@ export default async function Page({
           <>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link
-                href={`${baseUrl}/order`}
+                href="/order"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
                 {t("show_orders")}
               </Link>
               <Link
-                href={baseUrl}
+                href="/"
                 className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
