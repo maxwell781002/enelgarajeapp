@@ -1,4 +1,4 @@
-import { PaginateData } from "../types/pagination";
+import { PaginateData, PaginationResult } from "../types/pagination";
 import { revalidatePath } from "next/cache";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
@@ -6,11 +6,20 @@ import { formDataToObject } from "./utils";
 
 const PAGE_SIZE = 10;
 
+export type Options = {
+  paginateMethod?: string;
+};
+
 export function crud<T extends Entity, U>(
   path: string,
   repositoryName: string,
   searchParams: any = {},
+  options: Options = {},
 ) {
+  options = {
+    paginateMethod: "paginate",
+    ...options,
+  };
   const getRepository = async () => {
     "use server";
     const repository = (await repositories[repositoryName]) as BaseRepository<
@@ -39,7 +48,10 @@ export function crud<T extends Entity, U>(
     const pageIndex = query.pageIndex ? Number(query.pageIndex) : 1;
     const pageSize = query.pageSize ? Number(query.pageSize) : PAGE_SIZE;
     const repository = await getRepository();
-    const { totalPage, ...data } = await repository.paginate({
+    const paginateMethod = repository[
+      options.paginateMethod as keyof BaseRepository<T, U>
+    ] as (data: PaginateData) => Promise<PaginationResult<T>>;
+    const { totalPage, ...data } = await paginateMethod.bind(repository)({
       ...query,
       pageIndex,
       pageSize,

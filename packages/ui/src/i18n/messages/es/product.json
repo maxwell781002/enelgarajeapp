@@ -3,5 +3,10 @@
     "inCart": "En el carrito",
     "photos": "Imágenes",
     "moreProducts": "Ver más"
+  },
+  "ProductCollaboration": {
+    "ProductList": "Productos",
+    "phSearch": "Buscar...",
+    "phCategoryId": "Selecciona la Categoría"
   }
 }
