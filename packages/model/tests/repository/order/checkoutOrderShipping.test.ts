@@ -107,7 +107,7 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order without address", async () => {
-    const newOrder = await checkoutOrder(userData as any);
+    const newOrder = await checkoutOrder(userData as any, business);
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(0);
     expect(newOrder.total).toBe(100);
@@ -115,19 +115,22 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order without neighborhood", async () => {
-    const newOrder = await checkoutOrder({
-      ...userData,
-      addressType: AddressType.selectAddress,
-      [AddressType.selectAddress]: {
-        id: "1",
-        alias: "Home",
-        name: "Peter Parker",
-        address: "123 Main St",
-        city: "city",
-        state: "state",
-        reference: "12345",
-      },
-    } as any);
+    const newOrder = await checkoutOrder(
+      {
+        ...userData,
+        addressType: AddressType.selectAddress,
+        [AddressType.selectAddress]: {
+          id: "1",
+          alias: "Home",
+          name: "Peter Parker",
+          address: "123 Main St",
+          city: "city",
+          state: "state",
+          reference: "12345",
+        },
+      } as any,
+      business,
+    );
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(0);
     expect(newOrder.total).toBe(100);
@@ -135,20 +138,23 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order the neighborhood is not configured", async () => {
-    const newOrder = await checkoutOrder({
-      ...userData,
-      addressType: AddressType.selectAddress,
-      [AddressType.selectAddress]: {
-        id: "1",
-        alias: "Home",
-        name: "Peter Parker",
-        address: "123 Main St",
-        city: "city",
-        state: "state",
-        reference: "12345",
-        neighborhoodId: neighborhoodNotConfigured.id,
-      },
-    } as any);
+    const newOrder = await checkoutOrder(
+      {
+        ...userData,
+        addressType: AddressType.selectAddress,
+        [AddressType.selectAddress]: {
+          id: "1",
+          alias: "Home",
+          name: "Peter Parker",
+          address: "123 Main St",
+          city: "city",
+          state: "state",
+          reference: "12345",
+          neighborhoodId: neighborhoodNotConfigured.id,
+        },
+      } as any,
+      business,
+    );
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(0);
     expect(newOrder.total).toBe(100);
@@ -156,20 +162,23 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order Shipping 0", async () => {
-    const newOrder = await checkoutOrder({
-      ...userData,
-      addressType: AddressType.selectAddress,
-      [AddressType.selectAddress]: {
-        id: "1",
-        alias: "Home",
-        name: "Peter Parker",
-        address: "123 Main St",
-        city: "city",
-        state: "state",
-        reference: "12345",
-        neighborhoodId: neighborhoodShipping0.id,
-      },
-    } as any);
+    const newOrder = await checkoutOrder(
+      {
+        ...userData,
+        addressType: AddressType.selectAddress,
+        [AddressType.selectAddress]: {
+          id: "1",
+          alias: "Home",
+          name: "Peter Parker",
+          address: "123 Main St",
+          city: "city",
+          state: "state",
+          reference: "12345",
+          neighborhoodId: neighborhoodShipping0.id,
+        },
+      } as any,
+      business,
+    );
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(0);
     expect(newOrder.total).toBe(100);
@@ -177,20 +186,23 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order Shipping 100 do not want domicile", async () => {
-    const newOrder = await checkoutOrder({
-      ...userData,
-      addressType: AddressType.selectAddress,
-      [AddressType.selectAddress]: {
-        id: "1",
-        alias: "Home",
-        name: "Peter Parker",
-        address: "123 Main St",
-        city: "city",
-        state: "state",
-        reference: "12345",
-        neighborhoodId: neighborhoodShipping100.id,
-      },
-    } as any);
+    const newOrder = await checkoutOrder(
+      {
+        ...userData,
+        addressType: AddressType.selectAddress,
+        [AddressType.selectAddress]: {
+          id: "1",
+          alias: "Home",
+          name: "Peter Parker",
+          address: "123 Main St",
+          city: "city",
+          state: "state",
+          reference: "12345",
+          neighborhoodId: neighborhoodShipping100.id,
+        },
+      } as any,
+      business,
+    );
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(0);
     expect(newOrder.total).toBe(100);
@@ -198,21 +210,24 @@ describe("checkoutOrder", () => {
   });
 
   it("checkout order Shipping 100, want domicile", async () => {
-    const newOrder = await checkoutOrder({
-      ...userData,
-      addressType: AddressType.selectAddress,
-      wantDomicile: true,
-      [AddressType.selectAddress]: {
-        id: "1",
-        alias: "Home",
-        name: "Peter Parker",
-        address: "123 Main St",
-        city: "city",
-        state: "state",
-        reference: "12345",
-        neighborhoodId: neighborhoodShipping100.id,
-      },
-    } as any);
+    const newOrder = await checkoutOrder(
+      {
+        ...userData,
+        addressType: AddressType.selectAddress,
+        wantDomicile: true,
+        [AddressType.selectAddress]: {
+          id: "1",
+          alias: "Home",
+          name: "Peter Parker",
+          address: "123 Main St",
+          city: "city",
+          state: "state",
+          reference: "12345",
+          neighborhoodId: neighborhoodShipping100.id,
+        },
+      } as any,
+      business,
+    );
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(100);
     expect(newOrder.total).toBe(200);

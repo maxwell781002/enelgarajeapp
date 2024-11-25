@@ -103,7 +103,7 @@ describe("checkoutOrder", () => {
 
   it("checkout order", async () => {
     // const eventEmitter = await import("../../../lib/event-emitter");
-    const newOrder = await checkoutOrder(userData as any);
+    const newOrder = await checkoutOrder(userData as any, business);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(1);
     expect(newOrder.status).toBe("SEND");
@@ -118,7 +118,7 @@ describe("checkoutOrder", () => {
   });
 
   it("new checkout order", async () => {
-    const newOrder = await checkoutOrder(userData as any);
+    const newOrder = await checkoutOrder(userData as any, business);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(2);
     expect(newOrder.status).toBe("SEND");
@@ -134,23 +134,26 @@ describe("checkoutOrder", () => {
   });
 
   it("Send address", async () => {
-    await businessRepository.update(business.id, {
+    const businessDb = await businessRepository.update(business.id, {
       ...business,
       requestAddress: true,
     });
-    const newOrder = await checkoutOrder({
-      ...userData,
-      addressType: AddressType.selectAddress,
-      [AddressType.selectAddress]: {
-        id: "1",
-        alias: "Home",
-        name: "Peter Parker",
-        address: "123 Main St",
-        city: "city",
-        state: "state",
-        reference: "12345",
-      },
-    } as any);
+    const newOrder = await checkoutOrder(
+      {
+        ...userData,
+        addressType: AddressType.selectAddress,
+        [AddressType.selectAddress]: {
+          id: "1",
+          alias: "Home",
+          name: "Peter Parker",
+          address: "123 Main St",
+          city: "city",
+          state: "state",
+          reference: "12345",
+        },
+      } as any,
+      businessDb,
+    );
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(3);
     expect(newOrder.status).toBe("SEND");

@@ -17,7 +17,7 @@ export type CheckoutPageProps = {
 
 export default async function CheckoutPage({
   business,
-  baseUrl,
+  baseUrl = "",
 }: CheckoutPageProps) {
   const order = await getCurrentOrder();
   if (!order || order.items.length === 0) {
