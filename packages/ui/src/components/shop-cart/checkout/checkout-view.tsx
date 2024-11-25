@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
 } from "@repo/ui/components/ui/table";
-import { CheckoutForm } from "./form";
+import { CheckoutForm } from "@repo/ui/components/shop-cart/checkout/form";
 import { AddressType, TUserRegisterSchema } from "@repo/model/validation/user";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
@@ -17,9 +17,14 @@ import { CompleteAddress } from "@repo/model/zod/address";
 import { ShopCartOrder } from "@repo/model/types/shop-cart";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { useCheckoutForm, useCurrentAddress, useNeighborhoods } from "./hooks";
+import {
+  useCheckoutForm,
+  useCurrentAddress,
+  useNeighborhoods,
+} from "@repo/ui/components/shop-cart/checkout/hooks";
 import { calculateShippingPrice } from "@repo/model/lib/order";
 import { Separator } from "@repo/ui/components/ui/separator";
+import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
 type CheckoutViewProps = {
   checkout: (data: TUserRegisterSchema) => Promise<any>;
@@ -116,7 +121,7 @@ export default function CheckoutView({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {order.items.map((item) => (
+              {order.items.map((item: CompleteOrderProduct) => (
                 <TableRow key={item.productId}>
                   <TableCell>
                     <div className="h-[64px] w-[64px] flex items-center justify-center">

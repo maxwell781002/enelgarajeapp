@@ -11,7 +11,6 @@ import SignInIcon, {
   MenuIcon,
   HomeIcon,
   InfoIcon,
-  ShoppingCartIcon,
   PackageIcon,
 } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
@@ -19,6 +18,7 @@ import { getCurrentUser } from "@repo/model/repository/user";
 import { signOut } from "@repo/model/lib/auth";
 import { Logout } from "./logout";
 import { MapPinIcon } from "lucide-react";
+import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
 
 export async function Header({
   business,
@@ -116,18 +116,7 @@ export async function Header({
           </div>
         </SheetContent>
       </Sheet>
-      <div className="relative">
-        <Link
-          href={`/${locale}/shopping-cart`}
-          className="flex items-center gap-2"
-          prefetch={false}
-        >
-          <ShoppingCartIcon className="w-6 h-6" />
-          <span className="bg-accent text-accent-foreground rounded-full px-2 py-0.5 text-xs font-medium">
-            {order?.numberOfItems || 0}
-          </span>
-        </Link>
-      </div>
+      <ShoppingCartHeader order={order} className="relative" />
     </header>
   );
 }

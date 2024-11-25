@@ -6,15 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components/ui/table";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-} from "../ui/pagination";
 import { PaginationResult } from "@repo/model/types/pagination";
 import EmptyTable, { EmptyTableProps } from "./empty";
+import Pagination from "./pagination";
 
 export type ColumnDef<TData> = {
   header: string;
@@ -89,19 +83,12 @@ export default async function MyTable({
           </TableBody>
         </Table>
       </div>
-      <Pagination className="pt-4 pb-4">
-        <PaginationContent>
-          <PaginationItem>
-            {previousLink ? <PaginationPrevious href={previousLink} /> : <></>}
-          </PaginationItem>
-          <PaginationItem>
-            {pageIndex} / {totalPage}
-          </PaginationItem>
-          <PaginationItem>
-            {nextLink ? <PaginationNext href={nextLink} /> : <></>}
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <Pagination
+        pageIndex={pageIndex}
+        totalPage={totalPage}
+        previousLink={previousLink}
+        nextLink={nextLink}
+      />
     </div>
   );
 }

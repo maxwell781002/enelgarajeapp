@@ -1,7 +1,7 @@
 import { Pencil1Icon, Cross1Icon } from "@radix-ui/react-icons";
 import { productRepository } from "@repo/model/repositories/product";
 import BackPage from "@repo/ui/components/back-page";
-import ProductDetail from "@repo/ui/components/product-detail";
+import ProductDetail from "@repo/ui/components/product-page/product";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";

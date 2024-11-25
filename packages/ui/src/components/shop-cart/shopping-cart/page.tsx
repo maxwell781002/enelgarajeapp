@@ -4,44 +4,44 @@ import {
   incrementItem,
   removeFromOrder,
 } from "@repo/model/repository/order";
-import EmptyCart from "../../../components/emptyCart";
+import EmptyCart from "@repo/ui/components/shop-cart/emptyCart";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
-import CardItem from "./card";
+import CardItem from "@repo/ui/components/shop-cart/shopping-cart/card";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import PriceDisplay from "@repo/ui/components/price";
-import AlertMessage from "../../../../../packages/ui/src/components/alert-message";
+import AlertMessage from "@repo/ui/components/alert-message";
+import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
-type PageProps = {
-  params: {
-    locale: string;
-  };
+export type ShoppingCartProps = {
+  baseUrl?: string;
 };
 
-export default async function Page({ params: { locale } }: PageProps) {
+export default async function ShoppingCartPage({
+  baseUrl = "",
+}: ShoppingCartProps) {
   const order = await getCurrentOrder();
-  const baseUrl = `/${locale}`;
   const remove = async (productId: string) => {
     "use server";
     await removeFromOrder(productId);
-    revalidatePath(`/${baseUrl}/shopping-cart`);
+    revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
   const increment = async (productId: string) => {
     "use server";
     await incrementItem(productId);
-    revalidatePath(`/${baseUrl}/shopping-cart`);
+    revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
   const decrement = async (productId: string) => {
     "use server";
     await decrementItem(productId);
-    revalidatePath(`/${baseUrl}/shopping-cart`);
+    revalidatePath(`/shopping-cart`);
   };
 
   if (!order || order.items.length === 0) {
-    return <EmptyCart url={baseUrl} />;
+    return <EmptyCart url="/" />;
   }
 
   const t = await getTranslations("ShopCart");
@@ -58,14 +58,14 @@ export default async function Page({ params: { locale } }: PageProps) {
         />
       )}
       <div className="overflow-auto">
-        {order.items.map((item) => (
+        {order.items.map((item: CompleteOrderProduct) => (
           <div key={item.productId} className="mb-2">
             <CardItem
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
               add={increment.bind(null, item.productId)}
               sub={decrement.bind(null, item.productId)}
-              url={baseUrl}
+              url={baseUrl || "/"}
             />
           </div>
         ))}
@@ -78,7 +78,7 @@ export default async function Page({ params: { locale } }: PageProps) {
           </span>
         </div>
         <div className="flex flex-col gap-2">
-          <Link href={baseUrl} className="w-full" prefetch={false}>
+          <Link href={baseUrl || "/"} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
           <Link

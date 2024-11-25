@@ -3,33 +3,28 @@ import {
   getCurrentBusiness,
 } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
+import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
-import OrderDetail from "@repo/ui/components/order-detail";
+import OrderDetail from "@repo/ui/components/order-page/order-detail";
 import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-type Props = {
-  searchParams: {
-    orderId: string;
-  };
-  params: {
-    locale: string;
-  };
+export type CheckoutSuccessfulPageProps = {
+  business: CompleteBusiness;
+  orderId: string;
 };
 
-export default async function Page({
-  searchParams: { orderId },
-  params: { locale },
-}: Props) {
-  const baseUrl = `/${locale}`;
+export default async function CheckoutSuccessfulPage({
+  business,
+  orderId,
+}: CheckoutSuccessfulPageProps) {
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
-  const currentBusiness = await getCurrentBusiness();
-  const business = await getAllBusinessData(currentBusiness?.id || "");
+  business = await getAllBusinessData(business.id as string);
   const whatsappMessage = encodeURIComponent(
     t("orderMessage", { reference: order?.identifier }),
   );
@@ -77,14 +72,14 @@ export default async function Page({
           <>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link
-                href={`${baseUrl}/order`}
+                href="/order"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
                 {t("show_orders")}
               </Link>
               <Link
-                href={baseUrl}
+                href="/"
                 className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >

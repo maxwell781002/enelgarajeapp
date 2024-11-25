@@ -11,12 +11,14 @@ import UserInfo, { UserInfoProps } from "./userInfo";
 import Breadcrumb, { BreadcrumbProps } from "./breadcrumb";
 import BusinessSwitch, { BusinessSwitchProps, Item } from "./business.switch";
 import Link from "next/link";
+import React from "react";
 
 type MainProps = {
   children: React.ReactNode;
   secondaryMenu?: LinkItem[];
   adminUrl?: string;
   business?: Item[];
+  headerExtra?: React.ReactNode;
 } & Omit<MenuProps, "showTitle"> &
   UserInfoProps &
   Omit<BreadcrumbProps, "className"> &
@@ -27,6 +29,7 @@ export function LayoutMain({
   secondaryMenu,
   business,
   adminUrl,
+  headerExtra,
   ...props
 }: MainProps) {
   return (
@@ -62,6 +65,7 @@ export function LayoutMain({
           )}
           <div className="flex-1 flex justify-end sm:justify-between">
             <Breadcrumb {...props} className="hidden md:flex" />
+            {headerExtra}
             <UserInfo {...props} />
           </div>
         </header>

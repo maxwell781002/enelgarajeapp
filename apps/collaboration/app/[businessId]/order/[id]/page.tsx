@@ -4,10 +4,11 @@ import OrderItemPage, {
 
 export type PageProps = {
   params: {
+    businessId: string;
     id: string;
   };
 };
 
-export default async function Page({ params: { id } }: PageProps) {
-  return <OrderItemPage id={id} />;
+export default async function Page({ params: { businessId, id } }: PageProps) {
+  return <OrderItemPage baseUrl={`/${businessId}`} id={id} />;
 }

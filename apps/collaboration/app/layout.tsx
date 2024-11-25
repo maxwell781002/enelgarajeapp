@@ -1,7 +1,6 @@
 import "@repo/ui/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
@@ -15,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Backoffice de el EnElGaraje",
-  description: "Backoffice de el EnElGaraje",
+  title: "Plataforma de afiliados de el EnElGaraje",
+  description: "Plataforma de afiliados de el EnElGaraje",
 };
 
 export default async function RootLayout({

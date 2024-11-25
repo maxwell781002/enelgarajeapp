@@ -1,31 +1,31 @@
 import { checkoutOrder, getCurrentOrder } from "@repo/model/repository/order";
-import EmptyCart from "../../../components/emptyCart";
+import EmptyCart from "@repo/ui/components/shop-cart/emptyCart";
 import { TUserRegisterSchema } from "@repo/model/validation/user";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
-import NoUser from "./no-user";
+import NoUser from "@repo/ui/components/shop-cart/checkout/no-user";
 import { userRepository } from "@repo/model/repositories/user";
-import { getCurrentBusiness } from "@repo/model/repository/business";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
-import CheckoutView from "./checkout-view";
+import CheckoutView from "@repo/ui/components/shop-cart/checkout/checkout-view";
 import { CompleteAddress } from "@repo/model/zod/address";
+import { CompleteBusiness } from "@repo/model/zod/business";
 
-type PageProps = {
-  params: {
-    locale: string;
-  };
+export type CheckoutPageProps = {
+  business: CompleteBusiness;
+  baseUrl?: string;
 };
 
-export default async function Component({ params: { locale } }: PageProps) {
-  const baseUrl = `/${locale}`;
+export default async function CheckoutPage({
+  business,
+  baseUrl = "",
+}: CheckoutPageProps) {
   const order = await getCurrentOrder();
-  const business = await getCurrentBusiness();
   if (!order || order.items.length === 0) {
-    return <EmptyCart url={baseUrl} />;
+    return <EmptyCart url={baseUrl || "/"} />;
   }
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    await checkoutOrder(data);
+    await checkoutOrder(data, business);
     await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
   const session = await auth();
@@ -36,7 +36,7 @@ export default async function Component({ params: { locale } }: PageProps) {
   const addresses = business.requestAddress
     ? await userAddressRepository.findByUserIdAndBusinessId(
         session.user.id,
-        business.id,
+        business.id as string,
       )
     : [];
   return (

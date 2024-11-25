@@ -14,6 +14,7 @@ import { isFile } from "../lib/utils";
 type PaginateData = {
   businessId?: string;
   categoryId?: string;
+  active?: boolean;
 } & BasePaginateData;
 
 export const PAGE_SIZE_FRONTEND = 6;
@@ -75,11 +76,20 @@ export class ProductRepository extends BaseRepository<
     return data;
   }
 
-  paginate({ businessId, query, categoryId, ...data }: PaginateData = {}) {
+  basePaginate({
+    businessId,
+    query,
+    categoryId,
+    active,
+    ...data
+  }: PaginateData = {}) {
     const where = clearWhere({
       businessId,
       categoryId,
     });
+    if (active !== undefined) {
+      where["active"] = active;
+    }
     if (query) {
       where["name"] = {
         contains: query,
@@ -90,6 +100,17 @@ export class ProductRepository extends BaseRepository<
       ...data,
       where,
       orderBy: { priority: "desc" },
+    });
+  }
+
+  paginate(paginate: PaginateData = {}) {
+    return this.basePaginate(paginate);
+  }
+
+  collaborationPaginate(paginate: PaginateData = {}) {
+    return this.basePaginate({
+      ...paginate,
+      active: true,
     });
   }
 

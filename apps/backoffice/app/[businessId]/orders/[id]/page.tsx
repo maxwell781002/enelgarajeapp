@@ -1,6 +1,6 @@
 import { orderRepository } from "@repo/model/repositories/order";
 import BackPage from "@repo/ui/components/back-page";
-import OrderDetail from "@repo/ui/components/order-detail";
+import OrderDetail from "@repo/ui/components/order-page/order-detail";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import ChangeStatus from "./changeStatus";
 import { revalidatePath } from "next/cache";
