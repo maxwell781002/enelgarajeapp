@@ -14,14 +14,12 @@ import Link from "next/link";
 
 export type CheckoutSuccessfulPageProps = {
   business: CompleteBusiness;
-  searchParams: {
-    orderId: string;
-  };
+  orderId: string;
 };
 
 export default async function CheckoutSuccessfulPage({
   business,
-  searchParams: { orderId },
+  orderId,
 }: CheckoutSuccessfulPageProps) {
   const order = await getOrderById(orderId);
   const t = await getTranslations("CheckoutSuccessful");

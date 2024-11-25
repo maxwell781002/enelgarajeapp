@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ShoppingCartIcon } from "../icons";
-import { CompleteOrder } from "@repo/model/zod/order";
+import { ShopCartOrder } from "@repo/model/types/shop-cart";
 
 export default function ShoppingCartHeader({
   order,
   className,
   url = "/shopping-cart",
 }: {
-  order: CompleteOrder | undefined | null;
+  order: ShopCartOrder | undefined | null;
   className?: string;
   url?: string;
 }) {

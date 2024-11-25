@@ -18,7 +18,9 @@ export type ShoppingCartProps = {
   baseUrl?: string;
 };
 
-export default async function ShoppingCartPage({ baseUrl = "" }: ShoppingCartProps) {
+export default async function ShoppingCartPage({
+  baseUrl = "",
+}: ShoppingCartProps) {
   const order = await getCurrentOrder();
   const remove = async (productId: string) => {
     "use server";
