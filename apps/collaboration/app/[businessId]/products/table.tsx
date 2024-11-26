@@ -19,6 +19,7 @@ export default function ProductTable({
         {data.map((item: any) => (
           <CardItem
             onAdd={() => add(item.id)}
+            showStock
             key={item.id}
             item={
               {
