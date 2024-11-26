@@ -6,7 +6,7 @@
     "generateLink": "Generar link",
     "invitation": {
       "title": "Crear invitación",
-      "description": "Aqui puedes copiar el link de invitaciones para que los usuarios se registren en tu negocio.",
+      "description": "Aqui puedes copiar el link de invitaciones para que los gestores se registren en tu negocio.",
       "close": "Cerrar"
     },
     "remove": "¿Está seguro que va a eliminar el usuario?",

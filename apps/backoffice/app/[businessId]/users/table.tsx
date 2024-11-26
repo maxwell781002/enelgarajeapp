@@ -10,8 +10,8 @@ export default function UserTable(
     <MyTable
       {...props}
       columns={columns}
-      emptyTitle="No hay usuarios"
-      emptyDescription="No has creado ninguna categoria todavía."
+      emptyTitle="No hay gestores"
+      emptyDescription="No tienes registrado ningun gestor todavía."
     />
   );
 }
