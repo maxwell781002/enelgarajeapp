@@ -4,6 +4,7 @@ import { formatDate } from "@repo/ui/lib/date";
 import Link from "next/link";
 import { statusLabel } from "./status-label";
 import { statusColors } from "@repo/model/repositories/order";
+import PriceDisplay from "@repo/ui/components/price";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -24,10 +25,16 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Usuario",
     accessorKey: "user.name",
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
+      return `${value} ${row.isCollaborator ? "⭐️" : ""}`;
+    },
   },
   {
     header: "Total",
     accessorKey: "total",
+    cell: ({ cell: { value } }: { cell: { value: number } }) => {
+      return <PriceDisplay price={value} />;
+    },
   },
   {
     header: "Enviado el",

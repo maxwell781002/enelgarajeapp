@@ -2,7 +2,10 @@
   "OrderDetail": {
     "title": "Resumen del pedido",
     "order": "Orden",
-    "back": "Ir al listado de órdenes"
+    "back": "Ir al listado de órdenes",
+    "lbName": "Nombre",
+    "lbPhone": "Teléfono",
+    "isCollaborator": "Es Colaborador"
   },
   "Orders": {
     "identifier": "Order",

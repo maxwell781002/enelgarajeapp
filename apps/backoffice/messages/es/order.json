@@ -2,5 +2,10 @@
   "Order": {
     "phSearch": "Buscar por identificador o usuario.",
     "OrderList": "Pedidos"
+  },
+  "OrderDetail": {
+    "lbName": "Nombre",
+    "lbPhone": "Teléfono",
+    "isCollaborator": "Es Colaborador"
   }
 }
