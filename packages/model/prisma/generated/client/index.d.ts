@@ -22366,6 +22366,7 @@ export namespace Prisma {
   export type UserAddressMinAggregateOutputType = {
     id: string | null;
     addressId: string | null;
+    isCollaborator: boolean | null;
     userId: string | null;
     businessId: string | null;
   };
@@ -22373,6 +22374,7 @@ export namespace Prisma {
   export type UserAddressMaxAggregateOutputType = {
     id: string | null;
     addressId: string | null;
+    isCollaborator: boolean | null;
     userId: string | null;
     businessId: string | null;
   };
@@ -22380,6 +22382,7 @@ export namespace Prisma {
   export type UserAddressCountAggregateOutputType = {
     id: number;
     addressId: number;
+    isCollaborator: number;
     userId: number;
     businessId: number;
     _all: number;
@@ -22388,6 +22391,7 @@ export namespace Prisma {
   export type UserAddressMinAggregateInputType = {
     id?: true;
     addressId?: true;
+    isCollaborator?: true;
     userId?: true;
     businessId?: true;
   };
@@ -22395,6 +22399,7 @@ export namespace Prisma {
   export type UserAddressMaxAggregateInputType = {
     id?: true;
     addressId?: true;
+    isCollaborator?: true;
     userId?: true;
     businessId?: true;
   };
@@ -22402,6 +22407,7 @@ export namespace Prisma {
   export type UserAddressCountAggregateInputType = {
     id?: true;
     addressId?: true;
+    isCollaborator?: true;
     userId?: true;
     businessId?: true;
     _all?: true;
@@ -22488,6 +22494,7 @@ export namespace Prisma {
   export type UserAddressGroupByOutputType = {
     id: string;
     addressId: string;
+    isCollaborator: boolean;
     userId: string;
     businessId: string | null;
     _count: UserAddressCountAggregateOutputType | null;
@@ -22515,6 +22522,7 @@ export namespace Prisma {
     {
       id?: boolean;
       addressId?: boolean;
+      isCollaborator?: boolean;
       userId?: boolean;
       businessId?: boolean;
       address?: boolean | AddressDefaultArgs<ExtArgs>;
@@ -22530,6 +22538,7 @@ export namespace Prisma {
     {
       id?: boolean;
       addressId?: boolean;
+      isCollaborator?: boolean;
       userId?: boolean;
       businessId?: boolean;
       address?: boolean | AddressDefaultArgs<ExtArgs>;
@@ -22542,6 +22551,7 @@ export namespace Prisma {
   export type UserAddressSelectScalar = {
     id?: boolean;
     addressId?: boolean;
+    isCollaborator?: boolean;
     userId?: boolean;
     businessId?: boolean;
   };
@@ -22574,6 +22584,10 @@ export namespace Prisma {
       {
         id: string;
         addressId: string;
+        /**
+         * @zod.optional()
+         */
+        isCollaborator: boolean;
         userId: string;
         businessId: string | null;
       },
@@ -23117,6 +23131,7 @@ export namespace Prisma {
   interface UserAddressFieldRefs {
     readonly id: FieldRef<"UserAddress", "String">;
     readonly addressId: FieldRef<"UserAddress", "String">;
+    readonly isCollaborator: FieldRef<"UserAddress", "Boolean">;
     readonly userId: FieldRef<"UserAddress", "String">;
     readonly businessId: FieldRef<"UserAddress", "String">;
   }
@@ -26065,6 +26080,7 @@ export namespace Prisma {
   export const UserAddressScalarFieldEnum: {
     id: "id";
     addressId: "addressId";
+    isCollaborator: "isCollaborator";
     userId: "userId";
     businessId: "businessId";
   };
@@ -27666,6 +27682,7 @@ export namespace Prisma {
     NOT?: UserAddressWhereInput | UserAddressWhereInput[];
     id?: StringFilter<"UserAddress"> | string;
     addressId?: StringFilter<"UserAddress"> | string;
+    isCollaborator?: BoolFilter<"UserAddress"> | boolean;
     userId?: StringFilter<"UserAddress"> | string;
     businessId?: StringNullableFilter<"UserAddress"> | string | null;
     address?: XOR<AddressRelationFilter, AddressWhereInput>;
@@ -27676,6 +27693,7 @@ export namespace Prisma {
   export type UserAddressOrderByWithRelationInput = {
     id?: SortOrder;
     addressId?: SortOrder;
+    isCollaborator?: SortOrder;
     userId?: SortOrder;
     businessId?: SortOrderInput | SortOrder;
     address?: AddressOrderByWithRelationInput;
@@ -27690,6 +27708,7 @@ export namespace Prisma {
       AND?: UserAddressWhereInput | UserAddressWhereInput[];
       OR?: UserAddressWhereInput[];
       NOT?: UserAddressWhereInput | UserAddressWhereInput[];
+      isCollaborator?: BoolFilter<"UserAddress"> | boolean;
       userId?: StringFilter<"UserAddress"> | string;
       businessId?: StringNullableFilter<"UserAddress"> | string | null;
       address?: XOR<AddressRelationFilter, AddressWhereInput>;
@@ -27702,6 +27721,7 @@ export namespace Prisma {
   export type UserAddressOrderByWithAggregationInput = {
     id?: SortOrder;
     addressId?: SortOrder;
+    isCollaborator?: SortOrder;
     userId?: SortOrder;
     businessId?: SortOrderInput | SortOrder;
     _count?: UserAddressCountOrderByAggregateInput;
@@ -27719,6 +27739,7 @@ export namespace Prisma {
       | UserAddressScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<"UserAddress"> | string;
     addressId?: StringWithAggregatesFilter<"UserAddress"> | string;
+    isCollaborator?: BoolWithAggregatesFilter<"UserAddress"> | boolean;
     userId?: StringWithAggregatesFilter<"UserAddress"> | string;
     businessId?:
       | StringNullableWithAggregatesFilter<"UserAddress">
@@ -29138,6 +29159,7 @@ export namespace Prisma {
 
   export type UserAddressCreateInput = {
     id?: string;
+    isCollaborator?: boolean;
     address: AddressCreateNestedOneWithoutUserAddressInput;
     user: UserCreateNestedOneWithoutAddressInput;
     business?: BusinessCreateNestedOneWithoutUserAddressInput;
@@ -29146,12 +29168,14 @@ export namespace Prisma {
   export type UserAddressUncheckedCreateInput = {
     id?: string;
     addressId: string;
+    isCollaborator?: boolean;
     userId: string;
     businessId?: string | null;
   };
 
   export type UserAddressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     address?: AddressUpdateOneRequiredWithoutUserAddressNestedInput;
     user?: UserUpdateOneRequiredWithoutAddressNestedInput;
     business?: BusinessUpdateOneWithoutUserAddressNestedInput;
@@ -29160,6 +29184,7 @@ export namespace Prisma {
   export type UserAddressUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     userId?: StringFieldUpdateOperationsInput | string;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
@@ -29167,17 +29192,20 @@ export namespace Prisma {
   export type UserAddressCreateManyInput = {
     id?: string;
     addressId: string;
+    isCollaborator?: boolean;
     userId: string;
     businessId?: string | null;
   };
 
   export type UserAddressUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
   };
 
   export type UserAddressUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     userId?: StringFieldUpdateOperationsInput | string;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
@@ -30491,6 +30519,7 @@ export namespace Prisma {
   export type UserAddressCountOrderByAggregateInput = {
     id?: SortOrder;
     addressId?: SortOrder;
+    isCollaborator?: SortOrder;
     userId?: SortOrder;
     businessId?: SortOrder;
   };
@@ -30498,6 +30527,7 @@ export namespace Prisma {
   export type UserAddressMaxOrderByAggregateInput = {
     id?: SortOrder;
     addressId?: SortOrder;
+    isCollaborator?: SortOrder;
     userId?: SortOrder;
     businessId?: SortOrder;
   };
@@ -30505,6 +30535,7 @@ export namespace Prisma {
   export type UserAddressMinOrderByAggregateInput = {
     id?: SortOrder;
     addressId?: SortOrder;
+    isCollaborator?: SortOrder;
     userId?: SortOrder;
     businessId?: SortOrder;
   };
@@ -33876,6 +33907,7 @@ export namespace Prisma {
 
   export type UserAddressCreateWithoutBusinessInput = {
     id?: string;
+    isCollaborator?: boolean;
     address: AddressCreateNestedOneWithoutUserAddressInput;
     user: UserCreateNestedOneWithoutAddressInput;
   };
@@ -33883,6 +33915,7 @@ export namespace Prisma {
   export type UserAddressUncheckedCreateWithoutBusinessInput = {
     id?: string;
     addressId: string;
+    isCollaborator?: boolean;
     userId: string;
   };
 
@@ -34283,6 +34316,7 @@ export namespace Prisma {
     NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[];
     id?: StringFilter<"UserAddress"> | string;
     addressId?: StringFilter<"UserAddress"> | string;
+    isCollaborator?: BoolFilter<"UserAddress"> | boolean;
     userId?: StringFilter<"UserAddress"> | string;
     businessId?: StringNullableFilter<"UserAddress"> | string | null;
   };
@@ -35386,6 +35420,7 @@ export namespace Prisma {
 
   export type UserAddressCreateWithoutUserInput = {
     id?: string;
+    isCollaborator?: boolean;
     address: AddressCreateNestedOneWithoutUserAddressInput;
     business?: BusinessCreateNestedOneWithoutUserAddressInput;
   };
@@ -35393,6 +35428,7 @@ export namespace Prisma {
   export type UserAddressUncheckedCreateWithoutUserInput = {
     id?: string;
     addressId: string;
+    isCollaborator?: boolean;
     businessId?: string | null;
   };
 
@@ -36853,12 +36889,14 @@ export namespace Prisma {
 
   export type UserAddressCreateWithoutAddressInput = {
     id?: string;
+    isCollaborator?: boolean;
     user: UserCreateNestedOneWithoutAddressInput;
     business?: BusinessCreateNestedOneWithoutUserAddressInput;
   };
 
   export type UserAddressUncheckedCreateWithoutAddressInput = {
     id?: string;
+    isCollaborator?: boolean;
     userId: string;
     businessId?: string | null;
   };
@@ -36945,12 +36983,14 @@ export namespace Prisma {
 
   export type UserAddressUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     user?: UserUpdateOneRequiredWithoutAddressNestedInput;
     business?: BusinessUpdateOneWithoutUserAddressNestedInput;
   };
 
   export type UserAddressUncheckedUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     userId?: StringFieldUpdateOperationsInput | string;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
@@ -37850,6 +37890,7 @@ export namespace Prisma {
   export type UserAddressCreateManyBusinessInput = {
     id?: string;
     addressId: string;
+    isCollaborator?: boolean;
     userId: string;
   };
 
@@ -38044,6 +38085,7 @@ export namespace Prisma {
 
   export type UserAddressUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     address?: AddressUpdateOneRequiredWithoutUserAddressNestedInput;
     user?: UserUpdateOneRequiredWithoutAddressNestedInput;
   };
@@ -38051,12 +38093,14 @@ export namespace Prisma {
   export type UserAddressUncheckedUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     userId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type UserAddressUncheckedUpdateManyWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     userId?: StringFieldUpdateOperationsInput | string;
   };
 
@@ -38265,6 +38309,7 @@ export namespace Prisma {
   export type UserAddressCreateManyUserInput = {
     id?: string;
     addressId: string;
+    isCollaborator?: boolean;
     businessId?: string | null;
   };
 
@@ -38439,6 +38484,7 @@ export namespace Prisma {
 
   export type UserAddressUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     address?: AddressUpdateOneRequiredWithoutUserAddressNestedInput;
     business?: BusinessUpdateOneWithoutUserAddressNestedInput;
   };
@@ -38446,12 +38492,14 @@ export namespace Prisma {
   export type UserAddressUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 
   export type UserAddressUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     addressId?: StringFieldUpdateOperationsInput | string;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
   };
 

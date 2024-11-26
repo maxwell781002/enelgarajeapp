@@ -289,6 +289,7 @@ exports.Prisma.NeighborhoodScalarFieldEnum = {
 exports.Prisma.UserAddressScalarFieldEnum = {
   id: 'id',
   addressId: 'addressId',
+  isCollaborator: 'isCollaborator',
   userId: 'userId',
   businessId: 'businessId'
 };
