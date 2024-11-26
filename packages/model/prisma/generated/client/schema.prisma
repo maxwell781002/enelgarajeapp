@@ -163,6 +163,9 @@ model Order {
   business        Business?      @relation(fields: [businessId], references: [id])
   businessId      String?
   identifier      String?
+  isCollaborator  Boolean        @default(false)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @default(now()) @updatedAt
 
   orderAddress OrderAddress?
 }

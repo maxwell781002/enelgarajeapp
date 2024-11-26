@@ -5,8 +5,8 @@
     "loginAgain": "Entrar de nuevo"
   },
   "InvitationLinkForm": {
-    "title": "Registrarse como colaborador",
-    "description": "Ingresa tu nombre y teléfono para ser adicionado como colaborador",
+    "title": "Registrarse como gestor",
+    "description": "Ingresa tu nombre y teléfono para ser adicionado como gestor",
     "lbName": "Nombre",
     "lbPhone": "Teléfono",
     "phName": "Nombre",

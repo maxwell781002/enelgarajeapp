@@ -9,5 +9,7 @@ export type PageProps = {
 
 export default async function Page({ params: { businessId } }: PageProps) {
   const business = await getBusinessById(businessId);
-  return <OrderPage baseUrl={`/${businessId}`} business={business} />;
+  return (
+    <OrderPage baseUrl={`/${businessId}`} business={business} isCollaborator />
+  );
 }

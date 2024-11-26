@@ -108,11 +108,13 @@ export class OrderRepository extends BaseRepository<
     order: CompleteOrder,
     user: CompleteUser,
     business: CompleteBusiness,
+    isCollaborator: boolean = false,
   ) {
     const newPosition = (await this.getLastPosition(business.id)) + 1;
     return prisma().order.update({
       where: { id: order.id },
       data: {
+        isCollaborator,
         userId: user.id,
         total: order.total,
         status: OrderStatus.SEND,
@@ -137,9 +139,18 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  getByBusinessAndUser(userId: string, businessId: string) {
+  getByBusinessAndUser(
+    userId: string,
+    businessId: string,
+    isCollaborator: boolean = false,
+  ) {
     return prisma().order.findMany({
-      where: { userId, businessId, NOT: { status: OrderStatus.CREATED } },
+      where: {
+        userId,
+        businessId,
+        isCollaborator,
+        NOT: { status: OrderStatus.CREATED },
+      },
       include: {
         items: {
           include: { product: true },

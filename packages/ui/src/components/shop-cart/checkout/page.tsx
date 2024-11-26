@@ -13,11 +13,13 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 export type CheckoutPageProps = {
   business: CompleteBusiness;
   baseUrl?: string;
+  isCollaborator?: boolean;
 };
 
 export default async function CheckoutPage({
   business,
   baseUrl = "",
+  isCollaborator = false,
 }: CheckoutPageProps) {
   const order = await getCurrentOrder();
   if (!order || order.items.length === 0) {
@@ -25,7 +27,7 @@ export default async function CheckoutPage({
   }
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
-    await checkoutOrder(data, business);
+    await checkoutOrder(data, business, isCollaborator);
     await redirect(`${baseUrl}/checkout-successful?orderId=${order.id}`);
   };
   const session = await auth();

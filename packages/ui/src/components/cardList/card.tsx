@@ -13,12 +13,14 @@ type CardItemProps = {
   item: IProduct;
   baseUrl?: string;
   onAdd?: () => void;
+  showStock?: boolean;
 };
 
 export function CardItem({
   item: originalItem,
   baseUrl,
   onAdd,
+  showStock,
 }: CardItemProps) {
   const [item, setItem] = useOptimistic(originalItem);
   const handleAdd = () => {
@@ -57,6 +59,12 @@ export function CardItem({
           <BtnAddCart action={handleAdd} product={item} />
         </div>
         <ProductBadge product={item} className="mt-2" />
+        {showStock && (
+          <div className="mt-2">
+            <span className="font-semibold">Stock: </span>
+            <span>{item.stock}</span>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

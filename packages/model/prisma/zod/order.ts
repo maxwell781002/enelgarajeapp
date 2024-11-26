@@ -31,6 +31,9 @@ export const OrderModel = z.object({
   position: z.number().int().nullish(),
   businessId: z.string().nullish(),
   identifier: z.string().nullish(),
+  isCollaborator: z.boolean(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export interface CompleteOrder extends z.infer<typeof OrderModel> {

@@ -68,7 +68,7 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
   },
   {
     link: `/${businessId}/users`,
-    title: "Usuarios",
+    title: "Gestores",
     Icon: Users2Icon,
   },
 ];
