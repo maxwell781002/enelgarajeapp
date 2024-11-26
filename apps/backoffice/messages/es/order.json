@@ -6,6 +6,6 @@
   "OrderDetail": {
     "lbName": "Nombre",
     "lbPhone": "Teléfono",
-    "isCollaborator": "Es Colaborador"
+    "isCollaborator": "Es Gestor"
   }
 }

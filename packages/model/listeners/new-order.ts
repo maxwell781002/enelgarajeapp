@@ -62,7 +62,7 @@ const generateText = (data: any) => {
 *Whatsapp*
 📱[Aplicación](https://api.whatsapp.com/send/?phone=${data.customer.phone}&text=${message_whatsapp}) 🌐[web](https://web.whatsapp.com/send?phone=${data.customer.phone}&text=${message_whatsapp})
 *Productos*
-${data.isCollaborator ? "⭐️ Es Colaborador" : ""}
+${data.isCollaborator ? "⭐️ Es un gestor" : ""}
 ${products}
 
 🚚 ${data.shipping > 0 ? "✅ Pagó el envío" : "❌ No pagó el envío"}

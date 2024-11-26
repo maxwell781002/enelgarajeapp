@@ -264,11 +264,18 @@ export const getOrderById = async (id: string) => {
   return orderRepository.getOrderById(id);
 };
 
-export const getOrderCurrentUser = async (business: CompleteBusiness) => {
+export const getOrderCurrentUser = async (
+  business: CompleteBusiness,
+  isCollaborator: boolean = false,
+) => {
   const userId = (await getCurrentUser())?.id;
   const businessId = business?.id;
   if (!userId || !businessId) {
     return null;
   }
-  return orderRepository.getByBusinessAndUser(userId, businessId);
+  return orderRepository.getByBusinessAndUser(
+    userId,
+    businessId,
+    isCollaborator,
+  );
 };

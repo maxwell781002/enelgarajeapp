@@ -16,13 +16,15 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 export type OrderPageProps = {
   baseUrl?: string;
   business: CompleteBusiness;
+  isCollaborator?: boolean;
 };
 
 export default async function OrderPage({
   baseUrl = "",
   business,
+  isCollaborator,
 }: OrderPageProps) {
-  const orders = await getOrderCurrentUser(business);
+  const orders = await getOrderCurrentUser(business, isCollaborator);
   const t = await getTranslations("Orders");
   if (!orders?.length) {
     return <EmptyOrders url={baseUrl} />;

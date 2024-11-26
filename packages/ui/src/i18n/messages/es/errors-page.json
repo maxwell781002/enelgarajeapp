@@ -14,7 +14,7 @@
     "description": "El link a la cual intentas acceder ya no es valido"
   },
   "AlreadyCollaborator": {
-    "title": "Ya eres colaborador",
-    "description": "Ya eres colaborador de este negocio"
+    "title": "Ya eres gestor",
+    "description": "Ya eres gestor de este negocio"
   }
 }
