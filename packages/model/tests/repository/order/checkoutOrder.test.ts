@@ -106,6 +106,7 @@ describe("checkoutOrder", () => {
     const newOrder = await checkoutOrder(userData as any, business);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(1);
+    expect(newOrder.isCollaborator).toBe(false);
     expect(newOrder.status).toBe("SEND");
     expect(newOrder.identifier?.split("-")[1]).toBe("1");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);
@@ -118,9 +119,10 @@ describe("checkoutOrder", () => {
   });
 
   it("new checkout order", async () => {
-    const newOrder = await checkoutOrder(userData as any, business);
+    const newOrder = await checkoutOrder(userData as any, business, true);
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(2);
+    expect(newOrder.isCollaborator).toBe(true);
     expect(newOrder.status).toBe("SEND");
     expect(newOrder.identifier?.split("-")[1]).toBe("2");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);

@@ -12,7 +12,6 @@ import {
 } from "../prisma/zod";
 import { getCurrentUser, updateUser } from "./user";
 import { AddressType, TUserRegisterSchema } from "../validation/user";
-import { getCurrentBusiness } from "./business";
 import { orderRepository } from "../repositories/order";
 // import eventEmitter from "../lib/event-emitter";
 import { OrderSend } from "../lib/event-emitter/events";
@@ -211,6 +210,7 @@ const getShippingPrice = async (
 export const checkoutOrder = async (
   user: TUserRegisterSchema,
   business: CompleteBusiness,
+  isCollaborator: boolean = false,
 ) => {
   const newOrder = await transaction(async () => {
     let order = await getOrCrateOrder();
@@ -239,6 +239,7 @@ export const checkoutOrder = async (
       order,
       userEntity,
       business,
+      isCollaborator,
     );
     const productToUpdate: UpdateStockItem[] = order.items.map(
       ({ product, quantity }) => [product, quantity],

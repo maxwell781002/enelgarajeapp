@@ -9,5 +9,11 @@ export type Props = {
 
 export default async function Component({ params: { businessId } }: Props) {
   const business = await getBusinessById(businessId);
-  return <CheckoutPage business={business} baseUrl={`/${businessId}`} />;
+  return (
+    <CheckoutPage
+      business={business}
+      baseUrl={`/${businessId}`}
+      isCollaborator
+    />
+  );
 }

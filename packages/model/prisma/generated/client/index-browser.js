@@ -214,7 +214,10 @@ exports.Prisma.OrderScalarFieldEnum = {
   sentAt: 'sentAt',
   position: 'position',
   businessId: 'businessId',
-  identifier: 'identifier'
+  identifier: 'identifier',
+  isCollaborator: 'isCollaborator',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.OrderProductScalarFieldEnum = {

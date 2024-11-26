@@ -108,11 +108,13 @@ export class OrderRepository extends BaseRepository<
     order: CompleteOrder,
     user: CompleteUser,
     business: CompleteBusiness,
+    isCollaborator: boolean = false,
   ) {
     const newPosition = (await this.getLastPosition(business.id)) + 1;
     return prisma().order.update({
       where: { id: order.id },
       data: {
+        isCollaborator,
         userId: user.id,
         total: order.total,
         status: OrderStatus.SEND,

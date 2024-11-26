@@ -12924,6 +12924,9 @@ export namespace Prisma {
     position: number | null;
     businessId: string | null;
     identifier: string | null;
+    isCollaborator: boolean | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
   };
 
   export type OrderMaxAggregateOutputType = {
@@ -12937,6 +12940,9 @@ export namespace Prisma {
     position: number | null;
     businessId: string | null;
     identifier: string | null;
+    isCollaborator: boolean | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
   };
 
   export type OrderCountAggregateOutputType = {
@@ -12951,6 +12957,9 @@ export namespace Prisma {
     position: number;
     businessId: number;
     identifier: number;
+    isCollaborator: number;
+    createdAt: number;
+    updatedAt: number;
     _all: number;
   };
 
@@ -12977,6 +12986,9 @@ export namespace Prisma {
     position?: true;
     businessId?: true;
     identifier?: true;
+    isCollaborator?: true;
+    createdAt?: true;
+    updatedAt?: true;
   };
 
   export type OrderMaxAggregateInputType = {
@@ -12990,6 +13002,9 @@ export namespace Prisma {
     position?: true;
     businessId?: true;
     identifier?: true;
+    isCollaborator?: true;
+    createdAt?: true;
+    updatedAt?: true;
   };
 
   export type OrderCountAggregateInputType = {
@@ -13004,6 +13019,9 @@ export namespace Prisma {
     position?: true;
     businessId?: true;
     identifier?: true;
+    isCollaborator?: true;
+    createdAt?: true;
+    updatedAt?: true;
     _all?: true;
   };
 
@@ -13108,6 +13126,9 @@ export namespace Prisma {
     position: number | null;
     businessId: string | null;
     identifier: string | null;
+    isCollaborator: boolean;
+    createdAt: Date;
+    updatedAt: Date;
     _count: OrderCountAggregateOutputType | null;
     _avg: OrderAvgAggregateOutputType | null;
     _sum: OrderSumAggregateOutputType | null;
@@ -13143,6 +13164,9 @@ export namespace Prisma {
       position?: boolean;
       businessId?: boolean;
       identifier?: boolean;
+      isCollaborator?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
       user?: boolean | Order$userArgs<ExtArgs>;
       items?: boolean | Order$itemsArgs<ExtArgs>;
       business?: boolean | Order$businessArgs<ExtArgs>;
@@ -13167,6 +13191,9 @@ export namespace Prisma {
       position?: boolean;
       businessId?: boolean;
       identifier?: boolean;
+      isCollaborator?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
       user?: boolean | Order$userArgs<ExtArgs>;
       business?: boolean | Order$businessArgs<ExtArgs>;
     },
@@ -13185,6 +13212,9 @@ export namespace Prisma {
     position?: boolean;
     businessId?: boolean;
     identifier?: boolean;
+    isCollaborator?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
   };
 
   export type OrderInclude<
@@ -13226,6 +13256,9 @@ export namespace Prisma {
         position: number | null;
         businessId: string | null;
         identifier: string | null;
+        isCollaborator: boolean;
+        createdAt: Date;
+        updatedAt: Date;
       },
       ExtArgs["result"]["order"]
     >;
@@ -13763,6 +13796,9 @@ export namespace Prisma {
     readonly position: FieldRef<"Order", "Int">;
     readonly businessId: FieldRef<"Order", "String">;
     readonly identifier: FieldRef<"Order", "String">;
+    readonly isCollaborator: FieldRef<"Order", "Boolean">;
+    readonly createdAt: FieldRef<"Order", "DateTime">;
+    readonly updatedAt: FieldRef<"Order", "DateTime">;
   }
 
   // Custom InputTypes
@@ -25931,6 +25967,9 @@ export namespace Prisma {
     position: "position";
     businessId: "businessId";
     identifier: "identifier";
+    isCollaborator: "isCollaborator";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
   };
 
   export type OrderScalarFieldEnum =
@@ -26972,6 +27011,9 @@ export namespace Prisma {
     position?: IntNullableFilter<"Order"> | number | null;
     businessId?: StringNullableFilter<"Order"> | string | null;
     identifier?: StringNullableFilter<"Order"> | string | null;
+    isCollaborator?: BoolFilter<"Order"> | boolean;
+    createdAt?: DateTimeFilter<"Order"> | Date | string;
+    updatedAt?: DateTimeFilter<"Order"> | Date | string;
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null;
     items?: OrderProductListRelationFilter;
     business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
@@ -26993,6 +27035,9 @@ export namespace Prisma {
     position?: SortOrderInput | SortOrder;
     businessId?: SortOrderInput | SortOrder;
     identifier?: SortOrderInput | SortOrder;
+    isCollaborator?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
     user?: UserOrderByWithRelationInput;
     items?: OrderProductOrderByRelationAggregateInput;
     business?: BusinessOrderByWithRelationInput;
@@ -27015,6 +27060,9 @@ export namespace Prisma {
       position?: IntNullableFilter<"Order"> | number | null;
       businessId?: StringNullableFilter<"Order"> | string | null;
       identifier?: StringNullableFilter<"Order"> | string | null;
+      isCollaborator?: BoolFilter<"Order"> | boolean;
+      createdAt?: DateTimeFilter<"Order"> | Date | string;
+      updatedAt?: DateTimeFilter<"Order"> | Date | string;
       user?: XOR<UserNullableRelationFilter, UserWhereInput> | null;
       items?: OrderProductListRelationFilter;
       business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
@@ -27038,6 +27086,9 @@ export namespace Prisma {
     position?: SortOrderInput | SortOrder;
     businessId?: SortOrderInput | SortOrder;
     identifier?: SortOrderInput | SortOrder;
+    isCollaborator?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
     _count?: OrderCountOrderByAggregateInput;
     _avg?: OrderAvgOrderByAggregateInput;
     _max?: OrderMaxOrderByAggregateInput;
@@ -27068,6 +27119,9 @@ export namespace Prisma {
     position?: IntNullableWithAggregatesFilter<"Order"> | number | null;
     businessId?: StringNullableWithAggregatesFilter<"Order"> | string | null;
     identifier?: StringNullableWithAggregatesFilter<"Order"> | string | null;
+    isCollaborator?: BoolWithAggregatesFilter<"Order"> | boolean;
+    createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string;
   };
 
   export type OrderProductWhereInput = {
@@ -28495,6 +28549,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
@@ -28513,6 +28570,9 @@ export namespace Prisma {
     position?: number | null;
     businessId?: string | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -28527,6 +28587,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
@@ -28545,6 +28608,9 @@ export namespace Prisma {
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -28561,6 +28627,9 @@ export namespace Prisma {
     position?: number | null;
     businessId?: string | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
   };
 
   export type OrderUpdateManyMutationInput = {
@@ -28573,6 +28642,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type OrderUncheckedUpdateManyInput = {
@@ -28587,6 +28659,9 @@ export namespace Prisma {
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type OrderProductCreateInput = {
@@ -30069,6 +30144,9 @@ export namespace Prisma {
     position?: SortOrder;
     businessId?: SortOrder;
     identifier?: SortOrder;
+    isCollaborator?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
   };
 
   export type OrderAvgOrderByAggregateInput = {
@@ -30088,6 +30166,9 @@ export namespace Prisma {
     position?: SortOrder;
     businessId?: SortOrder;
     identifier?: SortOrder;
+    isCollaborator?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
   };
 
   export type OrderMinOrderByAggregateInput = {
@@ -30101,6 +30182,9 @@ export namespace Prisma {
     position?: SortOrder;
     businessId?: SortOrder;
     identifier?: SortOrder;
+    isCollaborator?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
   };
 
   export type OrderSumOrderByAggregateInput = {
@@ -33697,6 +33781,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
@@ -33713,6 +33800,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -34074,6 +34164,9 @@ export namespace Prisma {
     position?: IntNullableFilter<"Order"> | number | null;
     businessId?: StringNullableFilter<"Order"> | string | null;
     identifier?: StringNullableFilter<"Order"> | string | null;
+    isCollaborator?: BoolFilter<"Order"> | boolean;
+    createdAt?: DateTimeFilter<"Order"> | Date | string;
+    updatedAt?: DateTimeFilter<"Order"> | Date | string;
   };
 
   export type UserBusinessUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -35126,6 +35219,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
@@ -35142,6 +35238,9 @@ export namespace Prisma {
     position?: number | null;
     businessId?: string | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -36270,6 +36369,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     user?: UserCreateNestedOneWithoutOrdersInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
@@ -36287,6 +36389,9 @@ export namespace Prisma {
     position?: number | null;
     businessId?: string | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
 
@@ -36386,6 +36491,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
@@ -36403,6 +36511,9 @@ export namespace Prisma {
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
@@ -37364,6 +37475,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
@@ -37381,6 +37495,9 @@ export namespace Prisma {
     position?: number | null;
     businessId?: string | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
   };
 
@@ -37466,6 +37583,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
@@ -37483,6 +37603,9 @@ export namespace Prisma {
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
   };
 
@@ -37707,6 +37830,9 @@ export namespace Prisma {
     sentAt?: Date | string | null;
     position?: number | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
   };
 
   export type UserBusinessCreateManyBusinessInput = {
@@ -37832,6 +37958,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
@@ -37848,6 +37977,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -37863,6 +37995,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type UserBusinessUpdateWithoutBusinessInput = {
@@ -38085,6 +38220,9 @@ export namespace Prisma {
     position?: number | null;
     businessId?: string | null;
     identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
   };
 
   export type AccountCreateManyUserInput = {
@@ -38140,6 +38278,9 @@ export namespace Prisma {
     sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
@@ -38156,6 +38297,9 @@ export namespace Prisma {
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -38171,6 +38315,9 @@ export namespace Prisma {
     position?: NullableIntFieldUpdateOperationsInput | number | null;
     businessId?: NullableStringFieldUpdateOperationsInput | string | null;
     identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type AccountUpdateWithoutUserInput = {
