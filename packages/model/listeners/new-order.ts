@@ -24,6 +24,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
     businessId: order.businessId,
     identifier: order.identifier,
     shipping: order.shipping,
+    isCollaborator: order.isCollaborator,
     customer: {
       id: customer?.id,
       name: customer?.name,
@@ -61,6 +62,7 @@ const generateText = (data: any) => {
 *Whatsapp*
 📱[Aplicación](https://api.whatsapp.com/send/?phone=${data.customer.phone}&text=${message_whatsapp}) 🌐[web](https://web.whatsapp.com/send?phone=${data.customer.phone}&text=${message_whatsapp})
 *Productos*
+${data.isCollaborator ? "⭐️ Es Colaborador" : ""}
 ${products}
 
 🚚 ${data.shipping > 0 ? "✅ Pagó el envío" : "❌ No pagó el envío"}
