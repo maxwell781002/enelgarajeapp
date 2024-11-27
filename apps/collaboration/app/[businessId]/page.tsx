@@ -1,3 +1,11 @@
-export default function Home() {
-  return <h1>En construcción</h1>;
+import { redirect } from "next/navigation";
+
+export type Props = {
+  params: {
+    businessId: string;
+  };
+};
+
+export default function Home({ params: { businessId } }: Props) {
+  return redirect(`/${businessId}/products`);
 }
