@@ -10,12 +10,16 @@ export class UserAddressRepository extends BaseRepository<
     super(UserAddressModel.omit({ id: true }), Prisma.userAddress);
   }
 
-  async findByUserIdAndBusinessId(userId: string, businessId: string) {
+  async findByUserIdAndBusinessId(
+    userId: string,
+    businessId: string,
+    isCollaborator: boolean = false,
+  ) {
     const addresses = await prisma().userAddress.findMany({
-      where: { userId, businessId },
+      where: { userId, businessId, isCollaborator },
       include: { address: { include: { neighborhood: true } } },
     });
-    return addresses.map((address) => address.address);
+    return addresses.map((address: any) => address.address);
   }
 
   findByAddressIdAndUserId(addressId: string, userId: string) {

@@ -39,6 +39,7 @@ export default async function CheckoutPage({
     ? await userAddressRepository.findByUserIdAndBusinessId(
         session.user.id,
         business.id as string,
+        isCollaborator,
       )
     : [];
   return (
@@ -48,6 +49,7 @@ export default async function CheckoutPage({
       business={business}
       addresses={addresses as CompleteAddress[]}
       order={order}
+      baseUrl={baseUrl}
     />
   );
 }

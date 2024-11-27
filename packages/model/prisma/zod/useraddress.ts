@@ -11,6 +11,7 @@ import {
 export const UserAddressModel = z.object({
   id: z.string(),
   addressId: z.string(),
+  isCollaborator: z.boolean().optional(),
   userId: z.string(),
   businessId: z.string().nullish(),
 });

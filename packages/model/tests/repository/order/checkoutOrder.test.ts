@@ -143,8 +143,8 @@ describe("checkoutOrder", () => {
     const newOrder = await checkoutOrder(
       {
         ...userData,
-        addressType: AddressType.selectAddress,
-        [AddressType.selectAddress]: {
+        addressType: AddressType.newAddress,
+        [AddressType.newAddress]: {
           id: "1",
           alias: "Home",
           name: "Peter Parker",
@@ -155,13 +155,20 @@ describe("checkoutOrder", () => {
         },
       } as any,
       businessDb,
+      true, // isCollaborator
     );
     expect(newOrder).not.toBeNull();
     expect(newOrder.position).toBe(3);
+    expect(newOrder.isCollaborator).toBe(true);
     expect(newOrder.status).toBe("SEND");
     expect(newOrder.identifier?.split("-")[1]).toBe("3");
     expect(userModule.updateUser).toBeCalledWith(user.id, userData);
     expect(mocksCookies.delete).toBeCalledWith("order_id");
+    const userAddress = await prisma().userAddress.findFirst({
+      where: { userId: user.id },
+    });
+    expect(userAddress).not.toBeNull();
+    expect(userAddress?.isCollaborator).toBe(true);
     const address = await prisma().orderAddress.findMany({
       where: { orderId: newOrder.id },
       include: { address: true },

@@ -32,6 +32,7 @@ type CheckoutViewProps = {
   business: CompleteBusiness;
   addresses: CompleteAddress[];
   order: ShopCartOrder;
+  baseUrl?: string;
 };
 
 export default function CheckoutView({
@@ -40,6 +41,7 @@ export default function CheckoutView({
   business,
   addresses,
   order,
+  baseUrl = "",
 }: CheckoutViewProps) {
   const t = useTranslations("Checkout");
   const [addressType, setAddressType] = useState(
@@ -55,7 +57,7 @@ export default function CheckoutView({
   const { city, neighborhoodId } = useCurrentAddress(form, addressType);
   const { neighborhoods, currentNeighborhood } = useNeighborhoods(
     city,
-    business.id,
+    business.id as string,
     neighborhoodId,
     form,
   );
@@ -81,6 +83,7 @@ export default function CheckoutView({
           setAddressType={setAddressType}
           showWantDomicile={hasShipping}
           form={form}
+          baseUrl={baseUrl}
         />
       </div>
       <div className="w-full space-y-2">

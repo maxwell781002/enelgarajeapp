@@ -248,7 +248,12 @@ export const checkoutOrder = async (
     if (business.requestAddress) {
       await orderAddressRepository.createNew(newOrder.id, address);
       if (addressType === AddressType.newAddress) {
-        await addAddressToUser(userEntity.id, business.id, address);
+        await addAddressToUser(
+          userEntity.id,
+          business.id,
+          address,
+          isCollaborator,
+        );
       }
     }
     return newOrder;

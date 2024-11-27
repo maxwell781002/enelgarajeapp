@@ -18,6 +18,7 @@ import Link from "next/link";
 export type AddressProps = {
   setAddressType: (type: AddressType) => void;
   neighborhoods?: NeighborhoodWithShipping[];
+  baseUrl?: string;
 } & Omit<AddressFormProps, "name"> &
   Omit<AddressSelectorProps, "name">;
 
@@ -26,6 +27,7 @@ export default function Address({
   setAddressType,
   addresses = [],
   neighborhoods = [],
+  baseUrl = "",
   ...props
 }: AddressProps) {
   const t = useTranslations("Address");
@@ -61,7 +63,7 @@ export default function Address({
           <TabsContent value="form">{formCreate}</TabsContent>
           <TabsContent value="address">
             <Link
-              href="/address-user"
+              href={`${baseUrl}/address-user`}
               className="text-sm text-green-600 hover:text-green-800 transition-colors text-center block mb-2"
             >
               {t("linkMyAddresses")}
