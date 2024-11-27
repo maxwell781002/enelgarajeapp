@@ -14,12 +14,16 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 
 export type AddressUserFormPageProps = {
   business: CompleteBusiness;
-  id: string;
+  id?: string;
+  isCollaborator?: boolean;
+  baseUrl?: string;
 };
 
 export default async function AddressUserFormPage({
   business,
   id,
+  isCollaborator = false,
+  baseUrl,
 }: AddressUserFormPageProps) {
   const t = await getTranslations("Address");
   const userEntity = await getCurrentUser();
@@ -32,13 +36,15 @@ export default async function AddressUserFormPage({
         userEntity.id,
         business.id as string,
         formDataToObject(data),
+        isCollaborator,
       );
     }
-    return redirect("/address-user");
+    return redirect(`${baseUrl}/address-user`);
   };
   const defaultValues = id ? await addressRepository.get(id) : {};
+  console.log(defaultValues, id);
   return (
-    <BackPage href="/address-user" urlTitle={t("back-address")}>
+    <BackPage href={`${baseUrl}/address-user`} urlTitle={t("back-address")}>
       <AddressUserForm
         action={action}
         defaultValues={defaultValues as CompleteAddress}

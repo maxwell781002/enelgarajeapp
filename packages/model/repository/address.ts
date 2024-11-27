@@ -5,12 +5,14 @@ export const addAddressToUser = async (
   userId: string,
   businessId: string,
   data: any,
+  isCollaborator: boolean = false,
 ) => {
   const address = await addressRepository.create(data);
   return userAddressRepository.create({
     addressId: address.id,
     userId,
     businessId,
+    isCollaborator,
   });
 };
 
