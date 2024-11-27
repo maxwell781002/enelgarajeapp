@@ -23,7 +23,7 @@ export default async function AddressUserFormPage({
   business,
   id,
   isCollaborator = false,
-  baseUrl,
+  baseUrl = "",
 }: AddressUserFormPageProps) {
   const t = await getTranslations("Address");
   const userEntity = await getCurrentUser();

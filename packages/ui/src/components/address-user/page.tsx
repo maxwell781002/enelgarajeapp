@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import NoAddress from "./no-address";
 import { removeAddressFromUser } from "@repo/model/repository/address";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import { redirect } from "next/navigation";
 
 export type AddressUserPageProps = {
   business: CompleteBusiness;
@@ -22,6 +23,9 @@ export default async function AddressUserPage({
   baseUrl = "",
 }: AddressUserPageProps) {
   const user = await getCurrentUser();
+  if (!user) {
+    return redirect("/");
+  }
   const addresses = await userAddressRepository.findByUserIdAndBusinessId(
     user.id,
     business.id as string,

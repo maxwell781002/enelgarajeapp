@@ -19,7 +19,7 @@ export class UserAddressRepository extends BaseRepository<
       where: { userId, businessId, isCollaborator },
       include: { address: { include: { neighborhood: true } } },
     });
-    return addresses.map((address: CompleteUserAddress) => address.address);
+    return addresses.map((address: any) => address.address);
   }
 
   findByAddressIdAndUserId(addressId: string, userId: string) {
