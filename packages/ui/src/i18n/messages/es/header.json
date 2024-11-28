@@ -9,8 +9,8 @@
     "address-user": "Mis direcciones",
     "AllCategory": "Todas",
     "switch-app": {
-      "WEB": "Ir a gestores",
-      "COLLABORATOR": "Ir a la web"
+      "WEB": "Modo gestor",
+      "COLLABORATOR": "Modo cliente"
     }
   }
 }
