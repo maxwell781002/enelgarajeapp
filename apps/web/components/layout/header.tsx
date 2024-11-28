@@ -19,6 +19,8 @@ import { signOut } from "@repo/model/lib/auth";
 import { Logout } from "./logout";
 import { MapPinIcon } from "lucide-react";
 import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
+import SwitchApp from "@repo/ui/components/switch-app";
+import { ApplicationsNames } from "@repo/model/lib/applications-names";
 
 export async function Header({
   business,
@@ -99,6 +101,10 @@ export async function Header({
                   <MapPinIcon className="h-5 w-5" />
                   {t("address-user")}
                 </Link>
+                <SwitchApp
+                  application={ApplicationsNames.WEB}
+                  businessId={business.id}
+                />
               </>
             )}
             {!user ? (

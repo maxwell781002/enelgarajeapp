@@ -4,16 +4,15 @@ import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 import { auth, SecurityUser } from "../lib/auth";
 import { userRepository } from "../repositories/user";
-import { CompleteBusiness } from "../prisma/zod";
 
 export const getCurrentUser = async (): Promise<SecurityUser | null> => {
   const session = await auth();
   return session?.user;
 };
 
-export const isCurrentUserCollaborator = async (business: CompleteBusiness) => {
+export const isCurrentUserCollaborator = async (businessId: string) => {
   const user = await getCurrentUser();
-  return !!user?.businessCollaboratorIds?.includes(business.id);
+  return !!user?.businessCollaboratorIds?.includes(businessId);
 };
 
 export const getUserAndBusinessById = async (id: string) => {

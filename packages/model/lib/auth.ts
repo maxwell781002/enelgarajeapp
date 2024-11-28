@@ -12,7 +12,9 @@ export type SecurityUser = {
 
 const adapter: any = PrismaAdapter(prisma());
 const getUserByAccount = async (provider_providerAccountId: any) => {
-  const user: SecurityUser = await adapter.getUserByAccount(provider_providerAccountId);
+  const user: SecurityUser = await adapter.getUserByAccount(
+    provider_providerAccountId,
+  );
   if (!user) return null;
   user.businessIds = await businessRepository.getBusinessIdByUserOwner(
     user?.id,
