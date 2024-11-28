@@ -7,6 +7,10 @@
     "logout": "Salir",
     "order": "Mis ordenes",
     "address-user": "Mis direcciones",
-    "AllCategory": "Todas"
+    "AllCategory": "Todas",
+    "switch-app": {
+      "WEB": "Ir a gestores",
+      "COLLABORATOR": "Ir a la web"
+    }
   }
 }

@@ -10,6 +10,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { createOrUpdateBusiness } from "@repo/model/repository/business";
 import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
 import { paymentMethodRepository } from "@repo/model/repositories/payment-method";
+import { SecurityUser } from "@repo/model/lib/auth";
 
 const defaultValues = {};
 
@@ -21,7 +22,7 @@ export default async function PageForm({
   const t = await getTranslations("Business");
   const business = await businessRepository.getById(businessId);
   const telegram = await telegramBusinessRepository.getByBusinessId(businessId);
-  const user = await getCurrentUser();
+  const user = (await getCurrentUser()) as SecurityUser;
   const owner = await businessRepository.getOwner(businessId);
   const users =
     user.role === UserRoles.ADMIN ? await userRepository.getAll() : [];
