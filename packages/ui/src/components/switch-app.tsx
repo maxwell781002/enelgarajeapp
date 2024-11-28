@@ -34,7 +34,7 @@ export default async function SwitchApp({
       : `https://${business.slug}`;
   return (
     <Button asChild className={className}>
-      <Link href={url}>
+      <Link href={url as string}>
         <ArrowLeftRight className="w-4 h-4 mr-2" />
         {t(`switch-app.${application}`)}
       </Link>

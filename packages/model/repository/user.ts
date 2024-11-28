@@ -5,7 +5,7 @@ import { UserRegisterSchema } from "../validation/user";
 import { auth, SecurityUser } from "../lib/auth";
 import { userRepository } from "../repositories/user";
 
-export const getCurrentUser = async (): Promise<SecurityUser | null> => {
+export const getCurrentUser = async (): Promise<SecurityUser> => {
   const session = await auth();
   return session?.user;
 };
