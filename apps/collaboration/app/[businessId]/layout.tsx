@@ -8,12 +8,9 @@ import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-head
 import { getCurrentOrder } from "@repo/model/repository/order";
 import SwitchApp from "@repo/ui/components/switch-app";
 import { ApplicationsNames } from "@repo/model/lib/applications-names";
-import { isCurrentUserCollaborator } from "@repo/model/repository/user";
+import { getBusinessSecurity } from "@repo/model/repository/user";
 import { redirect } from "next/navigation";
-import {
-  businessRepository,
-  UserBusinessType,
-} from "@repo/model/repositories/business";
+import { UserBusinessType } from "@repo/model/repositories/business";
 import { Item } from "@repo/ui/components/entity-select";
 
 export default async function RootLayout({
@@ -24,15 +21,15 @@ export default async function RootLayout({
   params: { businessId: string };
 }>) {
   const session = await auth();
-  if (!(await isCurrentUserCollaborator(businessId, true))) {
+  const order = await getCurrentOrder();
+  const business = await getBusinessSecurity(
+    session?.user,
+    businessId,
+    UserBusinessType.COLLABORATOR,
+  );
+  if (business === null) {
     return redirect(`/errors/403`);
   }
-  const order = await getCurrentOrder();
-  const business =
-    (await businessRepository.getByUserAndActive(
-      session?.user?.id,
-      UserBusinessType.COLLABORATOR,
-    )) || [];
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);

@@ -8,6 +8,7 @@ import { UserBusinessType as BaseUserBusinessType } from "../prisma/generated/cl
 // TODO: I am working with userBusiness using only one user.
 
 export const UserBusinessType = BaseUserBusinessType;
+export type TUserBusinessType = keyof typeof UserBusinessType;
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
@@ -72,7 +73,7 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  getByUserAndActive(userId: string, type: UserBusinessType) {
+  getByUserAndActive(userId: string, type: TUserBusinessType) {
     return this.model.findMany({
       where: {
         active: true,
