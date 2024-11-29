@@ -17,7 +17,7 @@ export type Item = {
 export type EntitySelectProps = {
   placeholder?: string;
   items: Item[];
-  onChange?: (value: string | null) => void;
+  onChange?: (value: string) => void;
 } & SelectProps &
   SelectValueProps;
 
@@ -27,7 +27,7 @@ export default function EntitySelect({
   ...props
 }: EntitySelectProps) {
   const handleChange = useCallback(
-    (value: string) => onChange?.(value || null),
+    (value: string) => onChange?.(value || ""),
     [onChange],
   );
   return (

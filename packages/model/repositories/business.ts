@@ -3,9 +3,12 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
 import { PaginateData } from "../types/pagination";
-import { UserBusinessType } from "../prisma/generated/client";
+import { UserBusinessType as BaseUserBusinessType } from "../prisma/generated/client";
 
 // TODO: I am working with userBusiness using only one user.
+
+export const UserBusinessType = BaseUserBusinessType;
+export type TUserBusinessType = keyof typeof UserBusinessType;
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
@@ -70,12 +73,12 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  getByUserAndActive(userId: string) {
+  getByUserAndActive(userId: string, type: TUserBusinessType) {
     return this.model.findMany({
       where: {
         active: true,
         users: {
-          some: { userId },
+          some: { userId, type },
         },
       },
     });
@@ -99,7 +102,7 @@ export class BusinessRepository extends BaseRepository<
   //UserBusiness
   async getBusinessIdByUserId(
     userId: string,
-    type: UserBusinessType | null = null,
+    type: TUserBusinessType | null = null,
   ) {
     if (!userId) {
       return [];

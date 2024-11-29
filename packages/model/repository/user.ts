@@ -4,6 +4,10 @@ import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 import { auth, SecurityUser } from "../lib/auth";
 import { userRepository } from "../repositories/user";
+import {
+  businessRepository,
+  TUserBusinessType,
+} from "@repo/model/repositories/business";
 
 export const getCurrentUser = async (): Promise<SecurityUser> => {
   const session = await auth();
@@ -12,7 +16,24 @@ export const getCurrentUser = async (): Promise<SecurityUser> => {
 
 export const isCurrentUserCollaborator = async (businessId: string) => {
   const user = await getCurrentUser();
-  return !!user?.businessCollaboratorIds?.includes(businessId);
+  const businessCollaboratorIds = user?.businessCollaboratorIds;
+  return !!businessCollaboratorIds?.includes(businessId);
+};
+
+export const getBusinessSecurity = async (
+  user: SecurityUser,
+  businessId: string,
+  type: TUserBusinessType,
+) => {
+  const business =
+    (await businessRepository.getByUserAndActive(user?.id, type)) || [];
+  const isHasBusiness = business.some(
+    ({ id }: { id: string }) => id === businessId,
+  );
+  if (!isHasBusiness) {
+    return null;
+  }
+  return business;
 };
 
 export const getUserAndBusinessById = async (id: string) => {

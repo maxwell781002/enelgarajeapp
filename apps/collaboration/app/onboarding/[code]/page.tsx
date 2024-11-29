@@ -34,8 +34,8 @@ export default async function Onboarding({ params }: OnboardingProps) {
   if (invitationLink === ErrorType.LINK_EXPIRED) {
     return redirect("/errors/expired-link");
   }
-  if (invitationLink === ErrorType.USER_ALREADY_EXISTS) {
-    return redirect("/errors/already-collaborator");
+  if (invitationLink?.error === ErrorType.USER_ALREADY_EXISTS) {
+    return redirect(`/${invitationLink.businessId}`);
   }
   const action = async (data: any) => {
     "use server";

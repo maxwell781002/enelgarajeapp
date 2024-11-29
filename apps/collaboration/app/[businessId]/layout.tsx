@@ -8,6 +8,10 @@ import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-head
 import { getCurrentOrder } from "@repo/model/repository/order";
 import SwitchApp from "@repo/ui/components/switch-app";
 import { ApplicationsNames } from "@repo/model/lib/applications-names";
+import { getBusinessSecurity } from "@repo/model/repository/user";
+import { redirect } from "next/navigation";
+import { UserBusinessType } from "@repo/model/repositories/business";
+import { Item } from "@repo/ui/components/entity-select";
 
 export default async function RootLayout({
   children,
@@ -18,6 +22,18 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   const order = await getCurrentOrder();
+  const business = await getBusinessSecurity(
+    session?.user,
+    businessId,
+    UserBusinessType.COLLABORATOR,
+  );
+  if (business === null) {
+    return redirect(`/errors/403`);
+  }
+  const onChangeBusiness = async (businessId: string) => {
+    "use server";
+    await redirect(`/${businessId}`);
+  };
   return (
     <TooltipProvider>
       <LayoutMain
@@ -25,6 +41,9 @@ export default async function RootLayout({
         secondaryMenu={[]}
         userImage={session?.user?.image}
         userMenuItems={[]}
+        businessId={businessId}
+        business={business as Item[]}
+        onChangeBusiness={onChangeBusiness}
         headerExtra={
           <>
             <div className="flex flex-1 justify-end items-center">

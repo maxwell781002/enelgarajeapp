@@ -4,6 +4,8 @@ import { UserCollaborationRegisterSchema } from "../validation/user";
 import { z } from "zod";
 import { updateUser } from "./user";
 import { transaction } from "../prisma/prisma-client";
+import { error } from "console";
+import { aw } from "vitest/dist/chunks/reporters.C4ZHgdxQ.js";
 
 export enum ErrorType {
   INVITATION_LINK_NOT_FOUND = "INVITATION_LINK_NOT_FOUND",
@@ -23,7 +25,11 @@ export const findInvitationLink = async (userId: string, code: string) => {
   }
   const businessIds = await businessRepository.getBusinessIdByUserId(userId);
   if (businessIds.includes(invitationLink.businessId)) {
-    return ErrorType.USER_ALREADY_EXISTS;
+    await invitationLinkRepository.remove(invitationLink.id);
+    return {
+      error: ErrorType.USER_ALREADY_EXISTS,
+      businessId: invitationLink.businessId,
+    };
   }
   return invitationLink;
 };
