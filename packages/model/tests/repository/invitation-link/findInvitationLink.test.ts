@@ -13,6 +13,7 @@ import {
 } from "../../factories";
 import { businessRepository } from "../../../repositories/business";
 import { UserCollaborationRegisterSchema } from "../../../validation/user";
+import { invitationLinkRepository } from "../../../repositories/invitation-link";
 
 const userModule = vi.hoisted(() => ({
   updateUser: vi.fn(),
@@ -26,6 +27,7 @@ describe("findInvitationLink", () => {
   let userIn;
   let invitationLinkOutOfDate;
   let invitationLinkOut;
+  let invitationLinkUserIn;
 
   beforeAll(async () => {
     user = await userFactory();
@@ -38,6 +40,10 @@ describe("findInvitationLink", () => {
     });
     invitationLinkOut = await invitationLinkFactory({
       code: "code",
+      businessId: business.id,
+    });
+    invitationLinkUserIn = await invitationLinkFactory({
+      code: "codeUserIn",
       businessId: business.id,
     });
     await userBusinessFactory({
@@ -63,11 +69,6 @@ describe("findInvitationLink", () => {
     expect(result).toBe(ErrorType.LINK_EXPIRED);
   });
 
-  it("User In", async () => {
-    const result = await findInvitationLink(userIn.id, invitationLinkOut.code);
-    expect(result).toBe(ErrorType.USER_ALREADY_EXISTS);
-  });
-
   it("New user", async () => {
     const result = await findInvitationLink(user.id, invitationLinkOut.code);
     expect(result.id).toBe(invitationLinkOut.id);
@@ -84,5 +85,17 @@ describe("findInvitationLink", () => {
     const businessIds =
       await businessRepository.getBusinessIdByUserCollaborator(id);
     expect(businessIds.includes(invitationLinkOut.businessId)).toBeTruthy();
+  });
+
+  it("User In", async () => {
+    const result = await findInvitationLink(
+      userIn.id,
+      invitationLinkUserIn.code,
+    );
+    const entity = await invitationLinkRepository.findByCode(
+      invitationLinkUserIn.code,
+    );
+    expect(entity).toBeNull();
+    expect(result?.error).toBe(ErrorType.USER_ALREADY_EXISTS);
   });
 });
