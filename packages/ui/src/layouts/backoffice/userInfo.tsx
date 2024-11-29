@@ -19,7 +19,7 @@ import { ApplicationsNames } from "@repo/model/lib/applications-names";
 export type UserInfoProps = {
   userImage: string;
   userMenuItems: MenuItem[];
-  businessId: string;
+  businessId?: string;
   switchApp?: boolean;
 };
 
@@ -51,7 +51,7 @@ export default function UserInfo({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {switchApp && (
+        {switchApp && !!businessId && (
           <DropdownMenuItem>
             <SwitchApp
               application={ApplicationsNames.COLLABORATOR}
