@@ -1,12 +1,14 @@
 import "@repo/ui/globals.css";
 import { LayoutMain } from "@repo/ui/layouts/backoffice/main";
 import { businessMenu, profileMenu, secondaryMenu } from "../config/menu";
-import { businessRepository } from "@repo/model/repositories/business";
+import {
+  businessRepository,
+  UserBusinessType,
+} from "@repo/model/repositories/business";
 import { Item } from "@repo/ui/layouts/backoffice/business.switch";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import { UserRoles } from "@repo/model/repositories/user";
-import { UserBusinessType } from "@repo/model/prisma/generated/client/index.d";
 
 export default async function RootLayout({
   children,

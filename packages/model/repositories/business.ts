@@ -3,9 +3,11 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteBusiness } from "../prisma/zod";
 import { BusinessValidation } from "../validation/business";
 import { PaginateData } from "../types/pagination";
-import { UserBusinessType } from "../prisma/generated/client";
+import { UserBusinessType as BaseUserBusinessType } from "../prisma/generated/client";
 
 // TODO: I am working with userBusiness using only one user.
+
+export const UserBusinessType = BaseUserBusinessType;
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
