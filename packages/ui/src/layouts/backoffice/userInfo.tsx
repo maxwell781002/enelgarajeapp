@@ -13,13 +13,22 @@ import Link from "next/link";
 import Logout from "./logout";
 import { signOut } from "@repo/model/lib/auth";
 import { redirect } from "next/navigation";
+import SwitchApp from "@repo/ui/components/switch-app";
+import { ApplicationsNames } from "@repo/model/lib/applications-names";
 
 export type UserInfoProps = {
   userImage: string;
   userMenuItems: MenuItem[];
+  businessId: string;
+  switchApp?: boolean;
 };
 
-export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
+export default function UserInfo({
+  userImage,
+  userMenuItems,
+  businessId,
+  switchApp,
+}: UserInfoProps) {
   const handleSignOut = async () => {
     "use server";
     await signOut();
@@ -42,6 +51,15 @@ export default function UserInfo({ userImage, userMenuItems }: UserInfoProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        {switchApp && (
+          <DropdownMenuItem>
+            <SwitchApp
+              application={ApplicationsNames.COLLABORATOR}
+              className="mr-4"
+              businessId={businessId}
+            />
+          </DropdownMenuItem>
+        )}
         {userMenuItems.map((item, i) => (
           <Fragment key={i}>
             {item === SEPARATOR ? (
