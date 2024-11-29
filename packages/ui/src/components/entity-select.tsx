@@ -11,7 +11,7 @@ import { useCallback } from "react";
 
 export type Item = {
   name: string;
-  id: string;
+  id: string | null;
 };
 
 export type EntitySelectProps = {

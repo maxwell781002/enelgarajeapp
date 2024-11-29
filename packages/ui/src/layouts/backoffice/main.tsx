@@ -9,9 +9,10 @@ import Menu, { MenuProps } from "./menu";
 import { LinkItem } from "@repo/ui/types/linkItem";
 import UserInfo, { UserInfoProps } from "./userInfo";
 import Breadcrumb, { BreadcrumbProps } from "./breadcrumb";
-import BusinessSwitch, { BusinessSwitchProps, Item } from "./business.switch";
+import BusinessSwitch, { BusinessSwitchProps } from "./business.switch";
 import Link from "next/link";
 import React from "react";
+import { Item } from "@repo/ui/components/entity-select";
 
 type MainProps = {
   children: React.ReactNode;

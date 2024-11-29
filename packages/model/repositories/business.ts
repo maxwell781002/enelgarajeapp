@@ -102,7 +102,7 @@ export class BusinessRepository extends BaseRepository<
   //UserBusiness
   async getBusinessIdByUserId(
     userId: string,
-    type: UserBusinessType | null = null,
+    type: TUserBusinessType | null = null,
   ) {
     if (!userId) {
       return [];

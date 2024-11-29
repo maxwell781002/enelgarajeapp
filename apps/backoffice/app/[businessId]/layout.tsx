@@ -5,11 +5,11 @@ import {
   businessRepository,
   UserBusinessType,
 } from "@repo/model/repositories/business";
-import { Item } from "@repo/ui/layouts/backoffice/business.switch";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import { UserRoles } from "@repo/model/repositories/user";
 import { getBusinessSecurity } from "@repo/model/repository/user";
+import { Item } from "@repo/ui/components/entity-select";
 
 export default async function RootLayout({
   children,

@@ -1,3 +1,4 @@
+import { Item } from "@repo/ui/components/entity-select";
 import {
   Select,
   SelectContent,
@@ -6,11 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
-
-export type Item = {
-  name: string;
-  id: string;
-};
 
 export type BusinessSwitchProps = {
   businessId?: string;
