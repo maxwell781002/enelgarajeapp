@@ -10,7 +10,7 @@ export default async function Page403() {
   const whatsappMessage = encodeURIComponent(t("textChat"));
   const logoutAction = async () => {
     "use server";
-    return signOut();
+    return signOut({ redirectTo: "/" });
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 py-8">
