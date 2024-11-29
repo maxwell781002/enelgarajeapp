@@ -70,12 +70,12 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  getByUserAndActive(userId: string) {
+  getByUserAndActive(userId: string, type: UserBusinessType) {
     return this.model.findMany({
       where: {
         active: true,
         users: {
-          some: { userId },
+          some: { userId, type },
         },
       },
     });

@@ -6,6 +6,7 @@ import { Item } from "@repo/ui/layouts/backoffice/business.switch";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
 import { UserRoles } from "@repo/model/repositories/user";
+import { UserBusinessType } from "@repo/model/prisma/generated/client/index.d";
 
 export default async function RootLayout({
   children,
@@ -18,7 +19,10 @@ export default async function RootLayout({
   const business =
     session?.user.role === UserRoles.ADMIN
       ? [await businessRepository.getById(businessId)]
-      : await businessRepository.getByUserAndActive(session?.user?.id);
+      : await businessRepository.getByUserAndActive(
+          session?.user?.id,
+          UserBusinessType.OWNER,
+        );
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);
