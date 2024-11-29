@@ -8,6 +8,8 @@ import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-head
 import { getCurrentOrder } from "@repo/model/repository/order";
 import SwitchApp from "@repo/ui/components/switch-app";
 import { ApplicationsNames } from "@repo/model/lib/applications-names";
+import { isCurrentUserCollaborator } from "@repo/model/repository/user";
+import { redirect } from "next/navigation";
 
 export default async function RootLayout({
   children,
@@ -17,6 +19,9 @@ export default async function RootLayout({
   params: { businessId: string };
 }>) {
   const session = await auth();
+  if (!(await isCurrentUserCollaborator(businessId, true))) {
+    return redirect(`/errors/403`);
+  }
   const order = await getCurrentOrder();
   return (
     <TooltipProvider>
