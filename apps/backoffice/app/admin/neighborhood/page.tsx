@@ -3,7 +3,7 @@ import { TableContextProvider } from "@repo/ui/context/table";
 import { DialogForm } from "./DialogForm";
 import { getTranslations } from "next-intl/server";
 import { PaginationResult } from "@repo/model/types/pagination";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { neighborhoodRepository } from "@repo/model/repositories/neighborhood";
@@ -27,20 +27,20 @@ export default async function Page({ searchParams }: PageProps) {
   };
   const pagination = await list({ ...searchParams });
   return (
-    <TableLayout
-      title={t("NeighborhoodList")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={
-        <DialogForm
-          title={t("create")}
-          action={create}
-          defaultValues={{ active: true }}
-        />
-      }
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("NeighborhoodList")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <DialogForm
+            title={t("create")}
+            action={create}
+            defaultValues={{ active: true }}
+          />
+        }
+      >
         <NeighborhoodTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

@@ -1,9 +1,11 @@
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { useTableContext } from "@repo/ui/context/table";
 
 export const useFilterChange = (onChange: (value: any) => void) => {
   const searchParams = useSearchParams();
+  const { startListLoading } = useTableContext();
   const value: any = useMemo(
     () =>
       Array.from(searchParams.entries()).reduce(
@@ -13,9 +15,11 @@ export const useFilterChange = (onChange: (value: any) => void) => {
     [searchParams],
   );
   const changeFilter = useDebouncedCallback((name, term) => {
-    onChange({
-      ...value,
-      [name]: term,
+    startListLoading(() => {
+      return onChange({
+        ...value,
+        [name]: term,
+      });
     });
   }, 300);
 

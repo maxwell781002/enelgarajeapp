@@ -5,12 +5,13 @@ import { productRepository } from "@repo/model/repositories/product";
 import Filter from "./filters";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { redirect } from "next/navigation";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import ProductTable from "./table";
 import { PaginationResult } from "@repo/model/types/pagination";
 import { addToOrder, getCurrentOrder } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 import { addProductFields } from "@repo/model/repository/product";
+import { CARD_SKELETON } from "@repo/ui/components/table-layout/skeleton";
 
 type PageProps = {
   searchParams: any;
@@ -47,17 +48,18 @@ export default async function Page({
     data.map(async (item: any) => addProductFields(item, order)),
   );
   return (
-    <TableLayout
-      title={t("ProductList")}
-      filter={<Filter onChange={handleSearch} categories={categories} />}
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("ProductList")}
+        filter={<Filter onChange={handleSearch} categories={categories} />}
+        skeletonMode={CARD_SKELETON}
+      >
         <ProductTable
           pagination={{ data, ...pagination } as PaginationResult<any>}
           add={add}
-          baseUrl={`/${businessId}`}
+          baseUrl={`/${businessId}/products`}
         />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

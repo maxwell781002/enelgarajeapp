@@ -1,6 +1,11 @@
 "use client";
 
-import React, { PropsWithChildren, createContext, useContext } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useTransition,
+} from "react";
 
 type TableProps = {
   [key: string]: any;
@@ -9,11 +14,14 @@ type TableProps = {
 const TableContext = createContext<TableProps>({} as TableProps);
 
 export const TableContextProvider = ({ children, ...props }: TableProps) => {
+  const [isListLoading, startListLoading] = useTransition();
   return (
     <TableContext.Provider
       {...props}
       value={{
         ...props,
+        isListLoading,
+        startListLoading,
       }}
     >
       {children}

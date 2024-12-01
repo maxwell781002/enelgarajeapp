@@ -9,7 +9,7 @@ import BusinessTable from "./table";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { PaginationResult } from "@repo/model/types/pagination";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 
@@ -35,18 +35,18 @@ export default async function Page({
   };
   const pagination = await list({ businessId });
   return (
-    <TableLayout
-      title={t("BusinessList")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={
-        <Link href="/admin/business/form">
-          <Button>{t("createBusiness")}</Button>
-        </Link>
-      }
-    >
-      <TableContextProvider remove={remove}>
+    <TableContextProvider remove={remove}>
+      <TableLayout
+        title={t("BusinessList")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <Link href="/admin/business/form">
+            <Button>{t("createBusiness")}</Button>
+          </Link>
+        }
+      >
         <BusinessTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

@@ -1,11 +1,17 @@
-import { Card, CardHeader, CardTitle } from "./ui/card";
-import { CardContent } from "./ui/card";
+"use client";
+import { useTableContext } from "@repo/ui/context/table";
+import { Card, CardHeader, CardTitle } from "@repo/ui/components/ui/card";
+import { CardContent } from "@repo/ui/components/ui/card";
+import TableSkeleton, {
+  TMode,
+} from "@repo/ui/components/table-layout/skeleton";
 
 export type TableLayoutProps = {
   title: string;
   children: React.ReactNode;
   buttons?: React.ReactNode;
   filter?: React.ReactNode;
+  skeletonMode?: TMode;
 };
 
 export default function TableLayout({
@@ -13,7 +19,9 @@ export default function TableLayout({
   children,
   buttons,
   filter,
+  skeletonMode,
 }: TableLayoutProps) {
+  const { isListLoading } = useTableContext();
   return (
     <Card>
       <CardHeader className="px-6">
@@ -29,7 +37,9 @@ export default function TableLayout({
           </div>
         )}
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent>
+        {isListLoading ? <TableSkeleton mode={skeletonMode} /> : children}
+      </CardContent>
     </Card>
   );
 }

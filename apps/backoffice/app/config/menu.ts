@@ -36,6 +36,7 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     link: `/${businessId}`,
     title: "Dashboard",
     Icon: Home,
+    active: true,
   },
   {
     link: `/${businessId}/orders`,
@@ -65,11 +66,13 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     link: `/${businessId}/neighborhood`,
     title: "Repartos",
     Icon: MapPinIcon,
+    active: true,
   },
   {
     link: `/${businessId}/users`,
     title: "Gestores",
     Icon: Users2Icon,
+    active: true,
   },
 ];
 

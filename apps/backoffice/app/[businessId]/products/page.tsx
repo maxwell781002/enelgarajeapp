@@ -12,7 +12,7 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import Filter from "./filters";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { redirect } from "next/navigation";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 
 type PageProps = {
   searchParams: any;
@@ -37,18 +37,18 @@ export default async function Page({
     return redirect(url);
   };
   return (
-    <TableLayout
-      title={t("ProductList")}
-      buttons={
-        <Link href={`/${businessId}/products/form`}>
-          <Button>{t("createProduct")}</Button>
-        </Link>
-      }
-      filter={<Filter onChange={handleSearch} categories={categories} />}
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("ProductList")}
+        buttons={
+          <Link href={`/${businessId}/products/form`}>
+            <Button>{t("createProduct")}</Button>
+          </Link>
+        }
+        filter={<Filter onChange={handleSearch} categories={categories} />}
+      >
         <ProductTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

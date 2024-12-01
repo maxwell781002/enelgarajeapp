@@ -2,7 +2,7 @@ import { crud } from "@repo/model/lib/crud";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { getTranslations } from "next-intl/server";
 import { PaginationResult } from "@repo/model/types/pagination";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { getBusinessById } from "@repo/model/repository/business";
@@ -41,14 +41,16 @@ export default async function Page({
     revalidatePath(`/${businessId}/users`);
   };
   return (
-    <TableLayout
-      title={t("UserList")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={<CreateInvitation business={business} hasPlan={hasPlan !== 0} />}
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("UserList")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <CreateInvitation business={business} hasPlan={hasPlan !== 0} />
+        }
+      >
         <UserTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }
