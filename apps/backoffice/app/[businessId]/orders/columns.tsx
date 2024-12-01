@@ -4,7 +4,7 @@ import { formatDate } from "@repo/ui/lib/date";
 import Link from "next/link";
 import { statusLabel } from "./status-label";
 import { statusColors } from "@repo/model/repositories/order";
-import PriceDisplay from "@repo/ui/components/price";
+import { formatPrice } from "@repo/model/lib/utils";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -32,14 +32,18 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Total",
     accessorKey: "total",
-    cell: ({ cell: { value } }: { cell: { value: number } }) => {
-      return <PriceDisplay price={value} />;
+    cell: ({ cell: { value } }: { cell: { value: number; row: any } }) => {
+      return formatPrice(value);
     },
   },
   {
     header: "Enviado el",
     accessorKey: "sentAt",
-    cell: ({ cell: { value: sentAt } }: { cell: { value: Date } }) => {
+    cell: ({
+      cell: { value: sentAt, row },
+    }: {
+      cell: { value: Date; row: any };
+    }) => {
       return formatDate(sentAt);
     },
   },

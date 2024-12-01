@@ -1,23 +1,24 @@
 import { cn } from "@repo/ui/lib/utils";
 import { formatPrice as baseFormatPrice } from "@repo/model/lib/utils";
+import { TCurrency, Currency } from "@repo/model/types/enums";
 
 interface PriceDisplayProps {
   price: number;
   offerPrice?: number;
-  currency?: string;
+  symbol?: string;
   className?: string;
-  acronym?: string;
+  currency?: TCurrency;
 }
 
 export default function PriceDisplay({
   price,
   offerPrice,
-  currency = "$",
+  symbol = "$",
   className,
-  acronym = "CUP",
+  currency = Currency.CUP,
 }: PriceDisplayProps) {
   const formatPrice = (amount: number, showAcronym = true) => {
-    return amount && baseFormatPrice(amount, showAcronym, currency, acronym);
+    return amount && baseFormatPrice(amount, currency, { showAcronym, symbol });
   };
 
   return (

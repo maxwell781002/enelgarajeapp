@@ -1,11 +1,20 @@
+import { Currency, TCurrency } from "../types/enums";
+
+export type FormatPriceOptions = {
+  showAcronym?: boolean;
+  symbol?: string;
+};
+
 export const formatPrice = (
   amount: number,
-  showAcronym = true,
-  currency: string = "$",
-  acronym = "CUP",
+  currency: TCurrency = Currency.CUP,
+  options: FormatPriceOptions = {
+    showAcronym: true,
+    symbol: "$",
+  },
 ) => {
-  const price = `${currency}${(amount / 100).toFixed(2)}`;
-  return showAcronym ? `${price} ${acronym}` : price;
+  const price = `${options.symbol}${(amount / 100).toFixed(2)}`;
+  return options.showAcronym ? `${price} ${currency}` : price;
 };
 
 export const normalizePhone = (phone: string | null | undefined) => {

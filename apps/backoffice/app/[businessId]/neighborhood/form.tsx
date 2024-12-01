@@ -24,11 +24,12 @@ import {
   BusinessNeighborhoodModel,
   CompleteBusinessNeighborhood,
 } from "@repo/model/zod/businessneighborhood";
+import { TCurrency } from "@repo/model/types/enums";
+import { FormProps } from "@repo/ui/components/ui/btn-dialog-form";
 
-type FormAction = {
-  action: (object: any) => Promise<any>;
+export type FormAction = FormProps<{
   defaultValues: CompleteBusinessNeighborhood;
-};
+}>;
 
 const resolver = zodResolver(BusinessNeighborhoodModel.omit({ id: true }));
 
