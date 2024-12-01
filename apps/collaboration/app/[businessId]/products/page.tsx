@@ -57,7 +57,7 @@ export default async function Page({
         <ProductTable
           pagination={{ data, ...pagination } as PaginationResult<any>}
           add={add}
-          baseUrl={`/${businessId}`}
+          baseUrl={`/${businessId}/products`}
         />
       </TableLayout>
     </TableContextProvider>
