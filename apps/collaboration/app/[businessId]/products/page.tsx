@@ -47,17 +47,17 @@ export default async function Page({
     data.map(async (item: any) => addProductFields(item, order)),
   );
   return (
-    <TableLayout
-      title={t("ProductList")}
-      filter={<Filter onChange={handleSearch} categories={categories} />}
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("ProductList")}
+        filter={<Filter onChange={handleSearch} categories={categories} />}
+      >
         <ProductTable
           pagination={{ data, ...pagination } as PaginationResult<any>}
           add={add}
           baseUrl={`/${businessId}`}
         />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

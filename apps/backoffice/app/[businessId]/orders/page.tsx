@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 import { PaginationResult } from "@repo/model/types/pagination";
 import TableLayout from "@repo/ui/components/table-layout";
 import { getTranslations } from "next-intl/server";
+import { TableContextProvider } from "@repo/ui/context/table";
 
 type PageProps = {
   searchParams: any;
@@ -33,21 +34,23 @@ export default async function Page({
   };
   const data = await list({ businessId });
   return (
-    <TableLayout
-      title={t("OrderList")}
-      filter={
-        <Filter
-          onChange={handleSearch}
-          options={orderRepository.orderToChange()}
+    <TableContextProvider>
+      <TableLayout
+        title={t("OrderList")}
+        filter={
+          <Filter
+            onChange={handleSearch}
+            options={orderRepository.orderToChange()}
+          />
+        }
+      >
+        <MyTable
+          pagination={data as PaginationResult<any>}
+          columns={columns}
+          emptyTitle="No hay órdenes"
+          emptyDescription="No has tenido ninguna compra todavía."
         />
-      }
-    >
-      <MyTable
-        pagination={data as PaginationResult<any>}
-        columns={columns}
-        emptyTitle="No hay órdenes"
-        emptyDescription="No has tenido ninguna compra todavía."
-      />
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

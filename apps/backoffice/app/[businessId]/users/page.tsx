@@ -41,14 +41,16 @@ export default async function Page({
     revalidatePath(`/${businessId}/users`);
   };
   return (
-    <TableLayout
-      title={t("UserList")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={<CreateInvitation business={business} hasPlan={hasPlan !== 0} />}
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("UserList")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <CreateInvitation business={business} hasPlan={hasPlan !== 0} />
+        }
+      >
         <UserTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

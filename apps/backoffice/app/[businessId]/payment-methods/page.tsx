@@ -34,22 +34,22 @@ export default async function Page({
   const business = await getBusinessById(businessId);
   const pagination = await list({ ...searchParams, businessId });
   return (
-    <TableLayout
-      title={t("List")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={
-        <DialogForm
-          title={t("create")}
-          action={create}
-          defaultValues={{ businessId, name: "", data: {} }}
-          business={business}
-          isLimited={await isPaymentMethodLimited(business)}
-        />
-      }
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("List")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <DialogForm
+            title={t("create")}
+            action={create}
+            defaultValues={{ businessId, name: "", data: {} }}
+            business={business}
+            isLimited={await isPaymentMethodLimited(business)}
+          />
+        }
+      >
         <PaymentMethodTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

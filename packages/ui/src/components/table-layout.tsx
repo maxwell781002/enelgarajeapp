@@ -1,5 +1,7 @@
-import { Card, CardHeader, CardTitle } from "./ui/card";
-import { CardContent } from "./ui/card";
+"use client";
+import { useTableContext } from "@repo/ui/context/table";
+import { Card, CardHeader, CardTitle } from "@repo/ui/components/ui/card";
+import { CardContent } from "@repo/ui/components/ui/card";
 
 export type TableLayoutProps = {
   title: string;
@@ -14,6 +16,7 @@ export default function TableLayout({
   buttons,
   filter,
 }: TableLayoutProps) {
+  const { isListLoading } = useTableContext();
   return (
     <Card>
       <CardHeader className="px-6">
@@ -29,7 +32,9 @@ export default function TableLayout({
           </div>
         )}
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent>
+        {isListLoading ? <span>Loading</span> : children}
+      </CardContent>
     </Card>
   );
 }

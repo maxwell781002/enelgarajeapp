@@ -31,20 +31,20 @@ export default async function Page({
   };
   const pagination = await list({ ...searchParams, businessId });
   return (
-    <TableLayout
-      title={t("NeighborhoodList")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={
-        <DialogForm
-          title={t("create")}
-          action={create}
-          defaultValues={{ active: true, businessId }}
-        />
-      }
-    >
-      <TableContextProvider update={update} remove={remove}>
+    <TableContextProvider update={update} remove={remove}>
+      <TableLayout
+        title={t("NeighborhoodList")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <DialogForm
+            title={t("create")}
+            action={create}
+            defaultValues={{ active: true, businessId }}
+          />
+        }
+      >
         <NeighborhoodTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }

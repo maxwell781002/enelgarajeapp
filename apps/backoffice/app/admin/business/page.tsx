@@ -35,18 +35,18 @@ export default async function Page({
   };
   const pagination = await list({ businessId });
   return (
-    <TableLayout
-      title={t("BusinessList")}
-      filter={<Filter onChange={handleSearch} />}
-      buttons={
-        <Link href="/admin/business/form">
-          <Button>{t("createBusiness")}</Button>
-        </Link>
-      }
-    >
-      <TableContextProvider remove={remove}>
+    <TableContextProvider remove={remove}>
+      <TableLayout
+        title={t("BusinessList")}
+        filter={<Filter onChange={handleSearch} />}
+        buttons={
+          <Link href="/admin/business/form">
+            <Button>{t("createBusiness")}</Button>
+          </Link>
+        }
+      >
         <BusinessTable pagination={pagination as PaginationResult<any>} />
-      </TableContextProvider>
-    </TableLayout>
+      </TableLayout>
+    </TableContextProvider>
   );
 }
