@@ -172,6 +172,7 @@ model Order {
   isCollaborator  Boolean        @default(false)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @default(now()) @updatedAt
+  currency        Currency       @default(CUP)
 
   orderAddress OrderAddress?
 }

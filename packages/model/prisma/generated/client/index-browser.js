@@ -218,7 +218,8 @@ exports.Prisma.OrderScalarFieldEnum = {
   identifier: 'identifier',
   isCollaborator: 'isCollaborator',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  currency: 'currency'
 };
 
 exports.Prisma.OrderProductScalarFieldEnum = {

@@ -12950,6 +12950,7 @@ export namespace Prisma {
     isCollaborator: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
+    currency: $Enums.Currency | null;
   };
 
   export type OrderMaxAggregateOutputType = {
@@ -12966,6 +12967,7 @@ export namespace Prisma {
     isCollaborator: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
+    currency: $Enums.Currency | null;
   };
 
   export type OrderCountAggregateOutputType = {
@@ -12983,6 +12985,7 @@ export namespace Prisma {
     isCollaborator: number;
     createdAt: number;
     updatedAt: number;
+    currency: number;
     _all: number;
   };
 
@@ -13012,6 +13015,7 @@ export namespace Prisma {
     isCollaborator?: true;
     createdAt?: true;
     updatedAt?: true;
+    currency?: true;
   };
 
   export type OrderMaxAggregateInputType = {
@@ -13028,6 +13032,7 @@ export namespace Prisma {
     isCollaborator?: true;
     createdAt?: true;
     updatedAt?: true;
+    currency?: true;
   };
 
   export type OrderCountAggregateInputType = {
@@ -13045,6 +13050,7 @@ export namespace Prisma {
     isCollaborator?: true;
     createdAt?: true;
     updatedAt?: true;
+    currency?: true;
     _all?: true;
   };
 
@@ -13152,6 +13158,7 @@ export namespace Prisma {
     isCollaborator: boolean;
     createdAt: Date;
     updatedAt: Date;
+    currency: $Enums.Currency;
     _count: OrderCountAggregateOutputType | null;
     _avg: OrderAvgAggregateOutputType | null;
     _sum: OrderSumAggregateOutputType | null;
@@ -13190,6 +13197,7 @@ export namespace Prisma {
       isCollaborator?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
+      currency?: boolean;
       user?: boolean | Order$userArgs<ExtArgs>;
       items?: boolean | Order$itemsArgs<ExtArgs>;
       business?: boolean | Order$businessArgs<ExtArgs>;
@@ -13217,6 +13225,7 @@ export namespace Prisma {
       isCollaborator?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
+      currency?: boolean;
       user?: boolean | Order$userArgs<ExtArgs>;
       business?: boolean | Order$businessArgs<ExtArgs>;
     },
@@ -13238,6 +13247,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    currency?: boolean;
   };
 
   export type OrderInclude<
@@ -13282,6 +13292,7 @@ export namespace Prisma {
         isCollaborator: boolean;
         createdAt: Date;
         updatedAt: Date;
+        currency: $Enums.Currency;
       },
       ExtArgs["result"]["order"]
     >;
@@ -13822,6 +13833,7 @@ export namespace Prisma {
     readonly isCollaborator: FieldRef<"Order", "Boolean">;
     readonly createdAt: FieldRef<"Order", "DateTime">;
     readonly updatedAt: FieldRef<"Order", "DateTime">;
+    readonly currency: FieldRef<"Order", "Currency">;
   }
 
   // Custom InputTypes
@@ -26009,6 +26021,7 @@ export namespace Prisma {
     isCollaborator: "isCollaborator";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
+    currency: "currency";
   };
 
   export type OrderScalarFieldEnum =
@@ -27075,6 +27088,7 @@ export namespace Prisma {
     isCollaborator?: BoolFilter<"Order"> | boolean;
     createdAt?: DateTimeFilter<"Order"> | Date | string;
     updatedAt?: DateTimeFilter<"Order"> | Date | string;
+    currency?: EnumCurrencyFilter<"Order"> | $Enums.Currency;
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null;
     items?: OrderProductListRelationFilter;
     business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
@@ -27099,6 +27113,7 @@ export namespace Prisma {
     isCollaborator?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    currency?: SortOrder;
     user?: UserOrderByWithRelationInput;
     items?: OrderProductOrderByRelationAggregateInput;
     business?: BusinessOrderByWithRelationInput;
@@ -27124,6 +27139,7 @@ export namespace Prisma {
       isCollaborator?: BoolFilter<"Order"> | boolean;
       createdAt?: DateTimeFilter<"Order"> | Date | string;
       updatedAt?: DateTimeFilter<"Order"> | Date | string;
+      currency?: EnumCurrencyFilter<"Order"> | $Enums.Currency;
       user?: XOR<UserNullableRelationFilter, UserWhereInput> | null;
       items?: OrderProductListRelationFilter;
       business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
@@ -27150,6 +27166,7 @@ export namespace Prisma {
     isCollaborator?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    currency?: SortOrder;
     _count?: OrderCountOrderByAggregateInput;
     _avg?: OrderAvgOrderByAggregateInput;
     _max?: OrderMaxOrderByAggregateInput;
@@ -27183,6 +27200,7 @@ export namespace Prisma {
     isCollaborator?: BoolWithAggregatesFilter<"Order"> | boolean;
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string;
+    currency?: EnumCurrencyWithAggregatesFilter<"Order"> | $Enums.Currency;
   };
 
   export type OrderProductWhereInput = {
@@ -28625,6 +28643,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
@@ -28646,6 +28665,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -28663,6 +28683,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
@@ -28684,6 +28705,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -28703,6 +28725,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
   };
 
   export type OrderUpdateManyMutationInput = {
@@ -28718,6 +28741,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
   };
 
   export type OrderUncheckedUpdateManyInput = {
@@ -28735,6 +28759,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
   };
 
   export type OrderProductCreateInput = {
@@ -30249,6 +30274,7 @@ export namespace Prisma {
     isCollaborator?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    currency?: SortOrder;
   };
 
   export type OrderAvgOrderByAggregateInput = {
@@ -30271,6 +30297,7 @@ export namespace Prisma {
     isCollaborator?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    currency?: SortOrder;
   };
 
   export type OrderMinOrderByAggregateInput = {
@@ -30287,6 +30314,7 @@ export namespace Prisma {
     isCollaborator?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+    currency?: SortOrder;
   };
 
   export type OrderSumOrderByAggregateInput = {
@@ -33912,6 +33940,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
@@ -33931,6 +33960,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -34297,6 +34327,7 @@ export namespace Prisma {
     isCollaborator?: BoolFilter<"Order"> | boolean;
     createdAt?: DateTimeFilter<"Order"> | Date | string;
     updatedAt?: DateTimeFilter<"Order"> | Date | string;
+    currency?: EnumCurrencyFilter<"Order"> | $Enums.Currency;
   };
 
   export type UserBusinessUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -35373,6 +35404,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
@@ -35392,6 +35424,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -36537,6 +36570,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     user?: UserCreateNestedOneWithoutOrdersInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
@@ -36557,6 +36591,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
 
@@ -36659,6 +36694,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
@@ -36679,6 +36715,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
@@ -37651,6 +37688,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
@@ -37671,6 +37709,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
   };
 
@@ -37759,6 +37798,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
@@ -37779,6 +37819,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
   };
 
@@ -38010,6 +38051,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
   };
 
   export type UserBusinessCreateManyBusinessInput = {
@@ -38139,6 +38181,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
@@ -38158,6 +38201,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -38176,6 +38220,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
   };
 
   export type UserBusinessUpdateWithoutBusinessInput = {
@@ -38404,6 +38449,7 @@ export namespace Prisma {
     isCollaborator?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    currency?: $Enums.Currency;
   };
 
   export type AccountCreateManyUserInput = {
@@ -38463,6 +38509,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
@@ -38482,6 +38529,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -38500,6 +38548,7 @@ export namespace Prisma {
     isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
   };
 
   export type AccountUpdateWithoutUserInput = {
