@@ -18,15 +18,16 @@ export default async function RootLayout({
   params: { businessId: string };
 }) {
   const session = await auth();
-  const business =
+  const business = await businessRepository.getById(businessId);
+  const businesses =
     session?.user.role === UserRoles.ADMIN
-      ? [await businessRepository.getById(businessId)]
+      ? [business]
       : await getBusinessSecurity(
           session?.user,
           businessId,
           UserBusinessType.OWNER,
         );
-  if (business === null) {
+  if (businesses === null) {
     return redirect(`/errors/403`);
   }
   const onChangeBusiness = async (businessId: string) => {
@@ -42,7 +43,7 @@ export default async function RootLayout({
         userMenuItems={profileMenu}
         businessId={businessId}
         ph="Negocio..."
-        business={business as Item[]}
+        business={businesses as Item[]}
         onChangeBusiness={onChangeBusiness}
         adminUrl={
           session?.user?.role === UserRoles.ADMIN ? "/admin/dashboard" : ""

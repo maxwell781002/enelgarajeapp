@@ -1,6 +1,9 @@
+"use client";
+
 import { cn } from "@repo/ui/lib/utils";
 import { formatPrice as baseFormatPrice } from "@repo/model/lib/utils";
-import { TCurrency, Currency } from "@repo/model/types/enums";
+import { TCurrency } from "@repo/model/types/enums";
+import { useBusinessContext } from "@repo/ui/context/business";
 
 interface PriceDisplayProps {
   price: number;
@@ -15,10 +18,18 @@ export default function PriceDisplay({
   offerPrice,
   symbol = "$",
   className,
-  currency = Currency.CUP,
+  currency,
 }: PriceDisplayProps) {
+  const { business } = useBusinessContext();
+  console.log(business?.currency, currency);
   const formatPrice = (amount: number, showAcronym = true) => {
-    return amount && baseFormatPrice(amount, currency, { showAcronym, symbol });
+    return (
+      amount &&
+      baseFormatPrice(amount, currency || business?.currency, {
+        showAcronym,
+        symbol,
+      })
+    );
   };
 
   return (

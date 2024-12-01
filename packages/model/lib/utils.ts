@@ -7,7 +7,7 @@ export type FormatPriceOptions = {
 
 export const formatPrice = (
   amount: number,
-  currency: TCurrency = Currency.CUP,
+  currency: TCurrency | string = "",
   options: FormatPriceOptions = {
     showAcronym: true,
     symbol: "$",

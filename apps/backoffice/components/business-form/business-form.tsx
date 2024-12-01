@@ -27,9 +27,10 @@ export default function BusinessForm({
   paymentMethods = [],
 }: BusinessFormProps) {
   const t = useTranslations("Business");
-  const currencyItems = Object.entries(Currency).map(
-    ([label, value]) => ({ label, value }),
-  );
+  const currencyItems = Object.entries(Currency).map(([label, value]) => ({
+    label,
+    value,
+  }));
   return (
     <>
       <FormField
