@@ -3,7 +3,7 @@ import { TableContextProvider } from "@repo/ui/context/table";
 import { DialogForm } from "./DialogForm";
 import { getTranslations } from "next-intl/server";
 import { PaginationResult } from "@repo/model/types/pagination";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { neighborhoodRepository } from "@repo/model/repositories/neighborhood";

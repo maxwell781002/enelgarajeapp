@@ -12,7 +12,7 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import Filter from "./filters";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { redirect } from "next/navigation";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 
 type PageProps = {
   searchParams: any;

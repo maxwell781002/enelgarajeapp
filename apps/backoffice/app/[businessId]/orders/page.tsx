@@ -8,7 +8,7 @@ import { columns } from "./columns";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { PaginationResult } from "@repo/model/types/pagination";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import { getTranslations } from "next-intl/server";
 import { TableContextProvider } from "@repo/ui/context/table";
 

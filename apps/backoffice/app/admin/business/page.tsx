@@ -9,7 +9,7 @@ import BusinessTable from "./table";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { PaginationResult } from "@repo/model/types/pagination";
-import TableLayout from "@repo/ui/components/table-layout";
+import TableLayout from "@repo/ui/components/table-layout/layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 
