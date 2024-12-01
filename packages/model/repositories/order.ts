@@ -121,6 +121,7 @@ export class OrderRepository extends BaseRepository<
         position: newPosition,
         sentAt: new Date(),
         businessId: business.id,
+        currency: business.currency,
         shipping: order.shipping,
         identifier: this.generateIdentifier(new Date(), newPosition),
       },
