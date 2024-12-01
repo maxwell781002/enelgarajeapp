@@ -10,6 +10,7 @@ interface PriceDisplayProps {
   offerPrice?: number;
   symbol?: string;
   className?: string;
+  classNameText?: string;
   currency?: TCurrency;
 }
 
@@ -18,6 +19,7 @@ export default function PriceDisplay({
   offerPrice,
   symbol = "$",
   className,
+  classNameText,
   currency,
 }: PriceDisplayProps) {
   const { business } = useBusinessContext();
@@ -37,20 +39,23 @@ export default function PriceDisplay({
       {offerPrice && offerPrice < price ? (
         <>
           <span
-            className="text-lg font-bold text-green-600"
+            className={cn("text-lg font-bold text-green-600", classNameText)}
             aria-label="Offer price"
           >
             {formatPrice(offerPrice)}
           </span>
           <span
-            className="text-sm text-gray-500 line-through"
+            className={cn("text-sm text-gray-500 line-through", classNameText)}
             aria-label="Original price"
           >
             {formatPrice(price, false)}
           </span>
         </>
       ) : (
-        <span className="text-lg font-bold" aria-label="Price">
+        <span
+          className={cn("text-lg font-bold", classNameText)}
+          aria-label="Price"
+        >
           {formatPrice(price)}
         </span>
       )}

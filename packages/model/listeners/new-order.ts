@@ -33,10 +33,10 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
     items: order.items.map((item: CompleteOrderProduct) => ({
       id: item.product.id,
       name: item.product.name,
-      price: formatPrice(item.price),
+      price: formatPrice(item.price, order.currency),
       quantity: item.quantity,
     })),
-    total: formatPrice(order.total),
+    total: formatPrice(order.total, order.currency),
   };
   return Promise.all([
     sendToBusinessGroup(order, message),
