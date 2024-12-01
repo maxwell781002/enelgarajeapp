@@ -38,7 +38,9 @@
     "ENTERPRISE": "Empresarial",
     "lbSendOrderToWhatsapp": "¿Mandar los mensajes para Whatsapp?",
     "tabAdmin": "Administración",
-    "noPaymentMethod": "No tiene ningún medio de pago configurado."
+    "noPaymentMethod": "No tiene ningún medio de pago configurado.",
+    "lbCurrency": "Moneda",
+    "phCurrency": "Seleccionar Moneda"
   },
   "Totals": {
     "totalProducts": "Total de productos",
