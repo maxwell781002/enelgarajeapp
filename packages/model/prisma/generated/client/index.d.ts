@@ -128,6 +128,13 @@ export namespace $Enums {
 
   export type BusinessPlan = (typeof BusinessPlan)[keyof typeof BusinessPlan];
 
+  export const Currency: {
+    CUP: "CUP";
+    USD: "USD";
+  };
+
+  export type Currency = (typeof Currency)[keyof typeof Currency];
+
   export const PaymentMethodType: {
     TRANSFERMOVIL: "TRANSFERMOVIL";
     ENZONA: "ENZONA";
@@ -164,6 +171,10 @@ export namespace $Enums {
 export type BusinessPlan = $Enums.BusinessPlan;
 
 export const BusinessPlan: typeof $Enums.BusinessPlan;
+
+export type Currency = $Enums.Currency;
+
+export const Currency: typeof $Enums.Currency;
 
 export type PaymentMethodType = $Enums.PaymentMethodType;
 
@@ -2979,6 +2990,7 @@ export namespace Prisma {
     plan: $Enums.BusinessPlan | null;
     sendOrderToWhatsapp: boolean | null;
     defaultPaymentMethodId: string | null;
+    currency: $Enums.Currency | null;
   };
 
   export type BusinessMaxAggregateOutputType = {
@@ -2994,6 +3006,7 @@ export namespace Prisma {
     plan: $Enums.BusinessPlan | null;
     sendOrderToWhatsapp: boolean | null;
     defaultPaymentMethodId: string | null;
+    currency: $Enums.Currency | null;
   };
 
   export type BusinessCountAggregateOutputType = {
@@ -3010,6 +3023,7 @@ export namespace Prisma {
     plan: number;
     sendOrderToWhatsapp: number;
     defaultPaymentMethodId: number;
+    currency: number;
     _all: number;
   };
 
@@ -3034,6 +3048,7 @@ export namespace Prisma {
     plan?: true;
     sendOrderToWhatsapp?: true;
     defaultPaymentMethodId?: true;
+    currency?: true;
   };
 
   export type BusinessMaxAggregateInputType = {
@@ -3049,6 +3064,7 @@ export namespace Prisma {
     plan?: true;
     sendOrderToWhatsapp?: true;
     defaultPaymentMethodId?: true;
+    currency?: true;
   };
 
   export type BusinessCountAggregateInputType = {
@@ -3065,6 +3081,7 @@ export namespace Prisma {
     plan?: true;
     sendOrderToWhatsapp?: true;
     defaultPaymentMethodId?: true;
+    currency?: true;
     _all?: true;
   };
 
@@ -3173,6 +3190,7 @@ export namespace Prisma {
     plan: $Enums.BusinessPlan;
     sendOrderToWhatsapp: boolean;
     defaultPaymentMethodId: string | null;
+    currency: $Enums.Currency;
     _count: BusinessCountAggregateOutputType | null;
     _avg: BusinessAvgAggregateOutputType | null;
     _sum: BusinessSumAggregateOutputType | null;
@@ -3210,6 +3228,7 @@ export namespace Prisma {
       plan?: boolean;
       sendOrderToWhatsapp?: boolean;
       defaultPaymentMethodId?: boolean;
+      currency?: boolean;
       defaultPaymentMethod?:
         | boolean
         | Business$defaultPaymentMethodArgs<ExtArgs>;
@@ -3246,6 +3265,7 @@ export namespace Prisma {
       plan?: boolean;
       sendOrderToWhatsapp?: boolean;
       defaultPaymentMethodId?: boolean;
+      currency?: boolean;
       defaultPaymentMethod?:
         | boolean
         | Business$defaultPaymentMethodArgs<ExtArgs>;
@@ -3267,6 +3287,7 @@ export namespace Prisma {
     plan?: boolean;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: boolean;
+    currency?: boolean;
   };
 
   export type BusinessInclude<
@@ -3342,6 +3363,7 @@ export namespace Prisma {
         plan: $Enums.BusinessPlan;
         sendOrderToWhatsapp: boolean;
         defaultPaymentMethodId: string | null;
+        currency: $Enums.Currency;
       },
       ExtArgs["result"]["business"]
     >;
@@ -3938,6 +3960,7 @@ export namespace Prisma {
     readonly plan: FieldRef<"Business", "BusinessPlan">;
     readonly sendOrderToWhatsapp: FieldRef<"Business", "Boolean">;
     readonly defaultPaymentMethodId: FieldRef<"Business", "String">;
+    readonly currency: FieldRef<"Business", "Currency">;
   }
 
   // Custom InputTypes
@@ -25876,6 +25899,7 @@ export namespace Prisma {
     plan: "plan";
     sendOrderToWhatsapp: "sendOrderToWhatsapp";
     defaultPaymentMethodId: "defaultPaymentMethodId";
+    currency: "currency";
   };
 
   export type BusinessScalarFieldEnum =
@@ -26204,6 +26228,22 @@ export namespace Prisma {
     FieldRefInputType<$PrismaModel, "BusinessPlan[]">;
 
   /**
+   * Reference to a field of type 'Currency'
+   */
+  export type EnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Currency"
+  >;
+
+  /**
+   * Reference to a field of type 'Currency[]'
+   */
+  export type ListEnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Currency[]"
+  >;
+
+  /**
    * Reference to a field of type 'PaymentMethodType'
    */
   export type EnumPaymentMethodTypeFieldRefInput<$PrismaModel> =
@@ -26326,6 +26366,7 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
     defaultPaymentMethodId?: StringNullableFilter<"Business"> | string | null;
+    currency?: EnumCurrencyFilter<"Business"> | $Enums.Currency;
     defaultPaymentMethod?: XOR<
       PaymentMethodNullableRelationFilter,
       PaymentMethodWhereInput
@@ -26358,6 +26399,7 @@ export namespace Prisma {
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrderInput | SortOrder;
+    currency?: SortOrder;
     defaultPaymentMethod?: PaymentMethodOrderByWithRelationInput;
     telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
@@ -26388,6 +26430,7 @@ export namespace Prisma {
       requestAddress?: BoolFilter<"Business"> | boolean;
       plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
       sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
+      currency?: EnumCurrencyFilter<"Business"> | $Enums.Currency;
       defaultPaymentMethod?: XOR<
         PaymentMethodNullableRelationFilter,
         PaymentMethodWhereInput
@@ -26422,6 +26465,7 @@ export namespace Prisma {
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrderInput | SortOrder;
+    currency?: SortOrder;
     _count?: BusinessCountOrderByAggregateInput;
     _avg?: BusinessAvgOrderByAggregateInput;
     _max?: BusinessMaxOrderByAggregateInput;
@@ -26461,6 +26505,7 @@ export namespace Prisma {
       | StringNullableWithAggregatesFilter<"Business">
       | string
       | null;
+    currency?: EnumCurrencyWithAggregatesFilter<"Business"> | $Enums.Currency;
   };
 
   export type TelegramBusinessWhereInput = {
@@ -27884,6 +27929,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -27910,6 +27956,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -27934,6 +27981,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -27963,6 +28011,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -27988,6 +28037,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
   };
 
   export type BusinessUpdateManyMutationInput = {
@@ -28003,6 +28053,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
   };
 
   export type BusinessUncheckedUpdateManyInput = {
@@ -28022,6 +28073,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
   };
 
   export type TelegramBusinessCreateInput = {
@@ -29358,6 +29410,13 @@ export namespace Prisma {
     not?: NestedEnumBusinessPlanFilter<$PrismaModel> | $Enums.BusinessPlan;
   };
 
+  export type EnumCurrencyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Currency | EnumCurrencyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    not?: NestedEnumCurrencyFilter<$PrismaModel> | $Enums.Currency;
+  };
+
   export type PaymentMethodNullableRelationFilter = {
     is?: PaymentMethodWhereInput | null;
     isNot?: PaymentMethodWhereInput | null;
@@ -29467,6 +29526,7 @@ export namespace Prisma {
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrder;
+    currency?: SortOrder;
   };
 
   export type BusinessAvgOrderByAggregateInput = {
@@ -29486,6 +29546,7 @@ export namespace Prisma {
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrder;
+    currency?: SortOrder;
   };
 
   export type BusinessMinOrderByAggregateInput = {
@@ -29501,6 +29562,7 @@ export namespace Prisma {
     plan?: SortOrder;
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrder;
+    currency?: SortOrder;
   };
 
   export type BusinessSumOrderByAggregateInput = {
@@ -29568,6 +29630,18 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumBusinessPlanFilter<$PrismaModel>;
     _max?: NestedEnumBusinessPlanFilter<$PrismaModel>;
+  };
+
+  export type EnumCurrencyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Currency | EnumCurrencyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCurrencyWithAggregatesFilter<$PrismaModel>
+      | $Enums.Currency;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumCurrencyFilter<$PrismaModel>;
+    _max?: NestedEnumCurrencyFilter<$PrismaModel>;
   };
 
   export type BusinessRelationFilter = {
@@ -30890,6 +30964,10 @@ export namespace Prisma {
 
   export type EnumBusinessPlanFieldUpdateOperationsInput = {
     set?: $Enums.BusinessPlan;
+  };
+
+  export type EnumCurrencyFieldUpdateOperationsInput = {
+    set?: $Enums.Currency;
   };
 
   export type PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput = {
@@ -33331,6 +33409,13 @@ export namespace Prisma {
     not?: NestedEnumBusinessPlanFilter<$PrismaModel> | $Enums.BusinessPlan;
   };
 
+  export type NestedEnumCurrencyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Currency | EnumCurrencyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    not?: NestedEnumCurrencyFilter<$PrismaModel> | $Enums.Currency;
+  };
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>;
     in?: string[] | ListStringFieldRefInput<$PrismaModel>;
@@ -33416,6 +33501,18 @@ export namespace Prisma {
       _min?: NestedEnumBusinessPlanFilter<$PrismaModel>;
       _max?: NestedEnumBusinessPlanFilter<$PrismaModel>;
     };
+
+  export type NestedEnumCurrencyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Currency | EnumCurrencyFieldRefInput<$PrismaModel>;
+    in?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.Currency[] | ListEnumCurrencyFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCurrencyWithAggregatesFilter<$PrismaModel>
+      | $Enums.Currency;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumCurrencyFilter<$PrismaModel>;
+    _max?: NestedEnumCurrencyFilter<$PrismaModel>;
+  };
 
   export type NestedEnumPaymentMethodTypeFilter<$PrismaModel = never> = {
     equals?:
@@ -34413,6 +34510,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -34438,6 +34536,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -34489,6 +34588,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -34517,6 +34617,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -34540,6 +34641,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -34565,6 +34667,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -34596,6 +34699,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -34620,6 +34724,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -34672,6 +34777,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -34700,6 +34806,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -34743,6 +34850,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -34767,6 +34875,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -34842,6 +34951,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -34867,6 +34977,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -34946,6 +35057,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -34974,6 +35086,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -34997,6 +35110,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -35022,6 +35136,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -35128,6 +35243,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -35156,6 +35272,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -35712,6 +35829,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -35737,6 +35855,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -35850,6 +35969,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -35878,6 +35998,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -35901,6 +36022,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -35926,6 +36048,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -35977,6 +36100,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -36005,6 +36129,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -36097,6 +36222,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -36122,6 +36248,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -36281,6 +36408,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -36309,6 +36437,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -37253,6 +37382,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -37278,6 +37408,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -37435,6 +37566,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -37463,6 +37595,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -37662,6 +37795,7 @@ export namespace Prisma {
     requestAddress?: boolean;
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -37687,6 +37821,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -37760,6 +37895,7 @@ export namespace Prisma {
     requestAddress?: BoolFieldUpdateOperationsInput | boolean;
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -37788,6 +37924,7 @@ export namespace Prisma {
       | NullableStringFieldUpdateOperationsInput
       | string
       | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;

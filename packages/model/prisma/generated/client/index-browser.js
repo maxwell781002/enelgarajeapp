@@ -132,7 +132,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   requestAddress: 'requestAddress',
   plan: 'plan',
   sendOrderToWhatsapp: 'sendOrderToWhatsapp',
-  defaultPaymentMethodId: 'defaultPaymentMethodId'
+  defaultPaymentMethodId: 'defaultPaymentMethodId',
+  currency: 'currency'
 };
 
 exports.Prisma.TelegramBusinessScalarFieldEnum = {
@@ -335,6 +336,11 @@ exports.Prisma.JsonNullValueFilter = {
 exports.BusinessPlan = exports.$Enums.BusinessPlan = {
   BASIC: 'BASIC',
   ENTERPRISE: 'ENTERPRISE'
+};
+
+exports.Currency = exports.$Enums.Currency = {
+  CUP: 'CUP',
+  USD: 'USD'
 };
 
 exports.PaymentMethodType = exports.$Enums.PaymentMethodType = {
