@@ -8,7 +8,7 @@ import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-head
 import { getCurrentOrder } from "@repo/model/repository/order";
 import { getBusinessSecurity } from "@repo/model/repository/user";
 import { redirect } from "next/navigation";
-import { UserBusinessType } from "@repo/model/repositories/business";
+import { UserBusinessType } from "@repo/model/types/enums";
 import { Item } from "@repo/ui/components/entity-select";
 
 export default async function RootLayout({
