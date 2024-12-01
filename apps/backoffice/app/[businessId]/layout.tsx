@@ -8,6 +8,7 @@ import { UserRoles } from "@repo/model/repositories/user";
 import { getBusinessSecurity } from "@repo/model/repository/user";
 import { Item } from "@repo/ui/components/entity-select";
 import { UserBusinessType } from "@repo/model/types/enums";
+import { BusinessContextProvider } from "@repo/ui/context/business";
 
 export default async function RootLayout({
   children,
@@ -33,20 +34,22 @@ export default async function RootLayout({
     await redirect(`/${businessId}`);
   };
   return (
-    <LayoutMain
-      menuItems={businessMenu(businessId)}
-      secondaryMenu={secondaryMenu}
-      userImage={session?.user?.image}
-      userMenuItems={profileMenu}
-      businessId={businessId}
-      ph="Negocio..."
-      business={business as Item[]}
-      onChangeBusiness={onChangeBusiness}
-      adminUrl={
-        session?.user?.role === UserRoles.ADMIN ? "/admin/dashboard" : ""
-      }
-    >
-      {children}
-    </LayoutMain>
+    <BusinessContextProvider business={business}>
+      <LayoutMain
+        menuItems={businessMenu(businessId)}
+        secondaryMenu={secondaryMenu}
+        userImage={session?.user?.image}
+        userMenuItems={profileMenu}
+        businessId={businessId}
+        ph="Negocio..."
+        business={business as Item[]}
+        onChangeBusiness={onChangeBusiness}
+        adminUrl={
+          session?.user?.role === UserRoles.ADMIN ? "/admin/dashboard" : ""
+        }
+      >
+        {children}
+      </LayoutMain>
+    </BusinessContextProvider>
   );
 }
