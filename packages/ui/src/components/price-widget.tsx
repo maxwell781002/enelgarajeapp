@@ -17,7 +17,7 @@ export default function PriceWidget({
   currency,
 }: {
   form: any;
-  currency: TCurrency;
+  currency?: TCurrency;
 }) {
   const t = useTranslations("Product");
   return (
