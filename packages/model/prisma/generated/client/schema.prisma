@@ -35,6 +35,7 @@ model Business {
   sendOrderToWhatsapp    Boolean                @default(false)
   defaultPaymentMethod   PaymentMethod?         @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
   defaultPaymentMethodId String?                @unique()
+  currency               Currency               @default(CUP) /// @zod.optional()
   telegram               TelegramBusiness?
   categories             Category[]
   products               Product[]
@@ -44,6 +45,11 @@ model Business {
   userAddress            UserAddress[]
   paymentMethod          PaymentMethod[]        @relation("paymentMehtods")
   invitationLinks        InvitationLink[]
+}
+
+enum Currency {
+  CUP
+  USD
 }
 
 model TelegramBusiness {
@@ -166,6 +172,7 @@ model Order {
   isCollaborator  Boolean        @default(false)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @default(now()) @updatedAt
+  currency        Currency       @default(CUP)
 
   orderAddress OrderAddress?
 }

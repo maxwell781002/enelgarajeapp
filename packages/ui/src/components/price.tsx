@@ -1,23 +1,37 @@
+"use client";
+
 import { cn } from "@repo/ui/lib/utils";
 import { formatPrice as baseFormatPrice } from "@repo/model/lib/utils";
+import { TCurrency } from "@repo/model/types/enums";
+import { useBusinessContext } from "@repo/ui/context/business";
 
 interface PriceDisplayProps {
   price: number;
   offerPrice?: number;
-  currency?: string;
+  symbol?: string;
   className?: string;
-  acronym?: string;
+  classNameText?: string;
+  currency?: TCurrency;
 }
 
 export default function PriceDisplay({
   price,
   offerPrice,
-  currency = "$",
+  symbol = "$",
   className,
-  acronym = "CUP",
+  classNameText,
+  currency,
 }: PriceDisplayProps) {
+  const { business } = useBusinessContext();
+  console.log(business?.currency, currency);
   const formatPrice = (amount: number, showAcronym = true) => {
-    return amount && baseFormatPrice(amount, showAcronym, currency, acronym);
+    return (
+      amount &&
+      baseFormatPrice(amount, currency || business?.currency, {
+        showAcronym,
+        symbol,
+      })
+    );
   };
 
   return (
@@ -25,20 +39,23 @@ export default function PriceDisplay({
       {offerPrice && offerPrice < price ? (
         <>
           <span
-            className="text-lg font-bold text-green-600"
+            className={cn("text-lg font-bold text-green-600", classNameText)}
             aria-label="Offer price"
           >
             {formatPrice(offerPrice)}
           </span>
           <span
-            className="text-sm text-gray-500 line-through"
+            className={cn("text-sm text-gray-500 line-through", classNameText)}
             aria-label="Original price"
           >
             {formatPrice(price, false)}
           </span>
         </>
       ) : (
-        <span className="text-lg font-bold" aria-label="Price">
+        <span
+          className={cn("text-lg font-bold", classNameText)}
+          aria-label="Price"
+        >
           {formatPrice(price)}
         </span>
       )}

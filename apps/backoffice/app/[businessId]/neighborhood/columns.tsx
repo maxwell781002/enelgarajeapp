@@ -6,8 +6,8 @@ import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
-import { formatPrice } from "@repo/model/lib/utils";
 import { CompleteBusinessNeighborhood } from "@repo/model/zod/businessneighborhood";
+import PriceDisplay from "@repo/ui/components/price";
 
 type ActionProps = {
   row: CompleteBusinessNeighborhood;
@@ -23,7 +23,7 @@ function RowActions({ row }: ActionProps) {
     <BtnList>
       <DialogForm
         title={t("edit")}
-        action={(data) => update(row.id, data)}
+        action={(data: any) => update(row.id, data)}
         defaultValues={defaultValues}
         btnIcon={<Pencil1Icon />}
       />
@@ -61,8 +61,12 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Precio",
     accessorKey: "shipping",
-    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) =>
-      formatPrice(value as unknown as number),
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => (
+      <PriceDisplay
+        price={value as unknown as number}
+        classNameText="text-sm"
+      />
+    ),
   },
   {
     header: "Acciones",

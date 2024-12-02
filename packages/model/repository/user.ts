@@ -4,10 +4,8 @@ import prisma from "../prisma/prisma-client";
 import { UserRegisterSchema } from "../validation/user";
 import { auth, SecurityUser } from "../lib/auth";
 import { userRepository } from "../repositories/user";
-import {
-  businessRepository,
-  TUserBusinessType,
-} from "@repo/model/repositories/business";
+import { businessRepository } from "@repo/model/repositories/business";
+import { TUserBusinessType } from "../types/enums";
 
 export const getCurrentUser = async (): Promise<SecurityUser> => {
   const session = await auth();

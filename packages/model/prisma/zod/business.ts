@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { BusinessPlan } from "../generated/client";
+import { BusinessPlan, Currency } from "../generated/client";
 import {
   CompletePaymentMethod,
   RelatedPaymentMethodModel,
@@ -35,6 +35,7 @@ export const BusinessModel = z.object({
   plan: z.nativeEnum(BusinessPlan),
   sendOrderToWhatsapp: z.boolean(),
   defaultPaymentMethodId: z.string().nullish(),
+  currency: z.nativeEnum(Currency).optional(),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {

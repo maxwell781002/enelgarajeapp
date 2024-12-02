@@ -8,6 +8,7 @@ import Filter from "./filters";
 import { redirect } from "next/navigation";
 import NeighborhoodTable from "./table";
 import { businessNeighborhoodRepository } from "@repo/model/repositories/business-neighborhood";
+import { CompleteBusinessNeighborhood } from "@repo/model/zod/businessneighborhood";
 
 type PageProps = {
   searchParams: any;
@@ -39,7 +40,9 @@ export default async function Page({
           <DialogForm
             title={t("create")}
             action={create}
-            defaultValues={{ active: true, businessId }}
+            defaultValues={
+              { active: true, businessId } as CompleteBusinessNeighborhood
+            }
           />
         }
       >

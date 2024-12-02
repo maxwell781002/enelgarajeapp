@@ -32,14 +32,24 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Total",
     accessorKey: "total",
-    cell: ({ cell: { value } }: { cell: { value: number } }) => {
-      return <PriceDisplay price={value} />;
+    cell: ({ cell: { value, row } }: { cell: { value: number; row: any } }) => {
+      return (
+        <PriceDisplay
+          price={value}
+          currency={row.currency}
+          classNameText="text-sm"
+        />
+      );
     },
   },
   {
     header: "Enviado el",
     accessorKey: "sentAt",
-    cell: ({ cell: { value: sentAt } }: { cell: { value: Date } }) => {
+    cell: ({
+      cell: { value: sentAt, row },
+    }: {
+      cell: { value: Date; row: any };
+    }) => {
       return formatDate(sentAt);
     },
   },

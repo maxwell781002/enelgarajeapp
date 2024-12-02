@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { OrderStatus } from "../generated/client";
+import { OrderStatus, Currency } from "../generated/client";
 import {
   CompleteUser,
   RelatedUserModel,
@@ -34,6 +34,7 @@ export const OrderModel = z.object({
   isCollaborator: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  currency: z.nativeEnum(Currency),
 });
 
 export interface CompleteOrder extends z.infer<typeof OrderModel> {

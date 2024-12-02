@@ -77,6 +77,11 @@ export default async function BusinessPage({
               {business.defaultPaymentMethod?.name || t("noPaymentMethod")}
             </span>
           </div>
+          <div className="flex items-center space-x-2">
+            <DollarSignIcon className="h-5 w-5 text-muted-foreground" />
+            <span>{t("lbCurrency")}</span>
+            <strong>{business.currency}</strong>
+          </div>
           {business.telegram && (
             <div className="flex items-center space-x-2">
               <Send className="h-5 w-5 text-muted-foreground" />

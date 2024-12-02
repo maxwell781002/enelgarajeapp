@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 import { Button, ButtonProps } from "@repo/ui/components/ui/button";
 import {
@@ -10,43 +10,36 @@ import {
   DialogTitle,
 } from "@repo/ui/components/ui/dialog";
 
-type Form = React.ComponentType<{
-  action: any;
-  defaultValues: any;
-}>;
+export type FormProps<T> = {
+  action: (formData: any) => Promise<void>;
+} & T;
 
 export type BtnDialogFormProps = {
-  action: (object: any) => Promise<any>;
-  defaultValues: any;
   title: string;
   btnIcon?: React.ReactNode;
   btnText?: string;
   btnVariant: ButtonProps["variant"];
-  Component: Form;
-};
+  Component: React.ComponentType<FormProps<any>>;
+} & FormProps<any>;
 
 export function BtnDialogForm({
-  action,
   title,
   btnIcon,
   btnText,
   Component,
-  defaultValues,
+  action,
   btnVariant = "outline",
+  ...props
 }: BtnDialogFormProps): JSX.Element {
   btnText = btnText || title;
   const [open, setOpen] = useState(false);
-  const handleAction = useCallback(
-    async (props: any) => {
-      await action(props);
-      setOpen(false);
-    },
-    [action],
-  );
-  const handleOpen = useCallback(() => {
+  const handleAction = async (formData: any) => {
+    await action(formData);
+    setOpen(false);
+  };
+  const handleOpen = () => {
     setOpen((prev) => !prev);
-  }, []);
-
+  };
   return (
     <>
       <Button
@@ -62,7 +55,7 @@ export function BtnDialogForm({
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <Component action={handleAction} defaultValues={defaultValues} />
+            <Component action={handleAction} {...props} />
           </div>
         </DialogContent>
       </Dialog>

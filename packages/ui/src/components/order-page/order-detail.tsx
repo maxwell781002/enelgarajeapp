@@ -4,6 +4,7 @@ import PriceDisplay from "@repo/ui/components/price";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
+import { TCurrency } from "@repo/model/types/enums";
 
 type OrderProps = {
   order: CompleteOrder;
@@ -22,7 +23,7 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
               <div className="mt-4 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="font-medium">
-                    {orderLb} #{order.identifier}
+                    {orderLb} #{order.identifier as string}
                   </div>
                   <div>{formatDate(order.sentAt as Date)}</div>
                 </div>
@@ -34,7 +35,10 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                         <div className="font-medium">{item.product.name}</div>
                         <div className="flex flex-col">
                           <div className="text-right">{item.quantity} x</div>
-                          <PriceDisplay price={item.price} />
+                          <PriceDisplay
+                            price={item.price}
+                            currency={order.currency as TCurrency}
+                          />
                         </div>
                       </div>
                       <Separator />
@@ -47,7 +51,10 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                       <strong>Envio</strong>
                     </div>
                     <div>
-                      <PriceDisplay price={order.shipping} />
+                      <PriceDisplay
+                        price={order.shipping as number}
+                        currency={order.currency as TCurrency}
+                      />
                     </div>
                   </div>
                 )}
@@ -56,7 +63,10 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                     <strong>Total</strong>
                   </div>
                   <div>
-                    <PriceDisplay price={order.total} />
+                    <PriceDisplay
+                      price={order.total as number}
+                      currency={order.currency as TCurrency}
+                    />
                   </div>
                 </div>
               </div>

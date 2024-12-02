@@ -8,8 +8,10 @@ import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-head
 import { getCurrentOrder } from "@repo/model/repository/order";
 import { getBusinessSecurity } from "@repo/model/repository/user";
 import { redirect } from "next/navigation";
-import { UserBusinessType } from "@repo/model/repositories/business";
+import { UserBusinessType } from "@repo/model/types/enums";
 import { Item } from "@repo/ui/components/entity-select";
+import { BusinessContextProvider } from "@repo/ui/context/business";
+import { businessRepository } from "@repo/model/repositories/business";
 
 export default async function RootLayout({
   children,
@@ -20,12 +22,13 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   const order = await getCurrentOrder();
-  const business = await getBusinessSecurity(
+  const business = await businessRepository.getById(businessId);
+  const businesses = await getBusinessSecurity(
     session?.user,
     businessId,
     UserBusinessType.COLLABORATOR,
   );
-  if (business === null) {
+  if (businesses === null) {
     return redirect(`/errors/403`);
   }
   const onChangeBusiness = async (businessId: string) => {
@@ -34,27 +37,29 @@ export default async function RootLayout({
   };
   return (
     <TooltipProvider>
-      <LayoutMain
-        menuItems={businessMenu(businessId)}
-        secondaryMenu={[]}
-        userImage={session?.user?.image}
-        userMenuItems={[]}
-        businessId={businessId}
-        business={business as Item[]}
-        onChangeBusiness={onChangeBusiness}
-        switchApp
-        headerExtra={
-          <div className="flex flex-1 justify-end items-center">
-            <ShoppingCartHeader
-              className="mr-4"
-              order={order}
-              url={`/${businessId}/shopping-cart`}
-            />
-          </div>
-        }
-      >
-        {children}
-      </LayoutMain>
+      <BusinessContextProvider business={business}>
+        <LayoutMain
+          menuItems={businessMenu(businessId)}
+          secondaryMenu={[]}
+          userImage={session?.user?.image}
+          userMenuItems={[]}
+          businessId={businessId}
+          business={businesses as Item[]}
+          onChangeBusiness={onChangeBusiness}
+          switchApp
+          headerExtra={
+            <div className="flex flex-1 justify-end items-center">
+              <ShoppingCartHeader
+                className="mr-4"
+                order={order}
+                url={`/${businessId}/shopping-cart`}
+              />
+            </div>
+          }
+        >
+          {children}
+        </LayoutMain>
+      </BusinessContextProvider>
       <Toaster />
     </TooltipProvider>
   );
