@@ -35,7 +35,7 @@ export const BusinessModel = z.object({
   plan: z.nativeEnum(BusinessPlan),
   sendOrderToWhatsapp: z.boolean(),
   defaultPaymentMethodId: z.string().nullish(),
-  currency: z.nativeEnum(Currency),
+  currency: z.nativeEnum(Currency).optional(),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {

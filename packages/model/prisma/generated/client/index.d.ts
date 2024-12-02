@@ -3363,6 +3363,9 @@ export namespace Prisma {
         plan: $Enums.BusinessPlan;
         sendOrderToWhatsapp: boolean;
         defaultPaymentMethodId: string | null;
+        /**
+         * @zod.optional()
+         */
         currency: $Enums.Currency;
       },
       ExtArgs["result"]["business"]
