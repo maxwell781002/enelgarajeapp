@@ -27,7 +27,6 @@ describe("Address", () => {
       reference: "12345",
     });
     const address2 = await addAddressToUser(user.id, business2.id, {
-      alias: "Work",
       name: "John Doe",
       address: "456 Business St",
       city: "city 2",

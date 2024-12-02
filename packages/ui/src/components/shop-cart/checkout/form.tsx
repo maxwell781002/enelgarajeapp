@@ -82,7 +82,7 @@ export function CheckoutForm({
             </FormItem>
           )}
         />
-        {business.requestAddress && (
+        {!!business.requestAddress && (
           <Address
             form={form}
             addresses={addresses}
