@@ -23,7 +23,6 @@ export default function PriceDisplay({
   currency,
 }: PriceDisplayProps) {
   const { business } = useBusinessContext();
-  console.log(business?.currency, currency);
   const formatPrice = (amount: number, showAcronym = true) => {
     return (
       amount &&
