@@ -20,7 +20,7 @@ import AlertMessage from "@repo/ui/components/alert-message";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 import { Switch } from "@repo/ui/components/ui/switch";
 
-type CheckoutFormProps = {
+export type CheckoutFormProps = {
   action: (state: TUserRegisterSchema) => Promise<any>;
   defaultValues?: TUserRegisterSchema;
   business: CompleteBusiness;
@@ -31,6 +31,7 @@ type CheckoutFormProps = {
   neighborhoods?: NeighborhoodWithShipping[];
   showWantDomicile?: boolean;
   baseUrl?: string;
+  addAliasToAddress?: boolean;
 };
 
 export function CheckoutForm({
@@ -44,6 +45,7 @@ export function CheckoutForm({
   neighborhoods = [],
   showWantDomicile = false,
   baseUrl = "",
+  addAliasToAddress = true,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
   return (
@@ -89,6 +91,7 @@ export function CheckoutForm({
             setAddressType={setAddressType}
             neighborhoods={neighborhoods}
             baseUrl={baseUrl}
+            addAlias={addAliasToAddress}
           />
         )}
         {shopCartHasError && (

@@ -17,12 +17,14 @@ export type AddressFormProps = {
   form: any;
   name?: string;
   neighborhoods: NeighborhoodWithShipping[];
+  addAlias?: boolean;
 };
 
 export default function AddressForm({
   form,
   name = "",
   neighborhoods,
+  addAlias = true,
 }: AddressFormProps) {
   const t = useTranslations("Address");
   name = name ? `${name}.` : "";
@@ -31,19 +33,21 @@ export default function AddressForm({
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      <FormField
-        control={form.control}
-        name={`${name}alias`}
-        render={({ field, fieldState: { error } }: any) => (
-          <FormItem>
-            <FormLabel>{t("lbAlias")}</FormLabel>
-            <FormControl>
-              <Input placeholder={t("phAlias")} {...field} />
-            </FormControl>
-            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-          </FormItem>
-        )}
-      />
+      {addAlias && (
+        <FormField
+          control={form.control}
+          name={`${name}alias`}
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbAlias")}</FormLabel>
+              <FormControl>
+                <Input placeholder={t("phAlias")} {...field} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+      )}
       <FormField
         control={form.control}
         name={`${name}name`}
