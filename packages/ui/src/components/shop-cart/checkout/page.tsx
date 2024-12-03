@@ -6,7 +6,9 @@ import { auth } from "@repo/model/lib/auth";
 import NoUser from "@repo/ui/components/shop-cart/checkout/no-user";
 import { userRepository } from "@repo/model/repositories/user";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
-import CheckoutView from "@repo/ui/components/shop-cart/checkout/checkout-view";
+import CheckoutView, {
+  CheckoutViewProps,
+} from "@repo/ui/components/shop-cart/checkout/checkout-view";
 import { CompleteAddress } from "@repo/model/zod/address";
 import { CompleteBusiness } from "@repo/model/zod/business";
 
@@ -14,12 +16,16 @@ export type CheckoutPageProps = {
   business: CompleteBusiness;
   baseUrl?: string;
   isCollaborator?: boolean;
-};
+} & Omit<
+  CheckoutViewProps,
+  "checkout" | "user" | "business" | "addresses" | "order" | "baseUrl"
+>;
 
 export default async function CheckoutPage({
   business,
   baseUrl = "",
   isCollaborator = false,
+  ...props
 }: CheckoutPageProps) {
   const order = await getCurrentOrder();
   if (!order || order.items.length === 0) {
@@ -50,6 +56,7 @@ export default async function CheckoutPage({
       addresses={addresses as CompleteAddress[]}
       order={order}
       baseUrl={baseUrl}
+      {...props}
     />
   );
 }

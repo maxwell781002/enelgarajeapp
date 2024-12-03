@@ -264,7 +264,7 @@ model Authenticator {
 
 model Address {
   id        String  @id @default(uuid())
-  alias     String /// @zod.min(1, { message: "Required" })
+  alias     String? /// @zod.optional()
   name      String /// @zod.min(1, { message: "Required" })
   address   String /// @zod.min(1, { message: "Required" })
   city      String /// @zod.min(1, { message: "Required" })

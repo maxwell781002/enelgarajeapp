@@ -8,7 +8,10 @@ import {
   TableBody,
   TableCell,
 } from "@repo/ui/components/ui/table";
-import { CheckoutForm } from "@repo/ui/components/shop-cart/checkout/form";
+import {
+  CheckoutForm,
+  CheckoutFormProps,
+} from "@repo/ui/components/shop-cart/checkout/form";
 import { AddressType, TUserRegisterSchema } from "@repo/model/validation/user";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
@@ -26,14 +29,14 @@ import { calculateShippingPrice } from "@repo/model/lib/order";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
-type CheckoutViewProps = {
+export type CheckoutViewProps = {
   checkout: (data: TUserRegisterSchema) => Promise<any>;
   user: TUserRegisterSchema;
   business: CompleteBusiness;
   addresses: CompleteAddress[];
   order: ShopCartOrder;
   baseUrl?: string;
-};
+} & Omit<CheckoutFormProps, "action" | "setAddressType" | "form">;
 
 export default function CheckoutView({
   checkout,
@@ -42,6 +45,7 @@ export default function CheckoutView({
   addresses,
   order,
   baseUrl = "",
+  ...props
 }: CheckoutViewProps) {
   const t = useTranslations("Checkout");
   const [addressType, setAddressType] = useState(
@@ -84,6 +88,7 @@ export default function CheckoutView({
           showWantDomicile={hasShipping}
           form={form}
           baseUrl={baseUrl}
+          {...props}
         />
       </div>
       <div className="w-full space-y-2">

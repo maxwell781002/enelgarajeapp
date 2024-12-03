@@ -20158,7 +20158,7 @@ export namespace Prisma {
 
   export type AddressGroupByOutputType = {
     id: string;
-    alias: string;
+    alias: string | null;
     name: string;
     address: string;
     city: string;
@@ -20256,9 +20256,9 @@ export namespace Prisma {
       {
         id: string;
         /**
-         * @zod.min(1, { message: "Required" })
+         * @zod.optional()
          */
-        alias: string;
+        alias: string | null;
         /**
          * @zod.min(1, { message: "Required" })
          */
@@ -27588,7 +27588,7 @@ export namespace Prisma {
     OR?: AddressWhereInput[];
     NOT?: AddressWhereInput | AddressWhereInput[];
     id?: StringFilter<"Address"> | string;
-    alias?: StringFilter<"Address"> | string;
+    alias?: StringNullableFilter<"Address"> | string | null;
     name?: StringFilter<"Address"> | string;
     address?: StringFilter<"Address"> | string;
     city?: StringFilter<"Address"> | string;
@@ -27611,7 +27611,7 @@ export namespace Prisma {
 
   export type AddressOrderByWithRelationInput = {
     id?: SortOrder;
-    alias?: SortOrder;
+    alias?: SortOrderInput | SortOrder;
     name?: SortOrder;
     address?: SortOrder;
     city?: SortOrder;
@@ -27629,7 +27629,7 @@ export namespace Prisma {
       AND?: AddressWhereInput | AddressWhereInput[];
       OR?: AddressWhereInput[];
       NOT?: AddressWhereInput | AddressWhereInput[];
-      alias?: StringFilter<"Address"> | string;
+      alias?: StringNullableFilter<"Address"> | string | null;
       name?: StringFilter<"Address"> | string;
       address?: StringFilter<"Address"> | string;
       city?: StringFilter<"Address"> | string;
@@ -27654,7 +27654,7 @@ export namespace Prisma {
 
   export type AddressOrderByWithAggregationInput = {
     id?: SortOrder;
-    alias?: SortOrder;
+    alias?: SortOrderInput | SortOrder;
     name?: SortOrder;
     address?: SortOrder;
     city?: SortOrder;
@@ -27675,7 +27675,7 @@ export namespace Prisma {
       | AddressScalarWhereWithAggregatesInput
       | AddressScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<"Address"> | string;
-    alias?: StringWithAggregatesFilter<"Address"> | string;
+    alias?: StringNullableWithAggregatesFilter<"Address"> | string | null;
     name?: StringWithAggregatesFilter<"Address"> | string;
     address?: StringWithAggregatesFilter<"Address"> | string;
     city?: StringWithAggregatesFilter<"Address"> | string;
@@ -29105,7 +29105,7 @@ export namespace Prisma {
 
   export type AddressCreateInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -29118,7 +29118,7 @@ export namespace Prisma {
 
   export type AddressUncheckedCreateInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -29131,7 +29131,7 @@ export namespace Prisma {
 
   export type AddressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -29144,7 +29144,7 @@ export namespace Prisma {
 
   export type AddressUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -29157,7 +29157,7 @@ export namespace Prisma {
 
   export type AddressCreateManyInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -29168,7 +29168,7 @@ export namespace Prisma {
 
   export type AddressUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -29178,7 +29178,7 @@ export namespace Prisma {
 
   export type AddressUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -37196,7 +37196,7 @@ export namespace Prisma {
 
   export type AddressCreateWithoutNeighborhoodInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -37208,7 +37208,7 @@ export namespace Prisma {
 
   export type AddressUncheckedCreateWithoutNeighborhoodInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -37295,7 +37295,7 @@ export namespace Prisma {
     OR?: AddressScalarWhereInput[];
     NOT?: AddressScalarWhereInput | AddressScalarWhereInput[];
     id?: StringFilter<"Address"> | string;
-    alias?: StringFilter<"Address"> | string;
+    alias?: StringNullableFilter<"Address"> | string | null;
     name?: StringFilter<"Address"> | string;
     address?: StringFilter<"Address"> | string;
     city?: StringFilter<"Address"> | string;
@@ -37337,7 +37337,7 @@ export namespace Prisma {
 
   export type AddressCreateWithoutUserAddressInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -37349,7 +37349,7 @@ export namespace Prisma {
 
   export type AddressUncheckedCreateWithoutUserAddressInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -37489,7 +37489,7 @@ export namespace Prisma {
 
   export type AddressUpdateWithoutUserAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -37501,7 +37501,7 @@ export namespace Prisma {
 
   export type AddressUncheckedUpdateWithoutUserAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -37648,7 +37648,7 @@ export namespace Prisma {
 
   export type AddressCreateWithoutOrderAddressInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -37660,7 +37660,7 @@ export namespace Prisma {
 
   export type AddressUncheckedCreateWithoutOrderAddressInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -37746,7 +37746,7 @@ export namespace Prisma {
 
   export type AddressUpdateWithoutOrderAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -37758,7 +37758,7 @@ export namespace Prisma {
 
   export type AddressUncheckedUpdateWithoutOrderAddressInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -38722,7 +38722,7 @@ export namespace Prisma {
 
   export type AddressCreateManyNeighborhoodInput = {
     id?: string;
-    alias: string;
+    alias?: string | null;
     name: string;
     address: string;
     city: string;
@@ -38739,7 +38739,7 @@ export namespace Prisma {
 
   export type AddressUpdateWithoutNeighborhoodInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -38751,7 +38751,7 @@ export namespace Prisma {
 
   export type AddressUncheckedUpdateWithoutNeighborhoodInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;
@@ -38763,7 +38763,7 @@ export namespace Prisma {
 
   export type AddressUncheckedUpdateManyWithoutNeighborhoodInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    alias?: StringFieldUpdateOperationsInput | string;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
     name?: StringFieldUpdateOperationsInput | string;
     address?: StringFieldUpdateOperationsInput | string;
     city?: StringFieldUpdateOperationsInput | string;

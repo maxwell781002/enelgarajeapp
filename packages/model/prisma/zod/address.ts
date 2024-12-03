@@ -10,7 +10,7 @@ import {
 
 export const AddressModel = z.object({
   id: z.string(),
-  alias: z.string().min(1, { message: "Required" }),
+  alias: z.string().optional().nullish(),
   name: z.string().min(1, { message: "Required" }),
   address: z.string().min(1, { message: "Required" }),
   city: z.string().min(1, { message: "Required" }),

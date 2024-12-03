@@ -14,6 +14,7 @@ export default async function Component({ params: { businessId } }: Props) {
       business={business}
       baseUrl={`/${businessId}`}
       isCollaborator
+      addAliasToAddress={false}
     />
   );
 }
