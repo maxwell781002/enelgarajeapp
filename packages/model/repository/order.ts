@@ -121,6 +121,28 @@ const incrementDecrementItem = async (
   });
 };
 
+export const setQuantity = async (productId: string, quantity: number) => {
+  const order = await getOrCrateOrder();
+  const find = order.items.some(
+    (item: CompleteOrderProduct) => item.productId === productId,
+  );
+  if (!find || quantity < 1) {
+    return;
+  }
+  return prisma().order.update({
+    where: { id: order.id },
+    data: {
+      items: {
+        update: {
+          where: { productId_orderId: { productId, orderId: order.id } },
+          data: { quantity },
+        },
+      },
+    },
+    include: { items: { orderBy: { position: "asc" } } },
+  });
+};
+
 export const removeFromOrder = async (productId: string) => {
   const order = await getOrCrateOrder();
   let products = order.productsDetails as Array<any>;
