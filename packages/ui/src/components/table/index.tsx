@@ -27,7 +27,7 @@ const getValue = (field: string, value: any) => {
   return parts.reduce((a: any, b: string) => a && a[b], value);
 };
 
-export default async function MyTable({
+export default function MyTable({
   pagination: { data, pageIndex, totalPage, total, previousLink, nextLink },
   columns,
   ...props
