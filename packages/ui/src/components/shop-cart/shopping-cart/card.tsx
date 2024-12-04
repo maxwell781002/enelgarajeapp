@@ -1,7 +1,6 @@
 "use client";
 
-import { MinusIcon, PlusIcon, Trash2Icon } from "@repo/ui/components/icons";
-import { Button } from "@repo/ui/components/ui/button";
+import { Trash2Icon } from "@repo/ui/components/icons";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 import Link from "next/link";
@@ -10,21 +9,38 @@ import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/price";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { ShopCartItem } from "@repo/model/types/shop-cart";
+import QuantitySetter from "./set-quantity";
+import { QuantitySetterProps } from "./set-quantity.js";
 
 type Props = {
   item: ShopCartItem;
   url: string;
   onRemove: () => void;
-  add: () => void;
-  sub: () => void;
-};
+} & QuantitySetterProps;
 
-export default function CardItem({ item, onRemove, add, sub, url }: Props) {
+export default function CardItem({
+  item,
+  onRemove,
+  url,
+  ...quantityProps
+}: Props) {
   const t = useTranslations("ShopCart");
 
   return (
     <>
       <Card key={item.productId}>
+        <div className="flex justify-end p-2">
+          <div className="absolute">
+            <BtnConfirm
+              btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
+              title={t("remove_dialog.title")}
+              description={t("remove_dialog.description")}
+              action={() => onRemove()}
+              btnCancelText={t("remove_dialog.cancel")}
+              btnContinueText={t("remove_dialog.continue")}
+            />
+          </div>
+        </div>
         <CardContent>
           <div className="grid gap-4">
             <div className="flex items-center gap-4">
@@ -44,31 +60,18 @@ export default function CardItem({ item, onRemove, add, sub, url }: Props) {
                   <PriceDisplay
                     offerPrice={item.product.offerPrice as number}
                     price={item.product.price}
+                    classNameText="text-sm"
                   />
                 </Link>
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="icon" onClick={() => sub()}>
-                  <MinusIcon className="h-4 w-4" />
-                </Button>
-                <div>{item.quantity}</div>
-                <Button variant="outline" size="icon" onClick={() => add()}>
-                  <PlusIcon className="h-4 w-4" />
-                </Button>
+                <QuantitySetter quantity={item.quantity} {...quantityProps} />
               </div>
-              <div>
+              <div className="flex flex-1 justify-end">
                 <PriceDisplay price={item.total} />
               </div>
-              <BtnConfirm
-                btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
-                title={t("remove_dialog.title")}
-                description={t("remove_dialog.description")}
-                action={() => onRemove()}
-                btnCancelText={t("remove_dialog.cancel")}
-                btnContinueText={t("remove_dialog.continue")}
-              />
             </div>
             {item.outOfStock && (
               <AlertMessage
