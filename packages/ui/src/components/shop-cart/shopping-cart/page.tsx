@@ -29,7 +29,7 @@ export default async function ShoppingCartPage({
   const setQuantity = async (productId: string, quantity: number) => {
     "use server";
     await BaseSetQuantity(productId, quantity);
-    revalidatePath(`${baseUrl}/shopping-cart`);
+    return revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
   if (!order || order.items.length === 0) {

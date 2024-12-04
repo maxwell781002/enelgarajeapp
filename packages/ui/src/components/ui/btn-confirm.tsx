@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@repo/ui/components/ui/alert-dialog";
-import { Button, ButtonProps } from "@repo/ui/components/ui/button";
+import { Button, ButtonProps } from "@repo/ui/components/button";
 
 export type BtnConfirmProps = {
   btnIcon?: React.ReactNode;
@@ -19,7 +19,7 @@ export type BtnConfirmProps = {
   btnCancelText?: string;
   btnContinueText?: string;
   action: () => any;
-  btnAttr?: ButtonProps;
+  btnAttr?: Omit<ButtonProps, "children">;
 };
 
 export function BtnConfirm({

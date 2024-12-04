@@ -11,8 +11,9 @@ import AlertMessage from "@repo/ui/components/alert-message";
 import { ShopCartItem } from "@repo/model/types/shop-cart";
 import QuantitySetter from "./set-quantity";
 import { QuantitySetterProps } from "./set-quantity.js";
+import { useTransition } from "react";
 
-type Props = {
+export type CardItemProps = {
   item: ShopCartItem;
   url: string;
   onRemove: () => void;
@@ -23,9 +24,12 @@ export default function CardItem({
   onRemove,
   url,
   ...quantityProps
-}: Props) {
+}: CardItemProps) {
   const t = useTranslations("ShopCart");
-
+  const [removeLoading, startRemoving] = useTransition();
+  const handleRemove = () => {
+    return startRemoving(() => onRemove());
+  };
   return (
     <>
       <Card key={item.productId}>
@@ -35,9 +39,10 @@ export default function CardItem({
               btnIcon={<Trash2Icon className="h-4 w-4 text-red-600" />}
               title={t("remove_dialog.title")}
               description={t("remove_dialog.description")}
-              action={() => onRemove()}
+              action={handleRemove}
               btnCancelText={t("remove_dialog.cancel")}
               btnContinueText={t("remove_dialog.continue")}
+              btnAttr={{ loading: removeLoading }}
             />
           </div>
         </div>
