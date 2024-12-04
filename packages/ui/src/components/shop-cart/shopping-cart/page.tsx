@@ -1,7 +1,5 @@
 import {
-  decrementItem,
   getCurrentOrder,
-  incrementItem,
   removeFromOrder,
   setQuantity as BaseSetQuantity,
 } from "@repo/model/repository/order";
@@ -34,18 +32,6 @@ export default async function ShoppingCartPage({
     revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
-  // const increment = async (productId: string) => {
-  //   "use server";
-  //   await incrementItem(productId);
-  //   revalidatePath(`${baseUrl}/shopping-cart`);
-  // };
-
-  // const decrement = async (productId: string) => {
-  //   "use server";
-  //   await decrementItem(productId);
-  //   revalidatePath(`/shopping-cart`);
-  // };
-
   if (!order || order.items.length === 0) {
     return <EmptyCart url="/" />;
   }
@@ -70,8 +56,6 @@ export default async function ShoppingCartPage({
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
               changeProductQuantity={setQuantity.bind(null, item.productId)}
-              // add={increment.bind(null, item.productId)}
-              // sub={decrement.bind(null, item.productId)}
               url={baseUrl || "/"}
             />
           </div>
