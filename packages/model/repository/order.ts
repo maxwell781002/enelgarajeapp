@@ -79,32 +79,12 @@ export const getOrCrateOrder = async () => {
   return order;
 };
 
-export const decrementItem = async (productId: string) => {
+export const setQuantity = async (productId: string, quantity: number) => {
   const order = await getOrCrateOrder();
-  const find = order.items.some(
-    (item: CompleteOrderProduct) =>
-      item.productId === productId && item.quantity > 1,
-  );
-  if (!find) {
-    return;
-  }
-  return incrementDecrementItem(order, productId, "decrement");
-};
-
-export const incrementItem = async (productId: string) => {
-  const order = await getOrCrateOrder();
-  return incrementDecrementItem(order, productId, "increment");
-};
-
-const incrementDecrementItem = async (
-  order: CompleteOrder,
-  productId: string,
-  action: "increment" | "decrement",
-) => {
   const find = order.items.some(
     (item: CompleteOrderProduct) => item.productId === productId,
   );
-  if (!find) {
+  if (!find || quantity < 1) {
     return;
   }
   return prisma().order.update({
@@ -113,7 +93,7 @@ const incrementDecrementItem = async (
       items: {
         update: {
           where: { productId_orderId: { productId, orderId: order.id } },
-          data: { quantity: { [action]: 1 } },
+          data: { quantity },
         },
       },
     },

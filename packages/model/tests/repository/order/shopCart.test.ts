@@ -2,10 +2,9 @@ import { describe, vi, beforeAll, it, expect, afterAll } from "vitest";
 import { businessFactory, clearBd, productFactory } from "../../factories";
 import {
   addToOrder,
-  decrementItem,
   getCurrentOrder,
-  incrementItem,
   removeFromOrder,
+  setQuantity,
 } from "../../../repository/order";
 import { ShopCartOrder } from "../../../types/shop-cart";
 
@@ -74,7 +73,7 @@ describe("shopCart", () => {
   });
 
   it("decrement quantity", async () => {
-    const order = await decrementItem(product1.id);
+    const order = await setQuantity(product1.id, 1);
     expect(order).toBeUndefined();
     const order2 = (await getCurrentOrder()) as ShopCartOrder;
     expect(order2.items).toHaveLength(1);
@@ -112,7 +111,7 @@ describe("shopCart", () => {
   });
 
   it("Increment product", async () => {
-    const order = (await incrementItem(product1.id)) as ShopCartOrder;
+    const order = (await setQuantity(product1.id, 3)) as ShopCartOrder;
     expect(order).not.toBeNull();
     expect(order.items).toHaveLength(2);
     expect(order.items[0].productId).toBe(product1.id);
@@ -124,7 +123,7 @@ describe("shopCart", () => {
   });
 
   it("decrement quantity", async () => {
-    const order = (await decrementItem(product1.id)) as ShopCartOrder;
+    const order = (await setQuantity(product1.id, 2)) as ShopCartOrder;
     expect(order).not.toBeNull();
     expect(order.items).toHaveLength(2);
     expect(order.items[0].productId).toBe(product1.id);

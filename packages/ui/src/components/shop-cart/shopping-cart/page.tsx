@@ -1,8 +1,7 @@
 import {
-  decrementItem,
   getCurrentOrder,
-  incrementItem,
   removeFromOrder,
+  setQuantity as BaseSetQuantity,
 } from "@repo/model/repository/order";
 import EmptyCart from "@repo/ui/components/shop-cart/emptyCart";
 import { Button } from "@repo/ui/components/ui/button";
@@ -27,17 +26,10 @@ export default async function ShoppingCartPage({
     await removeFromOrder(productId);
     revalidatePath(`${baseUrl}/shopping-cart`);
   };
-
-  const increment = async (productId: string) => {
+  const setQuantity = async (productId: string, quantity: number) => {
     "use server";
-    await incrementItem(productId);
-    revalidatePath(`${baseUrl}/shopping-cart`);
-  };
-
-  const decrement = async (productId: string) => {
-    "use server";
-    await decrementItem(productId);
-    revalidatePath(`/shopping-cart`);
+    await BaseSetQuantity(productId, quantity);
+    return revalidatePath(`${baseUrl}/shopping-cart`);
   };
 
   if (!order || order.items.length === 0) {
@@ -63,8 +55,7 @@ export default async function ShoppingCartPage({
             <CardItem
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
-              add={increment.bind(null, item.productId)}
-              sub={decrement.bind(null, item.productId)}
+              changeProductQuantity={setQuantity.bind(null, item.productId)}
               url={baseUrl || "/"}
             />
           </div>
