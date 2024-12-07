@@ -14,7 +14,7 @@ import {
 } from "@repo/ui/components/shop-cart/checkout/form";
 import { AddressType, TUserRegisterSchema } from "@repo/model/validation/user";
 import Image from "@repo/ui/components/image";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteAddress } from "@repo/model/zod/address";
 import { ShopCartOrder } from "@repo/model/types/shop-cart";

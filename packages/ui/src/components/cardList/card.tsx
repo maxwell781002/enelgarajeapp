@@ -4,7 +4,7 @@ import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
 import Image from "@repo/ui/components/image";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 import { startTransition, useOptimistic } from "react";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";

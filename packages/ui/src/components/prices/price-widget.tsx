@@ -8,8 +8,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
+} from "@repo/ui/components/ui/form";
+import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
 
 export default function PriceWidget({

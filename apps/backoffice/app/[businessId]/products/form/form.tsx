@@ -23,7 +23,7 @@ import {
 } from "@repo/model/validation/product";
 import { useMemo } from "react";
 import { Switch } from "@repo/ui/components/ui/switch";
-import PriceWidget from "@repo/ui/components/price-widget";
+import PriceWidget from "@repo/ui/components/prices/price-widget";
 
 type FormAction = {
   action: (object: any) => Promise<any>;

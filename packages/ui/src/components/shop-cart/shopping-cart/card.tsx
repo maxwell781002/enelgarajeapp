@@ -6,7 +6,7 @@ import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Image from "@repo/ui/components/image";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { ShopCartItem } from "@repo/model/types/shop-cart";
 import QuantitySetter from "./set-quantity";

@@ -4,7 +4,7 @@ import { formatDate } from "@repo/ui/lib/date";
 import Link from "next/link";
 import { statusLabel } from "./status-label";
 import { statusColors } from "@repo/model/repositories/order";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 
 export const columns: ColumnDef<any>[] = [
   {
