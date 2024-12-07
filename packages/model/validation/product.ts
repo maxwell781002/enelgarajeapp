@@ -15,7 +15,7 @@ const baseValidation = ProductModel.omit({
   businessId: true,
   images: true,
 }).extend({
-  productPrices: z.object({
+  priceValues: z.object({
     hasCommission: z.boolean(),
     commissionType: z.enum([CommissionTypes.PERCENTAGE, CommissionTypes.FIXED]),
     commissionValue: z.number(),
@@ -54,3 +54,6 @@ export const ProductUpdateValidation = baseValidation
       ),
   })
   .refine(...validatePrice);
+
+export type ProductRegister = z.infer<typeof ProductValidation> &
+  z.infer<typeof ProductUpdateValidation>;

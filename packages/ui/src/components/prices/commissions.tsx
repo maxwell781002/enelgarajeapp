@@ -1,5 +1,4 @@
 import { CommissionTypes, TCurrency } from "@repo/model/types/enums";
-import { Switch } from "@repo/ui/components/ui/switch";
 import {
   FormControl,
   FormField,
@@ -14,7 +13,7 @@ import PriceDisplay from "./price";
 import { commissionCalculate } from "@repo/model/lib/utils";
 import { cn } from "@repo/ui/lib/utils";
 
-export type CommissionsType = {
+export type CommissionsProps = {
   form: any;
   basePrice: number;
   currency?: TCurrency;
@@ -48,25 +47,31 @@ export default function Commissions({
   form,
   basePrice,
   currency,
-}: CommissionsType) {
+}: CommissionsProps) {
   const t = useTranslations("Product");
-  const show = form.watch("productPrices.hasCommissions");
+  const show = form.watch("priceValues.hasCommission");
   const [value, base] = commissionCalculate(
     basePrice,
-    form.watch("productPrices.commissionType"),
-    form.watch("productPrices.commissionValue"),
+    form.watch("priceValues.commissionType"),
+    form.watch("priceValues.commissionValue"),
   );
+
   return (
     <div className="pt-5">
       <FormField
         control={form.control}
-        name="productPrices.hasCommissions"
-        render={({ field, fieldState: { error } }: any) => (
+        name="priceValues.hasCommission"
+        render={({
+          field: { value, onChange, ...field },
+          fieldState: { error },
+        }: any) => (
           <FormItem>
             <FormLabel>{t("hasCommissions")}</FormLabel>
             <FormControl>
               <input
                 {...field}
+                checked={value}
+                onChange={(e) => onChange(!!e.target.checked)}
                 type="checkbox"
                 className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 ml-5"
               />
@@ -80,7 +85,7 @@ export default function Commissions({
           <div className="grid gap-4 grid-cols-2">
             <FormField
               control={form.control}
-              name="productPrices.commissionType"
+              name="priceValues.commissionType"
               render={({ field, fieldState: { error } }: any) => (
                 <FormItem>
                   <FormLabel>{t("lbCommissionType")}</FormLabel>
@@ -105,7 +110,7 @@ export default function Commissions({
             />
             <FormField
               control={form.control}
-              name="productPrices.commissionValue"
+              name="priceValues.commissionValue"
               render={({ field, fieldState: { error } }: any) => (
                 <FormItem>
                   <FormLabel>{t("lbCommissionValue")}</FormLabel>

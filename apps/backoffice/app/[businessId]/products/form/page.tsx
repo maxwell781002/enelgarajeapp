@@ -8,12 +8,18 @@ import { getBusinessById } from "@repo/model/repository/business";
 import { isLimited } from "@repo/model/repository/product";
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { getTranslations } from "next-intl/server";
-import { ProductRegister } from "@repo/model/types/product";
 import { CommissionTypes } from "@repo/model/types/enums";
+import { ProductRegister } from "@repo/model/validation/product";
 
 type FormAction = {
   params: { businessId: string };
   searchParams: { id?: string };
+};
+
+const priceValues = {
+  hasCommission: false,
+  commissionType: CommissionTypes.PERCENTAGE,
+  commissionValue: 0,
 };
 
 const defaultValues: ProductRegister = {
@@ -29,11 +35,7 @@ const defaultValues: ProductRegister = {
   stock: 0,
   isExhaustible: false,
   allowOrderOutOfStock: false,
-  productPrices: {
-    hasCommission: false,
-    commissionType: CommissionTypes.PERCENTAGE,
-    commissionValue: 0,
-  },
+  priceValues,
 };
 
 export default async function PageForm({
@@ -53,6 +55,7 @@ export default async function PageForm({
       delete obj.categoryId;
     }
     obj.businessId = businessId;
+    console.log("obj", obj);
     const { id: idFromDb } = id
       ? await productRepository.update(id, obj)
       : await productRepository.create(obj);
@@ -62,9 +65,9 @@ export default async function PageForm({
   const product = id
     ? await productRepository.getAllProduct({ id })
     : { ...defaultValues, businessId };
-  if (product.productPrices?.hasCommission) {
-    product.productPrices.hasCommission =
-      !!product.productPrices.commissionValue;
+  product.priceValues = product.priceValues || priceValues;
+  if (product.priceValues.commissionValue) {
+    product.priceValues.hasCommission = !!product.priceValues.commissionValue;
   }
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">

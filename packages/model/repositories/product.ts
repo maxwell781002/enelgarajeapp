@@ -47,10 +47,11 @@ export class ProductRepository extends BaseRepository<
     });
   }
 
-  protected getCommissionData(productPrices: any, productId: string) {
-    const { hasCommission, ...productPrice } = productPrices;
+  protected getCommissionData(priceValues: any, productId: string) {
+    const { hasCommission, commissionValue, ...productPrice } = priceValues;
+    console.log("hasCommission", hasCommission, commissionValue, productPrice);
     return {
-      commissionValue: hasCommission ? productPrice.commissionValue : 0,
+      commissionValue: hasCommission ? commissionValue : 0,
       commissionType: CommissionTypes.PERCENTAGE,
       ...productPrice,
       productId,
@@ -58,17 +59,14 @@ export class ProductRepository extends BaseRepository<
   }
 
   protected async doCreate(data: any) {
-    const { productPrices, ...rest } = data;
+    const { priceValues, ...rest } = data;
     return transaction(async () => {
       const blob = await this.uploadImage(rest);
       const entity = await super.doCreate({
         ...this.getObject(rest),
         image: blob,
       });
-      const commissions = this.getCommissionData(
-        productPrices || {},
-        entity.id,
-      );
+      const commissions = this.getCommissionData(priceValues || {}, entity.id);
       await prisma().productPrice.create({
         data: commissions,
       });
@@ -80,7 +78,7 @@ export class ProductRepository extends BaseRepository<
     const image = data.image;
     return transaction(async () => {
       const entity = await this.getById(id);
-      let { productPrices, ...rest } = data;
+      let { priceValues, ...rest } = data;
       if (image && isFile(image)) {
         const blob = await this.uploadImage(rest);
         try {
@@ -92,7 +90,7 @@ export class ProductRepository extends BaseRepository<
         }
       }
       const newEntity = await super.doUpdate(id, rest);
-      const commissions = this.getCommissionData(productPrices, newEntity.id);
+      const commissions = this.getCommissionData(priceValues, newEntity.id);
       await prisma().productPrice.upsert({
         where: { productId: newEntity.id },
         update: commissions,
@@ -108,10 +106,12 @@ export class ProductRepository extends BaseRepository<
         "Este producto no puede ser eliminado. Puede desactivarlo si lo desea.",
       );
     }
-    const entity = await this.getById(id);
-    const data = await super.remove(id);
-    await del(entity.image.url);
-    return data;
+    return transaction(async () => {
+      const entity = await this.getById(id);
+      const data = await super.remove(id);
+      await del(entity.image.url);
+      return data;
+    });
   }
 
   basePaginate({

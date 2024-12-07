@@ -32,7 +32,6 @@ export default function ProductForm({
   defaultValues,
   ...props
 }: FormAction) {
-  console.log("defaultValues", defaultValues);
   const t = useTranslations("Product");
   const { toast } = useToast();
   const resolver = useMemo(
@@ -55,6 +54,7 @@ export default function ProductForm({
     () => form.formState.errors[""]?.message || "",
     [form.formState],
   );
+  console.log(form.formState.errors);
 
   return (
     <Form {...form}>
