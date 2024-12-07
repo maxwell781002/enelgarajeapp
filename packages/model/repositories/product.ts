@@ -138,6 +138,9 @@ export class ProductRepository extends BaseRepository<
       ...data,
       where,
       orderBy: { priority: "desc" },
+      include: {
+        priceValues: true,
+      },
     });
   }
 

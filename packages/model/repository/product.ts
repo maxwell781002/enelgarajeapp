@@ -1,5 +1,6 @@
 import { INFINITE_NUMBER, NUMBER_OF_PRODUCTS } from "../configs/plans";
 import { getPlanFeature } from "../lib/plans-feature";
+import { commissionCalculate } from "../lib/utils";
 import prisma from "../prisma/prisma-client";
 import { CompleteBusiness } from "../prisma/zod";
 import { productRepository } from "../repositories/product";
@@ -22,10 +23,18 @@ export const addProductFields = async (
   product: any,
   order: ShopCartOrder | null | undefined,
 ) => {
+  const _isOffer = !!(product.offerPrice && product.offerPrice < product.price);
+  const [commission, businessProfit] = commissionCalculate(
+    _isOffer ? product.offerPrice : product.price,
+    product.priceValues?.commissionType,
+    product.priceValues?.commissionValue || 0,
+  );
   return {
     ...product,
+    _commission: commission,
+    _businessProfit: businessProfit,
     _inCart: order && (await hasProduct(product.id, order)),
-    _isOffer: product.offerPrice && product.offerPrice < product.price,
+    _isOffer,
     _outOfStock:
       !product.allowOrderOutOfStock &&
       product.isExhaustible &&

@@ -56,7 +56,8 @@ export const commissionCalculate = (
 ) => {
   let value = 0;
   if (commissionType === CommissionTypes.PERCENTAGE) {
-    value = basePrice === 0 ? 0 : (basePrice * commission) / 100;
+    const numerator = basePrice * commission;
+    value = numerator === 0 ? numerator : numerator / 100;
   } else if (commissionType === CommissionTypes.FIXED) {
     value = commission;
   }

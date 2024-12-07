@@ -29,6 +29,7 @@ export default function ProductTable({
           <CardItem
             onAdd={() => add(item.id)}
             showStock
+            showCommission
             key={item.id}
             item={
               {
