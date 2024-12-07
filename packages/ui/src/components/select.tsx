@@ -29,7 +29,7 @@ export function SelectWidget({ onChange, items, ...props }: SelectWidgetProps) {
       <SelectContent>
         <SelectGroup>
           {items.map((b: Item) => (
-            <SelectItem key={b.value} value={b.label}>
+            <SelectItem key={b.value} value={b.value}>
               {b.label}
             </SelectItem>
           ))}

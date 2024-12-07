@@ -40,6 +40,8 @@
     "PERCENTAGE": "Porcentaje",
     "lbCommissionValue": "Valor de comision",
     "phCommissionValue": "Escriba el valor de comision",
+    "lbCommissionDisplay": "Comisión",
+    "lbBusinessProfit": "Ganancia del negocio",
     "remove_dialog": {
       "title": "¿Deseas borrar este producto?",
       "description": "Solo puede borrar un producto si no se ha hecho ninguna compra con él.",

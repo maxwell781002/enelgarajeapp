@@ -1,5 +1,4 @@
-import { Currency, TCurrency } from "../types/enums";
-import { CommissionTypes } from "../types/enums.js";
+import { CommissionTypes, TCurrency } from "@repo/model/types/enums";
 
 export type FormatPriceOptions = {
   showAcronym?: boolean;
