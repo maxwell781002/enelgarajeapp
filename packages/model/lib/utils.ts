@@ -1,4 +1,5 @@
 import { Currency, TCurrency } from "../types/enums";
+import { CommissionTypes } from "../types/enums.js";
 
 export type FormatPriceOptions = {
   showAcronym?: boolean;
@@ -48,3 +49,17 @@ export function formDataToObject(formData: FormData) {
     {},
   );
 }
+
+export const commissionCalculate = (
+  basePrice: number,
+  commissionType: string,
+  commission: number,
+) => {
+  let value = 0;
+  if (commissionType === CommissionTypes.PERCENTAGE) {
+    value = basePrice === 0 ? 0 : (basePrice * commission) / 100;
+  } else if (commissionType === CommissionTypes.FIXED) {
+    value = commission;
+  }
+  return [value, basePrice - value];
+};
