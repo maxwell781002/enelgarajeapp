@@ -8,10 +8,13 @@ export type PriceProps = {
 
 export default function Price({ form }: PriceProps) {
   const t = useTranslations("Product");
+  const price = form.watch("price");
+  const offerPrice = form.watch("offerPrice");
+  const basePrice = price < offerPrice ? price : offerPrice;
   return (
     <>
       <PriceWidget form={form} />
-      <Commissions form={form} />
+      <Commissions form={form} basePrice={basePrice} />
     </>
   );
 }
