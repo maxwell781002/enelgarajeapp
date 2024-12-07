@@ -7,7 +7,7 @@ import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
 import { CompleteBusinessNeighborhood } from "@repo/model/zod/businessneighborhood";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 
 type ActionProps = {
   row: CompleteBusinessNeighborhood;

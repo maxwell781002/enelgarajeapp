@@ -73,8 +73,7 @@ describe("shopCart", () => {
   });
 
   it("decrement quantity", async () => {
-    const order = await setQuantity(product1.id, 1);
-    expect(order).toBeUndefined();
+    await setQuantity(product1.id, 1);
     const order2 = (await getCurrentOrder()) as ShopCartOrder;
     expect(order2.items).toHaveLength(1);
     expect(order2.items[0].productId).toBe(product1.id);

@@ -1,4 +1,4 @@
-import { Prisma } from "../prisma/prisma-client";
+import prisma, { Prisma, transaction } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteProduct } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -10,6 +10,7 @@ import {
 import { orderRepository } from "./order";
 import { clearWhere } from "../lib/util-query";
 import { isFile } from "../lib/utils";
+import { CommissionTypes } from "../types/enums";
 
 type PaginateData = {
   businessId?: string;
@@ -30,6 +31,15 @@ export class ProductRepository extends BaseRepository<
     this.addValidator("update", ProductUpdateValidation);
   }
 
+  getAllProduct(where: any) {
+    return this.model.findUnique({
+      where,
+      include: {
+        priceValues: true,
+      },
+    });
+  }
+
   protected uploadImage(data: any) {
     const imageFile = data.image as File;
     return put(imageFile.name, imageFile, {
@@ -37,31 +47,57 @@ export class ProductRepository extends BaseRepository<
     });
   }
 
+  protected getCommissionData(priceValues: any, productId: string) {
+    const { hasCommission, commissionValue, ...productPrice } = priceValues;
+    console.log("hasCommission", hasCommission, commissionValue, productPrice);
+    return {
+      commissionValue: hasCommission ? commissionValue : 0,
+      commissionType: CommissionTypes.PERCENTAGE,
+      ...productPrice,
+      productId,
+    };
+  }
+
   protected async doCreate(data: any) {
-    const blob = await this.uploadImage(data);
-    return this.model.create({
-      data: { ...this.getObject(data), image: blob },
+    const { priceValues, ...rest } = data;
+    return transaction(async () => {
+      const blob = await this.uploadImage(rest);
+      const entity = await super.doCreate({
+        ...this.getObject(rest),
+        image: blob,
+      });
+      const commissions = this.getCommissionData(priceValues || {}, entity.id);
+      await prisma().productPrice.create({
+        data: commissions,
+      });
+      return entity;
     });
   }
 
   protected async doUpdate(id: string, data: any) {
     const image = data.image;
-    const entity = await this.getById(id);
-    if (image && isFile(image)) {
-      const blob = await this.uploadImage(data);
-      try {
-        const newImage = await this.model.update({
-          where: { id: entity.id },
-          data: { ...this.getObject(data), image: blob },
-        });
-        await del(entity.image.url);
-        return newImage;
-      } catch (error) {
-        await del(blob.url);
-        throw error;
+    return transaction(async () => {
+      const entity = await this.getById(id);
+      let { priceValues, ...rest } = data;
+      if (image && isFile(image)) {
+        const blob = await this.uploadImage(rest);
+        try {
+          rest = { ...rest, image: blob };
+          await del(entity.image.url);
+        } catch (error) {
+          await del(blob.url);
+          throw error;
+        }
       }
-    }
-    return super.doUpdate(id, data);
+      const newEntity = await super.doUpdate(id, rest);
+      const commissions = this.getCommissionData(priceValues, newEntity.id);
+      await prisma().productPrice.upsert({
+        where: { productId: newEntity.id },
+        update: commissions,
+        create: commissions,
+      });
+      return newEntity;
+    });
   }
 
   async remove(id: any) {
@@ -70,10 +106,12 @@ export class ProductRepository extends BaseRepository<
         "Este producto no puede ser eliminado. Puede desactivarlo si lo desea.",
       );
     }
-    const entity = await this.getById(id);
-    const data = await super.remove(id);
-    await del(entity.image.url);
-    return data;
+    return transaction(async () => {
+      const entity = await this.getById(id);
+      const data = await super.remove(id);
+      await del(entity.image.url);
+      return data;
+    });
   }
 
   basePaginate({
@@ -100,6 +138,9 @@ export class ProductRepository extends BaseRepository<
       ...data,
       where,
       orderBy: { priority: "desc" },
+      include: {
+        priceValues: true,
+      },
     });
   }
 

@@ -19,7 +19,7 @@ import { CitySelect } from "@repo/ui/components/city-select";
 import { Switch } from "@repo/ui/components/ui/switch";
 import EntitySelect from "@repo/ui/components/entity-select";
 import { useEffect, useState } from "react";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 import {
   BusinessNeighborhoodModel,
   CompleteBusinessNeighborhood,

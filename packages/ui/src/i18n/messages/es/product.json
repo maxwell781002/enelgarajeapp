@@ -2,7 +2,9 @@
   "Product": {
     "inCart": "En el carrito",
     "photos": "Imágenes",
-    "moreProducts": "Ver más"
+    "moreProducts": "Ver más",
+    "commission": "Comisión",
+    "stock": "Stock"
   },
   "ProductCollaboration": {
     "ProductList": "Productos",

@@ -3,6 +3,7 @@ export * from "./telegrambusiness";
 export * from "./paymentmethod";
 export * from "./category";
 export * from "./product";
+export * from "./productprice";
 export * from "./user";
 export * from "./userbusiness";
 export * from "./invitationlink";

@@ -9,7 +9,7 @@ import Link from "next/link";
 import CardItem from "@repo/ui/components/shop-cart/shopping-cart/card";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
-import PriceDisplay from "@repo/ui/components/price";
+import PriceDisplay from "@repo/ui/components/prices/price";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 

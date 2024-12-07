@@ -8,8 +8,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
+} from "@repo/ui/components/ui/form";
+import { Input } from "@repo/ui/components/ui/input";
 import { useTranslations } from "next-intl";
 
 export default function PriceWidget({
@@ -22,7 +22,7 @@ export default function PriceWidget({
   const t = useTranslations("Product");
   return (
     <>
-      <div className="flex flex-1 gap-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
         <FormField
           control={form.control}
           name="price"
@@ -59,12 +59,12 @@ export default function PriceWidget({
             </FormItem>
           )}
         />
+        <PriceDisplay
+          price={form.watch("price")}
+          offerPrice={form.watch("offerPrice")}
+          currency={currency}
+        />
       </div>
-      <PriceDisplay
-        price={form.watch("price")}
-        offerPrice={form.watch("offerPrice")}
-        currency={currency}
-      />
     </>
   );
 }

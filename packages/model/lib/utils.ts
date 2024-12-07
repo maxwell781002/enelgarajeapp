@@ -1,4 +1,4 @@
-import { Currency, TCurrency } from "../types/enums";
+import { CommissionTypes, TCurrency } from "@repo/model/types/enums";
 
 export type FormatPriceOptions = {
   showAcronym?: boolean;
@@ -48,3 +48,18 @@ export function formDataToObject(formData: FormData) {
     {},
   );
 }
+
+export const commissionCalculate = (
+  basePrice: number,
+  commissionType: string,
+  commission: number,
+) => {
+  let value = 0;
+  if (commissionType === CommissionTypes.PERCENTAGE) {
+    const numerator = basePrice * commission;
+    value = numerator === 0 ? numerator : numerator / 100;
+  } else if (commissionType === CommissionTypes.FIXED) {
+    value = commission;
+  }
+  return [value, basePrice - value];
+};

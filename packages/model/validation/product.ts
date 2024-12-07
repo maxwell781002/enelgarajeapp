@@ -1,5 +1,6 @@
 import { boolean, z } from "zod";
 import { ProductModel } from "../prisma/zod/product";
+import { CommissionTypes } from "../types/enums";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -13,6 +14,12 @@ const baseValidation = ProductModel.omit({
   id: true,
   businessId: true,
   images: true,
+}).extend({
+  priceValues: z.object({
+    hasCommission: z.boolean(),
+    commissionType: z.enum([CommissionTypes.PERCENTAGE, CommissionTypes.FIXED]),
+    commissionValue: z.number(),
+  }),
 });
 
 type ValidationRule = [(data: any) => boolean, string];
@@ -47,3 +54,6 @@ export const ProductUpdateValidation = baseValidation
       ),
   })
   .refine(...validatePrice);
+
+export type ProductRegister = z.infer<typeof ProductValidation> &
+  z.infer<typeof ProductUpdateValidation>;

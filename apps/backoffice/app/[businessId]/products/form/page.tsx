@@ -8,17 +8,21 @@ import { getBusinessById } from "@repo/model/repository/business";
 import { isLimited } from "@repo/model/repository/product";
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { getTranslations } from "next-intl/server";
-import { CompleteProduct } from "@repo/model/zod/product";
+import { CommissionTypes } from "@repo/model/types/enums";
+import { ProductRegister } from "@repo/model/validation/product";
 
 type FormAction = {
   params: { businessId: string };
   searchParams: { id?: string };
 };
 
-const defaultValues: Omit<
-  CompleteProduct,
-  "id" | "businessId" | "images" | "business" | "orderItems"
-> = {
+const priceValues = {
+  hasCommission: false,
+  commissionType: CommissionTypes.PERCENTAGE,
+  commissionValue: 0,
+};
+
+const defaultValues: ProductRegister = {
   name: "",
   image: "",
   categoryId: "",
@@ -31,6 +35,7 @@ const defaultValues: Omit<
   stock: 0,
   isExhaustible: false,
   allowOrderOutOfStock: false,
+  priceValues,
 };
 
 export default async function PageForm({
@@ -50,6 +55,7 @@ export default async function PageForm({
       delete obj.categoryId;
     }
     obj.businessId = businessId;
+    console.log("obj", obj);
     const { id: idFromDb } = id
       ? await productRepository.update(id, obj)
       : await productRepository.create(obj);
@@ -57,8 +63,12 @@ export default async function PageForm({
   };
   const categories = await categoryRepository.getAll(businessId);
   const product = id
-    ? await productRepository.get(id as string)
+    ? await productRepository.getAllProduct({ id })
     : { ...defaultValues, businessId };
+  product.priceValues = product.priceValues || priceValues;
+  if (product.priceValues.commissionValue) {
+    product.priceValues.hasCommission = !!product.priceValues.commissionValue;
+  }
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
       <ProductForm
