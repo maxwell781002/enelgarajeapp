@@ -31,6 +31,8 @@
     "lbIsExhaustible": "¿Puede agotarse?",
     "lbAllowOrderOutOfStock": "¿Vender sin stock?",
     "upgrade_plan_title": "Crear producto",
+    "tabGeneral": "General",
+    "tabPrice": "Precio",
     "remove_dialog": {
       "title": "¿Deseas borrar este producto?",
       "description": "Solo puede borrar un producto si no se ha hecho ninguna compra con él.",
