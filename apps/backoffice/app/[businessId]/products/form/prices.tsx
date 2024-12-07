@@ -1,3 +1,4 @@
+import Commissions from "@repo/ui/components/prices/commissions";
 import PriceWidget from "@repo/ui/components/prices/price-widget";
 import { useTranslations } from "next-intl";
 
@@ -10,6 +11,7 @@ export default function Price({ form }: PriceProps) {
   return (
     <>
       <PriceWidget form={form} />
+      <Commissions form={form} />
     </>
   );
 }

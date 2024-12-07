@@ -22,7 +22,7 @@ export default function PriceWidget({
   const t = useTranslations("Product");
   return (
     <>
-      <div className="flex flex-1 gap-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
         <FormField
           control={form.control}
           name="price"
@@ -59,12 +59,12 @@ export default function PriceWidget({
             </FormItem>
           )}
         />
+        <PriceDisplay
+          price={form.watch("price")}
+          offerPrice={form.watch("offerPrice")}
+          currency={currency}
+        />
       </div>
-      <PriceDisplay
-        price={form.watch("price")}
-        offerPrice={form.watch("offerPrice")}
-        currency={currency}
-      />
     </>
   );
 }
