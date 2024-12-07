@@ -32,6 +32,7 @@ export default function ProductForm({
   defaultValues,
   ...props
 }: FormAction) {
+  console.log("defaultValues", defaultValues);
   const t = useTranslations("Product");
   const { toast } = useToast();
   const resolver = useMemo(

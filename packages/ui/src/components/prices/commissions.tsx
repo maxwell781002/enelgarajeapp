@@ -13,7 +13,6 @@ import { Input } from "../ui/input";
 import PriceDisplay from "./price";
 import { commissionCalculate } from "@repo/model/lib/utils";
 import { cn } from "@repo/ui/lib/utils";
-import { useState } from "react";
 
 export type CommissionsType = {
   form: any;
@@ -51,18 +50,31 @@ export default function Commissions({
   currency,
 }: CommissionsType) {
   const t = useTranslations("Product");
-  const [show, setShow] = useState(false);
+  const show = form.watch("productPrices.hasCommissions");
   const [value, base] = commissionCalculate(
     basePrice,
     form.watch("productPrices.commissionType"),
     form.watch("productPrices.commissionValue"),
   );
   return (
-    <>
-      <div className="flex items-center gap-2 pt-5 pb-5">
-        <FormLabel>{t("hasCommissions")}</FormLabel>
-        <Switch checked={show} onCheckedChange={setShow} />
-      </div>
+    <div className="pt-5">
+      <FormField
+        control={form.control}
+        name="productPrices.hasCommissions"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("hasCommissions")}</FormLabel>
+            <FormControl>
+              <input
+                {...field}
+                type="checkbox"
+                className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 ml-5"
+              />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
       {show && (
         <>
           <div className="grid gap-4 grid-cols-2">
@@ -126,6 +138,6 @@ export default function Commissions({
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

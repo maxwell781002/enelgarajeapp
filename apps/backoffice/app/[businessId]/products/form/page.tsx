@@ -9,6 +9,7 @@ import { isLimited } from "@repo/model/repository/product";
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { getTranslations } from "next-intl/server";
 import { ProductRegister } from "@repo/model/types/product";
+import { CommissionTypes } from "@repo/model/types/enums";
 
 type FormAction = {
   params: { businessId: string };
@@ -29,7 +30,8 @@ const defaultValues: ProductRegister = {
   isExhaustible: false,
   allowOrderOutOfStock: false,
   productPrices: {
-    commissionType: "",
+    hasCommission: false,
+    commissionType: CommissionTypes.PERCENTAGE,
     commissionValue: 0,
   },
 };
@@ -58,8 +60,12 @@ export default async function PageForm({
   };
   const categories = await categoryRepository.getAll(businessId);
   const product = id
-    ? await productRepository.get(id as string)
+    ? await productRepository.getAllProduct({ id })
     : { ...defaultValues, businessId };
+  if (product.productPrices?.hasCommission) {
+    product.productPrices.hasCommission =
+      !!product.productPrices.commissionValue;
+  }
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
       <ProductForm

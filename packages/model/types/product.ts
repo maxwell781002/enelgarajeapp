@@ -9,7 +9,8 @@ export type IProduct = {
 
 export type ProductRegister = {
   productPrices: {
-    commissionType: TCommissionType | "";
+    hasCommission: boolean;
+    commissionType: TCommissionType;
     commissionValue: number;
   };
 } & Omit<
