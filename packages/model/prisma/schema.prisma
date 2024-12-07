@@ -103,11 +103,26 @@ model Product {
   allowOrderOutOfStock Boolean @default(false)
   isExhaustible        Boolean @default(false)
 
-  business   Business       @relation(fields: [businessId], references: [id])
-  businessId String
-  category   Category?      @relation(fields: [categoryId], references: [id])
-  categoryId String?
-  orderItems OrderProduct[]
+  priceValues ProductPrice?
+  business    Business       @relation(fields: [businessId], references: [id])
+  businessId  String
+  category    Category?      @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  orderItems  OrderProduct[]
+}
+
+//Move to this entity de values of price and offerPrice
+model ProductPrice {
+  id              String         @id @default(uuid())
+  commissionValue Int
+  commissionType  CommissionType
+  product         Product        @relation(fields: [productId], references: [id])
+  productId       String         @unique
+}
+
+enum CommissionType {
+  FIXED
+  PERCENTAGE
 }
 
 model User {

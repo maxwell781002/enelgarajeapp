@@ -179,6 +179,13 @@ exports.Prisma.ProductScalarFieldEnum = {
   categoryId: 'categoryId'
 };
 
+exports.Prisma.ProductPriceScalarFieldEnum = {
+  id: 'id',
+  commissionValue: 'commissionValue',
+  commissionType: 'commissionType',
+  productId: 'productId'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   role: 'role',
@@ -349,6 +356,11 @@ exports.PaymentMethodType = exports.$Enums.PaymentMethodType = {
   ENZONA: 'ENZONA'
 };
 
+exports.CommissionType = exports.$Enums.CommissionType = {
+  FIXED: 'FIXED',
+  PERCENTAGE: 'PERCENTAGE'
+};
+
 exports.UserRoles = exports.$Enums.UserRoles = {
   USER: 'USER',
   ADMIN: 'ADMIN'
@@ -372,6 +384,7 @@ exports.Prisma.ModelName = {
   PaymentMethod: 'PaymentMethod',
   Category: 'Category',
   Product: 'Product',
+  ProductPrice: 'ProductPrice',
   User: 'User',
   UserBusiness: 'UserBusiness',
   InvitationLink: 'InvitationLink',

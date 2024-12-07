@@ -39,6 +39,12 @@ export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>;
  */
 export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>;
 /**
+ * Model ProductPrice
+ *
+ */
+export type ProductPrice =
+  $Result.DefaultSelection<Prisma.$ProductPricePayload>;
+/**
  * Model User
  *
  */
@@ -143,6 +149,14 @@ export namespace $Enums {
   export type PaymentMethodType =
     (typeof PaymentMethodType)[keyof typeof PaymentMethodType];
 
+  export const CommissionType: {
+    FIXED: "FIXED";
+    PERCENTAGE: "PERCENTAGE";
+  };
+
+  export type CommissionType =
+    (typeof CommissionType)[keyof typeof CommissionType];
+
   export const UserRoles: {
     USER: "USER";
     ADMIN: "ADMIN";
@@ -179,6 +193,10 @@ export const Currency: typeof $Enums.Currency;
 export type PaymentMethodType = $Enums.PaymentMethodType;
 
 export const PaymentMethodType: typeof $Enums.PaymentMethodType;
+
+export type CommissionType = $Enums.CommissionType;
+
+export const CommissionType: typeof $Enums.CommissionType;
 
 export type UserRoles = $Enums.UserRoles;
 
@@ -397,6 +415,16 @@ export class PrismaClient<
    * ```
    */
   get product(): Prisma.ProductDelegate<ExtArgs>;
+
+  /**
+   * `prisma.productPrice`: Exposes CRUD operations for the **ProductPrice** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more ProductPrices
+   * const productPrices = await prisma.productPrice.findMany()
+   * ```
+   */
+  get productPrice(): Prisma.ProductPriceDelegate<ExtArgs>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -1001,6 +1029,7 @@ export namespace Prisma {
     PaymentMethod: "PaymentMethod";
     Category: "Category";
     Product: "Product";
+    ProductPrice: "ProductPrice";
     User: "User";
     UserBusiness: "UserBusiness";
     InvitationLink: "InvitationLink";
@@ -1045,6 +1074,7 @@ export namespace Prisma {
         | "paymentMethod"
         | "category"
         | "product"
+        | "productPrice"
         | "user"
         | "userBusiness"
         | "invitationLink"
@@ -1413,6 +1443,78 @@ export namespace Prisma {
           count: {
             args: Prisma.ProductCountArgs<ExtArgs>;
             result: $Utils.Optional<ProductCountAggregateOutputType> | number;
+          };
+        };
+      };
+      ProductPrice: {
+        payload: Prisma.$ProductPricePayload<ExtArgs>;
+        fields: Prisma.ProductPriceFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.ProductPriceFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.ProductPriceFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>;
+          };
+          findFirst: {
+            args: Prisma.ProductPriceFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.ProductPriceFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>;
+          };
+          findMany: {
+            args: Prisma.ProductPriceFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>[];
+          };
+          create: {
+            args: Prisma.ProductPriceCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>;
+          };
+          createMany: {
+            args: Prisma.ProductPriceCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.ProductPriceCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>[];
+          };
+          delete: {
+            args: Prisma.ProductPriceDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>;
+          };
+          update: {
+            args: Prisma.ProductPriceUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>;
+          };
+          deleteMany: {
+            args: Prisma.ProductPriceDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.ProductPriceUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.ProductPriceUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ProductPricePayload>;
+          };
+          aggregate: {
+            args: Prisma.ProductPriceAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateProductPrice>;
+          };
+          groupBy: {
+            args: Prisma.ProductPriceGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<ProductPriceGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.ProductPriceCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<ProductPriceCountAggregateOutputType>
+              | number;
           };
         };
       };
@@ -8335,6 +8437,7 @@ export namespace Prisma {
       isExhaustible?: boolean;
       businessId?: boolean;
       categoryId?: boolean;
+      priceValues?: boolean | Product$priceValuesArgs<ExtArgs>;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
       category?: boolean | Product$categoryArgs<ExtArgs>;
       orderItems?: boolean | Product$orderItemsArgs<ExtArgs>;
@@ -8391,6 +8494,7 @@ export namespace Prisma {
   export type ProductInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
+    priceValues?: boolean | Product$priceValuesArgs<ExtArgs>;
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
     category?: boolean | Product$categoryArgs<ExtArgs>;
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>;
@@ -8408,6 +8512,7 @@ export namespace Prisma {
   > = {
     name: "Product";
     objects: {
+      priceValues: Prisma.$ProductPricePayload<ExtArgs> | null;
       business: Prisma.$BusinessPayload<ExtArgs>;
       category: Prisma.$CategoryPayload<ExtArgs> | null;
       orderItems: Prisma.$OrderProductPayload<ExtArgs>[];
@@ -8913,6 +9018,17 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
+    priceValues<T extends Product$priceValuesArgs<ExtArgs> = {}>(
+      args?: Subset<T, Product$priceValuesArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<
+        Prisma.$ProductPricePayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
       args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
     ): Prisma__BusinessClient<
@@ -9347,6 +9463,23 @@ export namespace Prisma {
   };
 
   /**
+   * Product.priceValues
+   */
+  export type Product$priceValuesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    where?: ProductPriceWhereInput;
+  };
+
+  /**
    * Product.category
    */
   export type Product$categoryArgs<
@@ -9401,6 +9534,1145 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ProductInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model ProductPrice
+   */
+
+  export type AggregateProductPrice = {
+    _count: ProductPriceCountAggregateOutputType | null;
+    _avg: ProductPriceAvgAggregateOutputType | null;
+    _sum: ProductPriceSumAggregateOutputType | null;
+    _min: ProductPriceMinAggregateOutputType | null;
+    _max: ProductPriceMaxAggregateOutputType | null;
+  };
+
+  export type ProductPriceAvgAggregateOutputType = {
+    commissionValue: number | null;
+  };
+
+  export type ProductPriceSumAggregateOutputType = {
+    commissionValue: number | null;
+  };
+
+  export type ProductPriceMinAggregateOutputType = {
+    id: string | null;
+    commissionValue: number | null;
+    commissionType: $Enums.CommissionType | null;
+    productId: string | null;
+  };
+
+  export type ProductPriceMaxAggregateOutputType = {
+    id: string | null;
+    commissionValue: number | null;
+    commissionType: $Enums.CommissionType | null;
+    productId: string | null;
+  };
+
+  export type ProductPriceCountAggregateOutputType = {
+    id: number;
+    commissionValue: number;
+    commissionType: number;
+    productId: number;
+    _all: number;
+  };
+
+  export type ProductPriceAvgAggregateInputType = {
+    commissionValue?: true;
+  };
+
+  export type ProductPriceSumAggregateInputType = {
+    commissionValue?: true;
+  };
+
+  export type ProductPriceMinAggregateInputType = {
+    id?: true;
+    commissionValue?: true;
+    commissionType?: true;
+    productId?: true;
+  };
+
+  export type ProductPriceMaxAggregateInputType = {
+    id?: true;
+    commissionValue?: true;
+    commissionType?: true;
+    productId?: true;
+  };
+
+  export type ProductPriceCountAggregateInputType = {
+    id?: true;
+    commissionValue?: true;
+    commissionType?: true;
+    productId?: true;
+    _all?: true;
+  };
+
+  export type ProductPriceAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which ProductPrice to aggregate.
+     */
+    where?: ProductPriceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ProductPrices to fetch.
+     */
+    orderBy?:
+      | ProductPriceOrderByWithRelationInput
+      | ProductPriceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: ProductPriceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ProductPrices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ProductPrices.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned ProductPrices
+     **/
+    _count?: true | ProductPriceCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+     **/
+    _avg?: ProductPriceAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: ProductPriceSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: ProductPriceMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: ProductPriceMaxAggregateInputType;
+  };
+
+  export type GetProductPriceAggregateType<
+    T extends ProductPriceAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateProductPrice]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProductPrice[P]>
+      : GetScalarType<T[P], AggregateProductPrice[P]>;
+  };
+
+  export type ProductPriceGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: ProductPriceWhereInput;
+    orderBy?:
+      | ProductPriceOrderByWithAggregationInput
+      | ProductPriceOrderByWithAggregationInput[];
+    by: ProductPriceScalarFieldEnum[] | ProductPriceScalarFieldEnum;
+    having?: ProductPriceScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: ProductPriceCountAggregateInputType | true;
+    _avg?: ProductPriceAvgAggregateInputType;
+    _sum?: ProductPriceSumAggregateInputType;
+    _min?: ProductPriceMinAggregateInputType;
+    _max?: ProductPriceMaxAggregateInputType;
+  };
+
+  export type ProductPriceGroupByOutputType = {
+    id: string;
+    commissionValue: number;
+    commissionType: $Enums.CommissionType;
+    productId: string;
+    _count: ProductPriceCountAggregateOutputType | null;
+    _avg: ProductPriceAvgAggregateOutputType | null;
+    _sum: ProductPriceSumAggregateOutputType | null;
+    _min: ProductPriceMinAggregateOutputType | null;
+    _max: ProductPriceMaxAggregateOutputType | null;
+  };
+
+  type GetProductPriceGroupByPayload<T extends ProductPriceGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<ProductPriceGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof ProductPriceGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProductPriceGroupByOutputType[P]>
+            : GetScalarType<T[P], ProductPriceGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type ProductPriceSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      commissionValue?: boolean;
+      commissionType?: boolean;
+      productId?: boolean;
+      product?: boolean | ProductDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["productPrice"]
+  >;
+
+  export type ProductPriceSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      commissionValue?: boolean;
+      commissionType?: boolean;
+      productId?: boolean;
+      product?: boolean | ProductDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["productPrice"]
+  >;
+
+  export type ProductPriceSelectScalar = {
+    id?: boolean;
+    commissionValue?: boolean;
+    commissionType?: boolean;
+    productId?: boolean;
+  };
+
+  export type ProductPriceInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>;
+  };
+  export type ProductPriceIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>;
+  };
+
+  export type $ProductPricePayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "ProductPrice";
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        commissionValue: number;
+        commissionType: $Enums.CommissionType;
+        productId: string;
+      },
+      ExtArgs["result"]["productPrice"]
+    >;
+    composites: {};
+  };
+
+  type ProductPriceGetPayload<
+    S extends boolean | null | undefined | ProductPriceDefaultArgs,
+  > = $Result.GetResult<Prisma.$ProductPricePayload, S>;
+
+  type ProductPriceCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<ProductPriceFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: ProductPriceCountAggregateInputType | true;
+  };
+
+  export interface ProductPriceDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["ProductPrice"];
+      meta: { name: "ProductPrice" };
+    };
+    /**
+     * Find zero or one ProductPrice that matches the filter.
+     * @param {ProductPriceFindUniqueArgs} args - Arguments to find a ProductPrice
+     * @example
+     * // Get one ProductPrice
+     * const productPrice = await prisma.productPrice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProductPriceFindUniqueArgs>(
+      args: SelectSubset<T, ProductPriceFindUniqueArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<
+        Prisma.$ProductPricePayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one ProductPrice that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProductPriceFindUniqueOrThrowArgs} args - Arguments to find a ProductPrice
+     * @example
+     * // Get one ProductPrice
+     * const productPrice = await prisma.productPrice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProductPriceFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, ProductPriceFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<
+        Prisma.$ProductPricePayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first ProductPrice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceFindFirstArgs} args - Arguments to find a ProductPrice
+     * @example
+     * // Get one ProductPrice
+     * const productPrice = await prisma.productPrice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProductPriceFindFirstArgs>(
+      args?: SelectSubset<T, ProductPriceFindFirstArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<
+        Prisma.$ProductPricePayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first ProductPrice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceFindFirstOrThrowArgs} args - Arguments to find a ProductPrice
+     * @example
+     * // Get one ProductPrice
+     * const productPrice = await prisma.productPrice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProductPriceFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, ProductPriceFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<
+        Prisma.$ProductPricePayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more ProductPrices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProductPrices
+     * const productPrices = await prisma.productPrice.findMany()
+     *
+     * // Get first 10 ProductPrices
+     * const productPrices = await prisma.productPrice.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const productPriceWithIdOnly = await prisma.productPrice.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends ProductPriceFindManyArgs>(
+      args?: SelectSubset<T, ProductPriceFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$ProductPricePayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a ProductPrice.
+     * @param {ProductPriceCreateArgs} args - Arguments to create a ProductPrice.
+     * @example
+     * // Create one ProductPrice
+     * const ProductPrice = await prisma.productPrice.create({
+     *   data: {
+     *     // ... data to create a ProductPrice
+     *   }
+     * })
+     *
+     */
+    create<T extends ProductPriceCreateArgs>(
+      args: SelectSubset<T, ProductPriceCreateArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<Prisma.$ProductPricePayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many ProductPrices.
+     * @param {ProductPriceCreateManyArgs} args - Arguments to create many ProductPrices.
+     * @example
+     * // Create many ProductPrices
+     * const productPrice = await prisma.productPrice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends ProductPriceCreateManyArgs>(
+      args?: SelectSubset<T, ProductPriceCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many ProductPrices and returns the data saved in the database.
+     * @param {ProductPriceCreateManyAndReturnArgs} args - Arguments to create many ProductPrices.
+     * @example
+     * // Create many ProductPrices
+     * const productPrice = await prisma.productPrice.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many ProductPrices and only return the `id`
+     * const productPriceWithIdOnly = await prisma.productPrice.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends ProductPriceCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, ProductPriceCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$ProductPricePayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a ProductPrice.
+     * @param {ProductPriceDeleteArgs} args - Arguments to delete one ProductPrice.
+     * @example
+     * // Delete one ProductPrice
+     * const ProductPrice = await prisma.productPrice.delete({
+     *   where: {
+     *     // ... filter to delete one ProductPrice
+     *   }
+     * })
+     *
+     */
+    delete<T extends ProductPriceDeleteArgs>(
+      args: SelectSubset<T, ProductPriceDeleteArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<Prisma.$ProductPricePayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one ProductPrice.
+     * @param {ProductPriceUpdateArgs} args - Arguments to update one ProductPrice.
+     * @example
+     * // Update one ProductPrice
+     * const productPrice = await prisma.productPrice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends ProductPriceUpdateArgs>(
+      args: SelectSubset<T, ProductPriceUpdateArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<Prisma.$ProductPricePayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more ProductPrices.
+     * @param {ProductPriceDeleteManyArgs} args - Arguments to filter ProductPrices to delete.
+     * @example
+     * // Delete a few ProductPrices
+     * const { count } = await prisma.productPrice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends ProductPriceDeleteManyArgs>(
+      args?: SelectSubset<T, ProductPriceDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more ProductPrices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProductPrices
+     * const productPrice = await prisma.productPrice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends ProductPriceUpdateManyArgs>(
+      args: SelectSubset<T, ProductPriceUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one ProductPrice.
+     * @param {ProductPriceUpsertArgs} args - Arguments to update or create a ProductPrice.
+     * @example
+     * // Update or create a ProductPrice
+     * const productPrice = await prisma.productPrice.upsert({
+     *   create: {
+     *     // ... data to create a ProductPrice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProductPrice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProductPriceUpsertArgs>(
+      args: SelectSubset<T, ProductPriceUpsertArgs<ExtArgs>>,
+    ): Prisma__ProductPriceClient<
+      $Result.GetResult<Prisma.$ProductPricePayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of ProductPrices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceCountArgs} args - Arguments to filter ProductPrices to count.
+     * @example
+     * // Count the number of ProductPrices
+     * const count = await prisma.productPrice.count({
+     *   where: {
+     *     // ... the filter for the ProductPrices we want to count
+     *   }
+     * })
+     **/
+    count<T extends ProductPriceCountArgs>(
+      args?: Subset<T, ProductPriceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], ProductPriceCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a ProductPrice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends ProductPriceAggregateArgs>(
+      args: Subset<T, ProductPriceAggregateArgs>,
+    ): Prisma.PrismaPromise<GetProductPriceAggregateType<T>>;
+
+    /**
+     * Group by ProductPrice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductPriceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends ProductPriceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProductPriceGroupByArgs["orderBy"] }
+        : { orderBy?: ProductPriceGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, ProductPriceGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetProductPriceGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the ProductPrice model
+     */
+    readonly fields: ProductPriceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProductPrice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProductPriceClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, ProductDefaultArgs<ExtArgs>>,
+    ): Prisma__ProductClient<
+      | $Result.GetResult<
+          Prisma.$ProductPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the ProductPrice model
+   */
+  interface ProductPriceFieldRefs {
+    readonly id: FieldRef<"ProductPrice", "String">;
+    readonly commissionValue: FieldRef<"ProductPrice", "Int">;
+    readonly commissionType: FieldRef<"ProductPrice", "CommissionType">;
+    readonly productId: FieldRef<"ProductPrice", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * ProductPrice findUnique
+   */
+  export type ProductPriceFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * Filter, which ProductPrice to fetch.
+     */
+    where: ProductPriceWhereUniqueInput;
+  };
+
+  /**
+   * ProductPrice findUniqueOrThrow
+   */
+  export type ProductPriceFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * Filter, which ProductPrice to fetch.
+     */
+    where: ProductPriceWhereUniqueInput;
+  };
+
+  /**
+   * ProductPrice findFirst
+   */
+  export type ProductPriceFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * Filter, which ProductPrice to fetch.
+     */
+    where?: ProductPriceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ProductPrices to fetch.
+     */
+    orderBy?:
+      | ProductPriceOrderByWithRelationInput
+      | ProductPriceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ProductPrices.
+     */
+    cursor?: ProductPriceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ProductPrices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ProductPrices.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ProductPrices.
+     */
+    distinct?: ProductPriceScalarFieldEnum | ProductPriceScalarFieldEnum[];
+  };
+
+  /**
+   * ProductPrice findFirstOrThrow
+   */
+  export type ProductPriceFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * Filter, which ProductPrice to fetch.
+     */
+    where?: ProductPriceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ProductPrices to fetch.
+     */
+    orderBy?:
+      | ProductPriceOrderByWithRelationInput
+      | ProductPriceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ProductPrices.
+     */
+    cursor?: ProductPriceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ProductPrices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ProductPrices.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ProductPrices.
+     */
+    distinct?: ProductPriceScalarFieldEnum | ProductPriceScalarFieldEnum[];
+  };
+
+  /**
+   * ProductPrice findMany
+   */
+  export type ProductPriceFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * Filter, which ProductPrices to fetch.
+     */
+    where?: ProductPriceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ProductPrices to fetch.
+     */
+    orderBy?:
+      | ProductPriceOrderByWithRelationInput
+      | ProductPriceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing ProductPrices.
+     */
+    cursor?: ProductPriceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ProductPrices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ProductPrices.
+     */
+    skip?: number;
+    distinct?: ProductPriceScalarFieldEnum | ProductPriceScalarFieldEnum[];
+  };
+
+  /**
+   * ProductPrice create
+   */
+  export type ProductPriceCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a ProductPrice.
+     */
+    data: XOR<ProductPriceCreateInput, ProductPriceUncheckedCreateInput>;
+  };
+
+  /**
+   * ProductPrice createMany
+   */
+  export type ProductPriceCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many ProductPrices.
+     */
+    data: ProductPriceCreateManyInput | ProductPriceCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * ProductPrice createManyAndReturn
+   */
+  export type ProductPriceCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many ProductPrices.
+     */
+    data: ProductPriceCreateManyInput | ProductPriceCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * ProductPrice update
+   */
+  export type ProductPriceUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a ProductPrice.
+     */
+    data: XOR<ProductPriceUpdateInput, ProductPriceUncheckedUpdateInput>;
+    /**
+     * Choose, which ProductPrice to update.
+     */
+    where: ProductPriceWhereUniqueInput;
+  };
+
+  /**
+   * ProductPrice updateMany
+   */
+  export type ProductPriceUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update ProductPrices.
+     */
+    data: XOR<
+      ProductPriceUpdateManyMutationInput,
+      ProductPriceUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which ProductPrices to update
+     */
+    where?: ProductPriceWhereInput;
+  };
+
+  /**
+   * ProductPrice upsert
+   */
+  export type ProductPriceUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the ProductPrice to update in case it exists.
+     */
+    where: ProductPriceWhereUniqueInput;
+    /**
+     * In case the ProductPrice found by the `where` argument doesn't exist, create a new ProductPrice with this data.
+     */
+    create: XOR<ProductPriceCreateInput, ProductPriceUncheckedCreateInput>;
+    /**
+     * In case the ProductPrice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProductPriceUpdateInput, ProductPriceUncheckedUpdateInput>;
+  };
+
+  /**
+   * ProductPrice delete
+   */
+  export type ProductPriceDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
+    /**
+     * Filter which ProductPrice to delete.
+     */
+    where: ProductPriceWhereUniqueInput;
+  };
+
+  /**
+   * ProductPrice deleteMany
+   */
+  export type ProductPriceDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which ProductPrices to delete
+     */
+    where?: ProductPriceWhereInput;
+  };
+
+  /**
+   * ProductPrice without action
+   */
+  export type ProductPriceDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the ProductPrice
+     */
+    select?: ProductPriceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductPriceInclude<ExtArgs> | null;
   };
 
   /**
@@ -25975,6 +27247,16 @@ export namespace Prisma {
   export type ProductScalarFieldEnum =
     (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum];
 
+  export const ProductPriceScalarFieldEnum: {
+    id: "id";
+    commissionValue: "commissionValue";
+    commissionType: "commissionType";
+    productId: "productId";
+  };
+
+  export type ProductPriceScalarFieldEnum =
+    (typeof ProductPriceScalarFieldEnum)[keyof typeof ProductPriceScalarFieldEnum];
+
   export const UserScalarFieldEnum: {
     id: "id";
     role: "role";
@@ -26302,6 +27584,20 @@ export namespace Prisma {
     $PrismaModel,
     "Json[]"
   >;
+
+  /**
+   * Reference to a field of type 'CommissionType'
+   */
+  export type EnumCommissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "CommissionType"
+  >;
+
+  /**
+   * Reference to a field of type 'CommissionType[]'
+   */
+  export type ListEnumCommissionTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "CommissionType[]">;
 
   /**
    * Reference to a field of type 'UserRoles'
@@ -26750,6 +28046,10 @@ export namespace Prisma {
     isExhaustible?: BoolFilter<"Product"> | boolean;
     businessId?: StringFilter<"Product"> | string;
     categoryId?: StringNullableFilter<"Product"> | string | null;
+    priceValues?: XOR<
+      ProductPriceNullableRelationFilter,
+      ProductPriceWhereInput
+    > | null;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
     category?: XOR<CategoryNullableRelationFilter, CategoryWhereInput> | null;
     orderItems?: OrderProductListRelationFilter;
@@ -26772,6 +28072,7 @@ export namespace Prisma {
     isExhaustible?: SortOrder;
     businessId?: SortOrder;
     categoryId?: SortOrderInput | SortOrder;
+    priceValues?: ProductPriceOrderByWithRelationInput;
     business?: BusinessOrderByWithRelationInput;
     category?: CategoryOrderByWithRelationInput;
     orderItems?: OrderProductOrderByRelationAggregateInput;
@@ -26798,6 +28099,10 @@ export namespace Prisma {
       isExhaustible?: BoolFilter<"Product"> | boolean;
       businessId?: StringFilter<"Product"> | string;
       categoryId?: StringNullableFilter<"Product"> | string | null;
+      priceValues?: XOR<
+        ProductPriceNullableRelationFilter,
+        ProductPriceWhereInput
+      > | null;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
       category?: XOR<CategoryNullableRelationFilter, CategoryWhereInput> | null;
       orderItems?: OrderProductListRelationFilter;
@@ -26853,6 +28158,71 @@ export namespace Prisma {
     isExhaustible?: BoolWithAggregatesFilter<"Product"> | boolean;
     businessId?: StringWithAggregatesFilter<"Product"> | string;
     categoryId?: StringNullableWithAggregatesFilter<"Product"> | string | null;
+  };
+
+  export type ProductPriceWhereInput = {
+    AND?: ProductPriceWhereInput | ProductPriceWhereInput[];
+    OR?: ProductPriceWhereInput[];
+    NOT?: ProductPriceWhereInput | ProductPriceWhereInput[];
+    id?: StringFilter<"ProductPrice"> | string;
+    commissionValue?: IntFilter<"ProductPrice"> | number;
+    commissionType?:
+      | EnumCommissionTypeFilter<"ProductPrice">
+      | $Enums.CommissionType;
+    productId?: StringFilter<"ProductPrice"> | string;
+    product?: XOR<ProductRelationFilter, ProductWhereInput>;
+  };
+
+  export type ProductPriceOrderByWithRelationInput = {
+    id?: SortOrder;
+    commissionValue?: SortOrder;
+    commissionType?: SortOrder;
+    productId?: SortOrder;
+    product?: ProductOrderByWithRelationInput;
+  };
+
+  export type ProductPriceWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      productId?: string;
+      AND?: ProductPriceWhereInput | ProductPriceWhereInput[];
+      OR?: ProductPriceWhereInput[];
+      NOT?: ProductPriceWhereInput | ProductPriceWhereInput[];
+      commissionValue?: IntFilter<"ProductPrice"> | number;
+      commissionType?:
+        | EnumCommissionTypeFilter<"ProductPrice">
+        | $Enums.CommissionType;
+      product?: XOR<ProductRelationFilter, ProductWhereInput>;
+    },
+    "id" | "productId"
+  >;
+
+  export type ProductPriceOrderByWithAggregationInput = {
+    id?: SortOrder;
+    commissionValue?: SortOrder;
+    commissionType?: SortOrder;
+    productId?: SortOrder;
+    _count?: ProductPriceCountOrderByAggregateInput;
+    _avg?: ProductPriceAvgOrderByAggregateInput;
+    _max?: ProductPriceMaxOrderByAggregateInput;
+    _min?: ProductPriceMinOrderByAggregateInput;
+    _sum?: ProductPriceSumOrderByAggregateInput;
+  };
+
+  export type ProductPriceScalarWhereWithAggregatesInput = {
+    AND?:
+      | ProductPriceScalarWhereWithAggregatesInput
+      | ProductPriceScalarWhereWithAggregatesInput[];
+    OR?: ProductPriceScalarWhereWithAggregatesInput[];
+    NOT?:
+      | ProductPriceScalarWhereWithAggregatesInput
+      | ProductPriceScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"ProductPrice"> | string;
+    commissionValue?: IntWithAggregatesFilter<"ProductPrice"> | number;
+    commissionType?:
+      | EnumCommissionTypeWithAggregatesFilter<"ProductPrice">
+      | $Enums.CommissionType;
+    productId?: StringWithAggregatesFilter<"ProductPrice"> | string;
   };
 
   export type UserWhereInput = {
@@ -28293,6 +29663,7 @@ export namespace Prisma {
     stock?: number;
     allowOrderOutOfStock?: boolean;
     isExhaustible?: boolean;
+    priceValues?: ProductPriceCreateNestedOneWithoutProductInput;
     business: BusinessCreateNestedOneWithoutProductsInput;
     category?: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
@@ -28315,6 +29686,7 @@ export namespace Prisma {
     isExhaustible?: boolean;
     businessId: string;
     categoryId?: string | null;
+    priceValues?: ProductPriceUncheckedCreateNestedOneWithoutProductInput;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
 
@@ -28333,6 +29705,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number;
     allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
+    priceValues?: ProductPriceUpdateOneWithoutProductNestedInput;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
@@ -28355,6 +29728,7 @@ export namespace Prisma {
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
+    priceValues?: ProductPriceUncheckedUpdateOneWithoutProductNestedInput;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
 
@@ -28411,6 +29785,62 @@ export namespace Prisma {
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
+  };
+
+  export type ProductPriceCreateInput = {
+    id?: string;
+    commissionValue: number;
+    commissionType: $Enums.CommissionType;
+    product: ProductCreateNestedOneWithoutPriceValuesInput;
+  };
+
+  export type ProductPriceUncheckedCreateInput = {
+    id?: string;
+    commissionValue: number;
+    commissionType: $Enums.CommissionType;
+    productId: string;
+  };
+
+  export type ProductPriceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commissionValue?: IntFieldUpdateOperationsInput | number;
+    commissionType?:
+      | EnumCommissionTypeFieldUpdateOperationsInput
+      | $Enums.CommissionType;
+    product?: ProductUpdateOneRequiredWithoutPriceValuesNestedInput;
+  };
+
+  export type ProductPriceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commissionValue?: IntFieldUpdateOperationsInput | number;
+    commissionType?:
+      | EnumCommissionTypeFieldUpdateOperationsInput
+      | $Enums.CommissionType;
+    productId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type ProductPriceCreateManyInput = {
+    id?: string;
+    commissionValue: number;
+    commissionType: $Enums.CommissionType;
+    productId: string;
+  };
+
+  export type ProductPriceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commissionValue?: IntFieldUpdateOperationsInput | number;
+    commissionType?:
+      | EnumCommissionTypeFieldUpdateOperationsInput
+      | $Enums.CommissionType;
+  };
+
+  export type ProductPriceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commissionValue?: IntFieldUpdateOperationsInput | number;
+    commissionType?:
+      | EnumCommissionTypeFieldUpdateOperationsInput
+      | $Enums.CommissionType;
+    productId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type UserCreateInput = {
@@ -29924,6 +31354,11 @@ export namespace Prisma {
     isEmpty?: boolean;
   };
 
+  export type ProductPriceNullableRelationFilter = {
+    is?: ProductPriceWhereInput | null;
+    isNot?: ProductPriceWhereInput | null;
+  };
+
   export type CategoryNullableRelationFilter = {
     is?: CategoryWhereInput | null;
     isNot?: CategoryWhereInput | null;
@@ -30020,6 +31455,71 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>;
     _min?: NestedIntNullableFilter<$PrismaModel>;
     _max?: NestedIntNullableFilter<$PrismaModel>;
+  };
+
+  export type EnumCommissionTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.CommissionType
+      | EnumCommissionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumCommissionTypeFilter<$PrismaModel> | $Enums.CommissionType;
+  };
+
+  export type ProductRelationFilter = {
+    is?: ProductWhereInput;
+    isNot?: ProductWhereInput;
+  };
+
+  export type ProductPriceCountOrderByAggregateInput = {
+    id?: SortOrder;
+    commissionValue?: SortOrder;
+    commissionType?: SortOrder;
+    productId?: SortOrder;
+  };
+
+  export type ProductPriceAvgOrderByAggregateInput = {
+    commissionValue?: SortOrder;
+  };
+
+  export type ProductPriceMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    commissionValue?: SortOrder;
+    commissionType?: SortOrder;
+    productId?: SortOrder;
+  };
+
+  export type ProductPriceMinOrderByAggregateInput = {
+    id?: SortOrder;
+    commissionValue?: SortOrder;
+    commissionType?: SortOrder;
+    productId?: SortOrder;
+  };
+
+  export type ProductPriceSumOrderByAggregateInput = {
+    commissionValue?: SortOrder;
+  };
+
+  export type EnumCommissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.CommissionType
+      | EnumCommissionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCommissionTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.CommissionType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumCommissionTypeFilter<$PrismaModel>;
+    _max?: NestedEnumCommissionTypeFilter<$PrismaModel>;
   };
 
   export type EnumUserRolesFilter<$PrismaModel = never> = {
@@ -30338,11 +31838,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumOrderStatusFilter<$PrismaModel>;
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>;
-  };
-
-  export type ProductRelationFilter = {
-    is?: ProductWhereInput;
-    isNot?: ProductWhereInput;
   };
 
   export type OrderRelationFilter = {
@@ -31781,6 +33276,15 @@ export namespace Prisma {
     set: InputJsonValue[];
   };
 
+  export type ProductPriceCreateNestedOneWithoutProductInput = {
+    create?: XOR<
+      ProductPriceCreateWithoutProductInput,
+      ProductPriceUncheckedCreateWithoutProductInput
+    >;
+    connectOrCreate?: ProductPriceCreateOrConnectWithoutProductInput;
+    connect?: ProductPriceWhereUniqueInput;
+  };
+
   export type BusinessCreateNestedOneWithoutProductsInput = {
     create?: XOR<
       BusinessCreateWithoutProductsInput,
@@ -31814,6 +33318,15 @@ export namespace Prisma {
     connect?: OrderProductWhereUniqueInput | OrderProductWhereUniqueInput[];
   };
 
+  export type ProductPriceUncheckedCreateNestedOneWithoutProductInput = {
+    create?: XOR<
+      ProductPriceCreateWithoutProductInput,
+      ProductPriceUncheckedCreateWithoutProductInput
+    >;
+    connectOrCreate?: ProductPriceCreateOrConnectWithoutProductInput;
+    connect?: ProductPriceWhereUniqueInput;
+  };
+
   export type OrderProductUncheckedCreateNestedManyWithoutProductInput = {
     create?:
       | XOR<
@@ -31840,6 +33353,25 @@ export namespace Prisma {
   export type ProductUpdateimagesInput = {
     set?: InputJsonValue[];
     push?: InputJsonValue | InputJsonValue[];
+  };
+
+  export type ProductPriceUpdateOneWithoutProductNestedInput = {
+    create?: XOR<
+      ProductPriceCreateWithoutProductInput,
+      ProductPriceUncheckedCreateWithoutProductInput
+    >;
+    connectOrCreate?: ProductPriceCreateOrConnectWithoutProductInput;
+    upsert?: ProductPriceUpsertWithoutProductInput;
+    disconnect?: ProductPriceWhereInput | boolean;
+    delete?: ProductPriceWhereInput | boolean;
+    connect?: ProductPriceWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        ProductPriceUpdateToOneWithWhereWithoutProductInput,
+        ProductPriceUpdateWithoutProductInput
+      >,
+      ProductPriceUncheckedUpdateWithoutProductInput
+    >;
   };
 
   export type BusinessUpdateOneRequiredWithoutProductsNestedInput = {
@@ -31906,6 +33438,25 @@ export namespace Prisma {
     deleteMany?: OrderProductScalarWhereInput | OrderProductScalarWhereInput[];
   };
 
+  export type ProductPriceUncheckedUpdateOneWithoutProductNestedInput = {
+    create?: XOR<
+      ProductPriceCreateWithoutProductInput,
+      ProductPriceUncheckedCreateWithoutProductInput
+    >;
+    connectOrCreate?: ProductPriceCreateOrConnectWithoutProductInput;
+    upsert?: ProductPriceUpsertWithoutProductInput;
+    disconnect?: ProductPriceWhereInput | boolean;
+    delete?: ProductPriceWhereInput | boolean;
+    connect?: ProductPriceWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        ProductPriceUpdateToOneWithWhereWithoutProductInput,
+        ProductPriceUpdateWithoutProductInput
+      >,
+      ProductPriceUncheckedUpdateWithoutProductInput
+    >;
+  };
+
   export type OrderProductUncheckedUpdateManyWithoutProductNestedInput = {
     create?:
       | XOR<
@@ -31932,6 +33483,36 @@ export namespace Prisma {
       | OrderProductUpdateManyWithWhereWithoutProductInput
       | OrderProductUpdateManyWithWhereWithoutProductInput[];
     deleteMany?: OrderProductScalarWhereInput | OrderProductScalarWhereInput[];
+  };
+
+  export type ProductCreateNestedOneWithoutPriceValuesInput = {
+    create?: XOR<
+      ProductCreateWithoutPriceValuesInput,
+      ProductUncheckedCreateWithoutPriceValuesInput
+    >;
+    connectOrCreate?: ProductCreateOrConnectWithoutPriceValuesInput;
+    connect?: ProductWhereUniqueInput;
+  };
+
+  export type EnumCommissionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CommissionType;
+  };
+
+  export type ProductUpdateOneRequiredWithoutPriceValuesNestedInput = {
+    create?: XOR<
+      ProductCreateWithoutPriceValuesInput,
+      ProductUncheckedCreateWithoutPriceValuesInput
+    >;
+    connectOrCreate?: ProductCreateOrConnectWithoutPriceValuesInput;
+    upsert?: ProductUpsertWithoutPriceValuesInput;
+    connect?: ProductWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        ProductUpdateToOneWithWhereWithoutPriceValuesInput,
+        ProductUpdateWithoutPriceValuesInput
+      >,
+      ProductUncheckedUpdateWithoutPriceValuesInput
+    >;
   };
 
   export type OrderCreateNestedManyWithoutUserInput = {
@@ -33665,6 +35246,39 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null;
   };
 
+  export type NestedEnumCommissionTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.CommissionType
+      | EnumCommissionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumCommissionTypeFilter<$PrismaModel> | $Enums.CommissionType;
+  };
+
+  export type NestedEnumCommissionTypeWithAggregatesFilter<
+    $PrismaModel = never,
+  > = {
+    equals?:
+      | $Enums.CommissionType
+      | EnumCommissionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CommissionType[]
+      | ListEnumCommissionTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCommissionTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.CommissionType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumCommissionTypeFilter<$PrismaModel>;
+    _max?: NestedEnumCommissionTypeFilter<$PrismaModel>;
+  };
+
   export type NestedEnumUserRolesFilter<$PrismaModel = never> = {
     equals?: $Enums.UserRoles | EnumUserRolesFieldRefInput<$PrismaModel>;
     in?: $Enums.UserRoles[] | ListEnumUserRolesFieldRefInput<$PrismaModel>;
@@ -33894,6 +35508,7 @@ export namespace Prisma {
     stock?: number;
     allowOrderOutOfStock?: boolean;
     isExhaustible?: boolean;
+    priceValues?: ProductPriceCreateNestedOneWithoutProductInput;
     category?: CategoryCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -33914,6 +35529,7 @@ export namespace Prisma {
     allowOrderOutOfStock?: boolean;
     isExhaustible?: boolean;
     categoryId?: string | null;
+    priceValues?: ProductPriceUncheckedCreateNestedOneWithoutProductInput;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
 
@@ -34936,6 +36552,7 @@ export namespace Prisma {
     stock?: number;
     allowOrderOutOfStock?: boolean;
     isExhaustible?: boolean;
+    priceValues?: ProductPriceCreateNestedOneWithoutProductInput;
     business: BusinessCreateNestedOneWithoutProductsInput;
     orderItems?: OrderProductCreateNestedManyWithoutProductInput;
   };
@@ -34956,6 +36573,7 @@ export namespace Prisma {
     allowOrderOutOfStock?: boolean;
     isExhaustible?: boolean;
     businessId: string;
+    priceValues?: ProductPriceUncheckedCreateNestedOneWithoutProductInput;
     orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
   };
 
@@ -35131,6 +36749,26 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
+  export type ProductPriceCreateWithoutProductInput = {
+    id?: string;
+    commissionValue: number;
+    commissionType: $Enums.CommissionType;
+  };
+
+  export type ProductPriceUncheckedCreateWithoutProductInput = {
+    id?: string;
+    commissionValue: number;
+    commissionType: $Enums.CommissionType;
+  };
+
+  export type ProductPriceCreateOrConnectWithoutProductInput = {
+    where: ProductPriceWhereUniqueInput;
+    create: XOR<
+      ProductPriceCreateWithoutProductInput,
+      ProductPriceUncheckedCreateWithoutProductInput
+    >;
+  };
+
   export type BusinessCreateWithoutProductsInput = {
     id?: string;
     name: string;
@@ -35242,6 +36880,42 @@ export namespace Prisma {
       | OrderProductCreateManyProductInput
       | OrderProductCreateManyProductInput[];
     skipDuplicates?: boolean;
+  };
+
+  export type ProductPriceUpsertWithoutProductInput = {
+    update: XOR<
+      ProductPriceUpdateWithoutProductInput,
+      ProductPriceUncheckedUpdateWithoutProductInput
+    >;
+    create: XOR<
+      ProductPriceCreateWithoutProductInput,
+      ProductPriceUncheckedCreateWithoutProductInput
+    >;
+    where?: ProductPriceWhereInput;
+  };
+
+  export type ProductPriceUpdateToOneWithWhereWithoutProductInput = {
+    where?: ProductPriceWhereInput;
+    data: XOR<
+      ProductPriceUpdateWithoutProductInput,
+      ProductPriceUncheckedUpdateWithoutProductInput
+    >;
+  };
+
+  export type ProductPriceUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commissionValue?: IntFieldUpdateOperationsInput | number;
+    commissionType?:
+      | EnumCommissionTypeFieldUpdateOperationsInput
+      | $Enums.CommissionType;
+  };
+
+  export type ProductPriceUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commissionValue?: IntFieldUpdateOperationsInput | number;
+    commissionType?:
+      | EnumCommissionTypeFieldUpdateOperationsInput
+      | $Enums.CommissionType;
   };
 
   export type BusinessUpsertWithoutProductsInput = {
@@ -35392,6 +37066,114 @@ export namespace Prisma {
     price?: IntFilter<"OrderProduct"> | number;
     position?: IntFilter<"OrderProduct"> | number;
     quantity?: IntFilter<"OrderProduct"> | number;
+  };
+
+  export type ProductCreateWithoutPriceValuesInput = {
+    id?: string;
+    name: string;
+    slug?: string | null;
+    image: JsonNullValueInput | InputJsonValue;
+    description: string;
+    price: number;
+    offerPrice?: number | null;
+    images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
+    isNew?: boolean;
+    priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
+    business: BusinessCreateNestedOneWithoutProductsInput;
+    category?: CategoryCreateNestedOneWithoutProductsInput;
+    orderItems?: OrderProductCreateNestedManyWithoutProductInput;
+  };
+
+  export type ProductUncheckedCreateWithoutPriceValuesInput = {
+    id?: string;
+    name: string;
+    slug?: string | null;
+    image: JsonNullValueInput | InputJsonValue;
+    description: string;
+    price: number;
+    offerPrice?: number | null;
+    images?: ProductCreateimagesInput | InputJsonValue[];
+    active?: boolean;
+    isNew?: boolean;
+    priority?: number;
+    stock?: number;
+    allowOrderOutOfStock?: boolean;
+    isExhaustible?: boolean;
+    businessId: string;
+    categoryId?: string | null;
+    orderItems?: OrderProductUncheckedCreateNestedManyWithoutProductInput;
+  };
+
+  export type ProductCreateOrConnectWithoutPriceValuesInput = {
+    where: ProductWhereUniqueInput;
+    create: XOR<
+      ProductCreateWithoutPriceValuesInput,
+      ProductUncheckedCreateWithoutPriceValuesInput
+    >;
+  };
+
+  export type ProductUpsertWithoutPriceValuesInput = {
+    update: XOR<
+      ProductUpdateWithoutPriceValuesInput,
+      ProductUncheckedUpdateWithoutPriceValuesInput
+    >;
+    create: XOR<
+      ProductCreateWithoutPriceValuesInput,
+      ProductUncheckedCreateWithoutPriceValuesInput
+    >;
+    where?: ProductWhereInput;
+  };
+
+  export type ProductUpdateToOneWithWhereWithoutPriceValuesInput = {
+    where?: ProductWhereInput;
+    data: XOR<
+      ProductUpdateWithoutPriceValuesInput,
+      ProductUncheckedUpdateWithoutPriceValuesInput
+    >;
+  };
+
+  export type ProductUpdateWithoutPriceValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    image?: JsonNullValueInput | InputJsonValue;
+    description?: StringFieldUpdateOperationsInput | string;
+    price?: IntFieldUpdateOperationsInput | number;
+    offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
+    images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    isNew?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
+    category?: CategoryUpdateOneWithoutProductsNestedInput;
+    orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
+  };
+
+  export type ProductUncheckedUpdateWithoutPriceValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    image?: JsonNullValueInput | InputJsonValue;
+    description?: StringFieldUpdateOperationsInput | string;
+    price?: IntFieldUpdateOperationsInput | number;
+    offerPrice?: NullableIntFieldUpdateOperationsInput | number | null;
+    images?: ProductUpdateimagesInput | InputJsonValue[];
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    isNew?: BoolFieldUpdateOperationsInput | boolean;
+    priority?: IntFieldUpdateOperationsInput | number;
+    stock?: IntFieldUpdateOperationsInput | number;
+    allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
+    isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
+    orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
 
   export type OrderCreateWithoutUserInput = {
@@ -36529,6 +38311,7 @@ export namespace Prisma {
     stock?: number;
     allowOrderOutOfStock?: boolean;
     isExhaustible?: boolean;
+    priceValues?: ProductPriceCreateNestedOneWithoutProductInput;
     business: BusinessCreateNestedOneWithoutProductsInput;
     category?: CategoryCreateNestedOneWithoutProductsInput;
   };
@@ -36550,6 +38333,7 @@ export namespace Prisma {
     isExhaustible?: boolean;
     businessId: string;
     categoryId?: string | null;
+    priceValues?: ProductPriceUncheckedCreateNestedOneWithoutProductInput;
   };
 
   export type ProductCreateOrConnectWithoutOrderItemsInput = {
@@ -36641,6 +38425,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number;
     allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
+    priceValues?: ProductPriceUpdateOneWithoutProductNestedInput;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     category?: CategoryUpdateOneWithoutProductsNestedInput;
   };
@@ -36662,6 +38447,7 @@ export namespace Prisma {
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
+    priceValues?: ProductPriceUncheckedUpdateOneWithoutProductNestedInput;
   };
 
   export type OrderUpsertWithoutItemsInput = {
@@ -38130,6 +39916,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number;
     allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
+    priceValues?: ProductPriceUpdateOneWithoutProductNestedInput;
     category?: CategoryUpdateOneWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -38150,6 +39937,7 @@ export namespace Prisma {
     allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null;
+    priceValues?: ProductPriceUncheckedUpdateOneWithoutProductNestedInput;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
 
@@ -38369,6 +40157,7 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number;
     allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
+    priceValues?: ProductPriceUpdateOneWithoutProductNestedInput;
     business?: BusinessUpdateOneRequiredWithoutProductsNestedInput;
     orderItems?: OrderProductUpdateManyWithoutProductNestedInput;
   };
@@ -38389,6 +40178,7 @@ export namespace Prisma {
     allowOrderOutOfStock?: BoolFieldUpdateOperationsInput | boolean;
     isExhaustible?: BoolFieldUpdateOperationsInput | boolean;
     businessId?: StringFieldUpdateOperationsInput | string;
+    priceValues?: ProductPriceUncheckedUpdateOneWithoutProductNestedInput;
     orderItems?: OrderProductUncheckedUpdateManyWithoutProductNestedInput;
   };
 
@@ -38862,6 +40652,12 @@ export namespace Prisma {
   export type ProductArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = ProductDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use ProductPriceDefaultArgs instead
+   */
+  export type ProductPriceArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = ProductPriceDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use UserDefaultArgs instead
    */
