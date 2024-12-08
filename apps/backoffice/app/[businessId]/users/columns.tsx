@@ -4,6 +4,7 @@ import { BtnList } from "@repo/ui/components/ui/btn-list";
 import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { useTranslations } from "next-intl";
 import { CompleteUser } from "@repo/model/zod/user";
+import Link from "next/link";
 
 type ActionProps = {
   row: CompleteUser;
@@ -30,8 +31,11 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Nombre",
     accessorKey: "name",
-    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) =>
-      value,
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => (
+      <Link href={`users/${row.id}`} className="underline">
+        {value}
+      </Link>
+    ),
   },
   {
     header: "Teléfono",
