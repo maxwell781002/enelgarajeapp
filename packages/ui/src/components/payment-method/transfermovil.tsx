@@ -6,6 +6,7 @@ import { CreditCard, Phone } from "lucide-react";
 import { CompletePaymentMethod } from "@repo/model/zod/paymentmethod";
 import CopyToClipboard from "@repo/ui/components/copy-to-clipboard/copy-to-clipboard-text";
 import { useTranslations } from "next-intl";
+import { transfermovilText } from "@repo/model/lib/utils";
 
 export type TransfermovilProps = {
   data: CompletePaymentMethod;
@@ -13,7 +14,11 @@ export type TransfermovilProps = {
 
 export default function TransfermovilDetail({ data }: TransfermovilProps) {
   const t = useTranslations("PaymentMethod");
-  const text = `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${(data.data as any)?.cardNumber},${(data.data as any)?.phone},`;
+  const text = transfermovilText(
+    (data.data as any)?.cardNumber,
+    (data.data as any)?.phone,
+  );
+
   return (
     <Card className="w-full max-w-sm mx-auto">
       <CardContent className="flex flex-col items-center p-6 space-y-4">

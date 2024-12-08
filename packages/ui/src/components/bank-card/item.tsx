@@ -15,13 +15,13 @@ import CopyToClipboard from "../copy-to-clipboard/copy-to-clipboard-text";
 export type BankCardItemProps = {
   card: CompleteCollaboratorCardBank;
   removeCard: (id: string) => void;
-  openQRCode: (cardNumber: string) => void;
+  selectCard: (item: CompleteCollaboratorCardBank) => void;
 };
 
 export default function BankCardItem({
   card,
   removeCard,
-  openQRCode,
+  selectCard,
 }: BankCardItemProps) {
   const t = useTranslations("CardBankItem");
   return (
@@ -34,7 +34,7 @@ export default function BankCardItem({
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => openQRCode(card.cardNumber as string)}
+            onClick={() => selectCard(card)}
             aria-label="Open QR Code"
           >
             <QrCode className="h-4 w-4" />
