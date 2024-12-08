@@ -70,11 +70,11 @@ export default function BankCardItem({
           </div>
           <div>
             <dt className="font-medium">{t("updatedAt")}</dt>
-            <dd>{formatDate(new Date(card.updatedAt as string))}</dd>
+            <dd>{formatDate(card.updatedAt as Date)}</dd>
           </div>
           <div>
             <dt className="font-medium">{t("createdAt")}</dt>
-            <dd>{formatDate(new Date(card.createdAt as string))}</dd>
+            <dd>{formatDate(card.createdAt as Date)}</dd>
           </div>
         </dl>
       </CardContent>

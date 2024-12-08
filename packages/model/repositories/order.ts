@@ -19,7 +19,9 @@ export const statusColors: Record<OrderStatus, string> = {
 
 type PaginateData = {
   businessId?: string;
+  userId?: string;
   status?: string;
+  isCollaborator?: boolean;
 } & BasePaginateData;
 
 export class OrderRepository extends BaseRepository<
@@ -43,10 +45,19 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  paginate({ businessId, status, query, ...data }: PaginateData = {}) {
+  paginate({
+    businessId,
+    userId,
+    status,
+    query,
+    isCollaborator,
+    ...data
+  }: PaginateData = {}) {
     const where = clearWhere({
       businessId,
+      userId,
       status,
+      isCollaborator,
     });
     where.NOT = { userId: null };
     if (query) {

@@ -7,5 +7,14 @@
     "lbName": "Nombre",
     "lbPhone": "Teléfono",
     "isCollaborator": "Es Gestor"
+  },
+  "OrderUser": {
+    "phSearch": "Buscar por identificador.",
+    "OrderList": "Pedidos"
+  },
+  "OrderUserDetail": {
+    "lbName": "Nombre",
+    "lbPhone": "Teléfono",
+    "isCollaborator": "Es Gestor"
   }
 }

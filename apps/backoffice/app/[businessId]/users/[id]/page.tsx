@@ -9,15 +9,20 @@ import {
   TabsTrigger,
 } from "@repo/ui/components/ui/tabs";
 import CardBank from "./card-bank";
+import CollaboratorOrders from "./orders";
 
 export type PageProps = {
+  searchParams: any;
   params: {
     businessId: string;
     id: string;
   };
 };
 
-export default async function Page({ params: { id, businessId } }: PageProps) {
+export default async function Page({
+  searchParams,
+  params: { id, businessId },
+}: PageProps) {
   const user = await userRepository.getById(id);
   const t = await getTranslations("UserDetail");
   return (
@@ -31,7 +36,13 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             <TabsTrigger value="orders">{t("tabOrders")}</TabsTrigger>
             <TabsTrigger value="cardNumbers">{t("tabCardNumbers")}</TabsTrigger>
           </TabsList>
-          <TabsContent value="orders">{t("tabOrders")}</TabsContent>
+          <TabsContent value="orders">
+            <CollaboratorOrders
+              businessId={businessId}
+              collaboratorId={id}
+              searchParams={searchParams}
+            />
+          </TabsContent>
           <TabsContent value="cardNumbers">
             <CardBank businessId={businessId} collaboratorId={id} user={user} />
           </TabsContent>
