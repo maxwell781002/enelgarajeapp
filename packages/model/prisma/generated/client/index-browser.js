@@ -204,6 +204,18 @@ exports.Prisma.UserBusinessScalarFieldEnum = {
   type: 'type'
 };
 
+exports.Prisma.CollaboratorCardBankScalarFieldEnum = {
+  id: 'id',
+  alias: 'alias',
+  cardNumber: 'cardNumber',
+  currency: 'currency',
+  phone: 'phone',
+  businessId: 'businessId',
+  collaboratorId: 'collaboratorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.InvitationLinkScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -387,6 +399,7 @@ exports.Prisma.ModelName = {
   ProductPrice: 'ProductPrice',
   User: 'User',
   UserBusiness: 'UserBusiness',
+  CollaboratorCardBank: 'CollaboratorCardBank',
   InvitationLink: 'InvitationLink',
   Order: 'Order',
   OrderProduct: 'OrderProduct',
