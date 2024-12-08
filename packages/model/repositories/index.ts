@@ -11,6 +11,7 @@ import { productRepository } from "./product";
 import { telegramBusinessRepository } from "./telegram-business";
 import { userRepository } from "./user";
 import { userAddressRepository } from "./user-address";
+import { collaboratorCardBankRepository } from "./collaborator-card-bank";
 
 export default {
   [orderRepository.getRepositoryModelName()]: orderRepository,
@@ -23,6 +24,8 @@ export default {
   [orderAddressRepository.getRepositoryModelName()]: orderAddressRepository,
   [paymentMethodRepository.getRepositoryModelName()]: paymentMethodRepository,
   [neighborhoodRepository.getRepositoryModelName()]: neighborhoodRepository,
+  [collaboratorCardBankRepository.getRepositoryModelName()]:
+    collaboratorCardBankRepository,
   [businessNeighborhoodRepository.getRepositoryModelName()]:
     businessNeighborhoodRepository,
   [telegramBusinessRepository.getRepositoryModelName()]:
