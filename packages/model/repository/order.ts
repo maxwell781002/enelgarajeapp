@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import prisma, { transaction } from "../prisma/prisma-client";
-import { getById } from "./product";
+import { addProductFields, getById } from "./product";
 import {
   CompleteBusiness,
   CompleteOrder,
@@ -23,6 +23,7 @@ import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
 import { calculateShippingPrice } from "../lib/order";
 import { addAddressToUser } from "./address";
+import { IProduct } from "../types/product";
 
 export const getCurrentOrder = async (): Promise<
   ShopCartOrder | null | undefined
@@ -40,22 +41,40 @@ export const getCurrentOrder = async (): Promise<
     (acc, { quantity }) => acc + quantity,
     0,
   );
-  const items: ShopCartItem[] = order.items.map(
-    ({ price, quantity, product, ...item }) => ({
-      ...item,
-      price,
-      product,
-      quantity,
-      total: price * quantity,
-      outOfStock:
-        !product.allowOrderOutOfStock &&
-        product.isExhaustible &&
-        product.stock < quantity,
+  const items: ShopCartItem[] = await Promise.all(
+    order.items.map(async ({ price, quantity, product, ...item }) => {
+      const _product = (await addProductFields(product, order)) as IProduct;
+      return {
+        ...item,
+        price,
+        product,
+        quantity,
+        total: price * quantity,
+        commission: _product._commission * quantity,
+        businessProfit: _product._businessProfit * quantity,
+        outOfStock:
+          !product.allowOrderOutOfStock &&
+          product.isExhaustible &&
+          product.stock < quantity,
+      };
     }),
   );
-  order.total = items.reduce((acc, item: any) => acc + item.total, 0);
+  const { total, commission, businessProfit } = items.reduce(
+    (acc, item: any) => {
+      return {
+        total: acc.total + item.total,
+        commission: acc.commission + item.commission,
+        businessProfit: acc.businessProfit + item.businessProfit,
+      };
+    },
+    { total: 0, commission: 0, businessProfit: 0 },
+  );
+  order.total = total;
+  //TODO: Remove any from here
+  (order as any).commission = commission;
+  (order as any).businessProfit = businessProfit;
   order.hasProductOutOfStock = items.some(({ outOfStock }) => outOfStock);
-  return { ...order, items };
+  return { ...order, items, total };
 };
 
 export const hasProduct = (
