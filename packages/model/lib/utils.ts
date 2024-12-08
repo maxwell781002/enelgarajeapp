@@ -63,3 +63,6 @@ export const commissionCalculate = (
   }
   return [value, basePrice - value];
 };
+
+export const transfermovilText = (cardNumber: string, phone: string) =>
+  `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${cardNumber},${phone},`;

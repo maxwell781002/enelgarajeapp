@@ -1,6 +1,7 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { TErrors, setErrors } from "@repo/ui/lib/form";
 import { isFile } from "@repo/model/lib/utils";
+import { useTransition } from "react";
 
 type TUseFormProcess = {
   resolver: any;
@@ -19,6 +20,7 @@ export const useFormProcess = <T extends FieldValues>({
     resolver,
     defaultValues,
   });
+  const [saving, startSaving] = useTransition();
 
   const transformer = (data: any, formData: FormData, parent = "") => {
     Object.keys(data).forEach((key) => {
@@ -36,14 +38,16 @@ export const useFormProcess = <T extends FieldValues>({
   };
 
   async function onSubmit(data: any) {
-    try {
-      const formData = transformer(data, new FormData());
-      await action(formData);
-      onSuccess && onSuccess();
-    } catch (error) {
-      setErrors<T, typeof form.setError>(error as TErrors, form.setError);
-    }
+    return startSaving(async () => {
+      try {
+        const formData = transformer(data, new FormData());
+        await action(formData);
+        onSuccess && onSuccess();
+      } catch (error) {
+        setErrors<T, typeof form.setError>(error as TErrors, form.setError);
+      }
+    });
   }
 
-  return { form, onSubmit };
+  return { form, onSubmit, saving };
 };

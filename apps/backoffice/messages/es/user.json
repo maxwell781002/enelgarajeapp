@@ -13,5 +13,40 @@
     "removeDescription": "El usuario será eliminado completamente.",
     "removeContinue": "Continuar",
     "removeCancel": "Cancelar"
+  },
+  "UserDetail": {
+    "title": "Detalles del gestor",
+    "backUsers": "Volver a gestores",
+    "tabOrders": "Ordenes",
+    "tabCardNumbers": "Tarjetas"
+  },
+  "CardBank": {
+    "createCardBank": "Crear tarjeta",
+    "CardBankList": "Tarjetas",
+    "collaboratorCardBankCreated": "Tarjeta creada",
+    "collaboratorCardBankUpdated": "Tarjeta actualizada",
+    "lbAlias": "Alias (opcional)",
+    "phAlias": "Escriba el alias",
+    "lbCardNumber": "Número de tarjeta",
+    "phCardNumber": "Escriba el número de tarjeta",
+    "lbPhone": "Teléfono",
+    "phPhone": "Escriba el teléfono",
+    "lbCurrency": "Moneda",
+    "phCurrency": "Seleccionar Moneda",
+    "btnSubmit": "Salvar",
+    "btnSaving": "Guardando",
+    "Required": "Requerido",
+    "noCards": "No hay tarjetas configuradas"
+  },
+  "CardBankItem": {
+    "remove": "¿Está seguro que va a eliminar la tarjeta?",
+    "removeDescription": "La tarjeta será eliminada completamente.",
+    "removeContinue": "Continuar",
+    "removeCancel": "Cancelar",
+    "currency": "Moneda",
+    "cardNumber": "Tarjeta",
+    "phone": "Teléfono",
+    "updatedAt": "Actualizado",
+    "createdAt": "Creado"
   }
 }

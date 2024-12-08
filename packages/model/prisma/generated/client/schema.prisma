@@ -45,6 +45,7 @@ model Business {
   userAddress            UserAddress[]
   paymentMethod          PaymentMethod[]        @relation("paymentMehtods")
   invitationLinks        InvitationLink[]
+  cardBanks              CollaboratorCardBank[]
 }
 
 enum Currency {
@@ -142,8 +143,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  business UserBusiness[]
-  address  UserAddress[]
+  business  UserBusiness[]
+  address   UserAddress[]
+  cardBanks CollaboratorCardBank[]
 }
 
 model UserBusiness {
@@ -159,6 +161,20 @@ model UserBusiness {
 enum UserBusinessType {
   OWNER
   COLLABORATOR
+}
+
+model CollaboratorCardBank {
+  id             String   @id @default(uuid())
+  alias          String? /// @zod.optional()
+  cardNumber     String /// @zod.min(1, { message: "Required" })
+  currency       Currency @default(CUP)
+  phone          String /// @zod.min(1, { message: "required" })
+  business       Business @relation(fields: [businessId], references: [id])
+  businessId     String
+  collaborator   User     @relation(fields: [collaboratorId], references: [id], onDelete: Cascade)
+  collaboratorId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model InvitationLink {
