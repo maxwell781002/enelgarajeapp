@@ -26,6 +26,12 @@ export class CollaboratorCardBankRepository extends BaseRepository<
     );
   }
 
+  getAll(businessId: string, collaboratorId: string) {
+    return this.model.findMany({
+      where: { businessId, collaboratorId },
+    });
+  }
+
   paginate({ businessId, collaboratorId, ...data }: PaginateData) {
     const where: any = {
       businessId,

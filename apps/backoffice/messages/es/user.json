@@ -40,5 +40,12 @@
     "btnSubmit": "Salvar",
     "btnSaving": "Guardando",
     "Required": "Requerido"
+  },
+  "CardBankItem": {
+    "currency": "Moneda",
+    "cardNumber": "Tarjeta",
+    "phone": "Teléfono",
+    "updatedAt": "Actualizado",
+    "createdAt": "Creado"
   }
 }

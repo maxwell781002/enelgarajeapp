@@ -6,6 +6,7 @@ import { collaboratorCardBankRepository } from "@repo/model/repositories/collabo
 import { formDataToObject } from "@repo/model/lib/utils";
 import { revalidatePath } from "next/cache";
 import { CompleteUser } from "@repo/model/zod/user";
+import NumbersBankList from "@repo/ui/components/bank-card/list";
 
 export type CardBankProps = {
   businessId: string;
@@ -28,6 +29,10 @@ export default async function CardBank({
     await collaboratorCardBankRepository.create(obj);
     return revalidatePath(`/${businessId}/users/${collaboratorId}`);
   };
+  const cards = await collaboratorCardBankRepository.getAll(
+    businessId,
+    collaboratorId,
+  );
   return (
     <TableContextProvider remove={remove}>
       <TableLayout
@@ -41,7 +46,7 @@ export default async function CardBank({
           />
         }
       >
-        CardNumbers list
+        <NumbersBankList cards={cards} />
         {/* <CategoryTable pagination={pagination as PaginationResult<any>} /> */}
       </TableLayout>
     </TableContextProvider>
