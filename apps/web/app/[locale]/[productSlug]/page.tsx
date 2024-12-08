@@ -1,14 +1,24 @@
 import ProductPage, {
   generateMetadata as BaseGenerateMetadata,
-  ProductPageProps,
 } from "@repo/ui/components/product-page/page";
+import { ResolvingMetadata } from "next";
+
+export type ProductPageProps = {
+  params: {
+    productSlug: string;
+    locale: string;
+  };
+};
 
 export async function generateMetadata(
-  ...props: Parameters<typeof BaseGenerateMetadata>
+  { params: { productSlug } }: ProductPageProps,
+  parent: ResolvingMetadata,
 ) {
-  return BaseGenerateMetadata(...props);
+  return BaseGenerateMetadata(productSlug, parent);
 }
 
-export default async function Page(props: ProductPageProps) {
-  return <ProductPage {...props} />;
+export default async function Page({
+  params: { productSlug, locale },
+}: ProductPageProps) {
+  return <ProductPage productSlug={productSlug} locale={locale} />;
 }

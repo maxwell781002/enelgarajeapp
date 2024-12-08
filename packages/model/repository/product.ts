@@ -10,7 +10,10 @@ import { getCurrentOrder, hasProduct } from "./order";
 export const getBySlug = async (slug: string) => {
   const order = await getCurrentOrder();
   return addProductFields(
-    await prisma().product.findUnique({ where: { slug } }),
+    await prisma().product.findUnique({
+      where: { slug },
+      include: { priceValues: true },
+    }),
     order,
   );
 };
@@ -21,7 +24,7 @@ export const getById = (id: string) => {
 
 export const addProductFields = async (
   product: any,
-  order: ShopCartOrder | null | undefined,
+  order: ShopCartOrder | null | undefined = null,
 ) => {
   const _isOffer = !!(product.offerPrice && product.offerPrice < product.price);
   const [commission, businessProfit] = commissionCalculate(

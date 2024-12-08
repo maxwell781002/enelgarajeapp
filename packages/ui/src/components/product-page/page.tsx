@@ -3,19 +3,19 @@ import { addToOrder } from "@repo/model/repository/order";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { AddCart } from "./add-cart";
-import ProductDetail from "@repo/ui/components/product-page/product";
+import ProductDetail, {
+  ProductDetailProps,
+} from "@repo/ui/components/product-page/product";
 import { ResolvingMetadata } from "next";
 import { IProduct } from "@repo/model/types/product";
 
 export type ProductPageProps = {
-  params: {
-    productSlug: string;
-    locale: string;
-  };
-};
+  productSlug: string;
+  locale: string;
+} & Omit<ProductDetailProps, "addCartBtn" | "product" | "t">;
 
 export async function generateMetadata(
-  { params: { productSlug } }: ProductPageProps,
+  productSlug: string,
   parent: ResolvingMetadata,
 ) {
   const product = await getBySlug(productSlug);
@@ -31,7 +31,9 @@ export async function generateMetadata(
 }
 
 export default async function ProductPage({
-  params: { productSlug, locale },
+  productSlug,
+  locale,
+  ...props
 }: ProductPageProps) {
   const baseUrl = `/${locale}/${productSlug}`;
   const item = await getBySlug(productSlug);
@@ -49,5 +51,12 @@ export default async function ProductPage({
     <AddCart product={item as IProduct} add={add.bind(null, item.id)} />
   );
 
-  return <ProductDetail product={item as IProduct} addCartBtn={btnAdd} t={t} />;
+  return (
+    <ProductDetail
+      product={item as IProduct}
+      addCartBtn={btnAdd}
+      t={t}
+      {...props}
+    />
+  );
 }

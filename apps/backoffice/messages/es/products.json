@@ -42,6 +42,9 @@
     "phCommissionValue": "Escriba el valor de comision",
     "lbCommissionDisplay": "Comisión",
     "lbBusinessProfit": "Ganancia del negocio",
+    "stock": "Stock",
+    "commission": "Comisión",
+    "businessProfit": "Ganancia",
     "remove_dialog": {
       "title": "¿Deseas borrar este producto?",
       "description": "Solo puede borrar un producto si no se ha hecho ninguna compra con él.",

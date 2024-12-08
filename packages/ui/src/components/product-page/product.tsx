@@ -4,15 +4,21 @@ import Markdown from "@repo/ui/components/markdown";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";
 
-type ProductDetailProps = {
+export type ProductDetailProps = {
   product: IProduct;
   addCartBtn?: JSX.Element;
+  showCommission?: boolean;
+  showStock?: boolean;
+  showBusinessProfit?: boolean;
   t: (key: string) => string;
 };
 
 export default function ProductDetail({
   product,
   addCartBtn,
+  showCommission,
+  showStock,
+  showBusinessProfit,
   t,
 }: ProductDetailProps) {
   return (
@@ -46,6 +52,26 @@ export default function ProductDetail({
               />
             </div>
             {addCartBtn}
+          </div>
+          <div className="flex-1 sm:flex sm:justify-between text-blue-500">
+            {showCommission && (
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{t("commission")}</span>
+                <PriceDisplay price={product._commission} />
+              </div>
+            )}
+            {showBusinessProfit && (
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{t("businessProfit")}</span>
+                <PriceDisplay price={product._businessProfit} />
+              </div>
+            )}
+            {showStock && (
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{t("stock")}</span>
+                <span>{product.stock}</span>
+              </div>
+            )}
           </div>
           <div>
             <Markdown>{product.description}</Markdown>

@@ -15,7 +15,7 @@ type PageProps = {
 
 export default async function Page({ params: { id, businessId } }: PageProps) {
   const t = await getTranslations("Product");
-  const product = await productRepository.get(id);
+  const product = await productRepository.getAllProduct({ id });
   const remove = async (id: string) => {
     "use server";
     try {
@@ -61,7 +61,13 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             {t("lbStock")}: {product.stock}
           </div>
         </div>
-        <ProductDetail product={product as IProduct} t={t} />
+        <ProductDetail
+          product={product as IProduct}
+          t={t}
+          showCommission
+          showStock
+          showBusinessProfit
+        />
       </>
     </BackPage>
   );

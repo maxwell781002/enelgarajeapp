@@ -11,6 +11,7 @@ import { orderRepository } from "./order";
 import { clearWhere } from "../lib/util-query";
 import { isFile } from "../lib/utils";
 import { CommissionTypes } from "../types/enums";
+import { addProductFields } from "../repository/product";
 
 type PaginateData = {
   businessId?: string;
@@ -31,13 +32,15 @@ export class ProductRepository extends BaseRepository<
     this.addValidator("update", ProductUpdateValidation);
   }
 
-  getAllProduct(where: any) {
-    return this.model.findUnique({
-      where,
-      include: {
-        priceValues: true,
-      },
-    });
+  async getAllProduct(where: any) {
+    return addProductFields(
+      await this.model.findUnique({
+        where,
+        include: {
+          priceValues: true,
+        },
+      }),
+    );
   }
 
   protected uploadImage(data: any) {
