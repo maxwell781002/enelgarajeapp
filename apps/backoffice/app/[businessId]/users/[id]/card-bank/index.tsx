@@ -20,8 +20,10 @@ export default async function CardBank({
   user,
 }: CardBankProps) {
   const t = await getTranslations("CardBank");
-  const remove = async () => {
+  const remove = async (id: string) => {
     "use server";
+    await collaboratorCardBankRepository.remove(id);
+    return revalidatePath(`/${businessId}/users/${collaboratorId}`);
   };
   const create = async (formData: FormData) => {
     "use server";
@@ -34,7 +36,7 @@ export default async function CardBank({
     collaboratorId,
   );
   return (
-    <TableContextProvider remove={remove}>
+    <TableContextProvider>
       <TableLayout
         title={t("CardBankList")}
         // filter={<Filter onChange={handleSearch} />}
@@ -46,8 +48,7 @@ export default async function CardBank({
           />
         }
       >
-        <NumbersBankList cards={cards} />
-        {/* <CategoryTable pagination={pagination as PaginationResult<any>} /> */}
+        <NumbersBankList cards={cards} remove={remove} />
       </TableLayout>
     </TableContextProvider>
   );

@@ -23,10 +23,6 @@
   "CardBank": {
     "createCardBank": "Crear tarjeta",
     "CardBankList": "Tarjetas",
-    "remove": "¿Está seguro que va a eliminar la tarjeta?",
-    "removeDescription": "La tarjeta será eliminada completamente.",
-    "removeContinue": "Continuar",
-    "removeCancel": "Cancelar",
     "collaboratorCardBankCreated": "Tarjeta creada",
     "collaboratorCardBankUpdated": "Tarjeta actualizada",
     "lbAlias": "Alias (opcional)",
@@ -39,9 +35,14 @@
     "phCurrency": "Seleccionar Moneda",
     "btnSubmit": "Salvar",
     "btnSaving": "Guardando",
-    "Required": "Requerido"
+    "Required": "Requerido",
+    "noCards": "No hay tarjetas configuradas"
   },
   "CardBankItem": {
+    "remove": "¿Está seguro que va a eliminar la tarjeta?",
+    "removeDescription": "La tarjeta será eliminada completamente.",
+    "removeContinue": "Continuar",
+    "removeCancel": "Cancelar",
     "currency": "Moneda",
     "cardNumber": "Tarjeta",
     "phone": "Teléfono",

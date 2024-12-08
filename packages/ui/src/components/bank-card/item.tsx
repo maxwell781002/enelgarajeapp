@@ -6,11 +6,12 @@ import {
   CardTitle,
 } from "@repo/ui/components/ui/card";
 import { Button } from "@repo/ui/components/ui/button";
-import { Trash2, QrCode, Copy } from "lucide-react";
+import { QrCode } from "lucide-react";
 import { formatDate } from "@repo/ui/lib/date";
 import { CompleteCollaboratorCardBank } from "@repo/model/zod/collaboratorcardbank";
 import { useTranslations } from "next-intl";
 import CopyToClipboard from "../copy-to-clipboard/copy-to-clipboard-text";
+import { BtnRemove } from "../ui/btn-remove";
 
 export type BankCardItemProps = {
   card: CompleteCollaboratorCardBank;
@@ -39,14 +40,14 @@ export default function BankCardItem({
           >
             <QrCode className="h-4 w-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => removeCard(card.id as string)}
-            aria-label="Remove Card"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
+          <BtnRemove
+            action={() => removeCard(card.id as string)}
+            entityId={card.id}
+            title={t("remove")}
+            description={t("removeDescription")}
+            btnContinueText={t("removeContinue")}
+            btnCancelText={t("removeCancel")}
+          />
         </div>
       </CardHeader>
       <CardContent>
