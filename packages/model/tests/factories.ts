@@ -48,6 +48,12 @@ export const userBusinessFactory = (data: any) => {
   });
 };
 
+export const productPriceFactory = (data: any) => {
+  return prisma().productPrice.create({
+    data,
+  });
+};
+
 export const productFactory = async (data: any = {}) => {
   if (!data.businessId) {
     data.businessId = (await businessFactory()).id;

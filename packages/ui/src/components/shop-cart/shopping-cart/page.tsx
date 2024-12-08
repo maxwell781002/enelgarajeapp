@@ -55,6 +55,7 @@ export default async function ShoppingCartPage({
         {order.items.map((item: CompleteOrderProduct) => (
           <div key={item.productId} className="mb-2">
             <CardItem
+              key={item.productId}
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
               changeProductQuantity={setQuantity.bind(null, item.productId)}
@@ -75,7 +76,8 @@ export default async function ShoppingCartPage({
           <div className="flex items-center justify-between text-blue-500">
             <span className="text-lg font-semibold">{t("commission")}</span>
             <span className="text-2xl font-bold">
-              <PriceDisplay price={order.commission} />
+              {/* TODO remove any */}
+              <PriceDisplay price={(order as any).commission} />
             </span>
           </div>
         )}

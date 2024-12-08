@@ -1,8 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import prisma from "../../../prisma/prisma-client";
 import { getCurrentOrder } from "../../../repository/order";
-import { businessFactory, clearBd, productFactory } from "../../factories";
+import {
+  businessFactory,
+  clearBd,
+  productFactory,
+  productPriceFactory,
+} from "../../factories";
 import { ShopCartOrder } from "../../../types/shop-cart";
+import { CommissionTypes } from "../../../types/enums";
 
 const mocksGet = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -29,11 +35,21 @@ describe("CurrentOrder", () => {
       isExhaustible: true,
       stock: 0,
     });
+    await productPriceFactory({
+      productId: product1.id,
+      commissionValue: 5,
+      commissionType: CommissionTypes.FIXED,
+    });
     const product2 = await productFactory({
       name: "Product 2",
       businessId: business.id,
       isExhaustible: true,
       stock: 100,
+    });
+    await productPriceFactory({
+      productId: product2.id,
+      commissionValue: 10,
+      commissionType: CommissionTypes.FIXED,
     });
     orderId = (
       await prisma().order.create({
@@ -79,6 +95,10 @@ describe("CurrentOrder", () => {
     expect(order.items[1].total).toBe(20);
     expect(order.items[0].outOfStock).toBeTruthy();
     expect(order.items[1].outOfStock).toBeFalsy();
+    //TODO Remove when I add commission in the order
+    expect((order.items[0] as any).commission).toBe(5);
+    expect((order.items[1] as any).commission).toBe(100);
     expect(order.hasProductOutOfStock).toBeTruthy();
+    expect((order as any).commission).toBe(105);
   });
 });
