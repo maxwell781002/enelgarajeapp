@@ -5,65 +5,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import { StatCard } from "./stat";
-import { Package, ShoppingCart, Users } from "lucide-react";
+import { CompleteUser } from "@repo/model/zod/user";
+import { getTranslations } from "next-intl/server";
 
 interface UserProfileProps {
-  name: string;
-  phone: string;
-  image: string;
-  orders: number;
-  products: number;
-  customers: number;
+  user: CompleteUser;
 }
 
-export default function UserProfile({
-  name,
-  phone,
-  image,
-  orders,
-  products,
-  customers,
-}: UserProfileProps) {
+export default async function UserProfile({ user }: UserProfileProps) {
+  const t = await getTranslations("UserDetail");
   return (
-    <div>
-      <div className="space-y-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>User Information</CardTitle>
-          </CardHeader>
-          <CardContent className="flex items-center space-x-4">
-            <Image
-              src={image}
-              alt={name}
-              width={100}
-              height={100}
-              className="rounded-full"
-            />
-            <div>
-              <h2 className="text-2xl font-bold">{name}</h2>
-              <p className="text-gray-500">{phone}</p>
-            </div>
-          </CardContent>
-        </Card>
-        <div className="grid gap-2 grid-cols-3">
-          <StatCard
-            title="Total Orders"
-            value={orders}
-            icon={<ShoppingCart className="h-4 w-4 text-muted-foreground" />}
-          />
-          <StatCard
-            title="Products"
-            value={products}
-            icon={<Package className="h-4 w-4 text-muted-foreground" />}
-          />
-          <StatCard
-            title="Customers"
-            value={customers}
-            icon={<Users className="h-4 w-4 text-muted-foreground" />}
-          />
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("title")}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex items-center space-x-4">
+        <img
+          src={user.image as string}
+          referrerPolicy="no-referrer"
+          alt={user.name as string}
+          className="rounded-full"
+        />
+        <div>
+          <h2 className="text-2xl font-bold">{user.name}</h2>
+          <p className="text-gray-500">{user.phone}</p>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

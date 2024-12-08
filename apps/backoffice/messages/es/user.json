@@ -13,5 +13,11 @@
     "removeDescription": "El usuario será eliminado completamente.",
     "removeContinue": "Continuar",
     "removeCancel": "Cancelar"
+  },
+  "UserDetail": {
+    "title": "Detalles del gestor",
+    "backUsers": "Volver a gestores",
+    "tabOrders": "Ordenes",
+    "tabCardNumbers": "Tarjetas"
   }
 }
