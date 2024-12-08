@@ -31,7 +31,7 @@ export function Button({
       {...props}
     >
       {loading ? (
-        <div className="p-1">
+        <div className="grid grid-flow-col gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
           <span>{loadingText}</span>
         </div>
