@@ -15,10 +15,12 @@ import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
 export type ShoppingCartProps = {
   baseUrl?: string;
+  showCommission?: boolean;
 };
 
 export default async function ShoppingCartPage({
   baseUrl = "",
+  showCommission,
 }: ShoppingCartProps) {
   const order = await getCurrentOrder();
   const remove = async (productId: string) => {
@@ -53,10 +55,12 @@ export default async function ShoppingCartPage({
         {order.items.map((item: CompleteOrderProduct) => (
           <div key={item.productId} className="mb-2">
             <CardItem
+              key={item.productId}
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
               changeProductQuantity={setQuantity.bind(null, item.productId)}
               url={baseUrl || "/"}
+              showCommission={showCommission}
             />
           </div>
         ))}
@@ -68,6 +72,15 @@ export default async function ShoppingCartPage({
             <PriceDisplay price={order.total} />
           </span>
         </div>
+        {showCommission && (
+          <div className="flex items-center justify-between text-blue-500">
+            <span className="text-lg font-semibold">{t("commission")}</span>
+            <span className="text-2xl font-bold">
+              {/* TODO remove any */}
+              <PriceDisplay price={(order as any).commission} />
+            </span>
+          </div>
+        )}
         <div className="flex flex-col gap-2">
           <Link href={baseUrl || "/"} className="w-full" prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>

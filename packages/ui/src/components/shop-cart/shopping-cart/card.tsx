@@ -17,12 +17,14 @@ export type CardItemProps = {
   item: ShopCartItem;
   url: string;
   onRemove: () => void;
+  showCommission?: boolean;
 } & QuantitySetterProps;
 
 export default function CardItem({
   item,
   onRemove,
   url,
+  showCommission,
   ...quantityProps
 }: CardItemProps) {
   const t = useTranslations("ShopCart");
@@ -75,7 +77,16 @@ export default function CardItem({
                 <QuantitySetter quantity={item.quantity} {...quantityProps} />
               </div>
               <div className="flex flex-1 justify-end">
-                <PriceDisplay price={item.total} />
+                <div>
+                  <PriceDisplay price={item.total} />
+                  {/* TODO Remove the any */}
+                  {showCommission && !!(item as any).commission && (
+                    <PriceDisplay
+                      price={(item as any).commission}
+                      classNameText="text-blue-500"
+                    />
+                  )}
+                </div>
               </div>
             </div>
             {item.outOfStock && (

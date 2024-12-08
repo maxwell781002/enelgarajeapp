@@ -171,7 +171,7 @@ export class OrderRepository extends BaseRepository<
           include: { address: { include: { neighborhood: true } } },
         },
         items: {
-          include: { product: true },
+          include: { product: { include: { priceValues: true } } },
           orderBy: { position: "asc" },
         },
       },
