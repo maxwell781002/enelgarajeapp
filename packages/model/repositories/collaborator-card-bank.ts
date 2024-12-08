@@ -17,7 +17,11 @@ export class CollaboratorCardBankRepository extends BaseRepository<
 > {
   constructor() {
     super(
-      CollaboratorCardBankModel.omit({ id: true }),
+      CollaboratorCardBankModel.omit({
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+      }),
       Prisma.collaboratorCardBank,
     );
   }

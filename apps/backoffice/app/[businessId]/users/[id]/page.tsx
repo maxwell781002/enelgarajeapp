@@ -33,7 +33,7 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
           </TabsList>
           <TabsContent value="orders">{t("tabOrders")}</TabsContent>
           <TabsContent value="cardNumbers">
-            <CardBank businessId={businessId} collaboratorId={id} />
+            <CardBank businessId={businessId} collaboratorId={id} user={user} />
           </TabsContent>
         </Tabs>
       </div>
