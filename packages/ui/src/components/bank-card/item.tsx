@@ -51,7 +51,7 @@ export default function BankCardItem({
         </div>
       </CardHeader>
       <CardContent>
-        <dl className="grid grid-cols-2 gap-2 text-sm">
+        <dl className="grid md:grid-cols-2 gap-2 text-sm">
           <div>
             <dt className="font-medium">{t("cardNumber")}</dt>
             <dd>
@@ -59,14 +59,14 @@ export default function BankCardItem({
             </dd>
           </div>
           <div>
-            <dt className="font-medium">{t("currency")}</dt>
-            <dd>{card.currency as string}</dd>
-          </div>
-          <div>
             <dt className="font-medium">{t("phone")}</dt>
             <dd>
               <CopyToClipboard text={card.phone as string} />
             </dd>
+          </div>
+          <div>
+            <dt className="font-medium">{t("currency")}</dt>
+            <dd>{card.currency as string}</dd>
           </div>
           <div>
             <dt className="font-medium">{t("updatedAt")}</dt>
