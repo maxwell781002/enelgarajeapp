@@ -74,7 +74,7 @@ export default function CardBankForm({ action, defaultValues }: FormAction) {
               <FormControl>
                 <NumericInput
                   placeholder={t("phCardNumber")}
-                  maxLength={12}
+                  maxLength={16}
                   {...field}
                 />
               </FormControl>
@@ -89,11 +89,7 @@ export default function CardBankForm({ action, defaultValues }: FormAction) {
             <FormItem>
               <FormLabel>{t("lbPhone")}</FormLabel>
               <FormControl>
-                <NumericInput
-                  placeholder={t("phPhone")}
-                  maxLength={8}
-                  {...field}
-                />
+                <Input placeholder={t("phPhone")} {...field} />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
