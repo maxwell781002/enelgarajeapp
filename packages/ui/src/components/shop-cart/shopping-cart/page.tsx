@@ -59,7 +59,7 @@ export default async function ShoppingCartPage({
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
               changeProductQuantity={setQuantity.bind(null, item.productId)}
-              url={baseUrl || "/"}
+              url={baseUrl}
               showCommission={showCommission}
             />
           </div>
