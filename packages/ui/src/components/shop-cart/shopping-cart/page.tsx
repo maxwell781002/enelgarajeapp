@@ -15,11 +15,13 @@ import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 
 export type ShoppingCartProps = {
   baseUrl?: string;
+  productBaseUrl?: string;
   showCommission?: boolean;
 };
 
 export default async function ShoppingCartPage({
   baseUrl = "",
+  productBaseUrl = "",
   showCommission,
 }: ShoppingCartProps) {
   const order = await getCurrentOrder();
@@ -35,7 +37,7 @@ export default async function ShoppingCartPage({
   };
 
   if (!order || order.items.length === 0) {
-    return <EmptyCart url="/" />;
+    return <EmptyCart url={baseUrl} />;
   }
 
   const t = await getTranslations("ShopCart");
@@ -59,7 +61,7 @@ export default async function ShoppingCartPage({
               item={item as any}
               onRemove={remove.bind(null, item.productId)}
               changeProductQuantity={setQuantity.bind(null, item.productId)}
-              url={baseUrl}
+              url={productBaseUrl}
               showCommission={showCommission}
             />
           </div>

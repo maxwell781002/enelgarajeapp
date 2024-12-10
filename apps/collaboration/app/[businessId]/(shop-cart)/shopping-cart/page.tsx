@@ -6,6 +6,10 @@ export default async function Page({
   params: { businessId: string };
 }) {
   return (
-    <ShoppingCartPage baseUrl={`/${businessId}/products`} showCommission />
+    <ShoppingCartPage
+      baseUrl={`/${businessId}`}
+      productBaseUrl={`/${businessId}/products`}
+      showCommission
+    />
   );
 }
