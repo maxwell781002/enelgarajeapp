@@ -5,9 +5,6 @@ import { Pool } from "@neondatabase/serverless";
 
 const randomString = () => Math.random().toString(36).substring(2, 7);
 
-const neon = new Pool({ connectionString: process.env.POSTGRES_PRISMA_URL });
-const adapter = new PrismaNeon(neon);
-
 export const createSlug = ({ args, query }: any) => {
   if (!args.data?.name) return query(args);
   const name = args.data.name.replace(/[*+~%\<>/;.(){}?,'"!:@#^|]/g, "-");
@@ -17,7 +14,13 @@ export const createSlug = ({ args, query }: any) => {
   return query(args);
 };
 
-const _prisma = new PrismaClient({ adapter }).$extends({
+const neon = new Pool({ connectionString: process.env.POSTGRES_PRISMA_URL });
+const adapter = new PrismaNeon(neon);
+const _prismaBase =
+  process.env.TEST === "true"
+    ? new PrismaClient()
+    : new PrismaClient({ adapter });
+const _prisma = _prismaBase.$extends({
   query: {
     product: {
       create: createSlug,
