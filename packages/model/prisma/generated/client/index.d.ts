@@ -56,6 +56,12 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>;
 export type UserBusiness =
   $Result.DefaultSelection<Prisma.$UserBusinessPayload>;
 /**
+ * Model CollaboratorProfile
+ *
+ */
+export type CollaboratorProfile =
+  $Result.DefaultSelection<Prisma.$CollaboratorProfilePayload>;
+/**
  * Model CollaboratorCardBank
  *
  */
@@ -78,6 +84,12 @@ export type Order = $Result.DefaultSelection<Prisma.$OrderPayload>;
  */
 export type OrderProduct =
   $Result.DefaultSelection<Prisma.$OrderProductPayload>;
+/**
+ * Model CollaboratorInvoice
+ *
+ */
+export type CollaboratorInvoice =
+  $Result.DefaultSelection<Prisma.$CollaboratorInvoicePayload>;
 /**
  * Model Account
  *
@@ -453,6 +465,16 @@ export class PrismaClient<
   get userBusiness(): Prisma.UserBusinessDelegate<ExtArgs>;
 
   /**
+   * `prisma.collaboratorProfile`: Exposes CRUD operations for the **CollaboratorProfile** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more CollaboratorProfiles
+   * const collaboratorProfiles = await prisma.collaboratorProfile.findMany()
+   * ```
+   */
+  get collaboratorProfile(): Prisma.CollaboratorProfileDelegate<ExtArgs>;
+
+  /**
    * `prisma.collaboratorCardBank`: Exposes CRUD operations for the **CollaboratorCardBank** model.
    * Example usage:
    * ```ts
@@ -491,6 +513,16 @@ export class PrismaClient<
    * ```
    */
   get orderProduct(): Prisma.OrderProductDelegate<ExtArgs>;
+
+  /**
+   * `prisma.collaboratorInvoice`: Exposes CRUD operations for the **CollaboratorInvoice** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more CollaboratorInvoices
+   * const collaboratorInvoices = await prisma.collaboratorInvoice.findMany()
+   * ```
+   */
+  get collaboratorInvoice(): Prisma.CollaboratorInvoiceDelegate<ExtArgs>;
 
   /**
    * `prisma.account`: Exposes CRUD operations for the **Account** model.
@@ -1048,10 +1080,12 @@ export namespace Prisma {
     ProductPrice: "ProductPrice";
     User: "User";
     UserBusiness: "UserBusiness";
+    CollaboratorProfile: "CollaboratorProfile";
     CollaboratorCardBank: "CollaboratorCardBank";
     InvitationLink: "InvitationLink";
     Order: "Order";
     OrderProduct: "OrderProduct";
+    CollaboratorInvoice: "CollaboratorInvoice";
     Account: "Account";
     Session: "Session";
     VerificationToken: "VerificationToken";
@@ -1094,10 +1128,12 @@ export namespace Prisma {
         | "productPrice"
         | "user"
         | "userBusiness"
+        | "collaboratorProfile"
         | "collaboratorCardBank"
         | "invitationLink"
         | "order"
         | "orderProduct"
+        | "collaboratorInvoice"
         | "account"
         | "session"
         | "verificationToken"
@@ -1678,6 +1714,78 @@ export namespace Prisma {
           };
         };
       };
+      CollaboratorProfile: {
+        payload: Prisma.$CollaboratorProfilePayload<ExtArgs>;
+        fields: Prisma.CollaboratorProfileFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.CollaboratorProfileFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.CollaboratorProfileFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>;
+          };
+          findFirst: {
+            args: Prisma.CollaboratorProfileFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.CollaboratorProfileFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>;
+          };
+          findMany: {
+            args: Prisma.CollaboratorProfileFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>[];
+          };
+          create: {
+            args: Prisma.CollaboratorProfileCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>;
+          };
+          createMany: {
+            args: Prisma.CollaboratorProfileCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.CollaboratorProfileCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>[];
+          };
+          delete: {
+            args: Prisma.CollaboratorProfileDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>;
+          };
+          update: {
+            args: Prisma.CollaboratorProfileUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>;
+          };
+          deleteMany: {
+            args: Prisma.CollaboratorProfileDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.CollaboratorProfileUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.CollaboratorProfileUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorProfilePayload>;
+          };
+          aggregate: {
+            args: Prisma.CollaboratorProfileAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateCollaboratorProfile>;
+          };
+          groupBy: {
+            args: Prisma.CollaboratorProfileGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<CollaboratorProfileGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.CollaboratorProfileCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<CollaboratorProfileCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
       CollaboratorCardBank: {
         payload: Prisma.$CollaboratorCardBankPayload<ExtArgs>;
         fields: Prisma.CollaboratorCardBankFieldRefs;
@@ -1960,6 +2068,78 @@ export namespace Prisma {
             args: Prisma.OrderProductCountArgs<ExtArgs>;
             result:
               | $Utils.Optional<OrderProductCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      CollaboratorInvoice: {
+        payload: Prisma.$CollaboratorInvoicePayload<ExtArgs>;
+        fields: Prisma.CollaboratorInvoiceFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.CollaboratorInvoiceFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.CollaboratorInvoiceFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>;
+          };
+          findFirst: {
+            args: Prisma.CollaboratorInvoiceFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.CollaboratorInvoiceFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>;
+          };
+          findMany: {
+            args: Prisma.CollaboratorInvoiceFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>[];
+          };
+          create: {
+            args: Prisma.CollaboratorInvoiceCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>;
+          };
+          createMany: {
+            args: Prisma.CollaboratorInvoiceCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.CollaboratorInvoiceCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>[];
+          };
+          delete: {
+            args: Prisma.CollaboratorInvoiceDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>;
+          };
+          update: {
+            args: Prisma.CollaboratorInvoiceUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>;
+          };
+          deleteMany: {
+            args: Prisma.CollaboratorInvoiceDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.CollaboratorInvoiceUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.CollaboratorInvoiceUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorInvoicePayload>;
+          };
+          aggregate: {
+            args: Prisma.CollaboratorInvoiceAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateCollaboratorInvoice>;
+          };
+          groupBy: {
+            args: Prisma.CollaboratorInvoiceGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<CollaboratorInvoiceGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.CollaboratorInvoiceCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<CollaboratorInvoiceCountAggregateOutputType>
               | number;
           };
         };
@@ -2796,6 +2976,8 @@ export namespace Prisma {
     paymentMethod: number;
     invitationLinks: number;
     cardBanks: number;
+    collaboratorInvoices: number;
+    collaboratorProfiles: number;
   };
 
   export type BusinessCountOutputTypeSelect<
@@ -2812,6 +2994,12 @@ export namespace Prisma {
     paymentMethod?: boolean | BusinessCountOutputTypeCountPaymentMethodArgs;
     invitationLinks?: boolean | BusinessCountOutputTypeCountInvitationLinksArgs;
     cardBanks?: boolean | BusinessCountOutputTypeCountCardBanksArgs;
+    collaboratorInvoices?:
+      | boolean
+      | BusinessCountOutputTypeCountCollaboratorInvoicesArgs;
+    collaboratorProfiles?:
+      | boolean
+      | BusinessCountOutputTypeCountCollaboratorProfilesArgs;
   };
 
   // Custom InputTypes
@@ -2909,6 +3097,24 @@ export namespace Prisma {
   };
 
   /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountCollaboratorInvoicesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorInvoiceWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountCollaboratorProfilesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorProfileWhereInput;
+  };
+
+  /**
    * Count Type CategoryCountOutputType
    */
 
@@ -2992,6 +3198,8 @@ export namespace Prisma {
     business: number;
     address: number;
     cardBanks: number;
+    collaboratorInvoices: number;
+    collaboratorProfiles: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -3004,6 +3212,12 @@ export namespace Prisma {
     business?: boolean | UserCountOutputTypeCountBusinessArgs;
     address?: boolean | UserCountOutputTypeCountAddressArgs;
     cardBanks?: boolean | UserCountOutputTypeCountCardBanksArgs;
+    collaboratorInvoices?:
+      | boolean
+      | UserCountOutputTypeCountCollaboratorInvoicesArgs;
+    collaboratorProfiles?:
+      | boolean
+      | UserCountOutputTypeCountCollaboratorProfilesArgs;
   };
 
   // Custom InputTypes
@@ -3083,6 +3297,24 @@ export namespace Prisma {
   };
 
   /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCollaboratorInvoicesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorInvoiceWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCollaboratorProfilesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorProfileWhereInput;
+  };
+
+  /**
    * Count Type OrderCountOutputType
    */
 
@@ -3116,6 +3348,42 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: OrderProductWhereInput;
+  };
+
+  /**
+   * Count Type CollaboratorInvoiceCountOutputType
+   */
+
+  export type CollaboratorInvoiceCountOutputType = {
+    orders: number;
+  };
+
+  export type CollaboratorInvoiceCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    orders?: boolean | CollaboratorInvoiceCountOutputTypeCountOrdersArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * CollaboratorInvoiceCountOutputType without action
+   */
+  export type CollaboratorInvoiceCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoiceCountOutputType
+     */
+    select?: CollaboratorInvoiceCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * CollaboratorInvoiceCountOutputType without action
+   */
+  export type CollaboratorInvoiceCountOutputTypeCountOrdersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: OrderWhereInput;
   };
 
   /**
@@ -3458,6 +3726,12 @@ export namespace Prisma {
       paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
       invitationLinks?: boolean | Business$invitationLinksArgs<ExtArgs>;
       cardBanks?: boolean | Business$cardBanksArgs<ExtArgs>;
+      collaboratorInvoices?:
+        | boolean
+        | Business$collaboratorInvoicesArgs<ExtArgs>;
+      collaboratorProfiles?:
+        | boolean
+        | Business$collaboratorProfilesArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
@@ -3519,6 +3793,8 @@ export namespace Prisma {
     paymentMethod?: boolean | Business$paymentMethodArgs<ExtArgs>;
     invitationLinks?: boolean | Business$invitationLinksArgs<ExtArgs>;
     cardBanks?: boolean | Business$cardBanksArgs<ExtArgs>;
+    collaboratorInvoices?: boolean | Business$collaboratorInvoicesArgs<ExtArgs>;
+    collaboratorProfiles?: boolean | Business$collaboratorProfilesArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type BusinessIncludeCreateManyAndReturn<
@@ -3543,6 +3819,8 @@ export namespace Prisma {
       paymentMethod: Prisma.$PaymentMethodPayload<ExtArgs>[];
       invitationLinks: Prisma.$InvitationLinkPayload<ExtArgs>[];
       cardBanks: Prisma.$CollaboratorCardBankPayload<ExtArgs>[];
+      collaboratorInvoices: Prisma.$CollaboratorInvoicePayload<ExtArgs>[];
+      collaboratorProfiles: Prisma.$CollaboratorProfilePayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -4132,6 +4410,30 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$CollaboratorCardBankPayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    collaboratorInvoices<
+      T extends Business$collaboratorInvoicesArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, Business$collaboratorInvoicesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    collaboratorProfiles<
+      T extends Business$collaboratorProfilesArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, Business$collaboratorProfilesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorProfilePayload<ExtArgs>,
           T,
           "findMany"
         >
@@ -4792,6 +5094,58 @@ export namespace Prisma {
     distinct?:
       | CollaboratorCardBankScalarFieldEnum
       | CollaboratorCardBankScalarFieldEnum[];
+  };
+
+  /**
+   * Business.collaboratorInvoices
+   */
+  export type Business$collaboratorInvoicesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    where?: CollaboratorInvoiceWhereInput;
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorInvoiceScalarFieldEnum
+      | CollaboratorInvoiceScalarFieldEnum[];
+  };
+
+  /**
+   * Business.collaboratorProfiles
+   */
+  export type Business$collaboratorProfilesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    where?: CollaboratorProfileWhereInput;
+    orderBy?:
+      | CollaboratorProfileOrderByWithRelationInput
+      | CollaboratorProfileOrderByWithRelationInput[];
+    cursor?: CollaboratorProfileWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorProfileScalarFieldEnum
+      | CollaboratorProfileScalarFieldEnum[];
   };
 
   /**
@@ -11032,6 +11386,8 @@ export namespace Prisma {
       business?: boolean | User$businessArgs<ExtArgs>;
       address?: boolean | User$addressArgs<ExtArgs>;
       cardBanks?: boolean | User$cardBanksArgs<ExtArgs>;
+      collaboratorInvoices?: boolean | User$collaboratorInvoicesArgs<ExtArgs>;
+      collaboratorProfiles?: boolean | User$collaboratorProfilesArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["user"]
@@ -11076,6 +11432,8 @@ export namespace Prisma {
     business?: boolean | User$businessArgs<ExtArgs>;
     address?: boolean | User$addressArgs<ExtArgs>;
     cardBanks?: boolean | User$cardBanksArgs<ExtArgs>;
+    collaboratorInvoices?: boolean | User$collaboratorInvoicesArgs<ExtArgs>;
+    collaboratorProfiles?: boolean | User$collaboratorProfilesArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type UserIncludeCreateManyAndReturn<
@@ -11094,6 +11452,8 @@ export namespace Prisma {
       business: Prisma.$UserBusinessPayload<ExtArgs>[];
       address: Prisma.$UserAddressPayload<ExtArgs>[];
       cardBanks: Prisma.$CollaboratorCardBankPayload<ExtArgs>[];
+      collaboratorInvoices: Prisma.$CollaboratorInvoicePayload<ExtArgs>[];
+      collaboratorProfiles: Prisma.$CollaboratorProfilePayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -11590,6 +11950,26 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$CollaboratorCardBankPayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    collaboratorInvoices<T extends User$collaboratorInvoicesArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$collaboratorInvoicesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    collaboratorProfiles<T extends User$collaboratorProfilesArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$collaboratorProfilesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorProfilePayload<ExtArgs>,
           T,
           "findMany"
         >
@@ -12148,6 +12528,58 @@ export namespace Prisma {
     distinct?:
       | CollaboratorCardBankScalarFieldEnum
       | CollaboratorCardBankScalarFieldEnum[];
+  };
+
+  /**
+   * User.collaboratorInvoices
+   */
+  export type User$collaboratorInvoicesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    where?: CollaboratorInvoiceWhereInput;
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorInvoiceScalarFieldEnum
+      | CollaboratorInvoiceScalarFieldEnum[];
+  };
+
+  /**
+   * User.collaboratorProfiles
+   */
+  export type User$collaboratorProfilesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    where?: CollaboratorProfileWhereInput;
+    orderBy?:
+      | CollaboratorProfileOrderByWithRelationInput
+      | CollaboratorProfileOrderByWithRelationInput[];
+    cursor?: CollaboratorProfileWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorProfileScalarFieldEnum
+      | CollaboratorProfileScalarFieldEnum[];
   };
 
   /**
@@ -13270,6 +13702,1289 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserBusinessInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model CollaboratorProfile
+   */
+
+  export type AggregateCollaboratorProfile = {
+    _count: CollaboratorProfileCountAggregateOutputType | null;
+    _avg: CollaboratorProfileAvgAggregateOutputType | null;
+    _sum: CollaboratorProfileSumAggregateOutputType | null;
+    _min: CollaboratorProfileMinAggregateOutputType | null;
+    _max: CollaboratorProfileMaxAggregateOutputType | null;
+  };
+
+  export type CollaboratorProfileAvgAggregateOutputType = {
+    historicalProfit: number | null;
+    totalPendingInvoiceToConfirm: number | null;
+    totalOrderForPayment: number | null;
+    totalBusinessProfit: number | null;
+  };
+
+  export type CollaboratorProfileSumAggregateOutputType = {
+    historicalProfit: number | null;
+    totalPendingInvoiceToConfirm: number | null;
+    totalOrderForPayment: number | null;
+    totalBusinessProfit: number | null;
+  };
+
+  export type CollaboratorProfileMinAggregateOutputType = {
+    id: string | null;
+    businessId: string | null;
+    collaboratorId: string | null;
+    historicalProfit: number | null;
+    totalPendingInvoiceToConfirm: number | null;
+    totalOrderForPayment: number | null;
+    totalBusinessProfit: number | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type CollaboratorProfileMaxAggregateOutputType = {
+    id: string | null;
+    businessId: string | null;
+    collaboratorId: string | null;
+    historicalProfit: number | null;
+    totalPendingInvoiceToConfirm: number | null;
+    totalOrderForPayment: number | null;
+    totalBusinessProfit: number | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type CollaboratorProfileCountAggregateOutputType = {
+    id: number;
+    businessId: number;
+    collaboratorId: number;
+    historicalProfit: number;
+    totalPendingInvoiceToConfirm: number;
+    totalOrderForPayment: number;
+    totalBusinessProfit: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type CollaboratorProfileAvgAggregateInputType = {
+    historicalProfit?: true;
+    totalPendingInvoiceToConfirm?: true;
+    totalOrderForPayment?: true;
+    totalBusinessProfit?: true;
+  };
+
+  export type CollaboratorProfileSumAggregateInputType = {
+    historicalProfit?: true;
+    totalPendingInvoiceToConfirm?: true;
+    totalOrderForPayment?: true;
+    totalBusinessProfit?: true;
+  };
+
+  export type CollaboratorProfileMinAggregateInputType = {
+    id?: true;
+    businessId?: true;
+    collaboratorId?: true;
+    historicalProfit?: true;
+    totalPendingInvoiceToConfirm?: true;
+    totalOrderForPayment?: true;
+    totalBusinessProfit?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type CollaboratorProfileMaxAggregateInputType = {
+    id?: true;
+    businessId?: true;
+    collaboratorId?: true;
+    historicalProfit?: true;
+    totalPendingInvoiceToConfirm?: true;
+    totalOrderForPayment?: true;
+    totalBusinessProfit?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type CollaboratorProfileCountAggregateInputType = {
+    id?: true;
+    businessId?: true;
+    collaboratorId?: true;
+    historicalProfit?: true;
+    totalPendingInvoiceToConfirm?: true;
+    totalOrderForPayment?: true;
+    totalBusinessProfit?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type CollaboratorProfileAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which CollaboratorProfile to aggregate.
+     */
+    where?: CollaboratorProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorProfiles to fetch.
+     */
+    orderBy?:
+      | CollaboratorProfileOrderByWithRelationInput
+      | CollaboratorProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: CollaboratorProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned CollaboratorProfiles
+     **/
+    _count?: true | CollaboratorProfileCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+     **/
+    _avg?: CollaboratorProfileAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: CollaboratorProfileSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: CollaboratorProfileMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: CollaboratorProfileMaxAggregateInputType;
+  };
+
+  export type GetCollaboratorProfileAggregateType<
+    T extends CollaboratorProfileAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateCollaboratorProfile]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollaboratorProfile[P]>
+      : GetScalarType<T[P], AggregateCollaboratorProfile[P]>;
+  };
+
+  export type CollaboratorProfileGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorProfileWhereInput;
+    orderBy?:
+      | CollaboratorProfileOrderByWithAggregationInput
+      | CollaboratorProfileOrderByWithAggregationInput[];
+    by:
+      | CollaboratorProfileScalarFieldEnum[]
+      | CollaboratorProfileScalarFieldEnum;
+    having?: CollaboratorProfileScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CollaboratorProfileCountAggregateInputType | true;
+    _avg?: CollaboratorProfileAvgAggregateInputType;
+    _sum?: CollaboratorProfileSumAggregateInputType;
+    _min?: CollaboratorProfileMinAggregateInputType;
+    _max?: CollaboratorProfileMaxAggregateInputType;
+  };
+
+  export type CollaboratorProfileGroupByOutputType = {
+    id: string;
+    businessId: string;
+    collaboratorId: string;
+    historicalProfit: number;
+    totalPendingInvoiceToConfirm: number;
+    totalOrderForPayment: number;
+    totalBusinessProfit: number;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: CollaboratorProfileCountAggregateOutputType | null;
+    _avg: CollaboratorProfileAvgAggregateOutputType | null;
+    _sum: CollaboratorProfileSumAggregateOutputType | null;
+    _min: CollaboratorProfileMinAggregateOutputType | null;
+    _max: CollaboratorProfileMaxAggregateOutputType | null;
+  };
+
+  type GetCollaboratorProfileGroupByPayload<
+    T extends CollaboratorProfileGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CollaboratorProfileGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof CollaboratorProfileGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], CollaboratorProfileGroupByOutputType[P]>
+          : GetScalarType<T[P], CollaboratorProfileGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type CollaboratorProfileSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      businessId?: boolean;
+      collaboratorId?: boolean;
+      historicalProfit?: boolean;
+      totalPendingInvoiceToConfirm?: boolean;
+      totalOrderForPayment?: boolean;
+      totalBusinessProfit?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["collaboratorProfile"]
+  >;
+
+  export type CollaboratorProfileSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      businessId?: boolean;
+      collaboratorId?: boolean;
+      historicalProfit?: boolean;
+      totalPendingInvoiceToConfirm?: boolean;
+      totalOrderForPayment?: boolean;
+      totalBusinessProfit?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["collaboratorProfile"]
+  >;
+
+  export type CollaboratorProfileSelectScalar = {
+    id?: boolean;
+    businessId?: boolean;
+    collaboratorId?: boolean;
+    historicalProfit?: boolean;
+    totalPendingInvoiceToConfirm?: boolean;
+    totalOrderForPayment?: boolean;
+    totalBusinessProfit?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type CollaboratorProfileInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type CollaboratorProfileIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $CollaboratorProfilePayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "CollaboratorProfile";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+      collaborator: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        businessId: string;
+        collaboratorId: string;
+        historicalProfit: number;
+        totalPendingInvoiceToConfirm: number;
+        totalOrderForPayment: number;
+        totalBusinessProfit: number;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs["result"]["collaboratorProfile"]
+    >;
+    composites: {};
+  };
+
+  type CollaboratorProfileGetPayload<
+    S extends boolean | null | undefined | CollaboratorProfileDefaultArgs,
+  > = $Result.GetResult<Prisma.$CollaboratorProfilePayload, S>;
+
+  type CollaboratorProfileCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    CollaboratorProfileFindManyArgs,
+    "select" | "include" | "distinct"
+  > & {
+    select?: CollaboratorProfileCountAggregateInputType | true;
+  };
+
+  export interface CollaboratorProfileDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["CollaboratorProfile"];
+      meta: { name: "CollaboratorProfile" };
+    };
+    /**
+     * Find zero or one CollaboratorProfile that matches the filter.
+     * @param {CollaboratorProfileFindUniqueArgs} args - Arguments to find a CollaboratorProfile
+     * @example
+     * // Get one CollaboratorProfile
+     * const collaboratorProfile = await prisma.collaboratorProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CollaboratorProfileFindUniqueArgs>(
+      args: SelectSubset<T, CollaboratorProfileFindUniqueArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one CollaboratorProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CollaboratorProfileFindUniqueOrThrowArgs} args - Arguments to find a CollaboratorProfile
+     * @example
+     * // Get one CollaboratorProfile
+     * const collaboratorProfile = await prisma.collaboratorProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CollaboratorProfileFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, CollaboratorProfileFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first CollaboratorProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileFindFirstArgs} args - Arguments to find a CollaboratorProfile
+     * @example
+     * // Get one CollaboratorProfile
+     * const collaboratorProfile = await prisma.collaboratorProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CollaboratorProfileFindFirstArgs>(
+      args?: SelectSubset<T, CollaboratorProfileFindFirstArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first CollaboratorProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileFindFirstOrThrowArgs} args - Arguments to find a CollaboratorProfile
+     * @example
+     * // Get one CollaboratorProfile
+     * const collaboratorProfile = await prisma.collaboratorProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CollaboratorProfileFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CollaboratorProfileFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more CollaboratorProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CollaboratorProfiles
+     * const collaboratorProfiles = await prisma.collaboratorProfile.findMany()
+     *
+     * // Get first 10 CollaboratorProfiles
+     * const collaboratorProfiles = await prisma.collaboratorProfile.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const collaboratorProfileWithIdOnly = await prisma.collaboratorProfile.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CollaboratorProfileFindManyArgs>(
+      args?: SelectSubset<T, CollaboratorProfileFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "findMany"
+      >
+    >;
+
+    /**
+     * Create a CollaboratorProfile.
+     * @param {CollaboratorProfileCreateArgs} args - Arguments to create a CollaboratorProfile.
+     * @example
+     * // Create one CollaboratorProfile
+     * const CollaboratorProfile = await prisma.collaboratorProfile.create({
+     *   data: {
+     *     // ... data to create a CollaboratorProfile
+     *   }
+     * })
+     *
+     */
+    create<T extends CollaboratorProfileCreateArgs>(
+      args: SelectSubset<T, CollaboratorProfileCreateArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "create"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many CollaboratorProfiles.
+     * @param {CollaboratorProfileCreateManyArgs} args - Arguments to create many CollaboratorProfiles.
+     * @example
+     * // Create many CollaboratorProfiles
+     * const collaboratorProfile = await prisma.collaboratorProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CollaboratorProfileCreateManyArgs>(
+      args?: SelectSubset<T, CollaboratorProfileCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many CollaboratorProfiles and returns the data saved in the database.
+     * @param {CollaboratorProfileCreateManyAndReturnArgs} args - Arguments to create many CollaboratorProfiles.
+     * @example
+     * // Create many CollaboratorProfiles
+     * const collaboratorProfile = await prisma.collaboratorProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many CollaboratorProfiles and only return the `id`
+     * const collaboratorProfileWithIdOnly = await prisma.collaboratorProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CollaboratorProfileCreateManyAndReturnArgs>(
+      args?: SelectSubset<
+        T,
+        CollaboratorProfileCreateManyAndReturnArgs<ExtArgs>
+      >,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a CollaboratorProfile.
+     * @param {CollaboratorProfileDeleteArgs} args - Arguments to delete one CollaboratorProfile.
+     * @example
+     * // Delete one CollaboratorProfile
+     * const CollaboratorProfile = await prisma.collaboratorProfile.delete({
+     *   where: {
+     *     // ... filter to delete one CollaboratorProfile
+     *   }
+     * })
+     *
+     */
+    delete<T extends CollaboratorProfileDeleteArgs>(
+      args: SelectSubset<T, CollaboratorProfileDeleteArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "delete"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one CollaboratorProfile.
+     * @param {CollaboratorProfileUpdateArgs} args - Arguments to update one CollaboratorProfile.
+     * @example
+     * // Update one CollaboratorProfile
+     * const collaboratorProfile = await prisma.collaboratorProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CollaboratorProfileUpdateArgs>(
+      args: SelectSubset<T, CollaboratorProfileUpdateArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "update"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more CollaboratorProfiles.
+     * @param {CollaboratorProfileDeleteManyArgs} args - Arguments to filter CollaboratorProfiles to delete.
+     * @example
+     * // Delete a few CollaboratorProfiles
+     * const { count } = await prisma.collaboratorProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CollaboratorProfileDeleteManyArgs>(
+      args?: SelectSubset<T, CollaboratorProfileDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more CollaboratorProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CollaboratorProfiles
+     * const collaboratorProfile = await prisma.collaboratorProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CollaboratorProfileUpdateManyArgs>(
+      args: SelectSubset<T, CollaboratorProfileUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one CollaboratorProfile.
+     * @param {CollaboratorProfileUpsertArgs} args - Arguments to update or create a CollaboratorProfile.
+     * @example
+     * // Update or create a CollaboratorProfile
+     * const collaboratorProfile = await prisma.collaboratorProfile.upsert({
+     *   create: {
+     *     // ... data to create a CollaboratorProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CollaboratorProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CollaboratorProfileUpsertArgs>(
+      args: SelectSubset<T, CollaboratorProfileUpsertArgs<ExtArgs>>,
+    ): Prisma__CollaboratorProfileClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorProfilePayload<ExtArgs>,
+        T,
+        "upsert"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of CollaboratorProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileCountArgs} args - Arguments to filter CollaboratorProfiles to count.
+     * @example
+     * // Count the number of CollaboratorProfiles
+     * const count = await prisma.collaboratorProfile.count({
+     *   where: {
+     *     // ... the filter for the CollaboratorProfiles we want to count
+     *   }
+     * })
+     **/
+    count<T extends CollaboratorProfileCountArgs>(
+      args?: Subset<T, CollaboratorProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<
+              T["select"],
+              CollaboratorProfileCountAggregateOutputType
+            >
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a CollaboratorProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends CollaboratorProfileAggregateArgs>(
+      args: Subset<T, CollaboratorProfileAggregateArgs>,
+    ): Prisma.PrismaPromise<GetCollaboratorProfileAggregateType<T>>;
+
+    /**
+     * Group by CollaboratorProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends CollaboratorProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CollaboratorProfileGroupByArgs["orderBy"] }
+        : { orderBy?: CollaboratorProfileGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, CollaboratorProfileGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetCollaboratorProfileGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the CollaboratorProfile model
+     */
+    readonly fields: CollaboratorProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CollaboratorProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CollaboratorProfileClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    collaborator<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow">
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the CollaboratorProfile model
+   */
+  interface CollaboratorProfileFieldRefs {
+    readonly id: FieldRef<"CollaboratorProfile", "String">;
+    readonly businessId: FieldRef<"CollaboratorProfile", "String">;
+    readonly collaboratorId: FieldRef<"CollaboratorProfile", "String">;
+    readonly historicalProfit: FieldRef<"CollaboratorProfile", "Int">;
+    readonly totalPendingInvoiceToConfirm: FieldRef<
+      "CollaboratorProfile",
+      "Int"
+    >;
+    readonly totalOrderForPayment: FieldRef<"CollaboratorProfile", "Int">;
+    readonly totalBusinessProfit: FieldRef<"CollaboratorProfile", "Int">;
+    readonly createdAt: FieldRef<"CollaboratorProfile", "DateTime">;
+    readonly updatedAt: FieldRef<"CollaboratorProfile", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * CollaboratorProfile findUnique
+   */
+  export type CollaboratorProfileFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorProfile to fetch.
+     */
+    where: CollaboratorProfileWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorProfile findUniqueOrThrow
+   */
+  export type CollaboratorProfileFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorProfile to fetch.
+     */
+    where: CollaboratorProfileWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorProfile findFirst
+   */
+  export type CollaboratorProfileFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorProfile to fetch.
+     */
+    where?: CollaboratorProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorProfiles to fetch.
+     */
+    orderBy?:
+      | CollaboratorProfileOrderByWithRelationInput
+      | CollaboratorProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CollaboratorProfiles.
+     */
+    cursor?: CollaboratorProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CollaboratorProfiles.
+     */
+    distinct?:
+      | CollaboratorProfileScalarFieldEnum
+      | CollaboratorProfileScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorProfile findFirstOrThrow
+   */
+  export type CollaboratorProfileFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorProfile to fetch.
+     */
+    where?: CollaboratorProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorProfiles to fetch.
+     */
+    orderBy?:
+      | CollaboratorProfileOrderByWithRelationInput
+      | CollaboratorProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CollaboratorProfiles.
+     */
+    cursor?: CollaboratorProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CollaboratorProfiles.
+     */
+    distinct?:
+      | CollaboratorProfileScalarFieldEnum
+      | CollaboratorProfileScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorProfile findMany
+   */
+  export type CollaboratorProfileFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorProfiles to fetch.
+     */
+    where?: CollaboratorProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorProfiles to fetch.
+     */
+    orderBy?:
+      | CollaboratorProfileOrderByWithRelationInput
+      | CollaboratorProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing CollaboratorProfiles.
+     */
+    cursor?: CollaboratorProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorProfiles.
+     */
+    skip?: number;
+    distinct?:
+      | CollaboratorProfileScalarFieldEnum
+      | CollaboratorProfileScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorProfile create
+   */
+  export type CollaboratorProfileCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a CollaboratorProfile.
+     */
+    data: XOR<
+      CollaboratorProfileCreateInput,
+      CollaboratorProfileUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * CollaboratorProfile createMany
+   */
+  export type CollaboratorProfileCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many CollaboratorProfiles.
+     */
+    data:
+      | CollaboratorProfileCreateManyInput
+      | CollaboratorProfileCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * CollaboratorProfile createManyAndReturn
+   */
+  export type CollaboratorProfileCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many CollaboratorProfiles.
+     */
+    data:
+      | CollaboratorProfileCreateManyInput
+      | CollaboratorProfileCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * CollaboratorProfile update
+   */
+  export type CollaboratorProfileUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a CollaboratorProfile.
+     */
+    data: XOR<
+      CollaboratorProfileUpdateInput,
+      CollaboratorProfileUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which CollaboratorProfile to update.
+     */
+    where: CollaboratorProfileWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorProfile updateMany
+   */
+  export type CollaboratorProfileUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update CollaboratorProfiles.
+     */
+    data: XOR<
+      CollaboratorProfileUpdateManyMutationInput,
+      CollaboratorProfileUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which CollaboratorProfiles to update
+     */
+    where?: CollaboratorProfileWhereInput;
+  };
+
+  /**
+   * CollaboratorProfile upsert
+   */
+  export type CollaboratorProfileUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the CollaboratorProfile to update in case it exists.
+     */
+    where: CollaboratorProfileWhereUniqueInput;
+    /**
+     * In case the CollaboratorProfile found by the `where` argument doesn't exist, create a new CollaboratorProfile with this data.
+     */
+    create: XOR<
+      CollaboratorProfileCreateInput,
+      CollaboratorProfileUncheckedCreateInput
+    >;
+    /**
+     * In case the CollaboratorProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      CollaboratorProfileUpdateInput,
+      CollaboratorProfileUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * CollaboratorProfile delete
+   */
+  export type CollaboratorProfileDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
+    /**
+     * Filter which CollaboratorProfile to delete.
+     */
+    where: CollaboratorProfileWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorProfile deleteMany
+   */
+  export type CollaboratorProfileDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which CollaboratorProfiles to delete
+     */
+    where?: CollaboratorProfileWhereInput;
+  };
+
+  /**
+   * CollaboratorProfile without action
+   */
+  export type CollaboratorProfileDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorProfile
+     */
+    select?: CollaboratorProfileSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorProfileInclude<ExtArgs> | null;
   };
 
   /**
@@ -15636,12 +17351,16 @@ export namespace Prisma {
     shipping: number | null;
     total: number | null;
     position: number | null;
+    commission: number | null;
+    businessProfit: number | null;
   };
 
   export type OrderSumAggregateOutputType = {
     shipping: number | null;
     total: number | null;
     position: number | null;
+    commission: number | null;
+    businessProfit: number | null;
   };
 
   export type OrderMinAggregateOutputType = {
@@ -15659,6 +17378,9 @@ export namespace Prisma {
     createdAt: Date | null;
     updatedAt: Date | null;
     currency: $Enums.Currency | null;
+    commission: number | null;
+    businessProfit: number | null;
+    collaboratorInvoiceId: string | null;
   };
 
   export type OrderMaxAggregateOutputType = {
@@ -15676,6 +17398,9 @@ export namespace Prisma {
     createdAt: Date | null;
     updatedAt: Date | null;
     currency: $Enums.Currency | null;
+    commission: number | null;
+    businessProfit: number | null;
+    collaboratorInvoiceId: string | null;
   };
 
   export type OrderCountAggregateOutputType = {
@@ -15694,6 +17419,9 @@ export namespace Prisma {
     createdAt: number;
     updatedAt: number;
     currency: number;
+    commission: number;
+    businessProfit: number;
+    collaboratorInvoiceId: number;
     _all: number;
   };
 
@@ -15701,12 +17429,16 @@ export namespace Prisma {
     shipping?: true;
     total?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
   };
 
   export type OrderSumAggregateInputType = {
     shipping?: true;
     total?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
   };
 
   export type OrderMinAggregateInputType = {
@@ -15724,6 +17456,9 @@ export namespace Prisma {
     createdAt?: true;
     updatedAt?: true;
     currency?: true;
+    commission?: true;
+    businessProfit?: true;
+    collaboratorInvoiceId?: true;
   };
 
   export type OrderMaxAggregateInputType = {
@@ -15741,6 +17476,9 @@ export namespace Prisma {
     createdAt?: true;
     updatedAt?: true;
     currency?: true;
+    commission?: true;
+    businessProfit?: true;
+    collaboratorInvoiceId?: true;
   };
 
   export type OrderCountAggregateInputType = {
@@ -15759,6 +17497,9 @@ export namespace Prisma {
     createdAt?: true;
     updatedAt?: true;
     currency?: true;
+    commission?: true;
+    businessProfit?: true;
+    collaboratorInvoiceId?: true;
     _all?: true;
   };
 
@@ -15867,6 +17608,9 @@ export namespace Prisma {
     createdAt: Date;
     updatedAt: Date;
     currency: $Enums.Currency;
+    commission: number;
+    businessProfit: number;
+    collaboratorInvoiceId: string | null;
     _count: OrderCountAggregateOutputType | null;
     _avg: OrderAvgAggregateOutputType | null;
     _sum: OrderSumAggregateOutputType | null;
@@ -15906,9 +17650,13 @@ export namespace Prisma {
       createdAt?: boolean;
       updatedAt?: boolean;
       currency?: boolean;
+      commission?: boolean;
+      businessProfit?: boolean;
+      collaboratorInvoiceId?: boolean;
       user?: boolean | Order$userArgs<ExtArgs>;
       items?: boolean | Order$itemsArgs<ExtArgs>;
       business?: boolean | Order$businessArgs<ExtArgs>;
+      collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
       orderAddress?: boolean | Order$orderAddressArgs<ExtArgs>;
       _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>;
     },
@@ -15934,8 +17682,12 @@ export namespace Prisma {
       createdAt?: boolean;
       updatedAt?: boolean;
       currency?: boolean;
+      commission?: boolean;
+      businessProfit?: boolean;
+      collaboratorInvoiceId?: boolean;
       user?: boolean | Order$userArgs<ExtArgs>;
       business?: boolean | Order$businessArgs<ExtArgs>;
+      collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
     },
     ExtArgs["result"]["order"]
   >;
@@ -15956,6 +17708,9 @@ export namespace Prisma {
     createdAt?: boolean;
     updatedAt?: boolean;
     currency?: boolean;
+    commission?: boolean;
+    businessProfit?: boolean;
+    collaboratorInvoiceId?: boolean;
   };
 
   export type OrderInclude<
@@ -15964,6 +17719,7 @@ export namespace Prisma {
     user?: boolean | Order$userArgs<ExtArgs>;
     items?: boolean | Order$itemsArgs<ExtArgs>;
     business?: boolean | Order$businessArgs<ExtArgs>;
+    collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
     orderAddress?: boolean | Order$orderAddressArgs<ExtArgs>;
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>;
   };
@@ -15972,6 +17728,7 @@ export namespace Prisma {
   > = {
     user?: boolean | Order$userArgs<ExtArgs>;
     business?: boolean | Order$businessArgs<ExtArgs>;
+    collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
   };
 
   export type $OrderPayload<
@@ -15982,6 +17739,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null;
       items: Prisma.$OrderProductPayload<ExtArgs>[];
       business: Prisma.$BusinessPayload<ExtArgs> | null;
+      collaboratorInvoice: Prisma.$CollaboratorInvoicePayload<ExtArgs> | null;
       orderAddress: Prisma.$OrderAddressPayload<ExtArgs> | null;
     };
     scalars: $Extensions.GetPayloadResult<
@@ -16001,6 +17759,9 @@ export namespace Prisma {
         createdAt: Date;
         updatedAt: Date;
         currency: $Enums.Currency;
+        commission: number;
+        businessProfit: number;
+        collaboratorInvoiceId: string | null;
       },
       ExtArgs["result"]["order"]
     >;
@@ -16476,6 +18237,17 @@ export namespace Prisma {
       null,
       ExtArgs
     >;
+    collaboratorInvoice<T extends Order$collaboratorInvoiceArgs<ExtArgs> = {}>(
+      args?: Subset<T, Order$collaboratorInvoiceArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     orderAddress<T extends Order$orderAddressArgs<ExtArgs> = {}>(
       args?: Subset<T, Order$orderAddressArgs<ExtArgs>>,
     ): Prisma__OrderAddressClient<
@@ -16542,6 +18314,9 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Order", "DateTime">;
     readonly updatedAt: FieldRef<"Order", "DateTime">;
     readonly currency: FieldRef<"Order", "Currency">;
+    readonly commission: FieldRef<"Order", "Int">;
+    readonly businessProfit: FieldRef<"Order", "Int">;
+    readonly collaboratorInvoiceId: FieldRef<"Order", "String">;
   }
 
   // Custom InputTypes
@@ -16943,6 +18718,23 @@ export namespace Prisma {
   };
 
   /**
+   * Order.collaboratorInvoice
+   */
+  export type Order$collaboratorInvoiceArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    where?: CollaboratorInvoiceWhereInput;
+  };
+
+  /**
    * Order.orderAddress
    */
   export type Order$orderAddressArgs<
@@ -16990,12 +18782,16 @@ export namespace Prisma {
   export type OrderProductAvgAggregateOutputType = {
     price: number | null;
     position: number | null;
+    commission: number | null;
+    businessProfit: number | null;
     quantity: number | null;
   };
 
   export type OrderProductSumAggregateOutputType = {
     price: number | null;
     position: number | null;
+    commission: number | null;
+    businessProfit: number | null;
     quantity: number | null;
   };
 
@@ -17004,6 +18800,8 @@ export namespace Prisma {
     orderId: string | null;
     price: number | null;
     position: number | null;
+    commission: number | null;
+    businessProfit: number | null;
     quantity: number | null;
   };
 
@@ -17012,6 +18810,8 @@ export namespace Prisma {
     orderId: string | null;
     price: number | null;
     position: number | null;
+    commission: number | null;
+    businessProfit: number | null;
     quantity: number | null;
   };
 
@@ -17020,6 +18820,8 @@ export namespace Prisma {
     orderId: number;
     price: number;
     position: number;
+    commission: number;
+    businessProfit: number;
     quantity: number;
     _all: number;
   };
@@ -17027,12 +18829,16 @@ export namespace Prisma {
   export type OrderProductAvgAggregateInputType = {
     price?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
     quantity?: true;
   };
 
   export type OrderProductSumAggregateInputType = {
     price?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
     quantity?: true;
   };
 
@@ -17041,6 +18847,8 @@ export namespace Prisma {
     orderId?: true;
     price?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
     quantity?: true;
   };
 
@@ -17049,6 +18857,8 @@ export namespace Prisma {
     orderId?: true;
     price?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
     quantity?: true;
   };
 
@@ -17057,6 +18867,8 @@ export namespace Prisma {
     orderId?: true;
     price?: true;
     position?: true;
+    commission?: true;
+    businessProfit?: true;
     quantity?: true;
     _all?: true;
   };
@@ -17159,6 +18971,8 @@ export namespace Prisma {
     orderId: string;
     price: number;
     position: number;
+    commission: number;
+    businessProfit: number;
     quantity: number;
     _count: OrderProductCountAggregateOutputType | null;
     _avg: OrderProductAvgAggregateOutputType | null;
@@ -17189,6 +19003,8 @@ export namespace Prisma {
       orderId?: boolean;
       price?: boolean;
       position?: boolean;
+      commission?: boolean;
+      businessProfit?: boolean;
       quantity?: boolean;
       product?: boolean | ProductDefaultArgs<ExtArgs>;
       order?: boolean | OrderDefaultArgs<ExtArgs>;
@@ -17204,6 +19020,8 @@ export namespace Prisma {
       orderId?: boolean;
       price?: boolean;
       position?: boolean;
+      commission?: boolean;
+      businessProfit?: boolean;
       quantity?: boolean;
       product?: boolean | ProductDefaultArgs<ExtArgs>;
       order?: boolean | OrderDefaultArgs<ExtArgs>;
@@ -17216,6 +19034,8 @@ export namespace Prisma {
     orderId?: boolean;
     price?: boolean;
     position?: boolean;
+    commission?: boolean;
+    businessProfit?: boolean;
     quantity?: boolean;
   };
 
@@ -17246,6 +19066,8 @@ export namespace Prisma {
         orderId: string;
         price: number;
         position: number;
+        commission: number;
+        businessProfit: number;
         quantity: number;
       },
       ExtArgs["result"]["orderProduct"]
@@ -17779,6 +19601,8 @@ export namespace Prisma {
     readonly orderId: FieldRef<"OrderProduct", "String">;
     readonly price: FieldRef<"OrderProduct", "Int">;
     readonly position: FieldRef<"OrderProduct", "Int">;
+    readonly commission: FieldRef<"OrderProduct", "Int">;
+    readonly businessProfit: FieldRef<"OrderProduct", "Int">;
     readonly quantity: FieldRef<"OrderProduct", "Int">;
   }
 
@@ -18145,6 +19969,1330 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: OrderProductInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model CollaboratorInvoice
+   */
+
+  export type AggregateCollaboratorInvoice = {
+    _count: CollaboratorInvoiceCountAggregateOutputType | null;
+    _avg: CollaboratorInvoiceAvgAggregateOutputType | null;
+    _sum: CollaboratorInvoiceSumAggregateOutputType | null;
+    _min: CollaboratorInvoiceMinAggregateOutputType | null;
+    _max: CollaboratorInvoiceMaxAggregateOutputType | null;
+  };
+
+  export type CollaboratorInvoiceAvgAggregateOutputType = {
+    amount: number | null;
+  };
+
+  export type CollaboratorInvoiceSumAggregateOutputType = {
+    amount: number | null;
+  };
+
+  export type CollaboratorInvoiceMinAggregateOutputType = {
+    id: string | null;
+    businessId: string | null;
+    collaboratorId: string | null;
+    amount: number | null;
+    currency: $Enums.Currency | null;
+    transferCode: string | null;
+    businessNota: string | null;
+    collaboratorNota: string | null;
+    confirmed: boolean | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type CollaboratorInvoiceMaxAggregateOutputType = {
+    id: string | null;
+    businessId: string | null;
+    collaboratorId: string | null;
+    amount: number | null;
+    currency: $Enums.Currency | null;
+    transferCode: string | null;
+    businessNota: string | null;
+    collaboratorNota: string | null;
+    confirmed: boolean | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type CollaboratorInvoiceCountAggregateOutputType = {
+    id: number;
+    businessId: number;
+    collaboratorId: number;
+    amount: number;
+    currency: number;
+    transferCode: number;
+    businessNota: number;
+    collaboratorNota: number;
+    confirmed: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type CollaboratorInvoiceAvgAggregateInputType = {
+    amount?: true;
+  };
+
+  export type CollaboratorInvoiceSumAggregateInputType = {
+    amount?: true;
+  };
+
+  export type CollaboratorInvoiceMinAggregateInputType = {
+    id?: true;
+    businessId?: true;
+    collaboratorId?: true;
+    amount?: true;
+    currency?: true;
+    transferCode?: true;
+    businessNota?: true;
+    collaboratorNota?: true;
+    confirmed?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type CollaboratorInvoiceMaxAggregateInputType = {
+    id?: true;
+    businessId?: true;
+    collaboratorId?: true;
+    amount?: true;
+    currency?: true;
+    transferCode?: true;
+    businessNota?: true;
+    collaboratorNota?: true;
+    confirmed?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type CollaboratorInvoiceCountAggregateInputType = {
+    id?: true;
+    businessId?: true;
+    collaboratorId?: true;
+    amount?: true;
+    currency?: true;
+    transferCode?: true;
+    businessNota?: true;
+    collaboratorNota?: true;
+    confirmed?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type CollaboratorInvoiceAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which CollaboratorInvoice to aggregate.
+     */
+    where?: CollaboratorInvoiceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorInvoices to fetch.
+     */
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorInvoices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorInvoices.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned CollaboratorInvoices
+     **/
+    _count?: true | CollaboratorInvoiceCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+     **/
+    _avg?: CollaboratorInvoiceAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: CollaboratorInvoiceSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: CollaboratorInvoiceMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: CollaboratorInvoiceMaxAggregateInputType;
+  };
+
+  export type GetCollaboratorInvoiceAggregateType<
+    T extends CollaboratorInvoiceAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateCollaboratorInvoice]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollaboratorInvoice[P]>
+      : GetScalarType<T[P], AggregateCollaboratorInvoice[P]>;
+  };
+
+  export type CollaboratorInvoiceGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorInvoiceWhereInput;
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithAggregationInput
+      | CollaboratorInvoiceOrderByWithAggregationInput[];
+    by:
+      | CollaboratorInvoiceScalarFieldEnum[]
+      | CollaboratorInvoiceScalarFieldEnum;
+    having?: CollaboratorInvoiceScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CollaboratorInvoiceCountAggregateInputType | true;
+    _avg?: CollaboratorInvoiceAvgAggregateInputType;
+    _sum?: CollaboratorInvoiceSumAggregateInputType;
+    _min?: CollaboratorInvoiceMinAggregateInputType;
+    _max?: CollaboratorInvoiceMaxAggregateInputType;
+  };
+
+  export type CollaboratorInvoiceGroupByOutputType = {
+    id: string;
+    businessId: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota: string | null;
+    collaboratorNota: string | null;
+    confirmed: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: CollaboratorInvoiceCountAggregateOutputType | null;
+    _avg: CollaboratorInvoiceAvgAggregateOutputType | null;
+    _sum: CollaboratorInvoiceSumAggregateOutputType | null;
+    _min: CollaboratorInvoiceMinAggregateOutputType | null;
+    _max: CollaboratorInvoiceMaxAggregateOutputType | null;
+  };
+
+  type GetCollaboratorInvoiceGroupByPayload<
+    T extends CollaboratorInvoiceGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CollaboratorInvoiceGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof CollaboratorInvoiceGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], CollaboratorInvoiceGroupByOutputType[P]>
+          : GetScalarType<T[P], CollaboratorInvoiceGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type CollaboratorInvoiceSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      businessId?: boolean;
+      collaboratorId?: boolean;
+      amount?: boolean;
+      currency?: boolean;
+      transferCode?: boolean;
+      businessNota?: boolean;
+      collaboratorNota?: boolean;
+      confirmed?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+      orders?: boolean | CollaboratorInvoice$ordersArgs<ExtArgs>;
+      _count?: boolean | CollaboratorInvoiceCountOutputTypeDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["collaboratorInvoice"]
+  >;
+
+  export type CollaboratorInvoiceSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      businessId?: boolean;
+      collaboratorId?: boolean;
+      amount?: boolean;
+      currency?: boolean;
+      transferCode?: boolean;
+      businessNota?: boolean;
+      collaboratorNota?: boolean;
+      confirmed?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["collaboratorInvoice"]
+  >;
+
+  export type CollaboratorInvoiceSelectScalar = {
+    id?: boolean;
+    businessId?: boolean;
+    collaboratorId?: boolean;
+    amount?: boolean;
+    currency?: boolean;
+    transferCode?: boolean;
+    businessNota?: boolean;
+    collaboratorNota?: boolean;
+    confirmed?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type CollaboratorInvoiceInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    orders?: boolean | CollaboratorInvoice$ordersArgs<ExtArgs>;
+    _count?: boolean | CollaboratorInvoiceCountOutputTypeDefaultArgs<ExtArgs>;
+  };
+  export type CollaboratorInvoiceIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $CollaboratorInvoicePayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "CollaboratorInvoice";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+      collaborator: Prisma.$UserPayload<ExtArgs>;
+      orders: Prisma.$OrderPayload<ExtArgs>[];
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        businessId: string;
+        collaboratorId: string;
+        amount: number;
+        currency: $Enums.Currency;
+        transferCode: string;
+        businessNota: string | null;
+        collaboratorNota: string | null;
+        confirmed: boolean;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs["result"]["collaboratorInvoice"]
+    >;
+    composites: {};
+  };
+
+  type CollaboratorInvoiceGetPayload<
+    S extends boolean | null | undefined | CollaboratorInvoiceDefaultArgs,
+  > = $Result.GetResult<Prisma.$CollaboratorInvoicePayload, S>;
+
+  type CollaboratorInvoiceCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    CollaboratorInvoiceFindManyArgs,
+    "select" | "include" | "distinct"
+  > & {
+    select?: CollaboratorInvoiceCountAggregateInputType | true;
+  };
+
+  export interface CollaboratorInvoiceDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["CollaboratorInvoice"];
+      meta: { name: "CollaboratorInvoice" };
+    };
+    /**
+     * Find zero or one CollaboratorInvoice that matches the filter.
+     * @param {CollaboratorInvoiceFindUniqueArgs} args - Arguments to find a CollaboratorInvoice
+     * @example
+     * // Get one CollaboratorInvoice
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CollaboratorInvoiceFindUniqueArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceFindUniqueArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one CollaboratorInvoice that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CollaboratorInvoiceFindUniqueOrThrowArgs} args - Arguments to find a CollaboratorInvoice
+     * @example
+     * // Get one CollaboratorInvoice
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CollaboratorInvoiceFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first CollaboratorInvoice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceFindFirstArgs} args - Arguments to find a CollaboratorInvoice
+     * @example
+     * // Get one CollaboratorInvoice
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CollaboratorInvoiceFindFirstArgs>(
+      args?: SelectSubset<T, CollaboratorInvoiceFindFirstArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first CollaboratorInvoice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceFindFirstOrThrowArgs} args - Arguments to find a CollaboratorInvoice
+     * @example
+     * // Get one CollaboratorInvoice
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CollaboratorInvoiceFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CollaboratorInvoiceFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more CollaboratorInvoices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CollaboratorInvoices
+     * const collaboratorInvoices = await prisma.collaboratorInvoice.findMany()
+     *
+     * // Get first 10 CollaboratorInvoices
+     * const collaboratorInvoices = await prisma.collaboratorInvoice.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const collaboratorInvoiceWithIdOnly = await prisma.collaboratorInvoice.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CollaboratorInvoiceFindManyArgs>(
+      args?: SelectSubset<T, CollaboratorInvoiceFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "findMany"
+      >
+    >;
+
+    /**
+     * Create a CollaboratorInvoice.
+     * @param {CollaboratorInvoiceCreateArgs} args - Arguments to create a CollaboratorInvoice.
+     * @example
+     * // Create one CollaboratorInvoice
+     * const CollaboratorInvoice = await prisma.collaboratorInvoice.create({
+     *   data: {
+     *     // ... data to create a CollaboratorInvoice
+     *   }
+     * })
+     *
+     */
+    create<T extends CollaboratorInvoiceCreateArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceCreateArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "create"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many CollaboratorInvoices.
+     * @param {CollaboratorInvoiceCreateManyArgs} args - Arguments to create many CollaboratorInvoices.
+     * @example
+     * // Create many CollaboratorInvoices
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CollaboratorInvoiceCreateManyArgs>(
+      args?: SelectSubset<T, CollaboratorInvoiceCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many CollaboratorInvoices and returns the data saved in the database.
+     * @param {CollaboratorInvoiceCreateManyAndReturnArgs} args - Arguments to create many CollaboratorInvoices.
+     * @example
+     * // Create many CollaboratorInvoices
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many CollaboratorInvoices and only return the `id`
+     * const collaboratorInvoiceWithIdOnly = await prisma.collaboratorInvoice.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CollaboratorInvoiceCreateManyAndReturnArgs>(
+      args?: SelectSubset<
+        T,
+        CollaboratorInvoiceCreateManyAndReturnArgs<ExtArgs>
+      >,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a CollaboratorInvoice.
+     * @param {CollaboratorInvoiceDeleteArgs} args - Arguments to delete one CollaboratorInvoice.
+     * @example
+     * // Delete one CollaboratorInvoice
+     * const CollaboratorInvoice = await prisma.collaboratorInvoice.delete({
+     *   where: {
+     *     // ... filter to delete one CollaboratorInvoice
+     *   }
+     * })
+     *
+     */
+    delete<T extends CollaboratorInvoiceDeleteArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceDeleteArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "delete"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one CollaboratorInvoice.
+     * @param {CollaboratorInvoiceUpdateArgs} args - Arguments to update one CollaboratorInvoice.
+     * @example
+     * // Update one CollaboratorInvoice
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CollaboratorInvoiceUpdateArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceUpdateArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "update"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more CollaboratorInvoices.
+     * @param {CollaboratorInvoiceDeleteManyArgs} args - Arguments to filter CollaboratorInvoices to delete.
+     * @example
+     * // Delete a few CollaboratorInvoices
+     * const { count } = await prisma.collaboratorInvoice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CollaboratorInvoiceDeleteManyArgs>(
+      args?: SelectSubset<T, CollaboratorInvoiceDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more CollaboratorInvoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CollaboratorInvoices
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CollaboratorInvoiceUpdateManyArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one CollaboratorInvoice.
+     * @param {CollaboratorInvoiceUpsertArgs} args - Arguments to update or create a CollaboratorInvoice.
+     * @example
+     * // Update or create a CollaboratorInvoice
+     * const collaboratorInvoice = await prisma.collaboratorInvoice.upsert({
+     *   create: {
+     *     // ... data to create a CollaboratorInvoice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CollaboratorInvoice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CollaboratorInvoiceUpsertArgs>(
+      args: SelectSubset<T, CollaboratorInvoiceUpsertArgs<ExtArgs>>,
+    ): Prisma__CollaboratorInvoiceClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+        T,
+        "upsert"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of CollaboratorInvoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceCountArgs} args - Arguments to filter CollaboratorInvoices to count.
+     * @example
+     * // Count the number of CollaboratorInvoices
+     * const count = await prisma.collaboratorInvoice.count({
+     *   where: {
+     *     // ... the filter for the CollaboratorInvoices we want to count
+     *   }
+     * })
+     **/
+    count<T extends CollaboratorInvoiceCountArgs>(
+      args?: Subset<T, CollaboratorInvoiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<
+              T["select"],
+              CollaboratorInvoiceCountAggregateOutputType
+            >
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a CollaboratorInvoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends CollaboratorInvoiceAggregateArgs>(
+      args: Subset<T, CollaboratorInvoiceAggregateArgs>,
+    ): Prisma.PrismaPromise<GetCollaboratorInvoiceAggregateType<T>>;
+
+    /**
+     * Group by CollaboratorInvoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorInvoiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends CollaboratorInvoiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CollaboratorInvoiceGroupByArgs["orderBy"] }
+        : { orderBy?: CollaboratorInvoiceGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, CollaboratorInvoiceGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetCollaboratorInvoiceGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the CollaboratorInvoice model
+     */
+    readonly fields: CollaboratorInvoiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CollaboratorInvoice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CollaboratorInvoiceClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    collaborator<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow">
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    orders<T extends CollaboratorInvoice$ordersArgs<ExtArgs> = {}>(
+      args?: Subset<T, CollaboratorInvoice$ordersArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany"> | Null
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the CollaboratorInvoice model
+   */
+  interface CollaboratorInvoiceFieldRefs {
+    readonly id: FieldRef<"CollaboratorInvoice", "String">;
+    readonly businessId: FieldRef<"CollaboratorInvoice", "String">;
+    readonly collaboratorId: FieldRef<"CollaboratorInvoice", "String">;
+    readonly amount: FieldRef<"CollaboratorInvoice", "Int">;
+    readonly currency: FieldRef<"CollaboratorInvoice", "Currency">;
+    readonly transferCode: FieldRef<"CollaboratorInvoice", "String">;
+    readonly businessNota: FieldRef<"CollaboratorInvoice", "String">;
+    readonly collaboratorNota: FieldRef<"CollaboratorInvoice", "String">;
+    readonly confirmed: FieldRef<"CollaboratorInvoice", "Boolean">;
+    readonly createdAt: FieldRef<"CollaboratorInvoice", "DateTime">;
+    readonly updatedAt: FieldRef<"CollaboratorInvoice", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * CollaboratorInvoice findUnique
+   */
+  export type CollaboratorInvoiceFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorInvoice to fetch.
+     */
+    where: CollaboratorInvoiceWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorInvoice findUniqueOrThrow
+   */
+  export type CollaboratorInvoiceFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorInvoice to fetch.
+     */
+    where: CollaboratorInvoiceWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorInvoice findFirst
+   */
+  export type CollaboratorInvoiceFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorInvoice to fetch.
+     */
+    where?: CollaboratorInvoiceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorInvoices to fetch.
+     */
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CollaboratorInvoices.
+     */
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorInvoices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorInvoices.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CollaboratorInvoices.
+     */
+    distinct?:
+      | CollaboratorInvoiceScalarFieldEnum
+      | CollaboratorInvoiceScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorInvoice findFirstOrThrow
+   */
+  export type CollaboratorInvoiceFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorInvoice to fetch.
+     */
+    where?: CollaboratorInvoiceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorInvoices to fetch.
+     */
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CollaboratorInvoices.
+     */
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorInvoices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorInvoices.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CollaboratorInvoices.
+     */
+    distinct?:
+      | CollaboratorInvoiceScalarFieldEnum
+      | CollaboratorInvoiceScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorInvoice findMany
+   */
+  export type CollaboratorInvoiceFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorInvoices to fetch.
+     */
+    where?: CollaboratorInvoiceWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorInvoices to fetch.
+     */
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing CollaboratorInvoices.
+     */
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorInvoices from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorInvoices.
+     */
+    skip?: number;
+    distinct?:
+      | CollaboratorInvoiceScalarFieldEnum
+      | CollaboratorInvoiceScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorInvoice create
+   */
+  export type CollaboratorInvoiceCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a CollaboratorInvoice.
+     */
+    data: XOR<
+      CollaboratorInvoiceCreateInput,
+      CollaboratorInvoiceUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * CollaboratorInvoice createMany
+   */
+  export type CollaboratorInvoiceCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many CollaboratorInvoices.
+     */
+    data:
+      | CollaboratorInvoiceCreateManyInput
+      | CollaboratorInvoiceCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * CollaboratorInvoice createManyAndReturn
+   */
+  export type CollaboratorInvoiceCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many CollaboratorInvoices.
+     */
+    data:
+      | CollaboratorInvoiceCreateManyInput
+      | CollaboratorInvoiceCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * CollaboratorInvoice update
+   */
+  export type CollaboratorInvoiceUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a CollaboratorInvoice.
+     */
+    data: XOR<
+      CollaboratorInvoiceUpdateInput,
+      CollaboratorInvoiceUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which CollaboratorInvoice to update.
+     */
+    where: CollaboratorInvoiceWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorInvoice updateMany
+   */
+  export type CollaboratorInvoiceUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update CollaboratorInvoices.
+     */
+    data: XOR<
+      CollaboratorInvoiceUpdateManyMutationInput,
+      CollaboratorInvoiceUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which CollaboratorInvoices to update
+     */
+    where?: CollaboratorInvoiceWhereInput;
+  };
+
+  /**
+   * CollaboratorInvoice upsert
+   */
+  export type CollaboratorInvoiceUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the CollaboratorInvoice to update in case it exists.
+     */
+    where: CollaboratorInvoiceWhereUniqueInput;
+    /**
+     * In case the CollaboratorInvoice found by the `where` argument doesn't exist, create a new CollaboratorInvoice with this data.
+     */
+    create: XOR<
+      CollaboratorInvoiceCreateInput,
+      CollaboratorInvoiceUncheckedCreateInput
+    >;
+    /**
+     * In case the CollaboratorInvoice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      CollaboratorInvoiceUpdateInput,
+      CollaboratorInvoiceUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * CollaboratorInvoice delete
+   */
+  export type CollaboratorInvoiceDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    /**
+     * Filter which CollaboratorInvoice to delete.
+     */
+    where: CollaboratorInvoiceWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorInvoice deleteMany
+   */
+  export type CollaboratorInvoiceDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which CollaboratorInvoices to delete
+     */
+    where?: CollaboratorInvoiceWhereInput;
+  };
+
+  /**
+   * CollaboratorInvoice.orders
+   */
+  export type CollaboratorInvoice$ordersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null;
+    where?: OrderWhereInput;
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[];
+    cursor?: OrderWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorInvoice without action
+   */
+  export type CollaboratorInvoiceDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
   };
 
   /**
@@ -28714,6 +31862,21 @@ export namespace Prisma {
   export type UserBusinessScalarFieldEnum =
     (typeof UserBusinessScalarFieldEnum)[keyof typeof UserBusinessScalarFieldEnum];
 
+  export const CollaboratorProfileScalarFieldEnum: {
+    id: "id";
+    businessId: "businessId";
+    collaboratorId: "collaboratorId";
+    historicalProfit: "historicalProfit";
+    totalPendingInvoiceToConfirm: "totalPendingInvoiceToConfirm";
+    totalOrderForPayment: "totalOrderForPayment";
+    totalBusinessProfit: "totalBusinessProfit";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+  };
+
+  export type CollaboratorProfileScalarFieldEnum =
+    (typeof CollaboratorProfileScalarFieldEnum)[keyof typeof CollaboratorProfileScalarFieldEnum];
+
   export const CollaboratorCardBankScalarFieldEnum: {
     id: "id";
     alias: "alias";
@@ -28755,6 +31918,9 @@ export namespace Prisma {
     createdAt: "createdAt";
     updatedAt: "updatedAt";
     currency: "currency";
+    commission: "commission";
+    businessProfit: "businessProfit";
+    collaboratorInvoiceId: "collaboratorInvoiceId";
   };
 
   export type OrderScalarFieldEnum =
@@ -28765,11 +31931,30 @@ export namespace Prisma {
     orderId: "orderId";
     price: "price";
     position: "position";
+    commission: "commission";
+    businessProfit: "businessProfit";
     quantity: "quantity";
   };
 
   export type OrderProductScalarFieldEnum =
     (typeof OrderProductScalarFieldEnum)[keyof typeof OrderProductScalarFieldEnum];
+
+  export const CollaboratorInvoiceScalarFieldEnum: {
+    id: "id";
+    businessId: "businessId";
+    collaboratorId: "collaboratorId";
+    amount: "amount";
+    currency: "currency";
+    transferCode: "transferCode";
+    businessNota: "businessNota";
+    collaboratorNota: "collaboratorNota";
+    confirmed: "confirmed";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+  };
+
+  export type CollaboratorInvoiceScalarFieldEnum =
+    (typeof CollaboratorInvoiceScalarFieldEnum)[keyof typeof CollaboratorInvoiceScalarFieldEnum];
 
   export const AccountScalarFieldEnum: {
     userId: "userId";
@@ -29144,6 +32329,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodListRelationFilter;
     invitationLinks?: InvitationLinkListRelationFilter;
     cardBanks?: CollaboratorCardBankListRelationFilter;
+    collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
+    collaboratorProfiles?: CollaboratorProfileListRelationFilter;
   };
 
   export type BusinessOrderByWithRelationInput = {
@@ -29172,6 +32359,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodOrderByRelationAggregateInput;
     invitationLinks?: InvitationLinkOrderByRelationAggregateInput;
     cardBanks?: CollaboratorCardBankOrderByRelationAggregateInput;
+    collaboratorInvoices?: CollaboratorInvoiceOrderByRelationAggregateInput;
+    collaboratorProfiles?: CollaboratorProfileOrderByRelationAggregateInput;
   };
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<
@@ -29210,6 +32399,8 @@ export namespace Prisma {
       paymentMethod?: PaymentMethodListRelationFilter;
       invitationLinks?: InvitationLinkListRelationFilter;
       cardBanks?: CollaboratorCardBankListRelationFilter;
+      collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
+      collaboratorProfiles?: CollaboratorProfileListRelationFilter;
     },
     "id" | "slug" | "defaultPaymentMethodId"
   >;
@@ -29696,6 +32887,8 @@ export namespace Prisma {
     business?: UserBusinessListRelationFilter;
     address?: UserAddressListRelationFilter;
     cardBanks?: CollaboratorCardBankListRelationFilter;
+    collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
+    collaboratorProfiles?: CollaboratorProfileListRelationFilter;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -29715,6 +32908,8 @@ export namespace Prisma {
     business?: UserBusinessOrderByRelationAggregateInput;
     address?: UserAddressOrderByRelationAggregateInput;
     cardBanks?: CollaboratorCardBankOrderByRelationAggregateInput;
+    collaboratorInvoices?: CollaboratorInvoiceOrderByRelationAggregateInput;
+    collaboratorProfiles?: CollaboratorProfileOrderByRelationAggregateInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -29738,6 +32933,8 @@ export namespace Prisma {
       business?: UserBusinessListRelationFilter;
       address?: UserAddressListRelationFilter;
       cardBanks?: CollaboratorCardBankListRelationFilter;
+      collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
+      collaboratorProfiles?: CollaboratorProfileListRelationFilter;
     },
     "id" | "email"
   >;
@@ -29838,6 +33035,105 @@ export namespace Prisma {
     type?:
       | EnumUserBusinessTypeWithAggregatesFilter<"UserBusiness">
       | $Enums.UserBusinessType;
+  };
+
+  export type CollaboratorProfileWhereInput = {
+    AND?: CollaboratorProfileWhereInput | CollaboratorProfileWhereInput[];
+    OR?: CollaboratorProfileWhereInput[];
+    NOT?: CollaboratorProfileWhereInput | CollaboratorProfileWhereInput[];
+    id?: StringFilter<"CollaboratorProfile"> | string;
+    businessId?: StringFilter<"CollaboratorProfile"> | string;
+    collaboratorId?: StringFilter<"CollaboratorProfile"> | string;
+    historicalProfit?: IntFilter<"CollaboratorProfile"> | number;
+    totalPendingInvoiceToConfirm?: IntFilter<"CollaboratorProfile"> | number;
+    totalOrderForPayment?: IntFilter<"CollaboratorProfile"> | number;
+    totalBusinessProfit?: IntFilter<"CollaboratorProfile"> | number;
+    createdAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
+    updatedAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+  };
+
+  export type CollaboratorProfileOrderByWithRelationInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+    collaborator?: UserOrderByWithRelationInput;
+  };
+
+  export type CollaboratorProfileWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: CollaboratorProfileWhereInput | CollaboratorProfileWhereInput[];
+      OR?: CollaboratorProfileWhereInput[];
+      NOT?: CollaboratorProfileWhereInput | CollaboratorProfileWhereInput[];
+      businessId?: StringFilter<"CollaboratorProfile"> | string;
+      collaboratorId?: StringFilter<"CollaboratorProfile"> | string;
+      historicalProfit?: IntFilter<"CollaboratorProfile"> | number;
+      totalPendingInvoiceToConfirm?: IntFilter<"CollaboratorProfile"> | number;
+      totalOrderForPayment?: IntFilter<"CollaboratorProfile"> | number;
+      totalBusinessProfit?: IntFilter<"CollaboratorProfile"> | number;
+      createdAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
+      updatedAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+      collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+    },
+    "id"
+  >;
+
+  export type CollaboratorProfileOrderByWithAggregationInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: CollaboratorProfileCountOrderByAggregateInput;
+    _avg?: CollaboratorProfileAvgOrderByAggregateInput;
+    _max?: CollaboratorProfileMaxOrderByAggregateInput;
+    _min?: CollaboratorProfileMinOrderByAggregateInput;
+    _sum?: CollaboratorProfileSumOrderByAggregateInput;
+  };
+
+  export type CollaboratorProfileScalarWhereWithAggregatesInput = {
+    AND?:
+      | CollaboratorProfileScalarWhereWithAggregatesInput
+      | CollaboratorProfileScalarWhereWithAggregatesInput[];
+    OR?: CollaboratorProfileScalarWhereWithAggregatesInput[];
+    NOT?:
+      | CollaboratorProfileScalarWhereWithAggregatesInput
+      | CollaboratorProfileScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"CollaboratorProfile"> | string;
+    businessId?: StringWithAggregatesFilter<"CollaboratorProfile"> | string;
+    collaboratorId?: StringWithAggregatesFilter<"CollaboratorProfile"> | string;
+    historicalProfit?: IntWithAggregatesFilter<"CollaboratorProfile"> | number;
+    totalPendingInvoiceToConfirm?:
+      | IntWithAggregatesFilter<"CollaboratorProfile">
+      | number;
+    totalOrderForPayment?:
+      | IntWithAggregatesFilter<"CollaboratorProfile">
+      | number;
+    totalBusinessProfit?:
+      | IntWithAggregatesFilter<"CollaboratorProfile">
+      | number;
+    createdAt?:
+      | DateTimeWithAggregatesFilter<"CollaboratorProfile">
+      | Date
+      | string;
+    updatedAt?:
+      | DateTimeWithAggregatesFilter<"CollaboratorProfile">
+      | Date
+      | string;
   };
 
   export type CollaboratorCardBankWhereInput = {
@@ -30014,9 +33310,16 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string;
     updatedAt?: DateTimeFilter<"Order"> | Date | string;
     currency?: EnumCurrencyFilter<"Order"> | $Enums.Currency;
+    commission?: IntFilter<"Order"> | number;
+    businessProfit?: IntFilter<"Order"> | number;
+    collaboratorInvoiceId?: StringNullableFilter<"Order"> | string | null;
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null;
     items?: OrderProductListRelationFilter;
     business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
+    collaboratorInvoice?: XOR<
+      CollaboratorInvoiceNullableRelationFilter,
+      CollaboratorInvoiceWhereInput
+    > | null;
     orderAddress?: XOR<
       OrderAddressNullableRelationFilter,
       OrderAddressWhereInput
@@ -30039,9 +33342,13 @@ export namespace Prisma {
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     currency?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
+    collaboratorInvoiceId?: SortOrderInput | SortOrder;
     user?: UserOrderByWithRelationInput;
     items?: OrderProductOrderByRelationAggregateInput;
     business?: BusinessOrderByWithRelationInput;
+    collaboratorInvoice?: CollaboratorInvoiceOrderByWithRelationInput;
     orderAddress?: OrderAddressOrderByWithRelationInput;
   };
 
@@ -30065,9 +33372,16 @@ export namespace Prisma {
       createdAt?: DateTimeFilter<"Order"> | Date | string;
       updatedAt?: DateTimeFilter<"Order"> | Date | string;
       currency?: EnumCurrencyFilter<"Order"> | $Enums.Currency;
+      commission?: IntFilter<"Order"> | number;
+      businessProfit?: IntFilter<"Order"> | number;
+      collaboratorInvoiceId?: StringNullableFilter<"Order"> | string | null;
       user?: XOR<UserNullableRelationFilter, UserWhereInput> | null;
       items?: OrderProductListRelationFilter;
       business?: XOR<BusinessNullableRelationFilter, BusinessWhereInput> | null;
+      collaboratorInvoice?: XOR<
+        CollaboratorInvoiceNullableRelationFilter,
+        CollaboratorInvoiceWhereInput
+      > | null;
       orderAddress?: XOR<
         OrderAddressNullableRelationFilter,
         OrderAddressWhereInput
@@ -30092,6 +33406,9 @@ export namespace Prisma {
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     currency?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
+    collaboratorInvoiceId?: SortOrderInput | SortOrder;
     _count?: OrderCountOrderByAggregateInput;
     _avg?: OrderAvgOrderByAggregateInput;
     _max?: OrderMaxOrderByAggregateInput;
@@ -30126,6 +33443,12 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string;
     currency?: EnumCurrencyWithAggregatesFilter<"Order"> | $Enums.Currency;
+    commission?: IntWithAggregatesFilter<"Order"> | number;
+    businessProfit?: IntWithAggregatesFilter<"Order"> | number;
+    collaboratorInvoiceId?:
+      | StringNullableWithAggregatesFilter<"Order">
+      | string
+      | null;
   };
 
   export type OrderProductWhereInput = {
@@ -30136,6 +33459,8 @@ export namespace Prisma {
     orderId?: StringFilter<"OrderProduct"> | string;
     price?: IntFilter<"OrderProduct"> | number;
     position?: IntFilter<"OrderProduct"> | number;
+    commission?: IntFilter<"OrderProduct"> | number;
+    businessProfit?: IntFilter<"OrderProduct"> | number;
     quantity?: IntFilter<"OrderProduct"> | number;
     product?: XOR<ProductRelationFilter, ProductWhereInput>;
     order?: XOR<OrderRelationFilter, OrderWhereInput>;
@@ -30146,6 +33471,8 @@ export namespace Prisma {
     orderId?: SortOrder;
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
     product?: ProductOrderByWithRelationInput;
     order?: OrderOrderByWithRelationInput;
@@ -30161,6 +33488,8 @@ export namespace Prisma {
       orderId?: StringFilter<"OrderProduct"> | string;
       price?: IntFilter<"OrderProduct"> | number;
       position?: IntFilter<"OrderProduct"> | number;
+      commission?: IntFilter<"OrderProduct"> | number;
+      businessProfit?: IntFilter<"OrderProduct"> | number;
       quantity?: IntFilter<"OrderProduct"> | number;
       product?: XOR<ProductRelationFilter, ProductWhereInput>;
       order?: XOR<OrderRelationFilter, OrderWhereInput>;
@@ -30173,6 +33502,8 @@ export namespace Prisma {
     orderId?: SortOrder;
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
     _count?: OrderProductCountOrderByAggregateInput;
     _avg?: OrderProductAvgOrderByAggregateInput;
@@ -30193,7 +33524,132 @@ export namespace Prisma {
     orderId?: StringWithAggregatesFilter<"OrderProduct"> | string;
     price?: IntWithAggregatesFilter<"OrderProduct"> | number;
     position?: IntWithAggregatesFilter<"OrderProduct"> | number;
+    commission?: IntWithAggregatesFilter<"OrderProduct"> | number;
+    businessProfit?: IntWithAggregatesFilter<"OrderProduct"> | number;
     quantity?: IntWithAggregatesFilter<"OrderProduct"> | number;
+  };
+
+  export type CollaboratorInvoiceWhereInput = {
+    AND?: CollaboratorInvoiceWhereInput | CollaboratorInvoiceWhereInput[];
+    OR?: CollaboratorInvoiceWhereInput[];
+    NOT?: CollaboratorInvoiceWhereInput | CollaboratorInvoiceWhereInput[];
+    id?: StringFilter<"CollaboratorInvoice"> | string;
+    businessId?: StringFilter<"CollaboratorInvoice"> | string;
+    collaboratorId?: StringFilter<"CollaboratorInvoice"> | string;
+    amount?: IntFilter<"CollaboratorInvoice"> | number;
+    currency?: EnumCurrencyFilter<"CollaboratorInvoice"> | $Enums.Currency;
+    transferCode?: StringFilter<"CollaboratorInvoice"> | string;
+    businessNota?: StringNullableFilter<"CollaboratorInvoice"> | string | null;
+    collaboratorNota?:
+      | StringNullableFilter<"CollaboratorInvoice">
+      | string
+      | null;
+    confirmed?: BoolFilter<"CollaboratorInvoice"> | boolean;
+    createdAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
+    updatedAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+    orders?: OrderListRelationFilter;
+  };
+
+  export type CollaboratorInvoiceOrderByWithRelationInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    amount?: SortOrder;
+    currency?: SortOrder;
+    transferCode?: SortOrder;
+    businessNota?: SortOrderInput | SortOrder;
+    collaboratorNota?: SortOrderInput | SortOrder;
+    confirmed?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+    collaborator?: UserOrderByWithRelationInput;
+    orders?: OrderOrderByRelationAggregateInput;
+  };
+
+  export type CollaboratorInvoiceWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: CollaboratorInvoiceWhereInput | CollaboratorInvoiceWhereInput[];
+      OR?: CollaboratorInvoiceWhereInput[];
+      NOT?: CollaboratorInvoiceWhereInput | CollaboratorInvoiceWhereInput[];
+      businessId?: StringFilter<"CollaboratorInvoice"> | string;
+      collaboratorId?: StringFilter<"CollaboratorInvoice"> | string;
+      amount?: IntFilter<"CollaboratorInvoice"> | number;
+      currency?: EnumCurrencyFilter<"CollaboratorInvoice"> | $Enums.Currency;
+      transferCode?: StringFilter<"CollaboratorInvoice"> | string;
+      businessNota?:
+        | StringNullableFilter<"CollaboratorInvoice">
+        | string
+        | null;
+      collaboratorNota?:
+        | StringNullableFilter<"CollaboratorInvoice">
+        | string
+        | null;
+      confirmed?: BoolFilter<"CollaboratorInvoice"> | boolean;
+      createdAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
+      updatedAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+      collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+      orders?: OrderListRelationFilter;
+    },
+    "id"
+  >;
+
+  export type CollaboratorInvoiceOrderByWithAggregationInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    amount?: SortOrder;
+    currency?: SortOrder;
+    transferCode?: SortOrder;
+    businessNota?: SortOrderInput | SortOrder;
+    collaboratorNota?: SortOrderInput | SortOrder;
+    confirmed?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: CollaboratorInvoiceCountOrderByAggregateInput;
+    _avg?: CollaboratorInvoiceAvgOrderByAggregateInput;
+    _max?: CollaboratorInvoiceMaxOrderByAggregateInput;
+    _min?: CollaboratorInvoiceMinOrderByAggregateInput;
+    _sum?: CollaboratorInvoiceSumOrderByAggregateInput;
+  };
+
+  export type CollaboratorInvoiceScalarWhereWithAggregatesInput = {
+    AND?:
+      | CollaboratorInvoiceScalarWhereWithAggregatesInput
+      | CollaboratorInvoiceScalarWhereWithAggregatesInput[];
+    OR?: CollaboratorInvoiceScalarWhereWithAggregatesInput[];
+    NOT?:
+      | CollaboratorInvoiceScalarWhereWithAggregatesInput
+      | CollaboratorInvoiceScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
+    businessId?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
+    collaboratorId?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
+    amount?: IntWithAggregatesFilter<"CollaboratorInvoice"> | number;
+    currency?:
+      | EnumCurrencyWithAggregatesFilter<"CollaboratorInvoice">
+      | $Enums.Currency;
+    transferCode?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
+    businessNota?:
+      | StringNullableWithAggregatesFilter<"CollaboratorInvoice">
+      | string
+      | null;
+    collaboratorNota?:
+      | StringNullableWithAggregatesFilter<"CollaboratorInvoice">
+      | string
+      | null;
+    confirmed?: BoolWithAggregatesFilter<"CollaboratorInvoice"> | boolean;
+    createdAt?:
+      | DateTimeWithAggregatesFilter<"CollaboratorInvoice">
+      | Date
+      | string;
+    updatedAt?:
+      | DateTimeWithAggregatesFilter<"CollaboratorInvoice">
+      | Date
+      | string;
   };
 
   export type AccountWhereInput = {
@@ -30884,6 +34340,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateInput = {
@@ -30911,6 +34369,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUpdateInput = {
@@ -30938,6 +34398,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateInput = {
@@ -30968,6 +34430,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateManyInput = {
@@ -31416,6 +34880,8 @@ export namespace Prisma {
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -31435,6 +34901,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUpdateInput = {
@@ -31458,6 +34926,8 @@ export namespace Prisma {
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -31481,6 +34951,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -31573,6 +35045,88 @@ export namespace Prisma {
     type?:
       | EnumUserBusinessTypeFieldUpdateOperationsInput
       | $Enums.UserBusinessType;
+  };
+
+  export type CollaboratorProfileCreateInput = {
+    id?: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCollaboratorProfilesInput;
+    collaborator: UserCreateNestedOneWithoutCollaboratorProfilesInput;
+  };
+
+  export type CollaboratorProfileUncheckedCreateInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCollaboratorProfilesNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutCollaboratorProfilesNestedInput;
+  };
+
+  export type CollaboratorProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorProfileCreateManyInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type CollaboratorCardBankCreateInput = {
@@ -31719,9 +35273,12 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
+    collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
   };
 
@@ -31741,6 +35298,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -31759,9 +35319,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
+    collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
   };
 
@@ -31781,6 +35344,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -31801,6 +35370,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
   };
 
   export type OrderUpdateManyMutationInput = {
@@ -31817,6 +35389,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
   };
 
   export type OrderUncheckedUpdateManyInput = {
@@ -31835,11 +35409,19 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
   };
 
   export type OrderProductCreateInput = {
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
     product: ProductCreateNestedOneWithoutOrderItemsInput;
     order: OrderCreateNestedOneWithoutItemsInput;
@@ -31850,12 +35432,16 @@ export namespace Prisma {
     orderId: string;
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
   };
 
   export type OrderProductUpdateInput = {
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput;
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput;
@@ -31866,6 +35452,8 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
   };
 
@@ -31874,12 +35462,16 @@ export namespace Prisma {
     orderId: string;
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
   };
 
   export type OrderProductUpdateManyMutationInput = {
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
   };
 
@@ -31888,7 +35480,109 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
+  };
+
+  export type CollaboratorInvoiceCreateInput = {
+    id?: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
+    collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
+    orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedCreateInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceCreateManyInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorInvoiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type AccountCreateInput = {
@@ -32581,6 +36275,18 @@ export namespace Prisma {
     none?: CollaboratorCardBankWhereInput;
   };
 
+  export type CollaboratorInvoiceListRelationFilter = {
+    every?: CollaboratorInvoiceWhereInput;
+    some?: CollaboratorInvoiceWhereInput;
+    none?: CollaboratorInvoiceWhereInput;
+  };
+
+  export type CollaboratorProfileListRelationFilter = {
+    every?: CollaboratorProfileWhereInput;
+    some?: CollaboratorProfileWhereInput;
+    none?: CollaboratorProfileWhereInput;
+  };
+
   export type SortOrderInput = {
     sort: SortOrder;
     nulls?: NullsOrder;
@@ -32619,6 +36325,14 @@ export namespace Prisma {
   };
 
   export type CollaboratorCardBankOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type CollaboratorInvoiceOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type CollaboratorProfileOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -33374,6 +37088,56 @@ export namespace Prisma {
     _max?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
   };
 
+  export type CollaboratorProfileCountOrderByAggregateInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CollaboratorProfileAvgOrderByAggregateInput = {
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+  };
+
+  export type CollaboratorProfileMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CollaboratorProfileMinOrderByAggregateInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CollaboratorProfileSumOrderByAggregateInput = {
+    historicalProfit?: SortOrder;
+    totalPendingInvoiceToConfirm?: SortOrder;
+    totalOrderForPayment?: SortOrder;
+    totalBusinessProfit?: SortOrder;
+  };
+
   export type CollaboratorCardBankCountOrderByAggregateInput = {
     id?: SortOrder;
     alias?: SortOrder;
@@ -33445,6 +37209,11 @@ export namespace Prisma {
     isNot?: UserWhereInput | null;
   };
 
+  export type CollaboratorInvoiceNullableRelationFilter = {
+    is?: CollaboratorInvoiceWhereInput | null;
+    isNot?: CollaboratorInvoiceWhereInput | null;
+  };
+
   export type OrderAddressNullableRelationFilter = {
     is?: OrderAddressWhereInput | null;
     isNot?: OrderAddressWhereInput | null;
@@ -33466,12 +37235,17 @@ export namespace Prisma {
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     currency?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
+    collaboratorInvoiceId?: SortOrder;
   };
 
   export type OrderAvgOrderByAggregateInput = {
     shipping?: SortOrder;
     total?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
   };
 
   export type OrderMaxOrderByAggregateInput = {
@@ -33489,6 +37263,9 @@ export namespace Prisma {
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     currency?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
+    collaboratorInvoiceId?: SortOrder;
   };
 
   export type OrderMinOrderByAggregateInput = {
@@ -33506,12 +37283,17 @@ export namespace Prisma {
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     currency?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
+    collaboratorInvoiceId?: SortOrder;
   };
 
   export type OrderSumOrderByAggregateInput = {
     shipping?: SortOrder;
     total?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
   };
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -33543,12 +37325,16 @@ export namespace Prisma {
     orderId?: SortOrder;
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
   };
 
   export type OrderProductAvgOrderByAggregateInput = {
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
   };
 
@@ -33557,6 +37343,8 @@ export namespace Prisma {
     orderId?: SortOrder;
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
   };
 
@@ -33565,13 +37353,67 @@ export namespace Prisma {
     orderId?: SortOrder;
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
   };
 
   export type OrderProductSumOrderByAggregateInput = {
     price?: SortOrder;
     position?: SortOrder;
+    commission?: SortOrder;
+    businessProfit?: SortOrder;
     quantity?: SortOrder;
+  };
+
+  export type CollaboratorInvoiceCountOrderByAggregateInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    amount?: SortOrder;
+    currency?: SortOrder;
+    transferCode?: SortOrder;
+    businessNota?: SortOrder;
+    collaboratorNota?: SortOrder;
+    confirmed?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CollaboratorInvoiceAvgOrderByAggregateInput = {
+    amount?: SortOrder;
+  };
+
+  export type CollaboratorInvoiceMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    amount?: SortOrder;
+    currency?: SortOrder;
+    transferCode?: SortOrder;
+    businessNota?: SortOrder;
+    collaboratorNota?: SortOrder;
+    confirmed?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CollaboratorInvoiceMinOrderByAggregateInput = {
+    id?: SortOrder;
+    businessId?: SortOrder;
+    collaboratorId?: SortOrder;
+    amount?: SortOrder;
+    currency?: SortOrder;
+    transferCode?: SortOrder;
+    businessNota?: SortOrder;
+    collaboratorNota?: SortOrder;
+    confirmed?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CollaboratorInvoiceSumOrderByAggregateInput = {
+    amount?: SortOrder;
   };
 
   export type AccountProviderProviderAccountIdCompoundUniqueInput = {
@@ -34044,6 +37886,40 @@ export namespace Prisma {
       | CollaboratorCardBankWhereUniqueInput[];
   };
 
+  export type CollaboratorInvoiceCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          CollaboratorInvoiceCreateWithoutBusinessInput,
+          CollaboratorInvoiceUncheckedCreateWithoutBusinessInput
+        >
+      | CollaboratorInvoiceCreateWithoutBusinessInput[]
+      | CollaboratorInvoiceUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput
+      | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput[];
+    createMany?: CollaboratorInvoiceCreateManyBusinessInputEnvelope;
+    connect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+  };
+
+  export type CollaboratorProfileCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          CollaboratorProfileCreateWithoutBusinessInput,
+          CollaboratorProfileUncheckedCreateWithoutBusinessInput
+        >
+      | CollaboratorProfileCreateWithoutBusinessInput[]
+      | CollaboratorProfileUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CollaboratorProfileCreateOrConnectWithoutBusinessInput
+      | CollaboratorProfileCreateOrConnectWithoutBusinessInput[];
+    createMany?: CollaboratorProfileCreateManyBusinessInputEnvelope;
+    connect?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+  };
+
   export type TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -34192,6 +38068,42 @@ export namespace Prisma {
       connect?:
         | CollaboratorCardBankWhereUniqueInput
         | CollaboratorCardBankWhereUniqueInput[];
+    };
+
+  export type CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorInvoiceCreateWithoutBusinessInput,
+            CollaboratorInvoiceUncheckedCreateWithoutBusinessInput
+          >
+        | CollaboratorInvoiceCreateWithoutBusinessInput[]
+        | CollaboratorInvoiceUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput
+        | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput[];
+      createMany?: CollaboratorInvoiceCreateManyBusinessInputEnvelope;
+      connect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+    };
+
+  export type CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorProfileCreateWithoutBusinessInput,
+            CollaboratorProfileUncheckedCreateWithoutBusinessInput
+          >
+        | CollaboratorProfileCreateWithoutBusinessInput[]
+        | CollaboratorProfileUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | CollaboratorProfileCreateOrConnectWithoutBusinessInput
+        | CollaboratorProfileCreateOrConnectWithoutBusinessInput[];
+      createMany?: CollaboratorProfileCreateManyBusinessInputEnvelope;
+      connect?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
     };
 
   export type StringFieldUpdateOperationsInput = {
@@ -34537,6 +38449,82 @@ export namespace Prisma {
       | CollaboratorCardBankScalarWhereInput[];
   };
 
+  export type CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorInvoiceCreateWithoutBusinessInput,
+          CollaboratorInvoiceUncheckedCreateWithoutBusinessInput
+        >
+      | CollaboratorInvoiceCreateWithoutBusinessInput[]
+      | CollaboratorInvoiceUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput
+      | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutBusinessInput
+      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: CollaboratorInvoiceCreateManyBusinessInputEnvelope;
+    set?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    delete?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    connect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    update?:
+      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutBusinessInput
+      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | CollaboratorInvoiceUpdateManyWithWhereWithoutBusinessInput
+      | CollaboratorInvoiceUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | CollaboratorInvoiceScalarWhereInput
+      | CollaboratorInvoiceScalarWhereInput[];
+  };
+
+  export type CollaboratorProfileUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorProfileCreateWithoutBusinessInput,
+          CollaboratorProfileUncheckedCreateWithoutBusinessInput
+        >
+      | CollaboratorProfileCreateWithoutBusinessInput[]
+      | CollaboratorProfileUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CollaboratorProfileCreateOrConnectWithoutBusinessInput
+      | CollaboratorProfileCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | CollaboratorProfileUpsertWithWhereUniqueWithoutBusinessInput
+      | CollaboratorProfileUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: CollaboratorProfileCreateManyBusinessInputEnvelope;
+    set?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    delete?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    connect?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    update?:
+      | CollaboratorProfileUpdateWithWhereUniqueWithoutBusinessInput
+      | CollaboratorProfileUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | CollaboratorProfileUpdateManyWithWhereWithoutBusinessInput
+      | CollaboratorProfileUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | CollaboratorProfileScalarWhereInput
+      | CollaboratorProfileScalarWhereInput[];
+  };
+
   export type TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -34836,6 +38824,84 @@ export namespace Prisma {
       deleteMany?:
         | CollaboratorCardBankScalarWhereInput
         | CollaboratorCardBankScalarWhereInput[];
+    };
+
+  export type CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorInvoiceCreateWithoutBusinessInput,
+            CollaboratorInvoiceUncheckedCreateWithoutBusinessInput
+          >
+        | CollaboratorInvoiceCreateWithoutBusinessInput[]
+        | CollaboratorInvoiceUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput
+        | CollaboratorInvoiceCreateOrConnectWithoutBusinessInput[];
+      upsert?:
+        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutBusinessInput
+        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutBusinessInput[];
+      createMany?: CollaboratorInvoiceCreateManyBusinessInputEnvelope;
+      set?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      delete?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      connect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      update?:
+        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutBusinessInput
+        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutBusinessInput[];
+      updateMany?:
+        | CollaboratorInvoiceUpdateManyWithWhereWithoutBusinessInput
+        | CollaboratorInvoiceUpdateManyWithWhereWithoutBusinessInput[];
+      deleteMany?:
+        | CollaboratorInvoiceScalarWhereInput
+        | CollaboratorInvoiceScalarWhereInput[];
+    };
+
+  export type CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorProfileCreateWithoutBusinessInput,
+            CollaboratorProfileUncheckedCreateWithoutBusinessInput
+          >
+        | CollaboratorProfileCreateWithoutBusinessInput[]
+        | CollaboratorProfileUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | CollaboratorProfileCreateOrConnectWithoutBusinessInput
+        | CollaboratorProfileCreateOrConnectWithoutBusinessInput[];
+      upsert?:
+        | CollaboratorProfileUpsertWithWhereUniqueWithoutBusinessInput
+        | CollaboratorProfileUpsertWithWhereUniqueWithoutBusinessInput[];
+      createMany?: CollaboratorProfileCreateManyBusinessInputEnvelope;
+      set?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      delete?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      connect?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      update?:
+        | CollaboratorProfileUpdateWithWhereUniqueWithoutBusinessInput
+        | CollaboratorProfileUpdateWithWhereUniqueWithoutBusinessInput[];
+      updateMany?:
+        | CollaboratorProfileUpdateManyWithWhereWithoutBusinessInput
+        | CollaboratorProfileUpdateManyWithWhereWithoutBusinessInput[];
+      deleteMany?:
+        | CollaboratorProfileScalarWhereInput
+        | CollaboratorProfileScalarWhereInput[];
     };
 
   export type BusinessCreateNestedOneWithoutTelegramInput = {
@@ -35419,6 +39485,40 @@ export namespace Prisma {
       | CollaboratorCardBankWhereUniqueInput[];
   };
 
+  export type CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput = {
+    create?:
+      | XOR<
+          CollaboratorInvoiceCreateWithoutCollaboratorInput,
+          CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput
+        >
+      | CollaboratorInvoiceCreateWithoutCollaboratorInput[]
+      | CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput[];
+    connectOrCreate?:
+      | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput
+      | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput[];
+    createMany?: CollaboratorInvoiceCreateManyCollaboratorInputEnvelope;
+    connect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+  };
+
+  export type CollaboratorProfileCreateNestedManyWithoutCollaboratorInput = {
+    create?:
+      | XOR<
+          CollaboratorProfileCreateWithoutCollaboratorInput,
+          CollaboratorProfileUncheckedCreateWithoutCollaboratorInput
+        >
+      | CollaboratorProfileCreateWithoutCollaboratorInput[]
+      | CollaboratorProfileUncheckedCreateWithoutCollaboratorInput[];
+    connectOrCreate?:
+      | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput
+      | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput[];
+    createMany?: CollaboratorProfileCreateManyCollaboratorInputEnvelope;
+    connect?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+  };
+
   export type OrderUncheckedCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
@@ -35522,6 +39622,42 @@ export namespace Prisma {
       connect?:
         | CollaboratorCardBankWhereUniqueInput
         | CollaboratorCardBankWhereUniqueInput[];
+    };
+
+  export type CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorInvoiceCreateWithoutCollaboratorInput,
+            CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput
+          >
+        | CollaboratorInvoiceCreateWithoutCollaboratorInput[]
+        | CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput[];
+      connectOrCreate?:
+        | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput
+        | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput[];
+      createMany?: CollaboratorInvoiceCreateManyCollaboratorInputEnvelope;
+      connect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+    };
+
+  export type CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorProfileCreateWithoutCollaboratorInput,
+            CollaboratorProfileUncheckedCreateWithoutCollaboratorInput
+          >
+        | CollaboratorProfileCreateWithoutCollaboratorInput[]
+        | CollaboratorProfileUncheckedCreateWithoutCollaboratorInput[];
+      connectOrCreate?:
+        | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput
+        | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput[];
+      createMany?: CollaboratorProfileCreateManyCollaboratorInputEnvelope;
+      connect?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
     };
 
   export type EnumUserRolesFieldUpdateOperationsInput = {
@@ -35743,6 +39879,82 @@ export namespace Prisma {
       | CollaboratorCardBankScalarWhereInput[];
   };
 
+  export type CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorInvoiceCreateWithoutCollaboratorInput,
+          CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput
+        >
+      | CollaboratorInvoiceCreateWithoutCollaboratorInput[]
+      | CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput[];
+    connectOrCreate?:
+      | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput
+      | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput[];
+    upsert?:
+      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCollaboratorInput
+      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCollaboratorInput[];
+    createMany?: CollaboratorInvoiceCreateManyCollaboratorInputEnvelope;
+    set?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    delete?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    connect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    update?:
+      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCollaboratorInput
+      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCollaboratorInput[];
+    updateMany?:
+      | CollaboratorInvoiceUpdateManyWithWhereWithoutCollaboratorInput
+      | CollaboratorInvoiceUpdateManyWithWhereWithoutCollaboratorInput[];
+    deleteMany?:
+      | CollaboratorInvoiceScalarWhereInput
+      | CollaboratorInvoiceScalarWhereInput[];
+  };
+
+  export type CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorProfileCreateWithoutCollaboratorInput,
+          CollaboratorProfileUncheckedCreateWithoutCollaboratorInput
+        >
+      | CollaboratorProfileCreateWithoutCollaboratorInput[]
+      | CollaboratorProfileUncheckedCreateWithoutCollaboratorInput[];
+    connectOrCreate?:
+      | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput
+      | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput[];
+    upsert?:
+      | CollaboratorProfileUpsertWithWhereUniqueWithoutCollaboratorInput
+      | CollaboratorProfileUpsertWithWhereUniqueWithoutCollaboratorInput[];
+    createMany?: CollaboratorProfileCreateManyCollaboratorInputEnvelope;
+    set?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    delete?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    connect?:
+      | CollaboratorProfileWhereUniqueInput
+      | CollaboratorProfileWhereUniqueInput[];
+    update?:
+      | CollaboratorProfileUpdateWithWhereUniqueWithoutCollaboratorInput
+      | CollaboratorProfileUpdateWithWhereUniqueWithoutCollaboratorInput[];
+    updateMany?:
+      | CollaboratorProfileUpdateManyWithWhereWithoutCollaboratorInput
+      | CollaboratorProfileUpdateManyWithWhereWithoutCollaboratorInput[];
+    deleteMany?:
+      | CollaboratorProfileScalarWhereInput
+      | CollaboratorProfileScalarWhereInput[];
+  };
+
   export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
@@ -35951,6 +40163,84 @@ export namespace Prisma {
         | CollaboratorCardBankScalarWhereInput[];
     };
 
+  export type CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorInvoiceCreateWithoutCollaboratorInput,
+            CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput
+          >
+        | CollaboratorInvoiceCreateWithoutCollaboratorInput[]
+        | CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput[];
+      connectOrCreate?:
+        | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput
+        | CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput[];
+      upsert?:
+        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCollaboratorInput
+        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCollaboratorInput[];
+      createMany?: CollaboratorInvoiceCreateManyCollaboratorInputEnvelope;
+      set?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      delete?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      connect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      update?:
+        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCollaboratorInput
+        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCollaboratorInput[];
+      updateMany?:
+        | CollaboratorInvoiceUpdateManyWithWhereWithoutCollaboratorInput
+        | CollaboratorInvoiceUpdateManyWithWhereWithoutCollaboratorInput[];
+      deleteMany?:
+        | CollaboratorInvoiceScalarWhereInput
+        | CollaboratorInvoiceScalarWhereInput[];
+    };
+
+  export type CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorProfileCreateWithoutCollaboratorInput,
+            CollaboratorProfileUncheckedCreateWithoutCollaboratorInput
+          >
+        | CollaboratorProfileCreateWithoutCollaboratorInput[]
+        | CollaboratorProfileUncheckedCreateWithoutCollaboratorInput[];
+      connectOrCreate?:
+        | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput
+        | CollaboratorProfileCreateOrConnectWithoutCollaboratorInput[];
+      upsert?:
+        | CollaboratorProfileUpsertWithWhereUniqueWithoutCollaboratorInput
+        | CollaboratorProfileUpsertWithWhereUniqueWithoutCollaboratorInput[];
+      createMany?: CollaboratorProfileCreateManyCollaboratorInputEnvelope;
+      set?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      delete?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      connect?:
+        | CollaboratorProfileWhereUniqueInput
+        | CollaboratorProfileWhereUniqueInput[];
+      update?:
+        | CollaboratorProfileUpdateWithWhereUniqueWithoutCollaboratorInput
+        | CollaboratorProfileUpdateWithWhereUniqueWithoutCollaboratorInput[];
+      updateMany?:
+        | CollaboratorProfileUpdateManyWithWhereWithoutCollaboratorInput
+        | CollaboratorProfileUpdateManyWithWhereWithoutCollaboratorInput[];
+      deleteMany?:
+        | CollaboratorProfileScalarWhereInput
+        | CollaboratorProfileScalarWhereInput[];
+    };
+
   export type UserCreateNestedOneWithoutBusinessInput = {
     create?: XOR<
       UserCreateWithoutBusinessInput,
@@ -36004,6 +40294,59 @@ export namespace Prisma {
         BusinessUpdateWithoutUsersInput
       >,
       BusinessUncheckedUpdateWithoutUsersInput
+    >;
+  };
+
+  export type BusinessCreateNestedOneWithoutCollaboratorProfilesInput = {
+    create?: XOR<
+      BusinessCreateWithoutCollaboratorProfilesInput,
+      BusinessUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutCollaboratorProfilesInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutCollaboratorProfilesInput = {
+    create?: XOR<
+      UserCreateWithoutCollaboratorProfilesInput,
+      UserUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutCollaboratorProfilesInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutCollaboratorProfilesNestedInput =
+    {
+      create?: XOR<
+        BusinessCreateWithoutCollaboratorProfilesInput,
+        BusinessUncheckedCreateWithoutCollaboratorProfilesInput
+      >;
+      connectOrCreate?: BusinessCreateOrConnectWithoutCollaboratorProfilesInput;
+      upsert?: BusinessUpsertWithoutCollaboratorProfilesInput;
+      connect?: BusinessWhereUniqueInput;
+      update?: XOR<
+        XOR<
+          BusinessUpdateToOneWithWhereWithoutCollaboratorProfilesInput,
+          BusinessUpdateWithoutCollaboratorProfilesInput
+        >,
+        BusinessUncheckedUpdateWithoutCollaboratorProfilesInput
+      >;
+    };
+
+  export type UserUpdateOneRequiredWithoutCollaboratorProfilesNestedInput = {
+    create?: XOR<
+      UserCreateWithoutCollaboratorProfilesInput,
+      UserUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutCollaboratorProfilesInput;
+    upsert?: UserUpsertWithoutCollaboratorProfilesInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutCollaboratorProfilesInput,
+        UserUpdateWithoutCollaboratorProfilesInput
+      >,
+      UserUncheckedUpdateWithoutCollaboratorProfilesInput
     >;
   };
 
@@ -36118,6 +40461,15 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput;
   };
 
+  export type CollaboratorInvoiceCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<
+      CollaboratorInvoiceCreateWithoutOrdersInput,
+      CollaboratorInvoiceUncheckedCreateWithoutOrdersInput
+    >;
+    connectOrCreate?: CollaboratorInvoiceCreateOrConnectWithoutOrdersInput;
+    connect?: CollaboratorInvoiceWhereUniqueInput;
+  };
+
   export type OrderAddressCreateNestedOneWithoutOrderInput = {
     create?: XOR<
       OrderAddressCreateWithoutOrderInput,
@@ -36218,6 +40570,25 @@ export namespace Prisma {
         BusinessUpdateWithoutOrdersInput
       >,
       BusinessUncheckedUpdateWithoutOrdersInput
+    >;
+  };
+
+  export type CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<
+      CollaboratorInvoiceCreateWithoutOrdersInput,
+      CollaboratorInvoiceUncheckedCreateWithoutOrdersInput
+    >;
+    connectOrCreate?: CollaboratorInvoiceCreateOrConnectWithoutOrdersInput;
+    upsert?: CollaboratorInvoiceUpsertWithoutOrdersInput;
+    disconnect?: CollaboratorInvoiceWhereInput | boolean;
+    delete?: CollaboratorInvoiceWhereInput | boolean;
+    connect?: CollaboratorInvoiceWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollaboratorInvoiceUpdateToOneWithWhereWithoutOrdersInput,
+        CollaboratorInvoiceUpdateWithoutOrdersInput
+      >,
+      CollaboratorInvoiceUncheckedUpdateWithoutOrdersInput
     >;
   };
 
@@ -36337,6 +40708,145 @@ export namespace Prisma {
       >,
       OrderUncheckedUpdateWithoutItemsInput
     >;
+  };
+
+  export type BusinessCreateNestedOneWithoutCollaboratorInvoicesInput = {
+    create?: XOR<
+      BusinessCreateWithoutCollaboratorInvoicesInput,
+      BusinessUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutCollaboratorInvoicesInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutCollaboratorInvoicesInput = {
+    create?: XOR<
+      UserCreateWithoutCollaboratorInvoicesInput,
+      UserUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutCollaboratorInvoicesInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type OrderCreateNestedManyWithoutCollaboratorInvoiceInput = {
+    create?:
+      | XOR<
+          OrderCreateWithoutCollaboratorInvoiceInput,
+          OrderUncheckedCreateWithoutCollaboratorInvoiceInput
+        >
+      | OrderCreateWithoutCollaboratorInvoiceInput[]
+      | OrderUncheckedCreateWithoutCollaboratorInvoiceInput[];
+    connectOrCreate?:
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput[];
+    createMany?: OrderCreateManyCollaboratorInvoiceInputEnvelope;
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+  };
+
+  export type OrderUncheckedCreateNestedManyWithoutCollaboratorInvoiceInput = {
+    create?:
+      | XOR<
+          OrderCreateWithoutCollaboratorInvoiceInput,
+          OrderUncheckedCreateWithoutCollaboratorInvoiceInput
+        >
+      | OrderCreateWithoutCollaboratorInvoiceInput[]
+      | OrderUncheckedCreateWithoutCollaboratorInvoiceInput[];
+    connectOrCreate?:
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput[];
+    createMany?: OrderCreateManyCollaboratorInvoiceInputEnvelope;
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+  };
+
+  export type BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput =
+    {
+      create?: XOR<
+        BusinessCreateWithoutCollaboratorInvoicesInput,
+        BusinessUncheckedCreateWithoutCollaboratorInvoicesInput
+      >;
+      connectOrCreate?: BusinessCreateOrConnectWithoutCollaboratorInvoicesInput;
+      upsert?: BusinessUpsertWithoutCollaboratorInvoicesInput;
+      connect?: BusinessWhereUniqueInput;
+      update?: XOR<
+        XOR<
+          BusinessUpdateToOneWithWhereWithoutCollaboratorInvoicesInput,
+          BusinessUpdateWithoutCollaboratorInvoicesInput
+        >,
+        BusinessUncheckedUpdateWithoutCollaboratorInvoicesInput
+      >;
+    };
+
+  export type UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput = {
+    create?: XOR<
+      UserCreateWithoutCollaboratorInvoicesInput,
+      UserUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutCollaboratorInvoicesInput;
+    upsert?: UserUpsertWithoutCollaboratorInvoicesInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutCollaboratorInvoicesInput,
+        UserUpdateWithoutCollaboratorInvoicesInput
+      >,
+      UserUncheckedUpdateWithoutCollaboratorInvoicesInput
+    >;
+  };
+
+  export type OrderUpdateManyWithoutCollaboratorInvoiceNestedInput = {
+    create?:
+      | XOR<
+          OrderCreateWithoutCollaboratorInvoiceInput,
+          OrderUncheckedCreateWithoutCollaboratorInvoiceInput
+        >
+      | OrderCreateWithoutCollaboratorInvoiceInput[]
+      | OrderUncheckedCreateWithoutCollaboratorInvoiceInput[];
+    connectOrCreate?:
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput[];
+    upsert?:
+      | OrderUpsertWithWhereUniqueWithoutCollaboratorInvoiceInput
+      | OrderUpsertWithWhereUniqueWithoutCollaboratorInvoiceInput[];
+    createMany?: OrderCreateManyCollaboratorInvoiceInputEnvelope;
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    update?:
+      | OrderUpdateWithWhereUniqueWithoutCollaboratorInvoiceInput
+      | OrderUpdateWithWhereUniqueWithoutCollaboratorInvoiceInput[];
+    updateMany?:
+      | OrderUpdateManyWithWhereWithoutCollaboratorInvoiceInput
+      | OrderUpdateManyWithWhereWithoutCollaboratorInvoiceInput[];
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[];
+  };
+
+  export type OrderUncheckedUpdateManyWithoutCollaboratorInvoiceNestedInput = {
+    create?:
+      | XOR<
+          OrderCreateWithoutCollaboratorInvoiceInput,
+          OrderUncheckedCreateWithoutCollaboratorInvoiceInput
+        >
+      | OrderCreateWithoutCollaboratorInvoiceInput[]
+      | OrderUncheckedCreateWithoutCollaboratorInvoiceInput[];
+    connectOrCreate?:
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput
+      | OrderCreateOrConnectWithoutCollaboratorInvoiceInput[];
+    upsert?:
+      | OrderUpsertWithWhereUniqueWithoutCollaboratorInvoiceInput
+      | OrderUpsertWithWhereUniqueWithoutCollaboratorInvoiceInput[];
+    createMany?: OrderCreateManyCollaboratorInvoiceInputEnvelope;
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[];
+    update?:
+      | OrderUpdateWithWhereUniqueWithoutCollaboratorInvoiceInput
+      | OrderUpdateWithWhereUniqueWithoutCollaboratorInvoiceInput[];
+    updateMany?:
+      | OrderUpdateManyWithWhereWithoutCollaboratorInvoiceInput
+      | OrderUpdateManyWithWhereWithoutCollaboratorInvoiceInput[];
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[];
   };
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -37524,8 +42034,11 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
+    collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
   };
 
@@ -37544,6 +42057,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -37736,6 +42252,86 @@ export namespace Prisma {
     data:
       | CollaboratorCardBankCreateManyBusinessInput
       | CollaboratorCardBankCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CollaboratorInvoiceCreateWithoutBusinessInput = {
+    id?: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
+    orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceCreateOrConnectWithoutBusinessInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutBusinessInput,
+      CollaboratorInvoiceUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorInvoiceCreateManyBusinessInputEnvelope = {
+    data:
+      | CollaboratorInvoiceCreateManyBusinessInput
+      | CollaboratorInvoiceCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CollaboratorProfileCreateWithoutBusinessInput = {
+    id?: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    collaborator: UserCreateNestedOneWithoutCollaboratorProfilesInput;
+  };
+
+  export type CollaboratorProfileUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    collaboratorId: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorProfileCreateOrConnectWithoutBusinessInput = {
+    where: CollaboratorProfileWhereUniqueInput;
+    create: XOR<
+      CollaboratorProfileCreateWithoutBusinessInput,
+      CollaboratorProfileUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorProfileCreateManyBusinessInputEnvelope = {
+    data:
+      | CollaboratorProfileCreateManyBusinessInput
+      | CollaboratorProfileCreateManyBusinessInput[];
     skipDuplicates?: boolean;
   };
 
@@ -37948,6 +42544,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string;
     updatedAt?: DateTimeFilter<"Order"> | Date | string;
     currency?: EnumCurrencyFilter<"Order"> | $Enums.Currency;
+    commission?: IntFilter<"Order"> | number;
+    businessProfit?: IntFilter<"Order"> | number;
+    collaboratorInvoiceId?: StringNullableFilter<"Order"> | string | null;
   };
 
   export type UserBusinessUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -38195,6 +42794,105 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CollaboratorCardBank"> | Date | string;
   };
 
+  export type CollaboratorInvoiceUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    update: XOR<
+      CollaboratorInvoiceUpdateWithoutBusinessInput,
+      CollaboratorInvoiceUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutBusinessInput,
+      CollaboratorInvoiceUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorInvoiceUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    data: XOR<
+      CollaboratorInvoiceUpdateWithoutBusinessInput,
+      CollaboratorInvoiceUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorInvoiceUpdateManyWithWhereWithoutBusinessInput = {
+    where: CollaboratorInvoiceScalarWhereInput;
+    data: XOR<
+      CollaboratorInvoiceUpdateManyMutationInput,
+      CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorInvoiceScalarWhereInput = {
+    AND?:
+      | CollaboratorInvoiceScalarWhereInput
+      | CollaboratorInvoiceScalarWhereInput[];
+    OR?: CollaboratorInvoiceScalarWhereInput[];
+    NOT?:
+      | CollaboratorInvoiceScalarWhereInput
+      | CollaboratorInvoiceScalarWhereInput[];
+    id?: StringFilter<"CollaboratorInvoice"> | string;
+    businessId?: StringFilter<"CollaboratorInvoice"> | string;
+    collaboratorId?: StringFilter<"CollaboratorInvoice"> | string;
+    amount?: IntFilter<"CollaboratorInvoice"> | number;
+    currency?: EnumCurrencyFilter<"CollaboratorInvoice"> | $Enums.Currency;
+    transferCode?: StringFilter<"CollaboratorInvoice"> | string;
+    businessNota?: StringNullableFilter<"CollaboratorInvoice"> | string | null;
+    collaboratorNota?:
+      | StringNullableFilter<"CollaboratorInvoice">
+      | string
+      | null;
+    confirmed?: BoolFilter<"CollaboratorInvoice"> | boolean;
+    createdAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
+    updatedAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
+  };
+
+  export type CollaboratorProfileUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: CollaboratorProfileWhereUniqueInput;
+    update: XOR<
+      CollaboratorProfileUpdateWithoutBusinessInput,
+      CollaboratorProfileUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      CollaboratorProfileCreateWithoutBusinessInput,
+      CollaboratorProfileUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorProfileUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: CollaboratorProfileWhereUniqueInput;
+    data: XOR<
+      CollaboratorProfileUpdateWithoutBusinessInput,
+      CollaboratorProfileUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorProfileUpdateManyWithWhereWithoutBusinessInput = {
+    where: CollaboratorProfileScalarWhereInput;
+    data: XOR<
+      CollaboratorProfileUpdateManyMutationInput,
+      CollaboratorProfileUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorProfileScalarWhereInput = {
+    AND?:
+      | CollaboratorProfileScalarWhereInput
+      | CollaboratorProfileScalarWhereInput[];
+    OR?: CollaboratorProfileScalarWhereInput[];
+    NOT?:
+      | CollaboratorProfileScalarWhereInput
+      | CollaboratorProfileScalarWhereInput[];
+    id?: StringFilter<"CollaboratorProfile"> | string;
+    businessId?: StringFilter<"CollaboratorProfile"> | string;
+    collaboratorId?: StringFilter<"CollaboratorProfile"> | string;
+    historicalProfit?: IntFilter<"CollaboratorProfile"> | number;
+    totalPendingInvoiceToConfirm?: IntFilter<"CollaboratorProfile"> | number;
+    totalOrderForPayment?: IntFilter<"CollaboratorProfile"> | number;
+    totalBusinessProfit?: IntFilter<"CollaboratorProfile"> | number;
+    createdAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
+    updatedAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
+  };
+
   export type BusinessCreateWithoutTelegramInput = {
     id?: string;
     name: string;
@@ -38219,6 +42917,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutTelegramInput = {
@@ -38245,6 +42945,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutTelegramInput = {
@@ -38299,6 +43001,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutTelegramInput = {
@@ -38328,6 +43032,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateWithoutPaymentMethodInput = {
@@ -38354,6 +43060,8 @@ export namespace Prisma {
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutPaymentMethodInput = {
@@ -38380,6 +43088,8 @@ export namespace Prisma {
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutPaymentMethodInput = {
@@ -38414,6 +43124,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutDefaultPaymentMethodInput = {
@@ -38440,6 +43152,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutDefaultPaymentMethodInput = {
@@ -38494,6 +43208,8 @@ export namespace Prisma {
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutPaymentMethodInput = {
@@ -38523,6 +43239,8 @@ export namespace Prisma {
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUpsertWithoutDefaultPaymentMethodInput = {
@@ -38569,6 +43287,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput = {
@@ -38595,6 +43315,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductCreateWithoutCategoryInput = {
@@ -38674,6 +43396,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCategoriesInput = {
@@ -38700,6 +43424,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCategoriesInput = {
@@ -38782,6 +43508,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCategoriesInput = {
@@ -38811,6 +43539,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductPriceCreateWithoutProductInput = {
@@ -38857,6 +43587,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -38883,6 +43615,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -38922,6 +43656,8 @@ export namespace Prisma {
   export type OrderProductCreateWithoutProductInput = {
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
     order: OrderCreateNestedOneWithoutItemsInput;
   };
@@ -38930,6 +43666,8 @@ export namespace Prisma {
     orderId: string;
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
   };
 
@@ -39028,6 +43766,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -39057,6 +43797,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -39133,6 +43875,8 @@ export namespace Prisma {
     orderId?: StringFilter<"OrderProduct"> | string;
     price?: IntFilter<"OrderProduct"> | number;
     position?: IntFilter<"OrderProduct"> | number;
+    commission?: IntFilter<"OrderProduct"> | number;
+    businessProfit?: IntFilter<"OrderProduct"> | number;
     quantity?: IntFilter<"OrderProduct"> | number;
   };
 
@@ -39258,8 +44002,11 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
+    collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
   };
 
@@ -39278,6 +44025,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
@@ -39482,6 +44232,86 @@ export namespace Prisma {
     data:
       | CollaboratorCardBankCreateManyCollaboratorInput
       | CollaboratorCardBankCreateManyCollaboratorInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CollaboratorInvoiceCreateWithoutCollaboratorInput = {
+    id?: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
+    orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput = {
+    id?: string;
+    businessId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceCreateOrConnectWithoutCollaboratorInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutCollaboratorInput,
+      CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput
+    >;
+  };
+
+  export type CollaboratorInvoiceCreateManyCollaboratorInputEnvelope = {
+    data:
+      | CollaboratorInvoiceCreateManyCollaboratorInput
+      | CollaboratorInvoiceCreateManyCollaboratorInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CollaboratorProfileCreateWithoutCollaboratorInput = {
+    id?: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCollaboratorProfilesInput;
+  };
+
+  export type CollaboratorProfileUncheckedCreateWithoutCollaboratorInput = {
+    id?: string;
+    businessId: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorProfileCreateOrConnectWithoutCollaboratorInput = {
+    where: CollaboratorProfileWhereUniqueInput;
+    create: XOR<
+      CollaboratorProfileCreateWithoutCollaboratorInput,
+      CollaboratorProfileUncheckedCreateWithoutCollaboratorInput
+    >;
+  };
+
+  export type CollaboratorProfileCreateManyCollaboratorInputEnvelope = {
+    data:
+      | CollaboratorProfileCreateManyCollaboratorInput
+      | CollaboratorProfileCreateManyCollaboratorInput[];
     skipDuplicates?: boolean;
   };
 
@@ -39728,6 +44558,66 @@ export namespace Prisma {
       >;
     };
 
+  export type CollaboratorInvoiceUpsertWithWhereUniqueWithoutCollaboratorInput =
+    {
+      where: CollaboratorInvoiceWhereUniqueInput;
+      update: XOR<
+        CollaboratorInvoiceUpdateWithoutCollaboratorInput,
+        CollaboratorInvoiceUncheckedUpdateWithoutCollaboratorInput
+      >;
+      create: XOR<
+        CollaboratorInvoiceCreateWithoutCollaboratorInput,
+        CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput
+      >;
+    };
+
+  export type CollaboratorInvoiceUpdateWithWhereUniqueWithoutCollaboratorInput =
+    {
+      where: CollaboratorInvoiceWhereUniqueInput;
+      data: XOR<
+        CollaboratorInvoiceUpdateWithoutCollaboratorInput,
+        CollaboratorInvoiceUncheckedUpdateWithoutCollaboratorInput
+      >;
+    };
+
+  export type CollaboratorInvoiceUpdateManyWithWhereWithoutCollaboratorInput = {
+    where: CollaboratorInvoiceScalarWhereInput;
+    data: XOR<
+      CollaboratorInvoiceUpdateManyMutationInput,
+      CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorInput
+    >;
+  };
+
+  export type CollaboratorProfileUpsertWithWhereUniqueWithoutCollaboratorInput =
+    {
+      where: CollaboratorProfileWhereUniqueInput;
+      update: XOR<
+        CollaboratorProfileUpdateWithoutCollaboratorInput,
+        CollaboratorProfileUncheckedUpdateWithoutCollaboratorInput
+      >;
+      create: XOR<
+        CollaboratorProfileCreateWithoutCollaboratorInput,
+        CollaboratorProfileUncheckedCreateWithoutCollaboratorInput
+      >;
+    };
+
+  export type CollaboratorProfileUpdateWithWhereUniqueWithoutCollaboratorInput =
+    {
+      where: CollaboratorProfileWhereUniqueInput;
+      data: XOR<
+        CollaboratorProfileUpdateWithoutCollaboratorInput,
+        CollaboratorProfileUncheckedUpdateWithoutCollaboratorInput
+      >;
+    };
+
+  export type CollaboratorProfileUpdateManyWithWhereWithoutCollaboratorInput = {
+    where: CollaboratorProfileScalarWhereInput;
+    data: XOR<
+      CollaboratorProfileUpdateManyMutationInput,
+      CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorInput
+    >;
+  };
+
   export type UserCreateWithoutBusinessInput = {
     id?: string;
     role?: $Enums.UserRoles;
@@ -39744,6 +44634,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutBusinessInput = {
@@ -39762,6 +44654,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutBusinessInput = {
@@ -39796,6 +44690,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUsersInput = {
@@ -39822,6 +44718,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUsersInput = {
@@ -39872,6 +44770,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutBusinessInput = {
@@ -39894,6 +44794,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessUpsertWithoutUsersInput = {
@@ -39940,6 +44842,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUsersInput = {
@@ -39969,6 +44873,267 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessCreateWithoutCollaboratorProfilesInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutCollaboratorProfilesInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutCollaboratorProfilesInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutCollaboratorProfilesInput,
+      BusinessUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+  };
+
+  export type UserCreateWithoutCollaboratorProfilesInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
+    address?: UserAddressCreateNestedManyWithoutUserInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+  };
+
+  export type UserUncheckedCreateWithoutCollaboratorProfilesInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
+    address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+  };
+
+  export type UserCreateOrConnectWithoutCollaboratorProfilesInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutCollaboratorProfilesInput,
+      UserUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+  };
+
+  export type BusinessUpsertWithoutCollaboratorProfilesInput = {
+    update: XOR<
+      BusinessUpdateWithoutCollaboratorProfilesInput,
+      BusinessUncheckedUpdateWithoutCollaboratorProfilesInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutCollaboratorProfilesInput,
+      BusinessUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutCollaboratorProfilesInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutCollaboratorProfilesInput,
+      BusinessUncheckedUpdateWithoutCollaboratorProfilesInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutCollaboratorProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutCollaboratorProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type UserUpsertWithoutCollaboratorProfilesInput = {
+    update: XOR<
+      UserUpdateWithoutCollaboratorProfilesInput,
+      UserUncheckedUpdateWithoutCollaboratorProfilesInput
+    >;
+    create: XOR<
+      UserCreateWithoutCollaboratorProfilesInput,
+      UserUncheckedCreateWithoutCollaboratorProfilesInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutCollaboratorProfilesInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutCollaboratorProfilesInput,
+      UserUncheckedUpdateWithoutCollaboratorProfilesInput
+    >;
+  };
+
+  export type UserUpdateWithoutCollaboratorProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
+    address?: UserAddressUpdateManyWithoutUserNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutCollaboratorProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
+    address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessCreateWithoutCardBanksInput = {
@@ -39995,6 +45160,8 @@ export namespace Prisma {
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCardBanksInput = {
@@ -40021,6 +45188,8 @@ export namespace Prisma {
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCardBanksInput = {
@@ -40047,6 +45216,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutCardBanksInput = {
@@ -40065,6 +45236,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutCardBanksInput = {
@@ -40119,6 +45292,8 @@ export namespace Prisma {
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCardBanksInput = {
@@ -40148,6 +45323,8 @@ export namespace Prisma {
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserUpsertWithoutCardBanksInput = {
@@ -40190,6 +45367,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutCardBanksInput = {
@@ -40212,6 +45391,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessCreateWithoutInvitationLinksInput = {
@@ -40238,6 +45419,8 @@ export namespace Prisma {
     userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutInvitationLinksInput = {
@@ -40264,6 +45447,8 @@ export namespace Prisma {
     userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutInvitationLinksInput = {
@@ -40318,6 +45503,8 @@ export namespace Prisma {
     userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutInvitationLinksInput = {
@@ -40347,6 +45534,8 @@ export namespace Prisma {
     userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserCreateWithoutOrdersInput = {
@@ -40365,6 +45554,8 @@ export namespace Prisma {
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -40383,6 +45574,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -40396,6 +45589,8 @@ export namespace Prisma {
   export type OrderProductCreateWithoutOrderInput = {
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
     product: ProductCreateNestedOneWithoutOrderItemsInput;
   };
@@ -40404,6 +45599,8 @@ export namespace Prisma {
     productId: string;
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
   };
 
@@ -40444,6 +45641,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutOrdersInput = {
@@ -40470,6 +45669,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutOrdersInput = {
@@ -40477,6 +45678,42 @@ export namespace Prisma {
     create: XOR<
       BusinessCreateWithoutOrdersInput,
       BusinessUncheckedCreateWithoutOrdersInput
+    >;
+  };
+
+  export type CollaboratorInvoiceCreateWithoutOrdersInput = {
+    id?: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
+    collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedCreateWithoutOrdersInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorInvoiceCreateOrConnectWithoutOrdersInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutOrdersInput,
+      CollaboratorInvoiceUncheckedCreateWithoutOrdersInput
     >;
   };
 
@@ -40538,6 +45775,8 @@ export namespace Prisma {
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -40560,6 +45799,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type OrderProductUpsertWithWhereUniqueWithoutOrderInput = {
@@ -40634,6 +45875,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutOrdersInput = {
@@ -40663,6 +45906,56 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type CollaboratorInvoiceUpsertWithoutOrdersInput = {
+    update: XOR<
+      CollaboratorInvoiceUpdateWithoutOrdersInput,
+      CollaboratorInvoiceUncheckedUpdateWithoutOrdersInput
+    >;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutOrdersInput,
+      CollaboratorInvoiceUncheckedCreateWithoutOrdersInput
+    >;
+    where?: CollaboratorInvoiceWhereInput;
+  };
+
+  export type CollaboratorInvoiceUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: CollaboratorInvoiceWhereInput;
+    data: XOR<
+      CollaboratorInvoiceUpdateWithoutOrdersInput,
+      CollaboratorInvoiceUncheckedUpdateWithoutOrdersInput
+    >;
+  };
+
+  export type CollaboratorInvoiceUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type OrderAddressUpsertWithoutOrderInput = {
@@ -40757,8 +46050,11 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
     user?: UserCreateNestedOneWithoutOrdersInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
+    collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
   };
 
@@ -40778,6 +46074,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
 
@@ -40883,8 +46182,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
+    collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
   };
 
@@ -40904,7 +46206,359 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+  };
+
+  export type BusinessCreateWithoutCollaboratorInvoicesInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutCollaboratorInvoicesInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutCollaboratorInvoicesInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutCollaboratorInvoicesInput,
+      BusinessUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+  };
+
+  export type UserCreateWithoutCollaboratorInvoicesInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
+    address?: UserAddressCreateNestedManyWithoutUserInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+  };
+
+  export type UserUncheckedCreateWithoutCollaboratorInvoicesInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
+    address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+  };
+
+  export type UserCreateOrConnectWithoutCollaboratorInvoicesInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutCollaboratorInvoicesInput,
+      UserUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+  };
+
+  export type OrderCreateWithoutCollaboratorInvoiceInput = {
+    id?: string;
+    productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
+    total?: number;
+    status?: $Enums.OrderStatus;
+    sentAt?: Date | string | null;
+    position?: number | null;
+    identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    user?: UserCreateNestedOneWithoutOrdersInput;
+    items?: OrderProductCreateNestedManyWithoutOrderInput;
+    business?: BusinessCreateNestedOneWithoutOrdersInput;
+    orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+  };
+
+  export type OrderUncheckedCreateWithoutCollaboratorInvoiceInput = {
+    id?: string;
+    userId?: string | null;
+    productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
+    total?: number;
+    status?: $Enums.OrderStatus;
+    sentAt?: Date | string | null;
+    position?: number | null;
+    businessId?: string | null;
+    identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
+    orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+  };
+
+  export type OrderCreateOrConnectWithoutCollaboratorInvoiceInput = {
+    where: OrderWhereUniqueInput;
+    create: XOR<
+      OrderCreateWithoutCollaboratorInvoiceInput,
+      OrderUncheckedCreateWithoutCollaboratorInvoiceInput
+    >;
+  };
+
+  export type OrderCreateManyCollaboratorInvoiceInputEnvelope = {
+    data:
+      | OrderCreateManyCollaboratorInvoiceInput
+      | OrderCreateManyCollaboratorInvoiceInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type BusinessUpsertWithoutCollaboratorInvoicesInput = {
+    update: XOR<
+      BusinessUpdateWithoutCollaboratorInvoicesInput,
+      BusinessUncheckedUpdateWithoutCollaboratorInvoicesInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutCollaboratorInvoicesInput,
+      BusinessUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutCollaboratorInvoicesInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutCollaboratorInvoicesInput,
+      BusinessUncheckedUpdateWithoutCollaboratorInvoicesInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutCollaboratorInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutCollaboratorInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type UserUpsertWithoutCollaboratorInvoicesInput = {
+    update: XOR<
+      UserUpdateWithoutCollaboratorInvoicesInput,
+      UserUncheckedUpdateWithoutCollaboratorInvoicesInput
+    >;
+    create: XOR<
+      UserCreateWithoutCollaboratorInvoicesInput,
+      UserUncheckedCreateWithoutCollaboratorInvoicesInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutCollaboratorInvoicesInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutCollaboratorInvoicesInput,
+      UserUncheckedUpdateWithoutCollaboratorInvoicesInput
+    >;
+  };
+
+  export type UserUpdateWithoutCollaboratorInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
+    address?: UserAddressUpdateManyWithoutUserNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutCollaboratorInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
+    address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+  };
+
+  export type OrderUpsertWithWhereUniqueWithoutCollaboratorInvoiceInput = {
+    where: OrderWhereUniqueInput;
+    update: XOR<
+      OrderUpdateWithoutCollaboratorInvoiceInput,
+      OrderUncheckedUpdateWithoutCollaboratorInvoiceInput
+    >;
+    create: XOR<
+      OrderCreateWithoutCollaboratorInvoiceInput,
+      OrderUncheckedCreateWithoutCollaboratorInvoiceInput
+    >;
+  };
+
+  export type OrderUpdateWithWhereUniqueWithoutCollaboratorInvoiceInput = {
+    where: OrderWhereUniqueInput;
+    data: XOR<
+      OrderUpdateWithoutCollaboratorInvoiceInput,
+      OrderUncheckedUpdateWithoutCollaboratorInvoiceInput
+    >;
+  };
+
+  export type OrderUpdateManyWithWhereWithoutCollaboratorInvoiceInput = {
+    where: OrderScalarWhereInput;
+    data: XOR<
+      OrderUpdateManyMutationInput,
+      OrderUncheckedUpdateManyWithoutCollaboratorInvoiceInput
+    >;
   };
 
   export type UserCreateWithoutAccountsInput = {
@@ -40923,6 +46577,8 @@ export namespace Prisma {
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -40941,6 +46597,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -40991,6 +46649,8 @@ export namespace Prisma {
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -41013,6 +46673,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserCreateWithoutSessionsInput = {
@@ -41031,6 +46693,8 @@ export namespace Prisma {
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -41049,6 +46713,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -41099,6 +46765,8 @@ export namespace Prisma {
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -41121,6 +46789,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -41139,6 +46809,8 @@ export namespace Prisma {
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -41157,6 +46829,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -41207,6 +46881,8 @@ export namespace Prisma {
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -41229,6 +46905,8 @@ export namespace Prisma {
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type NeighborhoodCreateWithoutAddressesInput = {
@@ -41580,6 +47258,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
     business?: UserBusinessCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutAddressInput = {
@@ -41598,6 +47278,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
     business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutAddressInput = {
@@ -41632,6 +47314,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUserAddressInput = {
@@ -41658,6 +47342,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUserAddressInput = {
@@ -41752,6 +47438,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
     business?: UserBusinessUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAddressInput = {
@@ -41774,6 +47462,8 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
     business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessUpsertWithoutUserAddressInput = {
@@ -41820,6 +47510,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUserAddressInput = {
@@ -41849,6 +47541,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type AddressCreateWithoutOrderAddressInput = {
@@ -41897,9 +47591,12 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
     user?: UserCreateNestedOneWithoutOrdersInput;
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
+    collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
   };
 
   export type OrderUncheckedCreateWithoutOrderAddressInput = {
@@ -41918,6 +47615,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
   };
 
@@ -42007,9 +47707,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
+    collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutOrderAddressInput = {
@@ -42028,6 +47731,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
   };
 
@@ -42055,6 +47764,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutBusinessNeighborhoodInput = {
@@ -42081,6 +47792,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutBusinessNeighborhoodInput = {
@@ -42157,6 +47870,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput = {
@@ -42186,6 +47901,8 @@ export namespace Prisma {
     paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type NeighborhoodUpsertWithoutBusinessNeighborhoodInput = {
@@ -42264,6 +47981,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
   };
 
   export type UserBusinessCreateManyBusinessInput = {
@@ -42305,6 +48025,30 @@ export namespace Prisma {
     currency?: $Enums.Currency;
     phone: string;
     collaboratorId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorInvoiceCreateManyBusinessInput = {
+    id?: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorProfileCreateManyBusinessInput = {
+    id?: string;
+    collaboratorId: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -42407,8 +48151,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     user?: UserUpdateOneWithoutOrdersNestedInput;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
+    collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
   };
 
@@ -42427,6 +48174,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -42446,6 +48199,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
   };
 
   export type UserBusinessUpdateWithoutBusinessInput = {
@@ -42591,6 +48350,80 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type CollaboratorInvoiceUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorProfileUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collaborator?: UserUpdateOneRequiredWithoutCollaboratorProfilesNestedInput;
+  };
+
+  export type CollaboratorProfileUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorProfileUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type ProductCreateManyCategoryInput = {
     id?: string;
     name: string;
@@ -42671,12 +48504,16 @@ export namespace Prisma {
     orderId: string;
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
   };
 
   export type OrderProductUpdateWithoutProductInput = {
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput;
   };
@@ -42685,6 +48522,8 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
   };
 
@@ -42692,6 +48531,8 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
   };
 
@@ -42710,6 +48551,9 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
   };
 
   export type AccountCreateManyUserInput = {
@@ -42767,6 +48611,30 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
+  export type CollaboratorInvoiceCreateManyCollaboratorInput = {
+    id?: string;
+    businessId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorProfileCreateManyCollaboratorInput = {
+    id?: string;
+    businessId: string;
+    historicalProfit?: number;
+    totalPendingInvoiceToConfirm?: number;
+    totalOrderForPayment?: number;
+    totalBusinessProfit?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
   export type OrderUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
@@ -42781,8 +48649,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
+    collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
   };
 
@@ -42801,6 +48672,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
   };
@@ -42820,6 +48697,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
   };
 
   export type AccountUpdateWithoutUserInput = {
@@ -42994,16 +48877,94 @@ export namespace Prisma {
       updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     };
 
+  export type CollaboratorInvoiceUpdateWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorProfileUpdateWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCollaboratorProfilesNestedInput;
+  };
+
+  export type CollaboratorProfileUncheckedUpdateWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    historicalProfit?: IntFieldUpdateOperationsInput | number;
+    totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
+    totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
+    totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type OrderProductCreateManyOrderInput = {
     productId: string;
     price: number;
     position?: number;
+    commission?: number;
+    businessProfit?: number;
     quantity: number;
   };
 
   export type OrderProductUpdateWithoutOrderInput = {
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput;
   };
@@ -43012,6 +48973,8 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
   };
 
@@ -43019,7 +48982,93 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
+  };
+
+  export type OrderCreateManyCollaboratorInvoiceInput = {
+    id?: string;
+    userId?: string | null;
+    productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
+    total?: number;
+    status?: $Enums.OrderStatus;
+    sentAt?: Date | string | null;
+    position?: number | null;
+    businessId?: string | null;
+    identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+  };
+
+  export type OrderUpdateWithoutCollaboratorInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
+    total?: IntFieldUpdateOperationsInput | number;
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    position?: NullableIntFieldUpdateOperationsInput | number | null;
+    identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    user?: UserUpdateOneWithoutOrdersNestedInput;
+    items?: OrderProductUpdateManyWithoutOrderNestedInput;
+    business?: BusinessUpdateOneWithoutOrdersNestedInput;
+    orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+  };
+
+  export type OrderUncheckedUpdateWithoutCollaboratorInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: NullableStringFieldUpdateOperationsInput | string | null;
+    productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
+    total?: IntFieldUpdateOperationsInput | number;
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    position?: NullableIntFieldUpdateOperationsInput | number | null;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
+    identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
+    orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+  };
+
+  export type OrderUncheckedUpdateManyWithoutCollaboratorInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: NullableStringFieldUpdateOperationsInput | string | null;
+    productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
+    total?: IntFieldUpdateOperationsInput | number;
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    position?: NullableIntFieldUpdateOperationsInput | number | null;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
+    identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
   };
 
   export type AddressCreateManyNeighborhoodInput = {
@@ -43129,6 +49178,12 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = OrderCountOutputTypeDefaultArgs<ExtArgs>;
   /**
+   * @deprecated Use CollaboratorInvoiceCountOutputTypeDefaultArgs instead
+   */
+  export type CollaboratorInvoiceCountOutputTypeArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CollaboratorInvoiceCountOutputTypeDefaultArgs<ExtArgs>;
+  /**
    * @deprecated Use NeighborhoodCountOutputTypeDefaultArgs instead
    */
   export type NeighborhoodCountOutputTypeArgs<
@@ -43183,6 +49238,12 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = UserBusinessDefaultArgs<ExtArgs>;
   /**
+   * @deprecated Use CollaboratorProfileDefaultArgs instead
+   */
+  export type CollaboratorProfileArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CollaboratorProfileDefaultArgs<ExtArgs>;
+  /**
    * @deprecated Use CollaboratorCardBankDefaultArgs instead
    */
   export type CollaboratorCardBankArgs<
@@ -43206,6 +49267,12 @@ export namespace Prisma {
   export type OrderProductArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = OrderProductDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use CollaboratorInvoiceDefaultArgs instead
+   */
+  export type CollaboratorInvoiceArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CollaboratorInvoiceDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use AccountDefaultArgs instead
    */

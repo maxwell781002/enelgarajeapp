@@ -7,6 +7,8 @@ import {
   RelatedOrderProductModel,
   CompleteBusiness,
   RelatedBusinessModel,
+  CompleteCollaboratorInvoice,
+  RelatedCollaboratorInvoiceModel,
   CompleteOrderAddress,
   RelatedOrderAddressModel,
 } from "./index";
@@ -35,12 +37,16 @@ export const OrderModel = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
   currency: z.nativeEnum(Currency),
+  commission: z.number().int(),
+  businessProfit: z.number().int(),
+  collaboratorInvoiceId: z.string().nullish(),
 });
 
 export interface CompleteOrder extends z.infer<typeof OrderModel> {
   user?: CompleteUser | null;
   items: CompleteOrderProduct[];
   business?: CompleteBusiness | null;
+  collaboratorInvoice?: CompleteCollaboratorInvoice | null;
   orderAddress?: CompleteOrderAddress | null;
 }
 
@@ -54,6 +60,7 @@ export const RelatedOrderModel: z.ZodSchema<CompleteOrder> = z.lazy(() =>
     user: RelatedUserModel.nullish(),
     items: RelatedOrderProductModel.array(),
     business: RelatedBusinessModel.nullish(),
+    collaboratorInvoice: RelatedCollaboratorInvoiceModel.nullish(),
     orderAddress: RelatedOrderAddressModel.nullish(),
   }),
 );
