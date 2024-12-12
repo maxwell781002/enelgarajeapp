@@ -207,6 +207,56 @@ export class OrderRepository extends BaseRepository<
     };
   }
 
+  async getCollaboratorStatistic(businessId: string, userId: string) {
+    const where = {
+      businessId,
+      userId,
+      isCollaborator: true,
+    };
+    const historicalProfit = prisma().order.aggregate({
+      _sum: {
+        commission: true, // Sum the commission field
+        businessProfit: true, // Sum the commission field
+      },
+      where: {
+        ...where,
+        collaboratorInvoice: {
+          confirmed: {
+            equals: true,
+          },
+        },
+      },
+    });
+    const totalPendingInvoiceToConfirm = prisma().order.count({
+      where: {
+        ...where,
+        collaboratorInvoice: {
+          confirmed: {
+            equals: false,
+          },
+        },
+      },
+    });
+    const totalOrderForPayment = prisma().order.count({
+      where: {
+        ...where,
+        status: OrderStatus.PAYED,
+        collaboratorInvoiceId: null,
+      },
+    });
+    const values = await Promise.all([
+      historicalProfit,
+      totalPendingInvoiceToConfirm,
+      totalOrderForPayment,
+    ]);
+    return {
+      historicalProfit: values[0]._sum.commission ?? 0,
+      totalBusinessProfit: values[0]._sum.businessProfit ?? 0,
+      totalPendingInvoiceToConfirm: values[1] ?? 0,
+      totalOrderForPayment: values[2] ?? 0,
+    };
+  }
+
   getAllData(orderId: string) {
     return prisma().order.findUnique({
       where: { id: orderId },
