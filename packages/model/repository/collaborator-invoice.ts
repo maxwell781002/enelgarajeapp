@@ -22,5 +22,9 @@ export async function updateCollaboratorProfile(
     businessId,
     userId,
   );
-  return collaboratorProfileRepository.updateProfile(userId, businessId, statistic);
+  return collaboratorProfileRepository.updateProfile(
+    userId,
+    businessId,
+    statistic,
+  );
 }

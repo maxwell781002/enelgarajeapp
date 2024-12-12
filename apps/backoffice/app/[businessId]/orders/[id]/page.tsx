@@ -27,7 +27,7 @@ export default async function Page({
     <ChangeStatus
       status={order.status}
       onChange={changeStatus}
-      options={orderRepository.orderToChange()}
+      options={orderRepository.orderToChange(order.status)}
     />
   );
   return (

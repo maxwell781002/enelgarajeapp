@@ -5,3 +5,4 @@ export class EventData<T> {
 }
 
 export class OrderSend extends EventData<CompleteOrder> {}
+export class OrderPayed extends EventData<CompleteOrder> {}

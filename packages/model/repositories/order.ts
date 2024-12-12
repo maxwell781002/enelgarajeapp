@@ -17,6 +17,19 @@ export const statusColors: Record<OrderStatus, string> = {
   REJECTED: "bg-red-500",
 };
 
+const transitions = {
+  [OrderStatus.SEND]: [
+    [OrderStatus.SEND, statusColors[OrderStatus.SEND]],
+    [OrderStatus.PAYED, statusColors[OrderStatus.PAYED]],
+    [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
+  ],
+  [OrderStatus.PAYED]: [[OrderStatus.PAYED, statusColors[OrderStatus.PAYED]]],
+  [OrderStatus.REJECTED]: [
+    [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
+  ],
+  [OrderStatus.CREATED]: [],
+};
+
 type PaginateData = {
   businessId?: string;
   userId?: string;
@@ -32,10 +45,8 @@ export class OrderRepository extends BaseRepository<
     super(OrderModel, Prisma.order);
   }
 
-  orderToChange() {
-    return Object.entries(statusColors).filter(
-      ([key]) => key !== OrderStatus.CREATED,
-    );
+  orderToChange(currentStatus: OrderStatus) {
+    return transitions[currentStatus] || [];
   }
 
   changeStatus(id: string, status: OrderStatus) {

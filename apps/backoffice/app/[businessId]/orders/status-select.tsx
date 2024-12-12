@@ -15,6 +15,7 @@ type ChangeStatusProps = {
   onChange: (status: string) => void;
   options: [string, string, string?][];
   className?: string;
+  disabled?: boolean;
 };
 
 // I need to add this color to be rendered by tailwind
@@ -30,9 +31,14 @@ export default function StatusSelect({
   onChange,
   options,
   className,
+  disabled,
 }: ChangeStatusProps) {
   return (
-    <Select value={status} onValueChange={(value) => onChange(value)}>
+    <Select
+      value={status}
+      onValueChange={(value) => onChange(value)}
+      disabled={disabled}
+    >
       <SelectTrigger
         className={cn("w-[120px] h-8 text-xs bg-white", className)}
       >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useOptimistic } from "react";
+import { useOptimistic, useTransition } from "react";
 import StatusSelect from "../status-select";
 
 type ChangeStatusProps = {
@@ -15,15 +15,17 @@ export default function ChangeStatus({
   options,
 }: ChangeStatusProps) {
   const [optimisticStatus, setOptimisticStatus] = useOptimistic(status);
+  const [loading, startLoading] = useTransition();
   const handleChangeStatus = async (status: string) => {
     setOptimisticStatus(status);
-    await onChange(status);
+    startLoading(() => onChange(status));
   };
   return (
     <StatusSelect
       status={optimisticStatus}
       onChange={handleChangeStatus}
       options={options}
+      disabled={loading}
     />
   );
 }
