@@ -13,6 +13,7 @@ import { userRepository } from "./user";
 import { userAddressRepository } from "./user-address";
 import { collaboratorCardBankRepository } from "./collaborator-card-bank";
 import { collaboratorProfileRepository } from "./collaborator-profile";
+import { collaboratorInvoiceRepository } from "./collaborator-invoice";
 
 export default {
   [orderRepository.getRepositoryModelName()]: orderRepository,
@@ -25,6 +26,8 @@ export default {
   [orderAddressRepository.getRepositoryModelName()]: orderAddressRepository,
   [paymentMethodRepository.getRepositoryModelName()]: paymentMethodRepository,
   [neighborhoodRepository.getRepositoryModelName()]: neighborhoodRepository,
+  [collaboratorInvoiceRepository.getRepositoryModelName()]:
+    collaboratorInvoiceRepository,
   [collaboratorProfileRepository.getRepositoryModelName()]:
     collaboratorProfileRepository,
   [collaboratorCardBankRepository.getRepositoryModelName()]:
