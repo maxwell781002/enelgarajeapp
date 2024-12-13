@@ -1,4 +1,4 @@
-import prisma, { Prisma } from "../prisma/prisma-client";
+import prisma, { Prisma, transaction } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteBusiness,
@@ -9,6 +9,8 @@ import {
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { OrderStatus } from "../prisma/generated/client";
 import { clearWhere } from "../lib/util-query";
+import { OrderPayed } from "../lib/event-emitter/events";
+import { updateCollaboratorProfileListener } from "../listeners/update-order";
 
 export const statusColors: Record<OrderStatus, string> = {
   CREATED: "bg-yellow-500",
@@ -28,6 +30,9 @@ const transitions = {
     [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
   ],
   [OrderStatus.CREATED]: [],
+};
+export const nextStatuses = (status: OrderStatus) => {
+  return transitions[status].map((item) => item[0]);
 };
 
 type PaginateData = {
@@ -49,10 +54,22 @@ export class OrderRepository extends BaseRepository<
     return transitions[currentStatus] || [];
   }
 
-  changeStatus(id: string, status: OrderStatus) {
-    return prisma().order.update({
-      where: { id },
-      data: { status },
+  async changeStatus(id: string, status: OrderStatus) {
+    const currentOrder = await this.getById(id);
+    if (!nextStatuses(currentOrder.status).includes(status)) {
+      throw new Error("Invalid status transition");
+    }
+    return transaction(async () => {
+      const order = await prisma().order.update({
+        where: { id },
+        data: { status },
+      });
+      if (status === OrderStatus.PAYED) {
+        await updateCollaboratorProfileListener(
+          new OrderPayed(order as CompleteOrder),
+        );
+      }
+      return order;
     });
   }
 
