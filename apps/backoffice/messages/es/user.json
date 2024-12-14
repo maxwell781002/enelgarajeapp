@@ -18,7 +18,11 @@
     "title": "Detalles del gestor",
     "backUsers": "Volver a gestores",
     "tabOrders": "Ordenes por pagar",
-    "tabCardNumbers": "Tarjetas"
+    "tabCardNumbers": "Tarjetas",
+    "historicalProfit": "Comisión historica",
+    "totalPendingInvoiceToConfirm": "Pendiente por confirmar",
+    "totalOrderForPayment": "Ordenes por pagar",
+    "totalBusinessProfit": "Negocio"
   },
   "CardBank": {
     "createCardBank": "Crear tarjeta",

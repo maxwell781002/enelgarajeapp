@@ -34,6 +34,26 @@ export class UserRepository extends BaseRepository<
     });
   }
 
+  async getUserWithCollaboratorProfile(id: string, businessId: string) {
+    const user = await this.model.findUnique({
+      where: { id },
+      include: {
+        collaboratorProfiles: {
+          where: {
+            businessId,
+          },
+        },
+      },
+    });
+    // user.collaboratorProfile = user.collaboratorProfile || {
+    //   historicalProfit: 0,
+    //   totalPendingInvoiceToConfirm: 0,
+    //   totalOrderForPayment: 0,
+    //   totalBusinessProfit: 0,
+    // };
+    return user;
+  }
+
   paginate({ businessId, query, ...data }: PaginateData = {}) {
     const where: any = {
       business: {

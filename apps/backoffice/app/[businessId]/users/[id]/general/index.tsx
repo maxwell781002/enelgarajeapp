@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -7,6 +6,8 @@ import {
 } from "@repo/ui/components/ui/card";
 import { CompleteUser } from "@repo/model/zod/user";
 import { getTranslations } from "next-intl/server";
+import { Phone } from "lucide-react";
+import Stats from "./stats";
 
 interface UserProfileProps {
   user: CompleteUser;
@@ -19,17 +20,21 @@ export default async function UserProfile({ user }: UserProfileProps) {
       <CardHeader>
         <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
-      <CardContent className="flex items-center space-x-4">
+      <CardContent className="flex flex-col md:flex-row items-center space-x-4">
         <img
           src={user.image as string}
           referrerPolicy="no-referrer"
           alt={user.name as string}
           className="rounded-full"
         />
-        <div>
+        <div className="mb-4">
           <h2 className="text-2xl font-bold">{user.name}</h2>
-          <p className="text-gray-500">{user.phone}</p>
+          <div className="flex items-center text-sm text-muted-foreground">
+            <Phone className="mr-2 h-4 w-4" />
+            {user.phone}
+          </div>
         </div>
+        <Stats user={user} />
       </CardContent>
     </Card>
   );

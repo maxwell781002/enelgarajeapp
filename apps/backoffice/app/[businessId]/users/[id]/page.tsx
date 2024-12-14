@@ -23,14 +23,15 @@ export default async function Page({
   searchParams,
   params: { id, businessId },
 }: PageProps) {
-  const user = await userRepository.getById(id);
+  const user = await userRepository.getUserWithCollaboratorProfile(
+    id,
+    businessId,
+  );
   const t = await getTranslations("UserDetail");
   return (
     <BackPage href={`/${businessId}/users`} urlTitle={t("backUsers")}>
       <div className="space-y-2">
         <UserProfile user={user} />
-        {/* TODO Add it before */}
-        {/* <Stats /> */}
         <Tabs defaultValue="orders">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="orders">{t("tabOrders")}</TabsTrigger>

@@ -1,26 +1,13 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/ui/card";
-
 interface StatCardProps {
   title: string;
-  value: number;
-  icon: React.ReactNode;
+  value: number | React.ReactNode;
 }
 
-export function StatCard({ title, value, icon }: StatCardProps) {
+export function StatCard({ title, value }: StatCardProps) {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {icon}
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-      </CardContent>
-    </Card>
+    <div className="flex flex-col items-center">
+      <div className="text-2xl font-bold">{value}</div>
+      <div className="text-xs text-muted-foreground">{title}</div>
+    </div>
   );
 }

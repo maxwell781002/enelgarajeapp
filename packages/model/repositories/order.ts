@@ -19,7 +19,7 @@ export const statusColors: Record<OrderStatus, string> = {
   REJECTED: "bg-red-500",
 };
 
-const transitions = {
+const transitions: Record<OrderStatus, [OrderStatus, string][]> = {
   [OrderStatus.SEND]: [
     [OrderStatus.SEND, statusColors[OrderStatus.SEND]],
     [OrderStatus.PAYED, statusColors[OrderStatus.PAYED]],
