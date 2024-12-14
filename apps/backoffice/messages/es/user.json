@@ -33,6 +33,8 @@
     "phBusinessNota": "Escriba la nota",
     "invoiceCreated": "Factura creada",
     "Required": "Requerido",
+    "lbPaymentMethod": "Tarjeta de pago",
+    "phPaymentMethod": "Selecionar tarjeta de pago",
     "btnTransfer": "Salvar"
   },
   "CardBank": {

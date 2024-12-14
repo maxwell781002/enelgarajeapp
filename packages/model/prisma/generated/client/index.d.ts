@@ -3115,44 +3115,6 @@ export namespace Prisma {
   };
 
   /**
-   * Count Type PaymentMethodCountOutputType
-   */
-
-  export type PaymentMethodCountOutputType = {
-    collaboratorInvoices: number;
-  };
-
-  export type PaymentMethodCountOutputTypeSelect<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    collaboratorInvoices?:
-      | boolean
-      | PaymentMethodCountOutputTypeCountCollaboratorInvoicesArgs;
-  };
-
-  // Custom InputTypes
-  /**
-   * PaymentMethodCountOutputType without action
-   */
-  export type PaymentMethodCountOutputTypeDefaultArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the PaymentMethodCountOutputType
-     */
-    select?: PaymentMethodCountOutputTypeSelect<ExtArgs> | null;
-  };
-
-  /**
-   * PaymentMethodCountOutputType without action
-   */
-  export type PaymentMethodCountOutputTypeCountCollaboratorInvoicesArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    where?: CollaboratorInvoiceWhereInput;
-  };
-
-  /**
    * Count Type CategoryCountOutputType
    */
 
@@ -3350,6 +3312,44 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: CollaboratorProfileWhereInput;
+  };
+
+  /**
+   * Count Type CollaboratorCardBankCountOutputType
+   */
+
+  export type CollaboratorCardBankCountOutputType = {
+    collaboratorInvoices: number;
+  };
+
+  export type CollaboratorCardBankCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    collaboratorInvoices?:
+      | boolean
+      | CollaboratorCardBankCountOutputTypeCountCollaboratorInvoicesArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * CollaboratorCardBankCountOutputType without action
+   */
+  export type CollaboratorCardBankCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorCardBankCountOutputType
+     */
+    select?: CollaboratorCardBankCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * CollaboratorCardBankCountOutputType without action
+   */
+  export type CollaboratorCardBankCountOutputTypeCountCollaboratorInvoicesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorInvoiceWhereInput;
   };
 
   /**
@@ -6505,10 +6505,6 @@ export namespace Prisma {
       businessId?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
       defaultBusiness?: boolean | PaymentMethod$defaultBusinessArgs<ExtArgs>;
-      collaboratorInvoices?:
-        | boolean
-        | PaymentMethod$collaboratorInvoicesArgs<ExtArgs>;
-      _count?: boolean | PaymentMethodCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["paymentMethod"]
   >;
@@ -6540,10 +6536,6 @@ export namespace Prisma {
   > = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
     defaultBusiness?: boolean | PaymentMethod$defaultBusinessArgs<ExtArgs>;
-    collaboratorInvoices?:
-      | boolean
-      | PaymentMethod$collaboratorInvoicesArgs<ExtArgs>;
-    _count?: boolean | PaymentMethodCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type PaymentMethodIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
@@ -6558,7 +6550,6 @@ export namespace Prisma {
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>;
       defaultBusiness: Prisma.$BusinessPayload<ExtArgs> | null;
-      collaboratorInvoices: Prisma.$CollaboratorInvoicePayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -7061,18 +7052,6 @@ export namespace Prisma {
       null,
       ExtArgs
     >;
-    collaboratorInvoices<
-      T extends PaymentMethod$collaboratorInvoicesArgs<ExtArgs> = {},
-    >(
-      args?: Subset<T, PaymentMethod$collaboratorInvoicesArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      | $Result.GetResult<
-          Prisma.$CollaboratorInvoicePayload<ExtArgs>,
-          T,
-          "findMany"
-        >
-      | Null
-    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7484,32 +7463,6 @@ export namespace Prisma {
      */
     include?: BusinessInclude<ExtArgs> | null;
     where?: BusinessWhereInput;
-  };
-
-  /**
-   * PaymentMethod.collaboratorInvoices
-   */
-  export type PaymentMethod$collaboratorInvoicesArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the CollaboratorInvoice
-     */
-    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
-    where?: CollaboratorInvoiceWhereInput;
-    orderBy?:
-      | CollaboratorInvoiceOrderByWithRelationInput
-      | CollaboratorInvoiceOrderByWithRelationInput[];
-    cursor?: CollaboratorInvoiceWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?:
-      | CollaboratorInvoiceScalarFieldEnum
-      | CollaboratorInvoiceScalarFieldEnum[];
   };
 
   /**
@@ -15284,6 +15237,12 @@ export namespace Prisma {
       updatedAt?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
       collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+      collaboratorInvoices?:
+        | boolean
+        | CollaboratorCardBank$collaboratorInvoicesArgs<ExtArgs>;
+      _count?:
+        | boolean
+        | CollaboratorCardBankCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["collaboratorCardBank"]
   >;
@@ -15324,6 +15283,10 @@ export namespace Prisma {
   > = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
     collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    collaboratorInvoices?:
+      | boolean
+      | CollaboratorCardBank$collaboratorInvoicesArgs<ExtArgs>;
+    _count?: boolean | CollaboratorCardBankCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type CollaboratorCardBankIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
@@ -15339,6 +15302,7 @@ export namespace Prisma {
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>;
       collaborator: Prisma.$UserPayload<ExtArgs>;
+      collaboratorInvoices: Prisma.$CollaboratorInvoicePayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -15877,6 +15841,18 @@ export namespace Prisma {
       Null,
       ExtArgs
     >;
+    collaboratorInvoices<
+      T extends CollaboratorCardBank$collaboratorInvoicesArgs<ExtArgs> = {},
+    >(
+      args?: Subset<T, CollaboratorCardBank$collaboratorInvoicesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorInvoicePayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16297,6 +16273,32 @@ export namespace Prisma {
      * Filter which CollaboratorCardBanks to delete
      */
     where?: CollaboratorCardBankWhereInput;
+  };
+
+  /**
+   * CollaboratorCardBank.collaboratorInvoices
+   */
+  export type CollaboratorCardBank$collaboratorInvoicesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorInvoice
+     */
+    select?: CollaboratorInvoiceSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorInvoiceInclude<ExtArgs> | null;
+    where?: CollaboratorInvoiceWhereInput;
+    orderBy?:
+      | CollaboratorInvoiceOrderByWithRelationInput
+      | CollaboratorInvoiceOrderByWithRelationInput[];
+    cursor?: CollaboratorInvoiceWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorInvoiceScalarFieldEnum
+      | CollaboratorInvoiceScalarFieldEnum[];
   };
 
   /**
@@ -20080,7 +20082,7 @@ export namespace Prisma {
     id: string | null;
     businessId: string | null;
     collaboratorId: string | null;
-    paymentMethodId: string | null;
+    cardBankId: string | null;
     amount: number | null;
     currency: $Enums.Currency | null;
     transferCode: string | null;
@@ -20095,7 +20097,7 @@ export namespace Prisma {
     id: string | null;
     businessId: string | null;
     collaboratorId: string | null;
-    paymentMethodId: string | null;
+    cardBankId: string | null;
     amount: number | null;
     currency: $Enums.Currency | null;
     transferCode: string | null;
@@ -20110,7 +20112,7 @@ export namespace Prisma {
     id: number;
     businessId: number;
     collaboratorId: number;
-    paymentMethodId: number;
+    cardBankId: number;
     amount: number;
     currency: number;
     transferCode: number;
@@ -20134,7 +20136,7 @@ export namespace Prisma {
     id?: true;
     businessId?: true;
     collaboratorId?: true;
-    paymentMethodId?: true;
+    cardBankId?: true;
     amount?: true;
     currency?: true;
     transferCode?: true;
@@ -20149,7 +20151,7 @@ export namespace Prisma {
     id?: true;
     businessId?: true;
     collaboratorId?: true;
-    paymentMethodId?: true;
+    cardBankId?: true;
     amount?: true;
     currency?: true;
     transferCode?: true;
@@ -20164,7 +20166,7 @@ export namespace Prisma {
     id?: true;
     businessId?: true;
     collaboratorId?: true;
-    paymentMethodId?: true;
+    cardBankId?: true;
     amount?: true;
     currency?: true;
     transferCode?: true;
@@ -20277,7 +20279,7 @@ export namespace Prisma {
     id: string;
     businessId: string;
     collaboratorId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -20315,7 +20317,7 @@ export namespace Prisma {
       id?: boolean;
       businessId?: boolean;
       collaboratorId?: boolean;
-      paymentMethodId?: boolean;
+      cardBankId?: boolean;
       amount?: boolean;
       currency?: boolean;
       transferCode?: boolean;
@@ -20326,7 +20328,7 @@ export namespace Prisma {
       updatedAt?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
       collaborator?: boolean | UserDefaultArgs<ExtArgs>;
-      paymentMethod?: boolean | PaymentMethodDefaultArgs<ExtArgs>;
+      cardBank?: boolean | CollaboratorCardBankDefaultArgs<ExtArgs>;
       orders?: boolean | CollaboratorInvoice$ordersArgs<ExtArgs>;
       _count?: boolean | CollaboratorInvoiceCountOutputTypeDefaultArgs<ExtArgs>;
     },
@@ -20340,7 +20342,7 @@ export namespace Prisma {
       id?: boolean;
       businessId?: boolean;
       collaboratorId?: boolean;
-      paymentMethodId?: boolean;
+      cardBankId?: boolean;
       amount?: boolean;
       currency?: boolean;
       transferCode?: boolean;
@@ -20351,7 +20353,7 @@ export namespace Prisma {
       updatedAt?: boolean;
       business?: boolean | BusinessDefaultArgs<ExtArgs>;
       collaborator?: boolean | UserDefaultArgs<ExtArgs>;
-      paymentMethod?: boolean | PaymentMethodDefaultArgs<ExtArgs>;
+      cardBank?: boolean | CollaboratorCardBankDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["collaboratorInvoice"]
   >;
@@ -20360,7 +20362,7 @@ export namespace Prisma {
     id?: boolean;
     businessId?: boolean;
     collaboratorId?: boolean;
-    paymentMethodId?: boolean;
+    cardBankId?: boolean;
     amount?: boolean;
     currency?: boolean;
     transferCode?: boolean;
@@ -20376,7 +20378,7 @@ export namespace Prisma {
   > = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
     collaborator?: boolean | UserDefaultArgs<ExtArgs>;
-    paymentMethod?: boolean | PaymentMethodDefaultArgs<ExtArgs>;
+    cardBank?: boolean | CollaboratorCardBankDefaultArgs<ExtArgs>;
     orders?: boolean | CollaboratorInvoice$ordersArgs<ExtArgs>;
     _count?: boolean | CollaboratorInvoiceCountOutputTypeDefaultArgs<ExtArgs>;
   };
@@ -20385,7 +20387,7 @@ export namespace Prisma {
   > = {
     business?: boolean | BusinessDefaultArgs<ExtArgs>;
     collaborator?: boolean | UserDefaultArgs<ExtArgs>;
-    paymentMethod?: boolean | PaymentMethodDefaultArgs<ExtArgs>;
+    cardBank?: boolean | CollaboratorCardBankDefaultArgs<ExtArgs>;
   };
 
   export type $CollaboratorInvoicePayload<
@@ -20395,7 +20397,7 @@ export namespace Prisma {
     objects: {
       business: Prisma.$BusinessPayload<ExtArgs>;
       collaborator: Prisma.$UserPayload<ExtArgs>;
-      paymentMethod: Prisma.$PaymentMethodPayload<ExtArgs>;
+      cardBank: Prisma.$CollaboratorCardBankPayload<ExtArgs>;
       orders: Prisma.$OrderPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
@@ -20403,7 +20405,7 @@ export namespace Prisma {
         id: string;
         businessId: string;
         collaboratorId: string;
-        paymentMethodId: string;
+        cardBankId: string;
         amount: number;
         currency: $Enums.Currency;
         /**
@@ -20932,11 +20934,11 @@ export namespace Prisma {
       Null,
       ExtArgs
     >;
-    paymentMethod<T extends PaymentMethodDefaultArgs<ExtArgs> = {}>(
-      args?: Subset<T, PaymentMethodDefaultArgs<ExtArgs>>,
-    ): Prisma__PaymentMethodClient<
+    cardBank<T extends CollaboratorCardBankDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, CollaboratorCardBankDefaultArgs<ExtArgs>>,
+    ): Prisma__CollaboratorCardBankClient<
       | $Result.GetResult<
-          Prisma.$PaymentMethodPayload<ExtArgs>,
+          Prisma.$CollaboratorCardBankPayload<ExtArgs>,
           T,
           "findUniqueOrThrow"
         >
@@ -20992,7 +20994,7 @@ export namespace Prisma {
     readonly id: FieldRef<"CollaboratorInvoice", "String">;
     readonly businessId: FieldRef<"CollaboratorInvoice", "String">;
     readonly collaboratorId: FieldRef<"CollaboratorInvoice", "String">;
-    readonly paymentMethodId: FieldRef<"CollaboratorInvoice", "String">;
+    readonly cardBankId: FieldRef<"CollaboratorInvoice", "String">;
     readonly amount: FieldRef<"CollaboratorInvoice", "Int">;
     readonly currency: FieldRef<"CollaboratorInvoice", "Currency">;
     readonly transferCode: FieldRef<"CollaboratorInvoice", "String">;
@@ -32060,7 +32062,7 @@ export namespace Prisma {
     id: "id";
     businessId: "businessId";
     collaboratorId: "collaboratorId";
-    paymentMethodId: "paymentMethodId";
+    cardBankId: "cardBankId";
     amount: "amount";
     currency: "currency";
     transferCode: "transferCode";
@@ -32653,7 +32655,6 @@ export namespace Prisma {
       BusinessNullableRelationFilter,
       BusinessWhereInput
     > | null;
-    collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
   };
 
   export type PaymentMethodOrderByWithRelationInput = {
@@ -32664,7 +32665,6 @@ export namespace Prisma {
     businessId?: SortOrder;
     business?: BusinessOrderByWithRelationInput;
     defaultBusiness?: BusinessOrderByWithRelationInput;
-    collaboratorInvoices?: CollaboratorInvoiceOrderByRelationAggregateInput;
   };
 
   export type PaymentMethodWhereUniqueInput = Prisma.AtLeast<
@@ -32684,7 +32684,6 @@ export namespace Prisma {
         BusinessNullableRelationFilter,
         BusinessWhereInput
       > | null;
-      collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
     },
     "id"
   >;
@@ -33272,6 +33271,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CollaboratorCardBank"> | Date | string;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
     collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+    collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
   };
 
   export type CollaboratorCardBankOrderByWithRelationInput = {
@@ -33286,6 +33286,7 @@ export namespace Prisma {
     updatedAt?: SortOrder;
     business?: BusinessOrderByWithRelationInput;
     collaborator?: UserOrderByWithRelationInput;
+    collaboratorInvoices?: CollaboratorInvoiceOrderByRelationAggregateInput;
   };
 
   export type CollaboratorCardBankWhereUniqueInput = Prisma.AtLeast<
@@ -33304,6 +33305,7 @@ export namespace Prisma {
       updatedAt?: DateTimeFilter<"CollaboratorCardBank"> | Date | string;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
       collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+      collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
     },
     "id"
   >;
@@ -33657,7 +33659,7 @@ export namespace Prisma {
     id?: StringFilter<"CollaboratorInvoice"> | string;
     businessId?: StringFilter<"CollaboratorInvoice"> | string;
     collaboratorId?: StringFilter<"CollaboratorInvoice"> | string;
-    paymentMethodId?: StringFilter<"CollaboratorInvoice"> | string;
+    cardBankId?: StringFilter<"CollaboratorInvoice"> | string;
     amount?: IntFilter<"CollaboratorInvoice"> | number;
     currency?: EnumCurrencyFilter<"CollaboratorInvoice"> | $Enums.Currency;
     transferCode?: StringFilter<"CollaboratorInvoice"> | string;
@@ -33671,7 +33673,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
     business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
     collaborator?: XOR<UserRelationFilter, UserWhereInput>;
-    paymentMethod?: XOR<PaymentMethodRelationFilter, PaymentMethodWhereInput>;
+    cardBank?: XOR<
+      CollaboratorCardBankRelationFilter,
+      CollaboratorCardBankWhereInput
+    >;
     orders?: OrderListRelationFilter;
   };
 
@@ -33679,7 +33684,7 @@ export namespace Prisma {
     id?: SortOrder;
     businessId?: SortOrder;
     collaboratorId?: SortOrder;
-    paymentMethodId?: SortOrder;
+    cardBankId?: SortOrder;
     amount?: SortOrder;
     currency?: SortOrder;
     transferCode?: SortOrder;
@@ -33690,7 +33695,7 @@ export namespace Prisma {
     updatedAt?: SortOrder;
     business?: BusinessOrderByWithRelationInput;
     collaborator?: UserOrderByWithRelationInput;
-    paymentMethod?: PaymentMethodOrderByWithRelationInput;
+    cardBank?: CollaboratorCardBankOrderByWithRelationInput;
     orders?: OrderOrderByRelationAggregateInput;
   };
 
@@ -33702,7 +33707,7 @@ export namespace Prisma {
       NOT?: CollaboratorInvoiceWhereInput | CollaboratorInvoiceWhereInput[];
       businessId?: StringFilter<"CollaboratorInvoice"> | string;
       collaboratorId?: StringFilter<"CollaboratorInvoice"> | string;
-      paymentMethodId?: StringFilter<"CollaboratorInvoice"> | string;
+      cardBankId?: StringFilter<"CollaboratorInvoice"> | string;
       amount?: IntFilter<"CollaboratorInvoice"> | number;
       currency?: EnumCurrencyFilter<"CollaboratorInvoice"> | $Enums.Currency;
       transferCode?: StringFilter<"CollaboratorInvoice"> | string;
@@ -33719,7 +33724,10 @@ export namespace Prisma {
       updatedAt?: DateTimeFilter<"CollaboratorInvoice"> | Date | string;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
       collaborator?: XOR<UserRelationFilter, UserWhereInput>;
-      paymentMethod?: XOR<PaymentMethodRelationFilter, PaymentMethodWhereInput>;
+      cardBank?: XOR<
+        CollaboratorCardBankRelationFilter,
+        CollaboratorCardBankWhereInput
+      >;
       orders?: OrderListRelationFilter;
     },
     "id"
@@ -33729,7 +33737,7 @@ export namespace Prisma {
     id?: SortOrder;
     businessId?: SortOrder;
     collaboratorId?: SortOrder;
-    paymentMethodId?: SortOrder;
+    cardBankId?: SortOrder;
     amount?: SortOrder;
     currency?: SortOrder;
     transferCode?: SortOrder;
@@ -33756,9 +33764,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
     businessId?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
     collaboratorId?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
-    paymentMethodId?:
-      | StringWithAggregatesFilter<"CollaboratorInvoice">
-      | string;
+    cardBankId?: StringWithAggregatesFilter<"CollaboratorInvoice"> | string;
     amount?: IntWithAggregatesFilter<"CollaboratorInvoice"> | number;
     currency?:
       | EnumCurrencyWithAggregatesFilter<"CollaboratorInvoice">
@@ -34673,7 +34679,6 @@ export namespace Prisma {
     data: JsonNullValueInput | InputJsonValue;
     business: BusinessCreateNestedOneWithoutPaymentMethodInput;
     defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMethodInput;
-    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutPaymentMethodInput;
   };
 
   export type PaymentMethodUncheckedCreateInput = {
@@ -34683,7 +34688,6 @@ export namespace Prisma {
     data: JsonNullValueInput | InputJsonValue;
     businessId: string;
     defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput;
-    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutPaymentMethodInput;
   };
 
   export type PaymentMethodUpdateInput = {
@@ -34695,7 +34699,6 @@ export namespace Prisma {
     data?: JsonNullValueInput | InputJsonValue;
     business?: BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput;
     defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMethodNestedInput;
-    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateInput = {
@@ -34707,7 +34710,6 @@ export namespace Prisma {
     data?: JsonNullValueInput | InputJsonValue;
     businessId?: StringFieldUpdateOperationsInput | string;
     defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput;
-    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutPaymentMethodNestedInput;
   };
 
   export type PaymentMethodCreateManyInput = {
@@ -35274,6 +35276,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     business: BusinessCreateNestedOneWithoutCardBanksInput;
     collaborator: UserCreateNestedOneWithoutCardBanksInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCardBankInput;
   };
 
   export type CollaboratorCardBankUncheckedCreateInput = {
@@ -35286,6 +35289,7 @@ export namespace Prisma {
     collaboratorId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCardBankInput;
   };
 
   export type CollaboratorCardBankUpdateInput = {
@@ -35298,6 +35302,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     business?: BusinessUpdateOneRequiredWithoutCardBanksNestedInput;
     collaborator?: UserUpdateOneRequiredWithoutCardBanksNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCardBankNestedInput;
   };
 
   export type CollaboratorCardBankUncheckedUpdateInput = {
@@ -35310,6 +35315,7 @@ export namespace Prisma {
     collaboratorId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCardBankNestedInput;
   };
 
   export type CollaboratorCardBankCreateManyInput = {
@@ -35632,7 +35638,7 @@ export namespace Prisma {
     updatedAt?: Date | string;
     business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
     collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
-    paymentMethod: PaymentMethodCreateNestedOneWithoutCollaboratorInvoicesInput;
+    cardBank: CollaboratorCardBankCreateNestedOneWithoutCollaboratorInvoicesInput;
     orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
   };
 
@@ -35640,7 +35646,7 @@ export namespace Prisma {
     id?: string;
     businessId: string;
     collaboratorId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -35664,7 +35670,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
     collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
-    paymentMethod?: PaymentMethodUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    cardBank?: CollaboratorCardBankUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
     orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
   };
 
@@ -35672,7 +35678,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
     collaboratorId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -35688,7 +35694,7 @@ export namespace Prisma {
     id?: string;
     businessId: string;
     collaboratorId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -35715,7 +35721,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
     collaboratorId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -37507,16 +37513,16 @@ export namespace Prisma {
     quantity?: SortOrder;
   };
 
-  export type PaymentMethodRelationFilter = {
-    is?: PaymentMethodWhereInput;
-    isNot?: PaymentMethodWhereInput;
+  export type CollaboratorCardBankRelationFilter = {
+    is?: CollaboratorCardBankWhereInput;
+    isNot?: CollaboratorCardBankWhereInput;
   };
 
   export type CollaboratorInvoiceCountOrderByAggregateInput = {
     id?: SortOrder;
     businessId?: SortOrder;
     collaboratorId?: SortOrder;
-    paymentMethodId?: SortOrder;
+    cardBankId?: SortOrder;
     amount?: SortOrder;
     currency?: SortOrder;
     transferCode?: SortOrder;
@@ -37535,7 +37541,7 @@ export namespace Prisma {
     id?: SortOrder;
     businessId?: SortOrder;
     collaboratorId?: SortOrder;
-    paymentMethodId?: SortOrder;
+    cardBankId?: SortOrder;
     amount?: SortOrder;
     currency?: SortOrder;
     transferCode?: SortOrder;
@@ -37550,7 +37556,7 @@ export namespace Prisma {
     id?: SortOrder;
     businessId?: SortOrder;
     collaboratorId?: SortOrder;
-    paymentMethodId?: SortOrder;
+    cardBankId?: SortOrder;
     amount?: SortOrder;
     currency?: SortOrder;
     transferCode?: SortOrder;
@@ -39097,23 +39103,6 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput;
   };
 
-  export type CollaboratorInvoiceCreateNestedManyWithoutPaymentMethodInput = {
-    create?:
-      | XOR<
-          CollaboratorInvoiceCreateWithoutPaymentMethodInput,
-          CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput
-        >
-      | CollaboratorInvoiceCreateWithoutPaymentMethodInput[]
-      | CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput[];
-    connectOrCreate?:
-      | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput
-      | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput[];
-    createMany?: CollaboratorInvoiceCreateManyPaymentMethodInputEnvelope;
-    connect?:
-      | CollaboratorInvoiceWhereUniqueInput
-      | CollaboratorInvoiceWhereUniqueInput[];
-  };
-
   export type BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput =
     {
       create?: XOR<
@@ -39122,24 +39111,6 @@ export namespace Prisma {
       >;
       connectOrCreate?: BusinessCreateOrConnectWithoutDefaultPaymentMethodInput;
       connect?: BusinessWhereUniqueInput;
-    };
-
-  export type CollaboratorInvoiceUncheckedCreateNestedManyWithoutPaymentMethodInput =
-    {
-      create?:
-        | XOR<
-            CollaboratorInvoiceCreateWithoutPaymentMethodInput,
-            CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput
-          >
-        | CollaboratorInvoiceCreateWithoutPaymentMethodInput[]
-        | CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput[];
-      connectOrCreate?:
-        | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput
-        | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput[];
-      createMany?: CollaboratorInvoiceCreateManyPaymentMethodInputEnvelope;
-      connect?:
-        | CollaboratorInvoiceWhereUniqueInput
-        | CollaboratorInvoiceWhereUniqueInput[];
     };
 
   export type EnumPaymentMethodTypeFieldUpdateOperationsInput = {
@@ -39182,44 +39153,6 @@ export namespace Prisma {
     >;
   };
 
-  export type CollaboratorInvoiceUpdateManyWithoutPaymentMethodNestedInput = {
-    create?:
-      | XOR<
-          CollaboratorInvoiceCreateWithoutPaymentMethodInput,
-          CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput
-        >
-      | CollaboratorInvoiceCreateWithoutPaymentMethodInput[]
-      | CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput[];
-    connectOrCreate?:
-      | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput
-      | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput[];
-    upsert?:
-      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutPaymentMethodInput
-      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutPaymentMethodInput[];
-    createMany?: CollaboratorInvoiceCreateManyPaymentMethodInputEnvelope;
-    set?:
-      | CollaboratorInvoiceWhereUniqueInput
-      | CollaboratorInvoiceWhereUniqueInput[];
-    disconnect?:
-      | CollaboratorInvoiceWhereUniqueInput
-      | CollaboratorInvoiceWhereUniqueInput[];
-    delete?:
-      | CollaboratorInvoiceWhereUniqueInput
-      | CollaboratorInvoiceWhereUniqueInput[];
-    connect?:
-      | CollaboratorInvoiceWhereUniqueInput
-      | CollaboratorInvoiceWhereUniqueInput[];
-    update?:
-      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutPaymentMethodInput
-      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutPaymentMethodInput[];
-    updateMany?:
-      | CollaboratorInvoiceUpdateManyWithWhereWithoutPaymentMethodInput
-      | CollaboratorInvoiceUpdateManyWithWhereWithoutPaymentMethodInput[];
-    deleteMany?:
-      | CollaboratorInvoiceScalarWhereInput
-      | CollaboratorInvoiceScalarWhereInput[];
-  };
-
   export type BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput =
     {
       create?: XOR<
@@ -39238,45 +39171,6 @@ export namespace Prisma {
         >,
         BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput
       >;
-    };
-
-  export type CollaboratorInvoiceUncheckedUpdateManyWithoutPaymentMethodNestedInput =
-    {
-      create?:
-        | XOR<
-            CollaboratorInvoiceCreateWithoutPaymentMethodInput,
-            CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput
-          >
-        | CollaboratorInvoiceCreateWithoutPaymentMethodInput[]
-        | CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput[];
-      connectOrCreate?:
-        | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput
-        | CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput[];
-      upsert?:
-        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutPaymentMethodInput
-        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutPaymentMethodInput[];
-      createMany?: CollaboratorInvoiceCreateManyPaymentMethodInputEnvelope;
-      set?:
-        | CollaboratorInvoiceWhereUniqueInput
-        | CollaboratorInvoiceWhereUniqueInput[];
-      disconnect?:
-        | CollaboratorInvoiceWhereUniqueInput
-        | CollaboratorInvoiceWhereUniqueInput[];
-      delete?:
-        | CollaboratorInvoiceWhereUniqueInput
-        | CollaboratorInvoiceWhereUniqueInput[];
-      connect?:
-        | CollaboratorInvoiceWhereUniqueInput
-        | CollaboratorInvoiceWhereUniqueInput[];
-      update?:
-        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutPaymentMethodInput
-        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutPaymentMethodInput[];
-      updateMany?:
-        | CollaboratorInvoiceUpdateManyWithWhereWithoutPaymentMethodInput
-        | CollaboratorInvoiceUpdateManyWithWhereWithoutPaymentMethodInput[];
-      deleteMany?:
-        | CollaboratorInvoiceScalarWhereInput
-        | CollaboratorInvoiceScalarWhereInput[];
     };
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -40629,6 +40523,41 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
+  export type CollaboratorInvoiceCreateNestedManyWithoutCardBankInput = {
+    create?:
+      | XOR<
+          CollaboratorInvoiceCreateWithoutCardBankInput,
+          CollaboratorInvoiceUncheckedCreateWithoutCardBankInput
+        >
+      | CollaboratorInvoiceCreateWithoutCardBankInput[]
+      | CollaboratorInvoiceUncheckedCreateWithoutCardBankInput[];
+    connectOrCreate?:
+      | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput
+      | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput[];
+    createMany?: CollaboratorInvoiceCreateManyCardBankInputEnvelope;
+    connect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+  };
+
+  export type CollaboratorInvoiceUncheckedCreateNestedManyWithoutCardBankInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorInvoiceCreateWithoutCardBankInput,
+            CollaboratorInvoiceUncheckedCreateWithoutCardBankInput
+          >
+        | CollaboratorInvoiceCreateWithoutCardBankInput[]
+        | CollaboratorInvoiceUncheckedCreateWithoutCardBankInput[];
+      connectOrCreate?:
+        | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput
+        | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput[];
+      createMany?: CollaboratorInvoiceCreateManyCardBankInputEnvelope;
+      connect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+    };
+
   export type BusinessUpdateOneRequiredWithoutCardBanksNestedInput = {
     create?: XOR<
       BusinessCreateWithoutCardBanksInput,
@@ -40662,6 +40591,83 @@ export namespace Prisma {
       UserUncheckedUpdateWithoutCardBanksInput
     >;
   };
+
+  export type CollaboratorInvoiceUpdateManyWithoutCardBankNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorInvoiceCreateWithoutCardBankInput,
+          CollaboratorInvoiceUncheckedCreateWithoutCardBankInput
+        >
+      | CollaboratorInvoiceCreateWithoutCardBankInput[]
+      | CollaboratorInvoiceUncheckedCreateWithoutCardBankInput[];
+    connectOrCreate?:
+      | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput
+      | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput[];
+    upsert?:
+      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCardBankInput
+      | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCardBankInput[];
+    createMany?: CollaboratorInvoiceCreateManyCardBankInputEnvelope;
+    set?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    delete?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    connect?:
+      | CollaboratorInvoiceWhereUniqueInput
+      | CollaboratorInvoiceWhereUniqueInput[];
+    update?:
+      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCardBankInput
+      | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCardBankInput[];
+    updateMany?:
+      | CollaboratorInvoiceUpdateManyWithWhereWithoutCardBankInput
+      | CollaboratorInvoiceUpdateManyWithWhereWithoutCardBankInput[];
+    deleteMany?:
+      | CollaboratorInvoiceScalarWhereInput
+      | CollaboratorInvoiceScalarWhereInput[];
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateManyWithoutCardBankNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorInvoiceCreateWithoutCardBankInput,
+            CollaboratorInvoiceUncheckedCreateWithoutCardBankInput
+          >
+        | CollaboratorInvoiceCreateWithoutCardBankInput[]
+        | CollaboratorInvoiceUncheckedCreateWithoutCardBankInput[];
+      connectOrCreate?:
+        | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput
+        | CollaboratorInvoiceCreateOrConnectWithoutCardBankInput[];
+      upsert?:
+        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCardBankInput
+        | CollaboratorInvoiceUpsertWithWhereUniqueWithoutCardBankInput[];
+      createMany?: CollaboratorInvoiceCreateManyCardBankInputEnvelope;
+      set?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      delete?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      connect?:
+        | CollaboratorInvoiceWhereUniqueInput
+        | CollaboratorInvoiceWhereUniqueInput[];
+      update?:
+        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCardBankInput
+        | CollaboratorInvoiceUpdateWithWhereUniqueWithoutCardBankInput[];
+      updateMany?:
+        | CollaboratorInvoiceUpdateManyWithWhereWithoutCardBankInput
+        | CollaboratorInvoiceUpdateManyWithWhereWithoutCardBankInput[];
+      deleteMany?:
+        | CollaboratorInvoiceScalarWhereInput
+        | CollaboratorInvoiceScalarWhereInput[];
+    };
 
   export type BusinessCreateNestedOneWithoutInvitationLinksInput = {
     create?: XOR<
@@ -40989,14 +40995,15 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
-  export type PaymentMethodCreateNestedOneWithoutCollaboratorInvoicesInput = {
-    create?: XOR<
-      PaymentMethodCreateWithoutCollaboratorInvoicesInput,
-      PaymentMethodUncheckedCreateWithoutCollaboratorInvoicesInput
-    >;
-    connectOrCreate?: PaymentMethodCreateOrConnectWithoutCollaboratorInvoicesInput;
-    connect?: PaymentMethodWhereUniqueInput;
-  };
+  export type CollaboratorCardBankCreateNestedOneWithoutCollaboratorInvoicesInput =
+    {
+      create?: XOR<
+        CollaboratorCardBankCreateWithoutCollaboratorInvoicesInput,
+        CollaboratorCardBankUncheckedCreateWithoutCollaboratorInvoicesInput
+      >;
+      connectOrCreate?: CollaboratorCardBankCreateOrConnectWithoutCollaboratorInvoicesInput;
+      connect?: CollaboratorCardBankWhereUniqueInput;
+    };
 
   export type OrderCreateNestedManyWithoutCollaboratorInvoiceInput = {
     create?:
@@ -41063,21 +41070,21 @@ export namespace Prisma {
     >;
   };
 
-  export type PaymentMethodUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput =
+  export type CollaboratorCardBankUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput =
     {
       create?: XOR<
-        PaymentMethodCreateWithoutCollaboratorInvoicesInput,
-        PaymentMethodUncheckedCreateWithoutCollaboratorInvoicesInput
+        CollaboratorCardBankCreateWithoutCollaboratorInvoicesInput,
+        CollaboratorCardBankUncheckedCreateWithoutCollaboratorInvoicesInput
       >;
-      connectOrCreate?: PaymentMethodCreateOrConnectWithoutCollaboratorInvoicesInput;
-      upsert?: PaymentMethodUpsertWithoutCollaboratorInvoicesInput;
-      connect?: PaymentMethodWhereUniqueInput;
+      connectOrCreate?: CollaboratorCardBankCreateOrConnectWithoutCollaboratorInvoicesInput;
+      upsert?: CollaboratorCardBankUpsertWithoutCollaboratorInvoicesInput;
+      connect?: CollaboratorCardBankWhereUniqueInput;
       update?: XOR<
         XOR<
-          PaymentMethodUpdateToOneWithWhereWithoutCollaboratorInvoicesInput,
-          PaymentMethodUpdateWithoutCollaboratorInvoicesInput
+          CollaboratorCardBankUpdateToOneWithWhereWithoutCollaboratorInvoicesInput,
+          CollaboratorCardBankUpdateWithoutCollaboratorInvoicesInput
         >,
-        PaymentMethodUncheckedUpdateWithoutCollaboratorInvoicesInput
+        CollaboratorCardBankUncheckedUpdateWithoutCollaboratorInvoicesInput
       >;
     };
 
@@ -42186,7 +42193,6 @@ export namespace Prisma {
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
     business: BusinessCreateNestedOneWithoutPaymentMethodInput;
-    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutPaymentMethodInput;
   };
 
   export type PaymentMethodUncheckedCreateWithoutDefaultBusinessInput = {
@@ -42195,7 +42201,6 @@ export namespace Prisma {
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
     businessId: string;
-    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutPaymentMethodInput;
   };
 
   export type PaymentMethodCreateOrConnectWithoutDefaultBusinessInput = {
@@ -42456,7 +42461,6 @@ export namespace Prisma {
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
     defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMethodInput;
-    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutPaymentMethodInput;
   };
 
   export type PaymentMethodUncheckedCreateWithoutBusinessInput = {
@@ -42465,7 +42469,6 @@ export namespace Prisma {
     type: $Enums.PaymentMethodType;
     data: JsonNullValueInput | InputJsonValue;
     defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput;
-    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutPaymentMethodInput;
   };
 
   export type PaymentMethodCreateOrConnectWithoutBusinessInput = {
@@ -42519,6 +42522,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     collaborator: UserCreateNestedOneWithoutCardBanksInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCardBankInput;
   };
 
   export type CollaboratorCardBankUncheckedCreateWithoutBusinessInput = {
@@ -42530,6 +42534,7 @@ export namespace Prisma {
     collaboratorId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCardBankInput;
   };
 
   export type CollaboratorCardBankCreateOrConnectWithoutBusinessInput = {
@@ -42558,14 +42563,14 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
-    paymentMethod: PaymentMethodCreateNestedOneWithoutCollaboratorInvoicesInput;
+    cardBank: CollaboratorCardBankCreateNestedOneWithoutCollaboratorInvoicesInput;
     orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
   };
 
   export type CollaboratorInvoiceUncheckedCreateWithoutBusinessInput = {
     id?: string;
     collaboratorId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -42657,7 +42662,6 @@ export namespace Prisma {
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
     business?: BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput;
-    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateWithoutDefaultBusinessInput = {
@@ -42668,7 +42672,6 @@ export namespace Prisma {
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
     businessId?: StringFieldUpdateOperationsInput | string;
-    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutPaymentMethodNestedInput;
   };
 
   export type TelegramBusinessUpsertWithoutBusinessInput = {
@@ -43129,7 +43132,7 @@ export namespace Prisma {
     id?: StringFilter<"CollaboratorInvoice"> | string;
     businessId?: StringFilter<"CollaboratorInvoice"> | string;
     collaboratorId?: StringFilter<"CollaboratorInvoice"> | string;
-    paymentMethodId?: StringFilter<"CollaboratorInvoice"> | string;
+    cardBankId?: StringFilter<"CollaboratorInvoice"> | string;
     amount?: IntFilter<"CollaboratorInvoice"> | number;
     currency?: EnumCurrencyFilter<"CollaboratorInvoice"> | $Enums.Currency;
     transferCode?: StringFilter<"CollaboratorInvoice"> | string;
@@ -43461,51 +43464,6 @@ export namespace Prisma {
     >;
   };
 
-  export type CollaboratorInvoiceCreateWithoutPaymentMethodInput = {
-    id?: string;
-    amount: number;
-    currency: $Enums.Currency;
-    transferCode: string;
-    businessNota?: string | null;
-    collaboratorNota?: string | null;
-    confirmed?: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
-    collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
-    orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
-  };
-
-  export type CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput = {
-    id?: string;
-    businessId: string;
-    collaboratorId: string;
-    amount: number;
-    currency: $Enums.Currency;
-    transferCode: string;
-    businessNota?: string | null;
-    collaboratorNota?: string | null;
-    confirmed?: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    orders?: OrderUncheckedCreateNestedManyWithoutCollaboratorInvoiceInput;
-  };
-
-  export type CollaboratorInvoiceCreateOrConnectWithoutPaymentMethodInput = {
-    where: CollaboratorInvoiceWhereUniqueInput;
-    create: XOR<
-      CollaboratorInvoiceCreateWithoutPaymentMethodInput,
-      CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput
-    >;
-  };
-
-  export type CollaboratorInvoiceCreateManyPaymentMethodInputEnvelope = {
-    data:
-      | CollaboratorInvoiceCreateManyPaymentMethodInput
-      | CollaboratorInvoiceCreateManyPaymentMethodInput[];
-    skipDuplicates?: boolean;
-  };
-
   export type BusinessUpsertWithoutPaymentMethodInput = {
     update: XOR<
       BusinessUpdateWithoutPaymentMethodInput,
@@ -43660,37 +43618,6 @@ export namespace Prisma {
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
   };
-
-  export type CollaboratorInvoiceUpsertWithWhereUniqueWithoutPaymentMethodInput =
-    {
-      where: CollaboratorInvoiceWhereUniqueInput;
-      update: XOR<
-        CollaboratorInvoiceUpdateWithoutPaymentMethodInput,
-        CollaboratorInvoiceUncheckedUpdateWithoutPaymentMethodInput
-      >;
-      create: XOR<
-        CollaboratorInvoiceCreateWithoutPaymentMethodInput,
-        CollaboratorInvoiceUncheckedCreateWithoutPaymentMethodInput
-      >;
-    };
-
-  export type CollaboratorInvoiceUpdateWithWhereUniqueWithoutPaymentMethodInput =
-    {
-      where: CollaboratorInvoiceWhereUniqueInput;
-      data: XOR<
-        CollaboratorInvoiceUpdateWithoutPaymentMethodInput,
-        CollaboratorInvoiceUncheckedUpdateWithoutPaymentMethodInput
-      >;
-    };
-
-  export type CollaboratorInvoiceUpdateManyWithWhereWithoutPaymentMethodInput =
-    {
-      where: CollaboratorInvoiceScalarWhereInput;
-      data: XOR<
-        CollaboratorInvoiceUpdateManyMutationInput,
-        CollaboratorInvoiceUncheckedUpdateManyWithoutPaymentMethodInput
-      >;
-    };
 
   export type ProductCreateWithoutCategoryInput = {
     id?: string;
@@ -44580,6 +44507,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     business: BusinessCreateNestedOneWithoutCardBanksInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCardBankInput;
   };
 
   export type CollaboratorCardBankUncheckedCreateWithoutCollaboratorInput = {
@@ -44591,6 +44519,7 @@ export namespace Prisma {
     businessId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCardBankInput;
   };
 
   export type CollaboratorCardBankCreateOrConnectWithoutCollaboratorInput = {
@@ -44619,14 +44548,14 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
-    paymentMethod: PaymentMethodCreateNestedOneWithoutCollaboratorInvoicesInput;
+    cardBank: CollaboratorCardBankCreateNestedOneWithoutCollaboratorInvoicesInput;
     orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
   };
 
   export type CollaboratorInvoiceUncheckedCreateWithoutCollaboratorInput = {
     id?: string;
     businessId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -45623,6 +45552,51 @@ export namespace Prisma {
     >;
   };
 
+  export type CollaboratorInvoiceCreateWithoutCardBankInput = {
+    id?: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
+    collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
+    orders?: OrderCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedCreateWithoutCardBankInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutCollaboratorInvoiceInput;
+  };
+
+  export type CollaboratorInvoiceCreateOrConnectWithoutCardBankInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutCardBankInput,
+      CollaboratorInvoiceUncheckedCreateWithoutCardBankInput
+    >;
+  };
+
+  export type CollaboratorInvoiceCreateManyCardBankInputEnvelope = {
+    data:
+      | CollaboratorInvoiceCreateManyCardBankInput
+      | CollaboratorInvoiceCreateManyCardBankInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type BusinessUpsertWithoutCardBanksInput = {
     update: XOR<
       BusinessUpdateWithoutCardBanksInput,
@@ -45768,6 +45742,34 @@ export namespace Prisma {
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+  };
+
+  export type CollaboratorInvoiceUpsertWithWhereUniqueWithoutCardBankInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    update: XOR<
+      CollaboratorInvoiceUpdateWithoutCardBankInput,
+      CollaboratorInvoiceUncheckedUpdateWithoutCardBankInput
+    >;
+    create: XOR<
+      CollaboratorInvoiceCreateWithoutCardBankInput,
+      CollaboratorInvoiceUncheckedCreateWithoutCardBankInput
+    >;
+  };
+
+  export type CollaboratorInvoiceUpdateWithWhereUniqueWithoutCardBankInput = {
+    where: CollaboratorInvoiceWhereUniqueInput;
+    data: XOR<
+      CollaboratorInvoiceUpdateWithoutCardBankInput,
+      CollaboratorInvoiceUncheckedUpdateWithoutCardBankInput
+    >;
+  };
+
+  export type CollaboratorInvoiceUpdateManyWithWhereWithoutCardBankInput = {
+    where: CollaboratorInvoiceScalarWhereInput;
+    data: XOR<
+      CollaboratorInvoiceUpdateManyMutationInput,
+      CollaboratorInvoiceUncheckedUpdateManyWithoutCardBankInput
+    >;
   };
 
   export type BusinessCreateWithoutInvitationLinksInput = {
@@ -46068,14 +46070,14 @@ export namespace Prisma {
     updatedAt?: Date | string;
     business: BusinessCreateNestedOneWithoutCollaboratorInvoicesInput;
     collaborator: UserCreateNestedOneWithoutCollaboratorInvoicesInput;
-    paymentMethod: PaymentMethodCreateNestedOneWithoutCollaboratorInvoicesInput;
+    cardBank: CollaboratorCardBankCreateNestedOneWithoutCollaboratorInvoicesInput;
   };
 
   export type CollaboratorInvoiceUncheckedCreateWithoutOrdersInput = {
     id?: string;
     businessId: string;
     collaboratorId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -46319,14 +46321,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
     collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
-    paymentMethod?: PaymentMethodUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    cardBank?: CollaboratorCardBankUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
   };
 
   export type CollaboratorInvoiceUncheckedUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
     collaboratorId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -46706,31 +46708,39 @@ export namespace Prisma {
     >;
   };
 
-  export type PaymentMethodCreateWithoutCollaboratorInvoicesInput = {
+  export type CollaboratorCardBankCreateWithoutCollaboratorInvoicesInput = {
     id?: string;
-    name: string;
-    type: $Enums.PaymentMethodType;
-    data: JsonNullValueInput | InputJsonValue;
-    business: BusinessCreateNestedOneWithoutPaymentMethodInput;
-    defaultBusiness?: BusinessCreateNestedOneWithoutDefaultPaymentMethodInput;
+    alias?: string | null;
+    cardNumber: string;
+    currency?: $Enums.Currency;
+    phone: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    business: BusinessCreateNestedOneWithoutCardBanksInput;
+    collaborator: UserCreateNestedOneWithoutCardBanksInput;
   };
 
-  export type PaymentMethodUncheckedCreateWithoutCollaboratorInvoicesInput = {
-    id?: string;
-    name: string;
-    type: $Enums.PaymentMethodType;
-    data: JsonNullValueInput | InputJsonValue;
-    businessId: string;
-    defaultBusiness?: BusinessUncheckedCreateNestedOneWithoutDefaultPaymentMethodInput;
-  };
+  export type CollaboratorCardBankUncheckedCreateWithoutCollaboratorInvoicesInput =
+    {
+      id?: string;
+      alias?: string | null;
+      cardNumber: string;
+      currency?: $Enums.Currency;
+      phone: string;
+      businessId: string;
+      collaboratorId: string;
+      createdAt?: Date | string;
+      updatedAt?: Date | string;
+    };
 
-  export type PaymentMethodCreateOrConnectWithoutCollaboratorInvoicesInput = {
-    where: PaymentMethodWhereUniqueInput;
-    create: XOR<
-      PaymentMethodCreateWithoutCollaboratorInvoicesInput,
-      PaymentMethodUncheckedCreateWithoutCollaboratorInvoicesInput
-    >;
-  };
+  export type CollaboratorCardBankCreateOrConnectWithoutCollaboratorInvoicesInput =
+    {
+      where: CollaboratorCardBankWhereUniqueInput;
+      create: XOR<
+        CollaboratorCardBankCreateWithoutCollaboratorInvoicesInput,
+        CollaboratorCardBankUncheckedCreateWithoutCollaboratorInvoicesInput
+      >;
+    };
 
   export type OrderCreateWithoutCollaboratorInvoiceInput = {
     id?: string;
@@ -46938,48 +46948,51 @@ export namespace Prisma {
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
-  export type PaymentMethodUpsertWithoutCollaboratorInvoicesInput = {
+  export type CollaboratorCardBankUpsertWithoutCollaboratorInvoicesInput = {
     update: XOR<
-      PaymentMethodUpdateWithoutCollaboratorInvoicesInput,
-      PaymentMethodUncheckedUpdateWithoutCollaboratorInvoicesInput
+      CollaboratorCardBankUpdateWithoutCollaboratorInvoicesInput,
+      CollaboratorCardBankUncheckedUpdateWithoutCollaboratorInvoicesInput
     >;
     create: XOR<
-      PaymentMethodCreateWithoutCollaboratorInvoicesInput,
-      PaymentMethodUncheckedCreateWithoutCollaboratorInvoicesInput
+      CollaboratorCardBankCreateWithoutCollaboratorInvoicesInput,
+      CollaboratorCardBankUncheckedCreateWithoutCollaboratorInvoicesInput
     >;
-    where?: PaymentMethodWhereInput;
+    where?: CollaboratorCardBankWhereInput;
   };
 
-  export type PaymentMethodUpdateToOneWithWhereWithoutCollaboratorInvoicesInput =
+  export type CollaboratorCardBankUpdateToOneWithWhereWithoutCollaboratorInvoicesInput =
     {
-      where?: PaymentMethodWhereInput;
+      where?: CollaboratorCardBankWhereInput;
       data: XOR<
-        PaymentMethodUpdateWithoutCollaboratorInvoicesInput,
-        PaymentMethodUncheckedUpdateWithoutCollaboratorInvoicesInput
+        CollaboratorCardBankUpdateWithoutCollaboratorInvoicesInput,
+        CollaboratorCardBankUncheckedUpdateWithoutCollaboratorInvoicesInput
       >;
     };
 
-  export type PaymentMethodUpdateWithoutCollaboratorInvoicesInput = {
+  export type CollaboratorCardBankUpdateWithoutCollaboratorInvoicesInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    name?: StringFieldUpdateOperationsInput | string;
-    type?:
-      | EnumPaymentMethodTypeFieldUpdateOperationsInput
-      | $Enums.PaymentMethodType;
-    data?: JsonNullValueInput | InputJsonValue;
-    business?: BusinessUpdateOneRequiredWithoutPaymentMethodNestedInput;
-    defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMethodNestedInput;
+    alias?: NullableStringFieldUpdateOperationsInput | string | null;
+    cardNumber?: StringFieldUpdateOperationsInput | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    phone?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCardBanksNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutCardBanksNestedInput;
   };
 
-  export type PaymentMethodUncheckedUpdateWithoutCollaboratorInvoicesInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    name?: StringFieldUpdateOperationsInput | string;
-    type?:
-      | EnumPaymentMethodTypeFieldUpdateOperationsInput
-      | $Enums.PaymentMethodType;
-    data?: JsonNullValueInput | InputJsonValue;
-    businessId?: StringFieldUpdateOperationsInput | string;
-    defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput;
-  };
+  export type CollaboratorCardBankUncheckedUpdateWithoutCollaboratorInvoicesInput =
+    {
+      id?: StringFieldUpdateOperationsInput | string;
+      alias?: NullableStringFieldUpdateOperationsInput | string | null;
+      cardNumber?: StringFieldUpdateOperationsInput | string;
+      currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+      phone?: StringFieldUpdateOperationsInput | string;
+      businessId?: StringFieldUpdateOperationsInput | string;
+      collaboratorId?: StringFieldUpdateOperationsInput | string;
+      createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+      updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    };
 
   export type OrderUpsertWithWhereUniqueWithoutCollaboratorInvoiceInput = {
     where: OrderWhereUniqueInput;
@@ -48480,7 +48493,7 @@ export namespace Prisma {
   export type CollaboratorInvoiceCreateManyBusinessInput = {
     id?: string;
     collaboratorId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -48727,7 +48740,6 @@ export namespace Prisma {
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
     defaultBusiness?: BusinessUpdateOneWithoutDefaultPaymentMethodNestedInput;
-    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateWithoutBusinessInput = {
@@ -48738,7 +48750,6 @@ export namespace Prisma {
       | $Enums.PaymentMethodType;
     data?: JsonNullValueInput | InputJsonValue;
     defaultBusiness?: BusinessUncheckedUpdateOneWithoutDefaultPaymentMethodNestedInput;
-    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutPaymentMethodNestedInput;
   };
 
   export type PaymentMethodUncheckedUpdateManyWithoutBusinessInput = {
@@ -48777,6 +48788,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     collaborator?: UserUpdateOneRequiredWithoutCardBanksNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCardBankNestedInput;
   };
 
   export type CollaboratorCardBankUncheckedUpdateWithoutBusinessInput = {
@@ -48788,6 +48800,7 @@ export namespace Prisma {
     collaboratorId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCardBankNestedInput;
   };
 
   export type CollaboratorCardBankUncheckedUpdateManyWithoutBusinessInput = {
@@ -48812,14 +48825,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
-    paymentMethod?: PaymentMethodUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    cardBank?: CollaboratorCardBankUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
     orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
   };
 
   export type CollaboratorInvoiceUncheckedUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     collaboratorId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -48834,7 +48847,7 @@ export namespace Prisma {
   export type CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     collaboratorId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -48877,68 +48890,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
-
-  export type CollaboratorInvoiceCreateManyPaymentMethodInput = {
-    id?: string;
-    businessId: string;
-    collaboratorId: string;
-    amount: number;
-    currency: $Enums.Currency;
-    transferCode: string;
-    businessNota?: string | null;
-    collaboratorNota?: string | null;
-    confirmed?: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type CollaboratorInvoiceUpdateWithoutPaymentMethodInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    amount?: IntFieldUpdateOperationsInput | number;
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
-    transferCode?: StringFieldUpdateOperationsInput | string;
-    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
-    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
-    confirmed?: BoolFieldUpdateOperationsInput | boolean;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
-    collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
-    orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
-  };
-
-  export type CollaboratorInvoiceUncheckedUpdateWithoutPaymentMethodInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    businessId?: StringFieldUpdateOperationsInput | string;
-    collaboratorId?: StringFieldUpdateOperationsInput | string;
-    amount?: IntFieldUpdateOperationsInput | number;
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
-    transferCode?: StringFieldUpdateOperationsInput | string;
-    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
-    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
-    confirmed?: BoolFieldUpdateOperationsInput | boolean;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    orders?: OrderUncheckedUpdateManyWithoutCollaboratorInvoiceNestedInput;
-  };
-
-  export type CollaboratorInvoiceUncheckedUpdateManyWithoutPaymentMethodInput =
-    {
-      id?: StringFieldUpdateOperationsInput | string;
-      businessId?: StringFieldUpdateOperationsInput | string;
-      collaboratorId?: StringFieldUpdateOperationsInput | string;
-      amount?: IntFieldUpdateOperationsInput | number;
-      currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
-      transferCode?: StringFieldUpdateOperationsInput | string;
-      businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
-      collaboratorNota?:
-        | NullableStringFieldUpdateOperationsInput
-        | string
-        | null;
-      confirmed?: BoolFieldUpdateOperationsInput | boolean;
-      createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-      updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    };
 
   export type ProductCreateManyCategoryInput = {
     id?: string;
@@ -49130,7 +49081,7 @@ export namespace Prisma {
   export type CollaboratorInvoiceCreateManyCollaboratorInput = {
     id?: string;
     businessId: string;
-    paymentMethodId: string;
+    cardBankId: string;
     amount: number;
     currency: $Enums.Currency;
     transferCode: string;
@@ -49369,6 +49320,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     business?: BusinessUpdateOneRequiredWithoutCardBanksNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCardBankNestedInput;
   };
 
   export type CollaboratorCardBankUncheckedUpdateWithoutCollaboratorInput = {
@@ -49380,6 +49332,7 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCardBankNestedInput;
   };
 
   export type CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorInput =
@@ -49405,14 +49358,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
-    paymentMethod?: PaymentMethodUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    cardBank?: CollaboratorCardBankUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
     orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
   };
 
   export type CollaboratorInvoiceUncheckedUpdateWithoutCollaboratorInput = {
     id?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -49427,7 +49380,7 @@ export namespace Prisma {
   export type CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorInput = {
     id?: StringFieldUpdateOperationsInput | string;
     businessId?: StringFieldUpdateOperationsInput | string;
-    paymentMethodId?: StringFieldUpdateOperationsInput | string;
+    cardBankId?: StringFieldUpdateOperationsInput | string;
     amount?: IntFieldUpdateOperationsInput | number;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
     transferCode?: StringFieldUpdateOperationsInput | string;
@@ -49467,6 +49420,64 @@ export namespace Prisma {
     totalPendingInvoiceToConfirm?: IntFieldUpdateOperationsInput | number;
     totalOrderForPayment?: IntFieldUpdateOperationsInput | number;
     totalBusinessProfit?: IntFieldUpdateOperationsInput | number;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CollaboratorInvoiceCreateManyCardBankInput = {
+    id?: string;
+    businessId: string;
+    collaboratorId: string;
+    amount: number;
+    currency: $Enums.Currency;
+    transferCode: string;
+    businessNota?: string | null;
+    collaboratorNota?: string | null;
+    confirmed?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CollaboratorInvoiceUpdateWithoutCardBankInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    business?: BusinessUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutCollaboratorInvoicesNestedInput;
+    orders?: OrderUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateWithoutCardBankInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutCollaboratorInvoiceNestedInput;
+  };
+
+  export type CollaboratorInvoiceUncheckedUpdateManyWithoutCardBankInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+    amount?: IntFieldUpdateOperationsInput | number;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    transferCode?: StringFieldUpdateOperationsInput | string;
+    businessNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    collaboratorNota?: NullableStringFieldUpdateOperationsInput | string | null;
+    confirmed?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -49674,12 +49685,6 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   /**
-   * @deprecated Use PaymentMethodCountOutputTypeDefaultArgs instead
-   */
-  export type PaymentMethodCountOutputTypeArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = PaymentMethodCountOutputTypeDefaultArgs<ExtArgs>;
-  /**
    * @deprecated Use CategoryCountOutputTypeDefaultArgs instead
    */
   export type CategoryCountOutputTypeArgs<
@@ -49697,6 +49702,12 @@ export namespace Prisma {
   export type UserCountOutputTypeArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = UserCountOutputTypeDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use CollaboratorCardBankCountOutputTypeDefaultArgs instead
+   */
+  export type CollaboratorCardBankCountOutputTypeArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CollaboratorCardBankCountOutputTypeDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use OrderCountOutputTypeDefaultArgs instead
    */

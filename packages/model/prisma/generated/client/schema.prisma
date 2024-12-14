@@ -64,14 +64,13 @@ model TelegramBusiness {
 }
 
 model PaymentMethod {
-  id                   String                @id @default(uuid())
-  name                 String /// @zod.min(1, { message: "required" })
-  type                 PaymentMethodType
-  data                 Json
-  business             Business              @relation("paymentMehtods", fields: [businessId], references: [id])
-  businessId           String
-  defaultBusiness      Business?             @relation("defaultPaymentMehtod")
-  collaboratorInvoices CollaboratorInvoice[]
+  id              String            @id @default(uuid())
+  name            String /// @zod.min(1, { message: "required" })
+  type            PaymentMethodType
+  data            Json
+  business        Business          @relation("paymentMehtods", fields: [businessId], references: [id])
+  businessId      String
+  defaultBusiness Business?         @relation("defaultPaymentMehtod")
 }
 
 enum PaymentMethodType {
@@ -183,17 +182,18 @@ model CollaboratorProfile {
 }
 
 model CollaboratorCardBank {
-  id             String   @id @default(uuid())
-  alias          String? /// @zod.optional()
-  cardNumber     String /// @zod.min(1, { message: "Required" })
-  currency       Currency @default(CUP)
-  phone          String /// @zod.min(1, { message: "required" })
-  business       Business @relation(fields: [businessId], references: [id])
-  businessId     String
-  collaborator   User     @relation(fields: [collaboratorId], references: [id], onDelete: Cascade)
-  collaboratorId String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id                   String                @id @default(uuid())
+  alias                String? /// @zod.optional()
+  cardNumber           String /// @zod.min(1, { message: "Required" })
+  currency             Currency              @default(CUP)
+  phone                String /// @zod.min(1, { message: "required" })
+  business             Business              @relation(fields: [businessId], references: [id])
+  businessId           String
+  collaborator         User                  @relation(fields: [collaboratorId], references: [id], onDelete: Cascade)
+  collaboratorId       String
+  collaboratorInvoices CollaboratorInvoice[]
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
 }
 
 model InvitationLink {
@@ -247,22 +247,22 @@ model OrderProduct {
 }
 
 model CollaboratorInvoice {
-  id               String        @id @default(uuid())
-  business         Business      @relation(fields: [businessId], references: [id])
+  id               String               @id @default(uuid())
+  business         Business             @relation(fields: [businessId], references: [id])
   businessId       String
-  collaborator     User          @relation(fields: [collaboratorId], references: [id])
+  collaborator     User                 @relation(fields: [collaboratorId], references: [id])
   collaboratorId   String
-  paymentMethod    PaymentMethod @relation(fields: [paymentMethodId], references: [id])
-  paymentMethodId  String
+  cardBank         CollaboratorCardBank @relation(fields: [cardBankId], references: [id])
+  cardBankId       String
   amount           Int
   currency         Currency
   transferCode     String /// @zod.min(1, { message: "Required" })
   businessNota     String?
   collaboratorNota String?
-  confirmed        Boolean       @default(false)
+  confirmed        Boolean              @default(false)
   orders           Order[]
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @default(now()) @updatedAt //The date of confirmation is the updateAt
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @default(now()) @updatedAt //The date of confirmation is the updateAt
 }
 
 enum UserRoles {

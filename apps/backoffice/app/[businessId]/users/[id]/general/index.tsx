@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import { CompleteUser } from "@repo/model/zod/user";
 import { getTranslations } from "next-intl/server";
 import { Phone } from "lucide-react";
 import Stats from "./stats";
@@ -12,9 +11,11 @@ import { formDataToObject } from "@repo/model/lib/utils";
 import { revalidatePath } from "next/cache";
 import HasOrderSelected from "./has-order-selected";
 import { createCollaboratorInvoice } from "@repo/model/repository/collaborator-invoice";
+import { collaboratorCardBankRepository } from "@repo/model/repositories/collaborator-card-bank";
+import { UserWithCollaboratorProfile } from "@repo/model/types/user";
 
 interface UserProfileProps {
-  user: CompleteUser;
+  user: UserWithCollaboratorProfile;
   businessId: string;
 }
 
@@ -34,6 +35,10 @@ export default async function UserProfile({
     });
     return revalidatePath(`/${businessId}/users/${user.id}`);
   };
+  const cards = await collaboratorCardBankRepository.getAll(
+    businessId,
+    user.id,
+  );
   return (
     <Card>
       <CardHeader>
@@ -54,7 +59,7 @@ export default async function UserProfile({
           </div>
         </div>
         <Stats user={user} />
-        <HasOrderSelected action={saveInvoice} />
+        <HasOrderSelected action={saveInvoice} cards={cards} />
       </CardContent>
     </Card>
   );

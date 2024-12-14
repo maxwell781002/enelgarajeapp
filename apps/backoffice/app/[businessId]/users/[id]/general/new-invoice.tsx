@@ -18,6 +18,7 @@ import { Button } from "@repo/ui/components/button";
 import { useState, useTransition } from "react";
 import { Form } from "@repo/ui/components/ui/form";
 import { TCurrency } from "@repo/model/types/enums";
+import { CollaboratorCardBank } from "@repo/model/prisma/generated/client/index.d";
 
 export type TransferDialogProps = {
   action: (data: any) => any;
@@ -31,6 +32,7 @@ const resolver = zodResolver(
   CollaboratorInvoiceModel.pick({
     transferCode: true,
     businessNota: true,
+    cardBankId: true,
   }),
 );
 
@@ -39,6 +41,7 @@ type NewInvoiceProps = {
   totalToPay: number;
   currency: TCurrency;
   ordersId: string[];
+  cards: CollaboratorCardBank[];
 };
 
 export default function NewInvoice({
@@ -46,6 +49,7 @@ export default function NewInvoice({
   totalToPay,
   currency,
   ordersId,
+  cards,
 }: NewInvoiceProps) {
   const t = useTranslations("UserDetail");
   const [isOpen, setIsOpen] = useState(false);
@@ -89,6 +93,7 @@ export default function NewInvoice({
                 loading={loading}
                 totalToPay={totalToPay}
                 numberOfOrders={ordersId.length}
+                cards={cards}
               />
             </form>
           </Form>

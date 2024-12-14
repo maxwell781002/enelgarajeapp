@@ -13,12 +13,15 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import PriceDisplay from "@repo/ui/components/prices/price";
+import { CollaboratorCardBank } from "@repo/model/prisma/generated/client/index.d";
+import EntitySelect from "@repo/ui/components/entity-select";
 
 type TransferDialogProps = {
   totalToPay: number;
   numberOfOrders: number;
   form: any;
   loading: boolean;
+  cards: CollaboratorCardBank[];
 };
 
 export default function TransferDialog({
@@ -26,6 +29,7 @@ export default function TransferDialog({
   loading,
   totalToPay,
   numberOfOrders,
+  cards,
 }: TransferDialogProps) {
   const t = useTranslations("UserDetail");
   return (
@@ -44,6 +48,26 @@ export default function TransferDialog({
           </p>
         </div>
       </div>
+      <FormField
+        control={form.control}
+        name="cardBankId"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbPaymentMethod")}</FormLabel>
+            <FormControl>
+              <EntitySelect
+                items={cards.map((card) => ({
+                  name: `${card.cardNumber}`,
+                  ...card,
+                }))}
+                placeholder={t("phPaymentMethod")}
+                {...field}
+              />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
       <FormField
         control={form.control}
         name="transferCode"

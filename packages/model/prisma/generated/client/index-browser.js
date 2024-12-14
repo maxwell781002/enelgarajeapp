@@ -270,7 +270,7 @@ exports.Prisma.CollaboratorInvoiceScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
   collaboratorId: 'collaboratorId',
-  paymentMethodId: 'paymentMethodId',
+  cardBankId: 'cardBankId',
   amount: 'amount',
   currency: 'currency',
   transferCode: 'transferCode',

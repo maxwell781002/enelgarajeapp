@@ -7,12 +7,17 @@ import {
   useStore,
 } from "../useStore";
 import NewInvoice from "./new-invoice";
+import { CollaboratorCardBank } from "@repo/model/prisma/generated/client/index.d";
 
 type HasOrderSelectedProps = {
   action: (form: FormData) => void;
+  cards: CollaboratorCardBank[];
 };
 
-export default function HasOrderSelected({ action }: HasOrderSelectedProps) {
+export default function HasOrderSelected({
+  action,
+  cards,
+}: HasOrderSelectedProps) {
   const ordersToPay = useStore((state) => state.ordersToPay);
   const clearOrdersByCurrency = useStore(
     (state) => state.clearOrdersByCurrency,
@@ -30,6 +35,7 @@ export default function HasOrderSelected({ action }: HasOrderSelectedProps) {
           totalToPay={(value as number) ?? 0}
           currency={key as TCurrency}
           ordersId={ordersIdByCurrency(ordersToPay, key as TCurrency)}
+          cards={cards}
         />
       ))}
     </>

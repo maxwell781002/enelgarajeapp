@@ -5,6 +5,8 @@ import {
   RelatedBusinessModel,
   CompleteUser,
   RelatedUserModel,
+  CompleteCollaboratorInvoice,
+  RelatedCollaboratorInvoiceModel,
 } from "./index";
 
 export const CollaboratorCardBankModel = z.object({
@@ -23,6 +25,7 @@ export interface CompleteCollaboratorCardBank
   extends z.infer<typeof CollaboratorCardBankModel> {
   business: CompleteBusiness;
   collaborator: CompleteUser;
+  collaboratorInvoices: CompleteCollaboratorInvoice[];
 }
 
 /**
@@ -35,5 +38,6 @@ export const RelatedCollaboratorCardBankModel: z.ZodSchema<CompleteCollaboratorC
     CollaboratorCardBankModel.extend({
       business: RelatedBusinessModel,
       collaborator: RelatedUserModel,
+      collaboratorInvoices: RelatedCollaboratorInvoiceModel.array(),
     }),
   );
