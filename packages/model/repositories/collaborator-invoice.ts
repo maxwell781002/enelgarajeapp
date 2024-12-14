@@ -6,6 +6,14 @@ import {
 } from "../prisma/zod";
 import { updateCollaboratorProfileByInvoice } from "../listeners/collaborator-invoice";
 import { EntityUpdated } from "../lib/event-emitter/events";
+import { PaginateData as BasePaginateData } from "../types/pagination";
+import { clearWhere } from "../lib/util-query";
+
+type PaginateData = {
+  businessId?: string;
+  collaboratorId?: string;
+  status?: string;
+} & BasePaginateData;
 
 export class CollaboratorInvoiceRepository extends BaseRepository<
   CompleteCollaboratorInvoice,
@@ -28,6 +36,14 @@ export class CollaboratorInvoiceRepository extends BaseRepository<
       await updateCollaboratorProfileByInvoice(new EntityUpdated(entity));
       return entity;
     });
+  }
+
+  paginate({ businessId, collaboratorId, ...props }: PaginateData = {}) {
+    const where = clearWhere({
+      businessId,
+      collaboratorId,
+    });
+    return super.paginate({ ...props, where, orderBy: { createdAt: "desc" } });
   }
 }
 

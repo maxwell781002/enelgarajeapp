@@ -10,6 +10,7 @@ import {
 } from "@repo/ui/components/ui/tabs";
 import CardBank from "./card-bank";
 import CollaboratorOrders from "./orders";
+import CollaboratorInvoice from "./invoices";
 
 export type PageProps = {
   searchParams: any;
@@ -33,8 +34,9 @@ export default async function Page({
       <div className="space-y-2">
         <UserProfile user={user} businessId={businessId} />
         <Tabs defaultValue="orders">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="orders">{t("tabOrders")}</TabsTrigger>
+            <TabsTrigger value="invoices">{t("tabInvoices")}</TabsTrigger>
             <TabsTrigger value="cardNumbers">{t("tabCardNumbers")}</TabsTrigger>
           </TabsList>
           <TabsContent value="orders">
@@ -43,6 +45,9 @@ export default async function Page({
               collaboratorId={id}
               searchParams={searchParams}
             />
+          </TabsContent>
+          <TabsContent value="invoices">
+            <CollaboratorInvoice businessId={businessId} collaboratorId={id} />
           </TabsContent>
           <TabsContent value="cardNumbers">
             <CardBank businessId={businessId} collaboratorId={id} user={user} />
