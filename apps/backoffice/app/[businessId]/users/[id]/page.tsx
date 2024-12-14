@@ -31,7 +31,7 @@ export default async function Page({
   return (
     <BackPage href={`/${businessId}/users`} urlTitle={t("backUsers")}>
       <div className="space-y-2">
-        <UserProfile user={user} />
+        <UserProfile user={user} businessId={businessId} />
         <Tabs defaultValue="orders">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="orders">{t("tabOrders")}</TabsTrigger>

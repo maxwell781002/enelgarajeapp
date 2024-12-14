@@ -16,8 +16,9 @@ import {
   DialogTrigger,
 } from "@repo/ui/components/ui/dialog";
 import { Button } from "@repo/ui/components/button";
-import { useState } from "react";
-import { Form, FormMessage } from "@repo/ui/components/ui/form";
+import { useState, useTransition } from "react";
+import { Form } from "@repo/ui/components/ui/form";
+import { Currency } from "@repo/model/types/enums";
 
 export type TransferDialogProps = {
   action: (data: any) => any;
@@ -27,24 +28,40 @@ const defaultValues = {
   transferCode: "",
   businessNota: "",
 };
-const resolver = zodResolver(CollaboratorInvoiceModel);
+const resolver = zodResolver(
+  CollaboratorInvoiceModel.pick({
+    transferCode: true,
+    businessNota: true,
+  }),
+);
 
-export default function NewInvoice() {
+type NewInvoiceProps = {
+  action: (data: any) => any;
+};
+
+export default function NewInvoice({ action }: NewInvoiceProps) {
   const t = useTranslations("UserDetail");
   const totalToPay = useStore((state) => state.totalToPay());
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, startLoading] = useTransition();
 
   const { toast } = useToast();
   const { form, onSubmit } = useFormProcess({
     resolver,
-    action: (data: any) => console.log(data),
+    action: (form: FormData) => {
+      form.append("amount", totalToPay.toString());
+      form.append("currency", JSON.stringify(Currency.USD));
+      startLoading(async () => {
+        await action(form);
+        setIsOpen(false);
+      });
+    },
     defaultValues,
     onSuccess: () =>
       toast({
         title: t("invoiceCreated"),
       }),
   });
-
   if (!totalToPay) return null;
   return (
     <div className="flex flex-col items-end pt-5">
@@ -59,7 +76,7 @@ export default function NewInvoice() {
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <TransferDialog form={form} />
+              <TransferDialog form={form} loading={loading} />
             </form>
           </Form>
         </DialogContent>

@@ -253,7 +253,7 @@ model CollaboratorInvoice {
   collaboratorId   String
   amount           Int
   currency         Currency
-  transferCode     String
+  transferCode     String /// @zod.min(1, { message: "Required" })
   businessNota     String?
   collaboratorNota String?
   confirmed        Boolean

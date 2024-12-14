@@ -9,13 +9,31 @@ import { getTranslations } from "next-intl/server";
 import { Phone } from "lucide-react";
 import Stats from "./stats";
 import NewInvoice from "./new-invoice";
+import { formDataToObject } from "@repo/model/lib/utils";
+import { collaboratorInvoiceRepository } from "@repo/model/repositories/collaborator-invoice";
+import { revalidatePath } from "next/cache";
 
 interface UserProfileProps {
   user: CompleteUser;
+  businessId: string;
 }
 
-export default async function UserProfile({ user }: UserProfileProps) {
+export default async function UserProfile({
+  user,
+  businessId,
+}: UserProfileProps) {
   const t = await getTranslations("UserDetail");
+  const saveInvoice = async (props: any) => {
+    "use server";
+    const data = formDataToObject(props);
+    await collaboratorInvoiceRepository.create({
+      ...data,
+      collaboratorId: user.id,
+      businessId,
+      confirmed: false,
+    });
+    return revalidatePath(`/${businessId}/users/${user.id}`);
+  };
   return (
     <Card>
       <CardHeader>
@@ -36,7 +54,7 @@ export default async function UserProfile({ user }: UserProfileProps) {
           </div>
         </div>
         <Stats user={user} />
-        <NewInvoice />
+        <NewInvoice action={saveInvoice} />
       </CardContent>
     </Card>
   );

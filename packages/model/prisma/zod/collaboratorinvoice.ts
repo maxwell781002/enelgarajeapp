@@ -15,7 +15,7 @@ export const CollaboratorInvoiceModel = z.object({
   collaboratorId: z.string(),
   amount: z.number().int(),
   currency: z.nativeEnum(Currency),
-  transferCode: z.string(),
+  transferCode: z.string().min(1, { message: "Required" }),
   businessNota: z.string().nullish(),
   collaboratorNota: z.string().nullish(),
   confirmed: z.boolean(),

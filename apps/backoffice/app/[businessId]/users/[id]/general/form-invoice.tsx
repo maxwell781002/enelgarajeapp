@@ -1,23 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@repo/ui/components/ui/dialog";
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { Label } from "@repo/ui/components/ui/label";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { useTranslations } from "next-intl";
-import { useToast } from "@repo/ui/components/ui/use-toast";
-import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CollaboratorInvoiceModel } from "@repo/model/zod/collaboratorinvoice";
-import { Form } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -32,9 +19,10 @@ const numberOfOrders = 5;
 
 type TransferDialogProps = {
   form: any;
+  loading: boolean;
 };
 
-export default function TransferDialog({ form }: TransferDialogProps) {
+export default function TransferDialog({ form, loading }: TransferDialogProps) {
   const t = useTranslations("UserDetail");
   return (
     <>
@@ -78,7 +66,7 @@ export default function TransferDialog({ form }: TransferDialogProps) {
           </FormItem>
         )}
       />
-      <Button type="submit" className="w-full">
+      <Button loading={loading} type="submit" className="w-full">
         {t("btnTransfer")}
       </Button>
     </>

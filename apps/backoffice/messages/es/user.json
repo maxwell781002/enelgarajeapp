@@ -30,6 +30,8 @@
     "phTransferCode": "Escriba el código de transferencia",
     "lbBusinessNota": "Nota (opcional)",
     "phBusinessNota": "Escriba la nota",
+    "invoiceCreated": "Factura creada",
+    "Required": "Requerido",
     "btnTransfer": "Salvar"
   },
   "CardBank": {

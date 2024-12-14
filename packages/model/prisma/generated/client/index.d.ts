@@ -20305,6 +20305,9 @@ export namespace Prisma {
         collaboratorId: string;
         amount: number;
         currency: $Enums.Currency;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         transferCode: string;
         businessNota: string | null;
         collaboratorNota: string | null;
