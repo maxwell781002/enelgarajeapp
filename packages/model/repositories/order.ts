@@ -122,7 +122,12 @@ export class OrderRepository extends BaseRepository<
   collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
     return this.basePaginate(
       { ...data },
-      { userId, isCollaborator: true, collaboratorInvoiceId: null },
+      {
+        userId,
+        isCollaborator: true,
+        collaboratorInvoiceId: null,
+        status: OrderStatus.PAYED,
+      },
     );
   }
 

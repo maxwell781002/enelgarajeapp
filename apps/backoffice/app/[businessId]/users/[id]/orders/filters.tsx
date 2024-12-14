@@ -3,14 +3,11 @@
 import { Input } from "@repo/ui/components/ui/input";
 import { useFilterChange } from "@repo/ui/hooks/useFilterChange";
 import { useTranslations } from "next-intl";
-import StatusSelect from "@repo/ui/components/status/status-select";
 
 export default function Filter({
   onChange,
-  options,
 }: {
   onChange: (value: any) => void;
-  options: [string, string][];
 }) {
   const { changeFilter, value } = useFilterChange(onChange);
   const t = useTranslations("OrderUser");
@@ -22,14 +19,6 @@ export default function Filter({
         defaultValue={value.query?.toString()}
         className="flex-1 bg-withe"
       />
-      <div>
-        <StatusSelect
-          status={value.status}
-          onChange={(e) => changeFilter("status", e)}
-          options={[["", "", "TODOS"], ...options]}
-          className="bg-withe"
-        />
-      </div>
     </div>
   );
 }

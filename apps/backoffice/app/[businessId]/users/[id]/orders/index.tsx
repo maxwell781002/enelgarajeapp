@@ -46,7 +46,6 @@ export default async function CollaboratorOrders({
         filter={
           <Filter
             onChange={handleSearch}
-            options={orderRepository.getStatus()}
           />
         }
       >

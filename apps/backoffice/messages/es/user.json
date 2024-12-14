@@ -22,6 +22,7 @@
     "historicalProfit": "Comisión historica",
     "totalPendingInvoiceToConfirm": "Pendiente por confirmar",
     "totalOrderForPayment": "Ordenes por pagar",
+    "createInvoice": "Crear factura",
     "totalBusinessProfit": "Negocio"
   },
   "CardBank": {

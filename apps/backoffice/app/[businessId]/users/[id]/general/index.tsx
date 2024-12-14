@@ -8,6 +8,7 @@ import { CompleteUser } from "@repo/model/zod/user";
 import { getTranslations } from "next-intl/server";
 import { Phone } from "lucide-react";
 import Stats from "./stats";
+import NewInvoice from "./new-invoice";
 
 interface UserProfileProps {
   user: CompleteUser;
@@ -35,6 +36,7 @@ export default async function UserProfile({ user }: UserProfileProps) {
           </div>
         </div>
         <Stats user={user} />
+        <NewInvoice />
       </CardContent>
     </Card>
   );

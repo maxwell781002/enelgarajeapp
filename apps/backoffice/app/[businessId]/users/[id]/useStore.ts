@@ -7,6 +7,7 @@ type Store = {
   removeOrder: (orderId: string) => void;
   isOrderInList: (orderId: string) => boolean;
   addOrRemoveOrder: (order: CompleteOrder) => void;
+  totalToPay: () => number;
 };
 
 export const useStore = create<Store>((set, get) => ({
@@ -34,4 +35,5 @@ export const useStore = create<Store>((set, get) => ({
       }
       return { ordersToPay: [...state.ordersToPay, order] };
     }),
+  totalToPay: () => get().ordersToPay.reduce((acc, o) => acc + o.total, 0),
 }));

@@ -56,7 +56,7 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    header: "Adicionar para pagar",
+    header: "",
     accessorKey: "status",
     cell: ({
       cell: { value: status, row },
