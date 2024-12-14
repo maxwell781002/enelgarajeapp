@@ -23,7 +23,14 @@
     "totalPendingInvoiceToConfirm": "Pendiente por confirmar",
     "totalOrderForPayment": "Ordenes por pagar",
     "createInvoice": "Crear factura",
-    "totalBusinessProfit": "Negocio"
+    "totalBusinessProfit": "Negocio",
+    "lbTotalToPay": "Total a pagar",
+    "lbNumberOfOrders": "Número de ordenes",
+    "lbTransferCode": "Código de transferencia",
+    "phTransferCode": "Escriba el código de transferencia",
+    "lbBusinessNota": "Nota (opcional)",
+    "phBusinessNota": "Escriba la nota",
+    "btnTransfer": "Salvar"
   },
   "CardBank": {
     "createCardBank": "Crear tarjeta",

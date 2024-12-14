@@ -43,11 +43,7 @@ export default async function CollaboratorOrders({
     <TableContextProvider>
       <TableLayout
         title={t("OrderList")}
-        filter={
-          <Filter
-            onChange={handleSearch}
-          />
-        }
+        filter={<Filter onChange={handleSearch} />}
       >
         <MyTable
           pagination={data as PaginationResult<any>}
