@@ -30,7 +30,7 @@ export type CheckoutFormProps = {
   setAddressType: (type: AddressType) => void;
   neighborhoods?: NeighborhoodWithShipping[];
   showWantDomicile?: boolean;
-  baseUrl?: string;
+  addressUrl?: string;
   addAliasToAddress?: boolean;
 };
 
@@ -44,7 +44,7 @@ export function CheckoutForm({
   setAddressType,
   neighborhoods = [],
   showWantDomicile = false,
-  baseUrl = "",
+  addressUrl = "",
   addAliasToAddress = true,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
@@ -90,7 +90,7 @@ export function CheckoutForm({
             addresses={addresses}
             setAddressType={setAddressType}
             neighborhoods={neighborhoods}
-            baseUrl={baseUrl}
+            addressUrl={addressUrl}
             addAlias={addAliasToAddress}
           />
         )}

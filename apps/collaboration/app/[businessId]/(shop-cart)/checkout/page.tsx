@@ -12,9 +12,10 @@ export default async function Component({ params: { businessId } }: Props) {
   return (
     <CheckoutPage
       business={business}
-      baseUrl={`/${businessId}`}
+      baseUrl={`/${businessId}/products`}
       isCollaborator
       addAliasToAddress={false}
+      addressUrl={`/${businessId}/address-user`}
     />
   );
 }

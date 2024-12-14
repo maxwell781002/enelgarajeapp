@@ -7,7 +7,7 @@ export default async function Page({
 }) {
   return (
     <ShoppingCartPage
-      baseUrl={`/${businessId}`}
+      baseUrl={`/${businessId}/products`}
       productBaseUrl={`/${businessId}/products`}
       showCommission
     />
