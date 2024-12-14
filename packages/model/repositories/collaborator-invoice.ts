@@ -5,7 +5,7 @@ import {
   CompleteCollaboratorInvoice,
 } from "../prisma/zod";
 import { updateCollaboratorProfileByInvoice } from "../listeners/collaborator-invoice";
-import { EntityCreated, EntityUpdated } from "../lib/event-emitter/events";
+import { EntityUpdated } from "../lib/event-emitter/events";
 
 export class CollaboratorInvoiceRepository extends BaseRepository<
   CompleteCollaboratorInvoice,
@@ -20,14 +20,6 @@ export class CollaboratorInvoiceRepository extends BaseRepository<
       }),
       Prisma.collaboratorInvoice,
     );
-  }
-
-  protected doCreate(data: any) {
-    return transaction(async () => {
-      const entity = await super.doCreate(data);
-      await updateCollaboratorProfileByInvoice(new EntityCreated(entity));
-      return entity;
-    });
   }
 
   protected doUpdate(id: string, data: any) {

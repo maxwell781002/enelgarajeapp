@@ -135,6 +135,13 @@ export class OrderRepository extends BaseRepository<
     return this.basePaginate(paginate);
   }
 
+  addCollaboratorInvoiceId(ids: string[], collaboratorInvoiceId: string) {
+    return prisma().order.updateMany({
+      where: { id: { in: ids } },
+      data: { collaboratorInvoiceId },
+    });
+  }
+
   get(id: any, query?: any) {
     return super.get(id, {
       include: {

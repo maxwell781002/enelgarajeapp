@@ -8,7 +8,7 @@ export type AddToInvoiceProps = {
 };
 
 export default function AddToInvoice({ row }: AddToInvoiceProps) {
-  const isOrderInList = useStore((state) => state.isOrderInList(row.id));
+  const isOrderInList = useStore((state) => state.isOrderInList(row));
   const addOrRemoveOrder = useStore((state) => state.addOrRemoveOrder);
   return (
     <div className="pr-2">

@@ -8,10 +8,10 @@ import { CompleteUser } from "@repo/model/zod/user";
 import { getTranslations } from "next-intl/server";
 import { Phone } from "lucide-react";
 import Stats from "./stats";
-import NewInvoice from "./new-invoice";
 import { formDataToObject } from "@repo/model/lib/utils";
-import { collaboratorInvoiceRepository } from "@repo/model/repositories/collaborator-invoice";
 import { revalidatePath } from "next/cache";
+import HasOrderSelected from "./has-order-selected";
+import { createCollaboratorInvoice } from "@repo/model/repository/collaborator-invoice";
 
 interface UserProfileProps {
   user: CompleteUser;
@@ -26,7 +26,7 @@ export default async function UserProfile({
   const saveInvoice = async (props: any) => {
     "use server";
     const data = formDataToObject(props);
-    await collaboratorInvoiceRepository.create({
+    await createCollaboratorInvoice({
       ...data,
       collaboratorId: user.id,
       businessId,
@@ -54,7 +54,7 @@ export default async function UserProfile({
           </div>
         </div>
         <Stats user={user} />
-        <NewInvoice action={saveInvoice} />
+        <HasOrderSelected action={saveInvoice} />
       </CardContent>
     </Card>
   );

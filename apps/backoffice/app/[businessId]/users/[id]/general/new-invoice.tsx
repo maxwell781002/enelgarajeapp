@@ -1,7 +1,6 @@
 "use client";
 
 import PriceDisplay from "@repo/ui/components/prices/price";
-import { useStore } from "../useStore";
 import { useTranslations } from "next-intl";
 import TransferDialog from "./form-invoice";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +17,7 @@ import {
 import { Button } from "@repo/ui/components/button";
 import { useState, useTransition } from "react";
 import { Form } from "@repo/ui/components/ui/form";
-import { Currency } from "@repo/model/types/enums";
+import { TCurrency } from "@repo/model/types/enums";
 
 export type TransferDialogProps = {
   action: (data: any) => any;
@@ -37,22 +36,31 @@ const resolver = zodResolver(
 
 type NewInvoiceProps = {
   action: (data: any) => any;
+  totalToPay: number;
+  currency: TCurrency;
+  ordersId: string[];
 };
 
-export default function NewInvoice({ action }: NewInvoiceProps) {
+export default function NewInvoice({
+  action,
+  totalToPay,
+  currency,
+  ordersId,
+}: NewInvoiceProps) {
   const t = useTranslations("UserDetail");
-  const totalToPay = useStore((state) => state.totalToPay());
   const [isOpen, setIsOpen] = useState(false);
   const [loading, startLoading] = useTransition();
 
   const { toast } = useToast();
   const { form, onSubmit } = useFormProcess({
     resolver,
-    action: (form: FormData) => {
-      form.append("amount", totalToPay.toString());
-      form.append("currency", JSON.stringify(Currency.USD));
+    action: (formData: FormData) => {
+      formData.append("amount", totalToPay.toString());
+      formData.append("currency", JSON.stringify(currency));
+      formData.append("ordersId", JSON.stringify(ordersId));
       startLoading(async () => {
-        await action(form);
+        await action(formData);
+        form.reset();
         setIsOpen(false);
       });
     },

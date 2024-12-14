@@ -22,7 +22,7 @@ export class CollaboratorProfileRepository extends BaseRepository<
     });
     if (profile) {
       return this.model.update({
-        where: { businessId, collaboratorId },
+        where: { id: profile.id },
         data,
       });
     }
