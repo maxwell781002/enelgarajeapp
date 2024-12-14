@@ -1,4 +1,8 @@
-import { redirect } from "next/navigation";
+import { userRepository } from "@repo/model/repositories/user";
+import { getCurrentUser } from "@repo/model/repository/user";
+import CardTotal from "@repo/ui/components/cardTotal";
+import { getTranslations } from "next-intl/server";
+import { DockIcon, ShoppingCart, DollarSign } from "lucide-react";
 
 export type Props = {
   params: {
@@ -6,6 +10,32 @@ export type Props = {
   };
 };
 
-export default function Home({ params: { businessId } }: Props) {
-  return redirect(`/${businessId}/products`);
+export default async function Home({ params: { businessId } }: Props) {
+  const t = await getTranslations("Dashboard");
+  const currentUser = await getCurrentUser();
+  const user = await userRepository.getUserWithCollaboratorProfile(
+    currentUser.id,
+    businessId,
+  );
+  return (
+    <>
+      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+        <CardTotal
+          title={t("historicalProfit")}
+          Icon={DollarSign}
+          value={user._collaboratorProfile.historicalProfit}
+        />
+        <CardTotal
+          title={t("totalOrderForPayment")}
+          Icon={ShoppingCart}
+          value={user._collaboratorProfile.totalOrderForPayment}
+        />
+        <CardTotal
+          title={t("totalPendingInvoiceToConfirm")}
+          Icon={DockIcon}
+          value={user._collaboratorProfile.totalPendingInvoiceToConfirm}
+        />
+      </div>
+    </>
+  );
 }
