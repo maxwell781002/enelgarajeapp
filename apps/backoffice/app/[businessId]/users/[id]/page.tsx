@@ -40,14 +40,14 @@ export default async function Page({
             <TabsTrigger value="cardNumbers">{t("tabCardNumbers")}</TabsTrigger>
           </TabsList>
           <TabsContent value="orders">
-            <CollaboratorOrders
+            <CollaboratorOrders businessId={businessId} collaboratorId={id} />
+          </TabsContent>
+          <TabsContent value="invoices">
+            <CollaboratorInvoice
               businessId={businessId}
               collaboratorId={id}
               searchParams={searchParams}
             />
-          </TabsContent>
-          <TabsContent value="invoices">
-            <CollaboratorInvoice businessId={businessId} collaboratorId={id} />
           </TabsContent>
           <TabsContent value="cardNumbers">
             <CardBank businessId={businessId} collaboratorId={id} user={user} />

@@ -3,5 +3,8 @@
     "totalOrderForPayment": "Pedidos por pagar",
     "totalPendingInvoiceToConfirm": "Facturas por Confirmar",
     "historicalProfit": "Ganancias Historicas"
+  },
+  "CollaboratorInvoice": {
+    "InvoiceList": "Facturas"
   }
 }

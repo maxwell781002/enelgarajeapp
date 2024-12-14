@@ -3,14 +3,19 @@ import { getCurrentUser } from "@repo/model/repository/user";
 import CardTotal from "@repo/ui/components/cardTotal";
 import { getTranslations } from "next-intl/server";
 import { DockIcon, ShoppingCart, DollarSign } from "lucide-react";
+import CollaboratorInvoice from "./_invoices";
 
 export type Props = {
+  searchParams: any;
   params: {
     businessId: string;
   };
 };
 
-export default async function Home({ params: { businessId } }: Props) {
+export default async function Home({
+  searchParams,
+  params: { businessId },
+}: Props) {
   const t = await getTranslations("Dashboard");
   const currentUser = await getCurrentUser();
   const user = await userRepository.getUserWithCollaboratorProfile(
@@ -19,7 +24,7 @@ export default async function Home({ params: { businessId } }: Props) {
   );
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+      <div className="mb-4 grid gap-4 md:grid-cols-1 lg:grid-cols-3">
         <CardTotal
           title={t("historicalProfit")}
           Icon={DollarSign}
@@ -36,6 +41,11 @@ export default async function Home({ params: { businessId } }: Props) {
           value={user._collaboratorProfile.totalPendingInvoiceToConfirm}
         />
       </div>
+      <CollaboratorInvoice
+        businessId={businessId}
+        collaboratorId={currentUser.id}
+        searchParams={searchParams}
+      />
     </>
   );
 }
