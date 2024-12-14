@@ -1,6 +1,11 @@
 import * as z from "zod";
 import { PaymentMethodType } from "../generated/client";
-import { CompleteBusiness, RelatedBusinessModel } from "./index";
+import {
+  CompleteBusiness,
+  RelatedBusinessModel,
+  CompleteCollaboratorInvoice,
+  RelatedCollaboratorInvoiceModel,
+} from "./index";
 
 // Helper schema for JSON fields
 type Literal = boolean | number | string;
@@ -22,6 +27,7 @@ export interface CompletePaymentMethod
   extends z.infer<typeof PaymentMethodModel> {
   business: CompleteBusiness;
   defaultBusiness?: CompleteBusiness | null;
+  collaboratorInvoices: CompleteCollaboratorInvoice[];
 }
 
 /**
@@ -34,5 +40,6 @@ export const RelatedPaymentMethodModel: z.ZodSchema<CompletePaymentMethod> =
     PaymentMethodModel.extend({
       business: RelatedBusinessModel,
       defaultBusiness: RelatedBusinessModel.nullish(),
+      collaboratorInvoices: RelatedCollaboratorInvoiceModel.array(),
     }),
   );

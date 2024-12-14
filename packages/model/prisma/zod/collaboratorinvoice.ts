@@ -5,6 +5,8 @@ import {
   RelatedBusinessModel,
   CompleteUser,
   RelatedUserModel,
+  CompletePaymentMethod,
+  RelatedPaymentMethodModel,
   CompleteOrder,
   RelatedOrderModel,
 } from "./index";
@@ -13,6 +15,7 @@ export const CollaboratorInvoiceModel = z.object({
   id: z.string(),
   businessId: z.string(),
   collaboratorId: z.string(),
+  paymentMethodId: z.string(),
   amount: z.number().int(),
   currency: z.nativeEnum(Currency),
   transferCode: z.string().min(1, { message: "Required" }),
@@ -27,6 +30,7 @@ export interface CompleteCollaboratorInvoice
   extends z.infer<typeof CollaboratorInvoiceModel> {
   business: CompleteBusiness;
   collaborator: CompleteUser;
+  paymentMethod: CompletePaymentMethod;
   orders: CompleteOrder[];
 }
 
@@ -40,6 +44,7 @@ export const RelatedCollaboratorInvoiceModel: z.ZodSchema<CompleteCollaboratorIn
     CollaboratorInvoiceModel.extend({
       business: RelatedBusinessModel,
       collaborator: RelatedUserModel,
+      paymentMethod: RelatedPaymentMethodModel,
       orders: RelatedOrderModel.array(),
     }),
   );
