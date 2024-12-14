@@ -2,6 +2,35 @@ import { ColumnDef } from "@repo/ui/components/table/index";
 import { formatDate } from "@repo/ui/lib/date";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { Check, CircleX } from "lucide-react";
+import { BtnList } from "@repo/ui/components/ui/btn-list";
+import { useTranslations } from "next-intl";
+import { CompleteCollaboratorInvoice } from "@repo/model/zod/collaboratorinvoice";
+import { useTableContext } from "@repo/ui/context/table";
+import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
+
+type ActionProps = {
+  row: CompleteCollaboratorInvoice;
+};
+
+function RowActions({ row }: ActionProps) {
+  const { confirmInvoice } = useTableContext();
+  const t = useTranslations("CollaboratorInvoice");
+  if (row.confirmed) {
+    return;
+  }
+  return (
+    <BtnList>
+      <BtnConfirm
+        action={() => confirmInvoice(row.id)}
+        title={t("confirmInvoice")}
+        description={t("confirmInvoiceDescription")}
+        btnContinueText={t("confirmInvoiceContinue")}
+        btnCancelText={t("confirmInvoiceCancel")}
+        btnIcon={<Check />}
+      />
+    </BtnList>
+  );
+}
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -49,6 +78,13 @@ export const columns: ColumnDef<any>[] = [
       cell: { value: Date; row: any };
     }) => {
       return formatDate(createdAt);
+    },
+  },
+  {
+    header: "Acciones",
+    accessorKey: "name",
+    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) => {
+      return <RowActions row={row} />;
     },
   },
 ];

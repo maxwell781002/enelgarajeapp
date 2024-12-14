@@ -4,8 +4,6 @@ import {
   CollaboratorInvoiceModel,
   CompleteCollaboratorInvoice,
 } from "../prisma/zod";
-import { updateCollaboratorProfileByInvoice } from "../listeners/collaborator-invoice";
-import { EntityUpdated } from "../lib/event-emitter/events";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { clearWhere } from "../lib/util-query";
 
@@ -30,20 +28,19 @@ export class CollaboratorInvoiceRepository extends BaseRepository<
     );
   }
 
-  protected doUpdate(id: string, data: any) {
-    return transaction(async () => {
-      const entity = await super.doUpdate(id, data);
-      await updateCollaboratorProfileByInvoice(new EntityUpdated(entity));
-      return entity;
-    });
-  }
-
   paginate({ businessId, collaboratorId, ...props }: PaginateData = {}) {
     const where = clearWhere({
       businessId,
       collaboratorId,
     });
     return super.paginate({ ...props, where, orderBy: { createdAt: "desc" } });
+  }
+
+  async confirmInvoice(id: string) {
+    return this.model.update({
+      where: { id },
+      data: { confirmed: true },
+    });
   }
 }
 

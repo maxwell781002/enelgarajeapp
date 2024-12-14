@@ -23,16 +23,16 @@ export default async function CollaboratorInvoice({
     `/${businessId}/users/${collaboratorId}`,
     collaboratorInvoiceRepository.getRepositoryModelName(),
   );
-  const data = await list({
+  const pagination = await list({
+    ...searchParams,
     businessId,
     collaboratorId,
-    searchParams,
   });
   return (
     <TableContextProvider>
       <TableLayout title={t("InvoiceList")}>
         <MyTable
-          pagination={data as PaginationResult<any>}
+          pagination={pagination as PaginationResult<any>}
           columns={columns}
           emptyTitle="No hay facturas"
           emptyDescription="No has tenido ninguna factura todavía."

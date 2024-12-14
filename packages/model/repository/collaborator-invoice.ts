@@ -1,5 +1,5 @@
 import { UserIsNotCollaboratorError } from "../errors/bad-request";
-import { EntityCreated } from "../lib/event-emitter/events";
+import { EntityCreated, EntityUpdated } from "../lib/event-emitter/events";
 import { updateCollaboratorProfileByInvoice } from "../listeners/collaborator-invoice";
 import { transaction } from "../prisma/prisma-client";
 import { businessRepository } from "../repositories/business";
@@ -38,6 +38,14 @@ export const createCollaboratorInvoice = async ({ ordersId, ...data }: any) => {
     const invoice = await collaboratorInvoiceRepository.create(data);
     await orderRepository.addCollaboratorInvoiceId(ordersId, invoice.id);
     await updateCollaboratorProfileByInvoice(new EntityCreated(invoice));
+    return invoice;
+  });
+};
+
+export const confirmInvoice = async (id: string) => {
+  return transaction(async () => {
+    const invoice = await collaboratorInvoiceRepository.confirmInvoice(id);
+    await updateCollaboratorProfileByInvoice(new EntityUpdated(invoice));
     return invoice;
   });
 };

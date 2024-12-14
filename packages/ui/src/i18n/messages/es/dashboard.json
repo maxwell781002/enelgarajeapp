@@ -5,6 +5,10 @@
     "historicalProfit": "Ganancias Historicas"
   },
   "CollaboratorInvoice": {
-    "InvoiceList": "Facturas"
+    "InvoiceList": "Facturas",
+    "confirmInvoice": "Confirmar Factura",
+    "confirmInvoiceDescription": "¿Estás seguro de confirmar esta factura?",
+    "confirmInvoiceContinue": "Confirmar",
+    "confirmInvoiceCancel": "Cancelar"
   }
 }

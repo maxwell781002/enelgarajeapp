@@ -6,6 +6,9 @@ import TableLayout from "@repo/ui/components/table-layout/layout";
 import { getTranslations } from "next-intl/server";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { collaboratorInvoiceRepository } from "@repo/model/repositories/collaborator-invoice";
+import InvoiceTable from "./table";
+import { revalidatePath } from "next/cache";
+import { confirmInvoice } from "@repo/model/repository/collaborator-invoice";
 
 type PageProps = {
   searchParams: any;
@@ -23,20 +26,20 @@ export default async function CollaboratorInvoice({
     `/${businessId}/users/${collaboratorId}`,
     collaboratorInvoiceRepository.getRepositoryModelName(),
   );
-  const data = await list({
+  const pagination = await list({
+    ...searchParams,
     businessId,
     collaboratorId,
-    searchParams,
   });
+  const actionConfirmInvoice = async (id: string) => {
+    "use server";
+    await confirmInvoice(id);
+    return revalidatePath(`/${businessId}`);
+  };
   return (
-    <TableContextProvider>
+    <TableContextProvider confirmInvoice={actionConfirmInvoice}>
       <TableLayout title={t("InvoiceList")}>
-        <MyTable
-          pagination={data as PaginationResult<any>}
-          columns={columns}
-          emptyTitle="No hay facturas"
-          emptyDescription="No has tenido ninguna factura todavía."
-        />
+        <InvoiceTable pagination={pagination as PaginationResult<any>} />
       </TableLayout>
     </TableContextProvider>
   );
