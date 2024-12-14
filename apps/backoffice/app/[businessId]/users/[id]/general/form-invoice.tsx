@@ -12,17 +12,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui/components/ui/form";
-
-const currency = "$";
-const totalToPay = 100.0;
-const numberOfOrders = 5;
+import PriceDisplay from "@repo/ui/components/prices/price";
 
 type TransferDialogProps = {
+  totalToPay: number;
+  numberOfOrders: number;
   form: any;
   loading: boolean;
 };
 
-export default function TransferDialog({ form, loading }: TransferDialogProps) {
+export default function TransferDialog({
+  form,
+  loading,
+  totalToPay,
+  numberOfOrders,
+}: TransferDialogProps) {
   const t = useTranslations("UserDetail");
   return (
     <>
@@ -30,7 +34,7 @@ export default function TransferDialog({ form, loading }: TransferDialogProps) {
         <div>
           <Label htmlFor="totalToPay">{t("lbTotalToPay")}</Label>
           <p id="totalToPay" className="mt-1 text-lg font-medium">
-            {currency} {totalToPay.toFixed(2)}
+            <PriceDisplay price={totalToPay} />
           </p>
         </div>
         <div>

@@ -63,5 +63,8 @@
     "phone": "Teléfono",
     "updatedAt": "Actualizado",
     "createdAt": "Creado"
+  },
+  "CollaboratorInvoice": {
+    "InvoiceList": "Facturas"
   }
 }

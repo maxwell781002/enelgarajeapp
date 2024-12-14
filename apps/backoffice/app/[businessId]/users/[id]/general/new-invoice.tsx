@@ -84,7 +84,12 @@ export default function NewInvoice({
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <TransferDialog form={form} loading={loading} />
+              <TransferDialog
+                form={form}
+                loading={loading}
+                totalToPay={totalToPay}
+                numberOfOrders={ordersId.length}
+              />
             </form>
           </Form>
         </DialogContent>

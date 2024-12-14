@@ -1,7 +1,7 @@
 "use client";
 
+import StatusSelect from "@repo/ui/components/status/status-select";
 import { useOptimistic, useTransition } from "react";
-import StatusSelect from "../status-select";
 
 type ChangeStatusProps = {
   status: string;

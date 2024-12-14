@@ -12,6 +12,7 @@ type Store = {
   isOrderInList: (order: CompleteOrder) => boolean;
   addOrRemoveOrder: (order: CompleteOrder) => void;
   clearOrdersByCurrency: (currency: TCurrency) => void;
+  clearAll: () => void;
 };
 
 export const totalToPayByCurrency = (ordersToPay: TOrderToPay) =>
@@ -45,4 +46,5 @@ export const useStore = create<Store>((set, get) => ({
     set((state) => ({
       ordersToPay: { ...state.ordersToPay, [currency]: [] },
     })),
+  clearAll: () => set({ ordersToPay: {} }),
 }));
