@@ -37,10 +37,12 @@ export const nextStatuses = (status: OrderStatus) => {
 
 type PaginateData = {
   businessId?: string;
-  userId?: string;
   status?: string;
-  isCollaborator?: boolean;
 } & BasePaginateData;
+
+type CollaboratorPaginateData = {
+  userId?: string;
+} & PaginateData;
 
 export class OrderRepository extends BaseRepository<
   CompleteOrder,
@@ -48,6 +50,12 @@ export class OrderRepository extends BaseRepository<
 > {
   constructor() {
     super(OrderModel, Prisma.order);
+  }
+
+  getStatus() {
+    return Object.entries(OrderStatus).filter(
+      ([key]) => key !== OrderStatus.CREATED,
+    );
   }
 
   orderToChange(currentStatus: OrderStatus) {
@@ -73,19 +81,14 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  paginate({
-    businessId,
-    userId,
-    status,
-    query,
-    isCollaborator,
-    ...data
-  }: PaginateData = {}) {
-    const where = clearWhere({
+  basePaginate(
+    { businessId, status, query, ...data }: PaginateData = {},
+    where: any = {},
+  ) {
+    where = clearWhere({
       businessId,
-      userId,
       status,
-      isCollaborator,
+      ...where,
     });
     where.NOT = { userId: null };
     if (query) {
@@ -114,6 +117,17 @@ export class OrderRepository extends BaseRepository<
         user: true,
       },
     });
+  }
+
+  collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
+    return this.basePaginate(
+      { ...data },
+      { userId, isCollaborator: true, collaboratorInvoiceId: null },
+    );
+  }
+
+  paginate(paginate: PaginateData = {}) {
+    return this.basePaginate(paginate);
   }
 
   get(id: any, query?: any) {

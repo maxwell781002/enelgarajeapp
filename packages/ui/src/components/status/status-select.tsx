@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
-import StatusLabel from "./status-label";
+import StatusLabel from "@repo/ui/components/status/status-label";
 import { cn } from "@repo/ui/lib/utils";
 
 type ChangeStatusProps = {

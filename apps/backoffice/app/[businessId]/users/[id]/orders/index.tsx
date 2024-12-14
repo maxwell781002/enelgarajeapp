@@ -1,9 +1,6 @@
 import MyTable from "@repo/ui/components/table/index";
 import { crud } from "@repo/model/lib/crud";
-import {
-  orderRepository,
-  OrderRepository,
-} from "@repo/model/repositories/order";
+import { orderRepository } from "@repo/model/repositories/order";
 import { columns } from "./columns";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
@@ -28,6 +25,9 @@ export default async function CollaboratorOrders({
     `/${businessId}/users/${collaboratorId}`,
     orderRepository.getRepositoryModelName(),
     searchParams,
+    {
+      paginateMethod: "collaboratorPaginate",
+    },
   );
   const handleSearch = async (query: any) => {
     "use server";
@@ -46,7 +46,7 @@ export default async function CollaboratorOrders({
         filter={
           <Filter
             onChange={handleSearch}
-            options={orderRepository.orderToChange()}
+            options={orderRepository.getStatus()}
           />
         }
       >

@@ -40,7 +40,7 @@ export default async function Page({
         filter={
           <Filter
             onChange={handleSearch}
-            options={orderRepository.orderToChange()}
+            options={orderRepository.getStatus()}
           />
         }
       >

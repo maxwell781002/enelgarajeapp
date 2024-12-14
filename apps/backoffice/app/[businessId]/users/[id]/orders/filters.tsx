@@ -3,7 +3,7 @@
 import { Input } from "@repo/ui/components/ui/input";
 import { useFilterChange } from "@repo/ui/hooks/useFilterChange";
 import { useTranslations } from "next-intl";
-import StatusSelect from "./status-select";
+import StatusSelect from "@repo/ui/components/status/status-select";
 
 export default function Filter({
   onChange,
