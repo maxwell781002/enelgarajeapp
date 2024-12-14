@@ -4,6 +4,7 @@ import { formatDate } from "@repo/ui/lib/date";
 import { statusLabel } from "@repo/ui/components/status/status-label";
 import { statusColors } from "@repo/model/repositories/order";
 import PriceDisplay from "@repo/ui/components/prices/price";
+import AddToInvoice from "./addToInvoice";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -52,6 +53,17 @@ export const columns: ColumnDef<any>[] = [
           {statusLabel(status)}
         </Badge>
       );
+    },
+  },
+  {
+    header: "Adicionar para pagar",
+    accessorKey: "status",
+    cell: ({
+      cell: { value: status, row },
+    }: {
+      cell: { value: string; row: any };
+    }) => {
+      return <AddToInvoice row={row} />;
     },
   },
 ];

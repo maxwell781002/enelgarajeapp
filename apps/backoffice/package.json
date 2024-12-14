@@ -24,7 +24,8 @@
     "react-hook-form": "^7.52.2",
     "recharts": "^2.12.7",
     "use-debounce": "^10.0.3",
-    "zod": "link:@hookform/resolvers/zod"
+    "zod": "link:@hookform/resolvers/zod",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
