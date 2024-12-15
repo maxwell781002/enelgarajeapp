@@ -1,7 +1,11 @@
 {
   "Order": {
     "phSearch": "Buscar por identificador o usuario.",
-    "OrderList": "Pedidos"
+    "OrderList": "Pedidos",
+    "titleChangeStatus": "¿Seguro que quiere cambiar el estado?",
+    "descriptionChangeStatus": "El cambio de estado es irreversible.",
+    "btnChangeStatusContinueText": "Cambiar estado",
+    "btnChangeStatusCancelText": "Cancelar"
   },
   "OrderDetail": {
     "lbName": "Nombre",
