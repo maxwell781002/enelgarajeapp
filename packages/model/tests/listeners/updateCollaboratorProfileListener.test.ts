@@ -6,7 +6,7 @@ import { CompleteOrder } from "../../prisma/zod";
 const module = vi.hoisted(() => ({
   updateCollaboratorProfile: vi.fn(),
 }));
-vi.mock("../../repository/collaborator-invoice", () => ({
+vi.mock("../../repository/collaborator-profile", () => ({
   updateCollaboratorProfile: module.updateCollaboratorProfile,
 }));
 

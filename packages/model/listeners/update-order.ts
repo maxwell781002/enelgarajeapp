@@ -1,5 +1,5 @@
 import { OrderPayed } from "../lib/event-emitter/events";
-import { updateCollaboratorProfile } from "../repository/collaborator-invoice";
+import { updateCollaboratorProfile } from "../repository/collaborator-profile";
 
 export const updateCollaboratorProfileListener = (event: OrderPayed) => {
   const order = event.data;

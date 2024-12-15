@@ -1,5 +1,5 @@
 import { EntityCreated, EntityUpdated } from "../lib/event-emitter/events";
-import { updateCollaboratorProfile } from "../repository/collaborator-invoice";
+import { updateCollaboratorProfile } from "../repository/collaborator-profile";
 
 export const updateCollaboratorProfileByInvoice = (
   event: EntityCreated | EntityUpdated,

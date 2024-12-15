@@ -3,29 +3,9 @@ import { EntityCreated, EntityUpdated } from "../lib/event-emitter/events";
 import { updateCollaboratorProfileByInvoice } from "../listeners/collaborator-invoice";
 import { transaction } from "../prisma/prisma-client";
 import { collaboratorInvoiceRepository } from "../repositories/collaborator-invoice";
-import { collaboratorProfileRepository } from "../repositories/collaborator-profile";
 import { orderRepository } from "../repositories/order";
 import { UserBusinessType } from "../types/enums";
 import { isUserBusiness } from "./business";
-
-export async function updateCollaboratorProfile(
-  userId: string,
-  businessId: string,
-) {
-  await isUserBusiness(userId, businessId, UserBusinessType.COLLABORATOR);
-  const statistic: any = await orderRepository.getCollaboratorStatistic(
-    businessId,
-    userId,
-  );
-  const totalPendingInvoiceToConfirm =
-    await collaboratorInvoiceRepository.getTotalToConfirm(businessId, userId);
-  statistic.totalPendingInvoiceToConfirm = totalPendingInvoiceToConfirm;
-  return collaboratorProfileRepository.updateProfile(
-    userId,
-    businessId,
-    statistic,
-  );
-}
 
 export const createCollaboratorInvoice = async ({
   ordersId,

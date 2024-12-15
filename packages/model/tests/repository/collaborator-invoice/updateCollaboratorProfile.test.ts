@@ -9,7 +9,7 @@ import {
   userFactory,
 } from "../../factories";
 import { Currency, UserBusinessType } from "../../../types/enums";
-import { updateCollaboratorProfile } from "../../../repository/collaborator-invoice";
+import { updateCollaboratorProfile } from "../../../repository/collaborator-profile";
 import { OrderStatus } from "../../../prisma/generated/client";
 import { collaboratorProfileRepository } from "../../../repositories/collaborator-profile";
 
