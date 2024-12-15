@@ -127,6 +127,9 @@ export class OrderRepository extends BaseRepository<
         isCollaborator: true,
         collaboratorInvoiceId: null,
         status: OrderStatus.PAYED,
+        commission: {
+          not: 0,
+        },
       },
     );
   }
