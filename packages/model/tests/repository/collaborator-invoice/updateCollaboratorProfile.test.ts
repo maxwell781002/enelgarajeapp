@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
   businessFactory,
   clearBd,
+  collaboratorCardBankFactory,
   collaboratorInvoiceFactory,
   orderFactory,
   userBusinessFactory,
@@ -19,6 +20,7 @@ import { collaboratorProfileRepository } from "../../../repositories/collaborato
 
 const createOrder = async (
   business,
+  cardBank,
   collaborator,
   commission,
   businessProfit,
@@ -42,6 +44,7 @@ const createOrder = async (
       amount: 100,
       currency: Currency.CUP,
       transferCode: "transferCode",
+      cardBankId: cardBank.id,
     };
     const invoice = await collaboratorInvoiceFactory(data);
     orderData["collaboratorInvoiceId"] = invoice.id;
@@ -52,6 +55,7 @@ const createOrder = async (
 describe("updateCollaboratorProfile", () => {
   let business;
   let user;
+  let cardBank;
   beforeAll(async () => {
     business = await businessFactory();
     user = await userFactory();
@@ -60,15 +64,39 @@ describe("updateCollaboratorProfile", () => {
       businessId: business.id,
       type: UserBusinessType.COLLABORATOR,
     });
+    cardBank = await collaboratorCardBankFactory({
+      businessId: business.id,
+      collaboratorId: user.id,
+      cardNumber: "cardNumber",
+      phone: "+5353024637",
+    });
 
     //User 1
-    await createOrder(business, user, 30, 70);
-    await createOrder(business, user, 10, 50, true, true);
-    await createOrder(business, user, 5, 85, true, true);
-    await createOrder(business, user, 20, 60, true);
-    await createOrder(business, user, 20, 60, true);
-    await createOrder(business, user, 20, 60, false, false, OrderStatus.PAYED);
-    await createOrder(business, user, 20, 60, false, false, OrderStatus.PAYED);
+    await createOrder(business, cardBank, user, 30, 70);
+    await createOrder(business, cardBank, user, 10, 50, true, true);
+    await createOrder(business, cardBank, user, 5, 85, true, true);
+    await createOrder(business, cardBank, user, 20, 60, true);
+    await createOrder(business, cardBank, user, 20, 60, true);
+    await createOrder(
+      business,
+      cardBank,
+      user,
+      20,
+      60,
+      false,
+      false,
+      OrderStatus.PAYED,
+    );
+    await createOrder(
+      business,
+      cardBank,
+      user,
+      20,
+      60,
+      false,
+      false,
+      OrderStatus.PAYED,
+    );
   });
 
   afterAll(async () => {
