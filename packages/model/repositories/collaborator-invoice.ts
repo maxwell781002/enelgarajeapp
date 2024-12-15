@@ -33,7 +33,12 @@ export class CollaboratorInvoiceRepository extends BaseRepository<
       businessId,
       collaboratorId,
     });
-    return super.paginate({ ...props, where, orderBy: { createdAt: "desc" } });
+    return super.paginate({
+      ...props,
+      where,
+      orderBy: { createdAt: "desc" },
+      include: { cardBank: true },
+    });
   }
 
   async confirmInvoice(id: string) {

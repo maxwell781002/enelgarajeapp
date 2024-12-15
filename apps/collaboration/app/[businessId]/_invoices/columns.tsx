@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { CompleteCollaboratorInvoice } from "@repo/model/zod/collaboratorinvoice";
 import { useTableContext } from "@repo/ui/context/table";
 import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
+import { CompleteCollaboratorCardBank } from "@repo/model/zod/collaboratorcardbank";
 
 type ActionProps = {
   row: CompleteCollaboratorInvoice;
@@ -49,6 +50,15 @@ export const columns: ColumnDef<any>[] = [
         />
       );
     },
+  },
+  {
+    header: "Tarjeta",
+    accessorKey: "cardBank",
+    cell: ({
+      cell: { value, row },
+    }: {
+      cell: { value: CompleteCollaboratorCardBank; row: any };
+    }) => value.cardNumber,
   },
   {
     header: "Confirmado",

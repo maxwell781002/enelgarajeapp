@@ -2,6 +2,7 @@ import { ColumnDef } from "@repo/ui/components/table/index";
 import { formatDate } from "@repo/ui/lib/date";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { Check, CircleX } from "lucide-react";
+import { CompleteCollaboratorCardBank } from "@repo/model/zod/collaboratorcardbank";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -20,6 +21,15 @@ export const columns: ColumnDef<any>[] = [
         />
       );
     },
+  },
+  {
+    header: "Tarjeta",
+    accessorKey: "cardBank",
+    cell: ({
+      cell: { value, row },
+    }: {
+      cell: { value: CompleteCollaboratorCardBank; row: any };
+    }) => value.cardNumber,
   },
   {
     header: "Confirmado",
