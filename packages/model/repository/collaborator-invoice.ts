@@ -22,10 +22,13 @@ export async function updateCollaboratorProfile(
       `User ${userId} is not collaborator of business ${businessId}`,
     );
   }
-  const statistic = await orderRepository.getCollaboratorStatistic(
+  const statistic: any = await orderRepository.getCollaboratorStatistic(
     businessId,
     userId,
   );
+  const totalPendingInvoiceToConfirm =
+    await collaboratorInvoiceRepository.getTotalToConfirm(businessId, userId);
+  statistic.totalPendingInvoiceToConfirm = totalPendingInvoiceToConfirm;
   return collaboratorProfileRepository.updateProfile(
     userId,
     businessId,

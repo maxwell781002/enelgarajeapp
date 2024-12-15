@@ -42,7 +42,6 @@ export default async function AddressUserFormPage({
     return redirect(`${baseUrl}/address-user`);
   };
   const defaultValues = id ? await addressRepository.get(id) : {};
-  console.log(defaultValues, id);
   return (
     <BackPage href={`${baseUrl}/address-user`} urlTitle={t("back-address")}>
       <AddressUserForm

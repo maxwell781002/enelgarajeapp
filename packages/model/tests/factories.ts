@@ -9,6 +9,7 @@ const randomEmail = () => {
 
 export const clearBd = async () => {
   await prisma().collaboratorInvoice.deleteMany();
+  await prisma().collaboratorCardBank.deleteMany();
   await prisma().collaboratorProfile.deleteMany();
   await prisma().invitationLink.deleteMany();
   await prisma().businessNeighborhood.deleteMany();
@@ -111,4 +112,8 @@ export const businessNeighborhoodFactory = async (data: any = {}) => {
 
 export const invitationLinkFactory = async (data: any = {}) => {
   return prisma().invitationLink.create({ data });
+};
+
+export const collaboratorCardBankFactory = async (data: any = {}) => {
+  return prisma().collaboratorCardBank.create({ data });
 };

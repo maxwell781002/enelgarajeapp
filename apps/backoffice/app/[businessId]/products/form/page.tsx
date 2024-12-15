@@ -55,7 +55,6 @@ export default async function PageForm({
       delete obj.categoryId;
     }
     obj.businessId = businessId;
-    console.log("obj", obj);
     const { id: idFromDb } = id
       ? await productRepository.update(id, obj)
       : await productRepository.create(obj);

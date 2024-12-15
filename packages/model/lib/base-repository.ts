@@ -36,7 +36,6 @@ export abstract class BaseRepository<T extends Entity, M> {
 
   create(data: any) {
     this.validate("create", data);
-    console.log("data", data);
     return this.doCreate(data);
   }
 

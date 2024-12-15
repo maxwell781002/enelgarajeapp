@@ -84,9 +84,7 @@ export default function NewInvoice({
         </DialogTrigger>
         <DialogContent className="max-w-fit">
           <DialogHeader>
-            <DialogTitle>
-              {t("createInvoiceTitle")}
-            </DialogTitle>
+            <DialogTitle>{t("createInvoiceTitle")}</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

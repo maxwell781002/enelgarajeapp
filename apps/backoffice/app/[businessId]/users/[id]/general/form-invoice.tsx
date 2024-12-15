@@ -38,7 +38,7 @@ export default function TransferDialog({
   const cardBank = cards.find((card) => card.id === form.watch("cardBankId"));
   const textQr = transfermovilText(
     cardBank?.cardNumber as string,
-    cardBank?.phone as string
+    cardBank?.phone as string,
   );
   return (
     <>

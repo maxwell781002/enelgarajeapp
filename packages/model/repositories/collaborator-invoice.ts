@@ -42,6 +42,16 @@ export class CollaboratorInvoiceRepository extends BaseRepository<
       data: { confirmed: true },
     });
   }
+
+  getTotalToConfirm(businessId: string, collaboratorId: string) {
+    return this.model.count({
+      where: {
+        businessId,
+        collaboratorId,
+        confirmed: false,
+      },
+    });
+  }
 }
 
 export const collaboratorInvoiceRepository =

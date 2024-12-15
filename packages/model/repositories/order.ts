@@ -281,16 +281,6 @@ export class OrderRepository extends BaseRepository<
         },
       },
     });
-    const totalPendingInvoiceToConfirm = prisma().order.count({
-      where: {
-        ...where,
-        collaboratorInvoice: {
-          confirmed: {
-            equals: false,
-          },
-        },
-      },
-    });
     const totalOrderForPayment = prisma().order.count({
       where: {
         ...where,
@@ -300,14 +290,12 @@ export class OrderRepository extends BaseRepository<
     });
     const values = await Promise.all([
       historicalProfit,
-      totalPendingInvoiceToConfirm,
       totalOrderForPayment,
     ]);
     return {
       historicalProfit: values[0]._sum.commission ?? 0,
       totalBusinessProfit: values[0]._sum.businessProfit ?? 0,
-      totalPendingInvoiceToConfirm: values[1] ?? 0,
-      totalOrderForPayment: values[2] ?? 0,
+      totalOrderForPayment: values[1] ?? 0,
     };
   }
 

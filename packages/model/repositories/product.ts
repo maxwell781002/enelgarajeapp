@@ -52,7 +52,6 @@ export class ProductRepository extends BaseRepository<
 
   protected getCommissionData(priceValues: any, productId: string) {
     const { hasCommission, commissionValue, ...productPrice } = priceValues;
-    console.log("hasCommission", hasCommission, commissionValue, productPrice);
     return {
       commissionValue: hasCommission ? commissionValue : 0,
       commissionType: CommissionTypes.PERCENTAGE,
