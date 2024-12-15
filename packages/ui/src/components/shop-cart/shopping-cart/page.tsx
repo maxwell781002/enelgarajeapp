@@ -84,7 +84,11 @@ export default async function ShoppingCartPage({
           </div>
         )}
         <div className="flex flex-col gap-2">
-          <Link href={baseUrl || "/"} className="w-full" prefetch={false}>
+          <Link
+            href={productBaseUrl || "/"}
+            className="w-full"
+            prefetch={false}
+          >
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
           <Link

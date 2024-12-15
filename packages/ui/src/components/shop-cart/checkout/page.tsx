@@ -15,6 +15,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 export type CheckoutPageProps = {
   business: CompleteBusiness;
   baseUrl?: string;
+  productBaseUrl?: string;
   addressUrl?: string;
   isCollaborator?: boolean;
 } & Omit<
@@ -25,13 +26,14 @@ export type CheckoutPageProps = {
 export default async function CheckoutPage({
   business,
   baseUrl = "",
+  productBaseUrl = "",
   addressUrl = "",
   isCollaborator = false,
   ...props
 }: CheckoutPageProps) {
   const order = await getCurrentOrder();
   if (!order || order.items.length === 0) {
-    return <EmptyCart url={baseUrl || "/"} />;
+    return <EmptyCart url={productBaseUrl || "/"} />;
   }
   const checkout = async (data: TUserRegisterSchema) => {
     "use server";
@@ -58,6 +60,7 @@ export default async function CheckoutPage({
       addresses={addresses as CompleteAddress[]}
       order={order}
       baseUrl={baseUrl}
+      productBaseUrl={productBaseUrl}
       addressUrl={addressUrl}
       {...props}
     />

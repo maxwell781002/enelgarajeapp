@@ -36,6 +36,7 @@ export type CheckoutViewProps = {
   addresses: CompleteAddress[];
   order: ShopCartOrder;
   baseUrl?: string;
+  productBaseUrl?: string;
   addressUrl?: string;
 } & Omit<CheckoutFormProps, "action" | "setAddressType" | "form">;
 
@@ -47,6 +48,7 @@ export default function CheckoutView({
   order,
   baseUrl = "",
   addressUrl = "",
+  productBaseUrl = "",
   ...props
 }: CheckoutViewProps) {
   const t = useTranslations("Checkout");
