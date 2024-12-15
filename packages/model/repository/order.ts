@@ -238,6 +238,7 @@ export const checkoutOrder = async (
     const shoppingCart = await getCurrentOrder();
     order.commission = shoppingCart?.commission || 0;
     order.businessProfit = shoppingCart?.businessProfit || 0;
+    order.total = shoppingCart?.total || 0;
 
     const newOrder = await orderRepository.placeOrder(
       order,
