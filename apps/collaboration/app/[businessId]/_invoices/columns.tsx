@@ -1,13 +1,14 @@
 import { ColumnDef } from "@repo/ui/components/table/index";
 import { formatDate } from "@repo/ui/lib/date";
 import PriceDisplay from "@repo/ui/components/prices/price";
-import { Check, CircleX } from "lucide-react";
+import { Check } from "lucide-react";
 import { BtnList } from "@repo/ui/components/ui/btn-list";
 import { useTranslations } from "next-intl";
 import { CompleteCollaboratorInvoice } from "@repo/model/zod/collaboratorinvoice";
 import { useTableContext } from "@repo/ui/context/table";
 import { BtnConfirm } from "@repo/ui/components/ui/btn-confirm";
 import { CompleteCollaboratorCardBank } from "@repo/model/zod/collaboratorcardbank";
+import ActiveInactive from "@repo/ui/components/active-inactive";
 
 type ActionProps = {
   row: CompleteCollaboratorInvoice;
@@ -68,15 +69,7 @@ export const columns: ColumnDef<any>[] = [
     }: {
       cell: { value: boolean; row: any };
     }) => {
-      return (
-        <>
-          {confirmed ? (
-            <Check className="text-green-500 inline-block w-4 h-4" />
-          ) : (
-            <CircleX className="text-red-500 inline-block w-4 h-4" />
-          )}
-        </>
-      );
+      return <ActiveInactive active={confirmed} />;
     },
   },
   {
