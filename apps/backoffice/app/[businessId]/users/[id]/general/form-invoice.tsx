@@ -15,6 +15,9 @@ import {
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { CollaboratorCardBank } from "@repo/model/prisma/generated/client/index.d";
 import EntitySelect from "@repo/ui/components/entity-select";
+import { transfermovilText } from "@repo/model/lib/utils";
+import Qr from "@repo/ui/components/qr";
+import CopyToClipboard from "@repo/ui/components/copy-to-clipboard/copy-to-clipboard-text";
 
 type TransferDialogProps = {
   totalToPay: number;
@@ -32,6 +35,11 @@ export default function TransferDialog({
   cards,
 }: TransferDialogProps) {
   const t = useTranslations("UserDetail");
+  const cardBank = cards.find((card) => card.id === form.watch("cardBankId"));
+  const textQr = transfermovilText(
+    cardBank?.cardNumber as string,
+    cardBank?.phone as string
+  );
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
@@ -68,6 +76,25 @@ export default function TransferDialog({
           </FormItem>
         )}
       />
+      {cardBank && (
+        <div className="grid grid-rows sm:grid-cols-2 gap-4 bg-slate-100 p-4">
+          <Qr value={textQr} addCopy={true} image="/transfermovilIcon.jpg" />
+          <div>
+            <div className="grid grid-cols-2 gap-2">
+              <dt className="font-medium">{t("cardNumber")}</dt>
+              <dd>
+                <CopyToClipboard text={cardBank.cardNumber as string} />
+              </dd>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <dt className="font-medium">{t("phone")}</dt>
+              <dd>
+                <CopyToClipboard text={cardBank.phone as string} />
+              </dd>
+            </div>
+          </div>
+        </div>
+      )}
       <FormField
         control={form.control}
         name="transferCode"

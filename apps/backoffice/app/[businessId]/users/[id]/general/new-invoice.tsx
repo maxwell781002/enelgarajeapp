@@ -82,9 +82,11 @@ export default function NewInvoice({
         <DialogTrigger asChild>
           <Button>{t("createInvoice")}</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="max-w-fit">
           <DialogHeader>
-            <DialogTitle>Transfer Details</DialogTitle>
+            <DialogTitle>
+              {t("createInvoiceTitle")}
+            </DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

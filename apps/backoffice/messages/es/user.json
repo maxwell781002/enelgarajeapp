@@ -35,6 +35,9 @@
     "Required": "Requerido",
     "lbPaymentMethod": "Tarjeta de pago",
     "phPaymentMethod": "Selecionar tarjeta de pago",
+    "cardNumber": "Número de tarjeta",
+    "phone": "Teléfono",
+    "createInvoiceTitle": "Crear factura",
     "btnTransfer": "Salvar"
   },
   "CardBank": {
