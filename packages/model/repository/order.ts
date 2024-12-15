@@ -70,9 +70,8 @@ export const getCurrentOrder = async (): Promise<
     { total: 0, commission: 0, businessProfit: 0 },
   );
   order.total = total;
-  //TODO: Remove any from here
-  (order as any).commission = commission;
-  (order as any).businessProfit = businessProfit;
+  order.commission = commission;
+  order.businessProfit = businessProfit;
   order.hasProductOutOfStock = items.some(({ outOfStock }) => outOfStock);
   return { ...order, items, total };
 };
@@ -234,6 +233,12 @@ export const checkoutOrder = async (
       wantDomicile,
       business.id,
     );
+
+    // TODO: Find a better way to do this
+    const shoppingCart = await getCurrentOrder();
+    order.commission = shoppingCart?.commission || 0;
+    order.businessProfit = shoppingCart?.businessProfit || 0;
+
     const newOrder = await orderRepository.placeOrder(
       order,
       userEntity,
