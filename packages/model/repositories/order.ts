@@ -127,6 +127,9 @@ export class OrderRepository extends BaseRepository<
         isCollaborator: true,
         collaboratorInvoiceId: null,
         status: OrderStatus.PAYED,
+        commission: {
+          not: 0,
+        },
       },
     );
   }
@@ -197,6 +200,8 @@ export class OrderRepository extends BaseRepository<
         businessId: business.id,
         currency: business.currency,
         shipping: order.shipping,
+        commission: order.commission,
+        businessProfit: order.businessProfit,
         identifier: this.generateIdentifier(new Date(), newPosition),
       },
     });

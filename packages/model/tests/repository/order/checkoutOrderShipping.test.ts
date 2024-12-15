@@ -230,7 +230,7 @@ describe("checkoutOrder", () => {
     );
     expect(newOrder).not.toBeNull();
     expect(newOrder.shipping).toBe(100);
-    expect(newOrder.total).toBe(200);
+    expect(newOrder.total).toBe(100);
     expect(newOrder.status).toBe("SEND");
   });
 });
