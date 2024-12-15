@@ -204,6 +204,18 @@ exports.Prisma.UserBusinessScalarFieldEnum = {
   type: 'type'
 };
 
+exports.Prisma.CollaboratorProfileScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  collaboratorId: 'collaboratorId',
+  historicalProfit: 'historicalProfit',
+  totalPendingInvoiceToConfirm: 'totalPendingInvoiceToConfirm',
+  totalOrderForPayment: 'totalOrderForPayment',
+  totalBusinessProfit: 'totalBusinessProfit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CollaboratorCardBankScalarFieldEnum = {
   id: 'id',
   alias: 'alias',
@@ -238,7 +250,10 @@ exports.Prisma.OrderScalarFieldEnum = {
   isCollaborator: 'isCollaborator',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  currency: 'currency'
+  currency: 'currency',
+  commission: 'commission',
+  businessProfit: 'businessProfit',
+  collaboratorInvoiceId: 'collaboratorInvoiceId'
 };
 
 exports.Prisma.OrderProductScalarFieldEnum = {
@@ -246,7 +261,24 @@ exports.Prisma.OrderProductScalarFieldEnum = {
   orderId: 'orderId',
   price: 'price',
   position: 'position',
+  commission: 'commission',
+  businessProfit: 'businessProfit',
   quantity: 'quantity'
+};
+
+exports.Prisma.CollaboratorInvoiceScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  collaboratorId: 'collaboratorId',
+  cardBankId: 'cardBankId',
+  amount: 'amount',
+  currency: 'currency',
+  transferCode: 'transferCode',
+  businessNota: 'businessNota',
+  collaboratorNota: 'collaboratorNota',
+  confirmed: 'confirmed',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -399,10 +431,12 @@ exports.Prisma.ModelName = {
   ProductPrice: 'ProductPrice',
   User: 'User',
   UserBusiness: 'UserBusiness',
+  CollaboratorProfile: 'CollaboratorProfile',
   CollaboratorCardBank: 'CollaboratorCardBank',
   InvitationLink: 'InvitationLink',
   Order: 'Order',
   OrderProduct: 'OrderProduct',
+  CollaboratorInvoice: 'CollaboratorInvoice',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',

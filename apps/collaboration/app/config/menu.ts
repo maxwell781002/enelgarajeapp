@@ -4,11 +4,18 @@ import {
   Settings,
   ShoppingBasketIcon,
   MapPinIcon,
+  Home,
 } from "lucide-react";
 
 export const businessMenu: (businessId: string) => LinkItem[] = (
   businessId: string,
 ) => [
+  {
+    link: `/${businessId}`,
+    title: "Dashboard",
+    Icon: Home,
+    active: true,
+  },
   {
     link: `/${businessId}/products`,
     title: "Productos",

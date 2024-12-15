@@ -1,23 +1,35 @@
 import { StatCard } from "./stat";
-import { Package, ShoppingCart, Users } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import PriceDisplay from "@repo/ui/components/prices/price";
+import { UserWithCollaboratorProfile } from "@repo/model/types/user";
 
-export default function Stats() {
+export default async function Stats({
+  user,
+}: {
+  user: UserWithCollaboratorProfile;
+}) {
+  const t = await getTranslations("UserDetail");
   return (
-    <div className="grid gap-2 grid-cols-3">
+    <div className="flex flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
       <StatCard
-        title="Total Orders"
-        value={125}
-        icon={<ShoppingCart className="h-4 w-4 text-muted-foreground" />}
+        title={t("historicalProfit")}
+        value={
+          <PriceDisplay price={user._collaboratorProfile.historicalProfit} />
+        }
       />
       <StatCard
-        title="Products"
-        value={42}
-        icon={<Package className="h-4 w-4 text-muted-foreground" />}
+        title={t("totalBusinessProfit")}
+        value={
+          <PriceDisplay price={user._collaboratorProfile.totalBusinessProfit} />
+        }
       />
       <StatCard
-        title="Customers"
-        value={1234}
-        icon={<Users className="h-4 w-4 text-muted-foreground" />}
+        title={t("totalPendingInvoiceToConfirm")}
+        value={user._collaboratorProfile.totalPendingInvoiceToConfirm}
+      />
+      <StatCard
+        title={t("totalOrderForPayment")}
+        value={user._collaboratorProfile.totalOrderForPayment}
       />
     </div>
   );

@@ -70,6 +70,19 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
+  isUserBusiness(userId: string, businessId: string, type?: TUserBusinessType) {
+    const query: any = {
+      userId,
+      businessId,
+    };
+    if (type) {
+      query["type"] = type;
+    }
+    return prisma().userBusiness.findFirst({
+      where: query,
+    });
+  }
+
   getByUserAndActive(userId: string, type: TUserBusinessType) {
     return this.model.findMany({
       where: {

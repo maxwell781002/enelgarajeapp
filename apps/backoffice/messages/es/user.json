@@ -17,8 +17,28 @@
   "UserDetail": {
     "title": "Detalles del gestor",
     "backUsers": "Volver a gestores",
-    "tabOrders": "Ordenes",
-    "tabCardNumbers": "Tarjetas"
+    "tabOrders": "Órdenes por pagar",
+    "tabInvoices": "Facturas",
+    "tabCardNumbers": "Tarjetas",
+    "historicalProfit": "Comisión historica",
+    "totalPendingInvoiceToConfirm": "Pendiente por confirmar",
+    "totalOrderForPayment": "Órdenes por pagar",
+    "createInvoice": "Crear factura",
+    "totalBusinessProfit": "Negocio",
+    "lbTotalToPay": "Total a pagar",
+    "lbNumberOfOrders": "Número de ordenes",
+    "lbTransferCode": "Código de transferencia",
+    "phTransferCode": "Escriba el código de transferencia",
+    "lbBusinessNota": "Nota (opcional)",
+    "phBusinessNota": "Escriba la nota",
+    "invoiceCreated": "Factura creada",
+    "Required": "Requerido",
+    "lbPaymentMethod": "Tarjeta de pago",
+    "phPaymentMethod": "Selecionar tarjeta de pago",
+    "cardNumber": "Número de tarjeta",
+    "phone": "Teléfono",
+    "createInvoiceTitle": "Crear factura",
+    "btnTransfer": "Salvar"
   },
   "CardBank": {
     "createCardBank": "Crear tarjeta",
@@ -48,5 +68,8 @@
     "phone": "Teléfono",
     "updatedAt": "Actualizado",
     "createdAt": "Creado"
+  },
+  "CollaboratorInvoice": {
+    "InvoiceList": "Facturas"
   }
 }

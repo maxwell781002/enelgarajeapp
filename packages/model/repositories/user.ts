@@ -6,6 +6,7 @@ import {
   UserBusinessType,
 } from "../prisma/generated/client";
 import { PaginateData as BasePaginateData } from "../types/pagination";
+import { UserWithCollaboratorProfile } from "../types/user";
 
 export const UserRoles = BaseUserRoles;
 
@@ -32,6 +33,29 @@ export class UserRepository extends BaseRepository<
         business: true,
       },
     });
+  }
+
+  async getUserWithCollaboratorProfile(
+    id: string,
+    businessId: string,
+  ): Promise<UserWithCollaboratorProfile> {
+    const user = await this.model.findUnique({
+      where: { id },
+      include: {
+        collaboratorProfiles: {
+          where: {
+            businessId,
+          },
+        },
+      },
+    });
+    user._collaboratorProfile = user.collaboratorProfiles?.[0] || {
+      historicalProfit: 0,
+      totalPendingInvoiceToConfirm: 0,
+      totalOrderForPayment: 0,
+      totalBusinessProfit: 0,
+    };
+    return user;
   }
 
   paginate({ businessId, query, ...data }: PaginateData = {}) {

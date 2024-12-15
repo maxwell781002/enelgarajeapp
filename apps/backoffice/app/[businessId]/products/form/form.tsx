@@ -54,7 +54,6 @@ export default function ProductForm({
     () => form.formState.errors[""]?.message || "",
     [form.formState],
   );
-  console.log(form.formState.errors);
 
   return (
     <Form {...form}>

@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/ui/card";
+import CardTotal from "@repo/ui/components/cardTotal";
 import { Package, ShoppingCart } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -25,54 +20,27 @@ export default async function Totals({
   const t = await getTranslations("Totals");
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">
-            {t("totalProducts")}
-          </CardTitle>
-          <Package className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{productTotal}</div>
-          <p className="text-xs text-muted-foreground">
-            {!!productInactive &&
-              `+ ${productInactive} ${t("totalProductsInactive")}`}
-          </p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">
-            {t("orderToProcess")}
-          </CardTitle>
-          <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{orderToProcess}</div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">
-            {t("orderPayed")}
-          </CardTitle>
-          <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{orderPayed}</div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">
-            {t("orderReject")}
-          </CardTitle>
-          <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{orderReject}</div>
-        </CardContent>
-      </Card>
+      <CardTotal
+        title={t("totalProducts")}
+        Icon={Package}
+        value={productTotal}
+        subText={`+ ${productInactive} ${t("totalProductsInactive")}`}
+      />
+      <CardTotal
+        title={t("orderToProcess")}
+        Icon={ShoppingCart}
+        value={orderToProcess}
+      />
+      <CardTotal
+        title={t("orderPayed")}
+        Icon={ShoppingCart}
+        value={orderPayed}
+      />
+      <CardTotal
+        title={t("orderReject")}
+        Icon={ShoppingCart}
+        value={orderReject}
+      />
     </div>
   );
 }

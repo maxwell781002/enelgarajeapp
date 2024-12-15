@@ -15,6 +15,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 export type CheckoutPageProps = {
   business: CompleteBusiness;
   baseUrl?: string;
+  addressUrl?: string;
   isCollaborator?: boolean;
 } & Omit<
   CheckoutViewProps,
@@ -24,6 +25,7 @@ export type CheckoutPageProps = {
 export default async function CheckoutPage({
   business,
   baseUrl = "",
+  addressUrl = "",
   isCollaborator = false,
   ...props
 }: CheckoutPageProps) {
@@ -56,6 +58,7 @@ export default async function CheckoutPage({
       addresses={addresses as CompleteAddress[]}
       order={order}
       baseUrl={baseUrl}
+      addressUrl={addressUrl}
       {...props}
     />
   );

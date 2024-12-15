@@ -1,11 +1,7 @@
 import MyTable from "@repo/ui/components/table/index";
 import { crud } from "@repo/model/lib/crud";
-import {
-  orderRepository,
-  OrderRepository,
-} from "@repo/model/repositories/order";
+import { orderRepository } from "@repo/model/repositories/order";
 import { columns } from "./columns";
-import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { PaginationResult } from "@repo/model/types/pagination";
 import TableLayout from "@repo/ui/components/table-layout/layout";
@@ -13,13 +9,11 @@ import { getTranslations } from "next-intl/server";
 import { TableContextProvider } from "@repo/ui/context/table";
 
 type PageProps = {
-  searchParams: any;
   businessId: string;
   collaboratorId: string;
 };
 
 export default async function CollaboratorOrders({
-  searchParams,
   businessId,
   collaboratorId,
 }: PageProps) {
@@ -27,7 +21,12 @@ export default async function CollaboratorOrders({
   const { list, search } = crud(
     `/${businessId}/users/${collaboratorId}`,
     orderRepository.getRepositoryModelName(),
-    searchParams,
+    {
+      pageSize: 1000,
+    },
+    {
+      paginateMethod: "collaboratorPaginate",
+    },
   );
   const handleSearch = async (query: any) => {
     "use server";
@@ -41,15 +40,7 @@ export default async function CollaboratorOrders({
   });
   return (
     <TableContextProvider>
-      <TableLayout
-        title={t("OrderList")}
-        filter={
-          <Filter
-            onChange={handleSearch}
-            options={orderRepository.orderToChange()}
-          />
-        }
-      >
+      <TableLayout title={t("OrderList")}>
         <MyTable
           pagination={data as PaginationResult<any>}
           columns={columns}

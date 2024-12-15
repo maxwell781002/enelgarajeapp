@@ -3,5 +3,5 @@ import CheckoutPage from "@repo/ui/components/shop-cart/checkout/page";
 
 export default async function Component() {
   const business = await getCurrentBusiness();
-  return <CheckoutPage business={business} />;
+  return <CheckoutPage business={business} addressUrl={"/address-user"} />;
 }

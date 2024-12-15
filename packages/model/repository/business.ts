@@ -1,6 +1,8 @@
 import { businessRepository } from "../repositories/business";
 import { headers } from "next/headers";
 import { telegramBusinessRepository } from "../repositories/telegram-business";
+import { TUserBusinessType, UserBusinessType } from "../types/enums";
+import { UserIsNotCollaboratorError } from "../errors/bad-request";
 
 export const getCurrentBusiness = async () => {
   const headersList = headers();
@@ -38,4 +40,23 @@ export const createOrUpdateBusiness = async (
     await telegramBusinessRepository.removeByBusinessId(businessId);
   }
   return entity;
+};
+
+export const isUserBusiness = async (
+  userId: string,
+  businessId: string,
+  type?: TUserBusinessType,
+  throwError: boolean = true,
+) => {
+  const collaborator = await businessRepository.isUserBusiness(
+    userId,
+    businessId,
+    type,
+  );
+  if (!collaborator && throwError) {
+    throw new UserIsNotCollaboratorError(
+      `User ${userId} is not collaborator of business ${businessId}`,
+    );
+  }
+  return !!collaborator;
 };

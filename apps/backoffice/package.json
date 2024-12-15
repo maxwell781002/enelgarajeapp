@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prisma-migration-deploy": "prisma migrate deploy --schema=../../packages/model/prisma/schema.prisma",
     "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
-    "vercel-build": "pnpm run prisma-generate && next build"
+    "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -24,7 +25,8 @@
     "react-hook-form": "^7.52.2",
     "recharts": "^2.12.7",
     "use-debounce": "^10.0.3",
-    "zod": "link:@hookform/resolvers/zod"
+    "zod": "link:@hookform/resolvers/zod",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

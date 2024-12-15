@@ -10,6 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@repo/ui/components/ui/alert-dialog";
 import { Button, ButtonProps } from "@repo/ui/components/button";
+import { useState, useTransition } from "react";
 
 export type BtnConfirmProps = {
   btnIcon?: React.ReactNode;
@@ -32,13 +33,22 @@ export function BtnConfirm({
   btnCancelText = "Cancel",
   btnContinueText = "Continue",
 }: BtnConfirmProps) {
+  const [loading, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
+  const handle = async () => {
+    return startTransition(async () => {
+      await action();
+      setOpen(false);
+    });
+  };
   return (
-    <AlertDialog>
+    <AlertDialog open={open}>
       <AlertDialogTrigger asChild>
         <Button
           variant="outline"
           size={btnIcon ? "icon" : "default"}
           {...btnAttr}
+          onClick={() => setOpen(true)}
         >
           {btnIcon || btnText}
         </Button>
@@ -49,8 +59,10 @@ export function BtnConfirm({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{btnCancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={action}>
+          <AlertDialogCancel onClick={() => setOpen(false)}>
+            {btnCancelText}
+          </AlertDialogCancel>
+          <AlertDialogAction onClick={handle} disabled={loading}>
             {btnContinueText}
           </AlertDialogAction>
         </AlertDialogFooter>

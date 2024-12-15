@@ -36,6 +36,7 @@ export type CheckoutViewProps = {
   addresses: CompleteAddress[];
   order: ShopCartOrder;
   baseUrl?: string;
+  addressUrl?: string;
 } & Omit<CheckoutFormProps, "action" | "setAddressType" | "form">;
 
 export default function CheckoutView({
@@ -45,6 +46,7 @@ export default function CheckoutView({
   addresses,
   order,
   baseUrl = "",
+  addressUrl = "",
   ...props
 }: CheckoutViewProps) {
   const t = useTranslations("Checkout");
@@ -87,7 +89,7 @@ export default function CheckoutView({
           setAddressType={setAddressType}
           showWantDomicile={hasShipping}
           form={form}
-          baseUrl={baseUrl}
+          addressUrl={addressUrl}
           {...props}
         />
       </div>

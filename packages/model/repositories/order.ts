@@ -1,4 +1,4 @@
-import prisma, { Prisma } from "../prisma/prisma-client";
+import prisma, { Prisma, transaction } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteBusiness,
@@ -9,6 +9,8 @@ import {
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { OrderStatus } from "../prisma/generated/client";
 import { clearWhere } from "../lib/util-query";
+import { OrderPayed } from "../lib/event-emitter/events";
+import { updateCollaboratorProfileListener } from "../listeners/update-order";
 
 export const statusColors: Record<OrderStatus, string> = {
   CREATED: "bg-yellow-500",
@@ -17,12 +19,30 @@ export const statusColors: Record<OrderStatus, string> = {
   REJECTED: "bg-red-500",
 };
 
+const transitions: Record<OrderStatus, [OrderStatus, string][]> = {
+  [OrderStatus.SEND]: [
+    [OrderStatus.SEND, statusColors[OrderStatus.SEND]],
+    [OrderStatus.PAYED, statusColors[OrderStatus.PAYED]],
+    [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
+  ],
+  [OrderStatus.PAYED]: [[OrderStatus.PAYED, statusColors[OrderStatus.PAYED]]],
+  [OrderStatus.REJECTED]: [
+    [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
+  ],
+  [OrderStatus.CREATED]: [],
+};
+export const nextStatuses = (status: OrderStatus) => {
+  return transitions[status].map((item) => item[0]);
+};
+
 type PaginateData = {
   businessId?: string;
-  userId?: string;
   status?: string;
-  isCollaborator?: boolean;
 } & BasePaginateData;
+
+type CollaboratorPaginateData = {
+  userId?: string;
+} & PaginateData;
 
 export class OrderRepository extends BaseRepository<
   CompleteOrder,
@@ -32,32 +52,43 @@ export class OrderRepository extends BaseRepository<
     super(OrderModel, Prisma.order);
   }
 
-  orderToChange() {
-    return Object.entries(statusColors).filter(
+  getStatus() {
+    return Object.entries(OrderStatus).filter(
       ([key]) => key !== OrderStatus.CREATED,
     );
   }
 
-  changeStatus(id: string, status: OrderStatus) {
-    return prisma().order.update({
-      where: { id },
-      data: { status },
+  orderToChange(currentStatus: OrderStatus) {
+    return transitions[currentStatus] || [];
+  }
+
+  async changeStatus(id: string, status: OrderStatus) {
+    const currentOrder = await this.getById(id);
+    if (!nextStatuses(currentOrder.status).includes(status)) {
+      throw new Error("Invalid status transition");
+    }
+    return transaction(async () => {
+      const order = await prisma().order.update({
+        where: { id },
+        data: { status },
+      });
+      if (status === OrderStatus.PAYED) {
+        await updateCollaboratorProfileListener(
+          new OrderPayed(order as CompleteOrder),
+        );
+      }
+      return order;
     });
   }
 
-  paginate({
-    businessId,
-    userId,
-    status,
-    query,
-    isCollaborator,
-    ...data
-  }: PaginateData = {}) {
-    const where = clearWhere({
+  basePaginate(
+    { businessId, status, query, ...data }: PaginateData = {},
+    where: any = {},
+  ) {
+    where = clearWhere({
       businessId,
-      userId,
       status,
-      isCollaborator,
+      ...where,
     });
     where.NOT = { userId: null };
     if (query) {
@@ -85,6 +116,38 @@ export class OrderRepository extends BaseRepository<
       include: {
         user: true,
       },
+    });
+  }
+
+  collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
+    return this.basePaginate(
+      { ...data },
+      {
+        userId,
+        isCollaborator: true,
+        collaboratorInvoiceId: null,
+        status: OrderStatus.PAYED,
+      },
+    );
+  }
+
+  paginate(paginate: PaginateData = {}) {
+    return this.basePaginate(paginate);
+  }
+
+  async isOrdersByTheSameUser(ids: string[], userId: string) {
+    return (
+      ids.length ===
+      (await prisma().order.count({
+        where: { id: { in: ids }, userId },
+      }))
+    );
+  }
+
+  addCollaboratorInvoiceId(ids: string[], collaboratorInvoiceId: string) {
+    return prisma().order.updateMany({
+      where: { id: { in: ids } },
+      data: { collaboratorInvoiceId },
     });
   }
 
@@ -204,6 +267,41 @@ export class OrderRepository extends BaseRepository<
       totalSend: values[0],
       totalPayed: values[1],
       totalReject: values[2],
+    };
+  }
+
+  async getCollaboratorStatistic(businessId: string, userId: string) {
+    const where = {
+      businessId,
+      userId,
+      isCollaborator: true,
+    };
+    const historicalProfit = prisma().order.aggregate({
+      _sum: {
+        commission: true, // Sum the commission field
+        businessProfit: true, // Sum the commission field
+      },
+      where: {
+        ...where,
+        collaboratorInvoice: {
+          confirmed: {
+            equals: true,
+          },
+        },
+      },
+    });
+    const totalOrderForPayment = prisma().order.count({
+      where: {
+        ...where,
+        status: OrderStatus.PAYED,
+        collaboratorInvoiceId: null,
+      },
+    });
+    const values = await Promise.all([historicalProfit, totalOrderForPayment]);
+    return {
+      historicalProfit: values[0]._sum.commission ?? 0,
+      totalBusinessProfit: values[0]._sum.businessProfit ?? 0,
+      totalOrderForPayment: values[1] ?? 0,
     };
   }
 
