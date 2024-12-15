@@ -11,3 +11,10 @@ export class UserIsNotCollaboratorError extends Error {
     this.name = "UserIsNotCollaboratorError";
   }
 }
+
+export class OrderAreTheDifferentUserError extends Error {
+  constructor(message: string = "Order are the different user") {
+    super(message);
+    this.name = "OrderAreTheDifferentUserError";
+  }
+}

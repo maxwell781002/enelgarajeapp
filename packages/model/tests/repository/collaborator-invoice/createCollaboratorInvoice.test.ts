@@ -5,6 +5,7 @@ import {
   clearBd,
   collaboratorCardBankFactory,
   orderFactory,
+  userBusinessFactory,
   userFactory,
 } from "../../factories";
 import {
@@ -13,6 +14,7 @@ import {
 } from "../../../repository/collaborator-invoice";
 import { orderRepository } from "../../../repositories/order";
 import { OrderStatus } from "../../../prisma/generated/client";
+import { UserBusinessType } from "../../../types/enums";
 
 describe.only("createCollaboratorInvoice", () => {
   let business;
@@ -25,6 +27,11 @@ describe.only("createCollaboratorInvoice", () => {
   beforeAll(async () => {
     user = await userFactory();
     business = await businessFactory({ slug: "http://localhost:3000" });
+    await userBusinessFactory({
+      userId: user.id,
+      businessId: business.id,
+      type: UserBusinessType.COLLABORATOR,
+    });
     order1 = await orderFactory({
       userId: user.id,
       businessId: business.id,
