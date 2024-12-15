@@ -7,7 +7,10 @@ import {
   orderFactory,
   userFactory,
 } from "../../factories";
-import { confirmInvoice, createCollaboratorInvoice } from "../../../repository/collaborator-invoice";
+import {
+  confirmInvoice,
+  createCollaboratorInvoice,
+} from "../../../repository/collaborator-invoice";
 import { orderRepository } from "../../../repositories/order";
 import { OrderStatus } from "../../../prisma/generated/client";
 

@@ -17,7 +17,7 @@ type Store = {
 
 export const totalToPayByCurrency = (ordersToPay: TOrderToPay) =>
   Object.entries(ordersToPay).reduce((acc: any, [key, value]) => {
-    acc[key] = value.reduce((total, order) => total + order.total, 0);
+    acc[key] = value.reduce((total, order) => total + order.commission, 0);
     return acc;
   }, {} as TTotalToPay);
 

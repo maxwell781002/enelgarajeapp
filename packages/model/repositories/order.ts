@@ -288,10 +288,7 @@ export class OrderRepository extends BaseRepository<
         collaboratorInvoiceId: null,
       },
     });
-    const values = await Promise.all([
-      historicalProfit,
-      totalOrderForPayment,
-    ]);
+    const values = await Promise.all([historicalProfit, totalOrderForPayment]);
     return {
       historicalProfit: values[0]._sum.commission ?? 0,
       totalBusinessProfit: values[0]._sum.businessProfit ?? 0,

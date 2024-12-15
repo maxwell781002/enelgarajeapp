@@ -4,6 +4,7 @@ import CardTotal from "@repo/ui/components/cardTotal";
 import { getTranslations } from "next-intl/server";
 import { DockIcon, ShoppingCart, DollarSign } from "lucide-react";
 import CollaboratorInvoice from "./_invoices";
+import PriceDisplay from "@repo/ui/components/prices/price";
 
 export type Props = {
   searchParams: any;
@@ -28,7 +29,9 @@ export default async function Home({
         <CardTotal
           title={t("historicalProfit")}
           Icon={DollarSign}
-          value={user._collaboratorProfile.historicalProfit}
+          value={
+            <PriceDisplay price={user._collaboratorProfile.historicalProfit} />
+          }
         />
         <CardTotal
           title={t("totalOrderForPayment")}

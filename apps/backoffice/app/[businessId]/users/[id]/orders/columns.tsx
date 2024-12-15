@@ -28,6 +28,19 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
+    header: "Comisión",
+    accessorKey: "commission",
+    cell: ({ cell: { value, row } }: { cell: { value: number; row: any } }) => {
+      return (
+        <PriceDisplay
+          price={value}
+          currency={row.currency}
+          classNameText="text-sm"
+        />
+      );
+    },
+  },
+  {
     header: "Enviado el",
     accessorKey: "sentAt",
     cell: ({
