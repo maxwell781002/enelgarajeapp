@@ -27,6 +27,9 @@ export default async function Page({
     `/${businessId}/users`,
     userRepository.getRepositoryModelName(),
     searchParams,
+    {
+      paginateMethod: "paginateCollaborators",
+    },
   );
   const handleSearch = async (query: any) => {
     "use server";

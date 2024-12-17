@@ -49,6 +49,10 @@ export class UserRepository extends BaseRepository<
         },
       },
     });
+    return this.addCollaboratorProfile(user);
+  }
+
+  addCollaboratorProfile(user: CompleteUser) {
     user._collaboratorProfile = user.collaboratorProfiles?.[0] || {
       historicalProfit: 0,
       totalPendingInvoiceToConfirm: 0,
@@ -58,15 +62,8 @@ export class UserRepository extends BaseRepository<
     return user;
   }
 
-  paginate({ businessId, query, ...data }: PaginateData = {}) {
-    const where: any = {
-      business: {
-        some: {
-          businessId,
-          type: UserBusinessType.COLLABORATOR,
-        },
-      },
-    };
+  basePaginate({ businessId, query, where, ...data }: BasePaginateData) {
+    where = where || {};
     if (query) {
       where["name"] = {
         contains: query,
@@ -77,6 +74,36 @@ export class UserRepository extends BaseRepository<
       ...data,
       where,
     });
+  }
+
+  async paginateCollaborators({
+    businessId,
+    query,
+    ...rest
+  }: PaginateData = {}) {
+    const where: any = {
+      business: {
+        some: {
+          businessId,
+          type: UserBusinessType.COLLABORATOR,
+        },
+      },
+    };
+    const { data, ...pagination } = await this.basePaginate({
+      ...rest,
+      where,
+      include: {
+        collaboratorProfiles: {
+          where: {
+            businessId,
+          },
+        },
+      },
+    });
+    return {
+      data: data.map((user: CompleteUser) => this.addCollaboratorProfile(user)),
+      ...pagination,
+    };
   }
 
   removeFromBusiness(userId: string, businessId: string) {
