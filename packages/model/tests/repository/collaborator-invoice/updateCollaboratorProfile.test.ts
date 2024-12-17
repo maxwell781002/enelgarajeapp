@@ -97,6 +97,17 @@ describe("updateCollaboratorProfile", () => {
       false,
       OrderStatus.PAYED,
     );
+    //Commission is 0, not enter in to totalOrderForPayment
+    await createOrder(
+      business,
+      cardBank,
+      user,
+      0,
+      60,
+      false,
+      false,
+      OrderStatus.PAYED,
+    );
   });
 
   afterAll(async () => {

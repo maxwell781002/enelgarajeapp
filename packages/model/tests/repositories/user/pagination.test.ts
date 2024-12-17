@@ -36,7 +36,7 @@ describe("User", () => {
   });
 
   it("business 1", async () => {
-    const { data } = await userRepository.paginate({
+    const { data } = await userRepository.paginateCollaborators({
       businessId: business1.id,
     });
     expect(data.length).toBe(1);
@@ -44,7 +44,7 @@ describe("User", () => {
   });
 
   it("business 2", async () => {
-    const { data } = await userRepository.paginate({
+    const { data } = await userRepository.paginateCollaborators({
       businessId: business2.id,
     });
     expect(data.length).toBe(1);

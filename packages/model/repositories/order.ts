@@ -299,6 +299,9 @@ export class OrderRepository extends BaseRepository<
       where: {
         ...where,
         status: OrderStatus.PAYED,
+        commission: {
+          gt: 0,
+        },
         collaboratorInvoiceId: null,
       },
     });
