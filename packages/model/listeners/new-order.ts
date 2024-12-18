@@ -24,6 +24,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
     businessId: order.businessId,
     identifier: order.identifier,
     shipping: order.shipping,
+    commission: formatPrice(order.commission),
     isCollaborator: order.isCollaborator,
     customer: {
       id: customer?.id,
@@ -66,6 +67,7 @@ ${data.isCollaborator ? "⭐️ Es un gestor" : ""}
 ${products}
 
 🚚 ${data.shipping > 0 ? "✅ Pagó el envío" : "❌ No pagó el envío"}
+🎁 *Comisión*: ${data.commission}
 *Total*: ${data.total}
 
 🔗[${data.identifier}](${data.order_url})
