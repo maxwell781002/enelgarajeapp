@@ -40,8 +40,10 @@ export const columns: ColumnDef<any>[] = [
   {
     header: "Teléfono",
     accessorKey: "phone",
-    cell: ({ cell: { value, row } }: { cell: { value: string; row: any } }) =>
-      value,
+  },
+  {
+    header: "Órdenes por pagar",
+    accessorKey: "_collaboratorProfile.totalOrderForPayment",
   },
   {
     header: "Acciones",

@@ -3,6 +3,7 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteUser, UserModel } from "../prisma/zod";
 import {
   UserRoles as BaseUserRoles,
+  CollaboratorProfile,
   UserBusinessType,
 } from "../prisma/generated/client";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -12,6 +13,7 @@ export const UserRoles = BaseUserRoles;
 
 type PaginateData = {
   businessId?: string;
+  hasDoubts?: boolean;
 } & BasePaginateData;
 
 export class UserRepository extends BaseRepository<
@@ -49,24 +51,25 @@ export class UserRepository extends BaseRepository<
         },
       },
     });
-    user._collaboratorProfile = user.collaboratorProfiles?.[0] || {
-      historicalProfit: 0,
-      totalPendingInvoiceToConfirm: 0,
-      totalOrderForPayment: 0,
-      totalBusinessProfit: 0,
-    };
-    return user;
+    return this.addCollaboratorProfile(user);
   }
 
-  paginate({ businessId, query, ...data }: PaginateData = {}) {
-    const where: any = {
-      business: {
-        some: {
-          businessId,
-          type: UserBusinessType.COLLABORATOR,
-        },
-      },
-    };
+  addCollaboratorProfile(
+    user: Omit<UserWithCollaboratorProfile, "_collaboratorProfile">,
+  ) {
+    (user as UserWithCollaboratorProfile)._collaboratorProfile =
+      user.collaboratorProfiles?.[0] ||
+      ({
+        historicalProfit: 0,
+        totalPendingInvoiceToConfirm: 0,
+        totalOrderForPayment: 0,
+        totalBusinessProfit: 0,
+      } as CollaboratorProfile);
+    return user as UserWithCollaboratorProfile;
+  }
+
+  basePaginate({ query, where, ...data }: PaginateData) {
+    where = where || {};
     if (query) {
       where["name"] = {
         contains: query,
@@ -77,6 +80,46 @@ export class UserRepository extends BaseRepository<
       ...data,
       where,
     });
+  }
+
+  async paginateCollaborators({
+    businessId,
+    query,
+    hasDoubts,
+    ...rest
+  }: PaginateData = {}) {
+    const where: any = {
+      business: {
+        some: {
+          businessId,
+          type: UserBusinessType.COLLABORATOR,
+        },
+      },
+    };
+    if (hasDoubts) {
+      where["collaboratorProfiles"] = {
+        some: {
+          totalOrderForPayment: {
+            gt: 0,
+          },
+        },
+      };
+    }
+    const { data, ...pagination } = await this.basePaginate({
+      ...rest,
+      where,
+      include: {
+        collaboratorProfiles: {
+          where: {
+            businessId,
+          },
+        },
+      },
+    });
+    return {
+      data: data.map((user: CompleteUser) => this.addCollaboratorProfile(user)),
+      ...pagination,
+    };
   }
 
   removeFromBusiness(userId: string, businessId: string) {

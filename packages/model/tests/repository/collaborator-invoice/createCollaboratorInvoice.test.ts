@@ -50,6 +50,8 @@ describe.only("createCollaboratorInvoice", () => {
       userId: user.id,
       businessId: business.id,
       status: OrderStatus.PAYED,
+      commission: 30,
+      businessProfit: 70,
       isCollaborator: true,
     });
     cardBank = await collaboratorCardBankFactory({

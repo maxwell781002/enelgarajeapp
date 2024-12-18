@@ -39,6 +39,13 @@ export function crud<T extends Entity, U>(
 
   const search = async (query: any = {}) => {
     "use server";
+    query = Object.entries(query).reduce((acc: any, [key, value]) => {
+      if (value === "true" || value === "false") {
+        acc[key] = value === "true" ? true : false;
+      }
+      acc[key] = value;
+      return acc;
+    }, {});
     return `${path}?${new URLSearchParams({ ...searchParams, pageSize: PAGE_SIZE, ...query, pageIndex: 1 })}`;
   };
 

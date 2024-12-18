@@ -8,10 +8,12 @@ export const useFilterChange = (onChange: (value: any) => void) => {
   const { startListLoading } = useTableContext();
   const value: any = useMemo(
     () =>
-      Array.from(searchParams.entries()).reduce(
-        (obj: any, [key, val]: any) => ({ ...(obj as any), [key]: val }),
-        {},
-      ),
+      Array.from(searchParams.entries()).reduce((obj: any, [key, val]: any) => {
+        if (val === "true" || val === "false") {
+          val = val === "true" ? true : false;
+        }
+        return { ...(obj as any), [key]: val };
+      }, {}),
     [searchParams],
   );
   const changeFilter = useDebouncedCallback((name, term) => {

@@ -12,6 +12,7 @@
     "remove": "¿Está seguro que va a eliminar el usuario?",
     "removeDescription": "El usuario será eliminado completamente.",
     "removeContinue": "Continuar",
+    "hasDoubts": "Solo con deudas",
     "removeCancel": "Cancelar"
   },
   "UserDetail": {
