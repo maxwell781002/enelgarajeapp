@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
   businessFactory,
   clearBd,
+  collaboratorProfileFactory,
   userBusinessFactory,
   userFactory,
 } from "../../factories";
@@ -13,12 +14,16 @@ describe("User", () => {
   let business2;
   let user1;
   let user2;
+  let user3;
+  let user4;
 
   beforeAll(async () => {
     business1 = await businessFactory({ slug: "http://localhost:3001" });
     business2 = await businessFactory({ slug: "http://localhost:3002" });
     user1 = await userFactory();
     user2 = await userFactory();
+    user3 = await userFactory();
+    user4 = await userFactory();
     await userBusinessFactory({
       userId: user1.id,
       businessId: business1.id,
@@ -26,6 +31,26 @@ describe("User", () => {
     });
     await userBusinessFactory({
       userId: user2.id,
+      businessId: business2.id,
+      type: UserBusinessType.COLLABORATOR,
+    });
+    await collaboratorProfileFactory({
+      businessId: business2.id,
+      collaboratorId: user2.id,
+      totalOrderForPayment: 1,
+    });
+    await userBusinessFactory({
+      userId: user3.id,
+      businessId: business2.id,
+      type: UserBusinessType.COLLABORATOR,
+    });
+    await collaboratorProfileFactory({
+      collaboratorId: user3.id,
+      businessId: business2.id,
+      totalOrderForPayment: 0,
+    });
+    await userBusinessFactory({
+      userId: user4.id,
       businessId: business2.id,
       type: UserBusinessType.COLLABORATOR,
     });
@@ -46,6 +71,18 @@ describe("User", () => {
   it("business 2", async () => {
     const { data } = await userRepository.paginateCollaborators({
       businessId: business2.id,
+    });
+    expect(data.length).toBe(3);
+    const ids = data.map((u) => u.id);
+    expect(ids).toContain(user2.id);
+    expect(ids).toContain(user3.id);
+    expect(ids).toContain(user4.id);
+  });
+
+  it("business 2", async () => {
+    const { data } = await userRepository.paginateCollaborators({
+      businessId: business2.id,
+      hasDoubts: true,
     });
     expect(data.length).toBe(1);
     expect(data[0].id).toBe(user2.id);

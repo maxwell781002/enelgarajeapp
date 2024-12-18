@@ -3,6 +3,7 @@ import { BaseRepository } from "../lib/base-repository";
 import { CompleteUser, UserModel } from "../prisma/zod";
 import {
   UserRoles as BaseUserRoles,
+  CollaboratorProfile,
   UserBusinessType,
 } from "../prisma/generated/client";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -12,6 +13,7 @@ export const UserRoles = BaseUserRoles;
 
 type PaginateData = {
   businessId?: string;
+  hasDoubts?: boolean;
 } & BasePaginateData;
 
 export class UserRepository extends BaseRepository<
@@ -52,17 +54,21 @@ export class UserRepository extends BaseRepository<
     return this.addCollaboratorProfile(user);
   }
 
-  addCollaboratorProfile(user: CompleteUser) {
-    user._collaboratorProfile = user.collaboratorProfiles?.[0] || {
-      historicalProfit: 0,
-      totalPendingInvoiceToConfirm: 0,
-      totalOrderForPayment: 0,
-      totalBusinessProfit: 0,
-    };
-    return user;
+  addCollaboratorProfile(
+    user: Omit<UserWithCollaboratorProfile, "_collaboratorProfile">,
+  ) {
+    (user as UserWithCollaboratorProfile)._collaboratorProfile =
+      user.collaboratorProfiles?.[0] ||
+      ({
+        historicalProfit: 0,
+        totalPendingInvoiceToConfirm: 0,
+        totalOrderForPayment: 0,
+        totalBusinessProfit: 0,
+      } as CollaboratorProfile);
+    return user as UserWithCollaboratorProfile;
   }
 
-  basePaginate({ businessId, query, where, ...data }: BasePaginateData) {
+  basePaginate({ query, where, ...data }: PaginateData) {
     where = where || {};
     if (query) {
       where["name"] = {
@@ -79,6 +85,7 @@ export class UserRepository extends BaseRepository<
   async paginateCollaborators({
     businessId,
     query,
+    hasDoubts,
     ...rest
   }: PaginateData = {}) {
     const where: any = {
@@ -89,6 +96,15 @@ export class UserRepository extends BaseRepository<
         },
       },
     };
+    if (hasDoubts) {
+      where["collaboratorProfiles"] = {
+        some: {
+          totalOrderForPayment: {
+            gt: 0,
+          },
+        },
+      };
+    }
     const { data, ...pagination } = await this.basePaginate({
       ...rest,
       where,

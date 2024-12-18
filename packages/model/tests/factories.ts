@@ -117,3 +117,7 @@ export const invitationLinkFactory = async (data: any = {}) => {
 export const collaboratorCardBankFactory = async (data: any = {}) => {
   return prisma().collaboratorCardBank.create({ data });
 };
+
+export const collaboratorProfileFactory = async (data: any = {}) => {
+  return prisma().collaboratorProfile.create({ data });
+};
