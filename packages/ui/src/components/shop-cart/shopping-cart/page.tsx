@@ -37,7 +37,7 @@ export default async function ShoppingCartPage({
   };
 
   if (!order || order.items.length === 0) {
-    return <EmptyCart url={baseUrl} />;
+    return <EmptyCart url={productBaseUrl || "/"} />;
   }
 
   const t = await getTranslations("ShopCart");
