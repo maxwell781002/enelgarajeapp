@@ -58,6 +58,19 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                     </div>
                   </div>
                 )}
+                {!!order.commission && (
+                  <div className=" flex items-center justify-between font-medium bg-white rounded-lg p-4">
+                    <div>
+                      <strong>Comisión</strong>
+                    </div>
+                    <div>
+                      <PriceDisplay
+                        price={order.commission as number}
+                        currency={order.currency as TCurrency}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-center justify-between font-medium">
                   <div>
                     <strong>Total</strong>
