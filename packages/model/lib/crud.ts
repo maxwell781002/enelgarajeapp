@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { BaseRepository, Entity } from "./base-repository";
 import repositories from "../repositories";
 import { formDataToObject } from "./utils";
+import { cleanUrlParams } from "./url";
 
 const PAGE_SIZE = 10;
 
@@ -39,19 +40,12 @@ export function crud<T extends Entity, U>(
 
   const search = async (query: any = {}) => {
     "use server";
-    query = Object.entries(query).reduce((acc: any, [key, value]) => {
-      if (value === "true" || value === "false") {
-        acc[key] = value === "true" ? true : false;
-      }
-      acc[key] = value;
-      return acc;
-    }, {});
     return `${path}?${new URLSearchParams({ ...searchParams, pageSize: PAGE_SIZE, ...query, pageIndex: 1 })}`;
   };
 
   const list = async (query: any = {}) => {
     "use server";
-    query = { ...searchParams, ...query };
+    query = cleanUrlParams({ ...searchParams, ...query });
     const pageIndex = query.pageIndex ? Number(query.pageIndex) : 1;
     const pageSize = query.pageSize ? Number(query.pageSize) : PAGE_SIZE;
     const repository = await getRepository();
