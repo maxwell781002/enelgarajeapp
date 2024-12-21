@@ -13,7 +13,7 @@ export type ShopCartStore = {
   inCart: (id: string) => boolean;
 };
 
-const useShopCart = create<ShopCartStore>()(
+const _useShopCart = create<ShopCartStore>()(
   persist(
     immer((set, get) => ({
       order: {
@@ -34,5 +34,4 @@ const useShopCart = create<ShopCartStore>()(
   ),
 );
 
-export default createSelectors(useShopCart);
-// export default useShopCart;
+export const useShopCart = createSelectors(_useShopCart);

@@ -31,11 +31,6 @@ export default async function ProductListWrapper({
     categoryId: currenItem?.id,
     ...searchParams,
   });
-  const add = async (productId: string) => {
-    "use server";
-    await addToOrder(productId);
-    revalidatePath(baseUrl);
-  };
   const search = async (query: any) => {
     "use server";
     const url = `${baseUrl}?${new URLSearchParams({ ...searchParams, ...query })}`;
@@ -54,7 +49,6 @@ export default async function ProductListWrapper({
         hastMore={hasMore}
         categoryId={currenItem?.id}
         businessId={business.id}
-        add={add}
       />
     </>
   );

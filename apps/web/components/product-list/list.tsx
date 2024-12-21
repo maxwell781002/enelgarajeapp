@@ -2,8 +2,7 @@
 
 import { CompleteProduct } from "@repo/model/zod/product";
 import { CardItem } from "@repo/ui/components/cardList/card";
-import { startTransition, useEffect, useMemo } from "react";
-import { IProduct } from "@repo/model/types/product";
+import { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { getSearchParams } from "@repo/model/lib/url";
 import HasMorePaginator, {
@@ -12,7 +11,6 @@ import HasMorePaginator, {
 
 export type ProductListProps = {
   data: CompleteProduct[];
-  add: (productId: string) => void;
   categoryId: string;
   businessId: string;
   hastMore: boolean;
@@ -20,7 +18,6 @@ export type ProductListProps = {
 
 export default function ProductList({
   data,
-  add,
   businessId,
   categoryId,
   hastMore,
@@ -41,28 +38,12 @@ export default function ProductList({
     params,
   );
   useEffect(() => reset(), [searchParams]);
-  const handleAdd = (item: any) => {
-    startTransition(() => {
-      updateItem({ ...item, _inCart: true });
-      return add(item.id);
-    });
-  };
 
   return (
     <HasMorePaginator {...props}>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((item: any) => (
-          <CardItem
-            onAdd={() => handleAdd(item)}
-            key={item.id}
-            item={
-              {
-                ...item,
-                _inCart: item._inCart,
-              } as IProduct
-            }
-            baseUrl={""}
-          />
+          <CardItem key={item.id} item={item} baseUrl={""} />
         ))}
       </div>
     </HasMorePaginator>

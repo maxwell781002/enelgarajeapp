@@ -4,16 +4,20 @@ import { ShoppingCartIcon } from "./icons";
 import { Button } from "./ui/button";
 import { CheckIcon } from "./icons";
 import { cn } from "../lib/utils";
+import { useStore } from "@repo/ui/stores/index";
+import { IProduct } from "@repo/model/types/product";
+import { useShopCart } from "@repo/ui/stores/shop-cart";
 
 export function BtnAddCart({
-  inCart,
+  product,
   outOfStock,
-  action,
 }: {
-  inCart: boolean;
+  product: IProduct;
   outOfStock: boolean;
-  action?: () => any;
 }) {
+  const inCart = useStore(useShopCart, (state) => state.inCart(product.id));
+  const addProductToOrder = useShopCart.use.add();
+
   return (
     <div className="relative">
       {inCart && (
@@ -24,7 +28,7 @@ export function BtnAddCart({
       <Button
         disabled={outOfStock}
         className={cn("px-3")}
-        onClick={() => action?.()}
+        onClick={() => addProductToOrder(product)}
       >
         <ShoppingCartIcon className="w-4 h-4" />
       </Button>

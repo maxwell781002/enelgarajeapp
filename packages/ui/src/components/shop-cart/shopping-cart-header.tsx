@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingCartIcon } from "../icons";
-import useShopCart from "@repo/ui/stores/shop-cart";
+import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useStore } from "@repo/ui/stores/index";
 
 export default function ShoppingCartHeader({

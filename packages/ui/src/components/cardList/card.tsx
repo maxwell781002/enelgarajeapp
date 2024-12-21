@@ -5,12 +5,9 @@ import Link from "next/link";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/prices/price";
-import { startTransition, useOptimistic } from "react";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";
 import { useTranslations } from "next-intl";
-import useShopCart from "@repo/ui/stores/shop-cart";
-import { useStore } from "@repo/ui/stores/index";
 
 type CardItemProps = {
   item: IProduct;
@@ -26,8 +23,6 @@ export function CardItem({
   showCommission,
 }: CardItemProps) {
   const t = useTranslations("Product");
-  const inCart = useStore(useShopCart, (state) => state.inCart(item.id));
-  const addProductToOrder = useShopCart.use.add();
 
   return (
     <Card className="mb-4">
@@ -56,11 +51,7 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <BtnAddCart
-            action={() => addProductToOrder(item)}
-            outOfStock={item._outOfStock}
-            inCart={!!inCart}
-          />
+          <BtnAddCart product={item} outOfStock={item._outOfStock} />
         </div>
         <ProductBadge product={item} className="mt-2" />
         <div className="flex flex-1 justify-between text-blue-500">
