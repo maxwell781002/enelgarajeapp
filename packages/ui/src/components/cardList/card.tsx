@@ -9,30 +9,26 @@ import { startTransition, useOptimistic } from "react";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";
 import { useTranslations } from "next-intl";
+import useShopCart from "@repo/ui/stores/shop-cart";
+import { useStore } from "@repo/ui/stores/index";
 
 type CardItemProps = {
   item: IProduct;
   baseUrl?: string;
-  onAdd?: () => void;
   showStock?: boolean;
   showCommission?: boolean;
 };
 
 export function CardItem({
-  item: originalItem,
+  item,
   baseUrl,
-  onAdd,
   showStock,
   showCommission,
 }: CardItemProps) {
   const t = useTranslations("Product");
-  const [item, setItem] = useOptimistic(originalItem);
-  const handleAdd = () => {
-    startTransition(() => {
-      setItem({ ...item, _inCart: true });
-      return onAdd?.();
-    });
-  };
+  const inCart = useStore(useShopCart, (state) => state.inCart(item.id));
+  const addProductToOrder = useShopCart.use.add();
+
   return (
     <Card className="mb-4">
       <div>
@@ -60,7 +56,11 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <BtnAddCart action={handleAdd} product={item} />
+          <BtnAddCart
+            action={() => addProductToOrder(item)}
+            outOfStock={item._outOfStock}
+            inCart={!!inCart}
+          />
         </div>
         <ProductBadge product={item} className="mt-2" />
         <div className="flex flex-1 justify-between text-blue-500">
