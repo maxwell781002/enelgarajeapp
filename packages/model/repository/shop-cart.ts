@@ -18,7 +18,7 @@ const addItemsFields = (items: ShopCartOrderItem[]) => {
       price: item.product._price * item.quantity,
     };
   });
-}
+};
 
 export const addProductToOrder = (order: ShopCartOrder, product: IProduct) => {
   let found = false;
@@ -52,12 +52,14 @@ export const setQuantity = (
   productId: string,
   quantity: number,
 ) => {
-  return addItemsFields(order.items.map((item: ShopCartOrderItem) => {
-    if (item.productId === productId) {
-      item.quantity = quantity;
-    }
-    return item;
-  }));
+  return addItemsFields(
+    order.items.map((item: ShopCartOrderItem) => {
+      if (item.productId === productId) {
+        item.quantity = quantity;
+      }
+      return item;
+    }),
+  );
 };
 
 export const removeItem = (order: ShopCartOrder, productId: string) => {
@@ -69,8 +71,14 @@ export const removeItem = (order: ShopCartOrder, productId: string) => {
 export const orderSubTotal = (order: ShopCartOrder) =>
   order.items.reduce((acc, item) => acc + item.price, 0);
 
-export const orderTotal = (order: ShopCartOrder, addCommission: boolean = false) =>
-  order.items.reduce((acc, item) => acc + item.price + (addCommission ? item.commission : 0), 0);
+export const orderTotal = (
+  order: ShopCartOrder,
+  addCommission: boolean = false,
+) =>
+  order.items.reduce(
+    (acc, item) => acc + item.price + (addCommission ? item.commission : 0),
+    0,
+  );
 
 export const orderCommission = (order: ShopCartOrder) =>
   order.items.reduce((acc, item) => acc + item.commission, 0);

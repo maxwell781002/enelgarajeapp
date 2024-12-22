@@ -11,7 +11,7 @@ import {
 import {
   CheckoutForm,
   CheckoutFormProps,
-} from "@repo/ui/components/shop-cart/checkout/form";
+} from "@repo/ui/components/shop-cart/checkoutV/form.js";
 import { AddressType, TUserRegisterSchema } from "@repo/model/validation/user";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/prices/price";
@@ -24,7 +24,7 @@ import {
   useCheckoutForm,
   useCurrentAddress,
   useNeighborhoods,
-} from "@repo/ui/components/shop-cart/checkout/hooks";
+} from "@repo/ui/components/shop-cart/checkoutV/hooks.js";
 import { calculateShippingPrice } from "@repo/model/lib/order";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";

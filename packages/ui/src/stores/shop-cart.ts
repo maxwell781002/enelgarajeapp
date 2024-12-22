@@ -47,7 +47,8 @@ const _useShopCart = create<ShopCartStore>()(
         get().order.items.some((item) => item.product.id === id),
       items: () => get().order.items,
       orderSubTotal: () => orderSubTotal(get().order),
-      orderTotal: (addCommission: boolean) => orderTotal(get().order, addCommission),
+      orderTotal: (addCommission: boolean) =>
+        orderTotal(get().order, addCommission),
       commission: () => orderCommission(get().order),
       hasItems: () => get().order.items.length > 0,
       remove: (id: string) =>

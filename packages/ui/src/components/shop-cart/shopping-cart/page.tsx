@@ -26,7 +26,9 @@ export default function ShoppingCartPage({
   const items = useStore(useShopCart, (state) => state.items());
   const hasItems = useStore(useShopCart, (state) => state.hasItems());
   const orderSubTotal = useStore(useShopCart, (state) => state.orderSubTotal());
-  const orderTotal = useStore(useShopCart, (state) => state.orderTotal(showCommission));
+  const orderTotal = useStore(useShopCart, (state) =>
+    state.orderTotal(showCommission),
+  );
   const commission = useStore(useShopCart, (state) => state.commission());
   const hasProductOutOfStock = useStore(useShopCart, (state) =>
     state.hasProductOutOfStock(),
@@ -69,7 +71,9 @@ export default function ShoppingCartPage({
         {showCommission && (
           <>
             <div className="flex items-center justify-between">
-              <span className="text-lg font-semibold">{t("subtotal_cart")}</span>
+              <span className="text-lg font-semibold">
+                {t("subtotal_cart")}
+              </span>
               <span className="text-2xl font-bold">
                 <PriceDisplay price={orderSubTotal as number} />
               </span>

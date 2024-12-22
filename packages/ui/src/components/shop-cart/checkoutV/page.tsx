@@ -3,12 +3,12 @@ import EmptyCart from "@repo/ui/components/shop-cart/emptyCart";
 import { TUserRegisterSchema } from "@repo/model/validation/user";
 import { redirect } from "next/navigation";
 import { auth } from "@repo/model/lib/auth";
-import NoUser from "@repo/ui/components/shop-cart/checkout/no-user";
+import NoUser from "@repo/ui/components/shop-cart/checkoutV/no-user.js";
 import { userRepository } from "@repo/model/repositories/user";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
 import CheckoutView, {
   CheckoutViewProps,
-} from "@repo/ui/components/shop-cart/checkout/checkout-view";
+} from "@repo/ui/components/shop-cart/checkoutV/checkout-view.js";
 import { CompleteAddress } from "@repo/model/zod/address";
 import { CompleteBusiness } from "@repo/model/zod/business";
 

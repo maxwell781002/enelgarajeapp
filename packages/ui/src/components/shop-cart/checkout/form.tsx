@@ -1,7 +1,4 @@
-"use client";
-
-import { AddressType, TUserRegisterSchema } from "@repo/model/validation/user";
-import { Button } from "@repo/ui/components/ui/button";
+import { useTranslations } from "next-intl";
 import {
   Form,
   FormControl,
@@ -12,48 +9,24 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import { useTranslations } from "next-intl";
-import Address from "@repo/ui/components/address/index";
-import { CompleteBusiness } from "@repo/model/zod/business";
-import { CompleteAddress } from "@repo/model/zod/address";
-import AlertMessage from "@repo/ui/components/alert-message";
-import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
-import { Switch } from "@repo/ui/components/ui/switch";
+import { Button } from "@repo/ui/components/ui/button";
 
 export type CheckoutFormProps = {
-  action: (state: TUserRegisterSchema) => Promise<any>;
-  defaultValues?: TUserRegisterSchema;
-  business: CompleteBusiness;
-  addresses: CompleteAddress[];
-  shopCartHasError?: boolean;
   form: any;
-  setAddressType: (type: AddressType) => void;
-  neighborhoods?: NeighborhoodWithShipping[];
-  showWantDomicile?: boolean;
-  addressUrl?: string;
-  addAliasToAddress?: boolean;
+  buttonDisabled: boolean;
+  action: (data: any) => Promise<any>;
 };
 
-export function CheckoutForm({
+export default function CheckoutForm({
+  form,
+  buttonDisabled,
   action,
-  defaultValues,
-  business,
-  addresses,
-  shopCartHasError = false,
-  form: { formState, ...form },
-  setAddressType,
-  neighborhoods = [],
-  showWantDomicile = false,
-  addressUrl = "",
-  addAliasToAddress = true,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
   return (
-    <Form {...form} formState={formState}>
+    <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data: any) =>
-          action({ ...defaultValues, ...data }),
-        )}
+        onSubmit={form.handleSubmit((data: any) => action({ ...data }))}
         className="space-y-8"
       >
         <FormField
@@ -84,45 +57,7 @@ export function CheckoutForm({
             </FormItem>
           )}
         />
-        {!!business.requestAddress && (
-          <Address
-            form={form}
-            addresses={addresses}
-            setAddressType={setAddressType}
-            neighborhoods={neighborhoods}
-            addressUrl={addressUrl}
-            addAlias={addAliasToAddress}
-          />
-        )}
-        {shopCartHasError && (
-          <AlertMessage
-            variant="destructive"
-            text={t("errors.has_out_of_stock")}
-          />
-        )}
-        {showWantDomicile && (
-          <FormField
-            control={form.control}
-            name="wantDomicile"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("lbWantDomicile")}</FormLabel>
-                <FormControl>
-                  <Switch
-                    {...field}
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        )}
-        <Button
-          type="submit"
-          disabled={shopCartHasError || formState.isSubmitting}
-        >
+        <Button type="submit" disabled={buttonDisabled}>
           {t("continue")}
         </Button>
       </form>

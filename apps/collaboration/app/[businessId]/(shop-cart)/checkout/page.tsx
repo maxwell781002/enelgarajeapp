@@ -1,5 +1,5 @@
 import { getBusinessById } from "@repo/model/repository/business";
-import CheckoutPage from "@repo/ui/components/shop-cart/checkout/page";
+import CheckoutPage from "@repo/ui/components/shop-cart/checkout/index";
 
 export type Props = {
   params: {
