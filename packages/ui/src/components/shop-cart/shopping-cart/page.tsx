@@ -1,17 +1,15 @@
-import {
-  getCurrentOrder,
-  removeFromOrder,
-  setQuantity as BaseSetQuantity,
-} from "@repo/model/repository/order";
+"use client";
+
 import EmptyCart from "@repo/ui/components/shop-cart/emptyCart";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import CardItem from "@repo/ui/components/shop-cart/shopping-cart/card";
-import { revalidatePath } from "next/cache";
-import { getTranslations } from "next-intl/server";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import AlertMessage from "@repo/ui/components/alert-message";
-import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
+import { useShopCart } from "@repo/ui/stores/shop-cart";
+import { useTranslations } from "next-intl";
+import { useStore } from "@repo/ui/stores/index";
+import { ShopCartOrderItem } from "@repo/model/repository/shop-cart";
 
 export type ShoppingCartProps = {
   baseUrl?: string;
@@ -19,48 +17,48 @@ export type ShoppingCartProps = {
   showCommission?: boolean;
 };
 
-export default async function ShoppingCartPage({
+export default function ShoppingCartPage({
   baseUrl = "",
   productBaseUrl = "",
-  showCommission,
+  showCommission = false,
 }: ShoppingCartProps) {
-  const order = await getCurrentOrder();
-  const remove = async (productId: string) => {
-    "use server";
-    await removeFromOrder(productId);
-    revalidatePath(`${baseUrl}/shopping-cart`);
-  };
-  const setQuantity = async (productId: string, quantity: number) => {
-    "use server";
-    await BaseSetQuantity(productId, quantity);
-    return revalidatePath(`${baseUrl}/shopping-cart`);
-  };
+  const t = useTranslations("ShopCart");
+  const items = useStore(useShopCart, (state) => state.items());
+  const hasItems = useStore(useShopCart, (state) => state.hasItems());
+  const orderSubTotal = useStore(useShopCart, (state) => state.orderSubTotal());
+  const orderTotal = useStore(useShopCart, (state) => state.orderTotal(showCommission));
+  const commission = useStore(useShopCart, (state) => state.commission());
+  const hasProductOutOfStock = useStore(useShopCart, (state) =>
+    state.hasProductOutOfStock(),
+  );
+  const remove = useShopCart.use.remove();
+  const setQuantity = useShopCart.use.setQuantity();
 
-  if (!order || order.items.length === 0) {
+  if (!hasItems) {
     return <EmptyCart url={productBaseUrl || "/"} />;
   }
-
-  const t = await getTranslations("ShopCart");
 
   return (
     <div className="flex flex-col gap-6">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         {t("title")}
       </h1>
-      {order.hasProductOutOfStock && (
+      {hasProductOutOfStock && (
         <AlertMessage
           variant="destructive"
           text={t("errors.has_out_of_stock")}
         />
       )}
       <div className="overflow-auto">
-        {order.items.map((item: CompleteOrderProduct) => (
+        {items?.map((item: ShopCartOrderItem) => (
           <div key={item.productId} className="mb-2">
             <CardItem
               key={item.productId}
               item={item as any}
-              onRemove={remove.bind(null, item.productId)}
-              changeProductQuantity={setQuantity.bind(null, item.productId)}
+              onRemove={() => remove(item.productId)}
+              changeProductQuantity={(quantity: number) =>
+                setQuantity(item.productId, quantity)
+              }
               url={productBaseUrl}
               showCommission={showCommission}
             />
@@ -68,21 +66,28 @@ export default async function ShoppingCartPage({
         ))}
       </div>
       <div className="flex flex-col gap-4">
+        {showCommission && (
+          <>
+            <div className="flex items-center justify-between">
+              <span className="text-lg font-semibold">{t("subtotal_cart")}</span>
+              <span className="text-2xl font-bold">
+                <PriceDisplay price={orderSubTotal as number} />
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-blue-500">
+              <span className="text-lg font-semibold">{t("commission")}</span>
+              <span className="text-2xl font-bold">
+                <PriceDisplay price={commission as number} />
+              </span>
+            </div>
+          </>
+        )}
         <div className="flex items-center justify-between">
           <span className="text-lg font-semibold">{t("total_cart")}</span>
           <span className="text-2xl font-bold">
-            <PriceDisplay price={order.total} />
+            <PriceDisplay price={orderTotal as number} />
           </span>
         </div>
-        {showCommission && (
-          <div className="flex items-center justify-between text-blue-500">
-            <span className="text-lg font-semibold">{t("commission")}</span>
-            <span className="text-2xl font-bold">
-              {/* TODO remove any */}
-              <PriceDisplay price={(order as any).commission} />
-            </span>
-          </div>
-        )}
         <div className="flex flex-col gap-2">
           <Link
             href={productBaseUrl || "/"}
@@ -96,7 +101,7 @@ export default async function ShoppingCartPage({
             className="w-full"
             prefetch={false}
           >
-            <Button className="w-full" disabled={order.hasProductOutOfStock}>
+            <Button className="w-full" disabled={hasProductOutOfStock}>
               {t("checkout")}
             </Button>
           </Link>

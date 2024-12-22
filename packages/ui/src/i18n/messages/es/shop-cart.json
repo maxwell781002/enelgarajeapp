@@ -3,6 +3,7 @@
     "title": "Tu compra",
     "continue_shopping": "Continuar comprando",
     "total_cart": "Total:",
+    "subtotal_cart": "Subtotal:",
     "checkout": "Solicitar pedido",
     "emptyCart": "Tu carrito se encuentra vacío",
     "emptyCartDescription": "Para seguir comprando, haz clic en el botón de continuar comprando.",

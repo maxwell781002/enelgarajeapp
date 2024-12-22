@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
-export default async function EmptyCart({ url }: { url: string }) {
-  const t = await getTranslations("ShopCart");
+export default function EmptyCart({ url }: { url: string }) {
+  const t = useTranslations("ShopCart");
 
   return (
     <div className="flex flex-col min-h-screen bg-background">

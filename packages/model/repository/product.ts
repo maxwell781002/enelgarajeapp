@@ -27,8 +27,9 @@ export const addProductFields = async (
   order: ShopCartOrder | null | undefined = null,
 ) => {
   const _isOffer = !!(product.offerPrice && product.offerPrice < product.price);
+  const price = _isOffer ? product.offerPrice : product.price;
   const [commission, businessProfit] = commissionCalculate(
-    _isOffer ? product.offerPrice : product.price,
+    price,
     product.priceValues?.commissionType,
     product.priceValues?.commissionValue || 0,
   );
@@ -38,6 +39,7 @@ export const addProductFields = async (
     _businessProfit: businessProfit,
     _inCart: order && (await hasProduct(product.id, order)),
     _isOffer,
+    _price: price,
     _outOfStock:
       !product.allowOrderOutOfStock &&
       product.isExhaustible &&
