@@ -21,16 +21,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Address from "@repo/ui/components/address/index";
 import { CompleteAddress } from "@repo/model/zod/address";
-import { useEffect, useState, useTransition } from "react";
-import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
+import { useState } from "react";
 import { CompleteBusiness } from "@repo/model/zod/business";
-import { getNeighborhoodsByCityAndBusiness } from "@repo/model/api/neighborhood/callback";
 import { Switch } from "@repo/ui/components/ui/switch";
-import { getShippingPrice } from "@repo/model/lib/order";
 import { useStore } from "@repo/ui/stores/index";
 import { useShopCart } from "@repo/ui/stores/shop-cart";
 import Total from "@repo/ui/components/shop-cart/checkout/total";
 import AlertMessage from "@repo/ui/components/alert-message";
+import { useCheckoutNeighborhood } from "@repo/ui/components/shop-cart/checkout/hooks";
 
 type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
@@ -55,37 +53,26 @@ export default function CheckoutForm({
     if (result.message === "out_of_stock") {
       setShopCartHasError(true);
     }
-  }
+  };
   const form = useForm<TWebShoppingCartSchema>({
     resolver: zodResolver(WebShoppingCartSchema),
     defaultValues,
   });
   const requestAddress = form.watch("businessRequestAddress");
   const addressType = form.watch("addressType") as AddressType;
-  const city = form.watch(`${addressType}.city`);
-  const neighborhoodId = form.watch(`${addressType}.neighborhoodId`);
-  const [neighborhoods, setNeighborhoods] = useState<
-    NeighborhoodWithShipping[]
-  >([]);
-  const [neighborhoodLoading, startNeighborhoodLoading] = useTransition();
-  useEffect(() => {
-    if (city && business) {
-      startNeighborhoodLoading(() => {
-        form.resetField(`${AddressType.newAddress}.neighborhoodId`);
-        getNeighborhoodsByCityAndBusiness(city, business.id).then((data) => {
-          setNeighborhoods(data);
-        });
-      });
-    }
-  }, [city, business.id]);
-  const currentNeighborhood = neighborhoods.find(
-    (neighborhood) => neighborhood.id === neighborhoodId,
-  );
-  const wantDomicile = form.watch("wantDomicile");
-  const { total, shippingPrice } = getShippingPrice(
+
+  const {
+    neighborhoods,
+    shippingPrice,
+    total,
+    wantDomicile,
+    neighborhoodLoading,
+  } = useCheckoutNeighborhood(
+    form,
+    business.id,
+    addressType,
     orderTotal as number,
-    currentNeighborhood?.shipping || 0,
-    wantDomicile as boolean,
+    () => form.resetField(`${AddressType.newAddress}.neighborhoodId`),
   );
 
   return (
