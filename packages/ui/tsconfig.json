@@ -7,6 +7,6 @@
       "@repo/ui/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "../../apps/web/app/[locale]/(shop-cart)/checkout/form.tsx", "../../apps/web/app/[locale]/(shop-cart)/checkout/index.tsx"],
   "exclude": ["node_modules", "dist"]
 }

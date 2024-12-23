@@ -26,28 +26,27 @@ export const WebShoppingCartSchema = UserRegisterSchema.extend({
   [AddressType.selectAddress]: AddressModel.optional(),
 }).refine(
   (val) =>
-    !val.businessRequestAddress || val.businessRequestAddress && (
-      (val.addressType === AddressType.newAddress &&
+    !val.businessRequestAddress ||
+    (val.businessRequestAddress &&
+      ((val.addressType === AddressType.newAddress &&
         val[AddressType.newAddress]) ||
-      (val.addressType === AddressType.selectAddress &&
-        val[AddressType.selectAddress])
-    ),
+        (val.addressType === AddressType.selectAddress &&
+          val[AddressType.selectAddress]))),
   (val) => ({
-    message: "required",
+    message: "Required",
     path: [val.addressType as AddressType],
   }),
 );
 
-export const CollaboratorShoppingCartSchema = z.object({
-  wantDomicile: z.boolean().optional(),
-  address: AddressModel.omit({ id: true }).optional(),
-}).refine(
-  (val) => !val.wantDomicile || val.wantDomicile && val.address,
-  {
+export const CollaboratorShoppingCartSchema = z
+  .object({
+    wantDomicile: z.boolean().optional(),
+    address: AddressModel.omit({ id: true }).optional(),
+  })
+  .refine((val) => !val.wantDomicile || (val.wantDomicile && val.address), {
     message: "required",
     path: ["address"],
-  },
-);
+  });
 
 export type TUserRegisterSchema = z.infer<typeof UserRegisterSchema> & {
   [AddressType.newAddress]: CompleteAddress;
