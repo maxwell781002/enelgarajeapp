@@ -1,5 +1,4 @@
 import { getCurrentBusiness } from "@repo/model/repository/business";
-import CheckoutPage from "@repo/ui/components/shop-cart/checkout/index";
 import { AddressType } from "@repo/model/validation/user";
 import { userRepository } from "@repo/model/repositories/user";
 import NoUser from "@repo/ui/components/shop-cart/checkout/no-user";
@@ -32,13 +31,11 @@ export default async function Component() {
   };
 
   return (
-    <CheckoutPage>
-      <CheckoutForm
-        defaultValues={defaultValues}
-        action={action}
-        addresses={addresses}
-        business={business}
-      />
-    </CheckoutPage>
+    <CheckoutForm
+      defaultValues={defaultValues}
+      action={action}
+      addresses={addresses}
+      business={business}
+    />
   );
 }

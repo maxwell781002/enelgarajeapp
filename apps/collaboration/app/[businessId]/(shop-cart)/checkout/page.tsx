@@ -1,5 +1,4 @@
 import { getBusinessById } from "@repo/model/repository/business";
-import CheckoutPage from "@repo/ui/components/shop-cart/checkout/index";
 import CheckoutForm from "./form";
 
 export type Props = {
@@ -15,14 +14,12 @@ export default async function Component({ params: { businessId } }: Props) {
     console.log(data);
   };
   return (
-    <CheckoutPage>
-      <CheckoutForm
-        business={business}
-        action={action}
-        defaultValues={{
-          wantDomicile: true,
-        }}
-      />
-    </CheckoutPage>
+    <CheckoutForm
+      business={business}
+      action={action}
+      defaultValues={{
+        wantDomicile: true,
+      }}
+    />
   );
 }

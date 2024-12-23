@@ -8,7 +8,6 @@ export const useCheckoutNeighborhood = (
   business: string,
   addressName: string,
   orderTotal: number,
-  onLoad: () => void,
 ) => {
   const city = form.watch(`${addressName}.city`);
   const neighborhoodId = form.watch(`${addressName}.neighborhoodId`);
@@ -22,11 +21,10 @@ export const useCheckoutNeighborhood = (
   );
   useEffect(() => {
     if (city && business) {
-      startNeighborhoodLoading(() => {
-        onLoad();
-        getNeighborhoodsByCityAndBusiness(city, business).then((data) => {
-          setNeighborhoods(data);
-        });
+      startNeighborhoodLoading(async () => {
+        form.resetField(`${addressName}.neighborhoodId`);
+        const data = await getNeighborhoodsByCityAndBusiness(city, business);
+        setNeighborhoods(data);
       });
     }
   }, [city, business]);
@@ -35,6 +33,7 @@ export const useCheckoutNeighborhood = (
     currentNeighborhood?.shipping || 0,
     wantDomicile as boolean,
   );
+
   return {
     neighborhoods,
     shippingPrice,

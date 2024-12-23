@@ -37,6 +37,7 @@ export const WebShoppingCartSchema = UserRegisterSchema.extend({
     path: [val.addressType as AddressType],
   }),
 );
+export type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
 export const CollaboratorShoppingCartSchema = z
   .object({
@@ -47,6 +48,9 @@ export const CollaboratorShoppingCartSchema = z
     message: "required",
     path: ["address"],
   });
+export type TCollaboratorShoppingCartSchema = z.infer<
+  typeof CollaboratorShoppingCartSchema
+>;
 
 export type TUserRegisterSchema = z.infer<typeof UserRegisterSchema> & {
   [AddressType.newAddress]: CompleteAddress;
