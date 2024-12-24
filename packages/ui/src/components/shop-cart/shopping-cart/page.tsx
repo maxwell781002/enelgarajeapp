@@ -10,29 +10,48 @@ import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useTranslations } from "next-intl";
 import { useStore } from "@repo/ui/stores/index";
 import { ShopCartOrderItem } from "@repo/model/repository/shop-cart";
+import { useEffect, useState } from "react";
 
 export type ShoppingCartProps = {
   baseUrl?: string;
   productBaseUrl?: string;
   showCommission?: boolean;
+  businessId: string;
+  isCollaborator?: boolean;
 };
 
 export default function ShoppingCartPage({
   baseUrl = "",
   productBaseUrl = "",
   showCommission = false,
+  businessId,
+  isCollaborator = false,
 }: ShoppingCartProps) {
   const t = useTranslations("ShopCart");
   const items = useStore(useShopCart, (state) => state.items());
+  const [hasProductOutOfStock, setHasProductOutOfStock] = useState(false);
+  useEffect(() => {
+    if (items?.length) {
+      fetch(
+        `/api/shop-cart?businessId=${businessId}&isCollaborator=${isCollaborator}`,
+        {
+          method: "POST",
+          body: JSON.stringify(items),
+        },
+      )
+        .then((res) => res.json())
+        .then(({ hasProductOutOfStock }) =>
+          setHasProductOutOfStock(hasProductOutOfStock),
+        );
+    }
+  }, [items]);
+
   const hasItems = useStore(useShopCart, (state) => state.hasItems());
   const orderSubTotal = useStore(useShopCart, (state) => state.orderSubTotal());
   const orderTotal = useStore(useShopCart, (state) =>
     state.orderTotal(showCommission),
   );
   const commission = useStore(useShopCart, (state) => state.commission());
-  const hasProductOutOfStock = useStore(useShopCart, (state) =>
-    state.hasProductOutOfStock(),
-  );
   const remove = useShopCart.use.remove();
   const setQuantity = useShopCart.use.setQuantity();
 

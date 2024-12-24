@@ -6,7 +6,6 @@ import { CompleteOrder } from "@repo/model/zod/order";
 import {
   addProductToOrder,
   orderCommission,
-  orderItems,
   orderSubTotal,
   orderTotal,
   removeItem,
@@ -23,7 +22,6 @@ export type ShopCartStore = {
   inCart: (id: string) => boolean;
   items: () => ShopCartOrderItem[];
   hasItems: () => boolean;
-  hasProductOutOfStock: () => boolean;
   orderSubTotal: () => number;
   orderTotal: (addCommission: boolean) => number;
   remove: (id: string) => void;
@@ -59,10 +57,6 @@ const _useShopCart = create<ShopCartStore>()(
         set((state) => {
           state.order.items = setQuantity(state.order, id, quantity);
         }),
-      hasProductOutOfStock: () => {
-        //TODO implement it
-        return false;
-      },
     })),
     {
       name: "shopCart",

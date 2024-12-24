@@ -10,6 +10,8 @@ export default async function Page({
       baseUrl={`/${businessId}`}
       productBaseUrl={`/${businessId}/products`}
       showCommission
+      businessId={businessId}
+      isCollaborator
     />
   );
 }

@@ -12,11 +12,16 @@ import { getShippingPrice } from "../lib/order";
 import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
 import { orderRepository } from "../repositories/order";
-import { CompleteAddress, CompleteBusiness, CompleteUser } from "../prisma/zod";
+import {
+  CompleteAddress,
+  CompleteBusiness,
+  CompleteProduct,
+  CompleteUser,
+} from "../prisma/zod";
 import { userRepository } from "../repositories/user";
 import { addAddressToUser } from "./address";
 
-const isOutOfStock = (product, quantity) =>
+const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
   product.isExhaustible &&
   product.stock < quantity;
@@ -25,16 +30,17 @@ const calculateProductCommission = (
   isCollaborator: boolean,
   product: ReturnType<typeof addProductFields>,
   quantity: number,
-) => [
+): [number, number] => [
   isCollaborator ? product._commission * quantity : 0,
   isCollaborator ? product._businessProfit * quantity : 0,
 ];
+
 export const orderItems = async (
   businessId: string,
   items: TCartItem[],
   isCollaborator: boolean,
 ) => {
-  const byIds = items.reduce((acc, item) => {
+  const byIds = items.reduce<any>((acc, item) => {
     acc[item.productId] = item.quantity;
     return acc;
   }, {});
@@ -52,9 +58,9 @@ export const orderItems = async (
         items,
         products,
         productToUpdate,
-      },
-      item,
-      index,
+      }: any,
+      item: any,
+      index: number,
     ) => {
       const product = addProductFields(item);
       const quantity = byIds[product.id];
