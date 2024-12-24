@@ -7,18 +7,32 @@ export enum AddressType {
   selectAddress = "selectAddress",
 }
 
-export const UserRegisterSchema = z.object({
+const UserValidation = {
   phone: z.string().min(2, {
     message: "required",
   }),
   name: z.string().min(2, {
     message: "required",
   }),
-});
+};
+
+export const UserRegisterSchema = z.object(UserValidation);
 
 export const UserCollaborationRegisterSchema = UserRegisterSchema;
 
-export const WebShoppingCartSchema = UserRegisterSchema.extend({
+const CartItem = z.object({
+  productId: z.string(),
+  quantity: z.number().int(),
+});
+export type TCartItem = z.infer<typeof CartItem>;
+
+const BaseCart = z.object({
+  cartItems: z.array(CartItem).min(1, {
+    message: "required",
+  }),
+});
+
+export const WebShoppingCartSchema = BaseCart.extend({
   addressType: z.string(),
   businessRequestAddress: z.boolean().optional(),
   wantDomicile: z.boolean().optional(),
@@ -39,15 +53,13 @@ export const WebShoppingCartSchema = UserRegisterSchema.extend({
 );
 export type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
-export const CollaboratorShoppingCartSchema = z
-  .object({
-    wantDomicile: z.boolean().optional(),
-    address: AddressModel.omit({ id: true }).optional(),
-  })
-  .refine((val) => !val.wantDomicile || (val.wantDomicile && val.address), {
-    message: "required",
-    path: ["address"],
-  });
+export const CollaboratorShoppingCartSchema = BaseCart.extend({
+  wantDomicile: z.boolean().optional(),
+  address: AddressModel.omit({ id: true }).optional(),
+}).refine((val) => !val.wantDomicile || (val.wantDomicile && val.address), {
+  message: "required",
+  path: ["address"],
+});
 export type TCollaboratorShoppingCartSchema = z.infer<
   typeof CollaboratorShoppingCartSchema
 >;

@@ -3,6 +3,7 @@ import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteBusiness,
   CompleteOrder,
+  CompleteOrderProduct,
   CompleteUser,
   OrderModel,
 } from "../prisma/zod";
@@ -181,6 +182,30 @@ export class OrderRepository extends BaseRepository<
     );
   }
 
+  async createOrder(
+    order: any,
+    business: CompleteBusiness,
+    productItems: CompleteOrderProduct[],
+  ) {
+    const newPosition = (await this.getLastPosition(business.id)) + 1;
+    return prisma().order.create({
+      data: {
+        ...order,
+        status: OrderStatus.SEND,
+        position: newPosition,
+        identifier: this.generateIdentifier(new Date(), newPosition),
+        sentAt: new Date(),
+        businessId: business.id,
+        currency: business.currency,
+        items: {
+          create: productItems,
+        },
+      },
+      include: { items: { orderBy: { position: "asc" } }, orderAddress: true },
+    });
+  }
+
+  // TODO remove this
   async placeOrder(
     order: CompleteOrder,
     user: CompleteUser,

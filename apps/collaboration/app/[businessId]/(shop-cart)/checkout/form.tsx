@@ -18,6 +18,7 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Switch } from "@repo/ui/components/ui/switch";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export type CheckoutFormProps = {
@@ -36,6 +37,12 @@ export default function CheckoutForm({
     resolver: zodResolver(CollaboratorShoppingCartSchema),
     defaultValues,
   });
+  const wantDomicile = form.watch("wantDomicile");
+  useEffect(() => {
+    if (!wantDomicile) {
+      form.resetField("address");
+    }
+  }, [wantDomicile]);
   return (
     <Form {...form}>
       <CheckoutPage

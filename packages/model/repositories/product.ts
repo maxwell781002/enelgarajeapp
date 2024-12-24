@@ -32,6 +32,15 @@ export class ProductRepository extends BaseRepository<
     this.addValidator("update", ProductUpdateValidation);
   }
 
+  getByBusinessAndIds(ids: string[], businessId: string) {
+    return this.model.findMany({
+      where: { id: { in: ids }, businessId },
+      include: {
+        priceValues: true,
+      },
+    });
+  }
+
   async getAllProduct(where: any) {
     return addProductFields(
       await this.model.findUnique({

@@ -22,9 +22,10 @@ export const getById = (id: string) => {
   return prisma().product.findUnique({ where: { id } });
 };
 
-export const addProductFields = async (
+// TODO I removed async
+export const addProductFields = (
   product: any,
-  order: ShopCartOrder | null | undefined = null,
+  order: ShopCartOrder | null | undefined = null, //TODO remove and remove async
 ) => {
   const _isOffer = !!(product.offerPrice && product.offerPrice < product.price);
   const price = _isOffer ? product.offerPrice : product.price;
@@ -37,7 +38,7 @@ export const addProductFields = async (
     ...product,
     _commission: commission,
     _businessProfit: businessProfit,
-    _inCart: order && (await hasProduct(product.id, order)),
+    // _inCart: order && (await hasProduct(product.id, order)),
     _isOffer,
     _price: price,
     _outOfStock:

@@ -35,6 +35,14 @@ export default function CheckoutPage({
 }: CheckoutPageProps) {
   const t = useTranslations("Checkout");
   const orderTotal = useStore(useShopCart, (state) => state.orderTotal(false));
+  const orderItems = useStore(useShopCart, (state) => state.items());
+  form.setValue(
+    "cartItems",
+    orderItems?.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    })),
+  );
   const [shopCartHasError, setShopCartHasError] = useState(false);
   const handlerAction = async (data: any) => {
     const result = await action(data);
@@ -59,6 +67,7 @@ export default function CheckoutPage({
     form,
     wantDomicile,
   });
+
   return (
     <div className="grid gap-6">
       <h1 className="text-2xl font-bold">{t("title")}</h1>
