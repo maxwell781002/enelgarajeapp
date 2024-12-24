@@ -38,7 +38,15 @@ export const orderItems = async (
   );
   return products.reduce(
     (
-      { total, commission, businessProfit, hasProductOutOfStock, items },
+      {
+        total,
+        commission,
+        businessProfit,
+        hasProductOutOfStock,
+        items,
+        products,
+        productToUpdate,
+      },
       item,
       index,
     ) => {
@@ -58,7 +66,9 @@ export const orderItems = async (
         businessProfit: itemBusinessProfit,
       };
       return {
-        items: [...items, { orderItem, product }],
+        items: [...items, orderItem],
+        products: [...products, product],
+        productToUpdate: [...productToUpdate, [product, quantity]],
         total: total + product._price * quantity,
         commission: commission + itemCommission,
         businessProfit: businessProfit + itemBusinessProfit,
@@ -68,6 +78,8 @@ export const orderItems = async (
     },
     {
       items: [],
+      products: [],
+      productToUpdate: [],
       total: 0,
       commission: 0,
       businessProfit: 0,
@@ -107,15 +119,33 @@ const addShipping = async (
   return { ...order };
 };
 
-export const createCollaboratorOrder = async (
+export const createCollaboratorOrder = (
   business: CompleteBusiness,
   user: CompleteUser,
   data: TCollaboratorShoppingCartSchema,
+) => createOrder(business, user, data, true);
+
+export const createWebOrder = (
+  business: CompleteBusiness,
+  user: CompleteUser,
+  data: TCollaboratorShoppingCartSchema,
+) => createOrder(business, user, data, false);
+
+export const createOrder = async (
+  business: CompleteBusiness,
+  user: CompleteUser,
+  data: TCollaboratorShoppingCartSchema,
+  isCollaborator: boolean,
 ) => {
-  const { items, total, commission, businessProfit, hasProductOutOfStock } =
-    await orderItems(business.id, data.cartItems, true);
-  const productsDetails = items.map((item) => item.product);
-  const productItems = items.map((item) => item.orderItem);
+  const {
+    items,
+    products,
+    total,
+    commission,
+    businessProfit,
+    hasProductOutOfStock,
+    productToUpdate,
+  } = await orderItems(business.id, data.cartItems, isCollaborator);
   if (hasProductOutOfStock) {
     throw new BadRequestError("out_of_stock");
   }
@@ -124,8 +154,8 @@ export const createCollaboratorOrder = async (
     commission,
     businessProfit,
     userId: user.id,
-    productsDetails,
-    isCollaborator: true,
+    productsDetails: products,
+    isCollaborator,
   };
   order = await addShipping(
     order,
@@ -134,5 +164,6 @@ export const createCollaboratorOrder = async (
     total,
     !!data.wantDomicile,
   );
-  return orderRepository.createOrder(order, business, productItems);
+  await productRepository.updateStock(productToUpdate);
+  return orderRepository.createOrder(order, business, items);
 };
