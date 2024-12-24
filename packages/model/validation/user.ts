@@ -33,6 +33,7 @@ const BaseCart = z.object({
 });
 
 export const WebShoppingCartSchema = BaseCart.extend({
+  ...UserValidation,
   addressType: z.string(),
   businessRequestAddress: z.boolean().optional(),
   wantDomicile: z.boolean().optional(),

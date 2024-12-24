@@ -1,6 +1,10 @@
 import {
+  AddressType,
+  CollaboratorShoppingCartSchema,
   TCartItem,
   TCollaboratorShoppingCartSchema,
+  TWebShoppingCartSchema,
+  WebShoppingCartSchema,
 } from "@repo/model/validation/user";
 import { productRepository } from "@repo/model/repositories/product";
 import { addProductFields } from "./product";
@@ -9,6 +13,8 @@ import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
 import { orderRepository } from "../repositories/order";
 import { CompleteAddress, CompleteBusiness, CompleteUser } from "../prisma/zod";
+import { userRepository } from "../repositories/user";
+import { addAddressToUser } from "./address";
 
 const isOutOfStock = (product, quantity) =>
   !product.allowOrderOutOfStock &&
@@ -95,7 +101,7 @@ const addShipping = async (
   total: number,
   wantDomicile: boolean,
 ) => {
-  if (!address) {
+  if (!wantDomicile) {
     return order;
   }
   const neighborhoodId = address.neighborhoodId;
@@ -123,13 +129,25 @@ export const createCollaboratorOrder = (
   business: CompleteBusiness,
   user: CompleteUser,
   data: TCollaboratorShoppingCartSchema,
-) => createOrder(business, user, data, true);
+) => {
+  CollaboratorShoppingCartSchema.parse(data);
+  return createOrder(business, user, data, true);
+};
 
-export const createWebOrder = (
+export const createWebOrder = async (
   business: CompleteBusiness,
   user: CompleteUser,
-  data: TCollaboratorShoppingCartSchema,
-) => createOrder(business, user, data, false);
+  data: TWebShoppingCartSchema,
+) => {
+  WebShoppingCartSchema.parse(data);
+  let { phone, name, addressType, ...rest } = data;
+  const address = rest[addressType];
+  await userRepository.update(user.id, { ...user, phone, name });
+  if (addressType === AddressType.newAddress) {
+    await addAddressToUser(user.id, business.id, address);
+  }
+  return createOrder(business, user, { ...rest, address }, false);
+};
 
 export const createOrder = async (
   business: CompleteBusiness,

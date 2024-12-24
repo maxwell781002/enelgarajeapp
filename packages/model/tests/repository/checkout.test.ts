@@ -1,5 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { createCollaboratorOrder, createWebOrder } from "../../repository/checkout";
+import {
+  createCollaboratorOrder,
+  createWebOrder,
+} from "../../repository/checkout";
 import {
   businessFactory,
   businessNeighborhoodFactory,
@@ -11,6 +14,8 @@ import {
 import { CommissionTypes } from "../../types/enums";
 import { OrderStatus } from "../../prisma/generated/client";
 import { productRepository } from "../../repositories/product";
+import { AddressType } from "../../validation/user";
+import prisma from "@repo/model/prisma/prisma-client";
 
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -28,11 +33,11 @@ vi.mock("next/headers", () => ({
   }),
 }));
 
-const userModule = vi.hoisted(() => ({
-  getCurrentUser: vi.fn(),
-}));
+// const userModule = vi.hoisted(() => ({
+//   getCurrentUser: vi.fn(),
+// }));
 vi.mock("../../repository/user", () => ({
-  getCurrentUser: userModule.getCurrentUser,
+  // getCurrentUser: userModule.getCurrentUser,
 }));
 
 describe("Checkout", () => {
@@ -54,7 +59,7 @@ describe("Checkout", () => {
       neighborhoodId: neighborhood.id,
       shipping: 100,
     });
-    userModule.getCurrentUser.mockReturnValue(user);
+    // userModule.getCurrentUser.mockReturnValue(user);
     product1 = await productFactory({
       allowOrderOutOfStock: false,
       isExhaustible: true,
@@ -85,23 +90,27 @@ describe("Checkout", () => {
   });
 
   it("Collaborator", async () => {
-    const order = await createCollaboratorOrder(
-      business,
-      user,
-      {
-        cartItems: [
-          {
-            productId: product1.id,
-            quantity: 1,
-          },
-          {
-            productId: product2.id,
-            quantity: 2,
-          },
-        ],
-        wantDomicile: false,
+    const order = await createCollaboratorOrder(business, user, {
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 1,
+        },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: false,
+      address: {
+        name: "Peter Parker",
+        address: "123 Main St",
+        city: "city",
+        state: "state",
+        reference: "12345",
+        neighborhoodId: neighborhood.id,
       },
-    );
+    });
     const date = new Date();
     const position = 1;
     const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
@@ -117,6 +126,7 @@ describe("Checkout", () => {
     expect(order.identifier).toBe(identifier);
     expect(order.isCollaborator).toBe(true);
     expect(order.currency).toBe(business.currency);
+    expect(order.orderAddress).toBeNull();
     expect(order.items).toEqual([
       {
         productId: product1.id,
@@ -142,65 +152,70 @@ describe("Checkout", () => {
   });
 
   it("Collaborator with domicile", async () => {
-    const order = await createCollaboratorOrder(
-      business,
-      user,
-      {
-        cartItems: [
-          {
-            productId: product1.id,
-            quantity: 1,
-          },
-          {
-            productId: product2.id,
-            quantity: 2,
-          },
-        ],
-        wantDomicile: true,
-        address: {
-          name: "Peter Parker",
-          address: "123 Main St",
-          city: "city",
-          state: "state",
-          reference: "12345",
-          neighborhoodId: neighborhood.id,
+    const order = await createCollaboratorOrder(business, user, {
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 1,
         },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: true,
+      address: {
+        name: "Peter Parker",
+        address: "123 Main St",
+        city: "city",
+        state: "state",
+        reference: "12345",
+        neighborhoodId: neighborhood.id,
       },
-    );
+    });
     expect(order.shipping).toBe(100);
     expect(order.hasShipping).toBe(true);
     expect(order.total).toBe(270);
+    expect(order.orderAddress).toBeDefined();
     const productEntity = await productRepository.getById(product1.id);
     expect(productEntity.stock).toBe(8);
   });
 
   it("Is normal user", async () => {
-    const order = await createWebOrder(
-      business,
-      user,
-      {
-        cartItems: [
-          {
-            productId: product1.id,
-            quantity: 1,
-          },
-          {
-            productId: product2.id,
-            quantity: 2,
-          },
-        ],
-        wantDomicile: false,
+    const order = await createWebOrder(business, user, {
+      phone: "253",
+      name: "test",
+      addressType: AddressType.newAddress,
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 1,
+        },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: true,
+      [AddressType.newAddress]: {
+        name: "Peter Parker",
+        address: "123 Main St",
+        city: "city",
+        state: "state",
+        reference: "12345",
+        neighborhoodId: neighborhood.id,
       },
-    );
+    });
     const date = new Date();
     const position = 3;
     const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
-    expect(order.total).toBe(170);
+    expect(order.orderAddress).toBeDefined();
+    expect(order.total).toBe(270);
     expect(order.commission).toBe(0);
     expect(order.businessProfit).toBe(0);
     expect(order.userId).toBe(user.id);
-    expect(order.shipping).toBe(0);
-    expect(order.hasShipping).toBe(false);
+    expect(order.shipping).toBe(100);
+    expect(order.hasShipping).toBe(true);
     expect(order.status).toBe(OrderStatus.SEND);
     expect(order.position).toBe(3);
     expect(order.businessId).toBe(business.id);
@@ -229,27 +244,65 @@ describe("Checkout", () => {
     ]);
     const productEntity = await productRepository.getById(product1.id);
     expect(productEntity.stock).toBe(7);
+    const address = await prisma().userAddress.findFirst({
+      where: { userId: user.id },
+    });
+    expect(address).toBeDefined();
+  });
+
+  it("Is normal user, select address", async () => {
+    const order = await createWebOrder(business, user, {
+      phone: "253",
+      name: "test",
+      addressType: AddressType.selectAddress,
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 1,
+        },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: true,
+      [AddressType.selectAddress]: {
+        id: "1",
+        name: "Peter Parker",
+        address: "123 Main St",
+        city: "city",
+        state: "state",
+        reference: "12345",
+        neighborhoodId: neighborhood.id,
+      },
+    });
+    expect(order.orderAddress).toBeDefined();
+    const productEntity = await productRepository.getById(product1.id);
+    expect(productEntity.stock).toBe(6);
+    const addresses = await prisma().userAddress.findMany({
+      where: { userId: user.id },
+    });
+    expect(addresses.length).toBe(1);
   });
 
   it("Out of stock", async () => {
     try {
-      await createWebOrder(
-        business,
-        user,
-        {
-          cartItems: [
-            {
-              productId: product1.id,
-              quantity: 100,
-            },
-          ],
-          wantDomicile: false,
-        },
-      );
-    } catch(e) {
+      await createWebOrder(business, user, {
+        phone: "253",
+        name: "test",
+        addressType: AddressType.selectAddress,
+        cartItems: [
+          {
+            productId: product1.id,
+            quantity: 100,
+          },
+        ],
+        wantDomicile: false,
+      });
+    } catch (e) {
       expect(e.message).toBe("out_of_stock");
       const productEntity = await productRepository.getById(product1.id);
-      expect(productEntity.stock).toBe(7);
+      expect(productEntity.stock).toBe(6);
     }
   });
 });
