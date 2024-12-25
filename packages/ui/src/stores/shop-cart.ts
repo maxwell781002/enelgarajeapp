@@ -2,22 +2,28 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
 import { CompleteProduct } from "@repo/model/zod/product";
-import { CompleteOrder } from "@repo/model/zod/order";
 import {
   addProductToOrder,
   orderCommission,
   orderTotal,
   removeItem,
   setQuantity,
+  ShopCartOrder,
   ShopCartOrderItem,
 } from "@repo/model/repository/shop-cart";
 import { createSelectors } from "@repo/ui/stores/index";
-import { produce } from "immer";
+
+const initialState: { order: ShopCartOrder } = {
+  order: {
+    items: [],
+    total: 0,
+  },
+};
 
 export type ShopCartStore = {
   currentBusinessId: string;
-  byBusiness: Record<string, CompleteOrder>;
-  order: CompleteOrder;
+  byBusiness: Record<string, ShopCartOrder>;
+  order: ShopCartOrder;
   add: (item: CompleteProduct) => void;
   numberOfItems: () => number;
   commission: () => number;
@@ -29,13 +35,6 @@ export type ShopCartStore = {
   setQuantity: (id: string, quantity: number) => void;
   clear: () => void;
   changeBusiness: (businessId: string) => void;
-};
-
-const initialState = {
-  order: {
-    items: [],
-    total: 0,
-  },
 };
 
 const _useShopCart = create<ShopCartStore>()(
@@ -50,12 +49,12 @@ const _useShopCart = create<ShopCartStore>()(
             state.byBusiness[state.currentBusinessId] = state.order;
           }
           state.currentBusinessId = businessId;
-          state.order =
-            state.byBusiness[businessId] ||
-            produce(initialState.order, () => {});
+          // @ts-ignore
+          state.order = state.byBusiness[businessId] || initialState.order;
         }),
       add: (item: CompleteProduct) =>
         set((state) => {
+          // @ts-ignore
           state.order = addProductToOrder(state.order, item);
         }),
       clear: () => set({ ...initialState }),

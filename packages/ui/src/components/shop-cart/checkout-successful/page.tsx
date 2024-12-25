@@ -22,6 +22,9 @@ export default async function CheckoutSuccessfulPage({
 }: CheckoutSuccessfulPageProps) {
   const user = await getCurrentUser();
   const order = await getOrderById(orderId);
+  if (!order) {
+    return redirect("/");
+  }
   if (order.userId !== user.id) {
     return redirect("/");
   }

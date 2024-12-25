@@ -20,7 +20,7 @@ export class InvitationLinkRepository extends BaseRepository<
     });
   }
 
-  async findByCode(code: string) {
+  async findByCode(code: string): Promise<CompleteInvitationLink | null> {
     const invitationLink = await this.model.findFirst({
       where: {
         code,

@@ -56,7 +56,7 @@ export default function CheckoutForm({
             <FormField
               control={form.control}
               name="wantDomicile"
-              render={({ field }) => (
+              render={({ field, fieldState: { error } }: any) => (
                 <FormItem>
                   <FormLabel>{t("lbWantDomicile")}</FormLabel>
                   <FormControl>
@@ -66,7 +66,9 @@ export default function CheckoutForm({
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {!!error?.message && t(error?.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />

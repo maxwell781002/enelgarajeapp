@@ -34,7 +34,8 @@ export default function ProductList() {
                 <TableCell>
                   <div className="h-[64px] w-[64px] flex items-center justify-center">
                     <Image
-                      src={item.product.image.url}
+                      src={(item.product.image as any).url}
+                      alt={item.product.name}
                       width={0}
                       height={0}
                       sizes="100vw"

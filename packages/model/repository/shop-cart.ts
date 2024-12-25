@@ -1,13 +1,14 @@
 import { CompleteOrderProduct } from "@repo/model/prisma/zod/orderproduct";
 import { IProduct } from "@repo/model/types/product";
 
-export type ShopCartOrderItem = Pick<
+export type ShopCartOrderItem = { product: IProduct } & Pick<
   CompleteOrderProduct,
-  "price" | "quantity" | "product" | "productId" | "commission"
+  "price" | "quantity" | "productId" | "commission"
 >;
 
 export type ShopCartOrder = {
   items: ShopCartOrderItem[];
+  total: number;
 };
 
 const addItemsFields = (items: ShopCartOrderItem[]) => {

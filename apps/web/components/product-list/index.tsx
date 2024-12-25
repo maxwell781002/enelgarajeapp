@@ -2,8 +2,6 @@ import { categoryRepository } from "@repo/model/repositories/category";
 import CategoryMenu from "./category-menu";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import ProductList from "./list";
-import { addToOrder } from "@repo/model/repository/order";
-import { revalidatePath } from "next/cache";
 import { paginateFrontend } from "@repo/model/repository/product";
 import SearchInput from "@repo/ui/components/search";
 import { redirect } from "next/navigation";
