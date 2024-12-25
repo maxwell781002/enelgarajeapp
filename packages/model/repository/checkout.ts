@@ -15,11 +15,14 @@ import { orderRepository } from "../repositories/order";
 import {
   CompleteAddress,
   CompleteBusiness,
+  CompleteOrder,
   CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
 import { userRepository } from "../repositories/user";
 import { addAddressToUser } from "./address";
+import { sendOrderToTelegram } from "../listeners/new-order";
+import { OrderSend } from "../lib/event-emitter/events";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -190,5 +193,9 @@ export const createOrder = async (
     !!data.wantDomicile,
   );
   await productRepository.updateStock(productToUpdate);
-  return orderRepository.createOrder(order, business, items);
+  const entity = await orderRepository.createOrder(order, business, items);
+  //TODO: When I configure the listener send the event instance of
+  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+  await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
+  return entity;
 };

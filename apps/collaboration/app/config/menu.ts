@@ -1,11 +1,5 @@
-import { LinkItem, MenuItem, SEPARATOR } from "@repo/ui/types/linkItem";
-import {
-  Package2,
-  Settings,
-  ShoppingBasketIcon,
-  MapPinIcon,
-  Home,
-} from "lucide-react";
+import { LinkItem, MenuItem } from "@repo/ui/types/linkItem";
+import { Package2, Settings, ShoppingBasketIcon, Home } from "lucide-react";
 
 export const businessMenu: (businessId: string) => LinkItem[] = (
   businessId: string,
@@ -26,12 +20,6 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     link: `/${businessId}/order`,
     title: "Órdenes",
     Icon: ShoppingBasketIcon,
-    active: true,
-  },
-  {
-    link: `/${businessId}/address-user`,
-    title: "Direcciones",
-    Icon: MapPinIcon,
     active: true,
   },
 ];

@@ -37,7 +37,7 @@ export default function CheckoutPage({
   successfulUrl,
 }: CheckoutPageProps) {
   const t = useTranslations("Checkout");
-  const orderTotal = useStore(useShopCart, (state) => state.orderTotal(false));
+  const orderTotal = useStore(useShopCart, (state) => state.orderTotal());
   const orderItems = useStore(useShopCart, (state) => state.items());
   const clear = useShopCart((state) => state.clear);
   const [orderRegistering, startOrderRegistering] = useTransition();

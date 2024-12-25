@@ -33,11 +33,11 @@ vi.mock("next/headers", () => ({
   }),
 }));
 
-// const userModule = vi.hoisted(() => ({
-//   getCurrentUser: vi.fn(),
-// }));
-vi.mock("../../repository/user", () => ({
-  // getCurrentUser: userModule.getCurrentUser,
+vi.mock("../../repository/user", () => ({}));
+
+const sendOrderToTelegram = vi.hoisted(() => vi.fn());
+vi.mock("../../../listeners/new-order", () => ({
+  sendOrderToTelegram: sendOrderToTelegram,
 }));
 
 describe("Checkout", () => {
@@ -59,7 +59,6 @@ describe("Checkout", () => {
       neighborhoodId: neighborhood.id,
       shipping: 100,
     });
-    // userModule.getCurrentUser.mockReturnValue(user);
     product1 = await productFactory({
       allowOrderOutOfStock: false,
       isExhaustible: true,
