@@ -22,8 +22,7 @@ export type ShopCartStore = {
   inCart: (id: string) => boolean;
   items: () => ShopCartOrderItem[];
   hasItems: () => boolean;
-  orderSubTotal: () => number;
-  orderTotal: (addCommission: boolean) => number;
+  orderTotal: () => number;
   remove: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
   clear: () => void;
@@ -50,9 +49,7 @@ const _useShopCart = create<ShopCartStore>()(
       inCart: (id: string) =>
         get().order.items.some((item) => item.product.id === id),
       items: () => get().order.items,
-      orderSubTotal: () => orderSubTotal(get().order),
-      orderTotal: (addCommission: boolean) =>
-        orderTotal(get().order, addCommission),
+      orderTotal: () => orderTotal(get().order),
       commission: () => orderCommission(get().order),
       hasItems: () => get().order.items.length > 0,
       remove: (id: string) =>

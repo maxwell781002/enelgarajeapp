@@ -68,17 +68,8 @@ export const removeItem = (order: ShopCartOrder, productId: string) => {
   );
 };
 
-export const orderSubTotal = (order: ShopCartOrder) =>
+export const orderTotal = (order: ShopCartOrder) =>
   order.items.reduce((acc, item) => acc + item.price, 0);
-
-export const orderTotal = (
-  order: ShopCartOrder,
-  addCommission: boolean = false,
-) =>
-  order.items.reduce(
-    (acc, item) => acc + item.price + (addCommission ? item.commission : 0),
-    0,
-  );
 
 export const orderCommission = (order: ShopCartOrder) =>
   order.items.reduce((acc, item) => acc + item.commission, 0);

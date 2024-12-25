@@ -47,10 +47,7 @@ export default function ShoppingCartPage({
   }, [items]);
 
   const hasItems = useStore(useShopCart, (state) => state.hasItems());
-  const orderSubTotal = useStore(useShopCart, (state) => state.orderSubTotal());
-  const orderTotal = useStore(useShopCart, (state) =>
-    state.orderTotal(showCommission),
-  );
+  const orderTotal = useStore(useShopCart, (state) => state.orderTotal());
   const commission = useStore(useShopCart, (state) => state.commission());
   const remove = useShopCart.use.remove();
   const setQuantity = useShopCart.use.setQuantity();
@@ -88,22 +85,12 @@ export default function ShoppingCartPage({
       </div>
       <div className="flex flex-col gap-4">
         {showCommission && (
-          <>
-            <div className="flex items-center justify-between">
-              <span className="text-lg font-semibold">
-                {t("subtotal_cart")}
-              </span>
-              <span className="text-2xl font-bold">
-                <PriceDisplay price={orderSubTotal as number} />
-              </span>
-            </div>
-            <div className="flex items-center justify-between text-blue-500">
-              <span className="text-lg font-semibold">{t("commission")}</span>
-              <span className="text-2xl font-bold">
-                <PriceDisplay price={commission as number} />
-              </span>
-            </div>
-          </>
+          <div className="flex items-center justify-between text-blue-500">
+            <span className="text-lg font-semibold">{t("commission")}</span>
+            <span className="text-2xl font-bold">
+              <PriceDisplay price={commission as number} />
+            </span>
+          </div>
         )}
         <div className="flex items-center justify-between">
           <span className="text-lg font-semibold">{t("total_cart")}</span>
