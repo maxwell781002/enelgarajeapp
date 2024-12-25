@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { AddressType, WebShoppingCartSchema } from "../../validation/user";
 
+const cartItems = [{ productId: "1", quantity: 1 }];
+
 describe("User", () => {
   it("I need newAddress", () => {
     const user = WebShoppingCartSchema.safeParse({
@@ -8,6 +10,7 @@ describe("User", () => {
       phone: "test",
       addressType: AddressType.newAddress,
       businessRequestAddress: true,
+      cartItems,
     });
     expect(user.success).toBe(false);
     expect(user.error).toBeDefined();
@@ -20,6 +23,7 @@ describe("User", () => {
       name: "test",
       phone: "test",
       addressType: AddressType.newAddress,
+      cartItems,
       businessRequestAddress: true,
       [AddressType.newAddress]: {
         alias: "test",
@@ -38,6 +42,7 @@ describe("User", () => {
         name: "test",
         addressType: "newAddress",
         businessRequestAddress: true,
+        cartItems,
         newAddress: {
           alias: "test",
           name: "test",
@@ -57,6 +62,7 @@ describe("User", () => {
       phone: "test",
       addressType: AddressType.selectAddress,
       businessRequestAddress: true,
+      cartItems,
     });
     expect(user.success).toBe(false);
     expect(user.error).toBeDefined();
@@ -70,6 +76,7 @@ describe("User", () => {
       phone: "test",
       addressType: AddressType.selectAddress,
       businessRequestAddress: true,
+      cartItems,
       [AddressType.selectAddress]: {
         id: "test",
         alias: "test",
@@ -88,6 +95,7 @@ describe("User", () => {
         name: "test",
         addressType: "selectAddress",
         businessRequestAddress: true,
+        cartItems,
         selectAddress: {
           id: "test",
           alias: "test",
@@ -108,6 +116,7 @@ describe("User", () => {
       phone: "test",
       addressType: AddressType.selectAddress,
       businessRequestAddress: false,
+      cartItems,
     });
     expect(user).toEqual({
       success: true,
@@ -116,6 +125,7 @@ describe("User", () => {
         name: "test",
         addressType: "selectAddress",
         businessRequestAddress: false,
+        cartItems,
       },
     });
   });

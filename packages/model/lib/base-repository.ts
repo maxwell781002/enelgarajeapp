@@ -7,7 +7,7 @@ type TValidatorByAction = {
 };
 
 export type Entity = {
-  id: any;
+  id?: any;
 };
 
 export abstract class BaseRepository<T extends Entity, M> {

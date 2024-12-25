@@ -5,7 +5,6 @@ import { LayoutMain } from "@repo/ui/layouts/backoffice/main";
 import { auth } from "@repo/model/lib/auth";
 import { businessMenu } from "../config/menu";
 import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
-import { getCurrentOrder } from "@repo/model/repository/order";
 import { getBusinessSecurity } from "@repo/model/repository/user";
 import { redirect } from "next/navigation";
 import { UserBusinessType } from "@repo/model/types/enums";
@@ -22,7 +21,6 @@ export default async function RootLayout({
   params: { businessId: string };
 }>) {
   const session = await auth();
-  const order = await getCurrentOrder();
   const business = await businessRepository.getById(businessId);
   const businesses = await getBusinessSecurity(
     session?.user,
@@ -53,7 +51,6 @@ export default async function RootLayout({
               <div className="flex flex-1 justify-end items-center">
                 <ShoppingCartHeader
                   className="mr-4"
-                  order={order}
                   url={`/${businessId}/shopping-cart`}
                 />
               </div>

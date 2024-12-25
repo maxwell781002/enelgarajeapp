@@ -1,9 +1,9 @@
-import prisma, { Prisma } from "../prisma/prisma-client";
-import { BaseRepository } from "../lib/base-repository";
-import { CompleteBusiness } from "../prisma/zod";
-import { BusinessValidation } from "../validation/business";
-import { PaginateData } from "../types/pagination";
-import { TUserBusinessType, UserBusinessType } from "../types/enums";
+import prisma, { Prisma } from "@repo/model/prisma/prisma-client";
+import { BaseRepository } from "@repo/model/lib/base-repository";
+import { CompleteBusiness } from "@repo/model/prisma/zod/business";
+import { BusinessValidation } from "@repo/model/validation/business";
+import { PaginateData } from "@repo/model/types/pagination";
+import { TUserBusinessType, UserBusinessType } from "@repo/model/types/enums";
 
 // TODO: I am working with userBusiness using only one user.
 

@@ -79,10 +79,9 @@ export default function CardItem({
               <div className="flex flex-1 justify-end">
                 <div>
                   <PriceDisplay price={item.price} />
-                  {/* TODO Remove the any */}
-                  {showCommission && !!(item as any).commission && (
+                  {showCommission && !!item.commission && (
                     <PriceDisplay
-                      price={(item as any).commission}
+                      price={item.commission}
                       classNameText="text-blue-500"
                     />
                   )}

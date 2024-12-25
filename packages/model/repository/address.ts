@@ -1,5 +1,5 @@
-import { addressRepository } from "../repositories/address";
-import { userAddressRepository } from "../repositories/user-address";
+import { addressRepository } from "@repo/model/repositories/address";
+import { userAddressRepository } from "@repo/model/repositories/user-address";
 
 export const addAddressToUser = async (
   userId: string,

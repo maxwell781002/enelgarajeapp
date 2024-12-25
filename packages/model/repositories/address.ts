@@ -1,6 +1,6 @@
-import { Prisma } from "../prisma/prisma-client";
-import { BaseRepository } from "../lib/base-repository";
-import { AddressModel, CompleteAddress } from "../prisma/zod";
+import { Prisma } from "@repo/model/prisma/prisma-client";
+import { BaseRepository } from "@repo/model/lib/base-repository";
+import { AddressModel, CompleteAddress } from "@repo/model/prisma/zod/address";
 
 export class AddressRepository extends BaseRepository<
   CompleteAddress,

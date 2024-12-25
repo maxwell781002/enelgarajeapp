@@ -4,17 +4,13 @@ import { commissionCalculate } from "../lib/utils";
 import prisma from "../prisma/prisma-client";
 import { CompleteBusiness } from "../prisma/zod";
 import { productRepository } from "../repositories/product";
-import { ShopCartOrder } from "../types/shop-cart";
-import { getCurrentOrder, hasProduct } from "./order";
 
 export const getBySlug = async (slug: string) => {
-  const order = await getCurrentOrder();
   return addProductFields(
     await prisma().product.findUnique({
       where: { slug },
       include: { priceValues: true },
     }),
-    order,
   );
 };
 
@@ -22,11 +18,7 @@ export const getById = (id: string) => {
   return prisma().product.findUnique({ where: { id } });
 };
 
-// TODO I removed async
-export const addProductFields = (
-  product: any,
-  order: ShopCartOrder | null | undefined = null, //TODO remove and remove async
-) => {
+export const addProductFields = (product: any) => {
   const _isOffer = !!(product.offerPrice && product.offerPrice < product.price);
   const price = _isOffer ? product.offerPrice : product.price;
   const [commission, businessProfit] = commissionCalculate(
@@ -38,7 +30,6 @@ export const addProductFields = (
     ...product,
     _commission: commission,
     _businessProfit: businessProfit,
-    // _inCart: order && (await hasProduct(product.id, order)),
     _isOffer,
     _price: price,
     _outOfStock:
@@ -49,10 +40,9 @@ export const addProductFields = (
 };
 
 export const paginateFrontend = async (parameters: any) => {
-  const order = await getCurrentOrder();
   const { data, ...props } =
     await productRepository.paginateFrontend(parameters);
-  const products = data.map(async (item: any) => addProductFields(item, order));
+  const products = data.map(async (item: any) => addProductFields(item));
   return {
     data: await Promise.all(products),
     ...props,

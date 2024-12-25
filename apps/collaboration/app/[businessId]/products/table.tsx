@@ -7,11 +7,9 @@ import Pagination from "@repo/ui/components/table/pagination";
 
 export default function ProductTable({
   pagination: { data, ...pagination },
-  add,
   baseUrl,
 }: {
   pagination: PaginationResult<any>;
-  add: (productId: string) => void;
   baseUrl: string;
 }) {
   if (data.length === 0) {
@@ -27,7 +25,6 @@ export default function ProductTable({
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {data.map((item: any) => (
           <CardItem
-            onAdd={() => add(item.id)}
             showStock
             showCommission
             key={item.id}

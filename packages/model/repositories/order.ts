@@ -205,33 +205,6 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  // TODO remove this
-  async placeOrder(
-    order: CompleteOrder,
-    user: CompleteUser,
-    business: CompleteBusiness,
-    isCollaborator: boolean = false,
-  ) {
-    const newPosition = (await this.getLastPosition(business.id)) + 1;
-    return prisma().order.update({
-      where: { id: order.id },
-      data: {
-        isCollaborator,
-        userId: user.id,
-        total: order.total,
-        status: OrderStatus.SEND,
-        position: newPosition,
-        sentAt: new Date(),
-        businessId: business.id,
-        currency: business.currency,
-        shipping: order.shipping,
-        commission: order.commission,
-        businessProfit: order.businessProfit,
-        identifier: this.generateIdentifier(new Date(), newPosition),
-      },
-    });
-  }
-
   hasOrders(productId: string) {
     return prisma().order.count({
       where: {
