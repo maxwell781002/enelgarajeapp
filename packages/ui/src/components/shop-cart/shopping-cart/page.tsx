@@ -10,7 +10,7 @@ import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useTranslations } from "next-intl";
 import { useStore } from "@repo/ui/stores/index";
 import { ShopCartOrderItem } from "@repo/model/repository/shop-cart";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 export type ShoppingCartProps = {
   baseUrl?: string;
@@ -30,19 +30,22 @@ export default function ShoppingCartPage({
   const t = useTranslations("ShopCart");
   const items = useStore(useShopCart, (state) => state.items());
   const [hasProductOutOfStock, setHasProductOutOfStock] = useState(false);
+  const [checkingStock, startCheckingStock] = useTransition();
   useEffect(() => {
     if (items?.length) {
-      fetch(
-        `/api/shop-cart?businessId=${businessId}&isCollaborator=${isCollaborator}`,
-        {
-          method: "POST",
-          body: JSON.stringify(items),
-        },
-      )
-        .then((res) => res.json())
-        .then(({ hasProductOutOfStock }) =>
-          setHasProductOutOfStock(hasProductOutOfStock),
-        );
+      startCheckingStock(() =>
+        fetch(
+          `/api/shop-cart?businessId=${businessId}&isCollaborator=${isCollaborator}`,
+          {
+            method: "POST",
+            body: JSON.stringify(items),
+          },
+        )
+          .then((res) => res.json())
+          .then(({ hasProductOutOfStock }) =>
+            setHasProductOutOfStock(hasProductOutOfStock),
+          ),
+      );
     }
   }, [items]);
 
@@ -111,7 +114,10 @@ export default function ShoppingCartPage({
             className="w-full"
             prefetch={false}
           >
-            <Button className="w-full" disabled={hasProductOutOfStock}>
+            <Button
+              className="w-full"
+              disabled={hasProductOutOfStock || checkingStock}
+            >
               {t("checkout")}
             </Button>
           </Link>
