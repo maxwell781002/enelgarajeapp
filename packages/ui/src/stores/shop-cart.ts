@@ -6,15 +6,17 @@ import { CompleteOrder } from "@repo/model/zod/order";
 import {
   addProductToOrder,
   orderCommission,
-  orderSubTotal,
   orderTotal,
   removeItem,
   setQuantity,
   ShopCartOrderItem,
 } from "@repo/model/repository/shop-cart";
 import { createSelectors } from "@repo/ui/stores/index";
+import { produce } from "immer";
 
 export type ShopCartStore = {
+  currentBusinessId: string;
+  byBusiness: Record<string, CompleteOrder>;
   order: CompleteOrder;
   add: (item: CompleteProduct) => void;
   numberOfItems: () => number;
@@ -26,6 +28,7 @@ export type ShopCartStore = {
   remove: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
   clear: () => void;
+  changeBusiness: (businessId: string) => void;
 };
 
 const initialState = {
@@ -38,7 +41,19 @@ const initialState = {
 const _useShopCart = create<ShopCartStore>()(
   persist(
     immer((set, get) => ({
+      byBusiness: {},
+      currentBusinessId: "",
       ...initialState,
+      changeBusiness: (businessId: string) =>
+        set((state) => {
+          if (state.currentBusinessId) {
+            state.byBusiness[state.currentBusinessId] = state.order;
+          }
+          state.currentBusinessId = businessId;
+          state.order =
+            state.byBusiness[businessId] ||
+            produce(initialState.order, () => {});
+        }),
       add: (item: CompleteProduct) =>
         set((state) => {
           state.order = addProductToOrder(state.order, item);

@@ -12,6 +12,7 @@ import { UserBusinessType } from "@repo/model/types/enums";
 import { Item } from "@repo/ui/components/entity-select";
 import { BusinessContextProvider } from "@repo/ui/context/business";
 import { businessRepository } from "@repo/model/repositories/business";
+import ShopCartSwitch from "./shop-cart-switch";
 
 export default async function RootLayout({
   children,
@@ -36,31 +37,33 @@ export default async function RootLayout({
     await redirect(`/${businessId}`);
   };
   return (
-    <TooltipProvider>
-      <BusinessContextProvider business={business}>
-        <LayoutMain
-          menuItems={businessMenu(businessId)}
-          secondaryMenu={[]}
-          userImage={session?.user?.image}
-          userMenuItems={[]}
-          businessId={businessId}
-          business={businesses as Item[]}
-          onChangeBusiness={onChangeBusiness}
-          switchApp
-          headerExtra={
-            <div className="flex flex-1 justify-end items-center">
-              <ShoppingCartHeader
-                className="mr-4"
-                order={order}
-                url={`/${businessId}/shopping-cart`}
-              />
-            </div>
-          }
-        >
-          {children}
-        </LayoutMain>
-      </BusinessContextProvider>
-      <Toaster />
-    </TooltipProvider>
+    <ShopCartSwitch business={business}>
+      <TooltipProvider>
+        <BusinessContextProvider business={business}>
+          <LayoutMain
+            menuItems={businessMenu(businessId)}
+            secondaryMenu={[]}
+            userImage={session?.user?.image}
+            userMenuItems={[]}
+            businessId={businessId}
+            business={businesses as Item[]}
+            onChangeBusiness={onChangeBusiness}
+            switchApp
+            headerExtra={
+              <div className="flex flex-1 justify-end items-center">
+                <ShoppingCartHeader
+                  className="mr-4"
+                  order={order}
+                  url={`/${businessId}/shopping-cart`}
+                />
+              </div>
+            }
+          >
+            {children}
+          </LayoutMain>
+        </BusinessContextProvider>
+        <Toaster />
+      </TooltipProvider>
+    </ShopCartSwitch>
   );
 }

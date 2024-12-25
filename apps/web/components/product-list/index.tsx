@@ -8,6 +8,7 @@ import { paginateFrontend } from "@repo/model/repository/product";
 import SearchInput from "@repo/ui/components/search";
 import { redirect } from "next/navigation";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
+import { TableContextProvider } from "@repo/ui/context/table";
 
 export type ProductListWrapperProps = {
   currentBusiness: CompleteBusiness;
@@ -37,7 +38,7 @@ export default async function ProductListWrapper({
     return redirect(url);
   };
   return (
-    <>
+    <TableContextProvider>
       <SearchInput className="mb-2" onChange={search} />
       {getPlanFeature<boolean>("CAN_CREATE_CATEGORY", business) && (
         <div className="mb-8">
@@ -50,6 +51,6 @@ export default async function ProductListWrapper({
         categoryId={currenItem?.id}
         businessId={business.id}
       />
-    </>
+    </TableContextProvider>
   );
 }
