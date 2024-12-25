@@ -60,6 +60,7 @@ export default function CheckoutForm({
         form={form}
         addressName={addressType}
         business={business}
+        successfulUrl="/checkout-successful?orderId="
         render={({ neighborhoods }) => (
           <>
             <FormField

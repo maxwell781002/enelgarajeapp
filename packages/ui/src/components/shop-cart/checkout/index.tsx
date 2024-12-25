@@ -1,7 +1,7 @@
 "use client";
 
 import ProductList from "@repo/ui/components/shop-cart/checkout/product-list";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { useStore } from "@repo/ui/stores/index";
 import { useShopCart } from "@repo/ui/stores/shop-cart";
@@ -11,6 +11,7 @@ import Total from "@repo/ui/components/shop-cart/checkout/total";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { Button } from "@repo/ui/components/button";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
+import { useRouter } from "next/navigation";
 
 export type RenderOptions = {
   neighborhoods: NeighborhoodWithShipping[];
@@ -24,6 +25,7 @@ export type CheckoutPageProps = {
   addressName: string;
   business: CompleteBusiness;
   render: (options: RenderOptions) => ReactNode;
+  successfulUrl: string;
 };
 
 export default function CheckoutPage({
@@ -32,10 +34,14 @@ export default function CheckoutPage({
   form,
   addressName,
   business,
+  successfulUrl,
 }: CheckoutPageProps) {
   const t = useTranslations("Checkout");
   const orderTotal = useStore(useShopCart, (state) => state.orderTotal(false));
   const orderItems = useStore(useShopCart, (state) => state.items());
+  const clear = useShopCart((state) => state.clear);
+  const [orderRegistering, startOrderRegistering] = useTransition();
+  const router = useRouter();
   form.setValue(
     "cartItems",
     orderItems?.map((item) => ({
@@ -45,10 +51,18 @@ export default function CheckoutPage({
   );
   const [shopCartHasError, setShopCartHasError] = useState(false);
   const handlerAction = async (data: any) => {
-    const result = await action(data);
-    if (result?.message === "out_of_stock") {
-      setShopCartHasError(true);
-    }
+    return startOrderRegistering(async () => {
+      try {
+        const { id } = await action(data);
+        clear();
+        return router.push(`${successfulUrl}${id}`);
+      } catch (e: any) {
+        if (e.message === "out_of_stock") {
+          return setShopCartHasError(true);
+        }
+        throw e;
+      }
+    });
   };
   const {
     neighborhoods,
@@ -90,7 +104,7 @@ export default function CheckoutPage({
         )}
         <Button
           type="submit"
-          disabled={neighborhoodLoading || form.formState.isSubmitting}
+          disabled={neighborhoodLoading || orderRegistering}
         >
           {t("continue")}
         </Button>

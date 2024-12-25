@@ -123,9 +123,10 @@ const addShipping = async (
   order.hasShipping = !!shipping.shippingPrice;
   order.total = shipping.total;
   order.shipping = shipping.shippingPrice;
+  const { id, ...restAddress } = address;
   order.orderAddress = {
     create: {
-      address: { create: address },
+      address: { create: restAddress },
     },
   };
   return { ...order };
@@ -147,7 +148,7 @@ export const createWebOrder = async (
 ) => {
   WebShoppingCartSchema.parse(data);
   let { phone, name, addressType, ...rest } = data;
-  const address = rest[addressType];
+  const address = rest[addressType as AddressType];
   await userRepository.update(user.id, { ...user, phone, name });
   if (addressType === AddressType.newAddress) {
     await addAddressToUser(user.id, business.id, address);

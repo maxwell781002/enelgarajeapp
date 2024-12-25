@@ -26,19 +26,25 @@ export type ShopCartStore = {
   orderTotal: (addCommission: boolean) => number;
   remove: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
+  clear: () => void;
+};
+
+const initialState = {
+  order: {
+    items: [],
+    total: 0,
+  },
 };
 
 const _useShopCart = create<ShopCartStore>()(
   persist(
     immer((set, get) => ({
-      order: {
-        items: [],
-        total: 0,
-      },
+      ...initialState,
       add: (item: CompleteProduct) =>
         set((state) => {
           state.order = addProductToOrder(state.order, item);
         }),
+      clear: () => set({ ...initialState }),
       numberOfItems: () =>
         get().order.items.reduce((acc, item) => acc + item.quantity, 0),
       inCart: (id: string) =>

@@ -1,8 +1,6 @@
-import {
-  getAllBusinessData,
-  getCurrentBusiness,
-} from "@repo/model/repository/business";
+import { getAllBusinessData } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
+import { getCurrentUser } from "@repo/model/repository/user";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
@@ -11,6 +9,7 @@ import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export type CheckoutSuccessfulPageProps = {
   business: CompleteBusiness;
@@ -21,7 +20,11 @@ export default async function CheckoutSuccessfulPage({
   business,
   orderId,
 }: CheckoutSuccessfulPageProps) {
+  const user = await getCurrentUser();
   const order = await getOrderById(orderId);
+  if (order.userId !== user.id) {
+    return redirect("/");
+  }
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
   business = await getAllBusinessData(business.id as string);

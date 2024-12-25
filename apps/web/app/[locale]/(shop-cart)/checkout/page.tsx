@@ -5,6 +5,7 @@ import NoUser from "@repo/ui/components/shop-cart/checkout/no-user";
 import { auth } from "@repo/model/lib/auth";
 import CheckoutForm from "./form";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
+import { createWebOrder } from "@repo/model/repository/checkout";
 
 export default async function Component() {
   const business = await getCurrentBusiness();
@@ -27,7 +28,7 @@ export default async function Component() {
     : [];
   const action = async (data: any) => {
     "use server";
-    console.log(data);
+    return createWebOrder(business, user, data);
   };
 
   return (
