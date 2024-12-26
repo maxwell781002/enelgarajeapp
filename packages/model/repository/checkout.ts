@@ -142,7 +142,9 @@ export const createCollaboratorOrder = async (
   data: TCollaboratorShoppingCartSchema,
 ) => {
   CollaboratorShoppingCartSchema.parse(data);
-  const entity = await transaction(() => createOrder(business, user, data, true));
+  const entity = await transaction(() =>
+    createOrder(business, user, data, true),
+  );
   //TODO: When I configure the listener send the event instance of
   // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
   await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
@@ -159,7 +161,7 @@ export const createWebOrder = async (
   const address = rest[addressType as AddressType];
   const entity = await transaction(async () => {
     await userRepository.update(user.id, { ...user, phone, name });
-    if (addressType === AddressType.newAddress) {
+    if (addressType === AddressType.newAddress && rest.wantDomicile) {
       await addAddressToUser(user.id, business.id, address);
     }
     return createOrder(business, user, { ...rest, address }, false);

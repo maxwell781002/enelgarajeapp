@@ -42,7 +42,9 @@ export const WebShoppingCartSchema = BaseCart.extend({
 }).refine(
   (val) =>
     !val.businessRequestAddress ||
+    !val.wantDomicile ||
     (val.businessRequestAddress &&
+      val.wantDomicile &&
       ((val.addressType === AddressType.newAddress &&
         val[AddressType.newAddress]) ||
         (val.addressType === AddressType.selectAddress &&

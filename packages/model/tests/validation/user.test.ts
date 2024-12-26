@@ -10,6 +10,7 @@ describe("User", () => {
       phone: "test",
       addressType: AddressType.newAddress,
       businessRequestAddress: true,
+      wantDomicile: true,
       cartItems,
     });
     expect(user.success).toBe(false);
@@ -62,6 +63,7 @@ describe("User", () => {
       phone: "test",
       addressType: AddressType.selectAddress,
       businessRequestAddress: true,
+      wantDomicile: true,
       cartItems,
     });
     expect(user.success).toBe(false);

@@ -1,7 +1,6 @@
 import prisma, { Prisma } from "../prisma/prisma-client";
 import { ZodType } from "zod";
 import { PaginateData, PaginationResult } from "../types/pagination";
-import { Prisma } from "../prisma/generated/client";
 
 type TValidatorByAction = {
   [action: string]: ZodType;

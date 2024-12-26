@@ -46,6 +46,7 @@ export default function CheckoutForm({
     defaultValues,
   });
   const requestAddress = form.watch("businessRequestAddress");
+  const wantDomicile = form.watch("wantDomicile");
   const addressType = form.watch("addressType") as AddressType;
   useEffect(() => {
     if (addressType === AddressType.selectAddress) {
@@ -92,34 +93,34 @@ export default function CheckoutForm({
               )}
             />
             {!!requestAddress && (
-              <>
-                <Address
-                  form={form}
-                  addresses={addresses}
-                  neighborhoods={neighborhoods}
-                  addressUrl="/address-user"
-                  addAlias={true}
-                />
-                <FormField
-                  control={form.control}
-                  name="wantDomicile"
-                  render={({ field, fieldState: { error } }: any) => (
-                    <FormItem>
-                      <FormLabel>{t("lbWantDomicile")}</FormLabel>
-                      <FormControl>
-                        <Switch
-                          {...field}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormMessage>
-                        {!!error?.message && t(error?.message)}
-                      </FormMessage>
-                    </FormItem>
-                  )}
-                />
-              </>
+              <FormField
+                control={form.control}
+                name="wantDomicile"
+                render={({ field, fieldState: { error } }: any) => (
+                  <FormItem>
+                    <FormLabel>{t("lbWantDomicile")}</FormLabel>
+                    <FormControl>
+                      <Switch
+                        {...field}
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage>
+                      {!!error?.message && t(error?.message)}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            )}
+            {wantDomicile && (
+              <Address
+                form={form}
+                addresses={addresses}
+                neighborhoods={neighborhoods}
+                addressUrl="/address-user"
+                addAlias={true}
+              />
             )}
           </>
         )}

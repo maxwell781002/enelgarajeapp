@@ -17,7 +17,7 @@ export default async function Component() {
   const defaultValues = {
     ...user,
     addressType: AddressType.selectAddress,
-    wantDomicile: true,
+    wantDomicile: business.requestAddress,
     businessRequestAddress: business.requestAddress,
   };
   const addresses = business.requestAddress
