@@ -13,7 +13,7 @@ export class NeighborhoodRepository extends BaseRepository<
   typeof Prisma.neighborhood
 > {
   constructor() {
-    super(NeighborhoodModel.omit({ id: true }), Prisma.neighborhood);
+    super(NeighborhoodModel.omit({ id: true }), "neighborhood");
   }
 
   paginate({ query, ...data }: PaginateData = {}) {

@@ -12,7 +12,7 @@ export class OrderAddressRepository extends BaseRepository<
   typeof Prisma.orderAddress
 > {
   constructor() {
-    super(OrderAddressModel.omit({ id: true }), Prisma.orderAddress);
+    super(OrderAddressModel.omit({ id: true }), "orderAddress");
   }
 
   async createNew(orderId: string, data: Omit<CompleteAddress, "id">) {

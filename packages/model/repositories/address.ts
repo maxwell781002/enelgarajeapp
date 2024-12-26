@@ -7,7 +7,7 @@ export class AddressRepository extends BaseRepository<
   typeof Prisma.address
 > {
   constructor() {
-    super(AddressModel.omit({ id: true }), Prisma.address);
+    super(AddressModel.omit({ id: true }), "address");
   }
 }
 

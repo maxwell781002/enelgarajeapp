@@ -21,7 +21,7 @@ export class UserRepository extends BaseRepository<
   typeof Prisma.user
 > {
   constructor() {
-    super(UserModel.omit({ id: true }), Prisma.user);
+    super(UserModel.omit({ id: true }), "user");
   }
 
   getAll() {

@@ -50,7 +50,7 @@ export class OrderRepository extends BaseRepository<
   typeof Prisma.order
 > {
   constructor() {
-    super(OrderModel, Prisma.order);
+    super(OrderModel, "order");
   }
 
   getStatus() {

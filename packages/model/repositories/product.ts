@@ -28,7 +28,7 @@ export class ProductRepository extends BaseRepository<
   typeof Prisma.product
 > {
   constructor() {
-    super(ProductValidation, Prisma.product);
+    super(ProductValidation, "product");
     this.addValidator("update", ProductUpdateValidation);
   }
 

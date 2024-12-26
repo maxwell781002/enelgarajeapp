@@ -1,6 +1,7 @@
-import prisma from "../prisma/prisma-client";
+import prisma, { Prisma } from "../prisma/prisma-client";
 import { ZodType } from "zod";
 import { PaginateData, PaginationResult } from "../types/pagination";
+import { Prisma } from "../prisma/generated/client";
 
 type TValidatorByAction = {
   [action: string]: ZodType;
@@ -15,9 +16,13 @@ export abstract class BaseRepository<T extends Entity, M> {
 
   constructor(
     protected validatorSchema: ZodType,
-    protected model: M & any, // TODO: I add any type because I don't know what is the prisma base model.
+    protected _model: keyof typeof Prisma,
   ) {
     this.init();
+  }
+
+  get model() {
+    return (prisma() as any)[this._model];
   }
 
   getRepositoryModelName() {

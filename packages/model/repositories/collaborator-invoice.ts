@@ -24,7 +24,7 @@ export class CollaboratorInvoiceRepository extends BaseRepository<
         createdAt: true,
         updatedAt: true,
       }),
-      Prisma.collaboratorInvoice,
+      "collaboratorInvoice",
     );
   }
 

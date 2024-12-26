@@ -7,7 +7,7 @@ export class InvitationLinkRepository extends BaseRepository<
   typeof Prisma.invitationLink
 > {
   constructor() {
-    super(InvitationLinkModel.omit({ id: true }), Prisma.invitationLink);
+    super(InvitationLinkModel.omit({ id: true }), "invitationLink");
   }
 
   createNewLink(businessId: string) {

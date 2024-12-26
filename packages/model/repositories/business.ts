@@ -12,7 +12,7 @@ export class BusinessRepository extends BaseRepository<
   typeof Prisma.business
 > {
   constructor() {
-    super(BusinessValidation, Prisma.business);
+    super(BusinessValidation, "business");
   }
 
   paginate({ query, ...data }: PaginateData = {}) {
