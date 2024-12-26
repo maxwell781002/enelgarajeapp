@@ -1,17 +1,13 @@
-import { ShopCartOrder } from "@repo/model/types/shop-cart";
-
-export const calculateShippingPrice = (
-  order: ShopCartOrder,
+export const getShippingPrice = (
+  orderTotal: number,
   neighborhoodShippingPrice: number,
   wantDomicile: boolean,
 ) => {
   const shipping = neighborhoodShippingPrice || 0;
   const shippingPrice = wantDomicile ? shipping : 0;
-  const total = wantDomicile ? order.total + shippingPrice : order.total;
+  const total = wantDomicile ? orderTotal + shippingPrice : orderTotal;
   return {
     shippingPrice,
-    subtotal: order.total,
-    hasShipping: !!shipping,
     total,
   };
 };

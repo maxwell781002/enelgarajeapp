@@ -28,8 +28,17 @@ export class ProductRepository extends BaseRepository<
   typeof Prisma.product
 > {
   constructor() {
-    super(ProductValidation, Prisma.product);
+    super(ProductValidation, "product");
     this.addValidator("update", ProductUpdateValidation);
+  }
+
+  getByBusinessAndIds(ids: string[], businessId: string) {
+    return this.model.findMany({
+      where: { id: { in: ids }, businessId },
+      include: {
+        priceValues: true,
+      },
+    });
   }
 
   async getAllProduct(where: any) {

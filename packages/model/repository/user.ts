@@ -1,11 +1,9 @@
 "use server";
 
-import prisma from "../prisma/prisma-client";
-import { UserRegisterSchema } from "../validation/user";
-import { auth, SecurityUser } from "../lib/auth";
-import { userRepository } from "../repositories/user";
+import { auth, SecurityUser } from "@repo/model/lib/auth";
+import { userRepository } from "@repo/model/repositories/user";
 import { businessRepository } from "@repo/model/repositories/business";
-import { TUserBusinessType } from "../types/enums";
+import { TUserBusinessType } from "@repo/model/types/enums";
 
 export const getCurrentUser = async (): Promise<SecurityUser> => {
   const session = await auth();
@@ -36,16 +34,4 @@ export const getBusinessSecurity = async (
 
 export const getUserAndBusinessById = async (id: string) => {
   return userRepository.getUserWithBusinesses(id);
-};
-
-export const updateUser = async (
-  id: string,
-  data: any,
-  schema: any = UserRegisterSchema,
-) => {
-  schema.parse(data);
-  return prisma().user.update({
-    where: { id },
-    data,
-  });
 };

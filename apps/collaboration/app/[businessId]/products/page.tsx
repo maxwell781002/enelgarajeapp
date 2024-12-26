@@ -8,8 +8,6 @@ import { redirect } from "next/navigation";
 import TableLayout from "@repo/ui/components/table-layout/layout";
 import ProductTable from "./table";
 import { PaginationResult } from "@repo/model/types/pagination";
-import { addToOrder, getCurrentOrder } from "@repo/model/repository/order";
-import { revalidatePath } from "next/cache";
 import { addProductFields } from "@repo/model/repository/product";
 import { CARD_SKELETON } from "@repo/ui/components/table-layout/skeleton";
 
@@ -38,14 +36,8 @@ export default async function Page({
     const url = await search(query);
     return redirect(url);
   };
-  const add = async (productId: string) => {
-    "use server";
-    await addToOrder(productId);
-    revalidatePath(`/${businessId}/products`);
-  };
-  const order = await getCurrentOrder();
   data = await Promise.all(
-    data.map(async (item: any) => addProductFields(item, order)),
+    data.map(async (item: any) => addProductFields(item)),
   );
   return (
     <TableContextProvider update={update} remove={remove}>
@@ -56,7 +48,6 @@ export default async function Page({
       >
         <ProductTable
           pagination={{ data, ...pagination } as PaginationResult<any>}
-          add={add}
           baseUrl={`/${businessId}/products`}
         />
       </TableLayout>

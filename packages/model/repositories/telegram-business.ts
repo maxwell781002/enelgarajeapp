@@ -7,7 +7,7 @@ export class TelegramBusinessRepository extends BaseRepository<
   typeof Prisma.telegramBusiness
 > {
   constructor() {
-    super(TelegramBusinessModel.omit({ id: true }), Prisma.telegramBusiness);
+    super(TelegramBusinessModel.omit({ id: true }), "telegramBusiness");
   }
 
   getAll() {

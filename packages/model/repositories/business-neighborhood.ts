@@ -15,10 +15,7 @@ export class BusinessNeighborhoodRepository extends BaseRepository<
   typeof Prisma.businessNeighborhood
 > {
   constructor() {
-    super(
-      BusinessNeighborhoodModel.omit({ id: true }),
-      Prisma.businessNeighborhood,
-    );
+    super(BusinessNeighborhoodModel.omit({ id: true }), "businessNeighborhood");
   }
 
   paginate({ businessId, query, ...data }: PaginateData = {}) {

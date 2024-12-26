@@ -2,12 +2,11 @@ import { categoryRepository } from "@repo/model/repositories/category";
 import CategoryMenu from "./category-menu";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import ProductList from "./list";
-import { addToOrder } from "@repo/model/repository/order";
-import { revalidatePath } from "next/cache";
 import { paginateFrontend } from "@repo/model/repository/product";
 import SearchInput from "@repo/ui/components/search";
 import { redirect } from "next/navigation";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
+import { TableContextProvider } from "@repo/ui/context/table";
 
 export type ProductListWrapperProps = {
   currentBusiness: CompleteBusiness;
@@ -31,18 +30,13 @@ export default async function ProductListWrapper({
     categoryId: currenItem?.id,
     ...searchParams,
   });
-  const add = async (productId: string) => {
-    "use server";
-    await addToOrder(productId);
-    revalidatePath(baseUrl);
-  };
   const search = async (query: any) => {
     "use server";
     const url = `${baseUrl}?${new URLSearchParams({ ...searchParams, ...query })}`;
     return redirect(url);
   };
   return (
-    <>
+    <TableContextProvider>
       <SearchInput className="mb-2" onChange={search} />
       {getPlanFeature<boolean>("CAN_CREATE_CATEGORY", business) && (
         <div className="mb-8">
@@ -54,8 +48,7 @@ export default async function ProductListWrapper({
         hastMore={hasMore}
         categoryId={currenItem?.id}
         businessId={business.id}
-        add={add}
       />
-    </>
+    </TableContextProvider>
   );
 }

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CompleteBusiness } from "@repo/model/zod/business";
-import { getCurrentOrder } from "@repo/model/repository/order";
 import {
   Sheet,
   SheetTrigger,
@@ -31,7 +30,6 @@ export async function Header({
   locale: string;
   logo: string;
 }) {
-  const order = await getCurrentOrder();
   const user = await getCurrentUser();
   const t = await getTranslations("Header");
   const logoutAction = async () => {
@@ -122,7 +120,7 @@ export async function Header({
           </div>
         </SheetContent>
       </Sheet>
-      <ShoppingCartHeader order={order} className="relative" />
+      <ShoppingCartHeader className="relative" />
     </header>
   );
 }

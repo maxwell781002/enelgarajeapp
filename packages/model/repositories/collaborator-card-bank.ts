@@ -22,7 +22,7 @@ export class CollaboratorCardBankRepository extends BaseRepository<
         createdAt: true,
         updatedAt: true,
       }),
-      Prisma.collaboratorCardBank,
+      "collaboratorCardBank",
     );
   }
 

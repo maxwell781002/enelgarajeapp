@@ -2,10 +2,9 @@ import { businessRepository } from "../repositories/business";
 import { invitationLinkRepository } from "../repositories/invitation-link";
 import { UserCollaborationRegisterSchema } from "../validation/user";
 import { z } from "zod";
-import { updateUser } from "./user";
 import { transaction } from "../prisma/prisma-client";
-import { error } from "console";
-import { aw } from "vitest/dist/chunks/reporters.C4ZHgdxQ.js";
+import { userRepository } from "../repositories/user";
+import { CompleteInvitationLink } from "../prisma/zod";
 
 export enum ErrorType {
   INVITATION_LINK_NOT_FOUND = "INVITATION_LINK_NOT_FOUND",
@@ -40,12 +39,20 @@ export const businessUserLink = async (
 ) => {
   const { id, ...userData } = user;
   const invitationLink = await findInvitationLink(id, code);
-  if (Object.values(ErrorType).includes(invitationLink)) {
+  if (
+    Object.values(ErrorType).includes(invitationLink as ErrorType) ||
+    (invitationLink as any).error
+  ) {
     return;
   }
   return transaction(async (tx: any) => {
-    await updateUser(id, userData, UserCollaborationRegisterSchema);
-    await invitationLinkRepository.remove(invitationLink.id);
-    return businessRepository.createCollaborator(id, invitationLink.businessId);
+    await userRepository.update(id, userData);
+    await invitationLinkRepository.remove(
+      (invitationLink as CompleteInvitationLink).id,
+    );
+    return businessRepository.createCollaborator(
+      id,
+      (invitationLink as CompleteInvitationLink).businessId,
+    );
   });
 };

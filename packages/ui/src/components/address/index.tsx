@@ -16,7 +16,6 @@ import AddressSelect, {
 import Link from "next/link";
 
 export type AddressProps = {
-  setAddressType: (type: AddressType) => void;
   neighborhoods?: NeighborhoodWithShipping[];
   addressUrl?: string;
 } & Omit<AddressFormProps, "name"> &
@@ -24,7 +23,6 @@ export type AddressProps = {
 
 export default function Address({
   form,
-  setAddressType,
   addresses = [],
   neighborhoods = [],
   addressUrl = "",
@@ -49,13 +47,17 @@ export default function Address({
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger
               value="address"
-              onClick={() => setAddressType(AddressType.selectAddress)}
+              onClick={() =>
+                form.setValue("addressType", AddressType.selectAddress)
+              }
             >
               {t("tabSelectAddress")}
             </TabsTrigger>
             <TabsTrigger
               value="form"
-              onClick={() => setAddressType(AddressType.newAddress)}
+              onClick={() =>
+                form.setValue("addressType", AddressType.newAddress)
+              }
             >
               {t("tabCreateAddress")}
             </TabsTrigger>

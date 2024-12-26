@@ -1,13 +1,11 @@
 import { getBySlug } from "@repo/model/repository/product";
-import { addToOrder } from "@repo/model/repository/order";
-import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
-import { AddCart } from "./add-cart";
 import ProductDetail, {
   ProductDetailProps,
 } from "@repo/ui/components/product-page/product";
 import { ResolvingMetadata } from "next";
 import { IProduct } from "@repo/model/types/product";
+import { BtnAddCart } from "@repo/ui/components/add-cart";
 
 export type ProductPageProps = {
   productSlug: string;
@@ -35,22 +33,12 @@ export default async function ProductPage({
   locale,
   ...props
 }: ProductPageProps) {
-  const baseUrl = `/${locale}/${productSlug}`;
   const item = await getBySlug(productSlug);
-  const add = async (productId: string) => {
-    "use server";
-    await addToOrder(productId);
-    revalidatePath(baseUrl);
-  };
-
   const t = await getTranslations("Product");
-
   if (!item) return <div>Not found</div>;
-
   const btnAdd = (
-    <AddCart product={item as IProduct} add={add.bind(null, item.id)} />
+    <BtnAddCart product={item as IProduct} outOfStock={item._outOfStock} />
   );
-
   return (
     <ProductDetail
       product={item as IProduct}

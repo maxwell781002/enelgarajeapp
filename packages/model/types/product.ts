@@ -6,4 +6,5 @@ export type IProduct = {
   _outOfStock: boolean;
   _commission: number;
   _businessProfit: number;
+  _price: number;
 } & CompleteProduct;

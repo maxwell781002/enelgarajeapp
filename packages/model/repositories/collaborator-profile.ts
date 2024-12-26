@@ -10,10 +10,7 @@ export class CollaboratorProfileRepository extends BaseRepository<
   typeof Prisma.collaboratorProfile
 > {
   constructor() {
-    super(
-      CollaboratorProfileModel.omit({ id: true }),
-      Prisma.collaboratorProfile,
-    );
+    super(CollaboratorProfileModel.omit({ id: true }), "collaboratorProfile");
   }
 
   async updateProfile(collaboratorId: string, businessId: string, data: any) {

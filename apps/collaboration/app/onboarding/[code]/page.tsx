@@ -11,6 +11,7 @@ import { BtnServerAction } from "@repo/ui/components/btn-server-action";
 import { LogOut } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { AlertCircle } from "lucide-react";
+import { CompleteInvitationLink } from "@repo/model/zod/invitationlink";
 
 export type OnboardingProps = {
   params: {
@@ -34,13 +35,15 @@ export default async function Onboarding({ params }: OnboardingProps) {
   if (invitationLink === ErrorType.LINK_EXPIRED) {
     return redirect("/errors/expired-link");
   }
-  if (invitationLink?.error === ErrorType.USER_ALREADY_EXISTS) {
-    return redirect(`/${invitationLink.businessId}`);
+  if ((invitationLink as any)?.error === ErrorType.USER_ALREADY_EXISTS) {
+    return redirect(`/${(invitationLink as any).businessId}`);
   }
   const action = async (data: any) => {
     "use server";
     await businessUserLink({ id: user.id, ...data }, params.code);
-    return redirect(`/onboarding/${invitationLink.businessId}`);
+    return redirect(
+      `/onboarding/${(invitationLink as CompleteInvitationLink).businessId}`,
+    );
   };
   const logoutAction = async () => {
     "use server";
@@ -68,7 +71,11 @@ export default async function Onboarding({ params }: OnboardingProps) {
           </div>
         </div>
       ) : (
-        <Form user={user} business={invitationLink.business} action={action} />
+        <Form
+          user={user}
+          business={(invitationLink as CompleteInvitationLink).business}
+          action={action}
+        />
       )}
     </>
   );

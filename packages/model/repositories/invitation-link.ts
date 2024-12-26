@@ -7,7 +7,7 @@ export class InvitationLinkRepository extends BaseRepository<
   typeof Prisma.invitationLink
 > {
   constructor() {
-    super(InvitationLinkModel.omit({ id: true }), Prisma.invitationLink);
+    super(InvitationLinkModel.omit({ id: true }), "invitationLink");
   }
 
   createNewLink(businessId: string) {
@@ -20,7 +20,7 @@ export class InvitationLinkRepository extends BaseRepository<
     });
   }
 
-  async findByCode(code: string) {
+  async findByCode(code: string): Promise<CompleteInvitationLink | null> {
     const invitationLink = await this.model.findFirst({
       where: {
         code,

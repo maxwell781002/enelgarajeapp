@@ -16,7 +16,7 @@ export class PaymentMethodRepository extends BaseRepository<
   typeof Prisma.paymentMethod
 > {
   constructor() {
-    super(PaymentMethodModel.omit({ id: true }), Prisma.paymentMethod);
+    super(PaymentMethodModel.omit({ id: true }), "paymentMethod");
   }
 
   getAll(businessId: string) {

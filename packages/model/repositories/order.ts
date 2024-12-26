@@ -3,6 +3,7 @@ import { BaseRepository } from "../lib/base-repository";
 import {
   CompleteBusiness,
   CompleteOrder,
+  CompleteOrderProduct,
   CompleteUser,
   OrderModel,
 } from "../prisma/zod";
@@ -49,7 +50,7 @@ export class OrderRepository extends BaseRepository<
   typeof Prisma.order
 > {
   constructor() {
-    super(OrderModel, Prisma.order);
+    super(OrderModel, "order");
   }
 
   getStatus() {
@@ -181,29 +182,26 @@ export class OrderRepository extends BaseRepository<
     );
   }
 
-  async placeOrder(
-    order: CompleteOrder,
-    user: CompleteUser,
+  async createOrder(
+    order: any,
     business: CompleteBusiness,
-    isCollaborator: boolean = false,
+    productItems: CompleteOrderProduct[],
   ) {
     const newPosition = (await this.getLastPosition(business.id)) + 1;
-    return prisma().order.update({
-      where: { id: order.id },
+    return prisma().order.create({
       data: {
-        isCollaborator,
-        userId: user.id,
-        total: order.total,
+        ...order,
         status: OrderStatus.SEND,
         position: newPosition,
+        identifier: this.generateIdentifier(new Date(), newPosition),
         sentAt: new Date(),
         businessId: business.id,
         currency: business.currency,
-        shipping: order.shipping,
-        commission: order.commission,
-        businessProfit: order.businessProfit,
-        identifier: this.generateIdentifier(new Date(), newPosition),
+        items: {
+          create: productItems,
+        },
       },
+      include: { items: { orderBy: { position: "asc" } }, orderAddress: true },
     });
   }
 

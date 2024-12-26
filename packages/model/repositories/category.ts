@@ -12,7 +12,7 @@ export class CategoryRepository extends BaseRepository<
   typeof Prisma.category
 > {
   constructor() {
-    super(CategoryModel.omit({ id: true }), Prisma.category);
+    super(CategoryModel.omit({ id: true }), "category");
   }
 
   getAll(businessId: string) {

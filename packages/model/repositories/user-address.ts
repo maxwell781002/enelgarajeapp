@@ -7,7 +7,7 @@ export class UserAddressRepository extends BaseRepository<
   typeof Prisma.userAddress
 > {
   constructor() {
-    super(UserAddressModel.omit({ id: true }), Prisma.userAddress);
+    super(UserAddressModel.omit({ id: true }), "userAddress");
   }
 
   async findByUserIdAndBusinessId(

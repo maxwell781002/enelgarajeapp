@@ -1,5 +1,7 @@
 import { getBusinessById } from "@repo/model/repository/business";
-import CheckoutPage from "@repo/ui/components/shop-cart/checkout/page";
+import CheckoutForm from "./form";
+import { createCollaboratorOrder } from "@repo/model/repository/checkout";
+import { getCurrentUser } from "@repo/model/repository/user";
 
 export type Props = {
   params: {
@@ -9,14 +11,19 @@ export type Props = {
 
 export default async function Component({ params: { businessId } }: Props) {
   const business = await getBusinessById(businessId);
+  const user = await getCurrentUser();
+  const action = async (data: any) => {
+    "use server";
+    return createCollaboratorOrder(business, user, data);
+  };
   return (
-    <CheckoutPage
+    <CheckoutForm
       business={business}
-      baseUrl={`/${businessId}`}
-      isCollaborator
-      addAliasToAddress={false}
-      addressUrl={`/${businessId}/address-user`}
-      productBaseUrl={`/${businessId}/products`}
+      action={action}
+      defaultValues={{
+        wantDomicile: true,
+        cartItems: [],
+      }}
     />
   );
 }

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
 import Image from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/prices/price";
-import { startTransition, useOptimistic } from "react";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";
 import { useTranslations } from "next-intl";
@@ -13,26 +12,18 @@ import { useTranslations } from "next-intl";
 type CardItemProps = {
   item: IProduct;
   baseUrl?: string;
-  onAdd?: () => void;
   showStock?: boolean;
   showCommission?: boolean;
 };
 
 export function CardItem({
-  item: originalItem,
+  item,
   baseUrl,
-  onAdd,
   showStock,
   showCommission,
 }: CardItemProps) {
   const t = useTranslations("Product");
-  const [item, setItem] = useOptimistic(originalItem);
-  const handleAdd = () => {
-    startTransition(() => {
-      setItem({ ...item, _inCart: true });
-      return onAdd?.();
-    });
-  };
+
   return (
     <Card className="mb-4">
       <div>
@@ -60,7 +51,7 @@ export function CardItem({
               offerPrice={item.offerPrice as number}
             />
           </span>
-          <BtnAddCart action={handleAdd} product={item} />
+          <BtnAddCart product={item} outOfStock={item._outOfStock} />
         </div>
         <ProductBadge product={item} className="mt-2" />
         <div className="flex flex-1 justify-between text-blue-500">

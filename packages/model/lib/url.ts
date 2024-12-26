@@ -1,6 +1,5 @@
 const clearValues = (obj: any[]) =>
   obj.reduce((acc: any, [key, value]) => {
-    console.log("*-*---*-*-*-", key, value, typeof value, value === "false");
     if (value === "true") [(value = true)];
     if (value === "false") {
       value = false;
