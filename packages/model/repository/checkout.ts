@@ -23,6 +23,7 @@ import { userRepository } from "../repositories/user";
 import { addAddressToUser } from "./address";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { OrderSend } from "../lib/event-emitter/events";
+import { transaction } from "../prisma/prisma-client";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -135,13 +136,17 @@ const addShipping = async (
   return { ...order };
 };
 
-export const createCollaboratorOrder = (
+export const createCollaboratorOrder = async (
   business: CompleteBusiness,
   user: CompleteUser,
   data: TCollaboratorShoppingCartSchema,
 ) => {
   CollaboratorShoppingCartSchema.parse(data);
-  return createOrder(business, user, data, true);
+  const entity = await transaction(() => createOrder(business, user, data, true));
+  //TODO: When I configure the listener send the event instance of
+  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+  await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
+  return entity;
 };
 
 export const createWebOrder = async (
@@ -152,11 +157,17 @@ export const createWebOrder = async (
   WebShoppingCartSchema.parse(data);
   let { phone, name, addressType, ...rest } = data;
   const address = rest[addressType as AddressType];
-  await userRepository.update(user.id, { ...user, phone, name });
-  if (addressType === AddressType.newAddress) {
-    await addAddressToUser(user.id, business.id, address);
-  }
-  return createOrder(business, user, { ...rest, address }, false);
+  const entity = await transaction(async () => {
+    await userRepository.update(user.id, { ...user, phone, name });
+    if (addressType === AddressType.newAddress) {
+      await addAddressToUser(user.id, business.id, address);
+    }
+    return createOrder(business, user, { ...rest, address }, false);
+  });
+  //TODO: When I configure the listener send the event instance of
+  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+  await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
+  return entity;
 };
 
 export const createOrder = async (
@@ -194,8 +205,5 @@ export const createOrder = async (
   );
   await productRepository.updateStock(productToUpdate);
   const entity = await orderRepository.createOrder(order, business, items);
-  //TODO: When I configure the listener send the event instance of
-  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
-  await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
   return entity;
 };
