@@ -46,7 +46,9 @@ export const businessUserLink = async (
     return;
   }
   return transaction(async (tx: any) => {
-    await userRepository.update(id, userData);
+    const user = await userRepository.getById(id);
+    const data = { ...user, ...userData };
+    await userRepository.update(id, data);
     await invitationLinkRepository.remove(
       (invitationLink as CompleteInvitationLink).id,
     );
