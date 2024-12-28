@@ -92,7 +92,7 @@ export abstract class BaseRepository<T extends Entity, M> {
       pageSize,
       pageIndex,
       firstRecordNumber: skip + 1,
-      totalPage: Math.floor(total / pageSize) + 1,
+      totalPage: Math.ceil(total / pageSize),
       lastRecordNumber: skip + data.length,
       hasMore: total > skip + data.length,
     };
