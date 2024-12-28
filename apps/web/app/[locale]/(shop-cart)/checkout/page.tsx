@@ -14,18 +14,18 @@ export default async function Component() {
     return <NoUser />;
   }
   const user = await userRepository.getById(session.user.id);
-  const defaultValues = {
-    ...user,
-    addressType: AddressType.selectAddress,
-    wantDomicile: business.requestAddress,
-    businessRequestAddress: business.requestAddress,
-  };
   const addresses = business.requestAddress
     ? await userAddressRepository.findByUserIdAndBusinessId(
         session.user.id,
         business.id as string,
       )
     : [];
+  const defaultValues = {
+    ...user,
+    addressType: addresses.length > 0 ? AddressType.selectAddress : AddressType.newAddress,
+    wantDomicile: business.requestAddress,
+    businessRequestAddress: business.requestAddress,
+  };
   const action = async (data: any) => {
     "use server";
     return createWebOrder(business, user, data);
