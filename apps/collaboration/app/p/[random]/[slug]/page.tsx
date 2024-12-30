@@ -19,8 +19,13 @@ export async function generateMetadata({
   params: { slug, random },
 }: PageProps) {
   const product = await getBySlugWithBusiness(slug);
+  const description = `Precio: ${formatPrice(
+    product._price,
+    product.business.currency,
+  )}, Comisión ${formatPrice(product._commission, product.business.currency)}`;
   return {
     title: product.name,
+    description,
     openGraph: {
       images: `/api/product?slug=${slug}&random=${random}`,
     },

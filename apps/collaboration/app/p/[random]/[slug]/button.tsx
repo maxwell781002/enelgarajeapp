@@ -20,8 +20,10 @@ export function BtnAddCart({
 } & PropsWithChildren) {
   const [loading, startLoading] = useTransition();
   const _addToCart = useShopCart.use.add();
+  const _changeBusiness = useShopCart.use.changeBusiness();
   const addProductToOrder = () => {
     startLoading(async () => {
+      _changeBusiness(product.businessId);
       _addToCart(product);
       return onAdd();
     });

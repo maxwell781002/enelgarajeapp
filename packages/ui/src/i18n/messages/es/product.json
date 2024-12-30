@@ -19,7 +19,7 @@
   "ProductOnboarding": {
     "stock": "Stock",
     "btnWhatsappSubmit": "Chat via WhatsApp",
-    "isNotCollaborator": "Si no eres gestor, solícitalo vía chat.",
+    "isNotCollaborator": "Si no eres Gestor, solicítalo vía chat.",
     "chatMessage": "Hola, quiero ser gestor de su tienda.",
     "addToCart": "Adicionar el producto al carrito",
     "orLogin": "Si ya tiene una cuenta de gestor, inicie sesión.",
