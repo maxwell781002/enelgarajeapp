@@ -7,8 +7,9 @@ const NO_BUSINESS_PATHS = ["errors", "onboarding"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
-  if (pathname.startsWith("/p")) { //Public page
-    return
+  if (pathname.startsWith("/p")) {
+    //Public page
+    return;
   }
   const isLogin = pathname === "/login";
   if (!session && !isLogin) {

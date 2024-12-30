@@ -36,6 +36,10 @@
     ],
     "./stores/*": [
       "./src/stores/*.ts"
+    ],
+    "./api/*": [
+      "./src/api/*.ts",
+      "./src/api/*.tsx"
     ]
   },
   "scripts": {

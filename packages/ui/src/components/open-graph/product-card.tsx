@@ -1,7 +1,3 @@
-import Image from "next/image";
-import { Card, CardContent } from "@repo/ui/components/ui/card";
-import { Badge } from "@repo/ui/components/ui/badge";
-
 interface OpenGraphCardProps {
   imageUrl: string;
   productName: string;
@@ -24,40 +20,28 @@ export default function ProductOpenGraphCard({
   t,
 }: OpenGraphCardProps) {
   return (
-    <Card className="w-full max-w-md overflow-hidden">
-      <div className="relative h-48">
-        <Image
-          src={imageUrl}
-          alt={productName}
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
-      <CardContent className="p-4">
-        <h2 className="text-2xl font-bold mb-2">{productName}</h2>
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">{description}</p>
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-xl font-semibold">{price}</span>
-          <Badge
-            variant="secondary"
-            className="text-sm bg-green-600 text-white"
-          >
+    <div tw="flex flex-col w-full h-full items-center bg-white">
+      <img src={imageUrl} alt={productName} height={250} />
+      <div tw="flex flex-col p-4">
+        <h2 tw="text-2xl font-bold mb-2">{productName}</h2>
+        <p tw="text-sm text-gray-600 mb-3 line-clamp-2">{description}</p>
+        <div tw="flex flex-row justify-between items-center mb-2">
+          <span tw="text-xl font-semibold">{price}</span>
+          <div tw="flex flex-row px-2 py-1 border-2 border-green-600 text-green-700 text-sm rounded-full">
             {t("ProductOpenGraph.commission")}: {commission}
-          </Badge>
+          </div>
         </div>
-        <div className="text-sm text-gray-600">
+        <div tw="flex flex-row text-sm text-gray-600">
           {outOfStock && (
-            <span className="text-red-600">
-              {t("ProductOpenGraph.outOfStock")}
-            </span>
+            <span tw="text-red-600">{t("ProductOpenGraph.outOfStock")}</span>
           )}
           {!outOfStock && stock > 0 && (
-            <span className="text-green-600">
+            <span tw="text-green-600">
               {t("ProductOpenGraph.inStock")}: {stock}
             </span>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
