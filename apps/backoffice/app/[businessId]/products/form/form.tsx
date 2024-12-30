@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/button";
 import { Form, FormMessage } from "@repo/ui/components/ui/form";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
@@ -20,6 +20,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@repo/ui/components/ui/tabs";
+import { Alert } from "@repo/ui/components/ui/alert";
 
 type FormAction = {
   action: (object: any) => Promise<any>;
@@ -41,7 +42,7 @@ export default function ProductForm({
       ),
     [defaultValues?.id],
   );
-  const { form, onSubmit } = useFormProcess({
+  const { form, onSubmit, saving } = useFormProcess({
     resolver,
     action,
     defaultValues,
@@ -54,9 +55,15 @@ export default function ProductForm({
     () => form.formState.errors[""]?.message || "",
     [form.formState],
   );
+  const hasErrors = Object.keys(form.formState.errors).length > 0;
 
   return (
     <Form {...form}>
+      {!!hasErrors && (
+        <Alert variant={"destructive"} className="mb-6">
+          {t("alertWarning")}
+        </Alert>
+      )}
       <FormMessage>{!!globalError && t(globalError)}</FormMessage>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <Tabs defaultValue="general">
@@ -71,7 +78,9 @@ export default function ProductForm({
             <Price form={form} {...props} />
           </TabsContent>
         </Tabs>
-        <Button type="submit">{t("btnSubmit")}</Button>
+        <Button type="submit" loading={saving} loadingText={t("btnSaving")}>
+          {t("btnSubmit")}
+        </Button>
       </form>
     </Form>
   );

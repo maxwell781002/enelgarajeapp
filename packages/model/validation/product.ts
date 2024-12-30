@@ -16,7 +16,7 @@ const baseValidation = ProductModel.omit({
   images: true,
 }).extend({
   priceValues: z.object({
-    hasCommission: z.boolean(),
+    hasCommission: z.boolean().optional().default(false),
     commissionType: z.enum([CommissionTypes.PERCENTAGE, CommissionTypes.FIXED]),
     commissionValue: z.number(),
   }),

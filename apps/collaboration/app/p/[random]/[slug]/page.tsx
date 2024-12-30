@@ -11,7 +11,9 @@ export type PageProps = {
   };
 };
 
-export async function generateMetadata({ params: { slug, random } }: PageProps) {
+export async function generateMetadata({
+  params: { slug, random },
+}: PageProps) {
   const product = await getBySlugWithBusiness(slug);
   return {
     title: product.name,
@@ -26,7 +28,5 @@ export default async function Page({ params: { slug } }: PageProps) {
   const business = product.business;
   const commission = product._commission || 0;
   const t = await getTranslations();
-  return (
-    <div>{product.name}</div>
-  );
+  return <div>{product.name}</div>;
 }
