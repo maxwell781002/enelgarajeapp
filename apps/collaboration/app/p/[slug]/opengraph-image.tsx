@@ -1,21 +1,18 @@
-import { formatPrice } from "@repo/model/lib/utils";
+import { ImageResponse } from "next/og";
 import { getBySlugWithBusiness } from "@repo/model/repository/product";
-import ProductOpenGraphCard from "@repo/ui/components/open-graph/product-card";
+import { PageProps } from "./page";
 import { getTranslations } from "next-intl/server";
+import ProductOpenGraphCard from "@repo/ui/components/open-graph/product-card";
+import { formatPrice } from "@repo/model/lib/utils";
 
-export type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export default async function Page({ params: { slug } }: PageProps) {
+export default async function Image({ params: { slug } }: PageProps) {
   const product = await getBySlugWithBusiness(slug);
   const business = product.business;
   const commission = product._commission || 0;
   const t = await getTranslations();
-  return (
-    <div>
+
+  return new ImageResponse(
+    (
       <ProductOpenGraphCard
         t={t}
         imageUrl={product.image.url}
@@ -26,6 +23,6 @@ export default async function Page({ params: { slug } }: PageProps) {
         stock={product.stock}
         outOfStock={product._outOfStock}
       />
-    </div>
+    ),
   );
 }
