@@ -3,10 +3,13 @@ import { auth } from "@repo/model/lib/auth";
 
 export const runtime = "experimental-edge";
 
-const NO_BUSINESS_PATHS = ["errors", "onboarding", "p"];
+const NO_BUSINESS_PATHS = ["errors", "onboarding"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
+  if (pathname.startsWith("/p")) { //Public page
+    return
+  }
   const isLogin = pathname === "/login";
   if (!session && !isLogin) {
     return `/login?redirectAfterLogin=${pathname}`;
