@@ -10,5 +10,10 @@
     "ProductList": "Productos",
     "phSearch": "Buscar...",
     "phCategoryId": "Selecciona la Categoría"
+  },
+  "ProductOpenGraph": {
+    "commission": "Comisión",
+    "outOfStock": "No disponible",
+    "inStock": "Stock"
   }
 }

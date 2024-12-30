@@ -14,6 +14,15 @@ export const getBySlug = async (slug: string) => {
   );
 };
 
+export const getBySlugWithBusiness = async (slug: string) => {
+  return addProductFields(
+    await prisma().product.findUnique({
+      where: { slug },
+      include: { priceValues: true, business: true },
+    }),
+  );
+};
+
 export const getById = (id: string) => {
   return prisma().product.findUnique({ where: { id } });
 };

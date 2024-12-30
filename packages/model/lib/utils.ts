@@ -14,7 +14,7 @@ export const formatPrice = (
   },
 ) => {
   const price = `${options.symbol}${(amount / 100).toFixed(2)}`;
-  return options.showAcronym ? `${price} ${currency}` : price;
+  return options.showAcronym ? `${price} ${currency as string}` : price;
 };
 
 export const normalizePhone = (phone: string | null | undefined) => {
