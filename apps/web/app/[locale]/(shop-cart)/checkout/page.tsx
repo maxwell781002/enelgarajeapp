@@ -22,7 +22,8 @@ export default async function Component() {
     : [];
   const defaultValues = {
     ...user,
-    addressType: addresses.length > 0 ? AddressType.selectAddress : AddressType.newAddress,
+    addressType:
+      addresses.length > 0 ? AddressType.selectAddress : AddressType.newAddress,
     wantDomicile: business.requestAddress,
     businessRequestAddress: business.requestAddress,
   };
