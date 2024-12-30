@@ -1,5 +1,7 @@
 {
   "Product": {
+    "alertWarning": "El formulario tiene errores, revise",
+    "lbCollaboratorUrl": "Url para compartir el producto a los gestores",
     "ProductList": "Productos",
     "photos": "Fotos",
     "createProduct": "Crear producto",
@@ -22,6 +24,7 @@
     "productCreated": "Producto creado",
     "price_should_be_less_than_offer_price": "El precio debe ser menor que el precio de oferta.",
     "btnSubmit": "Salvar",
+    "btnSaving": "Salvando...",
     "lbIsNew": "¿Es nuevo?",
     "lbPriority": "Prioridad",
     "phPriority": "Prioridad",

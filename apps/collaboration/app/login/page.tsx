@@ -1,5 +1,5 @@
 import { signIn } from "@repo/model/lib/auth";
-import SignIn from "@repo/ui/components/signin";
+import SignIn from "@repo/ui/components/signin/index";
 import { getTranslations } from "next-intl/server";
 
 export default async function Security() {
