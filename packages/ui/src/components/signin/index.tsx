@@ -1,23 +1,12 @@
 "use client";
 
-import { Button } from "@repo/ui/components/ui/button";
-import { Mail } from "lucide-react";
-
+import SigninButton, { SignButtonProps } from "./button";
 // To use other social networks, see this link https://github.com/simple-icons/simple-icons
 
 type SignInProps = {
   title: string;
   description: string;
-  signIn: (provider: string) => void;
-};
-
-const socialNetworks = [
-  {
-    name: "Google",
-    icon: Mail,
-    provider: "google",
-  },
-];
+} & SignButtonProps;
 
 export default function SignIn({ title, description, signIn }: SignInProps) {
   return (
@@ -30,17 +19,7 @@ export default function SignIn({ title, description, signIn }: SignInProps) {
           <p className="mt-2 text-sm text-muted-foreground">{description}</p>
         </div>
         <div className="mt-8 space-y-4 px-5">
-          {socialNetworks.map(({ name, icon: Icon, provider }) => (
-            <Button
-              key={provider}
-              variant="outline"
-              className="w-full bg-cyan-700 text-white"
-              onClick={() => signIn(provider)}
-            >
-              <Icon className="mr-2 h-4 w-4" />
-              {name}
-            </Button>
-          ))}
+          <SigninButton signIn={signIn} />
         </div>
       </div>
     </div>

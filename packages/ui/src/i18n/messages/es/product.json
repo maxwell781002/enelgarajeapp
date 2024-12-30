@@ -15,5 +15,14 @@
     "commission": "Comisión",
     "outOfStock": "No disponible",
     "inStock": "Stock"
+  },
+  "ProductOnboarding": {
+    "stock": "Stock",
+    "btnWhatsappSubmit": "Chat via WhatsApp",
+    "isNotCollaborator": "Si no eres gestor, solícitalo vía chat.",
+    "chatMessage": "Hola, quiero ser gestor de su tienda.",
+    "addToCart": "Adicionar el producto al carrito",
+    "orLogin": "Si ya tiene una cuenta de gestor, inicie sesión.",
+    "commission": "Comisión"
   }
 }
