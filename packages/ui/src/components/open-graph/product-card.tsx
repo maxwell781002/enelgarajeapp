@@ -1,7 +1,6 @@
 interface OpenGraphCardProps {
   imageUrl: string;
   productName: string;
-  description: string;
   price: string;
   commission: string;
   stock: number;
@@ -12,7 +11,6 @@ interface OpenGraphCardProps {
 export default function ProductOpenGraphCard({
   imageUrl,
   productName,
-  description,
   price,
   commission,
   stock,
@@ -21,18 +19,11 @@ export default function ProductOpenGraphCard({
 }: OpenGraphCardProps) {
   return (
     <div tw="flex flex-col w-full h-full items-center bg-white">
-      <div tw="w-full flex h-64">
-        <img
-          src={imageUrl}
-          alt={productName}
-          tw="w-full max-h-full object-cover"
-        />
+      <div tw="w-full flex h-64 justify-center">
+        <img src={imageUrl} alt={productName} height="100%" />
       </div>
-      <div tw="flex flex-col px-4 h-full">
+      <div tw="flex flex-col px-4 h-full w-full items-start bg-white">
         <h2 tw="text-2xl font-bold mb-0">{productName}</h2>
-        <div tw="flex flex1">
-          <p tw="mb-3 line-clamp-2">{description}</p>
-        </div>
         <span tw="text-lg font-semibold">💵 {price}</span>
         <span tw="text-lg font-semibold text-green-700">
           🎁 {t("ProductOpenGraph.commission")}: {commission}

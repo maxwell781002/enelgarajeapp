@@ -5,7 +5,7 @@ import ProductOpenGraphCard from "@repo/ui/components/open-graph/product-card";
 import { formatPrice } from "@repo/model/lib/utils";
 import { NextRequest } from "next/server";
 
-const DESCRIPTION_LENGTH = 450;
+const DESCRIPTION_LENGTH = 100;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -14,18 +14,17 @@ export async function GET(request: NextRequest) {
   const business = product.business;
   const commission = product._commission || 0;
   const t = await getTranslations();
-  const description = product.description;
+  const name = product.name;
 
   return new ImageResponse(
     (
       <ProductOpenGraphCard
         t={t}
-        imageUrl={product.image.url}
-        productName={product.name}
-        description={
-          description.length > DESCRIPTION_LENGTH
-            ? `${description.substring(0, DESCRIPTION_LENGTH)}...`
-            : description
+        imageUrl={product.image.downloadUrl}
+        productName={
+          name.length > DESCRIPTION_LENGTH
+            ? `${name.substring(0, DESCRIPTION_LENGTH)}...`
+            : name
         }
         price={formatPrice(product._price, business.currency)}
         commission={commission && formatPrice(commission, business.currency)}
@@ -35,7 +34,7 @@ export async function GET(request: NextRequest) {
     ),
     {
       width: 500,
-      height: 630,
+      height: 420,
     },
   );
 }
