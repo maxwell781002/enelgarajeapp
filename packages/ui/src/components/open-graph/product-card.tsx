@@ -21,23 +21,29 @@ export default function ProductOpenGraphCard({
 }: OpenGraphCardProps) {
   return (
     <div tw="flex flex-col w-full h-full items-center bg-white">
-      <img src={imageUrl} alt={productName} height={250} />
-      <div tw="flex flex-col p-4">
-        <h2 tw="text-2xl font-bold mb-2">{productName}</h2>
-        <p tw="text-sm text-gray-600 mb-3 line-clamp-2">{description}</p>
-        <div tw="flex flex-row justify-between items-center mb-2">
-          <span tw="text-xl font-semibold">{price}</span>
-          <div tw="flex flex-row px-2 py-1 border-2 border-green-600 text-green-700 text-sm rounded-full">
-            {t("ProductOpenGraph.commission")}: {commission}
-          </div>
+      <div tw="w-full flex h-64">
+        <img
+          src={imageUrl}
+          alt={productName}
+          tw="w-full max-h-full object-cover"
+        />
+      </div>
+      <div tw="flex flex-col px-4 h-full">
+        <h2 tw="text-2xl font-bold mb-0">{productName}</h2>
+        <div tw="flex flex1">
+          <p tw="mb-3 line-clamp-2">{description}</p>
         </div>
-        <div tw="flex flex-row text-sm text-gray-600">
+        <span tw="text-lg font-semibold">💵 {price}</span>
+        <span tw="text-lg font-semibold text-green-700">
+          🎁 {t("ProductOpenGraph.commission")}: {commission}
+        </span>
+        <div tw="flex flex-row text-lg text-gray-600">
           {outOfStock && (
-            <span tw="text-red-600">{t("ProductOpenGraph.outOfStock")}</span>
+            <span tw="text-red-600">📦 {t("ProductOpenGraph.outOfStock")}</span>
           )}
-          {!outOfStock && stock > 0 && (
+          {!outOfStock && (
             <span tw="text-green-600">
-              {t("ProductOpenGraph.inStock")}: {stock}
+              📦 {t("ProductOpenGraph.inStock")}: {stock || 0}
             </span>
           )}
         </div>

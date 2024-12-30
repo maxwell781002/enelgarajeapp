@@ -5,7 +5,7 @@ import ProductOpenGraphCard from "@repo/ui/components/open-graph/product-card";
 import { formatPrice } from "@repo/model/lib/utils";
 import { NextRequest } from "next/server";
 
-const DESCRIPTION_LENGTH = 500;
+const DESCRIPTION_LENGTH = 450;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
         productName={product.name}
         description={
           description.length > DESCRIPTION_LENGTH
-            ? description.slice(0, DESCRIPTION_LENGTH)
+            ? `${description.substring(0, DESCRIPTION_LENGTH)}...`
             : description
         }
         price={formatPrice(product._price, business.currency)}
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
       />
     ),
     {
-      width: 1200,
+      width: 500,
       height: 630,
     },
   );
