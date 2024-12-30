@@ -10,7 +10,9 @@ export type PageProps = {
 };
 
 export async function generateMetadata({ params: { slug } }: PageProps) {
+  const product = await getBySlugWithBusiness(slug);
   return {
+    title: product.name,
     openGraph: {
       images: `/api/product?slug=${slug}`,
     },
