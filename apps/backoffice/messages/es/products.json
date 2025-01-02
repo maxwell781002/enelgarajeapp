@@ -1,7 +1,7 @@
 {
   "Product": {
     "alertWarning": "El formulario tiene errores, revise",
-    "lbCollaboratorUrl": "Url para compartir el producto a los gestores",
+    "lbCollaboratorUrl": "Compartir el producto con los gestores",
     "ProductList": "Productos",
     "photos": "Fotos",
     "createProduct": "Crear producto",
