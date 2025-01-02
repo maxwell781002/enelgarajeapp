@@ -23,7 +23,6 @@ export default function ProductOpenGraphCard({
         <img src={imageUrl} alt={productName} height="100%" />
       </div>
       <div tw="flex flex-col px-4 h-full w-full items-start bg-white">
-        <h2 tw="text-2xl font-bold mb-0">{productName}</h2>
         <span tw="text-lg font-semibold">💵 {price}</span>
         <span tw="text-lg font-semibold text-green-700">
           🎁 {t("ProductOpenGraph.commission")}: {commission}
