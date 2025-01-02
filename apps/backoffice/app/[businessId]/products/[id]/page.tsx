@@ -8,7 +8,7 @@ import Link from "next/link";
 import BtnRemove from "./button-remove";
 import { IProduct } from "@repo/model/types/product";
 import BooleanValue from "@repo/ui/components/boolean-value";
-import CopyToClipboard from "@repo/ui/components/copy-to-clipboard/copy-to-clipboard-text";
+import SharedLinks from "@repo/ui/components/shared-links";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -64,9 +64,13 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             {t("lbStock")}: {product.stock}
           </div>
         </div>
-        <div className="p-4 bg-white rounded-lg">
+        <div className="flex flex-col sm:flex-row sm:gap-4 bg-white rounded-lg p-4 text-black">
           <p>{t("lbCollaboratorUrl")}</p>
-          <CopyToClipboard text={productCollaboratorUrl} />
+          <SharedLinks
+            socialNetworks={["FACEBOOK", "WHATSAPP", "TELEGRAM"]}
+            url={productCollaboratorUrl}
+            text={product.name}
+          />
         </div>
         <ProductDetail
           product={product as IProduct}
