@@ -11,7 +11,7 @@ export type ShopCartOrder = {
   total: number;
 };
 
-const calculateOrderProductCommissionAndPrice = (
+export const calculateOrderProductCommissionAndPrice = (
   basePrice: number,
   commission: number,
   quantity: number,
