@@ -425,6 +425,9 @@ importers:
       react-hook-form:
         specifier: ^7.52.2
         version: 7.52.2(react@19.0.0-rc-f994737d14-20240522)
+      react-imask:
+        specifier: ^7.6.1
+        version: 7.6.1(react@19.0.0-rc-f994737d14-20240522)
       react-loading-skeleton:
         specifier: ^3.5.0
         version: 3.5.0(react@19.0.0-rc-f994737d14-20240522)
@@ -3732,6 +3735,10 @@ packages:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
 
+  imask@7.6.1:
+    resolution: {integrity: sha512-sJlIFM7eathUEMChTh9Mrfw/IgiWgJqBKq2VNbyXvBZ7ev/IlO6/KQTKlV/Fm+viQMLrFLG/zCuudrLIwgK2dg==}
+    engines: {npm: '>=4.0.0'}
+
   immer@10.1.1:
     resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
 
@@ -4872,6 +4879,12 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-imask@7.6.1:
+    resolution: {integrity: sha512-vLNfzcCz62Yzx/GRGh5tiCph9Gbh2cZu+Tz8OiO5it2eNuuhpA0DWhhSlOtVtSJ80+Bx+vFK5De8eQ9AmbkXzA==}
+    engines: {npm: '>=4.0.0'}
+    peerDependencies:
+      react: '>=0.14.0'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -9941,6 +9954,10 @@ snapshots:
 
   ignore@5.3.1: {}
 
+  imask@7.6.1:
+    dependencies:
+      '@babel/runtime-corejs3': 7.24.8
+
   immer@10.1.1: {}
 
   import-fresh@3.3.0:
@@ -11206,6 +11223,12 @@ snapshots:
 
   react-hook-form@7.52.2(react@19.0.0-rc-f994737d14-20240522):
     dependencies:
+      react: 19.0.0-rc-f994737d14-20240522
+
+  react-imask@7.6.1(react@19.0.0-rc-f994737d14-20240522):
+    dependencies:
+      imask: 7.6.1
+      prop-types: 15.8.1
       react: 19.0.0-rc-f994737d14-20240522
 
   react-is@16.13.1: {}
