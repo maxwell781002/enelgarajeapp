@@ -24,6 +24,7 @@ import { addAddressToUser } from "./address";
 import { sendOrderToTelegram } from "../listeners/new-order";
 import { OrderSend } from "../lib/event-emitter/events";
 import { transaction } from "../prisma/prisma-client";
+import { calculateOrderProductCommissionAndPrice } from "./shop-cart";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -34,10 +35,23 @@ const calculateProductCommission = (
   isCollaborator: boolean,
   product: ReturnType<typeof addProductFields>,
   quantity: number,
-): [number, number] => [
-  isCollaborator ? product._commission * quantity : 0,
-  isCollaborator ? product._businessProfit * quantity : 0,
-];
+  customPrice: number = 0,
+): [number, number, number] => {
+  if (customPrice > 0 && customPrice <= product._price) {
+    throw new BadRequestError("error_price_custom");
+  }
+  const [commission, price] = calculateOrderProductCommissionAndPrice(
+    product._price,
+    product._commission,
+    quantity,
+    customPrice,
+  );
+  return [
+    isCollaborator ? commission : 0,
+    isCollaborator ? product._businessProfit * quantity : 0,
+    price,
+  ];
+};
 
 export const orderItems = async (
   businessId: string,
@@ -68,16 +82,19 @@ export const orderItems = async (
     ) => {
       const product = addProductFields(item);
       const quantity = byIds[product.id];
-      const [itemCommission, itemBusinessProfit] = calculateProductCommission(
-        isCollaborator,
-        product,
-        quantity,
-      );
+      const [itemCommission, itemBusinessProfit, price] =
+        calculateProductCommission(
+          isCollaborator,
+          product,
+          quantity,
+          item.customPrice,
+        );
       const orderItem = {
+        price,
         quantity,
+        customPrice: item.customPrice,
         position: index + 1,
         productId: product.id,
-        price: product._price * quantity,
         commission: itemCommission,
         businessProfit: itemBusinessProfit,
       };

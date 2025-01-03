@@ -135,6 +135,7 @@ describe("Checkout", () => {
         commission: 10,
         businessProfit: 40,
         quantity: 1,
+        customPrice: 0,
       },
       {
         productId: product2.id,
@@ -144,6 +145,7 @@ describe("Checkout", () => {
         commission: 40,
         businessProfit: 80,
         quantity: 2,
+        customPrice: 0,
       },
     ]);
     const productEntity = await productRepository.getById(product1.id);
@@ -230,6 +232,7 @@ describe("Checkout", () => {
         commission: 0,
         businessProfit: 0,
         quantity: 2,
+        customPrice: 0,
       },
       {
         productId: product1.id,
@@ -239,6 +242,7 @@ describe("Checkout", () => {
         commission: 0,
         businessProfit: 0,
         quantity: 1,
+        customPrice: 0,
       },
     ]);
     const productEntity = await productRepository.getById(product1.id);

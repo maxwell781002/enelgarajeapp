@@ -13,7 +13,6 @@ const CustomPrice = ({ item }: { item: ShopCartItem }) => {
   const setCustomPrice = useShopCart((state) => state.setCustomPrice);
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPrice = +event.target.value;
-    console.log({ newPrice }, event.target.value);
     if (newPrice < 0) {
       return;
     }
