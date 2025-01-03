@@ -40,7 +40,7 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
   },
   {
     link: `/${businessId}/orders`,
-    title: "Ordenes",
+    title: "Órdenes",
     Icon: ShoppingBasketIcon,
     active: true,
   },

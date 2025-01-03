@@ -3,7 +3,9 @@
 import EmptyCart from "@repo/ui/components/shop-cart/emptyCart";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
-import CardItem from "@repo/ui/components/shop-cart/shopping-cart/card";
+import CardItem, {
+  CardItemProps,
+} from "@repo/ui/components/shop-cart/shopping-cart/card";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { useShopCart } from "@repo/ui/stores/shop-cart";
@@ -18,6 +20,7 @@ export type ShoppingCartProps = {
   showCommission?: boolean;
   businessId: string;
   isCollaborator?: boolean;
+  CustomCartItem?: React.ComponentType<CardItemProps>;
 };
 
 export default function ShoppingCartPage({
@@ -26,6 +29,7 @@ export default function ShoppingCartPage({
   showCommission = false,
   businessId,
   isCollaborator = false,
+  CustomCartItem = CardItem,
 }: ShoppingCartProps) {
   const t = useTranslations("ShopCart");
   const items = useStore(useShopCart, (state) => state.items());
@@ -52,6 +56,9 @@ export default function ShoppingCartPage({
   const hasItems = useStore(useShopCart, (state) => state.hasItems());
   const orderTotal = useStore(useShopCart, (state) => state.orderTotal());
   const commission = useStore(useShopCart, (state) => state.commission());
+  const hasItemWithErrors = useStore(useShopCart, (state) =>
+    state.hasItemWithErrors(),
+  );
   const remove = useShopCart.use.remove();
   const setQuantity = useShopCart.use.setQuantity();
 
@@ -73,7 +80,7 @@ export default function ShoppingCartPage({
       <div className="overflow-auto">
         {items?.map((item: ShopCartOrderItem) => (
           <div key={item.productId} className="mb-2">
-            <CardItem
+            <CustomCartItem
               key={item.productId}
               item={item as any}
               onRemove={() => remove(item.productId)}
@@ -116,7 +123,9 @@ export default function ShoppingCartPage({
           >
             <Button
               className="w-full"
-              disabled={hasProductOutOfStock || checkingStock}
+              disabled={
+                hasProductOutOfStock || checkingStock || hasItemWithErrors
+              }
             >
               {t("checkout")}
             </Button>
