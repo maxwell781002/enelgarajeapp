@@ -18868,6 +18868,7 @@ export namespace Prisma {
 
   export type OrderProductAvgAggregateOutputType = {
     price: number | null;
+    customPrice: number | null;
     position: number | null;
     commission: number | null;
     businessProfit: number | null;
@@ -18876,6 +18877,7 @@ export namespace Prisma {
 
   export type OrderProductSumAggregateOutputType = {
     price: number | null;
+    customPrice: number | null;
     position: number | null;
     commission: number | null;
     businessProfit: number | null;
@@ -18886,6 +18888,7 @@ export namespace Prisma {
     productId: string | null;
     orderId: string | null;
     price: number | null;
+    customPrice: number | null;
     position: number | null;
     commission: number | null;
     businessProfit: number | null;
@@ -18896,6 +18899,7 @@ export namespace Prisma {
     productId: string | null;
     orderId: string | null;
     price: number | null;
+    customPrice: number | null;
     position: number | null;
     commission: number | null;
     businessProfit: number | null;
@@ -18906,6 +18910,7 @@ export namespace Prisma {
     productId: number;
     orderId: number;
     price: number;
+    customPrice: number;
     position: number;
     commission: number;
     businessProfit: number;
@@ -18915,6 +18920,7 @@ export namespace Prisma {
 
   export type OrderProductAvgAggregateInputType = {
     price?: true;
+    customPrice?: true;
     position?: true;
     commission?: true;
     businessProfit?: true;
@@ -18923,6 +18929,7 @@ export namespace Prisma {
 
   export type OrderProductSumAggregateInputType = {
     price?: true;
+    customPrice?: true;
     position?: true;
     commission?: true;
     businessProfit?: true;
@@ -18933,6 +18940,7 @@ export namespace Prisma {
     productId?: true;
     orderId?: true;
     price?: true;
+    customPrice?: true;
     position?: true;
     commission?: true;
     businessProfit?: true;
@@ -18943,6 +18951,7 @@ export namespace Prisma {
     productId?: true;
     orderId?: true;
     price?: true;
+    customPrice?: true;
     position?: true;
     commission?: true;
     businessProfit?: true;
@@ -18953,6 +18962,7 @@ export namespace Prisma {
     productId?: true;
     orderId?: true;
     price?: true;
+    customPrice?: true;
     position?: true;
     commission?: true;
     businessProfit?: true;
@@ -19057,6 +19067,7 @@ export namespace Prisma {
     productId: string;
     orderId: string;
     price: number;
+    customPrice: number;
     position: number;
     commission: number;
     businessProfit: number;
@@ -19089,6 +19100,7 @@ export namespace Prisma {
       productId?: boolean;
       orderId?: boolean;
       price?: boolean;
+      customPrice?: boolean;
       position?: boolean;
       commission?: boolean;
       businessProfit?: boolean;
@@ -19106,6 +19118,7 @@ export namespace Prisma {
       productId?: boolean;
       orderId?: boolean;
       price?: boolean;
+      customPrice?: boolean;
       position?: boolean;
       commission?: boolean;
       businessProfit?: boolean;
@@ -19120,6 +19133,7 @@ export namespace Prisma {
     productId?: boolean;
     orderId?: boolean;
     price?: boolean;
+    customPrice?: boolean;
     position?: boolean;
     commission?: boolean;
     businessProfit?: boolean;
@@ -19152,6 +19166,7 @@ export namespace Prisma {
         productId: string;
         orderId: string;
         price: number;
+        customPrice: number;
         position: number;
         commission: number;
         businessProfit: number;
@@ -19687,6 +19702,7 @@ export namespace Prisma {
     readonly productId: FieldRef<"OrderProduct", "String">;
     readonly orderId: FieldRef<"OrderProduct", "String">;
     readonly price: FieldRef<"OrderProduct", "Int">;
+    readonly customPrice: FieldRef<"OrderProduct", "Int">;
     readonly position: FieldRef<"OrderProduct", "Int">;
     readonly commission: FieldRef<"OrderProduct", "Int">;
     readonly businessProfit: FieldRef<"OrderProduct", "Int">;
@@ -32049,6 +32065,7 @@ export namespace Prisma {
     productId: "productId";
     orderId: "orderId";
     price: "price";
+    customPrice: "customPrice";
     position: "position";
     commission: "commission";
     businessProfit: "businessProfit";
@@ -33581,6 +33598,7 @@ export namespace Prisma {
     productId?: StringFilter<"OrderProduct"> | string;
     orderId?: StringFilter<"OrderProduct"> | string;
     price?: IntFilter<"OrderProduct"> | number;
+    customPrice?: IntFilter<"OrderProduct"> | number;
     position?: IntFilter<"OrderProduct"> | number;
     commission?: IntFilter<"OrderProduct"> | number;
     businessProfit?: IntFilter<"OrderProduct"> | number;
@@ -33593,6 +33611,7 @@ export namespace Prisma {
     productId?: SortOrder;
     orderId?: SortOrder;
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -33610,6 +33629,7 @@ export namespace Prisma {
       productId?: StringFilter<"OrderProduct"> | string;
       orderId?: StringFilter<"OrderProduct"> | string;
       price?: IntFilter<"OrderProduct"> | number;
+      customPrice?: IntFilter<"OrderProduct"> | number;
       position?: IntFilter<"OrderProduct"> | number;
       commission?: IntFilter<"OrderProduct"> | number;
       businessProfit?: IntFilter<"OrderProduct"> | number;
@@ -33624,6 +33644,7 @@ export namespace Prisma {
     productId?: SortOrder;
     orderId?: SortOrder;
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -33646,6 +33667,7 @@ export namespace Prisma {
     productId?: StringWithAggregatesFilter<"OrderProduct"> | string;
     orderId?: StringWithAggregatesFilter<"OrderProduct"> | string;
     price?: IntWithAggregatesFilter<"OrderProduct"> | number;
+    customPrice?: IntWithAggregatesFilter<"OrderProduct"> | number;
     position?: IntWithAggregatesFilter<"OrderProduct"> | number;
     commission?: IntWithAggregatesFilter<"OrderProduct"> | number;
     businessProfit?: IntWithAggregatesFilter<"OrderProduct"> | number;
@@ -35560,6 +35582,7 @@ export namespace Prisma {
 
   export type OrderProductCreateInput = {
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -35572,6 +35595,7 @@ export namespace Prisma {
     productId: string;
     orderId: string;
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -35580,6 +35604,7 @@ export namespace Prisma {
 
   export type OrderProductUpdateInput = {
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -35592,6 +35617,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string;
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -35602,6 +35628,7 @@ export namespace Prisma {
     productId: string;
     orderId: string;
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -35610,6 +35637,7 @@ export namespace Prisma {
 
   export type OrderProductUpdateManyMutationInput = {
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -35620,6 +35648,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string;
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -37471,6 +37500,7 @@ export namespace Prisma {
     productId?: SortOrder;
     orderId?: SortOrder;
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -37479,6 +37509,7 @@ export namespace Prisma {
 
   export type OrderProductAvgOrderByAggregateInput = {
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -37489,6 +37520,7 @@ export namespace Prisma {
     productId?: SortOrder;
     orderId?: SortOrder;
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -37499,6 +37531,7 @@ export namespace Prisma {
     productId?: SortOrder;
     orderId?: SortOrder;
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -37507,6 +37540,7 @@ export namespace Prisma {
 
   export type OrderProductSumOrderByAggregateInput = {
     price?: SortOrder;
+    customPrice?: SortOrder;
     position?: SortOrder;
     commission?: SortOrder;
     businessProfit?: SortOrder;
@@ -43955,6 +43989,7 @@ export namespace Prisma {
 
   export type OrderProductCreateWithoutProductInput = {
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -43965,6 +44000,7 @@ export namespace Prisma {
   export type OrderProductUncheckedCreateWithoutProductInput = {
     orderId: string;
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -44174,6 +44210,7 @@ export namespace Prisma {
     productId?: StringFilter<"OrderProduct"> | string;
     orderId?: StringFilter<"OrderProduct"> | string;
     price?: IntFilter<"OrderProduct"> | number;
+    customPrice?: IntFilter<"OrderProduct"> | number;
     position?: IntFilter<"OrderProduct"> | number;
     commission?: IntFilter<"OrderProduct"> | number;
     businessProfit?: IntFilter<"OrderProduct"> | number;
@@ -45965,6 +46002,7 @@ export namespace Prisma {
 
   export type OrderProductCreateWithoutOrderInput = {
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -45975,6 +46013,7 @@ export namespace Prisma {
   export type OrderProductUncheckedCreateWithoutOrderInput = {
     productId: string;
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -48970,6 +49009,7 @@ export namespace Prisma {
   export type OrderProductCreateManyProductInput = {
     orderId: string;
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -48978,6 +49018,7 @@ export namespace Prisma {
 
   export type OrderProductUpdateWithoutProductInput = {
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -48988,6 +49029,7 @@ export namespace Prisma {
   export type OrderProductUncheckedUpdateWithoutProductInput = {
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -48997,6 +49039,7 @@ export namespace Prisma {
   export type OrderProductUncheckedUpdateManyWithoutProductInput = {
     orderId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -49485,6 +49528,7 @@ export namespace Prisma {
   export type OrderProductCreateManyOrderInput = {
     productId: string;
     price: number;
+    customPrice?: number;
     position?: number;
     commission?: number;
     businessProfit?: number;
@@ -49493,6 +49537,7 @@ export namespace Prisma {
 
   export type OrderProductUpdateWithoutOrderInput = {
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -49503,6 +49548,7 @@ export namespace Prisma {
   export type OrderProductUncheckedUpdateWithoutOrderInput = {
     productId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
@@ -49512,6 +49558,7 @@ export namespace Prisma {
   export type OrderProductUncheckedUpdateManyWithoutOrderInput = {
     productId?: StringFieldUpdateOperationsInput | string;
     price?: IntFieldUpdateOperationsInput | number;
+    customPrice?: IntFieldUpdateOperationsInput | number;
     position?: IntFieldUpdateOperationsInput | number;
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;

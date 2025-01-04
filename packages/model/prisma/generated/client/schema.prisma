@@ -237,6 +237,7 @@ model OrderProduct {
   order          Order   @relation(fields: [orderId], references: [id])
   orderId        String // relation scalar field (used in the `@relation` attribute above)
   price          Int
+  customPrice    Int     @default(0)
   position       Int     @default(1)
   commission     Int     @default(0)
   businessProfit Int     @default(0)
