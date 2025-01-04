@@ -10,4 +10,5 @@ export type ShopCartOrder = {
 export type ShopCartItem = {
   total: number;
   outOfStock: boolean;
+  errors: string[];
 } & CompleteOrderProduct;
