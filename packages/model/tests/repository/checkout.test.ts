@@ -131,7 +131,7 @@ describe("Checkout", () => {
         productId: product1.id,
         orderId: order.id,
         price: 50,
-        position: 1,
+        position: 0,
         commission: 10,
         businessProfit: 40,
         quantity: 1,
@@ -141,7 +141,7 @@ describe("Checkout", () => {
         productId: product2.id,
         orderId: order.id,
         price: 120,
-        position: 2,
+        position: 0,
         commission: 40,
         businessProfit: 80,
         quantity: 2,
@@ -150,6 +150,87 @@ describe("Checkout", () => {
     ]);
     const productEntity = await productRepository.getById(product1.id);
     expect(productEntity.stock).toBe(9);
+  });
+
+  it("Collaborator, Bad custom price", async () => {
+    try {
+      await createCollaboratorOrder(business, user, {
+        cartItems: [
+          {
+            productId: product1.id,
+            quantity: 10,
+            customPrice: 10,
+          },
+          {
+            productId: product2.id,
+            quantity: 2,
+          },
+        ],
+        wantDomicile: false,
+      });
+      expect(false).toBe(true);
+    } catch (e) {
+      expect(e.message).toBe("error_price_custom");
+      const productEntity = await productRepository.getById(product1.id);
+      expect(productEntity.stock).toBe(9);
+    }
+  });
+
+  it("Collaborator with custom price", async () => {
+    const order = await createCollaboratorOrder(business, user, {
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 2,
+          customPrice: 180,
+        },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: false,
+    });
+    const date = new Date();
+    const position = 2;
+    const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+    expect(order.total).toBe(480); // ok
+    expect(order.businessProfit).toBe(160); // ok
+    expect(order.commission).toBe(320); //ok
+    expect(order.userId).toBe(user.id);
+    expect(order.shipping).toBe(0);
+    expect(order.hasShipping).toBe(false);
+    expect(order.status).toBe(OrderStatus.SEND);
+    expect(order.position).toBe(2);
+    expect(order.businessId).toBe(business.id);
+    expect(order.identifier).toBe(identifier);
+    expect(order.isCollaborator).toBe(true);
+    expect(order.currency).toBe(business.currency);
+    expect(order.orderAddress).toBeNull();
+    expect(order.items).toEqual([
+      {
+        productId: product2.id,
+        orderId: order.id,
+        price: 120,
+        position: 0,
+        commission: 40,
+        businessProfit: 80,
+        quantity: 2,
+        customPrice: 0,
+      },
+      {
+        productId: product1.id,
+        orderId: order.id,
+        price: 360,
+        position: 0,
+        commission: 280,
+        businessProfit: 80,
+        quantity: 2,
+        customPrice: 180,
+      },
+    ]);
+    const productEntity = await productRepository.getById(product1.id);
+    expect(productEntity.stock).toBe(7);
   });
 
   it("Collaborator with domicile", async () => {
@@ -179,7 +260,7 @@ describe("Checkout", () => {
     expect(order.total).toBe(270);
     expect(order.orderAddress).toBeDefined();
     const productEntity = await productRepository.getById(product1.id);
-    expect(productEntity.stock).toBe(8);
+    expect(productEntity.stock).toBe(6);
   });
 
   it("Is normal user", async () => {
@@ -208,7 +289,7 @@ describe("Checkout", () => {
       },
     });
     const date = new Date();
-    const position = 3;
+    const position = 4;
     const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
     expect(order.orderAddress).toBeDefined();
     expect(order.total).toBe(270);
@@ -218,7 +299,7 @@ describe("Checkout", () => {
     expect(order.shipping).toBe(100);
     expect(order.hasShipping).toBe(true);
     expect(order.status).toBe(OrderStatus.SEND);
-    expect(order.position).toBe(3);
+    expect(order.position).toBe(4);
     expect(order.businessId).toBe(business.id);
     expect(order.identifier).toBe(identifier);
     expect(order.isCollaborator).toBe(false);
@@ -228,7 +309,7 @@ describe("Checkout", () => {
         productId: product2.id,
         orderId: order.id,
         price: 120,
-        position: 1,
+        position: 0,
         commission: 0,
         businessProfit: 0,
         quantity: 2,
@@ -238,7 +319,7 @@ describe("Checkout", () => {
         productId: product1.id,
         orderId: order.id,
         price: 50,
-        position: 2,
+        position: 0,
         commission: 0,
         businessProfit: 0,
         quantity: 1,
@@ -246,7 +327,7 @@ describe("Checkout", () => {
       },
     ]);
     const productEntity = await productRepository.getById(product1.id);
-    expect(productEntity.stock).toBe(7);
+    expect(productEntity.stock).toBe(5);
     const address = await prisma().userAddress.findFirst({
       where: { userId: user.id },
     });
@@ -281,7 +362,7 @@ describe("Checkout", () => {
     });
     expect(order.orderAddress).toBeDefined();
     const productEntity = await productRepository.getById(product1.id);
-    expect(productEntity.stock).toBe(6);
+    expect(productEntity.stock).toBe(4);
     const addresses = await prisma().userAddress.findMany({
       where: { userId: user.id },
     });
@@ -302,10 +383,11 @@ describe("Checkout", () => {
         ],
         wantDomicile: false,
       });
+      expect(false).toBe(true);
     } catch (e) {
       expect(e.message).toBe("out_of_stock");
       const productEntity = await productRepository.getById(product1.id);
-      expect(productEntity.stock).toBe(6);
+      expect(productEntity.stock).toBe(4);
     }
   });
 });

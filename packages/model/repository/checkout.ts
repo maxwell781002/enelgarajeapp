@@ -59,7 +59,10 @@ export const orderItems = async (
   isCollaborator: boolean,
 ) => {
   const byIds = items.reduce<any>((acc, item) => {
-    acc[item.productId] = item.quantity;
+    acc[item.productId] = {
+      quantity: item.quantity,
+      customPrice: item.customPrice,
+    };
     return acc;
   }, {});
   const products = await productRepository.getByBusinessAndIds(
@@ -78,22 +81,21 @@ export const orderItems = async (
         productToUpdate,
       }: any,
       item: any,
-      index: number,
     ) => {
       const product = addProductFields(item);
-      const quantity = byIds[product.id];
+      const { quantity, customPrice } = byIds[product.id];
       const [itemCommission, itemBusinessProfit, price] =
         calculateProductCommission(
           isCollaborator,
           product,
           quantity,
-          item.customPrice,
+          customPrice,
         );
       const orderItem = {
         price,
         quantity,
-        customPrice: item.customPrice,
-        position: index + 1,
+        customPrice,
+        position: 0,
         productId: product.id,
         commission: itemCommission,
         businessProfit: itemBusinessProfit,
@@ -102,7 +104,7 @@ export const orderItems = async (
         items: [...items, orderItem],
         products: [...products, product],
         productToUpdate: [...productToUpdate, [product, quantity]],
-        total: total + product._price * quantity,
+        total: total + price,
         commission: commission + itemCommission,
         businessProfit: businessProfit + itemBusinessProfit,
         hasProductOutOfStock:
