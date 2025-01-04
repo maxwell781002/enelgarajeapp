@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     );
     return NextResponse.json({ hasProductOutOfStock });
   } catch (error: any) {
-    if (error.name === BadRequestError.name) {
+    if (error.message === "error_price_custom") {
       return NextResponse.json({ message: error.message });
     }
     throw error;
