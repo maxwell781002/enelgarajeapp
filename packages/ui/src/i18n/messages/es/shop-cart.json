@@ -15,9 +15,12 @@
       "cancel": "No",
       "continue": "Si"
     },
+    "custom_price": "Precio libre",
+    "custom_price_help": "Introduzca un precio mayor al definido por el negocio, si logró vender el producto por un precio mayor.",
     "errors": {
       "has_out_of_stock": "Tiene productos que no tienen stock disponible.",
-      "item_out_of_stock": "Este producto no tiene stock disponible."
+      "item_out_of_stock": "Este producto no tiene stock disponible.",
+      "error_price_custom": "El precio libre debe ser mayor al precio del producto."
     }
   },
   "CheckoutSuccessful": {

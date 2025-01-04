@@ -47,6 +47,7 @@ export default function CheckoutPage({
     orderItems?.map((item) => ({
       productId: item.productId,
       quantity: item.quantity,
+      customPrice: item.customPrice,
     })),
   );
   const [shopCartHasError, setShopCartHasError] = useState(false);

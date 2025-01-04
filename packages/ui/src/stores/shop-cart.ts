@@ -4,9 +4,11 @@ import { persist } from "zustand/middleware";
 import { CompleteProduct } from "@repo/model/zod/product";
 import {
   addProductToOrder,
+  hasItemWithErrors,
   orderCommission,
   orderTotal,
   removeItem,
+  setCustomPrice,
   setQuantity,
   ShopCartOrder,
   ShopCartOrderItem,
@@ -33,6 +35,8 @@ export type ShopCartStore = {
   orderTotal: () => number;
   remove: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
+  setCustomPrice: (id: string, customPrice: number) => void;
+  hasItemWithErrors: () => boolean;
   clear: () => void;
   changeBusiness: (businessId: string) => void;
 };
@@ -74,6 +78,11 @@ const _useShopCart = create<ShopCartStore>()(
         set((state) => {
           state.order.items = setQuantity(state.order, id, quantity);
         }),
+      setCustomPrice: (id: string, customPrice: number) =>
+        set((state) => {
+          state.order.items = setCustomPrice(state.order, id, customPrice);
+        }),
+      hasItemWithErrors: () => hasItemWithErrors(get().order),
     })),
     {
       name: "shopCart",

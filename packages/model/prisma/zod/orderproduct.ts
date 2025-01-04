@@ -10,6 +10,7 @@ export const OrderProductModel = z.object({
   productId: z.string(),
   orderId: z.string(),
   price: z.number().int(),
+  customPrice: z.number().int(),
   position: z.number().int(),
   commission: z.number().int(),
   businessProfit: z.number().int(),

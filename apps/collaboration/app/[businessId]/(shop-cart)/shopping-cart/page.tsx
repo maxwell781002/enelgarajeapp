@@ -1,4 +1,5 @@
 import ShoppingCartPage from "@repo/ui/components/shop-cart/shopping-cart/page";
+import CardItem from "./card-item";
 
 export default async function Page({
   params: { businessId },
@@ -12,6 +13,7 @@ export default async function Page({
       showCommission
       businessId={businessId}
       isCollaborator
+      CustomCartItem={CardItem}
     />
   );
 }

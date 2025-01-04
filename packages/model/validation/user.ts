@@ -23,6 +23,7 @@ export const UserCollaborationRegisterSchema = UserRegisterSchema;
 const CartItem = z.object({
   productId: z.string(),
   quantity: z.number().int(),
+  customPrice: z.number().int().optional(),
 });
 export type TCartItem = z.infer<typeof CartItem>;
 
