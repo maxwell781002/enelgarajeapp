@@ -8,6 +8,7 @@ import { getCurrentBusiness } from "@repo/model/repository/business";
 import { Header } from "../../components/layout/header";
 import { Footer } from "../../components/layout/footer";
 import { BusinessContextProvider } from "@repo/ui/context/business";
+import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -36,21 +37,27 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="flex flex-col min-h-dvh">
-          <NextIntlClientProvider messages={messages}>
-            {business ? (
-              <BusinessContextProvider business={business}>
-                <Header business={business} locale={locale} logo="/logo.png" />
-                <main className="flex-1 container pt-20 md:py-16 lg:py-20">
-                  {children}
-                </main>
-                <Footer />
-              </BusinessContextProvider>
-            ) : (
-              <h1>not found</h1>
-            )}
-          </NextIntlClientProvider>
-        </div>
+        <RouteLoadingLayout>
+          <div className="flex flex-col min-h-dvh">
+            <NextIntlClientProvider messages={messages}>
+              {business ? (
+                <BusinessContextProvider business={business}>
+                  <Header
+                    business={business}
+                    locale={locale}
+                    logo="/logo.png"
+                  />
+                  <main className="flex-1 container pt-20 md:py-16 lg:py-20">
+                    {children}
+                  </main>
+                  <Footer />
+                </BusinessContextProvider>
+              ) : (
+                <h1>not found</h1>
+              )}
+            </NextIntlClientProvider>
+          </div>
+        </RouteLoadingLayout>
       </body>
     </html>
   );

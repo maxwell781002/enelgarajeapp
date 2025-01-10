@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSearchParams } from "@repo/model/lib/url";
 import { orderItems } from "../../repository/checkout";
-import { BadRequestError } from "../../errors/bad-request";
 
 export async function POST(req: NextRequest) {
   const params: any = getSearchParams(req.nextUrl.searchParams);

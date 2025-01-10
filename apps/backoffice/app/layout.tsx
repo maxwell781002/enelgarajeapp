@@ -1,6 +1,7 @@
 import { Toaster } from "@repo/ui/components/ui/toaster";
 import { TooltipProvider } from "@repo/ui/components/ui/tooltip";
 import "@repo/ui/globals.css";
+import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -29,12 +30,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NextIntlClientProvider messages={messages}>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-          </TooltipProvider>
-        </NextIntlClientProvider>
+        <RouteLoadingLayout>
+          <NextIntlClientProvider messages={messages}>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </NextIntlClientProvider>
+        </RouteLoadingLayout>
       </body>
     </html>
   );
