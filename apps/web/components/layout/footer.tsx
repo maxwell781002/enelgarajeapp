@@ -3,12 +3,13 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
+  const date = new Date()
   return (
     <footer className="bg-muted py-6 text-muted-foreground mt-5">
       <div className="container flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
         <div className="flex items-center flex-col sm:flex-row sm:gap-1">
           <img src="/logo-name.png" alt="logo" className="h-[60px]" />
-          <p className="text-sm">&copy; 2024 EnElGaraje</p>
+          <p className="text-sm">&copy; {date.getFullYear()} EnElGaraje</p>
         </div>
         <nav className="flex flex-col items-center gap-1 sm:gap-4 sm:flex-row text-sm">
           <div className="flex items-center">
