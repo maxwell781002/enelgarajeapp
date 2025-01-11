@@ -11,11 +11,15 @@ import {
   productFactory,
   userFactory,
 } from "../factories";
-import { CommissionTypes } from "../../types/enums";
-import { OrderStatus } from "../../prisma/generated/client";
+import { CommissionTypes, Currency } from "../../types/enums";
+import { FormOfPaymentType, OrderStatus } from "../../prisma/generated/client";
 import { productRepository } from "../../repositories/product";
 import { AddressType } from "../../validation/user";
 import prisma from "@repo/model/prisma/prisma-client";
+import { TCustomerForm } from "../../validation/customer";
+import { TCollaboratorTicketForm } from "../../validation/collaborator-ticket";
+import { customerRepository } from "../../repositories/customer";
+import { collaboratorTicketRepository } from "../../repositories/collaborator-ticket";
 
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -39,6 +43,19 @@ const sendOrderToTelegram = vi.hoisted(() => vi.fn());
 vi.mock("../../../listeners/new-order", () => ({
   sendOrderToTelegram: sendOrderToTelegram,
 }));
+
+const customer: TCustomerForm = {
+  name: "Pepe",
+  identification: "1234567890",
+  phone: "+5353024637",
+};
+const ticket: TCollaboratorTicketForm = {
+  deliveryDate: new Date(),
+  currency: Currency.CUP,
+  formOfPayment: FormOfPaymentType.CASH,
+  nota: "nota",
+  acceptTerms: true,
+};
 
 describe("Checkout", () => {
   let business;
@@ -90,6 +107,8 @@ describe("Checkout", () => {
 
   it("Collaborator", async () => {
     const order = await createCollaboratorOrder(business, user, {
+      customer,
+      ticket,
       cartItems: [
         {
           productId: product1.id,
@@ -110,6 +129,18 @@ describe("Checkout", () => {
         neighborhoodId: neighborhood.id,
       },
     });
+    const customerEntity = await customerRepository.findFirst({
+      identification: user.identification,
+    });
+    expect(customerEntity).toBeDefined();
+    const ticketEntity = await collaboratorTicketRepository.findFirst({
+      collaboratorId: user.id,
+      businessId: business.id,
+      orderId: order.id,
+      customerId: customerEntity.id,
+      phone: customer.phone,
+    });
+    expect(ticketEntity).toBeDefined();
     const date = new Date();
     const position = 1;
     const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
@@ -155,6 +186,8 @@ describe("Checkout", () => {
   it("Collaborator, Bad custom price", async () => {
     try {
       await createCollaboratorOrder(business, user, {
+        customer,
+        ticket,
         cartItems: [
           {
             productId: product1.id,
@@ -178,6 +211,8 @@ describe("Checkout", () => {
 
   it("Collaborator with custom price", async () => {
     const order = await createCollaboratorOrder(business, user, {
+      customer,
+      ticket,
       cartItems: [
         {
           productId: product1.id,
@@ -235,6 +270,8 @@ describe("Checkout", () => {
 
   it("Collaborator with domicile", async () => {
     const order = await createCollaboratorOrder(business, user, {
+      customer,
+      ticket,
       cartItems: [
         {
           productId: product1.id,

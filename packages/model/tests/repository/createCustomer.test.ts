@@ -14,12 +14,14 @@ describe("createCustomer", () => {
   });
 
   it("create customer 1", async () => {
-    const customer = await createCustomer({
-      identification: "1234567890",
-      phone: "+5353024637",
-      name: "Pepe",
-      businessId: business.id,
-    });
+    const customer = await createCustomer(
+      {
+        identification: "1234567890",
+        phone: "+5353024637",
+        name: "Pepe",
+      },
+      business.id,
+    );
     expect(customer).toBeDefined();
     const phones = JSON.parse(customer.phones);
     expect(phones.length).toBe(1);
@@ -27,12 +29,14 @@ describe("createCustomer", () => {
   });
 
   it("create customer 2", async () => {
-    const customer = await createCustomer({
-      identification: "1234567880",
-      phone: "+5353024640",
-      name: "Pepe",
-      businessId: business.id,
-    });
+    const customer = await createCustomer(
+      {
+        identification: "1234567880",
+        phone: "+5353024640",
+        name: "Pepe",
+      },
+      business.id,
+    );
     expect(customer).toBeDefined();
     const phones = JSON.parse(customer.phones);
     expect(phones.length).toBe(1);
@@ -45,12 +49,14 @@ describe("createCustomer", () => {
   });
 
   it("add the same customer 1", async () => {
-    const customer = await createCustomer({
-      identification: "1234567890",
-      phone: "+5353024637",
-      name: "Pepe",
-      businessId: business.id,
-    });
+    const customer = await createCustomer(
+      {
+        identification: "1234567890",
+        phone: "+5353024637",
+        name: "Pepe",
+      },
+      business.id,
+    );
     expect(customer).toBeDefined();
     const phones = JSON.parse(customer.phones);
     expect(phones.length).toBe(1);
@@ -63,12 +69,14 @@ describe("createCustomer", () => {
   });
 
   it("add the same customer 1 but updated", async () => {
-    const customer = await createCustomer({
-      identification: "1234567890",
-      phone: "+5353024638",
-      name: "Pepe1",
-      businessId: business.id,
-    });
+    const customer = await createCustomer(
+      {
+        identification: "1234567890",
+        phone: "+5353024638",
+        name: "Pepe1",
+      },
+      business.id,
+    );
     expect(customer).toBeDefined();
     expect(customer.name).toBe("Pepe1");
     const phones = JSON.parse(customer.phones);

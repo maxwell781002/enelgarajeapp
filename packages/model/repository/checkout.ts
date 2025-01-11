@@ -3,6 +3,7 @@ import {
   CollaboratorShoppingCartSchema,
   TCartItem,
   TCollaboratorShoppingCartSchema,
+  TShoppingCartSchemaRegister,
   TWebShoppingCartSchema,
   WebShoppingCartSchema,
 } from "@repo/model/validation/user";
@@ -25,6 +26,8 @@ import { sendOrderToTelegram } from "../listeners/new-order";
 import { OrderSend } from "../lib/event-emitter/events";
 import { transaction } from "../prisma/prisma-client";
 import { calculateOrderProductCommissionAndPrice } from "./shop-cart";
+import { createCustomer } from "./customer";
+import { createCollaboratorTicket } from "./collaborator-ticket";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -161,9 +164,20 @@ export const createCollaboratorOrder = async (
   data: TCollaboratorShoppingCartSchema,
 ) => {
   CollaboratorShoppingCartSchema.parse(data);
-  const entity = await transaction(() =>
-    createOrder(business, user, data, true),
-  );
+  const { customer, ticket, ...rest } = data;
+  const entity = await transaction(async () => {
+    const order = await createOrder(business, user, rest, true);
+    const customerEntity = await createCustomer(customer, business.id);
+    await createCollaboratorTicket(
+      ticket,
+      business.id,
+      customerEntity.id,
+      order.id,
+      user.id,
+      customer.phone,
+    );
+    return order;
+  });
   //TODO: When I configure the listener send the event instance of
   // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
   await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
@@ -194,7 +208,7 @@ export const createWebOrder = async (
 export const createOrder = async (
   business: CompleteBusiness,
   user: CompleteUser,
-  data: TCollaboratorShoppingCartSchema,
+  data: TShoppingCartSchemaRegister,
   isCollaborator: boolean,
 ) => {
   const {

@@ -17,7 +17,7 @@ describe("createCollaboratorTicket", () => {
   let collaborator;
 
   beforeAll(async () => {
-    business = await businessFactory({ slug: "http://localhost:3000" });
+    business = await businessFactory();
     order = await orderFactory({ businessId: business.id });
     collaborator = await userFactory();
     customer = await orderCustomerFactory({

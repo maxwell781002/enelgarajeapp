@@ -1,15 +1,19 @@
 import { customerRepository } from "../repositories/customer";
 import { TCustomerForm } from "../validation/customer";
 
-export const createCustomer = async (data: TCustomerForm) => {
+export const createCustomer = async (
+  data: TCustomerForm,
+  businessId: string,
+) => {
   const customer = await customerRepository.findFirst({
     identification: data.identification,
-    businessId: data.businessId,
+    businessId,
   });
   const { phone, ...rest } = data;
   if (!customer) {
     return customerRepository.create({
       ...rest,
+      businessId,
       phones: JSON.stringify([{ phone, lastUsed: new Date() }]),
     });
   }
@@ -28,6 +32,7 @@ export const createCustomer = async (data: TCustomerForm) => {
   }
   return customerRepository.update(customer.id, {
     ...rest,
+    businessId,
     phones: JSON.stringify(phones),
   });
 };

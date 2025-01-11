@@ -4,6 +4,7 @@ import { z } from "zod";
 export const CustomerForm = CustomerModel.omit({
   id: true,
   phones: true,
+  businessId: true,
 }).extend({
   phone: z.string().min(2, {
     message: "required",
