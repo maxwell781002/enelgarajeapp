@@ -22,6 +22,31 @@
     "shipping_suggestion_text": "Si selecciona un reparto, se le sugerirá un precio de envío",
     "errors": {
       "has_out_of_stock": "Uno o más de los productos no tienen stock disponible."
-    }
+    },
+    "customer": "Datos del cliente",
+    "lbCustomerName": "Nombre",
+    "phCustomerName": "Nombre",
+    "lbCustomerIdentification": "Carnet de identidad",
+    "phCustomerIdentification": "Carnet de identidad",
+    "lbCustomerPhone": "Teléfono",
+    "phCustomerPhone": "Teléfono",
+    "ticket": "Datos adicionales",
+    "lbTicketDeliveryDate": "Fecha de entrega",
+    "phTicketDeliveryDate": "Fecha de entrega",
+    "lbTicketCurrency": "Moneda",
+    "phTicketCurrency": "Moneda",
+    "lbTicketFormOfPayment": "Forma de pago",
+    "phTicketFormOfPayment": "Forma de pago",
+    "lbAcceptTerms": "Aceptar terminos y condiciones",
+    "phAcceptTerms": "Aceptar terminos y condiciones",
+    "ticketTermsConditions": "Debe aceptar los términos y condiciones",
+    "lbTicketNota": "Nota (opcional)",
+    "phTicketNota": "Escriba la nota",
+    "required": "Requerido",
+    "Required": "Requerido"
+  },
+  "FormOfPaymentSelect": {
+    "CASH": "En efectivo",
+    "TRANSFER": "Transferencia bancaria"
   }
 }

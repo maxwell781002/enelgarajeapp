@@ -18,7 +18,7 @@ export const CustomerModel = z.object({
   id: z.string(),
   name: z.string().min(1, { message: "Required" }),
   phones: jsonSchema,
-  identification: z.string(),
+  identification: z.string().min(1, { message: "Required" }),
   businessId: z.string(),
 });
 

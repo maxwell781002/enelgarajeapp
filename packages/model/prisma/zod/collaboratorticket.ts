@@ -18,7 +18,9 @@ export const CollaboratorTicketModel = z.object({
   formOfPayment: z.nativeEnum(FormOfPaymentType),
   phone: z.string(),
   nota: z.string(),
-  acceptTerms: z.boolean(),
+  acceptTerms: z
+    .boolean()
+    .refine((val) => val === true, { message: "ticketTermsConditions" }),
   businessId: z.string(),
   customerId: z.string(),
   orderId: z.string(),

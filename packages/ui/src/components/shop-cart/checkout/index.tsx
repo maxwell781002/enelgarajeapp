@@ -105,7 +105,9 @@ export default function CheckoutPage({
         )}
         <Button
           type="submit"
-          disabled={neighborhoodLoading || orderRegistering}
+          disabled={
+            neighborhoodLoading || orderRegistering || !form.formState.isValid
+          }
         >
           {t("continue")}
         </Button>

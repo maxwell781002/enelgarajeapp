@@ -176,7 +176,7 @@ model Customer {
   id             String               @id @default(uuid())
   name           String /// @zod.min(1, { message: "Required" })
   phones         Json
-  identification String
+  identification String /// @zod.min(1, { message: "Required" })
   business       Business             @relation(fields: [businessId], references: [id])
   businessId     String
   tickets        CollaboratorTicket[]
@@ -189,7 +189,7 @@ model CollaboratorTicket {
   formOfPayment  FormOfPaymentType
   phone          String
   nota           String
-  acceptTerms    Boolean
+  acceptTerms    Boolean /// @zod.refine((val) => val === true, { message: "ticketTermsConditions" })
   business       Business          @relation(fields: [businessId], references: [id])
   businessId     String
   customer       Customer          @relation(fields: [customerId], references: [id])

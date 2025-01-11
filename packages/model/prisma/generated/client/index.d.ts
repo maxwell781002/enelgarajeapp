@@ -14358,6 +14358,9 @@ export namespace Prisma {
          */
         name: string;
         phones: Prisma.JsonValue;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
         identification: string;
         businessId: string;
       },
@@ -15595,6 +15598,9 @@ export namespace Prisma {
         formOfPayment: $Enums.FormOfPaymentType;
         phone: string;
         nota: string;
+        /**
+         * @zod.refine((val) => val === true, { message: "ticketTermsConditions" })
+         */
         acceptTerms: boolean;
         businessId: string;
         customerId: string;
