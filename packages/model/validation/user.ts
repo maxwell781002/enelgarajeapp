@@ -61,7 +61,7 @@ export type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
 export const CollaboratorShoppingCartSchema = BaseCart.extend({
   wantDomicile: z.boolean().optional(),
-  address: AddressModel.omit({ id: true }).optional(),
+  address: AddressModel.omit({ id: true, name: true }).optional(),
   customer: CustomerForm,
   ticket: CollaboratorTicketForm,
 }).refine((val) => !val.wantDomicile || (val.wantDomicile && val.address), {

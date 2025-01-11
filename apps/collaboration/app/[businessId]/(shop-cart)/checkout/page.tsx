@@ -13,10 +13,17 @@ export type Props = {
 export default async function Component({ params: { businessId } }: Props) {
   const business = await getBusinessById(businessId);
   const user = await getCurrentUser();
-  const action = async (data: any) => {
+  const action = async ({ customer, address, ...data }: any) => {
     "use server";
-    console.log(data);
-    // return createCollaboratorOrder(business, user, data);
+    if (address) {
+      address.name = customer.name;
+    }
+    data = {
+      ...data,
+      customer,
+      address,
+    };
+    return createCollaboratorOrder(business, user, data);
   };
   return (
     <CheckoutForm
