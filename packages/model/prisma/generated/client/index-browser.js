@@ -133,7 +133,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   plan: 'plan',
   sendOrderToWhatsapp: 'sendOrderToWhatsapp',
   defaultPaymentMethodId: 'defaultPaymentMethodId',
-  currency: 'currency'
+  currency: 'currency',
+  ticketTermsConditions: 'ticketTermsConditions'
 };
 
 exports.Prisma.TelegramBusinessScalarFieldEnum = {
@@ -202,6 +203,28 @@ exports.Prisma.UserBusinessScalarFieldEnum = {
   userId: 'userId',
   businessId: 'businessId',
   type: 'type'
+};
+
+exports.Prisma.CustomerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phones: 'phones',
+  identification: 'identification',
+  businessId: 'businessId'
+};
+
+exports.Prisma.CollaboratorTicketScalarFieldEnum = {
+  id: 'id',
+  deliveryDate: 'deliveryDate',
+  currency: 'currency',
+  formOfPayment: 'formOfPayment',
+  phone: 'phone',
+  nota: 'nota',
+  acceptTerms: 'acceptTerms',
+  businessId: 'businessId',
+  customerId: 'customerId',
+  orderId: 'orderId',
+  collaboratorId: 'collaboratorId'
 };
 
 exports.Prisma.CollaboratorProfileScalarFieldEnum = {
@@ -393,7 +416,8 @@ exports.BusinessPlan = exports.$Enums.BusinessPlan = {
 
 exports.Currency = exports.$Enums.Currency = {
   CUP: 'CUP',
-  USD: 'USD'
+  USD: 'USD',
+  MLC: 'MLC'
 };
 
 exports.PaymentMethodType = exports.$Enums.PaymentMethodType = {
@@ -416,6 +440,11 @@ exports.UserBusinessType = exports.$Enums.UserBusinessType = {
   COLLABORATOR: 'COLLABORATOR'
 };
 
+exports.FormOfPaymentType = exports.$Enums.FormOfPaymentType = {
+  TRANSFER: 'TRANSFER',
+  CASH: 'CASH'
+};
+
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   CREATED: 'CREATED',
   SEND: 'SEND',
@@ -432,6 +461,8 @@ exports.Prisma.ModelName = {
   ProductPrice: 'ProductPrice',
   User: 'User',
   UserBusiness: 'UserBusiness',
+  Customer: 'Customer',
+  CollaboratorTicket: 'CollaboratorTicket',
   CollaboratorProfile: 'CollaboratorProfile',
   CollaboratorCardBank: 'CollaboratorCardBank',
   InvitationLink: 'InvitationLink',

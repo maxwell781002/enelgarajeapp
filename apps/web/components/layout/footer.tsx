@@ -3,7 +3,7 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
-  const date = new Date()
+  const date = new Date();
   return (
     <footer className="bg-muted py-6 text-muted-foreground mt-5">
       <div className="container flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">

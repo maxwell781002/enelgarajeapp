@@ -25,6 +25,10 @@ import {
   RelatedCollaboratorInvoiceModel,
   CompleteCollaboratorProfile,
   RelatedCollaboratorProfileModel,
+  CompleteCustomer,
+  RelatedCustomerModel,
+  CompleteCollaboratorTicket,
+  RelatedCollaboratorTicketModel,
 } from "./index";
 
 export const BusinessModel = z.object({
@@ -42,6 +46,7 @@ export const BusinessModel = z.object({
   sendOrderToWhatsapp: z.boolean(),
   defaultPaymentMethodId: z.string().nullish(),
   currency: z.nativeEnum(Currency).optional(),
+  ticketTermsConditions: z.string().nullish(),
 });
 
 export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
@@ -58,6 +63,8 @@ export interface CompleteBusiness extends z.infer<typeof BusinessModel> {
   cardBanks: CompleteCollaboratorCardBank[];
   collaboratorInvoices: CompleteCollaboratorInvoice[];
   collaboratorProfiles: CompleteCollaboratorProfile[];
+  customers: CompleteCustomer[];
+  tickets: CompleteCollaboratorTicket[];
 }
 
 /**
@@ -80,5 +87,7 @@ export const RelatedBusinessModel: z.ZodSchema<CompleteBusiness> = z.lazy(() =>
     cardBanks: RelatedCollaboratorCardBankModel.array(),
     collaboratorInvoices: RelatedCollaboratorInvoiceModel.array(),
     collaboratorProfiles: RelatedCollaboratorProfileModel.array(),
+    customers: RelatedCustomerModel.array(),
+    tickets: RelatedCollaboratorTicketModel.array(),
   }),
 );
