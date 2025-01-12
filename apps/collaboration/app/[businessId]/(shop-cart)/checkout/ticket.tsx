@@ -1,4 +1,5 @@
 import CurrencySelect from "@repo/ui/components/currency-select";
+import { DateTimePicker } from "@repo/ui/components/date-widget";
 import FormOfPaymentSelect from "@repo/ui/components/form-payment";
 import {
   FormControl,
@@ -7,7 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui/components/ui/form";
-import { Input } from "@repo/ui/components/ui/input";
 import { Switch } from "@repo/ui/components/ui/switch";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 
@@ -27,7 +27,10 @@ export default function TicketForm({ form, t }: TicketFormProps) {
             <FormItem>
               <FormLabel>{t("lbTicketDeliveryDate")}</FormLabel>
               <FormControl>
-                <Input placeholder={t("phTicketDeliveryDate")} {...field} />
+                <DateTimePicker
+                  placeholder={t("phTicketDeliveryDate")}
+                  {...field}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
