@@ -195,7 +195,7 @@ model CollaboratorTicket {
   customer       Customer          @relation(fields: [customerId], references: [id])
   customerId     String
   order          Order             @relation(fields: [orderId], references: [id])
-  orderId        String
+  orderId        String            @unique
   collaborator   User              @relation(fields: [collaboratorId], references: [id])
   collaboratorId String
 }
@@ -267,7 +267,7 @@ model Order {
   collaboratorInvoiceId String?
 
   orderAddress OrderAddress?
-  tickets      CollaboratorTicket[]
+  ticket       CollaboratorTicket?
 }
 
 model OrderProduct {

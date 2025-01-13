@@ -244,6 +244,9 @@ export class OrderRepository extends BaseRepository<
       where: { id },
       include: {
         user: true,
+        ticket: {
+          include: { customer: true },
+        },
         orderAddress: {
           include: { address: { include: { neighborhood: true } } },
         },

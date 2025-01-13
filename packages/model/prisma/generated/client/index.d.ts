@@ -3617,14 +3617,12 @@ export namespace Prisma {
 
   export type OrderCountOutputType = {
     items: number;
-    tickets: number;
   };
 
   export type OrderCountOutputTypeSelect<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     items?: boolean | OrderCountOutputTypeCountItemsArgs;
-    tickets?: boolean | OrderCountOutputTypeCountTicketsArgs;
   };
 
   // Custom InputTypes
@@ -3647,15 +3645,6 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: OrderProductWhereInput;
-  };
-
-  /**
-   * OrderCountOutputType without action
-   */
-  export type OrderCountOutputTypeCountTicketsArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    where?: CollaboratorTicketWhereInput;
   };
 
   /**
@@ -20586,7 +20575,7 @@ export namespace Prisma {
       business?: boolean | Order$businessArgs<ExtArgs>;
       collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
       orderAddress?: boolean | Order$orderAddressArgs<ExtArgs>;
-      tickets?: boolean | Order$ticketsArgs<ExtArgs>;
+      ticket?: boolean | Order$ticketArgs<ExtArgs>;
       _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["order"]
@@ -20650,7 +20639,7 @@ export namespace Prisma {
     business?: boolean | Order$businessArgs<ExtArgs>;
     collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
     orderAddress?: boolean | Order$orderAddressArgs<ExtArgs>;
-    tickets?: boolean | Order$ticketsArgs<ExtArgs>;
+    ticket?: boolean | Order$ticketArgs<ExtArgs>;
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type OrderIncludeCreateManyAndReturn<
@@ -20671,7 +20660,7 @@ export namespace Prisma {
       business: Prisma.$BusinessPayload<ExtArgs> | null;
       collaboratorInvoice: Prisma.$CollaboratorInvoicePayload<ExtArgs> | null;
       orderAddress: Prisma.$OrderAddressPayload<ExtArgs> | null;
-      tickets: Prisma.$CollaboratorTicketPayload<ExtArgs>[];
+      ticket: Prisma.$CollaboratorTicketPayload<ExtArgs> | null;
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -21190,15 +21179,16 @@ export namespace Prisma {
       null,
       ExtArgs
     >;
-    tickets<T extends Order$ticketsArgs<ExtArgs> = {}>(
-      args?: Subset<T, Order$ticketsArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      | $Result.GetResult<
-          Prisma.$CollaboratorTicketPayload<ExtArgs>,
-          T,
-          "findMany"
-        >
-      | Null
+    ticket<T extends Order$ticketArgs<ExtArgs> = {}>(
+      args?: Subset<T, Order$ticketArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
     >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -21693,9 +21683,9 @@ export namespace Prisma {
   };
 
   /**
-   * Order.tickets
+   * Order.ticket
    */
-  export type Order$ticketsArgs<
+  export type Order$ticketArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
@@ -21707,15 +21697,6 @@ export namespace Prisma {
      */
     include?: CollaboratorTicketInclude<ExtArgs> | null;
     where?: CollaboratorTicketWhereInput;
-    orderBy?:
-      | CollaboratorTicketOrderByWithRelationInput
-      | CollaboratorTicketOrderByWithRelationInput[];
-    cursor?: CollaboratorTicketWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?:
-      | CollaboratorTicketScalarFieldEnum
-      | CollaboratorTicketScalarFieldEnum[];
   };
 
   /**
@@ -36221,6 +36202,7 @@ export namespace Prisma {
   export type CollaboratorTicketWhereUniqueInput = Prisma.AtLeast<
     {
       id?: string;
+      orderId?: string;
       AND?: CollaboratorTicketWhereInput | CollaboratorTicketWhereInput[];
       OR?: CollaboratorTicketWhereInput[];
       NOT?: CollaboratorTicketWhereInput | CollaboratorTicketWhereInput[];
@@ -36234,14 +36216,13 @@ export namespace Prisma {
       acceptTerms?: BoolFilter<"CollaboratorTicket"> | boolean;
       businessId?: StringFilter<"CollaboratorTicket"> | string;
       customerId?: StringFilter<"CollaboratorTicket"> | string;
-      orderId?: StringFilter<"CollaboratorTicket"> | string;
       collaboratorId?: StringFilter<"CollaboratorTicket"> | string;
       business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
       customer?: XOR<CustomerRelationFilter, CustomerWhereInput>;
       order?: XOR<OrderRelationFilter, OrderWhereInput>;
       collaborator?: XOR<UserRelationFilter, UserWhereInput>;
     },
-    "id"
+    "id" | "orderId"
   >;
 
   export type CollaboratorTicketOrderByWithAggregationInput = {
@@ -36579,7 +36560,10 @@ export namespace Prisma {
       OrderAddressNullableRelationFilter,
       OrderAddressWhereInput
     > | null;
-    tickets?: CollaboratorTicketListRelationFilter;
+    ticket?: XOR<
+      CollaboratorTicketNullableRelationFilter,
+      CollaboratorTicketWhereInput
+    > | null;
   };
 
   export type OrderOrderByWithRelationInput = {
@@ -36606,7 +36590,7 @@ export namespace Prisma {
     business?: BusinessOrderByWithRelationInput;
     collaboratorInvoice?: CollaboratorInvoiceOrderByWithRelationInput;
     orderAddress?: OrderAddressOrderByWithRelationInput;
-    tickets?: CollaboratorTicketOrderByRelationAggregateInput;
+    ticket?: CollaboratorTicketOrderByWithRelationInput;
   };
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<
@@ -36643,7 +36627,10 @@ export namespace Prisma {
         OrderAddressNullableRelationFilter,
         OrderAddressWhereInput
       > | null;
-      tickets?: CollaboratorTicketListRelationFilter;
+      ticket?: XOR<
+        CollaboratorTicketNullableRelationFilter,
+        CollaboratorTicketWhereInput
+      > | null;
     },
     "id"
   >;
@@ -38424,7 +38411,7 @@ export namespace Prisma {
     acceptTerms: boolean;
     business: BusinessCreateNestedOneWithoutTicketsInput;
     customer: CustomerCreateNestedOneWithoutTicketsInput;
-    order: OrderCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
     collaborator: UserCreateNestedOneWithoutTicketsInput;
   };
 
@@ -38454,7 +38441,7 @@ export namespace Prisma {
     acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
     customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
-    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
     collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
   };
 
@@ -38753,7 +38740,7 @@ export namespace Prisma {
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateInput = {
@@ -38777,7 +38764,7 @@ export namespace Prisma {
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUpdateInput = {
@@ -38801,7 +38788,7 @@ export namespace Prisma {
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateInput = {
@@ -38828,7 +38815,7 @@ export namespace Prisma {
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderCreateManyInput = {
@@ -40838,6 +40825,11 @@ export namespace Prisma {
   export type OrderAddressNullableRelationFilter = {
     is?: OrderAddressWhereInput | null;
     isNot?: OrderAddressWhereInput | null;
+  };
+
+  export type CollaboratorTicketNullableRelationFilter = {
+    is?: CollaboratorTicketWhereInput | null;
+    isNot?: CollaboratorTicketWhereInput | null;
   };
 
   export type OrderCountOrderByAggregateInput = {
@@ -44392,12 +44384,12 @@ export namespace Prisma {
     connect?: CustomerWhereUniqueInput;
   };
 
-  export type OrderCreateNestedOneWithoutTicketsInput = {
+  export type OrderCreateNestedOneWithoutTicketInput = {
     create?: XOR<
-      OrderCreateWithoutTicketsInput,
-      OrderUncheckedCreateWithoutTicketsInput
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
     >;
-    connectOrCreate?: OrderCreateOrConnectWithoutTicketsInput;
+    connectOrCreate?: OrderCreateOrConnectWithoutTicketInput;
     connect?: OrderWhereUniqueInput;
   };
 
@@ -44448,20 +44440,20 @@ export namespace Prisma {
     >;
   };
 
-  export type OrderUpdateOneRequiredWithoutTicketsNestedInput = {
+  export type OrderUpdateOneRequiredWithoutTicketNestedInput = {
     create?: XOR<
-      OrderCreateWithoutTicketsInput,
-      OrderUncheckedCreateWithoutTicketsInput
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
     >;
-    connectOrCreate?: OrderCreateOrConnectWithoutTicketsInput;
-    upsert?: OrderUpsertWithoutTicketsInput;
+    connectOrCreate?: OrderCreateOrConnectWithoutTicketInput;
+    upsert?: OrderUpsertWithoutTicketInput;
     connect?: OrderWhereUniqueInput;
     update?: XOR<
       XOR<
-        OrderUpdateToOneWithWhereWithoutTicketsInput,
-        OrderUpdateWithoutTicketsInput
+        OrderUpdateToOneWithWhereWithoutTicketInput,
+        OrderUpdateWithoutTicketInput
       >,
-      OrderUncheckedUpdateWithoutTicketsInput
+      OrderUncheckedUpdateWithoutTicketInput
     >;
   };
 
@@ -44776,21 +44768,13 @@ export namespace Prisma {
     connect?: OrderAddressWhereUniqueInput;
   };
 
-  export type CollaboratorTicketCreateNestedManyWithoutOrderInput = {
-    create?:
-      | XOR<
-          CollaboratorTicketCreateWithoutOrderInput,
-          CollaboratorTicketUncheckedCreateWithoutOrderInput
-        >
-      | CollaboratorTicketCreateWithoutOrderInput[]
-      | CollaboratorTicketUncheckedCreateWithoutOrderInput[];
-    connectOrCreate?:
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput[];
-    createMany?: CollaboratorTicketCreateManyOrderInputEnvelope;
-    connect?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
+  export type CollaboratorTicketCreateNestedOneWithoutOrderInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    connect?: CollaboratorTicketWhereUniqueInput;
   };
 
   export type OrderProductUncheckedCreateNestedManyWithoutOrderInput = {
@@ -44817,21 +44801,13 @@ export namespace Prisma {
     connect?: OrderAddressWhereUniqueInput;
   };
 
-  export type CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput = {
-    create?:
-      | XOR<
-          CollaboratorTicketCreateWithoutOrderInput,
-          CollaboratorTicketUncheckedCreateWithoutOrderInput
-        >
-      | CollaboratorTicketCreateWithoutOrderInput[]
-      | CollaboratorTicketUncheckedCreateWithoutOrderInput[];
-    connectOrCreate?:
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput[];
-    createMany?: CollaboratorTicketCreateManyOrderInputEnvelope;
-    connect?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
+  export type CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    connect?: CollaboratorTicketWhereUniqueInput;
   };
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
@@ -44942,42 +44918,23 @@ export namespace Prisma {
     >;
   };
 
-  export type CollaboratorTicketUpdateManyWithoutOrderNestedInput = {
-    create?:
-      | XOR<
-          CollaboratorTicketCreateWithoutOrderInput,
-          CollaboratorTicketUncheckedCreateWithoutOrderInput
-        >
-      | CollaboratorTicketCreateWithoutOrderInput[]
-      | CollaboratorTicketUncheckedCreateWithoutOrderInput[];
-    connectOrCreate?:
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput[];
-    upsert?:
-      | CollaboratorTicketUpsertWithWhereUniqueWithoutOrderInput
-      | CollaboratorTicketUpsertWithWhereUniqueWithoutOrderInput[];
-    createMany?: CollaboratorTicketCreateManyOrderInputEnvelope;
-    set?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    disconnect?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    delete?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    connect?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    update?:
-      | CollaboratorTicketUpdateWithWhereUniqueWithoutOrderInput
-      | CollaboratorTicketUpdateWithWhereUniqueWithoutOrderInput[];
-    updateMany?:
-      | CollaboratorTicketUpdateManyWithWhereWithoutOrderInput
-      | CollaboratorTicketUpdateManyWithWhereWithoutOrderInput[];
-    deleteMany?:
-      | CollaboratorTicketScalarWhereInput
-      | CollaboratorTicketScalarWhereInput[];
+  export type CollaboratorTicketUpdateOneWithoutOrderNestedInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    upsert?: CollaboratorTicketUpsertWithoutOrderInput;
+    disconnect?: CollaboratorTicketWhereInput | boolean;
+    delete?: CollaboratorTicketWhereInput | boolean;
+    connect?: CollaboratorTicketWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollaboratorTicketUpdateToOneWithWhereWithoutOrderInput,
+        CollaboratorTicketUpdateWithoutOrderInput
+      >,
+      CollaboratorTicketUncheckedUpdateWithoutOrderInput
+    >;
   };
 
   export type OrderProductUncheckedUpdateManyWithoutOrderNestedInput = {
@@ -45027,42 +44984,23 @@ export namespace Prisma {
     >;
   };
 
-  export type CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput = {
-    create?:
-      | XOR<
-          CollaboratorTicketCreateWithoutOrderInput,
-          CollaboratorTicketUncheckedCreateWithoutOrderInput
-        >
-      | CollaboratorTicketCreateWithoutOrderInput[]
-      | CollaboratorTicketUncheckedCreateWithoutOrderInput[];
-    connectOrCreate?:
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput
-      | CollaboratorTicketCreateOrConnectWithoutOrderInput[];
-    upsert?:
-      | CollaboratorTicketUpsertWithWhereUniqueWithoutOrderInput
-      | CollaboratorTicketUpsertWithWhereUniqueWithoutOrderInput[];
-    createMany?: CollaboratorTicketCreateManyOrderInputEnvelope;
-    set?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    disconnect?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    delete?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    connect?:
-      | CollaboratorTicketWhereUniqueInput
-      | CollaboratorTicketWhereUniqueInput[];
-    update?:
-      | CollaboratorTicketUpdateWithWhereUniqueWithoutOrderInput
-      | CollaboratorTicketUpdateWithWhereUniqueWithoutOrderInput[];
-    updateMany?:
-      | CollaboratorTicketUpdateManyWithWhereWithoutOrderInput
-      | CollaboratorTicketUpdateManyWithWhereWithoutOrderInput[];
-    deleteMany?:
-      | CollaboratorTicketScalarWhereInput
-      | CollaboratorTicketScalarWhereInput[];
+  export type CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    upsert?: CollaboratorTicketUpsertWithoutOrderInput;
+    disconnect?: CollaboratorTicketWhereInput | boolean;
+    delete?: CollaboratorTicketWhereInput | boolean;
+    connect?: CollaboratorTicketWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollaboratorTicketUpdateToOneWithWhereWithoutOrderInput,
+        CollaboratorTicketUpdateWithoutOrderInput
+      >,
+      CollaboratorTicketUncheckedUpdateWithoutOrderInput
+    >;
   };
 
   export type ProductCreateNestedOneWithoutOrderItemsInput = {
@@ -46510,7 +46448,7 @@ export namespace Prisma {
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutBusinessInput = {
@@ -46533,7 +46471,7 @@ export namespace Prisma {
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutBusinessInput = {
@@ -46849,7 +46787,7 @@ export namespace Prisma {
     nota: string;
     acceptTerms: boolean;
     customer: CustomerCreateNestedOneWithoutTicketsInput;
-    order: OrderCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
     collaborator: UserCreateNestedOneWithoutTicketsInput;
   };
 
@@ -48738,7 +48676,7 @@ export namespace Prisma {
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutUserInput = {
@@ -48761,7 +48699,7 @@ export namespace Prisma {
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutUserInput = {
@@ -49061,7 +48999,7 @@ export namespace Prisma {
     acceptTerms: boolean;
     business: BusinessCreateNestedOneWithoutTicketsInput;
     customer: CustomerCreateNestedOneWithoutTicketsInput;
-    order: OrderCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
   };
 
   export type CollaboratorTicketUncheckedCreateWithoutCollaboratorInput = {
@@ -49785,7 +49723,7 @@ export namespace Prisma {
     nota: string;
     acceptTerms: boolean;
     business: BusinessCreateNestedOneWithoutTicketsInput;
-    order: OrderCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
     collaborator: UserCreateNestedOneWithoutTicketsInput;
   };
 
@@ -50030,7 +49968,7 @@ export namespace Prisma {
     >;
   };
 
-  export type OrderCreateWithoutTicketsInput = {
+  export type OrderCreateWithoutTicketInput = {
     id?: string;
     productsDetails: JsonNullValueInput | InputJsonValue;
     shipping?: number;
@@ -50053,7 +49991,7 @@ export namespace Prisma {
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
   };
 
-  export type OrderUncheckedCreateWithoutTicketsInput = {
+  export type OrderUncheckedCreateWithoutTicketInput = {
     id?: string;
     userId?: string | null;
     productsDetails: JsonNullValueInput | InputJsonValue;
@@ -50076,11 +50014,11 @@ export namespace Prisma {
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
   };
 
-  export type OrderCreateOrConnectWithoutTicketsInput = {
+  export type OrderCreateOrConnectWithoutTicketInput = {
     where: OrderWhereUniqueInput;
     create: XOR<
-      OrderCreateWithoutTicketsInput,
-      OrderUncheckedCreateWithoutTicketsInput
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
     >;
   };
 
@@ -50261,27 +50199,27 @@ export namespace Prisma {
     businessId?: StringFieldUpdateOperationsInput | string;
   };
 
-  export type OrderUpsertWithoutTicketsInput = {
+  export type OrderUpsertWithoutTicketInput = {
     update: XOR<
-      OrderUpdateWithoutTicketsInput,
-      OrderUncheckedUpdateWithoutTicketsInput
+      OrderUpdateWithoutTicketInput,
+      OrderUncheckedUpdateWithoutTicketInput
     >;
     create: XOR<
-      OrderCreateWithoutTicketsInput,
-      OrderUncheckedCreateWithoutTicketsInput
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
     >;
     where?: OrderWhereInput;
   };
 
-  export type OrderUpdateToOneWithWhereWithoutTicketsInput = {
+  export type OrderUpdateToOneWithWhereWithoutTicketInput = {
     where?: OrderWhereInput;
     data: XOR<
-      OrderUpdateWithoutTicketsInput,
-      OrderUncheckedUpdateWithoutTicketsInput
+      OrderUpdateWithoutTicketInput,
+      OrderUncheckedUpdateWithoutTicketInput
     >;
   };
 
-  export type OrderUpdateWithoutTicketsInput = {
+  export type OrderUpdateWithoutTicketInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
     shipping?: IntFieldUpdateOperationsInput | number;
@@ -50304,7 +50242,7 @@ export namespace Prisma {
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
   };
 
-  export type OrderUncheckedUpdateWithoutTicketsInput = {
+  export type OrderUncheckedUpdateWithoutTicketInput = {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: NullableStringFieldUpdateOperationsInput | string | null;
     productsDetails?: JsonNullValueInput | InputJsonValue;
@@ -51439,13 +51377,6 @@ export namespace Prisma {
     >;
   };
 
-  export type CollaboratorTicketCreateManyOrderInputEnvelope = {
-    data:
-      | CollaboratorTicketCreateManyOrderInput
-      | CollaboratorTicketCreateManyOrderInput[];
-    skipDuplicates?: boolean;
-  };
-
   export type UserUpsertWithoutOrdersInput = {
     update: XOR<
       UserUpdateWithoutOrdersInput,
@@ -51715,8 +51646,7 @@ export namespace Prisma {
     addressId?: StringFieldUpdateOperationsInput | string;
   };
 
-  export type CollaboratorTicketUpsertWithWhereUniqueWithoutOrderInput = {
-    where: CollaboratorTicketWhereUniqueInput;
+  export type CollaboratorTicketUpsertWithoutOrderInput = {
     update: XOR<
       CollaboratorTicketUpdateWithoutOrderInput,
       CollaboratorTicketUncheckedUpdateWithoutOrderInput
@@ -51725,22 +51655,45 @@ export namespace Prisma {
       CollaboratorTicketCreateWithoutOrderInput,
       CollaboratorTicketUncheckedCreateWithoutOrderInput
     >;
+    where?: CollaboratorTicketWhereInput;
   };
 
-  export type CollaboratorTicketUpdateWithWhereUniqueWithoutOrderInput = {
-    where: CollaboratorTicketWhereUniqueInput;
+  export type CollaboratorTicketUpdateToOneWithWhereWithoutOrderInput = {
+    where?: CollaboratorTicketWhereInput;
     data: XOR<
       CollaboratorTicketUpdateWithoutOrderInput,
       CollaboratorTicketUncheckedUpdateWithoutOrderInput
     >;
   };
 
-  export type CollaboratorTicketUpdateManyWithWhereWithoutOrderInput = {
-    where: CollaboratorTicketScalarWhereInput;
-    data: XOR<
-      CollaboratorTicketUpdateManyMutationInput,
-      CollaboratorTicketUncheckedUpdateManyWithoutOrderInput
-    >;
+  export type CollaboratorTicketUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
+    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type ProductCreateWithoutOrderItemsInput = {
@@ -51811,7 +51764,7 @@ export namespace Prisma {
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutItemsInput = {
@@ -51834,7 +51787,7 @@ export namespace Prisma {
     businessProfit?: number;
     collaboratorInvoiceId?: string | null;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutItemsInput = {
@@ -51945,7 +51898,7 @@ export namespace Prisma {
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
@@ -51971,7 +51924,7 @@ export namespace Prisma {
       | string
       | null;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type BusinessCreateWithoutCollaboratorInvoicesInput = {
@@ -52148,7 +52101,7 @@ export namespace Prisma {
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutCollaboratorInvoiceInput = {
@@ -52171,7 +52124,7 @@ export namespace Prisma {
     businessProfit?: number;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
-    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutCollaboratorInvoiceInput = {
@@ -53494,7 +53447,7 @@ export namespace Prisma {
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
-    tickets?: CollaboratorTicketCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutOrderAddressInput = {
@@ -53517,7 +53470,7 @@ export namespace Prisma {
     businessProfit?: number;
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
-    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutOrderAddressInput = {
@@ -53612,7 +53565,7 @@ export namespace Prisma {
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
-    tickets?: CollaboratorTicketUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutOrderAddressInput = {
@@ -53638,7 +53591,7 @@ export namespace Prisma {
       | string
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type BusinessCreateWithoutBusinessNeighborhoodInput = {
@@ -54097,7 +54050,7 @@ export namespace Prisma {
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutBusinessInput = {
@@ -54123,7 +54076,7 @@ export namespace Prisma {
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateManyWithoutBusinessInput = {
@@ -54405,7 +54358,7 @@ export namespace Prisma {
     nota?: StringFieldUpdateOperationsInput | string;
     acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
     customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
-    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
     collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
   };
 
@@ -54688,7 +54641,7 @@ export namespace Prisma {
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutUserInput = {
@@ -54714,7 +54667,7 @@ export namespace Prisma {
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateManyWithoutUserInput = {
@@ -55003,7 +54956,7 @@ export namespace Prisma {
     acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
     customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
-    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
   };
 
   export type CollaboratorTicketUncheckedUpdateWithoutCollaboratorInput = {
@@ -55060,7 +55013,7 @@ export namespace Prisma {
     nota?: StringFieldUpdateOperationsInput | string;
     acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
     business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
-    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
     collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
   };
 
@@ -55162,19 +55115,6 @@ export namespace Prisma {
     quantity: number;
   };
 
-  export type CollaboratorTicketCreateManyOrderInput = {
-    id?: string;
-    deliveryDate: Date | string;
-    currency: $Enums.Currency;
-    formOfPayment: $Enums.FormOfPaymentType;
-    phone: string;
-    nota: string;
-    acceptTerms: boolean;
-    businessId: string;
-    customerId: string;
-    collaboratorId: string;
-  };
-
   export type OrderProductUpdateWithoutOrderInput = {
     price?: IntFieldUpdateOperationsInput | number;
     customPrice?: IntFieldUpdateOperationsInput | number;
@@ -55203,51 +55143,6 @@ export namespace Prisma {
     commission?: IntFieldUpdateOperationsInput | number;
     businessProfit?: IntFieldUpdateOperationsInput | number;
     quantity?: IntFieldUpdateOperationsInput | number;
-  };
-
-  export type CollaboratorTicketUpdateWithoutOrderInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
-    formOfPayment?:
-      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
-      | $Enums.FormOfPaymentType;
-    phone?: StringFieldUpdateOperationsInput | string;
-    nota?: StringFieldUpdateOperationsInput | string;
-    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
-    business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
-    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
-    collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
-  };
-
-  export type CollaboratorTicketUncheckedUpdateWithoutOrderInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
-    formOfPayment?:
-      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
-      | $Enums.FormOfPaymentType;
-    phone?: StringFieldUpdateOperationsInput | string;
-    nota?: StringFieldUpdateOperationsInput | string;
-    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
-    businessId?: StringFieldUpdateOperationsInput | string;
-    customerId?: StringFieldUpdateOperationsInput | string;
-    collaboratorId?: StringFieldUpdateOperationsInput | string;
-  };
-
-  export type CollaboratorTicketUncheckedUpdateManyWithoutOrderInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
-    formOfPayment?:
-      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
-      | $Enums.FormOfPaymentType;
-    phone?: StringFieldUpdateOperationsInput | string;
-    nota?: StringFieldUpdateOperationsInput | string;
-    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
-    businessId?: StringFieldUpdateOperationsInput | string;
-    customerId?: StringFieldUpdateOperationsInput | string;
-    collaboratorId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type OrderCreateManyCollaboratorInvoiceInput = {
@@ -55290,7 +55185,7 @@ export namespace Prisma {
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutCollaboratorInvoiceInput = {
@@ -55313,7 +55208,7 @@ export namespace Prisma {
     businessProfit?: IntFieldUpdateOperationsInput | number;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
-    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateManyWithoutCollaboratorInvoiceInput = {

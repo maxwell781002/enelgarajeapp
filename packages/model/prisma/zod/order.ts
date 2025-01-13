@@ -50,7 +50,7 @@ export interface CompleteOrder extends z.infer<typeof OrderModel> {
   business?: CompleteBusiness | null;
   collaboratorInvoice?: CompleteCollaboratorInvoice | null;
   orderAddress?: CompleteOrderAddress | null;
-  tickets: CompleteCollaboratorTicket[];
+  ticket?: CompleteCollaboratorTicket | null;
 }
 
 /**
@@ -65,6 +65,6 @@ export const RelatedOrderModel: z.ZodSchema<CompleteOrder> = z.lazy(() =>
     business: RelatedBusinessModel.nullish(),
     collaboratorInvoice: RelatedCollaboratorInvoiceModel.nullish(),
     orderAddress: RelatedOrderAddressModel.nullish(),
-    tickets: RelatedCollaboratorTicketModel.array(),
+    ticket: RelatedCollaboratorTicketModel.nullish(),
   }),
 );

@@ -42,6 +42,7 @@ export default async function CollaboratorOrder({
         },
       ]
     : [];
+  const ticket = order.ticket;
   return (
     <div className="container mx-auto p-4">
       <div className="space-y-6">
@@ -55,7 +56,7 @@ export default async function CollaboratorOrder({
             },
             {
               label: t("deliveryDate"),
-              value: formatDate(order.createdAt as Date),
+              value: formatDate(ticket?.deliveryDate as Date),
             },
             {
               label: t("shipping"),
@@ -96,9 +97,12 @@ export default async function CollaboratorOrder({
         <CardDisplay
           title={t("cardCustomer")}
           items={[
-            { label: t("customerName"), value: "María Rodríguez" },
-            { label: t("identification"), value: "12345678" },
-            { label: t("phone"), value: "+53 55987654" },
+            { label: t("customerName"), value: ticket?.customer?.name },
+            {
+              label: t("identification"),
+              value: ticket?.customer?.identification,
+            },
+            { label: t("phone"), value: ticket?.phone },
             ...addressItems,
           ]}
         />
