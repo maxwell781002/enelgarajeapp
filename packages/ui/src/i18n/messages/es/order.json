@@ -15,5 +15,28 @@
     "emptyOrders": "Ordenes vacías",
     "emptyOrdersDescription": "Para seguir comprando, haz clic en el botón de continuar comprando.",
     "continueShopping": "Comenzar a comprar"
+  },
+  "CollaboratorOrder": {
+    "cardGeneral": "Información General",
+    "identifier": "Order",
+    "createdAt": "Creado en",
+    "deliveryDate": "Fecha y hora de entrega",
+    "cardCustomer": "Datos del cliente",
+    "customerName": "Nombre",
+    "identification": "Carnet de identidad",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "neighborhood": "Reparto",
+    "city": "Ciudad",
+    "state": "Provincia",
+    "cardCollaborator": "Datos del gestor",
+    "collaboratorName": "Nombre",
+    "cardProducts": "Productos",
+    "product": "Producto",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "shipping": "Precio de envío",
+    "total": "Total",
+    "commission": "Comisión"
   }
 }

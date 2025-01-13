@@ -3,25 +3,22 @@ import { getOrderById } from "@repo/model/repository/order";
 import { getCurrentUser } from "@repo/model/repository/user";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { CompleteOrder } from "@repo/model/zod/order";
-import { CircleCheckIcon, WhatsappIcon } from "@repo/ui/components/icons";
-import OrderDetail from "@repo/ui/components/order-page/order-detail";
-import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
-import { Button } from "@repo/ui/components/ui/button";
+import { CircleCheckIcon } from "@repo/ui/components/icons";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { PropsWithChildren } from "react";
 
 export type CheckoutSuccessfulPageProps = {
   business: CompleteBusiness;
-  orderId: string;
-};
+  order: CompleteOrder;
+} & PropsWithChildren;
 
 export default async function CheckoutSuccessfulPage({
   business,
-  orderId,
+  order,
+  children,
 }: CheckoutSuccessfulPageProps) {
   const user = await getCurrentUser();
-  const order = await getOrderById(orderId);
   if (!order) {
     return redirect("/");
   }
@@ -29,11 +26,7 @@ export default async function CheckoutSuccessfulPage({
     return redirect("/");
   }
   const t = await getTranslations("CheckoutSuccessful");
-  const to = await getTranslations("OrderDetail");
   business = await getAllBusinessData(business.id as string);
-  const whatsappMessage = encodeURIComponent(
-    t("orderMessage", { reference: order?.identifier }),
-  );
 
   return (
     <div className="flex flex-col min-h-dvh">
@@ -51,49 +44,7 @@ export default async function CheckoutSuccessfulPage({
             </div>
           </div>
         </section>
-        {business.defaultPaymentMethod && (
-          <div className="mb-8">
-            <PaymentMethodDetail data={business.defaultPaymentMethod} />
-          </div>
-        )}
-        <OrderDetail
-          order={order as CompleteOrder}
-          titleLb={to("title")}
-          orderLb={to("order")}
-        />
-        {business?.phone ? (
-          <>
-            <Button asChild className="flex items-center space-x-2">
-              <a
-                href={`https://wa.me/${business.phone}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WhatsappIcon className="w-5 h-5" />
-                <span>{t("btnWhatsappSubmit")}</span>
-              </a>
-            </Button>
-          </>
-        ) : (
-          <>
-            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link
-                href="/order"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                {t("show_orders")}
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                {t("continue_shopping")}
-              </Link>
-            </div>
-          </>
-        )}
+        {children}
       </main>
     </div>
   );
