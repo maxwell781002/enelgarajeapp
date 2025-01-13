@@ -1,8 +1,7 @@
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
-import { Button } from "@repo/ui/components/button";
-import { WhatsappIcon } from "@repo/ui/components/icons";
+import WhatsappButton from "@repo/ui/components/whatsapp-button"
 import OrderDetail from "@repo/ui/components/order-page/order-detail";
 import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
 import CheckoutSuccessfulPage from "@repo/ui/components/shop-cart/checkout-successful/page";
@@ -37,18 +36,11 @@ export default async function Page({ searchParams: { orderId } }: PageProps) {
           orderLb={to("order")}
         />
         {business?.phone ? (
-          <>
-            <Button asChild className="flex items-center space-x-2">
-              <a
-                href={`https://wa.me/${business.phone}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WhatsappIcon className="w-5 h-5" />
-                <span>{t("btnWhatsappSubmit")}</span>
-              </a>
-            </Button>
-          </>
+          <WhatsappButton
+            whatsappNumber={business.phone}
+            whatsappMessage={whatsappMessage}
+            text={t("btnWhatsappSubmit")}
+          />
         ) : (
           <>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
