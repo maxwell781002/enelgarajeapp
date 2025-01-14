@@ -37,7 +37,7 @@ export default async function CollaboratorOrder({
   order,
 }: CollaboratorOrderProps) {
   const t = await getTranslations("CollaboratorOrder");
-  const address = order.orderAddress.address;
+  const address = order.orderAddress?.address;
   const addressItems = address
     ? [
         {
@@ -76,7 +76,7 @@ export default async function CollaboratorOrder({
             },
             {
               label: t("deliveryDate"),
-              value: formatDate(ticket?.deliveryDate as Date),
+              value: ticket && formatDate(ticket.deliveryDate as Date),
             },
             {
               label: t("total"),
@@ -131,12 +131,12 @@ export default async function CollaboratorOrder({
           items={[
             {
               label: t("currency"),
-              value: ticket.currency,
+              value: ticket?.currency,
             },
             {
               label: t("formOfPayment"),
-              value: t(ticket.formOfPayment),
-            }
+              value: ticket?.formOfPayment && t(ticket?.formOfPayment),
+            },
           ]}
         />
         <Card>

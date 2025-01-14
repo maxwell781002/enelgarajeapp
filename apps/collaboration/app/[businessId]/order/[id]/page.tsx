@@ -1,14 +1,21 @@
-import OrderItemPage, {
-  OrderItemPageProps,
-} from "@repo/ui/components/order-page/order-item-page";
+import BackPage from "@repo/ui/components/back-page";
+import { getOrderById } from "@repo/model/repository/order";
+import { CompleteOrder } from "@repo/model/zod/order";
+import { getTranslations } from "next-intl/server";
+import CollaboratorOrder from "@repo/ui/components/order-page/collaborator-order";
 
-export type PageProps = {
-  params: {
-    businessId: string;
-    id: string;
-  };
+type OrderDetailProps = {
+  params: { businessId: string; id: string };
 };
 
-export default async function Page({ params: { businessId, id } }: PageProps) {
-  return <OrderItemPage baseUrl={`/${businessId}`} id={id} />;
+export default async function Page({
+  params: { businessId, id },
+}: OrderDetailProps) {
+  const order = (await getOrderById(id)) as CompleteOrder;
+  const t = await getTranslations("OrderDetail");
+  return (
+    <BackPage href={`/${businessId}/order`} urlTitle="Ir a órdenes">
+      <CollaboratorOrder order={order as CompleteOrder} />
+    </BackPage>
+  );
 }

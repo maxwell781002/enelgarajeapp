@@ -120,6 +120,16 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  userPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
+    return this.basePaginate(
+      { ...data },
+      {
+        userId,
+        isCollaborator: true,
+      },
+    );
+  }
+
   collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
     return this.basePaginate(
       { ...data },

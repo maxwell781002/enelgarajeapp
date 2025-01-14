@@ -1,15 +1,56 @@
-import { getBusinessById } from "@repo/model/repository/business";
-import OrderPage from "@repo/ui/components/order-page/page";
+import MyTable from "@repo/ui/components/table/index";
+import { crud } from "@repo/model/lib/crud";
+import { orderRepository } from "@repo/model/repositories/order";
+import { columns } from "./columns";
+import Filter from "./filters";
+import { redirect } from "next/navigation";
+import { PaginationResult } from "@repo/model/types/pagination";
+import TableLayout from "@repo/ui/components/table-layout/layout";
+import { getTranslations } from "next-intl/server";
+import { TableContextProvider } from "@repo/ui/context/table";
 
-export type PageProps = {
-  params: {
-    businessId: string;
-  };
+type PageProps = {
+  searchParams: any;
+  params: { businessId: string };
 };
 
-export default async function Page({ params: { businessId } }: PageProps) {
-  const business = await getBusinessById(businessId);
+export default async function Page({
+  searchParams,
+  params: { businessId },
+}: PageProps) {
+  const t = await getTranslations("Order");
+  const { list, search } = crud(
+    `/${businessId}/order`,
+    orderRepository.getRepositoryModelName(),
+    searchParams,
+    {
+      paginateMethod: "userPaginate",
+    },
+  );
+  const handleSearch = async (query: any) => {
+    "use server";
+    const url = await search(query);
+    return redirect(url);
+  };
+  const data = await list({ businessId });
   return (
-    <OrderPage baseUrl={`/${businessId}`} business={business} isCollaborator />
+    <TableContextProvider>
+      <TableLayout
+        title={t("OrderList")}
+        filter={
+          <Filter
+            onChange={handleSearch}
+            options={orderRepository.getStatus()}
+          />
+        }
+      >
+        <MyTable
+          pagination={data as PaginationResult<any>}
+          columns={columns}
+          emptyTitle="No hay órdenes"
+          emptyDescription="No has tenido ninguna compra todavía."
+        />
+      </TableLayout>
+    </TableContextProvider>
   );
 }
