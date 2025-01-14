@@ -7,13 +7,13 @@ import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
 import OrderProducts from "@repo/ui/components/order-page/order-products";
 
-export type CollaboratorOrderProps = {
+export type ClientBackofficeOrderProps = {
   order: CompleteOrder;
 };
 
-export default async function CollaboratorOrder({
+export default async function ClientBackofficeOrder({
   order,
-}: CollaboratorOrderProps) {
+}: ClientBackofficeOrderProps) {
   const t = await getTranslations("OrderDetailBack");
   const address = order.orderAddress?.address;
   const addressItems = address
@@ -40,7 +40,6 @@ export default async function CollaboratorOrder({
         },
       ]
     : [];
-  const ticket = order.ticket;
   return (
     <div className="container mx-auto p-4">
       <div className="space-y-6">
@@ -51,10 +50,6 @@ export default async function CollaboratorOrder({
             {
               label: t("createdAt"),
               value: formatDate(order.createdAt as Date),
-            },
-            {
-              label: ticket && t("deliveryDate"),
-              value: ticket && formatDate(ticket.deliveryDate as Date),
             },
             {
               label: t("total"),
@@ -86,41 +81,13 @@ export default async function CollaboratorOrder({
           ]}
         />
         <CardDisplay
-          title={t("cardCollaborator")}
+          title={t("cardCustomer")}
           items={[
-            { label: t("collaboratorName"), value: order.user.name },
+            { label: t("customerName"), value: order.user.name },
             { label: t("phone"), value: order.user.phone },
+            ...addressItems,
           ]}
         />
-        {!!ticket && (
-          <>
-            <CardDisplay
-              title={t("cardCustomer")}
-              items={[
-                { label: t("customerName"), value: ticket?.customer?.name },
-                {
-                  label: t("identification"),
-                  value: ticket?.customer?.identification,
-                },
-                { label: t("phone"), value: ticket?.phone },
-                ...addressItems,
-              ]}
-            />
-            <CardDisplay
-              title={t("cardPayment")}
-              items={[
-                {
-                  label: t("currency"),
-                  value: ticket?.currency,
-                },
-                {
-                  label: t("formOfPayment"),
-                  value: ticket?.formOfPayment && t(ticket?.formOfPayment),
-                },
-              ]}
-            />
-          </>
-        )}
         <OrderProducts order={order} />
       </div>
     </div>

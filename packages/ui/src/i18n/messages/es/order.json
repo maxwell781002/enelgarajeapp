@@ -15,7 +15,7 @@
     "btnChangeStatusContinueText": "Cambiar estado",
     "btnChangeStatusCancelText": "Cancelar"
   },
-  "CollaboratorOrder": {
+  "OrderDetailBack": {
     "cardGeneral": "Información General",
     "identifier": "Order Nro",
     "createdAt": "Creado el",
