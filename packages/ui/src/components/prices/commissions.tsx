@@ -12,6 +12,7 @@ import { Input } from "../ui/input";
 import PriceDisplay from "./price";
 import { commissionCalculate } from "@repo/model/lib/utils";
 import { cn } from "@repo/ui/lib/utils";
+import PriceInput from "@repo/ui/components/price-input";
 
 export type CommissionsProps = {
   form: any;
@@ -50,11 +51,19 @@ export default function Commissions({
 }: CommissionsProps) {
   const t = useTranslations("Product");
   const show = form.watch("priceValues.hasCommission");
+    const handleQuantityCommissionValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newPrice = +event.target.value;
+        if (newPrice < 0) {
+            return;
+        }
+        form.setValue("priceValues.commissionValue", newPrice);
+    };
   const [value, base] = commissionCalculate(
     basePrice,
     form.watch("priceValues.commissionType"),
     form.watch("priceValues.commissionValue"),
   );
+
 
   return (
     <div className="pt-5">
@@ -98,7 +107,7 @@ export default function Commissions({
                           value,
                         }),
                       )}
-                      onValueChange={field.onChange}
+                      onChange={field.onChange}
                       placeholder={t("phCommissionType")}
                     />
                   </FormControl>
@@ -115,14 +124,18 @@ export default function Commissions({
                 <FormItem>
                   <FormLabel>{t("lbCommissionValue")}</FormLabel>
                   <FormControl>
-                    <Input
+                    {/*<Input
                       {...field}
                       placeholder={t("phCommissionValue")}
                       type="number"
                       onChange={(event: any) =>
                         field.onChange(+event.target.value)
                       }
-                    />
+                    />*/}
+                      <PriceInput
+                          onBlur={handleQuantityCommissionValueChange}
+                          value={field.value}
+                      />
                   </FormControl>
                   <FormMessage>
                     {!!error?.message && t(error?.message)}
