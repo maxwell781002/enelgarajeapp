@@ -12,17 +12,33 @@ import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
+import Image from "@repo/ui/components/image";
+import Link from "next/link";
+import { PropsWithChildren } from "react";
 
 export type CollaboratorOrderProps = {
   order: CompleteOrder;
 };
+
+const ProductLink = ({
+  item,
+  children,
+}: { item: CompleteOrderProduct } & PropsWithChildren) => (
+  <Link
+    href={`products/${item.product.slug}`}
+    className="bg-white hover:bg-gray-100 text-gray-800 h-10 w-10 text-blue-500 underline hover:text-blue-700 transition-colors"
+    aria-label="View"
+  >
+    {children}
+  </Link>
+);
 
 export default async function CollaboratorOrder({
   order,
 }: CollaboratorOrderProps) {
   const t = await getTranslations("CollaboratorOrder");
   const address = order.orderAddress.address;
-  const addressItems = order.orderAddress.address
+  const addressItems = address
     ? [
         {
           label: t("address"),
@@ -39,6 +55,10 @@ export default async function CollaboratorOrder({
         {
           label: t("state"),
           value: getStateByCode(address.state)?.name,
+        },
+        {
+          label: t("reference"),
+          value: address.reference,
         },
       ]
     : [];
@@ -59,10 +79,10 @@ export default async function CollaboratorOrder({
               value: formatDate(ticket?.deliveryDate as Date),
             },
             {
-              label: t("shipping"),
+              label: t("total"),
               value: (
                 <PriceDisplay
-                  price={order.shipping as number}
+                  price={order.total as number}
                   currency={order.currency as TCurrency}
                 />
               ),
@@ -77,10 +97,10 @@ export default async function CollaboratorOrder({
               ),
             },
             {
-              label: t("total"),
+              label: t("shipping"),
               value: (
                 <PriceDisplay
-                  price={order.total as number}
+                  price={order.shipping as number}
                   currency={order.currency as TCurrency}
                 />
               ),
@@ -106,6 +126,19 @@ export default async function CollaboratorOrder({
             ...addressItems,
           ]}
         />
+        <CardDisplay
+          title={t("cardPayment")}
+          items={[
+            {
+              label: t("currency"),
+              value: ticket.currency,
+            },
+            {
+              label: t("formOfPayment"),
+              value: t(ticket.formOfPayment),
+            }
+          ]}
+        />
         <Card>
           <CardHeader>
             <CardTitle>{t("cardProducts")}</CardTitle>
@@ -115,6 +148,7 @@ export default async function CollaboratorOrder({
               <table className="w-full">
                 <thead>
                   <tr className="border-b">
+                    <th className="text-left p-2">{t("image")}</th>
                     <th className="text-left p-2">{t("product")}</th>
                     <th className="text-left p-2">{t("quantity")}</th>
                     <th className="text-left p-2">{t("price")}</th>
@@ -123,7 +157,21 @@ export default async function CollaboratorOrder({
                 <tbody>
                   {order.items.map((item: CompleteOrderProduct, index) => (
                     <tr key={index} className="border-b">
-                      <td className="p-2">{item.product.name}</td>
+                      <td className="p-2">
+                        <ProductLink item={item}>
+                          <Image
+                            src={item.product.image}
+                            width={48}
+                            height={48}
+                            alt={item.product.name}
+                          />
+                        </ProductLink>
+                      </td>
+                      <td className="p-2">
+                        <ProductLink item={item}>
+                          {item.product.name}
+                        </ProductLink>
+                      </td>
                       <td className="p-2">{item.quantity}</td>
                       <td className="p-2">
                         <PriceDisplay

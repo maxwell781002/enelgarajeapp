@@ -1,7 +1,7 @@
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
-import WhatsappButton from "@repo/ui/components/whatsapp-button"
+import WhatsappButton from "@repo/ui/components/whatsapp-button";
 import OrderDetail from "@repo/ui/components/order-page/order-detail";
 import PaymentMethodDetail from "@repo/ui/components/payment-method/index";
 import CheckoutSuccessfulPage from "@repo/ui/components/shop-cart/checkout-successful/page";
