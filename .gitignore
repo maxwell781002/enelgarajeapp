@@ -39,5 +39,6 @@ yarn-error.log*
 
 *.node
 
+/.idea
 packages/model/prisma/generated
 packages/model/prisma/zod

@@ -10,7 +10,9 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
+import PriceInput from "@repo/ui/components/price-input";
 import { useTranslations } from "next-intl";
+
 
 export default function PriceWidget({
   form,
@@ -20,6 +22,21 @@ export default function PriceWidget({
   currency?: TCurrency;
 }) {
   const t = useTranslations("Product");
+
+  const handleQuantityPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPrice = +event.target.value;
+    if (newPrice < 0) {
+      return;
+    }
+      form.setValue("price", newPrice);
+  };
+    const handleQuantityPriceOffer = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newPrice = +event.target.value;
+        if (newPrice < 0) {
+            return;
+        }
+        form.setValue("offerPrice", newPrice);
+    };
   return (
     <>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
@@ -30,12 +47,16 @@ export default function PriceWidget({
             <FormItem>
               <FormLabel>{t("lbPrice")}</FormLabel>
               <FormControl>
-                <Input
+                {/*<Input
                   placeholder={t("phPrice")}
                   type="number"
                   {...field}
                   onChange={(event: any) => field.onChange(+event.target.value)}
-                />
+                />*/}
+                  <PriceInput
+                      onBlur={handleQuantityPriceChange}
+                      value={field.value}
+                  />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
@@ -48,22 +69,26 @@ export default function PriceWidget({
             <FormItem>
               <FormLabel>{t("lbOfferPrice")}</FormLabel>
               <FormControl>
-                <Input
+                {/*<Input
                   placeholder={t("phOfferPrice")}
                   type="number"
                   {...field}
                   onChange={(event: any) => field.onChange(+event.target.value)}
-                />
+                />*/}
+                  <PriceInput
+                      onBlur={handleQuantityPriceOffer}
+                      value={field.value}
+                  />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
           )}
         />
-        <PriceDisplay
+        {/*<PriceDisplay
           price={form.watch("price")}
           offerPrice={form.watch("offerPrice")}
           currency={currency}
-        />
+        />*/}
       </div>
     </>
   );
