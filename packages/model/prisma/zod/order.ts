@@ -11,6 +11,8 @@ import {
   RelatedCollaboratorInvoiceModel,
   CompleteOrderAddress,
   RelatedOrderAddressModel,
+  CompleteCollaboratorTicket,
+  RelatedCollaboratorTicketModel,
 } from "./index";
 
 // Helper schema for JSON fields
@@ -48,6 +50,7 @@ export interface CompleteOrder extends z.infer<typeof OrderModel> {
   business?: CompleteBusiness | null;
   collaboratorInvoice?: CompleteCollaboratorInvoice | null;
   orderAddress?: CompleteOrderAddress | null;
+  ticket?: CompleteCollaboratorTicket | null;
 }
 
 /**
@@ -62,5 +65,6 @@ export const RelatedOrderModel: z.ZodSchema<CompleteOrder> = z.lazy(() =>
     business: RelatedBusinessModel.nullish(),
     collaboratorInvoice: RelatedCollaboratorInvoiceModel.nullish(),
     orderAddress: RelatedOrderAddressModel.nullish(),
+    ticket: RelatedCollaboratorTicketModel.nullish(),
   }),
 );

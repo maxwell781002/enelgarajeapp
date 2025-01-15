@@ -120,6 +120,16 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  userPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
+    return this.basePaginate(
+      { ...data },
+      {
+        userId,
+        isCollaborator: true,
+      },
+    );
+  }
+
   collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
     return this.basePaginate(
       { ...data },
@@ -244,6 +254,9 @@ export class OrderRepository extends BaseRepository<
       where: { id },
       include: {
         user: true,
+        ticket: {
+          include: { customer: true },
+        },
         orderAddress: {
           include: { address: { include: { neighborhood: true } } },
         },

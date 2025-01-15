@@ -36,6 +36,7 @@ model Business {
   defaultPaymentMethod   PaymentMethod?         @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
   defaultPaymentMethodId String?                @unique()
   currency               Currency               @default(CUP) /// @zod.optional()
+  ticketTermsConditions  String?
   telegram               TelegramBusiness?
   categories             Category[]
   products               Product[]
@@ -48,11 +49,14 @@ model Business {
   cardBanks              CollaboratorCardBank[]
   collaboratorInvoices   CollaboratorInvoice[]
   collaboratorProfiles   CollaboratorProfile[]
+  customers              Customer[]
+  tickets                CollaboratorTicket[]
 }
 
 enum Currency {
   CUP
   USD
+  MLC
 }
 
 model TelegramBusiness {
@@ -150,6 +154,7 @@ model User {
   cardBanks            CollaboratorCardBank[]
   collaboratorInvoices CollaboratorInvoice[]
   collaboratorProfiles CollaboratorProfile[]
+  tickets              CollaboratorTicket[]
 }
 
 model UserBusiness {
@@ -165,6 +170,39 @@ model UserBusiness {
 enum UserBusinessType {
   OWNER
   COLLABORATOR
+}
+
+model Customer {
+  id             String               @id @default(uuid())
+  name           String /// @zod.min(1, { message: "Required" })
+  phones         Json
+  identification String /// @zod.min(1, { message: "Required" })
+  business       Business             @relation(fields: [businessId], references: [id])
+  businessId     String
+  tickets        CollaboratorTicket[]
+}
+
+model CollaboratorTicket {
+  id             String            @id @default(uuid())
+  deliveryDate   DateTime /// @zod.date
+  currency       Currency
+  formOfPayment  FormOfPaymentType
+  phone          String
+  nota           String
+  acceptTerms    Boolean /// @zod.refine((val) => val === true, { message: "ticketTermsConditions" })
+  business       Business          @relation(fields: [businessId], references: [id])
+  businessId     String
+  customer       Customer          @relation(fields: [customerId], references: [id])
+  customerId     String
+  order          Order             @relation(fields: [orderId], references: [id])
+  orderId        String            @unique
+  collaborator   User              @relation(fields: [collaboratorId], references: [id])
+  collaboratorId String
+}
+
+enum FormOfPaymentType {
+  TRANSFER
+  CASH
 }
 
 model CollaboratorProfile {
@@ -229,6 +267,7 @@ model Order {
   collaboratorInvoiceId String?
 
   orderAddress OrderAddress?
+  ticket       CollaboratorTicket?
 }
 
 model OrderProduct {

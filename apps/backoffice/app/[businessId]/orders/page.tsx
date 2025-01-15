@@ -1,9 +1,6 @@
 import MyTable from "@repo/ui/components/table/index";
 import { crud } from "@repo/model/lib/crud";
-import {
-  orderRepository,
-  OrderRepository,
-} from "@repo/model/repositories/order";
+import { orderRepository } from "@repo/model/repositories/order";
 import { columns } from "./columns";
 import Filter from "./filters";
 import { redirect } from "next/navigation";

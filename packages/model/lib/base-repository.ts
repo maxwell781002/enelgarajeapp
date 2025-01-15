@@ -97,4 +97,8 @@ export abstract class BaseRepository<T extends Entity, M> {
       hasMore: total > skip + data.length,
     };
   }
+
+  findFirst(where: any) {
+    return this.model.findFirst({ where });
+  }
 }

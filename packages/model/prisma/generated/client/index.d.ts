@@ -56,6 +56,17 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>;
 export type UserBusiness =
   $Result.DefaultSelection<Prisma.$UserBusinessPayload>;
 /**
+ * Model Customer
+ *
+ */
+export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>;
+/**
+ * Model CollaboratorTicket
+ *
+ */
+export type CollaboratorTicket =
+  $Result.DefaultSelection<Prisma.$CollaboratorTicketPayload>;
+/**
  * Model CollaboratorProfile
  *
  */
@@ -155,6 +166,7 @@ export namespace $Enums {
   export const Currency: {
     CUP: "CUP";
     USD: "USD";
+    MLC: "MLC";
   };
 
   export type Currency = (typeof Currency)[keyof typeof Currency];
@@ -190,6 +202,14 @@ export namespace $Enums {
   export type UserBusinessType =
     (typeof UserBusinessType)[keyof typeof UserBusinessType];
 
+  export const FormOfPaymentType: {
+    TRANSFER: "TRANSFER";
+    CASH: "CASH";
+  };
+
+  export type FormOfPaymentType =
+    (typeof FormOfPaymentType)[keyof typeof FormOfPaymentType];
+
   export const OrderStatus: {
     CREATED: "CREATED";
     SEND: "SEND";
@@ -223,6 +243,10 @@ export const UserRoles: typeof $Enums.UserRoles;
 export type UserBusinessType = $Enums.UserBusinessType;
 
 export const UserBusinessType: typeof $Enums.UserBusinessType;
+
+export type FormOfPaymentType = $Enums.FormOfPaymentType;
+
+export const FormOfPaymentType: typeof $Enums.FormOfPaymentType;
 
 export type OrderStatus = $Enums.OrderStatus;
 
@@ -463,6 +487,26 @@ export class PrismaClient<
    * ```
    */
   get userBusiness(): Prisma.UserBusinessDelegate<ExtArgs>;
+
+  /**
+   * `prisma.customer`: Exposes CRUD operations for the **Customer** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Customers
+   * const customers = await prisma.customer.findMany()
+   * ```
+   */
+  get customer(): Prisma.CustomerDelegate<ExtArgs>;
+
+  /**
+   * `prisma.collaboratorTicket`: Exposes CRUD operations for the **CollaboratorTicket** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more CollaboratorTickets
+   * const collaboratorTickets = await prisma.collaboratorTicket.findMany()
+   * ```
+   */
+  get collaboratorTicket(): Prisma.CollaboratorTicketDelegate<ExtArgs>;
 
   /**
    * `prisma.collaboratorProfile`: Exposes CRUD operations for the **CollaboratorProfile** model.
@@ -1080,6 +1124,8 @@ export namespace Prisma {
     ProductPrice: "ProductPrice";
     User: "User";
     UserBusiness: "UserBusiness";
+    Customer: "Customer";
+    CollaboratorTicket: "CollaboratorTicket";
     CollaboratorProfile: "CollaboratorProfile";
     CollaboratorCardBank: "CollaboratorCardBank";
     InvitationLink: "InvitationLink";
@@ -1128,6 +1174,8 @@ export namespace Prisma {
         | "productPrice"
         | "user"
         | "userBusiness"
+        | "customer"
+        | "collaboratorTicket"
         | "collaboratorProfile"
         | "collaboratorCardBank"
         | "invitationLink"
@@ -1710,6 +1758,148 @@ export namespace Prisma {
             args: Prisma.UserBusinessCountArgs<ExtArgs>;
             result:
               | $Utils.Optional<UserBusinessCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      Customer: {
+        payload: Prisma.$CustomerPayload<ExtArgs>;
+        fields: Prisma.CustomerFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.CustomerFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>;
+          };
+          findFirst: {
+            args: Prisma.CustomerFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.CustomerFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>;
+          };
+          findMany: {
+            args: Prisma.CustomerFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>[];
+          };
+          create: {
+            args: Prisma.CustomerCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>;
+          };
+          createMany: {
+            args: Prisma.CustomerCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.CustomerCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>[];
+          };
+          delete: {
+            args: Prisma.CustomerDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>;
+          };
+          update: {
+            args: Prisma.CustomerUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>;
+          };
+          deleteMany: {
+            args: Prisma.CustomerDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.CustomerUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.CustomerUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CustomerPayload>;
+          };
+          aggregate: {
+            args: Prisma.CustomerAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateCustomer>;
+          };
+          groupBy: {
+            args: Prisma.CustomerGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<CustomerGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.CustomerCountArgs<ExtArgs>;
+            result: $Utils.Optional<CustomerCountAggregateOutputType> | number;
+          };
+        };
+      };
+      CollaboratorTicket: {
+        payload: Prisma.$CollaboratorTicketPayload<ExtArgs>;
+        fields: Prisma.CollaboratorTicketFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.CollaboratorTicketFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.CollaboratorTicketFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>;
+          };
+          findFirst: {
+            args: Prisma.CollaboratorTicketFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.CollaboratorTicketFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>;
+          };
+          findMany: {
+            args: Prisma.CollaboratorTicketFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>[];
+          };
+          create: {
+            args: Prisma.CollaboratorTicketCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>;
+          };
+          createMany: {
+            args: Prisma.CollaboratorTicketCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.CollaboratorTicketCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>[];
+          };
+          delete: {
+            args: Prisma.CollaboratorTicketDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>;
+          };
+          update: {
+            args: Prisma.CollaboratorTicketUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>;
+          };
+          deleteMany: {
+            args: Prisma.CollaboratorTicketDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.CollaboratorTicketUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.CollaboratorTicketUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CollaboratorTicketPayload>;
+          };
+          aggregate: {
+            args: Prisma.CollaboratorTicketAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateCollaboratorTicket>;
+          };
+          groupBy: {
+            args: Prisma.CollaboratorTicketGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<CollaboratorTicketGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.CollaboratorTicketCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<CollaboratorTicketCountAggregateOutputType>
               | number;
           };
         };
@@ -2978,6 +3168,8 @@ export namespace Prisma {
     cardBanks: number;
     collaboratorInvoices: number;
     collaboratorProfiles: number;
+    customers: number;
+    tickets: number;
   };
 
   export type BusinessCountOutputTypeSelect<
@@ -3000,6 +3192,8 @@ export namespace Prisma {
     collaboratorProfiles?:
       | boolean
       | BusinessCountOutputTypeCountCollaboratorProfilesArgs;
+    customers?: boolean | BusinessCountOutputTypeCountCustomersArgs;
+    tickets?: boolean | BusinessCountOutputTypeCountTicketsArgs;
   };
 
   // Custom InputTypes
@@ -3115,6 +3309,24 @@ export namespace Prisma {
   };
 
   /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountCustomersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CustomerWhereInput;
+  };
+
+  /**
+   * BusinessCountOutputType without action
+   */
+  export type BusinessCountOutputTypeCountTicketsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorTicketWhereInput;
+  };
+
+  /**
    * Count Type CategoryCountOutputType
    */
 
@@ -3200,6 +3412,7 @@ export namespace Prisma {
     cardBanks: number;
     collaboratorInvoices: number;
     collaboratorProfiles: number;
+    tickets: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -3218,6 +3431,7 @@ export namespace Prisma {
     collaboratorProfiles?:
       | boolean
       | UserCountOutputTypeCountCollaboratorProfilesArgs;
+    tickets?: boolean | UserCountOutputTypeCountTicketsArgs;
   };
 
   // Custom InputTypes
@@ -3312,6 +3526,51 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: CollaboratorProfileWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTicketsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorTicketWhereInput;
+  };
+
+  /**
+   * Count Type CustomerCountOutputType
+   */
+
+  export type CustomerCountOutputType = {
+    tickets: number;
+  };
+
+  export type CustomerCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    tickets?: boolean | CustomerCountOutputTypeCountTicketsArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CustomerCountOutputType
+     */
+    select?: CustomerCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountTicketsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorTicketWhereInput;
   };
 
   /**
@@ -3511,6 +3770,7 @@ export namespace Prisma {
     sendOrderToWhatsapp: boolean | null;
     defaultPaymentMethodId: string | null;
     currency: $Enums.Currency | null;
+    ticketTermsConditions: string | null;
   };
 
   export type BusinessMaxAggregateOutputType = {
@@ -3527,6 +3787,7 @@ export namespace Prisma {
     sendOrderToWhatsapp: boolean | null;
     defaultPaymentMethodId: string | null;
     currency: $Enums.Currency | null;
+    ticketTermsConditions: string | null;
   };
 
   export type BusinessCountAggregateOutputType = {
@@ -3544,6 +3805,7 @@ export namespace Prisma {
     sendOrderToWhatsapp: number;
     defaultPaymentMethodId: number;
     currency: number;
+    ticketTermsConditions: number;
     _all: number;
   };
 
@@ -3569,6 +3831,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: true;
     defaultPaymentMethodId?: true;
     currency?: true;
+    ticketTermsConditions?: true;
   };
 
   export type BusinessMaxAggregateInputType = {
@@ -3585,6 +3848,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: true;
     defaultPaymentMethodId?: true;
     currency?: true;
+    ticketTermsConditions?: true;
   };
 
   export type BusinessCountAggregateInputType = {
@@ -3602,6 +3866,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: true;
     defaultPaymentMethodId?: true;
     currency?: true;
+    ticketTermsConditions?: true;
     _all?: true;
   };
 
@@ -3711,6 +3976,7 @@ export namespace Prisma {
     sendOrderToWhatsapp: boolean;
     defaultPaymentMethodId: string | null;
     currency: $Enums.Currency;
+    ticketTermsConditions: string | null;
     _count: BusinessCountAggregateOutputType | null;
     _avg: BusinessAvgAggregateOutputType | null;
     _sum: BusinessSumAggregateOutputType | null;
@@ -3749,6 +4015,7 @@ export namespace Prisma {
       sendOrderToWhatsapp?: boolean;
       defaultPaymentMethodId?: boolean;
       currency?: boolean;
+      ticketTermsConditions?: boolean;
       defaultPaymentMethod?:
         | boolean
         | Business$defaultPaymentMethodArgs<ExtArgs>;
@@ -3770,6 +4037,8 @@ export namespace Prisma {
       collaboratorProfiles?:
         | boolean
         | Business$collaboratorProfilesArgs<ExtArgs>;
+      customers?: boolean | Business$customersArgs<ExtArgs>;
+      tickets?: boolean | Business$ticketsArgs<ExtArgs>;
       _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["business"]
@@ -3793,6 +4062,7 @@ export namespace Prisma {
       sendOrderToWhatsapp?: boolean;
       defaultPaymentMethodId?: boolean;
       currency?: boolean;
+      ticketTermsConditions?: boolean;
       defaultPaymentMethod?:
         | boolean
         | Business$defaultPaymentMethodArgs<ExtArgs>;
@@ -3815,6 +4085,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: boolean;
     currency?: boolean;
+    ticketTermsConditions?: boolean;
   };
 
   export type BusinessInclude<
@@ -3833,6 +4104,8 @@ export namespace Prisma {
     cardBanks?: boolean | Business$cardBanksArgs<ExtArgs>;
     collaboratorInvoices?: boolean | Business$collaboratorInvoicesArgs<ExtArgs>;
     collaboratorProfiles?: boolean | Business$collaboratorProfilesArgs<ExtArgs>;
+    customers?: boolean | Business$customersArgs<ExtArgs>;
+    tickets?: boolean | Business$ticketsArgs<ExtArgs>;
     _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type BusinessIncludeCreateManyAndReturn<
@@ -3859,6 +4132,8 @@ export namespace Prisma {
       cardBanks: Prisma.$CollaboratorCardBankPayload<ExtArgs>[];
       collaboratorInvoices: Prisma.$CollaboratorInvoicePayload<ExtArgs>[];
       collaboratorProfiles: Prisma.$CollaboratorProfilePayload<ExtArgs>[];
+      customers: Prisma.$CustomerPayload<ExtArgs>[];
+      tickets: Prisma.$CollaboratorTicketPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -3900,6 +4175,7 @@ export namespace Prisma {
          * @zod.optional()
          */
         currency: $Enums.Currency;
+        ticketTermsConditions: string | null;
       },
       ExtArgs["result"]["business"]
     >;
@@ -4477,6 +4753,21 @@ export namespace Prisma {
         >
       | Null
     >;
+    customers<T extends Business$customersArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$customersArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany"> | Null
+    >;
+    tickets<T extends Business$ticketsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Business$ticketsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorTicketPayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4531,6 +4822,7 @@ export namespace Prisma {
     readonly sendOrderToWhatsapp: FieldRef<"Business", "Boolean">;
     readonly defaultPaymentMethodId: FieldRef<"Business", "String">;
     readonly currency: FieldRef<"Business", "Currency">;
+    readonly ticketTermsConditions: FieldRef<"Business", "String">;
   }
 
   // Custom InputTypes
@@ -5184,6 +5476,56 @@ export namespace Prisma {
     distinct?:
       | CollaboratorProfileScalarFieldEnum
       | CollaboratorProfileScalarFieldEnum[];
+  };
+
+  /**
+   * Business.customers
+   */
+  export type Business$customersArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    where?: CustomerWhereInput;
+    orderBy?:
+      | CustomerOrderByWithRelationInput
+      | CustomerOrderByWithRelationInput[];
+    cursor?: CustomerWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[];
+  };
+
+  /**
+   * Business.tickets
+   */
+  export type Business$ticketsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    where?: CollaboratorTicketWhereInput;
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorTicketScalarFieldEnum
+      | CollaboratorTicketScalarFieldEnum[];
   };
 
   /**
@@ -11426,6 +11768,7 @@ export namespace Prisma {
       cardBanks?: boolean | User$cardBanksArgs<ExtArgs>;
       collaboratorInvoices?: boolean | User$collaboratorInvoicesArgs<ExtArgs>;
       collaboratorProfiles?: boolean | User$collaboratorProfilesArgs<ExtArgs>;
+      tickets?: boolean | User$ticketsArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["user"]
@@ -11472,6 +11815,7 @@ export namespace Prisma {
     cardBanks?: boolean | User$cardBanksArgs<ExtArgs>;
     collaboratorInvoices?: boolean | User$collaboratorInvoicesArgs<ExtArgs>;
     collaboratorProfiles?: boolean | User$collaboratorProfilesArgs<ExtArgs>;
+    tickets?: boolean | User$ticketsArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type UserIncludeCreateManyAndReturn<
@@ -11492,6 +11836,7 @@ export namespace Prisma {
       cardBanks: Prisma.$CollaboratorCardBankPayload<ExtArgs>[];
       collaboratorInvoices: Prisma.$CollaboratorInvoicePayload<ExtArgs>[];
       collaboratorProfiles: Prisma.$CollaboratorProfilePayload<ExtArgs>[];
+      tickets: Prisma.$CollaboratorTicketPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -12008,6 +12353,16 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$CollaboratorProfilePayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    tickets<T extends User$ticketsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$ticketsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorTicketPayload<ExtArgs>,
           T,
           "findMany"
         >
@@ -12618,6 +12973,32 @@ export namespace Prisma {
     distinct?:
       | CollaboratorProfileScalarFieldEnum
       | CollaboratorProfileScalarFieldEnum[];
+  };
+
+  /**
+   * User.tickets
+   */
+  export type User$ticketsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    where?: CollaboratorTicketWhereInput;
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorTicketScalarFieldEnum
+      | CollaboratorTicketScalarFieldEnum[];
   };
 
   /**
@@ -13740,6 +14121,2455 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserBusinessInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model Customer
+   */
+
+  export type AggregateCustomer = {
+    _count: CustomerCountAggregateOutputType | null;
+    _min: CustomerMinAggregateOutputType | null;
+    _max: CustomerMaxAggregateOutputType | null;
+  };
+
+  export type CustomerMinAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    identification: string | null;
+    businessId: string | null;
+  };
+
+  export type CustomerMaxAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    identification: string | null;
+    businessId: string | null;
+  };
+
+  export type CustomerCountAggregateOutputType = {
+    id: number;
+    name: number;
+    phones: number;
+    identification: number;
+    businessId: number;
+    _all: number;
+  };
+
+  export type CustomerMinAggregateInputType = {
+    id?: true;
+    name?: true;
+    identification?: true;
+    businessId?: true;
+  };
+
+  export type CustomerMaxAggregateInputType = {
+    id?: true;
+    name?: true;
+    identification?: true;
+    businessId?: true;
+  };
+
+  export type CustomerCountAggregateInputType = {
+    id?: true;
+    name?: true;
+    phones?: true;
+    identification?: true;
+    businessId?: true;
+    _all?: true;
+  };
+
+  export type CustomerAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Customer to aggregate.
+     */
+    where?: CustomerWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Customers to fetch.
+     */
+    orderBy?:
+      | CustomerOrderByWithRelationInput
+      | CustomerOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: CustomerWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Customers from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Customers.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Customers
+     **/
+    _count?: true | CustomerCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: CustomerMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: CustomerMaxAggregateInputType;
+  };
+
+  export type GetCustomerAggregateType<T extends CustomerAggregateArgs> = {
+    [P in keyof T & keyof AggregateCustomer]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomer[P]>
+      : GetScalarType<T[P], AggregateCustomer[P]>;
+  };
+
+  export type CustomerGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CustomerWhereInput;
+    orderBy?:
+      | CustomerOrderByWithAggregationInput
+      | CustomerOrderByWithAggregationInput[];
+    by: CustomerScalarFieldEnum[] | CustomerScalarFieldEnum;
+    having?: CustomerScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CustomerCountAggregateInputType | true;
+    _min?: CustomerMinAggregateInputType;
+    _max?: CustomerMaxAggregateInputType;
+  };
+
+  export type CustomerGroupByOutputType = {
+    id: string;
+    name: string;
+    phones: JsonValue;
+    identification: string;
+    businessId: string;
+    _count: CustomerCountAggregateOutputType | null;
+    _min: CustomerMinAggregateOutputType | null;
+    _max: CustomerMaxAggregateOutputType | null;
+  };
+
+  type GetCustomerGroupByPayload<T extends CustomerGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<CustomerGroupByOutputType, T["by"]> & {
+          [P in keyof T & keyof CustomerGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type CustomerSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      name?: boolean;
+      phones?: boolean;
+      identification?: boolean;
+      businessId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      tickets?: boolean | Customer$ticketsArgs<ExtArgs>;
+      _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["customer"]
+  >;
+
+  export type CustomerSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      name?: boolean;
+      phones?: boolean;
+      identification?: boolean;
+      businessId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["customer"]
+  >;
+
+  export type CustomerSelectScalar = {
+    id?: boolean;
+    name?: boolean;
+    phones?: boolean;
+    identification?: boolean;
+    businessId?: boolean;
+  };
+
+  export type CustomerInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    tickets?: boolean | Customer$ticketsArgs<ExtArgs>;
+    _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>;
+  };
+  export type CustomerIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+  };
+
+  export type $CustomerPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Customer";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+      tickets: Prisma.$CollaboratorTicketPayload<ExtArgs>[];
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
+        name: string;
+        phones: Prisma.JsonValue;
+        /**
+         * @zod.min(1, { message: "Required" })
+         */
+        identification: string;
+        businessId: string;
+      },
+      ExtArgs["result"]["customer"]
+    >;
+    composites: {};
+  };
+
+  type CustomerGetPayload<
+    S extends boolean | null | undefined | CustomerDefaultArgs,
+  > = $Result.GetResult<Prisma.$CustomerPayload, S>;
+
+  type CustomerCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<CustomerFindManyArgs, "select" | "include" | "distinct"> & {
+    select?: CustomerCountAggregateInputType | true;
+  };
+
+  export interface CustomerDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Customer"];
+      meta: { name: "Customer" };
+    };
+    /**
+     * Find zero or one Customer that matches the filter.
+     * @param {CustomerFindUniqueArgs} args - Arguments to find a Customer
+     * @example
+     * // Get one Customer
+     * const customer = await prisma.customer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerFindUniqueArgs>(
+      args: SelectSubset<T, CustomerFindUniqueArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<
+        Prisma.$CustomerPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one Customer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomerFindUniqueOrThrowArgs} args - Arguments to find a Customer
+     * @example
+     * // Get one Customer
+     * const customer = await prisma.customer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, CustomerFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<
+        Prisma.$CustomerPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first Customer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerFindFirstArgs} args - Arguments to find a Customer
+     * @example
+     * // Get one Customer
+     * const customer = await prisma.customer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerFindFirstArgs>(
+      args?: SelectSubset<T, CustomerFindFirstArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<
+        Prisma.$CustomerPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first Customer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerFindFirstOrThrowArgs} args - Arguments to find a Customer
+     * @example
+     * // Get one Customer
+     * const customer = await prisma.customer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CustomerFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<
+        Prisma.$CustomerPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more Customers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Customers
+     * const customers = await prisma.customer.findMany()
+     *
+     * // Get first 10 Customers
+     * const customers = await prisma.customer.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const customerWithIdOnly = await prisma.customer.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CustomerFindManyArgs>(
+      args?: SelectSubset<T, CustomerFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany">
+    >;
+
+    /**
+     * Create a Customer.
+     * @param {CustomerCreateArgs} args - Arguments to create a Customer.
+     * @example
+     * // Create one Customer
+     * const Customer = await prisma.customer.create({
+     *   data: {
+     *     // ... data to create a Customer
+     *   }
+     * })
+     *
+     */
+    create<T extends CustomerCreateArgs>(
+      args: SelectSubset<T, CustomerCreateArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "create">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many Customers.
+     * @param {CustomerCreateManyArgs} args - Arguments to create many Customers.
+     * @example
+     * // Create many Customers
+     * const customer = await prisma.customer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CustomerCreateManyArgs>(
+      args?: SelectSubset<T, CustomerCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Customers and returns the data saved in the database.
+     * @param {CustomerCreateManyAndReturnArgs} args - Arguments to create many Customers.
+     * @example
+     * // Create many Customers
+     * const customer = await prisma.customer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Customers and only return the `id`
+     * const customerWithIdOnly = await prisma.customer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CustomerCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, CustomerCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CustomerPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a Customer.
+     * @param {CustomerDeleteArgs} args - Arguments to delete one Customer.
+     * @example
+     * // Delete one Customer
+     * const Customer = await prisma.customer.delete({
+     *   where: {
+     *     // ... filter to delete one Customer
+     *   }
+     * })
+     *
+     */
+    delete<T extends CustomerDeleteArgs>(
+      args: SelectSubset<T, CustomerDeleteArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "delete">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one Customer.
+     * @param {CustomerUpdateArgs} args - Arguments to update one Customer.
+     * @example
+     * // Update one Customer
+     * const customer = await prisma.customer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CustomerUpdateArgs>(
+      args: SelectSubset<T, CustomerUpdateArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "update">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more Customers.
+     * @param {CustomerDeleteManyArgs} args - Arguments to filter Customers to delete.
+     * @example
+     * // Delete a few Customers
+     * const { count } = await prisma.customer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CustomerDeleteManyArgs>(
+      args?: SelectSubset<T, CustomerDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Customers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Customers
+     * const customer = await prisma.customer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CustomerUpdateManyArgs>(
+      args: SelectSubset<T, CustomerUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one Customer.
+     * @param {CustomerUpsertArgs} args - Arguments to update or create a Customer.
+     * @example
+     * // Update or create a Customer
+     * const customer = await prisma.customer.upsert({
+     *   create: {
+     *     // ... data to create a Customer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Customer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerUpsertArgs>(
+      args: SelectSubset<T, CustomerUpsertArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      $Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "upsert">,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of Customers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerCountArgs} args - Arguments to filter Customers to count.
+     * @example
+     * // Count the number of Customers
+     * const count = await prisma.customer.count({
+     *   where: {
+     *     // ... the filter for the Customers we want to count
+     *   }
+     * })
+     **/
+    count<T extends CustomerCountArgs>(
+      args?: Subset<T, CustomerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], CustomerCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Customer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends CustomerAggregateArgs>(
+      args: Subset<T, CustomerAggregateArgs>,
+    ): Prisma.PrismaPromise<GetCustomerAggregateType<T>>;
+
+    /**
+     * Group by Customer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends CustomerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerGroupByArgs["orderBy"] }
+        : { orderBy?: CustomerGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, CustomerGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetCustomerGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Customer model
+     */
+    readonly fields: CustomerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Customer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    tickets<T extends Customer$ticketsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Customer$ticketsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CollaboratorTicketPayload<ExtArgs>,
+          T,
+          "findMany"
+        >
+      | Null
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Customer model
+   */
+  interface CustomerFieldRefs {
+    readonly id: FieldRef<"Customer", "String">;
+    readonly name: FieldRef<"Customer", "String">;
+    readonly phones: FieldRef<"Customer", "Json">;
+    readonly identification: FieldRef<"Customer", "String">;
+    readonly businessId: FieldRef<"Customer", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * Customer findUnique
+   */
+  export type CustomerFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * Filter, which Customer to fetch.
+     */
+    where: CustomerWhereUniqueInput;
+  };
+
+  /**
+   * Customer findUniqueOrThrow
+   */
+  export type CustomerFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * Filter, which Customer to fetch.
+     */
+    where: CustomerWhereUniqueInput;
+  };
+
+  /**
+   * Customer findFirst
+   */
+  export type CustomerFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * Filter, which Customer to fetch.
+     */
+    where?: CustomerWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Customers to fetch.
+     */
+    orderBy?:
+      | CustomerOrderByWithRelationInput
+      | CustomerOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Customers.
+     */
+    cursor?: CustomerWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Customers from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Customers.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Customers.
+     */
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[];
+  };
+
+  /**
+   * Customer findFirstOrThrow
+   */
+  export type CustomerFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * Filter, which Customer to fetch.
+     */
+    where?: CustomerWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Customers to fetch.
+     */
+    orderBy?:
+      | CustomerOrderByWithRelationInput
+      | CustomerOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Customers.
+     */
+    cursor?: CustomerWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Customers from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Customers.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Customers.
+     */
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[];
+  };
+
+  /**
+   * Customer findMany
+   */
+  export type CustomerFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * Filter, which Customers to fetch.
+     */
+    where?: CustomerWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Customers to fetch.
+     */
+    orderBy?:
+      | CustomerOrderByWithRelationInput
+      | CustomerOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Customers.
+     */
+    cursor?: CustomerWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Customers from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Customers.
+     */
+    skip?: number;
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[];
+  };
+
+  /**
+   * Customer create
+   */
+  export type CustomerCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Customer.
+     */
+    data: XOR<CustomerCreateInput, CustomerUncheckedCreateInput>;
+  };
+
+  /**
+   * Customer createMany
+   */
+  export type CustomerCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Customers.
+     */
+    data: CustomerCreateManyInput | CustomerCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Customer createManyAndReturn
+   */
+  export type CustomerCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many Customers.
+     */
+    data: CustomerCreateManyInput | CustomerCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Customer update
+   */
+  export type CustomerUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Customer.
+     */
+    data: XOR<CustomerUpdateInput, CustomerUncheckedUpdateInput>;
+    /**
+     * Choose, which Customer to update.
+     */
+    where: CustomerWhereUniqueInput;
+  };
+
+  /**
+   * Customer updateMany
+   */
+  export type CustomerUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Customers.
+     */
+    data: XOR<
+      CustomerUpdateManyMutationInput,
+      CustomerUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which Customers to update
+     */
+    where?: CustomerWhereInput;
+  };
+
+  /**
+   * Customer upsert
+   */
+  export type CustomerUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Customer to update in case it exists.
+     */
+    where: CustomerWhereUniqueInput;
+    /**
+     * In case the Customer found by the `where` argument doesn't exist, create a new Customer with this data.
+     */
+    create: XOR<CustomerCreateInput, CustomerUncheckedCreateInput>;
+    /**
+     * In case the Customer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerUpdateInput, CustomerUncheckedUpdateInput>;
+  };
+
+  /**
+   * Customer delete
+   */
+  export type CustomerDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+    /**
+     * Filter which Customer to delete.
+     */
+    where: CustomerWhereUniqueInput;
+  };
+
+  /**
+   * Customer deleteMany
+   */
+  export type CustomerDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Customers to delete
+     */
+    where?: CustomerWhereInput;
+  };
+
+  /**
+   * Customer.tickets
+   */
+  export type Customer$ticketsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    where?: CollaboratorTicketWhereInput;
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | CollaboratorTicketScalarFieldEnum
+      | CollaboratorTicketScalarFieldEnum[];
+  };
+
+  /**
+   * Customer without action
+   */
+  export type CustomerDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model CollaboratorTicket
+   */
+
+  export type AggregateCollaboratorTicket = {
+    _count: CollaboratorTicketCountAggregateOutputType | null;
+    _min: CollaboratorTicketMinAggregateOutputType | null;
+    _max: CollaboratorTicketMaxAggregateOutputType | null;
+  };
+
+  export type CollaboratorTicketMinAggregateOutputType = {
+    id: string | null;
+    deliveryDate: Date | null;
+    currency: $Enums.Currency | null;
+    formOfPayment: $Enums.FormOfPaymentType | null;
+    phone: string | null;
+    nota: string | null;
+    acceptTerms: boolean | null;
+    businessId: string | null;
+    customerId: string | null;
+    orderId: string | null;
+    collaboratorId: string | null;
+  };
+
+  export type CollaboratorTicketMaxAggregateOutputType = {
+    id: string | null;
+    deliveryDate: Date | null;
+    currency: $Enums.Currency | null;
+    formOfPayment: $Enums.FormOfPaymentType | null;
+    phone: string | null;
+    nota: string | null;
+    acceptTerms: boolean | null;
+    businessId: string | null;
+    customerId: string | null;
+    orderId: string | null;
+    collaboratorId: string | null;
+  };
+
+  export type CollaboratorTicketCountAggregateOutputType = {
+    id: number;
+    deliveryDate: number;
+    currency: number;
+    formOfPayment: number;
+    phone: number;
+    nota: number;
+    acceptTerms: number;
+    businessId: number;
+    customerId: number;
+    orderId: number;
+    collaboratorId: number;
+    _all: number;
+  };
+
+  export type CollaboratorTicketMinAggregateInputType = {
+    id?: true;
+    deliveryDate?: true;
+    currency?: true;
+    formOfPayment?: true;
+    phone?: true;
+    nota?: true;
+    acceptTerms?: true;
+    businessId?: true;
+    customerId?: true;
+    orderId?: true;
+    collaboratorId?: true;
+  };
+
+  export type CollaboratorTicketMaxAggregateInputType = {
+    id?: true;
+    deliveryDate?: true;
+    currency?: true;
+    formOfPayment?: true;
+    phone?: true;
+    nota?: true;
+    acceptTerms?: true;
+    businessId?: true;
+    customerId?: true;
+    orderId?: true;
+    collaboratorId?: true;
+  };
+
+  export type CollaboratorTicketCountAggregateInputType = {
+    id?: true;
+    deliveryDate?: true;
+    currency?: true;
+    formOfPayment?: true;
+    phone?: true;
+    nota?: true;
+    acceptTerms?: true;
+    businessId?: true;
+    customerId?: true;
+    orderId?: true;
+    collaboratorId?: true;
+    _all?: true;
+  };
+
+  export type CollaboratorTicketAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which CollaboratorTicket to aggregate.
+     */
+    where?: CollaboratorTicketWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorTickets to fetch.
+     */
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorTickets from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorTickets.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned CollaboratorTickets
+     **/
+    _count?: true | CollaboratorTicketCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: CollaboratorTicketMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: CollaboratorTicketMaxAggregateInputType;
+  };
+
+  export type GetCollaboratorTicketAggregateType<
+    T extends CollaboratorTicketAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateCollaboratorTicket]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollaboratorTicket[P]>
+      : GetScalarType<T[P], AggregateCollaboratorTicket[P]>;
+  };
+
+  export type CollaboratorTicketGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CollaboratorTicketWhereInput;
+    orderBy?:
+      | CollaboratorTicketOrderByWithAggregationInput
+      | CollaboratorTicketOrderByWithAggregationInput[];
+    by: CollaboratorTicketScalarFieldEnum[] | CollaboratorTicketScalarFieldEnum;
+    having?: CollaboratorTicketScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CollaboratorTicketCountAggregateInputType | true;
+    _min?: CollaboratorTicketMinAggregateInputType;
+    _max?: CollaboratorTicketMaxAggregateInputType;
+  };
+
+  export type CollaboratorTicketGroupByOutputType = {
+    id: string;
+    deliveryDate: Date;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    customerId: string;
+    orderId: string;
+    collaboratorId: string;
+    _count: CollaboratorTicketCountAggregateOutputType | null;
+    _min: CollaboratorTicketMinAggregateOutputType | null;
+    _max: CollaboratorTicketMaxAggregateOutputType | null;
+  };
+
+  type GetCollaboratorTicketGroupByPayload<
+    T extends CollaboratorTicketGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CollaboratorTicketGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof CollaboratorTicketGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], CollaboratorTicketGroupByOutputType[P]>
+          : GetScalarType<T[P], CollaboratorTicketGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type CollaboratorTicketSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      deliveryDate?: boolean;
+      currency?: boolean;
+      formOfPayment?: boolean;
+      phone?: boolean;
+      nota?: boolean;
+      acceptTerms?: boolean;
+      businessId?: boolean;
+      customerId?: boolean;
+      orderId?: boolean;
+      collaboratorId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      customer?: boolean | CustomerDefaultArgs<ExtArgs>;
+      order?: boolean | OrderDefaultArgs<ExtArgs>;
+      collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["collaboratorTicket"]
+  >;
+
+  export type CollaboratorTicketSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      deliveryDate?: boolean;
+      currency?: boolean;
+      formOfPayment?: boolean;
+      phone?: boolean;
+      nota?: boolean;
+      acceptTerms?: boolean;
+      businessId?: boolean;
+      customerId?: boolean;
+      orderId?: boolean;
+      collaboratorId?: boolean;
+      business?: boolean | BusinessDefaultArgs<ExtArgs>;
+      customer?: boolean | CustomerDefaultArgs<ExtArgs>;
+      order?: boolean | OrderDefaultArgs<ExtArgs>;
+      collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["collaboratorTicket"]
+  >;
+
+  export type CollaboratorTicketSelectScalar = {
+    id?: boolean;
+    deliveryDate?: boolean;
+    currency?: boolean;
+    formOfPayment?: boolean;
+    phone?: boolean;
+    nota?: boolean;
+    acceptTerms?: boolean;
+    businessId?: boolean;
+    customerId?: boolean;
+    orderId?: boolean;
+    collaboratorId?: boolean;
+  };
+
+  export type CollaboratorTicketInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>;
+    order?: boolean | OrderDefaultArgs<ExtArgs>;
+    collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type CollaboratorTicketIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    business?: boolean | BusinessDefaultArgs<ExtArgs>;
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>;
+    order?: boolean | OrderDefaultArgs<ExtArgs>;
+    collaborator?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $CollaboratorTicketPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "CollaboratorTicket";
+    objects: {
+      business: Prisma.$BusinessPayload<ExtArgs>;
+      customer: Prisma.$CustomerPayload<ExtArgs>;
+      order: Prisma.$OrderPayload<ExtArgs>;
+      collaborator: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        /**
+         * @zod.date
+         */
+        deliveryDate: Date;
+        currency: $Enums.Currency;
+        formOfPayment: $Enums.FormOfPaymentType;
+        phone: string;
+        nota: string;
+        /**
+         * @zod.refine((val) => val === true, { message: "ticketTermsConditions" })
+         */
+        acceptTerms: boolean;
+        businessId: string;
+        customerId: string;
+        orderId: string;
+        collaboratorId: string;
+      },
+      ExtArgs["result"]["collaboratorTicket"]
+    >;
+    composites: {};
+  };
+
+  type CollaboratorTicketGetPayload<
+    S extends boolean | null | undefined | CollaboratorTicketDefaultArgs,
+  > = $Result.GetResult<Prisma.$CollaboratorTicketPayload, S>;
+
+  type CollaboratorTicketCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    CollaboratorTicketFindManyArgs,
+    "select" | "include" | "distinct"
+  > & {
+    select?: CollaboratorTicketCountAggregateInputType | true;
+  };
+
+  export interface CollaboratorTicketDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["CollaboratorTicket"];
+      meta: { name: "CollaboratorTicket" };
+    };
+    /**
+     * Find zero or one CollaboratorTicket that matches the filter.
+     * @param {CollaboratorTicketFindUniqueArgs} args - Arguments to find a CollaboratorTicket
+     * @example
+     * // Get one CollaboratorTicket
+     * const collaboratorTicket = await prisma.collaboratorTicket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CollaboratorTicketFindUniqueArgs>(
+      args: SelectSubset<T, CollaboratorTicketFindUniqueArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findUnique"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find one CollaboratorTicket that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CollaboratorTicketFindUniqueOrThrowArgs} args - Arguments to find a CollaboratorTicket
+     * @example
+     * // Get one CollaboratorTicket
+     * const collaboratorTicket = await prisma.collaboratorTicket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CollaboratorTicketFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, CollaboratorTicketFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first CollaboratorTicket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketFindFirstArgs} args - Arguments to find a CollaboratorTicket
+     * @example
+     * // Get one CollaboratorTicket
+     * const collaboratorTicket = await prisma.collaboratorTicket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CollaboratorTicketFindFirstArgs>(
+      args?: SelectSubset<T, CollaboratorTicketFindFirstArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findFirst"
+      > | null,
+      null,
+      ExtArgs
+    >;
+
+    /**
+     * Find the first CollaboratorTicket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketFindFirstOrThrowArgs} args - Arguments to find a CollaboratorTicket
+     * @example
+     * // Get one CollaboratorTicket
+     * const collaboratorTicket = await prisma.collaboratorTicket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CollaboratorTicketFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CollaboratorTicketFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Find zero or more CollaboratorTickets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CollaboratorTickets
+     * const collaboratorTickets = await prisma.collaboratorTicket.findMany()
+     *
+     * // Get first 10 CollaboratorTickets
+     * const collaboratorTickets = await prisma.collaboratorTicket.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const collaboratorTicketWithIdOnly = await prisma.collaboratorTicket.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CollaboratorTicketFindManyArgs>(
+      args?: SelectSubset<T, CollaboratorTicketFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findMany"
+      >
+    >;
+
+    /**
+     * Create a CollaboratorTicket.
+     * @param {CollaboratorTicketCreateArgs} args - Arguments to create a CollaboratorTicket.
+     * @example
+     * // Create one CollaboratorTicket
+     * const CollaboratorTicket = await prisma.collaboratorTicket.create({
+     *   data: {
+     *     // ... data to create a CollaboratorTicket
+     *   }
+     * })
+     *
+     */
+    create<T extends CollaboratorTicketCreateArgs>(
+      args: SelectSubset<T, CollaboratorTicketCreateArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "create"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Create many CollaboratorTickets.
+     * @param {CollaboratorTicketCreateManyArgs} args - Arguments to create many CollaboratorTickets.
+     * @example
+     * // Create many CollaboratorTickets
+     * const collaboratorTicket = await prisma.collaboratorTicket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CollaboratorTicketCreateManyArgs>(
+      args?: SelectSubset<T, CollaboratorTicketCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many CollaboratorTickets and returns the data saved in the database.
+     * @param {CollaboratorTicketCreateManyAndReturnArgs} args - Arguments to create many CollaboratorTickets.
+     * @example
+     * // Create many CollaboratorTickets
+     * const collaboratorTicket = await prisma.collaboratorTicket.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many CollaboratorTickets and only return the `id`
+     * const collaboratorTicketWithIdOnly = await prisma.collaboratorTicket.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CollaboratorTicketCreateManyAndReturnArgs>(
+      args?: SelectSubset<
+        T,
+        CollaboratorTicketCreateManyAndReturnArgs<ExtArgs>
+      >,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "createManyAndReturn"
+      >
+    >;
+
+    /**
+     * Delete a CollaboratorTicket.
+     * @param {CollaboratorTicketDeleteArgs} args - Arguments to delete one CollaboratorTicket.
+     * @example
+     * // Delete one CollaboratorTicket
+     * const CollaboratorTicket = await prisma.collaboratorTicket.delete({
+     *   where: {
+     *     // ... filter to delete one CollaboratorTicket
+     *   }
+     * })
+     *
+     */
+    delete<T extends CollaboratorTicketDeleteArgs>(
+      args: SelectSubset<T, CollaboratorTicketDeleteArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "delete"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Update one CollaboratorTicket.
+     * @param {CollaboratorTicketUpdateArgs} args - Arguments to update one CollaboratorTicket.
+     * @example
+     * // Update one CollaboratorTicket
+     * const collaboratorTicket = await prisma.collaboratorTicket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CollaboratorTicketUpdateArgs>(
+      args: SelectSubset<T, CollaboratorTicketUpdateArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "update"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Delete zero or more CollaboratorTickets.
+     * @param {CollaboratorTicketDeleteManyArgs} args - Arguments to filter CollaboratorTickets to delete.
+     * @example
+     * // Delete a few CollaboratorTickets
+     * const { count } = await prisma.collaboratorTicket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CollaboratorTicketDeleteManyArgs>(
+      args?: SelectSubset<T, CollaboratorTicketDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more CollaboratorTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CollaboratorTickets
+     * const collaboratorTicket = await prisma.collaboratorTicket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CollaboratorTicketUpdateManyArgs>(
+      args: SelectSubset<T, CollaboratorTicketUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one CollaboratorTicket.
+     * @param {CollaboratorTicketUpsertArgs} args - Arguments to update or create a CollaboratorTicket.
+     * @example
+     * // Update or create a CollaboratorTicket
+     * const collaboratorTicket = await prisma.collaboratorTicket.upsert({
+     *   create: {
+     *     // ... data to create a CollaboratorTicket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CollaboratorTicket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CollaboratorTicketUpsertArgs>(
+      args: SelectSubset<T, CollaboratorTicketUpsertArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "upsert"
+      >,
+      never,
+      ExtArgs
+    >;
+
+    /**
+     * Count the number of CollaboratorTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketCountArgs} args - Arguments to filter CollaboratorTickets to count.
+     * @example
+     * // Count the number of CollaboratorTickets
+     * const count = await prisma.collaboratorTicket.count({
+     *   where: {
+     *     // ... the filter for the CollaboratorTickets we want to count
+     *   }
+     * })
+     **/
+    count<T extends CollaboratorTicketCountArgs>(
+      args?: Subset<T, CollaboratorTicketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<
+              T["select"],
+              CollaboratorTicketCountAggregateOutputType
+            >
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a CollaboratorTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends CollaboratorTicketAggregateArgs>(
+      args: Subset<T, CollaboratorTicketAggregateArgs>,
+    ): Prisma.PrismaPromise<GetCollaboratorTicketAggregateType<T>>;
+
+    /**
+     * Group by CollaboratorTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollaboratorTicketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends CollaboratorTicketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CollaboratorTicketGroupByArgs["orderBy"] }
+        : { orderBy?: CollaboratorTicketGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, CollaboratorTicketGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetCollaboratorTicketGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the CollaboratorTicket model
+     */
+    readonly fields: CollaboratorTicketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CollaboratorTicket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CollaboratorTicketClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, BusinessDefaultArgs<ExtArgs>>,
+    ): Prisma__BusinessClient<
+      | $Result.GetResult<
+          Prisma.$BusinessPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, CustomerDefaultArgs<ExtArgs>>,
+    ): Prisma__CustomerClient<
+      | $Result.GetResult<
+          Prisma.$CustomerPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow"
+        >
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    order<T extends OrderDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, OrderDefaultArgs<ExtArgs>>,
+    ): Prisma__OrderClient<
+      | $Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow">
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    collaborator<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow">
+      | Null,
+      Null,
+      ExtArgs
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the CollaboratorTicket model
+   */
+  interface CollaboratorTicketFieldRefs {
+    readonly id: FieldRef<"CollaboratorTicket", "String">;
+    readonly deliveryDate: FieldRef<"CollaboratorTicket", "DateTime">;
+    readonly currency: FieldRef<"CollaboratorTicket", "Currency">;
+    readonly formOfPayment: FieldRef<"CollaboratorTicket", "FormOfPaymentType">;
+    readonly phone: FieldRef<"CollaboratorTicket", "String">;
+    readonly nota: FieldRef<"CollaboratorTicket", "String">;
+    readonly acceptTerms: FieldRef<"CollaboratorTicket", "Boolean">;
+    readonly businessId: FieldRef<"CollaboratorTicket", "String">;
+    readonly customerId: FieldRef<"CollaboratorTicket", "String">;
+    readonly orderId: FieldRef<"CollaboratorTicket", "String">;
+    readonly collaboratorId: FieldRef<"CollaboratorTicket", "String">;
+  }
+
+  // Custom InputTypes
+  /**
+   * CollaboratorTicket findUnique
+   */
+  export type CollaboratorTicketFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorTicket to fetch.
+     */
+    where: CollaboratorTicketWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorTicket findUniqueOrThrow
+   */
+  export type CollaboratorTicketFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorTicket to fetch.
+     */
+    where: CollaboratorTicketWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorTicket findFirst
+   */
+  export type CollaboratorTicketFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorTicket to fetch.
+     */
+    where?: CollaboratorTicketWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorTickets to fetch.
+     */
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CollaboratorTickets.
+     */
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorTickets from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorTickets.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CollaboratorTickets.
+     */
+    distinct?:
+      | CollaboratorTicketScalarFieldEnum
+      | CollaboratorTicketScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorTicket findFirstOrThrow
+   */
+  export type CollaboratorTicketFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorTicket to fetch.
+     */
+    where?: CollaboratorTicketWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorTickets to fetch.
+     */
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CollaboratorTickets.
+     */
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorTickets from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorTickets.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CollaboratorTickets.
+     */
+    distinct?:
+      | CollaboratorTicketScalarFieldEnum
+      | CollaboratorTicketScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorTicket findMany
+   */
+  export type CollaboratorTicketFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * Filter, which CollaboratorTickets to fetch.
+     */
+    where?: CollaboratorTicketWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CollaboratorTickets to fetch.
+     */
+    orderBy?:
+      | CollaboratorTicketOrderByWithRelationInput
+      | CollaboratorTicketOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing CollaboratorTickets.
+     */
+    cursor?: CollaboratorTicketWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CollaboratorTickets from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CollaboratorTickets.
+     */
+    skip?: number;
+    distinct?:
+      | CollaboratorTicketScalarFieldEnum
+      | CollaboratorTicketScalarFieldEnum[];
+  };
+
+  /**
+   * CollaboratorTicket create
+   */
+  export type CollaboratorTicketCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a CollaboratorTicket.
+     */
+    data: XOR<
+      CollaboratorTicketCreateInput,
+      CollaboratorTicketUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * CollaboratorTicket createMany
+   */
+  export type CollaboratorTicketCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many CollaboratorTickets.
+     */
+    data:
+      | CollaboratorTicketCreateManyInput
+      | CollaboratorTicketCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * CollaboratorTicket createManyAndReturn
+   */
+  export type CollaboratorTicketCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * The data used to create many CollaboratorTickets.
+     */
+    data:
+      | CollaboratorTicketCreateManyInput
+      | CollaboratorTicketCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * CollaboratorTicket update
+   */
+  export type CollaboratorTicketUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a CollaboratorTicket.
+     */
+    data: XOR<
+      CollaboratorTicketUpdateInput,
+      CollaboratorTicketUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which CollaboratorTicket to update.
+     */
+    where: CollaboratorTicketWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorTicket updateMany
+   */
+  export type CollaboratorTicketUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update CollaboratorTickets.
+     */
+    data: XOR<
+      CollaboratorTicketUpdateManyMutationInput,
+      CollaboratorTicketUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which CollaboratorTickets to update
+     */
+    where?: CollaboratorTicketWhereInput;
+  };
+
+  /**
+   * CollaboratorTicket upsert
+   */
+  export type CollaboratorTicketUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the CollaboratorTicket to update in case it exists.
+     */
+    where: CollaboratorTicketWhereUniqueInput;
+    /**
+     * In case the CollaboratorTicket found by the `where` argument doesn't exist, create a new CollaboratorTicket with this data.
+     */
+    create: XOR<
+      CollaboratorTicketCreateInput,
+      CollaboratorTicketUncheckedCreateInput
+    >;
+    /**
+     * In case the CollaboratorTicket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      CollaboratorTicketUpdateInput,
+      CollaboratorTicketUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * CollaboratorTicket delete
+   */
+  export type CollaboratorTicketDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    /**
+     * Filter which CollaboratorTicket to delete.
+     */
+    where: CollaboratorTicketWhereUniqueInput;
+  };
+
+  /**
+   * CollaboratorTicket deleteMany
+   */
+  export type CollaboratorTicketDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which CollaboratorTickets to delete
+     */
+    where?: CollaboratorTicketWhereInput;
+  };
+
+  /**
+   * CollaboratorTicket without action
+   */
+  export type CollaboratorTicketDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
   };
 
   /**
@@ -17745,6 +20575,7 @@ export namespace Prisma {
       business?: boolean | Order$businessArgs<ExtArgs>;
       collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
       orderAddress?: boolean | Order$orderAddressArgs<ExtArgs>;
+      ticket?: boolean | Order$ticketArgs<ExtArgs>;
       _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["order"]
@@ -17808,6 +20639,7 @@ export namespace Prisma {
     business?: boolean | Order$businessArgs<ExtArgs>;
     collaboratorInvoice?: boolean | Order$collaboratorInvoiceArgs<ExtArgs>;
     orderAddress?: boolean | Order$orderAddressArgs<ExtArgs>;
+    ticket?: boolean | Order$ticketArgs<ExtArgs>;
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type OrderIncludeCreateManyAndReturn<
@@ -17828,6 +20660,7 @@ export namespace Prisma {
       business: Prisma.$BusinessPayload<ExtArgs> | null;
       collaboratorInvoice: Prisma.$CollaboratorInvoicePayload<ExtArgs> | null;
       orderAddress: Prisma.$OrderAddressPayload<ExtArgs> | null;
+      ticket: Prisma.$CollaboratorTicketPayload<ExtArgs> | null;
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -18346,6 +21179,17 @@ export namespace Prisma {
       null,
       ExtArgs
     >;
+    ticket<T extends Order$ticketArgs<ExtArgs> = {}>(
+      args?: Subset<T, Order$ticketArgs<ExtArgs>>,
+    ): Prisma__CollaboratorTicketClient<
+      $Result.GetResult<
+        Prisma.$CollaboratorTicketPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow"
+      > | null,
+      null,
+      ExtArgs
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18836,6 +21680,23 @@ export namespace Prisma {
      */
     include?: OrderAddressInclude<ExtArgs> | null;
     where?: OrderAddressWhereInput;
+  };
+
+  /**
+   * Order.ticket
+   */
+  export type Order$ticketArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollaboratorTicket
+     */
+    select?: CollaboratorTicketSelect<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CollaboratorTicketInclude<ExtArgs> | null;
+    where?: CollaboratorTicketWhereInput;
   };
 
   /**
@@ -31903,6 +34764,7 @@ export namespace Prisma {
     sendOrderToWhatsapp: "sendOrderToWhatsapp";
     defaultPaymentMethodId: "defaultPaymentMethodId";
     currency: "currency";
+    ticketTermsConditions: "ticketTermsConditions";
   };
 
   export type BusinessScalarFieldEnum =
@@ -31996,6 +34858,34 @@ export namespace Prisma {
 
   export type UserBusinessScalarFieldEnum =
     (typeof UserBusinessScalarFieldEnum)[keyof typeof UserBusinessScalarFieldEnum];
+
+  export const CustomerScalarFieldEnum: {
+    id: "id";
+    name: "name";
+    phones: "phones";
+    identification: "identification";
+    businessId: "businessId";
+  };
+
+  export type CustomerScalarFieldEnum =
+    (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum];
+
+  export const CollaboratorTicketScalarFieldEnum: {
+    id: "id";
+    deliveryDate: "deliveryDate";
+    currency: "currency";
+    formOfPayment: "formOfPayment";
+    phone: "phone";
+    nota: "nota";
+    acceptTerms: "acceptTerms";
+    businessId: "businessId";
+    customerId: "customerId";
+    orderId: "orderId";
+    collaboratorId: "collaboratorId";
+  };
+
+  export type CollaboratorTicketScalarFieldEnum =
+    (typeof CollaboratorTicketScalarFieldEnum)[keyof typeof CollaboratorTicketScalarFieldEnum];
 
   export const CollaboratorProfileScalarFieldEnum: {
     id: "id";
@@ -32414,6 +35304,18 @@ export namespace Prisma {
     FieldRefInputType<$PrismaModel, "UserBusinessType[]">;
 
   /**
+   * Reference to a field of type 'FormOfPaymentType'
+   */
+  export type EnumFormOfPaymentTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "FormOfPaymentType">;
+
+  /**
+   * Reference to a field of type 'FormOfPaymentType[]'
+   */
+  export type ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "FormOfPaymentType[]">;
+
+  /**
    * Reference to a field of type 'OrderStatus'
    */
   export type EnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -32449,6 +35351,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
     defaultPaymentMethodId?: StringNullableFilter<"Business"> | string | null;
     currency?: EnumCurrencyFilter<"Business"> | $Enums.Currency;
+    ticketTermsConditions?: StringNullableFilter<"Business"> | string | null;
     defaultPaymentMethod?: XOR<
       PaymentMethodNullableRelationFilter,
       PaymentMethodWhereInput
@@ -32468,6 +35371,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankListRelationFilter;
     collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
     collaboratorProfiles?: CollaboratorProfileListRelationFilter;
+    customers?: CustomerListRelationFilter;
+    tickets?: CollaboratorTicketListRelationFilter;
   };
 
   export type BusinessOrderByWithRelationInput = {
@@ -32485,6 +35390,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrderInput | SortOrder;
     currency?: SortOrder;
+    ticketTermsConditions?: SortOrderInput | SortOrder;
     defaultPaymentMethod?: PaymentMethodOrderByWithRelationInput;
     telegram?: TelegramBusinessOrderByWithRelationInput;
     categories?: CategoryOrderByRelationAggregateInput;
@@ -32498,6 +35404,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankOrderByRelationAggregateInput;
     collaboratorInvoices?: CollaboratorInvoiceOrderByRelationAggregateInput;
     collaboratorProfiles?: CollaboratorProfileOrderByRelationAggregateInput;
+    customers?: CustomerOrderByRelationAggregateInput;
+    tickets?: CollaboratorTicketOrderByRelationAggregateInput;
   };
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<
@@ -32519,6 +35427,7 @@ export namespace Prisma {
       plan?: EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan;
       sendOrderToWhatsapp?: BoolFilter<"Business"> | boolean;
       currency?: EnumCurrencyFilter<"Business"> | $Enums.Currency;
+      ticketTermsConditions?: StringNullableFilter<"Business"> | string | null;
       defaultPaymentMethod?: XOR<
         PaymentMethodNullableRelationFilter,
         PaymentMethodWhereInput
@@ -32538,6 +35447,8 @@ export namespace Prisma {
       cardBanks?: CollaboratorCardBankListRelationFilter;
       collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
       collaboratorProfiles?: CollaboratorProfileListRelationFilter;
+      customers?: CustomerListRelationFilter;
+      tickets?: CollaboratorTicketListRelationFilter;
     },
     "id" | "slug" | "defaultPaymentMethodId"
   >;
@@ -32557,6 +35468,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrderInput | SortOrder;
     currency?: SortOrder;
+    ticketTermsConditions?: SortOrderInput | SortOrder;
     _count?: BusinessCountOrderByAggregateInput;
     _avg?: BusinessAvgOrderByAggregateInput;
     _max?: BusinessMaxOrderByAggregateInput;
@@ -32597,6 +35509,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyWithAggregatesFilter<"Business"> | $Enums.Currency;
+    ticketTermsConditions?:
+      | StringNullableWithAggregatesFilter<"Business">
+      | string
+      | null;
   };
 
   export type TelegramBusinessWhereInput = {
@@ -33026,6 +35942,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankListRelationFilter;
     collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
     collaboratorProfiles?: CollaboratorProfileListRelationFilter;
+    tickets?: CollaboratorTicketListRelationFilter;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -33047,6 +35964,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankOrderByRelationAggregateInput;
     collaboratorInvoices?: CollaboratorInvoiceOrderByRelationAggregateInput;
     collaboratorProfiles?: CollaboratorProfileOrderByRelationAggregateInput;
+    tickets?: CollaboratorTicketOrderByRelationAggregateInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -33072,6 +35990,7 @@ export namespace Prisma {
       cardBanks?: CollaboratorCardBankListRelationFilter;
       collaboratorInvoices?: CollaboratorInvoiceListRelationFilter;
       collaboratorProfiles?: CollaboratorProfileListRelationFilter;
+      tickets?: CollaboratorTicketListRelationFilter;
     },
     "id" | "email"
   >;
@@ -33172,6 +36091,183 @@ export namespace Prisma {
     type?:
       | EnumUserBusinessTypeWithAggregatesFilter<"UserBusiness">
       | $Enums.UserBusinessType;
+  };
+
+  export type CustomerWhereInput = {
+    AND?: CustomerWhereInput | CustomerWhereInput[];
+    OR?: CustomerWhereInput[];
+    NOT?: CustomerWhereInput | CustomerWhereInput[];
+    id?: StringFilter<"Customer"> | string;
+    name?: StringFilter<"Customer"> | string;
+    phones?: JsonFilter<"Customer">;
+    identification?: StringFilter<"Customer"> | string;
+    businessId?: StringFilter<"Customer"> | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    tickets?: CollaboratorTicketListRelationFilter;
+  };
+
+  export type CustomerOrderByWithRelationInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    phones?: SortOrder;
+    identification?: SortOrder;
+    businessId?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+    tickets?: CollaboratorTicketOrderByRelationAggregateInput;
+  };
+
+  export type CustomerWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: CustomerWhereInput | CustomerWhereInput[];
+      OR?: CustomerWhereInput[];
+      NOT?: CustomerWhereInput | CustomerWhereInput[];
+      name?: StringFilter<"Customer"> | string;
+      phones?: JsonFilter<"Customer">;
+      identification?: StringFilter<"Customer"> | string;
+      businessId?: StringFilter<"Customer"> | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+      tickets?: CollaboratorTicketListRelationFilter;
+    },
+    "id"
+  >;
+
+  export type CustomerOrderByWithAggregationInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    phones?: SortOrder;
+    identification?: SortOrder;
+    businessId?: SortOrder;
+    _count?: CustomerCountOrderByAggregateInput;
+    _max?: CustomerMaxOrderByAggregateInput;
+    _min?: CustomerMinOrderByAggregateInput;
+  };
+
+  export type CustomerScalarWhereWithAggregatesInput = {
+    AND?:
+      | CustomerScalarWhereWithAggregatesInput
+      | CustomerScalarWhereWithAggregatesInput[];
+    OR?: CustomerScalarWhereWithAggregatesInput[];
+    NOT?:
+      | CustomerScalarWhereWithAggregatesInput
+      | CustomerScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"Customer"> | string;
+    name?: StringWithAggregatesFilter<"Customer"> | string;
+    phones?: JsonWithAggregatesFilter<"Customer">;
+    identification?: StringWithAggregatesFilter<"Customer"> | string;
+    businessId?: StringWithAggregatesFilter<"Customer"> | string;
+  };
+
+  export type CollaboratorTicketWhereInput = {
+    AND?: CollaboratorTicketWhereInput | CollaboratorTicketWhereInput[];
+    OR?: CollaboratorTicketWhereInput[];
+    NOT?: CollaboratorTicketWhereInput | CollaboratorTicketWhereInput[];
+    id?: StringFilter<"CollaboratorTicket"> | string;
+    deliveryDate?: DateTimeFilter<"CollaboratorTicket"> | Date | string;
+    currency?: EnumCurrencyFilter<"CollaboratorTicket"> | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFilter<"CollaboratorTicket">
+      | $Enums.FormOfPaymentType;
+    phone?: StringFilter<"CollaboratorTicket"> | string;
+    nota?: StringFilter<"CollaboratorTicket"> | string;
+    acceptTerms?: BoolFilter<"CollaboratorTicket"> | boolean;
+    businessId?: StringFilter<"CollaboratorTicket"> | string;
+    customerId?: StringFilter<"CollaboratorTicket"> | string;
+    orderId?: StringFilter<"CollaboratorTicket"> | string;
+    collaboratorId?: StringFilter<"CollaboratorTicket"> | string;
+    business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+    customer?: XOR<CustomerRelationFilter, CustomerWhereInput>;
+    order?: XOR<OrderRelationFilter, OrderWhereInput>;
+    collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+  };
+
+  export type CollaboratorTicketOrderByWithRelationInput = {
+    id?: SortOrder;
+    deliveryDate?: SortOrder;
+    currency?: SortOrder;
+    formOfPayment?: SortOrder;
+    phone?: SortOrder;
+    nota?: SortOrder;
+    acceptTerms?: SortOrder;
+    businessId?: SortOrder;
+    customerId?: SortOrder;
+    orderId?: SortOrder;
+    collaboratorId?: SortOrder;
+    business?: BusinessOrderByWithRelationInput;
+    customer?: CustomerOrderByWithRelationInput;
+    order?: OrderOrderByWithRelationInput;
+    collaborator?: UserOrderByWithRelationInput;
+  };
+
+  export type CollaboratorTicketWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      orderId?: string;
+      AND?: CollaboratorTicketWhereInput | CollaboratorTicketWhereInput[];
+      OR?: CollaboratorTicketWhereInput[];
+      NOT?: CollaboratorTicketWhereInput | CollaboratorTicketWhereInput[];
+      deliveryDate?: DateTimeFilter<"CollaboratorTicket"> | Date | string;
+      currency?: EnumCurrencyFilter<"CollaboratorTicket"> | $Enums.Currency;
+      formOfPayment?:
+        | EnumFormOfPaymentTypeFilter<"CollaboratorTicket">
+        | $Enums.FormOfPaymentType;
+      phone?: StringFilter<"CollaboratorTicket"> | string;
+      nota?: StringFilter<"CollaboratorTicket"> | string;
+      acceptTerms?: BoolFilter<"CollaboratorTicket"> | boolean;
+      businessId?: StringFilter<"CollaboratorTicket"> | string;
+      customerId?: StringFilter<"CollaboratorTicket"> | string;
+      collaboratorId?: StringFilter<"CollaboratorTicket"> | string;
+      business?: XOR<BusinessRelationFilter, BusinessWhereInput>;
+      customer?: XOR<CustomerRelationFilter, CustomerWhereInput>;
+      order?: XOR<OrderRelationFilter, OrderWhereInput>;
+      collaborator?: XOR<UserRelationFilter, UserWhereInput>;
+    },
+    "id" | "orderId"
+  >;
+
+  export type CollaboratorTicketOrderByWithAggregationInput = {
+    id?: SortOrder;
+    deliveryDate?: SortOrder;
+    currency?: SortOrder;
+    formOfPayment?: SortOrder;
+    phone?: SortOrder;
+    nota?: SortOrder;
+    acceptTerms?: SortOrder;
+    businessId?: SortOrder;
+    customerId?: SortOrder;
+    orderId?: SortOrder;
+    collaboratorId?: SortOrder;
+    _count?: CollaboratorTicketCountOrderByAggregateInput;
+    _max?: CollaboratorTicketMaxOrderByAggregateInput;
+    _min?: CollaboratorTicketMinOrderByAggregateInput;
+  };
+
+  export type CollaboratorTicketScalarWhereWithAggregatesInput = {
+    AND?:
+      | CollaboratorTicketScalarWhereWithAggregatesInput
+      | CollaboratorTicketScalarWhereWithAggregatesInput[];
+    OR?: CollaboratorTicketScalarWhereWithAggregatesInput[];
+    NOT?:
+      | CollaboratorTicketScalarWhereWithAggregatesInput
+      | CollaboratorTicketScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
+    deliveryDate?:
+      | DateTimeWithAggregatesFilter<"CollaboratorTicket">
+      | Date
+      | string;
+    currency?:
+      | EnumCurrencyWithAggregatesFilter<"CollaboratorTicket">
+      | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeWithAggregatesFilter<"CollaboratorTicket">
+      | $Enums.FormOfPaymentType;
+    phone?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
+    nota?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
+    acceptTerms?: BoolWithAggregatesFilter<"CollaboratorTicket"> | boolean;
+    businessId?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
+    customerId?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
+    orderId?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
+    collaboratorId?: StringWithAggregatesFilter<"CollaboratorTicket"> | string;
   };
 
   export type CollaboratorProfileWhereInput = {
@@ -33464,6 +36560,10 @@ export namespace Prisma {
       OrderAddressNullableRelationFilter,
       OrderAddressWhereInput
     > | null;
+    ticket?: XOR<
+      CollaboratorTicketNullableRelationFilter,
+      CollaboratorTicketWhereInput
+    > | null;
   };
 
   export type OrderOrderByWithRelationInput = {
@@ -33490,6 +36590,7 @@ export namespace Prisma {
     business?: BusinessOrderByWithRelationInput;
     collaboratorInvoice?: CollaboratorInvoiceOrderByWithRelationInput;
     orderAddress?: OrderAddressOrderByWithRelationInput;
+    ticket?: CollaboratorTicketOrderByWithRelationInput;
   };
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<
@@ -33525,6 +36626,10 @@ export namespace Prisma {
       orderAddress?: XOR<
         OrderAddressNullableRelationFilter,
         OrderAddressWhereInput
+      > | null;
+      ticket?: XOR<
+        CollaboratorTicketNullableRelationFilter,
+        CollaboratorTicketWhereInput
       > | null;
     },
     "id"
@@ -34488,6 +37593,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -34501,6 +37607,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateInput = {
@@ -34518,6 +37626,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -34530,6 +37639,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUpdateInput = {
@@ -34546,6 +37657,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -34559,6 +37674,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateInput = {
@@ -34579,6 +37696,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -34591,6 +37712,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateManyInput = {
@@ -34608,6 +37731,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
   };
 
   export type BusinessUpdateManyMutationInput = {
@@ -34624,6 +37748,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
   };
 
   export type BusinessUncheckedUpdateManyInput = {
@@ -34644,6 +37772,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
   };
 
   export type TelegramBusinessCreateInput = {
@@ -35041,6 +38173,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -35062,6 +38195,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUpdateInput = {
@@ -35087,6 +38221,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -35112,6 +38247,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -35204,6 +38340,167 @@ export namespace Prisma {
     type?:
       | EnumUserBusinessTypeFieldUpdateOperationsInput
       | $Enums.UserBusinessType;
+  };
+
+  export type CustomerCreateInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    business: BusinessCreateNestedOneWithoutCustomersInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCustomerInput;
+  };
+
+  export type CustomerUncheckedCreateInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    businessId: string;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCustomerInput;
+  };
+
+  export type CustomerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    business?: BusinessUpdateOneRequiredWithoutCustomersNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCustomerNestedInput;
+  };
+
+  export type CustomerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCustomerNestedInput;
+  };
+
+  export type CustomerCreateManyInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    businessId: string;
+  };
+
+  export type CustomerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CustomerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketCreateInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    business: BusinessCreateNestedOneWithoutTicketsInput;
+    customer: CustomerCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
+    collaborator: UserCreateNestedOneWithoutTicketsInput;
+  };
+
+  export type CollaboratorTicketUncheckedCreateInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    customerId: string;
+    orderId: string;
+    collaboratorId: string;
+  };
+
+  export type CollaboratorTicketUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
+    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketCreateManyInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    customerId: string;
+    orderId: string;
+    collaboratorId: string;
+  };
+
+  export type CollaboratorTicketUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
   };
 
   export type CollaboratorProfileCreateInput = {
@@ -35443,6 +38740,7 @@ export namespace Prisma {
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateInput = {
@@ -35466,6 +38764,7 @@ export namespace Prisma {
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUpdateInput = {
@@ -35489,6 +38788,7 @@ export namespace Prisma {
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateInput = {
@@ -35515,6 +38815,7 @@ export namespace Prisma {
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderCreateManyInput = {
@@ -36463,6 +39764,18 @@ export namespace Prisma {
     none?: CollaboratorProfileWhereInput;
   };
 
+  export type CustomerListRelationFilter = {
+    every?: CustomerWhereInput;
+    some?: CustomerWhereInput;
+    none?: CustomerWhereInput;
+  };
+
+  export type CollaboratorTicketListRelationFilter = {
+    every?: CollaboratorTicketWhereInput;
+    some?: CollaboratorTicketWhereInput;
+    none?: CollaboratorTicketWhereInput;
+  };
+
   export type SortOrderInput = {
     sort: SortOrder;
     nulls?: NullsOrder;
@@ -36512,6 +39825,14 @@ export namespace Prisma {
     _count?: SortOrder;
   };
 
+  export type CustomerOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type CollaboratorTicketOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
   export type BusinessCountOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
@@ -36527,6 +39848,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrder;
     currency?: SortOrder;
+    ticketTermsConditions?: SortOrder;
   };
 
   export type BusinessAvgOrderByAggregateInput = {
@@ -36547,6 +39869,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrder;
     currency?: SortOrder;
+    ticketTermsConditions?: SortOrder;
   };
 
   export type BusinessMinOrderByAggregateInput = {
@@ -36563,6 +39886,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: SortOrder;
     defaultPaymentMethodId?: SortOrder;
     currency?: SortOrder;
+    ticketTermsConditions?: SortOrder;
   };
 
   export type BusinessSumOrderByAggregateInput = {
@@ -37264,6 +40588,114 @@ export namespace Prisma {
     _max?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
   };
 
+  export type CustomerCountOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    phones?: SortOrder;
+    identification?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type CustomerMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    identification?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type CustomerMinOrderByAggregateInput = {
+    id?: SortOrder;
+    name?: SortOrder;
+    identification?: SortOrder;
+    businessId?: SortOrder;
+  };
+
+  export type EnumFormOfPaymentTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.FormOfPaymentType
+      | EnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.FormOfPaymentType[]
+      | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.FormOfPaymentType[]
+      | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumFormOfPaymentTypeFilter<$PrismaModel>
+      | $Enums.FormOfPaymentType;
+  };
+
+  export type CustomerRelationFilter = {
+    is?: CustomerWhereInput;
+    isNot?: CustomerWhereInput;
+  };
+
+  export type OrderRelationFilter = {
+    is?: OrderWhereInput;
+    isNot?: OrderWhereInput;
+  };
+
+  export type CollaboratorTicketCountOrderByAggregateInput = {
+    id?: SortOrder;
+    deliveryDate?: SortOrder;
+    currency?: SortOrder;
+    formOfPayment?: SortOrder;
+    phone?: SortOrder;
+    nota?: SortOrder;
+    acceptTerms?: SortOrder;
+    businessId?: SortOrder;
+    customerId?: SortOrder;
+    orderId?: SortOrder;
+    collaboratorId?: SortOrder;
+  };
+
+  export type CollaboratorTicketMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    deliveryDate?: SortOrder;
+    currency?: SortOrder;
+    formOfPayment?: SortOrder;
+    phone?: SortOrder;
+    nota?: SortOrder;
+    acceptTerms?: SortOrder;
+    businessId?: SortOrder;
+    customerId?: SortOrder;
+    orderId?: SortOrder;
+    collaboratorId?: SortOrder;
+  };
+
+  export type CollaboratorTicketMinOrderByAggregateInput = {
+    id?: SortOrder;
+    deliveryDate?: SortOrder;
+    currency?: SortOrder;
+    formOfPayment?: SortOrder;
+    phone?: SortOrder;
+    nota?: SortOrder;
+    acceptTerms?: SortOrder;
+    businessId?: SortOrder;
+    customerId?: SortOrder;
+    orderId?: SortOrder;
+    collaboratorId?: SortOrder;
+  };
+
+  export type EnumFormOfPaymentTypeWithAggregatesFilter<$PrismaModel = never> =
+    {
+      equals?:
+        | $Enums.FormOfPaymentType
+        | EnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+      in?:
+        | $Enums.FormOfPaymentType[]
+        | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+      notIn?:
+        | $Enums.FormOfPaymentType[]
+        | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+      not?:
+        | NestedEnumFormOfPaymentTypeWithAggregatesFilter<$PrismaModel>
+        | $Enums.FormOfPaymentType;
+      _count?: NestedIntFilter<$PrismaModel>;
+      _min?: NestedEnumFormOfPaymentTypeFilter<$PrismaModel>;
+      _max?: NestedEnumFormOfPaymentTypeFilter<$PrismaModel>;
+    };
+
   export type CollaboratorProfileCountOrderByAggregateInput = {
     id?: SortOrder;
     businessId?: SortOrder;
@@ -37395,6 +40827,11 @@ export namespace Prisma {
     isNot?: OrderAddressWhereInput | null;
   };
 
+  export type CollaboratorTicketNullableRelationFilter = {
+    is?: CollaboratorTicketWhereInput | null;
+    isNot?: CollaboratorTicketWhereInput | null;
+  };
+
   export type OrderCountOrderByAggregateInput = {
     id?: SortOrder;
     userId?: SortOrder;
@@ -37484,11 +40921,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumOrderStatusFilter<$PrismaModel>;
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>;
-  };
-
-  export type OrderRelationFilter = {
-    is?: OrderWhereInput;
-    isNot?: OrderWhereInput;
   };
 
   export type OrderProductProductIdOrderIdCompoundUniqueInput = {
@@ -38109,6 +41541,38 @@ export namespace Prisma {
       | CollaboratorProfileWhereUniqueInput[];
   };
 
+  export type CustomerCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          CustomerCreateWithoutBusinessInput,
+          CustomerUncheckedCreateWithoutBusinessInput
+        >
+      | CustomerCreateWithoutBusinessInput[]
+      | CustomerUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CustomerCreateOrConnectWithoutBusinessInput
+      | CustomerCreateOrConnectWithoutBusinessInput[];
+    createMany?: CustomerCreateManyBusinessInputEnvelope;
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+  };
+
+  export type CollaboratorTicketCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          CollaboratorTicketCreateWithoutBusinessInput,
+          CollaboratorTicketUncheckedCreateWithoutBusinessInput
+        >
+      | CollaboratorTicketCreateWithoutBusinessInput[]
+      | CollaboratorTicketUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CollaboratorTicketCreateOrConnectWithoutBusinessInput
+      | CollaboratorTicketCreateOrConnectWithoutBusinessInput[];
+    createMany?: CollaboratorTicketCreateManyBusinessInputEnvelope;
+    connect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+  };
+
   export type TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -38293,6 +41757,39 @@ export namespace Prisma {
       connect?:
         | CollaboratorProfileWhereUniqueInput
         | CollaboratorProfileWhereUniqueInput[];
+    };
+
+  export type CustomerUncheckedCreateNestedManyWithoutBusinessInput = {
+    create?:
+      | XOR<
+          CustomerCreateWithoutBusinessInput,
+          CustomerUncheckedCreateWithoutBusinessInput
+        >
+      | CustomerCreateWithoutBusinessInput[]
+      | CustomerUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CustomerCreateOrConnectWithoutBusinessInput
+      | CustomerCreateOrConnectWithoutBusinessInput[];
+    createMany?: CustomerCreateManyBusinessInputEnvelope;
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+  };
+
+  export type CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorTicketCreateWithoutBusinessInput,
+            CollaboratorTicketUncheckedCreateWithoutBusinessInput
+          >
+        | CollaboratorTicketCreateWithoutBusinessInput[]
+        | CollaboratorTicketUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | CollaboratorTicketCreateOrConnectWithoutBusinessInput
+        | CollaboratorTicketCreateOrConnectWithoutBusinessInput[];
+      createMany?: CollaboratorTicketCreateManyBusinessInputEnvelope;
+      connect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
     };
 
   export type StringFieldUpdateOperationsInput = {
@@ -38714,6 +42211,72 @@ export namespace Prisma {
       | CollaboratorProfileScalarWhereInput[];
   };
 
+  export type CustomerUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          CustomerCreateWithoutBusinessInput,
+          CustomerUncheckedCreateWithoutBusinessInput
+        >
+      | CustomerCreateWithoutBusinessInput[]
+      | CustomerUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CustomerCreateOrConnectWithoutBusinessInput
+      | CustomerCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | CustomerUpsertWithWhereUniqueWithoutBusinessInput
+      | CustomerUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: CustomerCreateManyBusinessInputEnvelope;
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    update?:
+      | CustomerUpdateWithWhereUniqueWithoutBusinessInput
+      | CustomerUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | CustomerUpdateManyWithWhereWithoutBusinessInput
+      | CustomerUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[];
+  };
+
+  export type CollaboratorTicketUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorTicketCreateWithoutBusinessInput,
+          CollaboratorTicketUncheckedCreateWithoutBusinessInput
+        >
+      | CollaboratorTicketCreateWithoutBusinessInput[]
+      | CollaboratorTicketUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CollaboratorTicketCreateOrConnectWithoutBusinessInput
+      | CollaboratorTicketCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | CollaboratorTicketUpsertWithWhereUniqueWithoutBusinessInput
+      | CollaboratorTicketUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: CollaboratorTicketCreateManyBusinessInputEnvelope;
+    set?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    delete?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    connect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    update?:
+      | CollaboratorTicketUpdateWithWhereUniqueWithoutBusinessInput
+      | CollaboratorTicketUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | CollaboratorTicketUpdateManyWithWhereWithoutBusinessInput
+      | CollaboratorTicketUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?:
+      | CollaboratorTicketScalarWhereInput
+      | CollaboratorTicketScalarWhereInput[];
+  };
+
   export type TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput = {
     create?: XOR<
       TelegramBusinessCreateWithoutBusinessInput,
@@ -39091,6 +42654,73 @@ export namespace Prisma {
       deleteMany?:
         | CollaboratorProfileScalarWhereInput
         | CollaboratorProfileScalarWhereInput[];
+    };
+
+  export type CustomerUncheckedUpdateManyWithoutBusinessNestedInput = {
+    create?:
+      | XOR<
+          CustomerCreateWithoutBusinessInput,
+          CustomerUncheckedCreateWithoutBusinessInput
+        >
+      | CustomerCreateWithoutBusinessInput[]
+      | CustomerUncheckedCreateWithoutBusinessInput[];
+    connectOrCreate?:
+      | CustomerCreateOrConnectWithoutBusinessInput
+      | CustomerCreateOrConnectWithoutBusinessInput[];
+    upsert?:
+      | CustomerUpsertWithWhereUniqueWithoutBusinessInput
+      | CustomerUpsertWithWhereUniqueWithoutBusinessInput[];
+    createMany?: CustomerCreateManyBusinessInputEnvelope;
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[];
+    update?:
+      | CustomerUpdateWithWhereUniqueWithoutBusinessInput
+      | CustomerUpdateWithWhereUniqueWithoutBusinessInput[];
+    updateMany?:
+      | CustomerUpdateManyWithWhereWithoutBusinessInput
+      | CustomerUpdateManyWithWhereWithoutBusinessInput[];
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[];
+  };
+
+  export type CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorTicketCreateWithoutBusinessInput,
+            CollaboratorTicketUncheckedCreateWithoutBusinessInput
+          >
+        | CollaboratorTicketCreateWithoutBusinessInput[]
+        | CollaboratorTicketUncheckedCreateWithoutBusinessInput[];
+      connectOrCreate?:
+        | CollaboratorTicketCreateOrConnectWithoutBusinessInput
+        | CollaboratorTicketCreateOrConnectWithoutBusinessInput[];
+      upsert?:
+        | CollaboratorTicketUpsertWithWhereUniqueWithoutBusinessInput
+        | CollaboratorTicketUpsertWithWhereUniqueWithoutBusinessInput[];
+      createMany?: CollaboratorTicketCreateManyBusinessInputEnvelope;
+      set?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      delete?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      connect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      update?:
+        | CollaboratorTicketUpdateWithWhereUniqueWithoutBusinessInput
+        | CollaboratorTicketUpdateWithWhereUniqueWithoutBusinessInput[];
+      updateMany?:
+        | CollaboratorTicketUpdateManyWithWhereWithoutBusinessInput
+        | CollaboratorTicketUpdateManyWithWhereWithoutBusinessInput[];
+      deleteMany?:
+        | CollaboratorTicketScalarWhereInput
+        | CollaboratorTicketScalarWhereInput[];
     };
 
   export type BusinessCreateNestedOneWithoutTelegramInput = {
@@ -39708,6 +43338,23 @@ export namespace Prisma {
       | CollaboratorProfileWhereUniqueInput[];
   };
 
+  export type CollaboratorTicketCreateNestedManyWithoutCollaboratorInput = {
+    create?:
+      | XOR<
+          CollaboratorTicketCreateWithoutCollaboratorInput,
+          CollaboratorTicketUncheckedCreateWithoutCollaboratorInput
+        >
+      | CollaboratorTicketCreateWithoutCollaboratorInput[]
+      | CollaboratorTicketUncheckedCreateWithoutCollaboratorInput[];
+    connectOrCreate?:
+      | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput
+      | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput[];
+    createMany?: CollaboratorTicketCreateManyCollaboratorInputEnvelope;
+    connect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+  };
+
   export type OrderUncheckedCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
@@ -39847,6 +43494,24 @@ export namespace Prisma {
       connect?:
         | CollaboratorProfileWhereUniqueInput
         | CollaboratorProfileWhereUniqueInput[];
+    };
+
+  export type CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorTicketCreateWithoutCollaboratorInput,
+            CollaboratorTicketUncheckedCreateWithoutCollaboratorInput
+          >
+        | CollaboratorTicketCreateWithoutCollaboratorInput[]
+        | CollaboratorTicketUncheckedCreateWithoutCollaboratorInput[];
+      connectOrCreate?:
+        | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput
+        | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput[];
+      createMany?: CollaboratorTicketCreateManyCollaboratorInputEnvelope;
+      connect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
     };
 
   export type EnumUserRolesFieldUpdateOperationsInput = {
@@ -40144,6 +43809,44 @@ export namespace Prisma {
       | CollaboratorProfileScalarWhereInput[];
   };
 
+  export type CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorTicketCreateWithoutCollaboratorInput,
+          CollaboratorTicketUncheckedCreateWithoutCollaboratorInput
+        >
+      | CollaboratorTicketCreateWithoutCollaboratorInput[]
+      | CollaboratorTicketUncheckedCreateWithoutCollaboratorInput[];
+    connectOrCreate?:
+      | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput
+      | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput[];
+    upsert?:
+      | CollaboratorTicketUpsertWithWhereUniqueWithoutCollaboratorInput
+      | CollaboratorTicketUpsertWithWhereUniqueWithoutCollaboratorInput[];
+    createMany?: CollaboratorTicketCreateManyCollaboratorInputEnvelope;
+    set?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    delete?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    connect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    update?:
+      | CollaboratorTicketUpdateWithWhereUniqueWithoutCollaboratorInput
+      | CollaboratorTicketUpdateWithWhereUniqueWithoutCollaboratorInput[];
+    updateMany?:
+      | CollaboratorTicketUpdateManyWithWhereWithoutCollaboratorInput
+      | CollaboratorTicketUpdateManyWithWhereWithoutCollaboratorInput[];
+    deleteMany?:
+      | CollaboratorTicketScalarWhereInput
+      | CollaboratorTicketScalarWhereInput[];
+  };
+
   export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
@@ -40430,6 +44133,45 @@ export namespace Prisma {
         | CollaboratorProfileScalarWhereInput[];
     };
 
+  export type CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorTicketCreateWithoutCollaboratorInput,
+            CollaboratorTicketUncheckedCreateWithoutCollaboratorInput
+          >
+        | CollaboratorTicketCreateWithoutCollaboratorInput[]
+        | CollaboratorTicketUncheckedCreateWithoutCollaboratorInput[];
+      connectOrCreate?:
+        | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput
+        | CollaboratorTicketCreateOrConnectWithoutCollaboratorInput[];
+      upsert?:
+        | CollaboratorTicketUpsertWithWhereUniqueWithoutCollaboratorInput
+        | CollaboratorTicketUpsertWithWhereUniqueWithoutCollaboratorInput[];
+      createMany?: CollaboratorTicketCreateManyCollaboratorInputEnvelope;
+      set?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      delete?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      connect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      update?:
+        | CollaboratorTicketUpdateWithWhereUniqueWithoutCollaboratorInput
+        | CollaboratorTicketUpdateWithWhereUniqueWithoutCollaboratorInput[];
+      updateMany?:
+        | CollaboratorTicketUpdateManyWithWhereWithoutCollaboratorInput
+        | CollaboratorTicketUpdateManyWithWhereWithoutCollaboratorInput[];
+      deleteMany?:
+        | CollaboratorTicketScalarWhereInput
+        | CollaboratorTicketScalarWhereInput[];
+    };
+
   export type UserCreateNestedOneWithoutBusinessInput = {
     create?: XOR<
       UserCreateWithoutBusinessInput,
@@ -40483,6 +44225,252 @@ export namespace Prisma {
         BusinessUpdateWithoutUsersInput
       >,
       BusinessUncheckedUpdateWithoutUsersInput
+    >;
+  };
+
+  export type BusinessCreateNestedOneWithoutCustomersInput = {
+    create?: XOR<
+      BusinessCreateWithoutCustomersInput,
+      BusinessUncheckedCreateWithoutCustomersInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutCustomersInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type CollaboratorTicketCreateNestedManyWithoutCustomerInput = {
+    create?:
+      | XOR<
+          CollaboratorTicketCreateWithoutCustomerInput,
+          CollaboratorTicketUncheckedCreateWithoutCustomerInput
+        >
+      | CollaboratorTicketCreateWithoutCustomerInput[]
+      | CollaboratorTicketUncheckedCreateWithoutCustomerInput[];
+    connectOrCreate?:
+      | CollaboratorTicketCreateOrConnectWithoutCustomerInput
+      | CollaboratorTicketCreateOrConnectWithoutCustomerInput[];
+    createMany?: CollaboratorTicketCreateManyCustomerInputEnvelope;
+    connect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+  };
+
+  export type CollaboratorTicketUncheckedCreateNestedManyWithoutCustomerInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorTicketCreateWithoutCustomerInput,
+            CollaboratorTicketUncheckedCreateWithoutCustomerInput
+          >
+        | CollaboratorTicketCreateWithoutCustomerInput[]
+        | CollaboratorTicketUncheckedCreateWithoutCustomerInput[];
+      connectOrCreate?:
+        | CollaboratorTicketCreateOrConnectWithoutCustomerInput
+        | CollaboratorTicketCreateOrConnectWithoutCustomerInput[];
+      createMany?: CollaboratorTicketCreateManyCustomerInputEnvelope;
+      connect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+    };
+
+  export type BusinessUpdateOneRequiredWithoutCustomersNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutCustomersInput,
+      BusinessUncheckedCreateWithoutCustomersInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutCustomersInput;
+    upsert?: BusinessUpsertWithoutCustomersInput;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutCustomersInput,
+        BusinessUpdateWithoutCustomersInput
+      >,
+      BusinessUncheckedUpdateWithoutCustomersInput
+    >;
+  };
+
+  export type CollaboratorTicketUpdateManyWithoutCustomerNestedInput = {
+    create?:
+      | XOR<
+          CollaboratorTicketCreateWithoutCustomerInput,
+          CollaboratorTicketUncheckedCreateWithoutCustomerInput
+        >
+      | CollaboratorTicketCreateWithoutCustomerInput[]
+      | CollaboratorTicketUncheckedCreateWithoutCustomerInput[];
+    connectOrCreate?:
+      | CollaboratorTicketCreateOrConnectWithoutCustomerInput
+      | CollaboratorTicketCreateOrConnectWithoutCustomerInput[];
+    upsert?:
+      | CollaboratorTicketUpsertWithWhereUniqueWithoutCustomerInput
+      | CollaboratorTicketUpsertWithWhereUniqueWithoutCustomerInput[];
+    createMany?: CollaboratorTicketCreateManyCustomerInputEnvelope;
+    set?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    disconnect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    delete?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    connect?:
+      | CollaboratorTicketWhereUniqueInput
+      | CollaboratorTicketWhereUniqueInput[];
+    update?:
+      | CollaboratorTicketUpdateWithWhereUniqueWithoutCustomerInput
+      | CollaboratorTicketUpdateWithWhereUniqueWithoutCustomerInput[];
+    updateMany?:
+      | CollaboratorTicketUpdateManyWithWhereWithoutCustomerInput
+      | CollaboratorTicketUpdateManyWithWhereWithoutCustomerInput[];
+    deleteMany?:
+      | CollaboratorTicketScalarWhereInput
+      | CollaboratorTicketScalarWhereInput[];
+  };
+
+  export type CollaboratorTicketUncheckedUpdateManyWithoutCustomerNestedInput =
+    {
+      create?:
+        | XOR<
+            CollaboratorTicketCreateWithoutCustomerInput,
+            CollaboratorTicketUncheckedCreateWithoutCustomerInput
+          >
+        | CollaboratorTicketCreateWithoutCustomerInput[]
+        | CollaboratorTicketUncheckedCreateWithoutCustomerInput[];
+      connectOrCreate?:
+        | CollaboratorTicketCreateOrConnectWithoutCustomerInput
+        | CollaboratorTicketCreateOrConnectWithoutCustomerInput[];
+      upsert?:
+        | CollaboratorTicketUpsertWithWhereUniqueWithoutCustomerInput
+        | CollaboratorTicketUpsertWithWhereUniqueWithoutCustomerInput[];
+      createMany?: CollaboratorTicketCreateManyCustomerInputEnvelope;
+      set?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      disconnect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      delete?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      connect?:
+        | CollaboratorTicketWhereUniqueInput
+        | CollaboratorTicketWhereUniqueInput[];
+      update?:
+        | CollaboratorTicketUpdateWithWhereUniqueWithoutCustomerInput
+        | CollaboratorTicketUpdateWithWhereUniqueWithoutCustomerInput[];
+      updateMany?:
+        | CollaboratorTicketUpdateManyWithWhereWithoutCustomerInput
+        | CollaboratorTicketUpdateManyWithWhereWithoutCustomerInput[];
+      deleteMany?:
+        | CollaboratorTicketScalarWhereInput
+        | CollaboratorTicketScalarWhereInput[];
+    };
+
+  export type BusinessCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<
+      BusinessCreateWithoutTicketsInput,
+      BusinessUncheckedCreateWithoutTicketsInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutTicketsInput;
+    connect?: BusinessWhereUniqueInput;
+  };
+
+  export type CustomerCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<
+      CustomerCreateWithoutTicketsInput,
+      CustomerUncheckedCreateWithoutTicketsInput
+    >;
+    connectOrCreate?: CustomerCreateOrConnectWithoutTicketsInput;
+    connect?: CustomerWhereUniqueInput;
+  };
+
+  export type OrderCreateNestedOneWithoutTicketInput = {
+    create?: XOR<
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
+    >;
+    connectOrCreate?: OrderCreateOrConnectWithoutTicketInput;
+    connect?: OrderWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<
+      UserCreateWithoutTicketsInput,
+      UserUncheckedCreateWithoutTicketsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type EnumFormOfPaymentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.FormOfPaymentType;
+  };
+
+  export type BusinessUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<
+      BusinessCreateWithoutTicketsInput,
+      BusinessUncheckedCreateWithoutTicketsInput
+    >;
+    connectOrCreate?: BusinessCreateOrConnectWithoutTicketsInput;
+    upsert?: BusinessUpsertWithoutTicketsInput;
+    connect?: BusinessWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        BusinessUpdateToOneWithWhereWithoutTicketsInput,
+        BusinessUpdateWithoutTicketsInput
+      >,
+      BusinessUncheckedUpdateWithoutTicketsInput
+    >;
+  };
+
+  export type CustomerUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<
+      CustomerCreateWithoutTicketsInput,
+      CustomerUncheckedCreateWithoutTicketsInput
+    >;
+    connectOrCreate?: CustomerCreateOrConnectWithoutTicketsInput;
+    upsert?: CustomerUpsertWithoutTicketsInput;
+    connect?: CustomerWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CustomerUpdateToOneWithWhereWithoutTicketsInput,
+        CustomerUpdateWithoutTicketsInput
+      >,
+      CustomerUncheckedUpdateWithoutTicketsInput
+    >;
+  };
+
+  export type OrderUpdateOneRequiredWithoutTicketNestedInput = {
+    create?: XOR<
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
+    >;
+    connectOrCreate?: OrderCreateOrConnectWithoutTicketInput;
+    upsert?: OrderUpsertWithoutTicketInput;
+    connect?: OrderWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        OrderUpdateToOneWithWhereWithoutTicketInput,
+        OrderUpdateWithoutTicketInput
+      >,
+      OrderUncheckedUpdateWithoutTicketInput
+    >;
+  };
+
+  export type UserUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutTicketsInput,
+      UserUncheckedCreateWithoutTicketsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput;
+    upsert?: UserUpsertWithoutTicketsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutTicketsInput,
+        UserUpdateWithoutTicketsInput
+      >,
+      UserUncheckedUpdateWithoutTicketsInput
     >;
   };
 
@@ -40780,6 +44768,15 @@ export namespace Prisma {
     connect?: OrderAddressWhereUniqueInput;
   };
 
+  export type CollaboratorTicketCreateNestedOneWithoutOrderInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    connect?: CollaboratorTicketWhereUniqueInput;
+  };
+
   export type OrderProductUncheckedCreateNestedManyWithoutOrderInput = {
     create?:
       | XOR<
@@ -40802,6 +44799,15 @@ export namespace Prisma {
     >;
     connectOrCreate?: OrderAddressCreateOrConnectWithoutOrderInput;
     connect?: OrderAddressWhereUniqueInput;
+  };
+
+  export type CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    connect?: CollaboratorTicketWhereUniqueInput;
   };
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
@@ -40912,6 +44918,25 @@ export namespace Prisma {
     >;
   };
 
+  export type CollaboratorTicketUpdateOneWithoutOrderNestedInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    upsert?: CollaboratorTicketUpsertWithoutOrderInput;
+    disconnect?: CollaboratorTicketWhereInput | boolean;
+    delete?: CollaboratorTicketWhereInput | boolean;
+    connect?: CollaboratorTicketWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollaboratorTicketUpdateToOneWithWhereWithoutOrderInput,
+        CollaboratorTicketUpdateWithoutOrderInput
+      >,
+      CollaboratorTicketUncheckedUpdateWithoutOrderInput
+    >;
+  };
+
   export type OrderProductUncheckedUpdateManyWithoutOrderNestedInput = {
     create?:
       | XOR<
@@ -40956,6 +44981,25 @@ export namespace Prisma {
         OrderAddressUpdateWithoutOrderInput
       >,
       OrderAddressUncheckedUpdateWithoutOrderInput
+    >;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput = {
+    create?: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    connectOrCreate?: CollaboratorTicketCreateOrConnectWithoutOrderInput;
+    upsert?: CollaboratorTicketUpsertWithoutOrderInput;
+    disconnect?: CollaboratorTicketWhereInput | boolean;
+    delete?: CollaboratorTicketWhereInput | boolean;
+    connect?: CollaboratorTicketWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollaboratorTicketUpdateToOneWithWhereWithoutOrderInput,
+        CollaboratorTicketUpdateWithoutOrderInput
+      >,
+      CollaboratorTicketUncheckedUpdateWithoutOrderInput
     >;
   };
 
@@ -42195,6 +46239,41 @@ export namespace Prisma {
     _max?: NestedEnumUserBusinessTypeFilter<$PrismaModel>;
   };
 
+  export type NestedEnumFormOfPaymentTypeFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.FormOfPaymentType
+      | EnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.FormOfPaymentType[]
+      | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.FormOfPaymentType[]
+      | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumFormOfPaymentTypeFilter<$PrismaModel>
+      | $Enums.FormOfPaymentType;
+  };
+
+  export type NestedEnumFormOfPaymentTypeWithAggregatesFilter<
+    $PrismaModel = never,
+  > = {
+    equals?:
+      | $Enums.FormOfPaymentType
+      | EnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.FormOfPaymentType[]
+      | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.FormOfPaymentType[]
+      | ListEnumFormOfPaymentTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumFormOfPaymentTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.FormOfPaymentType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumFormOfPaymentTypeFilter<$PrismaModel>;
+    _max?: NestedEnumFormOfPaymentTypeFilter<$PrismaModel>;
+  };
+
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>;
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>;
@@ -42369,6 +46448,7 @@ export namespace Prisma {
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutBusinessInput = {
@@ -42391,6 +46471,7 @@ export namespace Prisma {
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutBusinessInput = {
@@ -42665,6 +46746,76 @@ export namespace Prisma {
     data:
       | CollaboratorProfileCreateManyBusinessInput
       | CollaboratorProfileCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CustomerCreateWithoutBusinessInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCustomerInput;
+  };
+
+  export type CustomerUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCustomerInput;
+  };
+
+  export type CustomerCreateOrConnectWithoutBusinessInput = {
+    where: CustomerWhereUniqueInput;
+    create: XOR<
+      CustomerCreateWithoutBusinessInput,
+      CustomerUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CustomerCreateManyBusinessInputEnvelope = {
+    data: CustomerCreateManyBusinessInput | CustomerCreateManyBusinessInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CollaboratorTicketCreateWithoutBusinessInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    customer: CustomerCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
+    collaborator: UserCreateNestedOneWithoutTicketsInput;
+  };
+
+  export type CollaboratorTicketUncheckedCreateWithoutBusinessInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    customerId: string;
+    orderId: string;
+    collaboratorId: string;
+  };
+
+  export type CollaboratorTicketCreateOrConnectWithoutBusinessInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    create: XOR<
+      CollaboratorTicketCreateWithoutBusinessInput,
+      CollaboratorTicketUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorTicketCreateManyBusinessInputEnvelope = {
+    data:
+      | CollaboratorTicketCreateManyBusinessInput
+      | CollaboratorTicketCreateManyBusinessInput[];
     skipDuplicates?: boolean;
   };
 
@@ -43227,6 +47378,96 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CollaboratorProfile"> | Date | string;
   };
 
+  export type CustomerUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: CustomerWhereUniqueInput;
+    update: XOR<
+      CustomerUpdateWithoutBusinessInput,
+      CustomerUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      CustomerCreateWithoutBusinessInput,
+      CustomerUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CustomerUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: CustomerWhereUniqueInput;
+    data: XOR<
+      CustomerUpdateWithoutBusinessInput,
+      CustomerUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type CustomerUpdateManyWithWhereWithoutBusinessInput = {
+    where: CustomerScalarWhereInput;
+    data: XOR<
+      CustomerUpdateManyMutationInput,
+      CustomerUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type CustomerScalarWhereInput = {
+    AND?: CustomerScalarWhereInput | CustomerScalarWhereInput[];
+    OR?: CustomerScalarWhereInput[];
+    NOT?: CustomerScalarWhereInput | CustomerScalarWhereInput[];
+    id?: StringFilter<"Customer"> | string;
+    name?: StringFilter<"Customer"> | string;
+    phones?: JsonFilter<"Customer">;
+    identification?: StringFilter<"Customer"> | string;
+    businessId?: StringFilter<"Customer"> | string;
+  };
+
+  export type CollaboratorTicketUpsertWithWhereUniqueWithoutBusinessInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    update: XOR<
+      CollaboratorTicketUpdateWithoutBusinessInput,
+      CollaboratorTicketUncheckedUpdateWithoutBusinessInput
+    >;
+    create: XOR<
+      CollaboratorTicketCreateWithoutBusinessInput,
+      CollaboratorTicketUncheckedCreateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorTicketUpdateWithWhereUniqueWithoutBusinessInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    data: XOR<
+      CollaboratorTicketUpdateWithoutBusinessInput,
+      CollaboratorTicketUncheckedUpdateWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorTicketUpdateManyWithWhereWithoutBusinessInput = {
+    where: CollaboratorTicketScalarWhereInput;
+    data: XOR<
+      CollaboratorTicketUpdateManyMutationInput,
+      CollaboratorTicketUncheckedUpdateManyWithoutBusinessInput
+    >;
+  };
+
+  export type CollaboratorTicketScalarWhereInput = {
+    AND?:
+      | CollaboratorTicketScalarWhereInput
+      | CollaboratorTicketScalarWhereInput[];
+    OR?: CollaboratorTicketScalarWhereInput[];
+    NOT?:
+      | CollaboratorTicketScalarWhereInput
+      | CollaboratorTicketScalarWhereInput[];
+    id?: StringFilter<"CollaboratorTicket"> | string;
+    deliveryDate?: DateTimeFilter<"CollaboratorTicket"> | Date | string;
+    currency?: EnumCurrencyFilter<"CollaboratorTicket"> | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFilter<"CollaboratorTicket">
+      | $Enums.FormOfPaymentType;
+    phone?: StringFilter<"CollaboratorTicket"> | string;
+    nota?: StringFilter<"CollaboratorTicket"> | string;
+    acceptTerms?: BoolFilter<"CollaboratorTicket"> | boolean;
+    businessId?: StringFilter<"CollaboratorTicket"> | string;
+    customerId?: StringFilter<"CollaboratorTicket"> | string;
+    orderId?: StringFilter<"CollaboratorTicket"> | string;
+    collaboratorId?: StringFilter<"CollaboratorTicket"> | string;
+  };
+
   export type BusinessCreateWithoutTelegramInput = {
     id?: string;
     name: string;
@@ -43241,6 +47482,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -43253,6 +47495,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutTelegramInput = {
@@ -43270,6 +47514,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -43281,6 +47526,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutTelegramInput = {
@@ -43325,6 +47572,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -43337,6 +47588,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutTelegramInput = {
@@ -43357,6 +47610,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -43368,6 +47625,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessCreateWithoutPaymentMethodInput = {
@@ -43384,6 +47643,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -43396,6 +47656,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutPaymentMethodInput = {
@@ -43413,6 +47675,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -43424,6 +47687,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutPaymentMethodInput = {
@@ -43448,6 +47713,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -43460,6 +47726,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutDefaultPaymentMethodInput = {
@@ -43476,6 +47744,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -43488,6 +47757,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutDefaultPaymentMethodInput = {
@@ -43532,6 +47803,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -43544,6 +47819,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutPaymentMethodInput = {
@@ -43564,6 +47841,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -43575,6 +47856,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUpsertWithoutDefaultPaymentMethodInput = {
@@ -43611,6 +47894,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -43623,6 +47910,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutDefaultPaymentMethodInput = {
@@ -43639,6 +47928,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -43651,6 +47944,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductCreateWithoutCategoryInput = {
@@ -43720,6 +48015,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     products?: ProductCreateNestedManyWithoutBusinessInput;
@@ -43732,6 +48028,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCategoriesInput = {
@@ -43749,6 +48047,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -43760,6 +48059,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCategoriesInput = {
@@ -43832,6 +48133,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     products?: ProductUpdateManyWithoutBusinessNestedInput;
@@ -43844,6 +48149,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCategoriesInput = {
@@ -43864,6 +48171,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -43875,6 +48186,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type ProductPriceCreateWithoutProductInput = {
@@ -43911,6 +48224,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -43923,6 +48237,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -43940,6 +48256,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
@@ -43951,6 +48268,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -44092,6 +48411,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -44104,6 +48427,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -44124,6 +48449,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -44135,6 +48464,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -44345,6 +48676,7 @@ export namespace Prisma {
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutUserInput = {
@@ -44367,6 +48699,7 @@ export namespace Prisma {
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutUserInput = {
@@ -44653,6 +48986,47 @@ export namespace Prisma {
     data:
       | CollaboratorProfileCreateManyCollaboratorInput
       | CollaboratorProfileCreateManyCollaboratorInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CollaboratorTicketCreateWithoutCollaboratorInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    business: BusinessCreateNestedOneWithoutTicketsInput;
+    customer: CustomerCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
+  };
+
+  export type CollaboratorTicketUncheckedCreateWithoutCollaboratorInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    customerId: string;
+    orderId: string;
+  };
+
+  export type CollaboratorTicketCreateOrConnectWithoutCollaboratorInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    create: XOR<
+      CollaboratorTicketCreateWithoutCollaboratorInput,
+      CollaboratorTicketUncheckedCreateWithoutCollaboratorInput
+    >;
+  };
+
+  export type CollaboratorTicketCreateManyCollaboratorInputEnvelope = {
+    data:
+      | CollaboratorTicketCreateManyCollaboratorInput
+      | CollaboratorTicketCreateManyCollaboratorInput[];
     skipDuplicates?: boolean;
   };
 
@@ -44959,6 +49333,36 @@ export namespace Prisma {
     >;
   };
 
+  export type CollaboratorTicketUpsertWithWhereUniqueWithoutCollaboratorInput =
+    {
+      where: CollaboratorTicketWhereUniqueInput;
+      update: XOR<
+        CollaboratorTicketUpdateWithoutCollaboratorInput,
+        CollaboratorTicketUncheckedUpdateWithoutCollaboratorInput
+      >;
+      create: XOR<
+        CollaboratorTicketCreateWithoutCollaboratorInput,
+        CollaboratorTicketUncheckedCreateWithoutCollaboratorInput
+      >;
+    };
+
+  export type CollaboratorTicketUpdateWithWhereUniqueWithoutCollaboratorInput =
+    {
+      where: CollaboratorTicketWhereUniqueInput;
+      data: XOR<
+        CollaboratorTicketUpdateWithoutCollaboratorInput,
+        CollaboratorTicketUncheckedUpdateWithoutCollaboratorInput
+      >;
+    };
+
+  export type CollaboratorTicketUpdateManyWithWhereWithoutCollaboratorInput = {
+    where: CollaboratorTicketScalarWhereInput;
+    data: XOR<
+      CollaboratorTicketUpdateManyMutationInput,
+      CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorInput
+    >;
+  };
+
   export type UserCreateWithoutBusinessInput = {
     id?: string;
     role?: $Enums.UserRoles;
@@ -44977,6 +49381,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutBusinessInput = {
@@ -44997,6 +49402,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutBusinessInput = {
@@ -45021,6 +49427,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -45033,6 +49440,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUsersInput = {
@@ -45050,6 +49459,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -45061,6 +49471,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUsersInput = {
@@ -45113,6 +49525,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutBusinessInput = {
@@ -45137,6 +49550,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessUpsertWithoutUsersInput = {
@@ -45173,6 +49587,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -45185,6 +49603,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUsersInput = {
@@ -45205,6 +49625,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -45216,6 +49640,702 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessCreateWithoutCustomersInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutCustomersInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutCustomersInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutCustomersInput,
+      BusinessUncheckedCreateWithoutCustomersInput
+    >;
+  };
+
+  export type CollaboratorTicketCreateWithoutCustomerInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    business: BusinessCreateNestedOneWithoutTicketsInput;
+    order: OrderCreateNestedOneWithoutTicketInput;
+    collaborator: UserCreateNestedOneWithoutTicketsInput;
+  };
+
+  export type CollaboratorTicketUncheckedCreateWithoutCustomerInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    orderId: string;
+    collaboratorId: string;
+  };
+
+  export type CollaboratorTicketCreateOrConnectWithoutCustomerInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    create: XOR<
+      CollaboratorTicketCreateWithoutCustomerInput,
+      CollaboratorTicketUncheckedCreateWithoutCustomerInput
+    >;
+  };
+
+  export type CollaboratorTicketCreateManyCustomerInputEnvelope = {
+    data:
+      | CollaboratorTicketCreateManyCustomerInput
+      | CollaboratorTicketCreateManyCustomerInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type BusinessUpsertWithoutCustomersInput = {
+    update: XOR<
+      BusinessUpdateWithoutCustomersInput,
+      BusinessUncheckedUpdateWithoutCustomersInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutCustomersInput,
+      BusinessUncheckedCreateWithoutCustomersInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutCustomersInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutCustomersInput,
+      BusinessUncheckedUpdateWithoutCustomersInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutCustomersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutCustomersInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type CollaboratorTicketUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    update: XOR<
+      CollaboratorTicketUpdateWithoutCustomerInput,
+      CollaboratorTicketUncheckedUpdateWithoutCustomerInput
+    >;
+    create: XOR<
+      CollaboratorTicketCreateWithoutCustomerInput,
+      CollaboratorTicketUncheckedCreateWithoutCustomerInput
+    >;
+  };
+
+  export type CollaboratorTicketUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    data: XOR<
+      CollaboratorTicketUpdateWithoutCustomerInput,
+      CollaboratorTicketUncheckedUpdateWithoutCustomerInput
+    >;
+  };
+
+  export type CollaboratorTicketUpdateManyWithWhereWithoutCustomerInput = {
+    where: CollaboratorTicketScalarWhereInput;
+    data: XOR<
+      CollaboratorTicketUpdateManyMutationInput,
+      CollaboratorTicketUncheckedUpdateManyWithoutCustomerInput
+    >;
+  };
+
+  export type BusinessCreateWithoutTicketsInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
+    defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
+    telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryCreateNestedManyWithoutBusinessInput;
+    products?: ProductCreateNestedManyWithoutBusinessInput;
+    orders?: OrderCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessUncheckedCreateWithoutTicketsInput = {
+    id?: string;
+    name: string;
+    description?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    howToArrive?: string | null;
+    coordinates?: BusinessCreatecoordinatesInput | number[];
+    slug?: string | null;
+    active?: boolean;
+    requestAddress?: boolean;
+    plan?: $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: boolean;
+    defaultPaymentMethodId?: string | null;
+    currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
+    telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
+    categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
+    products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
+    orders?: OrderUncheckedCreateNestedManyWithoutBusinessInput;
+    users?: UserBusinessUncheckedCreateNestedManyWithoutBusinessInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedCreateNestedManyWithoutBusinessInput;
+    userAddress?: UserAddressUncheckedCreateNestedManyWithoutBusinessInput;
+    paymentMethod?: PaymentMethodUncheckedCreateNestedManyWithoutBusinessInput;
+    invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+  };
+
+  export type BusinessCreateOrConnectWithoutTicketsInput = {
+    where: BusinessWhereUniqueInput;
+    create: XOR<
+      BusinessCreateWithoutTicketsInput,
+      BusinessUncheckedCreateWithoutTicketsInput
+    >;
+  };
+
+  export type CustomerCreateWithoutTicketsInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    business: BusinessCreateNestedOneWithoutCustomersInput;
+  };
+
+  export type CustomerUncheckedCreateWithoutTicketsInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+    businessId: string;
+  };
+
+  export type CustomerCreateOrConnectWithoutTicketsInput = {
+    where: CustomerWhereUniqueInput;
+    create: XOR<
+      CustomerCreateWithoutTicketsInput,
+      CustomerUncheckedCreateWithoutTicketsInput
+    >;
+  };
+
+  export type OrderCreateWithoutTicketInput = {
+    id?: string;
+    productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
+    total?: number;
+    status?: $Enums.OrderStatus;
+    sentAt?: Date | string | null;
+    position?: number | null;
+    identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    user?: UserCreateNestedOneWithoutOrdersInput;
+    items?: OrderProductCreateNestedManyWithoutOrderInput;
+    business?: BusinessCreateNestedOneWithoutOrdersInput;
+    collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
+    orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+  };
+
+  export type OrderUncheckedCreateWithoutTicketInput = {
+    id?: string;
+    userId?: string | null;
+    productsDetails: JsonNullValueInput | InputJsonValue;
+    shipping?: number;
+    hasShipping?: boolean;
+    total?: number;
+    status?: $Enums.OrderStatus;
+    sentAt?: Date | string | null;
+    position?: number | null;
+    businessId?: string | null;
+    identifier?: string | null;
+    isCollaborator?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    currency?: $Enums.Currency;
+    commission?: number;
+    businessProfit?: number;
+    collaboratorInvoiceId?: string | null;
+    items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
+    orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+  };
+
+  export type OrderCreateOrConnectWithoutTicketInput = {
+    where: OrderWhereUniqueInput;
+    create: XOR<
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
+    >;
+  };
+
+  export type UserCreateWithoutTicketsInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput;
+    business?: UserBusinessCreateNestedManyWithoutUserInput;
+    address?: UserAddressCreateNestedManyWithoutUserInput;
+    cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+  };
+
+  export type UserUncheckedCreateWithoutTicketsInput = {
+    id?: string;
+    role?: $Enums.UserRoles;
+    name?: string | null;
+    phone?: string | null;
+    email: string;
+    emailVerified?: Date | string | null;
+    image?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput;
+    business?: UserBusinessUncheckedCreateNestedManyWithoutUserInput;
+    address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
+    cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+  };
+
+  export type UserCreateOrConnectWithoutTicketsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutTicketsInput,
+      UserUncheckedCreateWithoutTicketsInput
+    >;
+  };
+
+  export type BusinessUpsertWithoutTicketsInput = {
+    update: XOR<
+      BusinessUpdateWithoutTicketsInput,
+      BusinessUncheckedUpdateWithoutTicketsInput
+    >;
+    create: XOR<
+      BusinessCreateWithoutTicketsInput,
+      BusinessUncheckedCreateWithoutTicketsInput
+    >;
+    where?: BusinessWhereInput;
+  };
+
+  export type BusinessUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: BusinessWhereInput;
+    data: XOR<
+      BusinessUpdateWithoutTicketsInput,
+      BusinessUncheckedUpdateWithoutTicketsInput
+    >;
+  };
+
+  export type BusinessUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
+    telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type BusinessUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    address?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    howToArrive?: NullableStringFieldUpdateOperationsInput | string | null;
+    coordinates?: BusinessUpdatecoordinatesInput | number[];
+    slug?: NullableStringFieldUpdateOperationsInput | string | null;
+    active?: BoolFieldUpdateOperationsInput | boolean;
+    requestAddress?: BoolFieldUpdateOperationsInput | boolean;
+    plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
+    sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
+    defaultPaymentMethodId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
+    categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
+    products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
+    orders?: OrderUncheckedUpdateManyWithoutBusinessNestedInput;
+    users?: UserBusinessUncheckedUpdateManyWithoutBusinessNestedInput;
+    businessNeighborhood?: BusinessNeighborhoodUncheckedUpdateManyWithoutBusinessNestedInput;
+    userAddress?: UserAddressUncheckedUpdateManyWithoutBusinessNestedInput;
+    paymentMethod?: PaymentMethodUncheckedUpdateManyWithoutBusinessNestedInput;
+    invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+  };
+
+  export type CustomerUpsertWithoutTicketsInput = {
+    update: XOR<
+      CustomerUpdateWithoutTicketsInput,
+      CustomerUncheckedUpdateWithoutTicketsInput
+    >;
+    create: XOR<
+      CustomerCreateWithoutTicketsInput,
+      CustomerUncheckedCreateWithoutTicketsInput
+    >;
+    where?: CustomerWhereInput;
+  };
+
+  export type CustomerUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: CustomerWhereInput;
+    data: XOR<
+      CustomerUpdateWithoutTicketsInput,
+      CustomerUncheckedUpdateWithoutTicketsInput
+    >;
+  };
+
+  export type CustomerUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    business?: BusinessUpdateOneRequiredWithoutCustomersNestedInput;
+  };
+
+  export type CustomerUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    businessId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type OrderUpsertWithoutTicketInput = {
+    update: XOR<
+      OrderUpdateWithoutTicketInput,
+      OrderUncheckedUpdateWithoutTicketInput
+    >;
+    create: XOR<
+      OrderCreateWithoutTicketInput,
+      OrderUncheckedCreateWithoutTicketInput
+    >;
+    where?: OrderWhereInput;
+  };
+
+  export type OrderUpdateToOneWithWhereWithoutTicketInput = {
+    where?: OrderWhereInput;
+    data: XOR<
+      OrderUpdateWithoutTicketInput,
+      OrderUncheckedUpdateWithoutTicketInput
+    >;
+  };
+
+  export type OrderUpdateWithoutTicketInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
+    total?: IntFieldUpdateOperationsInput | number;
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    position?: NullableIntFieldUpdateOperationsInput | number | null;
+    identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    user?: UserUpdateOneWithoutOrdersNestedInput;
+    items?: OrderProductUpdateManyWithoutOrderNestedInput;
+    business?: BusinessUpdateOneWithoutOrdersNestedInput;
+    collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
+    orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+  };
+
+  export type OrderUncheckedUpdateWithoutTicketInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: NullableStringFieldUpdateOperationsInput | string | null;
+    productsDetails?: JsonNullValueInput | InputJsonValue;
+    shipping?: IntFieldUpdateOperationsInput | number;
+    hasShipping?: BoolFieldUpdateOperationsInput | boolean;
+    total?: IntFieldUpdateOperationsInput | number;
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    position?: NullableIntFieldUpdateOperationsInput | number | null;
+    businessId?: NullableStringFieldUpdateOperationsInput | string | null;
+    identifier?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborator?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    commission?: IntFieldUpdateOperationsInput | number;
+    businessProfit?: IntFieldUpdateOperationsInput | number;
+    collaboratorInvoiceId?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
+    orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+  };
+
+  export type UserUpsertWithoutTicketsInput = {
+    update: XOR<
+      UserUpdateWithoutTicketsInput,
+      UserUncheckedUpdateWithoutTicketsInput
+    >;
+    create: XOR<
+      UserCreateWithoutTicketsInput,
+      UserUncheckedCreateWithoutTicketsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutTicketsInput,
+      UserUncheckedUpdateWithoutTicketsInput
+    >;
+  };
+
+  export type UserUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUpdateManyWithoutUserNestedInput;
+    address?: UserAddressUpdateManyWithoutUserNestedInput;
+    cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?: EnumUserRolesFieldUpdateOperationsInput | $Enums.UserRoles;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    emailVerified?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    image?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput;
+    business?: UserBusinessUncheckedUpdateManyWithoutUserNestedInput;
+    address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
+    cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessCreateWithoutCollaboratorProfilesInput = {
@@ -45232,6 +50352,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -45244,6 +50365,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCollaboratorProfilesInput = {
@@ -45261,6 +50384,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -45272,6 +50396,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCollaboratorProfilesInput = {
@@ -45300,6 +50426,7 @@ export namespace Prisma {
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutCollaboratorProfilesInput = {
@@ -45320,6 +50447,7 @@ export namespace Prisma {
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutCollaboratorProfilesInput = {
@@ -45364,6 +50492,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -45376,6 +50508,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCollaboratorProfilesInput = {
@@ -45396,6 +50530,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -45407,6 +50545,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserUpsertWithoutCollaboratorProfilesInput = {
@@ -45451,6 +50591,7 @@ export namespace Prisma {
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutCollaboratorProfilesInput = {
@@ -45475,6 +50616,7 @@ export namespace Prisma {
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessCreateWithoutCardBanksInput = {
@@ -45491,6 +50633,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -45503,6 +50646,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCardBanksInput = {
@@ -45520,6 +50665,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -45531,6 +50677,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCardBanksInput = {
@@ -45559,6 +50707,7 @@ export namespace Prisma {
     address?: UserAddressCreateNestedManyWithoutUserInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutCardBanksInput = {
@@ -45579,6 +50728,7 @@ export namespace Prisma {
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutCardBanksInput = {
@@ -45668,6 +50818,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -45680,6 +50834,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCardBanksInput = {
@@ -45700,6 +50856,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -45711,6 +50871,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserUpsertWithoutCardBanksInput = {
@@ -45755,6 +50917,7 @@ export namespace Prisma {
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutCardBanksInput = {
@@ -45779,6 +50942,7 @@ export namespace Prisma {
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type CollaboratorInvoiceUpsertWithWhereUniqueWithoutCardBankInput = {
@@ -45823,6 +50987,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -45835,6 +51000,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutInvitationLinksInput = {
@@ -45852,6 +51019,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -45863,6 +51031,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutInvitationLinksInput = {
@@ -45907,6 +51077,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -45919,6 +51093,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutInvitationLinksInput = {
@@ -45939,6 +51115,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -45950,6 +51130,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserCreateWithoutOrdersInput = {
@@ -45970,6 +51152,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -45990,6 +51173,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -46047,6 +51231,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -46059,6 +51244,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutOrdersInput = {
@@ -46076,6 +51263,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -46087,6 +51275,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutOrdersInput = {
@@ -46153,6 +51343,40 @@ export namespace Prisma {
     >;
   };
 
+  export type CollaboratorTicketCreateWithoutOrderInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    business: BusinessCreateNestedOneWithoutTicketsInput;
+    customer: CustomerCreateNestedOneWithoutTicketsInput;
+    collaborator: UserCreateNestedOneWithoutTicketsInput;
+  };
+
+  export type CollaboratorTicketUncheckedCreateWithoutOrderInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    customerId: string;
+    collaboratorId: string;
+  };
+
+  export type CollaboratorTicketCreateOrConnectWithoutOrderInput = {
+    where: CollaboratorTicketWhereUniqueInput;
+    create: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+  };
+
   export type UserUpsertWithoutOrdersInput = {
     update: XOR<
       UserUpdateWithoutOrdersInput,
@@ -46195,6 +51419,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -46219,6 +51444,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type OrderProductUpsertWithWhereUniqueWithoutOrderInput = {
@@ -46283,6 +51509,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -46295,6 +51525,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutOrdersInput = {
@@ -46315,6 +51547,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -46326,6 +51562,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type CollaboratorInvoiceUpsertWithoutOrdersInput = {
@@ -46408,6 +51646,56 @@ export namespace Prisma {
     addressId?: StringFieldUpdateOperationsInput | string;
   };
 
+  export type CollaboratorTicketUpsertWithoutOrderInput = {
+    update: XOR<
+      CollaboratorTicketUpdateWithoutOrderInput,
+      CollaboratorTicketUncheckedUpdateWithoutOrderInput
+    >;
+    create: XOR<
+      CollaboratorTicketCreateWithoutOrderInput,
+      CollaboratorTicketUncheckedCreateWithoutOrderInput
+    >;
+    where?: CollaboratorTicketWhereInput;
+  };
+
+  export type CollaboratorTicketUpdateToOneWithWhereWithoutOrderInput = {
+    where?: CollaboratorTicketWhereInput;
+    data: XOR<
+      CollaboratorTicketUpdateWithoutOrderInput,
+      CollaboratorTicketUncheckedUpdateWithoutOrderInput
+    >;
+  };
+
+  export type CollaboratorTicketUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
+    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+  };
+
   export type ProductCreateWithoutOrderItemsInput = {
     id?: string;
     name: string;
@@ -46476,6 +51764,7 @@ export namespace Prisma {
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutItemsInput = {
@@ -46498,6 +51787,7 @@ export namespace Prisma {
     businessProfit?: number;
     collaboratorInvoiceId?: string | null;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutItemsInput = {
@@ -46608,6 +51898,7 @@ export namespace Prisma {
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
@@ -46633,6 +51924,7 @@ export namespace Prisma {
       | string
       | null;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type BusinessCreateWithoutCollaboratorInvoicesInput = {
@@ -46649,6 +51941,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -46661,6 +51954,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutCollaboratorInvoicesInput = {
@@ -46678,6 +51973,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -46689,6 +51985,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedCreateNestedManyWithoutBusinessInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutCollaboratorInvoicesInput = {
@@ -46717,6 +52015,7 @@ export namespace Prisma {
     address?: UserAddressCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutCollaboratorInvoicesInput = {
@@ -46737,6 +52036,7 @@ export namespace Prisma {
     address?: UserAddressUncheckedCreateNestedManyWithoutUserInput;
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutCollaboratorInvoicesInput = {
@@ -46801,6 +52101,7 @@ export namespace Prisma {
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     orderAddress?: OrderAddressCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutCollaboratorInvoiceInput = {
@@ -46823,6 +52124,7 @@ export namespace Prisma {
     businessProfit?: number;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
     orderAddress?: OrderAddressUncheckedCreateNestedOneWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutCollaboratorInvoiceInput = {
@@ -46874,6 +52176,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -46886,6 +52192,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutCollaboratorInvoicesInput = {
@@ -46906,6 +52214,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -46917,6 +52229,8 @@ export namespace Prisma {
     invitationLinks?: InvitationLinkUncheckedUpdateManyWithoutBusinessNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type UserUpsertWithoutCollaboratorInvoicesInput = {
@@ -46961,6 +52275,7 @@ export namespace Prisma {
     address?: UserAddressUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutCollaboratorInvoicesInput = {
@@ -46985,6 +52300,7 @@ export namespace Prisma {
     address?: UserAddressUncheckedUpdateManyWithoutUserNestedInput;
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type CollaboratorCardBankUpsertWithoutCollaboratorInvoicesInput = {
@@ -47079,6 +52395,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -47099,6 +52416,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -47151,6 +52469,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -47175,6 +52494,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserCreateWithoutSessionsInput = {
@@ -47195,6 +52515,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -47215,6 +52536,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -47267,6 +52589,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -47291,6 +52614,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -47311,6 +52635,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -47331,6 +52656,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -47383,6 +52709,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -47407,6 +52734,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type NeighborhoodCreateWithoutAddressesInput = {
@@ -47760,6 +53088,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserUncheckedCreateWithoutAddressInput = {
@@ -47780,6 +53109,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutCollaboratorInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutCollaboratorInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutCollaboratorInput;
   };
 
   export type UserCreateOrConnectWithoutAddressInput = {
@@ -47804,6 +53134,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -47816,6 +53147,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutUserAddressInput = {
@@ -47833,6 +53166,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -47844,6 +53178,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutUserAddressInput = {
@@ -47940,6 +53276,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAddressInput = {
@@ -47964,6 +53301,7 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutCollaboratorNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutCollaboratorNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorNestedInput;
   };
 
   export type BusinessUpsertWithoutUserAddressInput = {
@@ -48000,6 +53338,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -48012,6 +53354,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutUserAddressInput = {
@@ -48032,6 +53376,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -48043,6 +53391,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type AddressCreateWithoutOrderAddressInput = {
@@ -48097,6 +53447,7 @@ export namespace Prisma {
     items?: OrderProductCreateNestedManyWithoutOrderInput;
     business?: BusinessCreateNestedOneWithoutOrdersInput;
     collaboratorInvoice?: CollaboratorInvoiceCreateNestedOneWithoutOrdersInput;
+    ticket?: CollaboratorTicketCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderUncheckedCreateWithoutOrderAddressInput = {
@@ -48119,6 +53470,7 @@ export namespace Prisma {
     businessProfit?: number;
     collaboratorInvoiceId?: string | null;
     items?: OrderProductUncheckedCreateNestedManyWithoutOrderInput;
+    ticket?: CollaboratorTicketUncheckedCreateNestedOneWithoutOrderInput;
   };
 
   export type OrderCreateOrConnectWithoutOrderAddressInput = {
@@ -48213,6 +53565,7 @@ export namespace Prisma {
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutOrderAddressInput = {
@@ -48238,6 +53591,7 @@ export namespace Prisma {
       | string
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type BusinessCreateWithoutBusinessNeighborhoodInput = {
@@ -48254,6 +53608,7 @@ export namespace Prisma {
     plan?: $Enums.BusinessPlan;
     sendOrderToWhatsapp?: boolean;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     defaultPaymentMethod?: PaymentMethodCreateNestedOneWithoutDefaultBusinessInput;
     telegram?: TelegramBusinessCreateNestedOneWithoutBusinessInput;
     categories?: CategoryCreateNestedManyWithoutBusinessInput;
@@ -48266,6 +53621,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessUncheckedCreateWithoutBusinessNeighborhoodInput = {
@@ -48283,6 +53640,7 @@ export namespace Prisma {
     sendOrderToWhatsapp?: boolean;
     defaultPaymentMethodId?: string | null;
     currency?: $Enums.Currency;
+    ticketTermsConditions?: string | null;
     telegram?: TelegramBusinessUncheckedCreateNestedOneWithoutBusinessInput;
     categories?: CategoryUncheckedCreateNestedManyWithoutBusinessInput;
     products?: ProductUncheckedCreateNestedManyWithoutBusinessInput;
@@ -48294,6 +53652,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedCreateNestedManyWithoutBusinessInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedCreateNestedManyWithoutBusinessInput;
+    customers?: CustomerUncheckedCreateNestedManyWithoutBusinessInput;
+    tickets?: CollaboratorTicketUncheckedCreateNestedManyWithoutBusinessInput;
   };
 
   export type BusinessCreateOrConnectWithoutBusinessNeighborhoodInput = {
@@ -48360,6 +53720,10 @@ export namespace Prisma {
     plan?: EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan;
     sendOrderToWhatsapp?: BoolFieldUpdateOperationsInput | boolean;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     defaultPaymentMethod?: PaymentMethodUpdateOneWithoutDefaultBusinessNestedInput;
     telegram?: TelegramBusinessUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUpdateManyWithoutBusinessNestedInput;
@@ -48372,6 +53736,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUpdateManyWithoutBusinessNestedInput;
   };
 
   export type BusinessUncheckedUpdateWithoutBusinessNeighborhoodInput = {
@@ -48392,6 +53758,10 @@ export namespace Prisma {
       | string
       | null;
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    ticketTermsConditions?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
     telegram?: TelegramBusinessUncheckedUpdateOneWithoutBusinessNestedInput;
     categories?: CategoryUncheckedUpdateManyWithoutBusinessNestedInput;
     products?: ProductUncheckedUpdateManyWithoutBusinessNestedInput;
@@ -48403,6 +53773,8 @@ export namespace Prisma {
     cardBanks?: CollaboratorCardBankUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorInvoices?: CollaboratorInvoiceUncheckedUpdateManyWithoutBusinessNestedInput;
     collaboratorProfiles?: CollaboratorProfileUncheckedUpdateManyWithoutBusinessNestedInput;
+    customers?: CustomerUncheckedUpdateManyWithoutBusinessNestedInput;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutBusinessNestedInput;
   };
 
   export type NeighborhoodUpsertWithoutBusinessNeighborhoodInput = {
@@ -48554,6 +53926,26 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
+  export type CustomerCreateManyBusinessInput = {
+    id?: string;
+    name: string;
+    phones: JsonNullValueInput | InputJsonValue;
+    identification: string;
+  };
+
+  export type CollaboratorTicketCreateManyBusinessInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    customerId: string;
+    orderId: string;
+    collaboratorId: string;
+  };
+
   export type CategoryUpdateWithoutBusinessInput = {
     id?: StringFieldUpdateOperationsInput | string;
     name?: StringFieldUpdateOperationsInput | string;
@@ -48658,6 +54050,7 @@ export namespace Prisma {
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutBusinessInput = {
@@ -48683,6 +54076,7 @@ export namespace Prisma {
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateManyWithoutBusinessInput = {
@@ -48930,6 +54324,74 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type CustomerUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    tickets?: CollaboratorTicketUpdateManyWithoutCustomerNestedInput;
+  };
+
+  export type CustomerUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+    tickets?: CollaboratorTicketUncheckedUpdateManyWithoutCustomerNestedInput;
+  };
+
+  export type CustomerUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    name?: StringFieldUpdateOperationsInput | string;
+    phones?: JsonNullValueInput | InputJsonValue;
+    identification?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateManyWithoutBusinessInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+  };
+
   export type ProductCreateManyCategoryInput = {
     id?: string;
     name: string;
@@ -49146,6 +54608,19 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
+  export type CollaboratorTicketCreateManyCollaboratorInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    customerId: string;
+    orderId: string;
+  };
+
   export type OrderUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     productsDetails?: JsonNullValueInput | InputJsonValue;
@@ -49166,6 +54641,7 @@ export namespace Prisma {
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     collaboratorInvoice?: CollaboratorInvoiceUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutUserInput = {
@@ -49191,6 +54667,7 @@ export namespace Prisma {
       | null;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateManyWithoutUserInput = {
@@ -49467,6 +54944,109 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type CollaboratorTicketUpdateWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
+    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateManyWithoutCollaboratorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    customerId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketCreateManyCustomerInput = {
+    id?: string;
+    deliveryDate: Date | string;
+    currency: $Enums.Currency;
+    formOfPayment: $Enums.FormOfPaymentType;
+    phone: string;
+    nota: string;
+    acceptTerms: boolean;
+    businessId: string;
+    orderId: string;
+    collaboratorId: string;
+  };
+
+  export type CollaboratorTicketUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    business?: BusinessUpdateOneRequiredWithoutTicketsNestedInput;
+    order?: OrderUpdateOneRequiredWithoutTicketNestedInput;
+    collaborator?: UserUpdateOneRequiredWithoutTicketsNestedInput;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+  };
+
+  export type CollaboratorTicketUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string;
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency;
+    formOfPayment?:
+      | EnumFormOfPaymentTypeFieldUpdateOperationsInput
+      | $Enums.FormOfPaymentType;
+    phone?: StringFieldUpdateOperationsInput | string;
+    nota?: StringFieldUpdateOperationsInput | string;
+    acceptTerms?: BoolFieldUpdateOperationsInput | boolean;
+    businessId?: StringFieldUpdateOperationsInput | string;
+    orderId?: StringFieldUpdateOperationsInput | string;
+    collaboratorId?: StringFieldUpdateOperationsInput | string;
+  };
+
   export type CollaboratorInvoiceCreateManyCardBankInput = {
     id?: string;
     businessId: string;
@@ -49605,6 +55185,7 @@ export namespace Prisma {
     items?: OrderProductUpdateManyWithoutOrderNestedInput;
     business?: BusinessUpdateOneWithoutOrdersNestedInput;
     orderAddress?: OrderAddressUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateWithoutCollaboratorInvoiceInput = {
@@ -49627,6 +55208,7 @@ export namespace Prisma {
     businessProfit?: IntFieldUpdateOperationsInput | number;
     items?: OrderProductUncheckedUpdateManyWithoutOrderNestedInput;
     orderAddress?: OrderAddressUncheckedUpdateOneWithoutOrderNestedInput;
+    ticket?: CollaboratorTicketUncheckedUpdateOneWithoutOrderNestedInput;
   };
 
   export type OrderUncheckedUpdateManyWithoutCollaboratorInvoiceInput = {
@@ -49750,6 +55332,12 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = UserCountOutputTypeDefaultArgs<ExtArgs>;
   /**
+   * @deprecated Use CustomerCountOutputTypeDefaultArgs instead
+   */
+  export type CustomerCountOutputTypeArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CustomerCountOutputTypeDefaultArgs<ExtArgs>;
+  /**
    * @deprecated Use CollaboratorCardBankCountOutputTypeDefaultArgs instead
    */
   export type CollaboratorCardBankCountOutputTypeArgs<
@@ -49821,6 +55409,18 @@ export namespace Prisma {
   export type UserBusinessArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = UserBusinessDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use CustomerDefaultArgs instead
+   */
+  export type CustomerArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CustomerDefaultArgs<ExtArgs>;
+  /**
+   * @deprecated Use CollaboratorTicketDefaultArgs instead
+   */
+  export type CollaboratorTicketArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = CollaboratorTicketDefaultArgs<ExtArgs>;
   /**
    * @deprecated Use CollaboratorProfileDefaultArgs instead
    */

@@ -18,6 +18,7 @@ export type AddressFormProps = {
   name?: string;
   neighborhoods: NeighborhoodWithShipping[];
   addAlias?: boolean;
+  addName?: boolean;
 };
 
 export default function AddressForm({
@@ -25,6 +26,7 @@ export default function AddressForm({
   name = "",
   neighborhoods,
   addAlias = true,
+  addName = true,
 }: AddressFormProps) {
   const t = useTranslations("Address");
   name = name ? `${name}.` : "";
@@ -48,19 +50,21 @@ export default function AddressForm({
           )}
         />
       )}
-      <FormField
-        control={form.control}
-        name={`${name}name`}
-        render={({ field, fieldState: { error } }: any) => (
-          <FormItem>
-            <FormLabel>{t("lbName")}</FormLabel>
-            <FormControl>
-              <Input placeholder={t("phName")} {...field} />
-            </FormControl>
-            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-          </FormItem>
-        )}
-      />
+      {addName && (
+        <FormField
+          control={form.control}
+          name={`${name}name`}
+          render={({ field, fieldState: { error } }: any) => (
+            <FormItem>
+              <FormLabel>{t("lbName")}</FormLabel>
+              <FormControl>
+                <Input placeholder={t("phName")} {...field} />
+              </FormControl>
+              <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+            </FormItem>
+          )}
+        />
+      )}
       <FormField
         control={form.control}
         name={`${name}address`}

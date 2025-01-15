@@ -19,6 +19,8 @@ import {
   RelatedCollaboratorInvoiceModel,
   CompleteCollaboratorProfile,
   RelatedCollaboratorProfileModel,
+  CompleteCollaboratorTicket,
+  RelatedCollaboratorTicketModel,
 } from "./index";
 
 export const UserModel = z.object({
@@ -43,6 +45,7 @@ export interface CompleteUser extends z.infer<typeof UserModel> {
   cardBanks: CompleteCollaboratorCardBank[];
   collaboratorInvoices: CompleteCollaboratorInvoice[];
   collaboratorProfiles: CompleteCollaboratorProfile[];
+  tickets: CompleteCollaboratorTicket[];
 }
 
 /**
@@ -61,5 +64,6 @@ export const RelatedUserModel: z.ZodSchema<CompleteUser> = z.lazy(() =>
     cardBanks: RelatedCollaboratorCardBankModel.array(),
     collaboratorInvoices: RelatedCollaboratorInvoiceModel.array(),
     collaboratorProfiles: RelatedCollaboratorProfileModel.array(),
+    tickets: RelatedCollaboratorTicketModel.array(),
   }),
 );

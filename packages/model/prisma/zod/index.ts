@@ -6,6 +6,8 @@ export * from "./product";
 export * from "./productprice";
 export * from "./user";
 export * from "./userbusiness";
+export * from "./customer";
+export * from "./collaboratorticket";
 export * from "./collaboratorprofile";
 export * from "./collaboratorcardbank";
 export * from "./invitationlink";
