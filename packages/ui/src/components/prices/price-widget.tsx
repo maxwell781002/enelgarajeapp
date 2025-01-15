@@ -39,7 +39,7 @@ export default function PriceWidget({
     };
   return (
     <>
-      <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2">
         <FormField
           control={form.control}
           name="price"
@@ -47,12 +47,6 @@ export default function PriceWidget({
             <FormItem>
               <FormLabel>{t("lbPrice")}</FormLabel>
               <FormControl>
-                {/*<Input
-                  placeholder={t("phPrice")}
-                  type="number"
-                  {...field}
-                  onChange={(event: any) => field.onChange(+event.target.value)}
-                />*/}
                   <PriceInput
                       onBlur={handleQuantityPriceChange}
                       value={field.value}
@@ -69,12 +63,6 @@ export default function PriceWidget({
             <FormItem>
               <FormLabel>{t("lbOfferPrice")}</FormLabel>
               <FormControl>
-                {/*<Input
-                  placeholder={t("phOfferPrice")}
-                  type="number"
-                  {...field}
-                  onChange={(event: any) => field.onChange(+event.target.value)}
-                />*/}
                   <PriceInput
                       onBlur={handleQuantityPriceOffer}
                       value={field.value}
