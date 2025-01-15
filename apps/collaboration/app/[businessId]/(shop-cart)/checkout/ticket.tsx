@@ -19,7 +19,7 @@ export type TicketFormProps = {
 export default function TicketForm({ form, t }: TicketFormProps) {
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <FormField
           control={form.control}
           name="ticket.deliveryDate"
@@ -49,6 +49,9 @@ export default function TicketForm({ form, t }: TicketFormProps) {
                 />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+              <p className={`text-sm text-gray-500 mt-1`}>
+                {t("lbTicketCurrencyDescription")}
+              </p>
             </FormItem>
           )}
         />

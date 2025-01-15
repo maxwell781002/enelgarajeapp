@@ -6,7 +6,7 @@ import {
 } from "@repo/ui/components/ui/card";
 
 type Items = {
-  label: string;
+  label: string | undefined | null;
   value: any;
 };
 

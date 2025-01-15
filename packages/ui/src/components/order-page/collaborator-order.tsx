@@ -6,6 +6,7 @@ import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
 import OrderProducts from "@repo/ui/components/order-page/order-products";
+import { CompleteUser } from "@repo/model/zod/user";
 
 export type CollaboratorOrderProps = {
   order: CompleteOrder;
@@ -41,6 +42,7 @@ export default async function CollaboratorOrder({
       ]
     : [];
   const ticket = order.ticket;
+  const user = order.user as CompleteUser;
   return (
     <div className="container mx-auto p-4">
       <div className="space-y-6">
@@ -88,8 +90,8 @@ export default async function CollaboratorOrder({
         <CardDisplay
           title={t("cardCollaborator")}
           items={[
-            { label: t("collaboratorName"), value: order.user.name },
-            { label: t("phone"), value: order.user.phone },
+            { label: t("collaboratorName"), value: user.name },
+            { label: t("phone"), value: user.phone },
           ]}
         />
         {!!ticket && (

@@ -31,7 +31,7 @@
     "cardPayment": "Pago",
     "shipping": "Precio de domicilio",
     "total": "Total a pagar",
-    "currency": "Moneda",
+    "currency": "Moneda en que hará el pago.",
     "formOfPayment": "Forma de pago",
     "TRANSFER": "Transferencia",
     "CASH": "Efectivo",

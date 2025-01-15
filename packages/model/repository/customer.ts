@@ -19,9 +19,9 @@ export const createCustomer = async (
   }
   let phones = customer.phones || [];
   phones = JSON.parse(phones);
-  const isPhone = phones.some((p) => p.phone === phone);
+  const isPhone = phones.some((p: any) => p.phone === phone);
   if (isPhone) {
-    phones = phones.map((p) => {
+    phones = phones.map((p: any) => {
       if (p.phone === phone) {
         p.lastUsed = new Date();
       }
