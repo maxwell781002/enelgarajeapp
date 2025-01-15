@@ -43,7 +43,8 @@
     "lbTicketNota": "Nota (opcional)",
     "phTicketNota": "Escriba la nota",
     "required": "Requerido",
-    "Required": "Requerido"
+    "Required": "Requerido",
+    "ticketTermsAndConditions": "Terminos y condiciones"
   },
   "FormOfPaymentSelect": {
     "CASH": "En efectivo",

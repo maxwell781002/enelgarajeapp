@@ -40,7 +40,10 @@
     "tabAdmin": "Administración",
     "noPaymentMethod": "No tiene ningún medio de pago configurado.",
     "lbCurrency": "Moneda",
-    "phCurrency": "Seleccionar Moneda"
+    "phCurrency": "Seleccionar Moneda",
+    "lbTicketTermsConditions": "Telegram Terms & Conditions que se aplican en la compra",
+    "phTicketTermsConditions": "Telegram Terms & Conditions",
+    "btnSaving": "Guardando..."
   },
   "Totals": {
     "totalProducts": "Total de productos",

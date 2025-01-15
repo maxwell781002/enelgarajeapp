@@ -110,7 +110,12 @@ export default async function BusinessPage({
               {t("yourPlan")}: <strong>{t(business.plan)}</strong>
             </span>
           </div>
+          <strong className="block">{t("lbDescription")}</strong>
           <p className="text-muted-foreground">{business.description}</p>
+          <strong className="block">{t("lbTicketTermsConditions")}</strong>
+          <p className="text-muted-foreground">
+            {business.ticketTermsConditions}
+          </p>
         </CardContent>
       </Card>
     </div>
