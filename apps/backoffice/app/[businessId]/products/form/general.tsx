@@ -189,7 +189,8 @@ export default function GeneralProductForm({
           <FormItem>
             <FormLabel>{t("lbDescription")}</FormLabel>
             <FormControl>
-              <Textarea placeholder={t("phDescription")} {...field} />
+              {/*<Textarea placeholder={t("phDescription")} {...field} />*/}
+                
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>
