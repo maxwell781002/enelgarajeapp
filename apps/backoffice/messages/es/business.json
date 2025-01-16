@@ -41,8 +41,8 @@
     "noPaymentMethod": "No tiene ningún medio de pago configurado.",
     "lbCurrency": "Moneda",
     "phCurrency": "Seleccionar Moneda",
-    "lbTicketTermsConditions": "Telegram Terms & Conditions que se aplican en la compra",
-    "phTicketTermsConditions": "Telegram Terms & Conditions",
+    "lbTicketTermsConditions": "Términos y Conditions que se muestra en la compra a los gestores",
+    "phTicketTermsConditions": "Términos y Conditions",
     "btnSaving": "Guardando..."
   },
   "Totals": {

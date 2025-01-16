@@ -21,7 +21,10 @@ export default async function Page({
   const order = await getOrderById(orderId);
   return (
     <CheckoutSuccessfulPage business={business} order={order as CompleteOrder}>
-      <CollaboratorOrder order={order as CompleteOrder} />
+      <CollaboratorOrder
+        order={order as CompleteOrder}
+        baseUrl={(item) => `/${businessId}/products/${item.product.slug}`}
+      />
     </CheckoutSuccessfulPage>
   );
 }
