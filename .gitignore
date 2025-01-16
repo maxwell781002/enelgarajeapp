@@ -38,6 +38,7 @@ yarn-error.log*
 *.pem
 
 *.node
+
 /.idea
-/packages/model/prisma/generated
-/packages/model/prisma/zod
+packages/model/prisma/generated
+packages/model/prisma/zod

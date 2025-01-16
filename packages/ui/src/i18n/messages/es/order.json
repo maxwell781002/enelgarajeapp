@@ -7,13 +7,42 @@
     "lbPhone": "Teléfono",
     "isCollaborator": "Es Gestor"
   },
-  "Orders": {
-    "identifier": "Order",
-    "total": "Total",
-    "status": "Estado",
-    "sentAt": "Fecha",
-    "emptyOrders": "Ordenes vacías",
-    "emptyOrdersDescription": "Para seguir comprando, haz clic en el botón de continuar comprando.",
-    "continueShopping": "Comenzar a comprar"
+  "Order": {
+    "phSearch": "Buscar por identificador.",
+    "OrderList": "Pedidos",
+    "titleChangeStatus": "¿Seguro que quiere cambiar el estado?",
+    "descriptionChangeStatus": "El cambio de estado es irreversible.",
+    "btnChangeStatusContinueText": "Cambiar estado",
+    "btnChangeStatusCancelText": "Cancelar"
+  },
+  "OrderDetailBack": {
+    "cardGeneral": "Información General",
+    "identifier": "Order Nro",
+    "createdAt": "Creado el",
+    "deliveryDate": "Fecha y hora de entrega",
+    "cardCustomer": "Datos del cliente",
+    "customerName": "Nombre",
+    "identification": "Carnet de identidad",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "neighborhood": "Reparto",
+    "city": "Municipio",
+    "image": "Imagen",
+    "state": "Provincia",
+    "cardCollaborator": "Datos del gestor",
+    "collaboratorName": "Nombre",
+    "cardProducts": "Productos",
+    "product": "Producto",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "reference": "Referencia",
+    "cardPayment": "Pago",
+    "shipping": "Precio de domicilio",
+    "total": "Total a pagar",
+    "currency": "Moneda en que hará el pago.",
+    "formOfPayment": "Forma de pago",
+    "TRANSFER": "Transferencia",
+    "CASH": "Efectivo",
+    "commission": "Comisión"
   }
 }

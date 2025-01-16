@@ -126,6 +126,19 @@ export default function BusinessForm({
           </FormItem>
         )}
       />
+      <FormField
+        control={form.control}
+        name="ticketTermsConditions"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbTicketTermsConditions")}</FormLabel>
+            <FormControl>
+              <Textarea placeholder={t("phTicketTermsConditions")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
     </>
   );
 }

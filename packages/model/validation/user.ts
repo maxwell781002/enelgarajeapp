@@ -1,6 +1,8 @@
 import { AddressModel } from "../prisma/zod";
 import { z } from "zod";
 import { CompleteAddress } from "../prisma/zod/address";
+import { CustomerForm } from "@repo/model/validation/customer";
+import { CollaboratorTicketForm } from "@repo/model/validation/collaborator-ticket";
 
 export enum AddressType {
   newAddress = "newAddress",
@@ -59,13 +61,19 @@ export type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
 export const CollaboratorShoppingCartSchema = BaseCart.extend({
   wantDomicile: z.boolean().optional(),
-  address: AddressModel.omit({ id: true }).optional(),
+  address: AddressModel.omit({ id: true, name: true }).optional(),
+  customer: CustomerForm,
+  ticket: CollaboratorTicketForm,
 }).refine((val) => !val.wantDomicile || (val.wantDomicile && val.address), {
   message: "required",
   path: ["address"],
 });
 export type TCollaboratorShoppingCartSchema = z.infer<
   typeof CollaboratorShoppingCartSchema
+>;
+export type TShoppingCartSchemaRegister = Omit<
+  TCollaboratorShoppingCartSchema,
+  "customer" | "ticket"
 >;
 
 export type TUserRegisterSchema = z.infer<typeof UserRegisterSchema> & {

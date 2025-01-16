@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/button";
 import {
   Tabs,
   TabsContent,
@@ -36,7 +36,7 @@ export default function BusinessMasterForm({
   const t = useTranslations("Business");
   const { toast } = useToast();
   const [showTelegram, setShowTelegram] = useState(!!defaultValues.telegram);
-  const { form, onSubmit } = useFormProcess({
+  const { form, onSubmit, saving } = useFormProcess({
     resolver,
     action: (form: FormData) => {
       if (!showTelegram) {
@@ -80,7 +80,14 @@ export default function BusinessMasterForm({
             </TabsContent>
           </Tabs>
         )}
-        <Button type="submit">{t("btnSubmit")}</Button>
+        <Button
+          type="submit"
+          disabled={saving}
+          loading={saving}
+          loadingText={t("btnSaving")}
+        >
+          {t("btnSubmit")}
+        </Button>
       </form>
     </Form>
   );
