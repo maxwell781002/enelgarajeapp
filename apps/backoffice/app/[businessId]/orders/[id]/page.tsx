@@ -34,9 +34,15 @@ export default async function Page({
       headerChildren={changeStatusComponent}
     >
       {order.isCollaborator ? (
-        <CollaboratorOrder order={order as CompleteOrder} />
+        <CollaboratorOrder
+          baseUrl={(item) => `/${businessId}/products/${item.product.id}`}
+          order={order as CompleteOrder}
+        />
       ) : (
-        <ClientBackofficeOrder order={order as CompleteOrder} />
+        <ClientBackofficeOrder
+          order={order as CompleteOrder}
+          baseUrl={(item) => `/${businessId}/products/${item.product.id}`}
+        />
       )}
     </BackPage>
   );

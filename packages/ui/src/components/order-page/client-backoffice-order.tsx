@@ -5,15 +5,18 @@ import CardDisplay from "@repo/ui/components/card-display";
 import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
-import OrderProducts from "@repo/ui/components/order-page/order-products";
+import OrderProducts, {
+  OrderProductsProps,
+} from "@repo/ui/components/order-page/order-products";
 import { CompleteUser } from "@repo/model/zod/user";
 
 export type ClientBackofficeOrderProps = {
   order: CompleteOrder;
-};
+} & OrderProductsProps;
 
 export default async function ClientBackofficeOrder({
   order,
+  ...props
 }: ClientBackofficeOrderProps) {
   const t = await getTranslations("OrderDetailBack");
   const address = order.orderAddress?.address;
@@ -90,7 +93,7 @@ export default async function ClientBackofficeOrder({
             ...addressItems,
           ]}
         />
-        <OrderProducts order={order} />
+        <OrderProducts order={order} {...props} />
       </div>
     </div>
   );
