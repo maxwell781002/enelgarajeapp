@@ -7,6 +7,7 @@ import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
 import OrderProducts from "@repo/ui/components/order-page/order-products";
 import { CompleteUser } from "@repo/model/zod/user";
+import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/components/ui/card";
 
 export type CollaboratorOrderProps = {
   order: CompleteOrder;
@@ -121,6 +122,18 @@ export default async function CollaboratorOrder({
                 },
               ]}
             />
+            {ticket?.nota && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex justify-between items-center">
+                    <span>{t("cardNota")}</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{ticket?.nota}</p>
+                </CardContent>
+              </Card>
+            )}
           </>
         )}
         <OrderProducts order={order} />

@@ -35,7 +35,8 @@
     "formOfPayment": "Forma de pago",
     "TRANSFER": "Transferencia",
     "CASH": "Efectivo",
-    "commission": "Comisión"
+    "commission": "Comisión",
+    "cardNota": "Notas"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",
