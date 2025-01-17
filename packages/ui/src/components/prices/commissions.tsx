@@ -52,19 +52,20 @@ export default function Commissions({
   const t = useTranslations("Product");
   const show = form.watch("priceValues.hasCommission");
   const selectOption = form.watch("priceValues.commissionType");
-    const handleQuantityCommissionValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newPrice = +event.target.value;
-        if (newPrice < 0) {
-            return;
-        }
-        form.setValue("priceValues.commissionValue", newPrice);
-    };
+  const handleQuantityCommissionValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newPrice = +event.target.value;
+    if (newPrice < 0) {
+      return;
+    }
+    form.setValue("priceValues.commissionValue", newPrice);
+  };
   const [value, base] = commissionCalculate(
     basePrice,
     form.watch("priceValues.commissionType"),
     form.watch("priceValues.commissionValue"),
   );
-
 
   return (
     <div className="pt-5">
@@ -118,51 +119,50 @@ export default function Commissions({
                 </FormItem>
               )}
             />
-              {selectOption === CommissionTypes.FIXED && ( <FormField
-              control={form.control}
-              name="priceValues.commissionValue"
-              render={({ field, fieldState: { error } }: any) => (
-                <FormItem>
-                  <FormLabel>{t("lbCommissionValue")}</FormLabel>
-                  <FormControl>
-
-
-                          <PriceInput
-                          onBlur={handleQuantityCommissionValueChange}
-                          value={field.value}
+            {selectOption === CommissionTypes.FIXED && (
+              <FormField
+                control={form.control}
+                name="priceValues.commissionValue"
+                render={({ field, fieldState: { error } }: any) => (
+                  <FormItem>
+                    <FormLabel>{t("lbCommissionValue")}</FormLabel>
+                    <FormControl>
+                      <PriceInput
+                        onBlur={handleQuantityCommissionValueChange}
+                        value={field.value}
                       />
-
-                  </FormControl>
-                  <FormMessage>
-                    {!!error?.message && t(error?.message)}
-                  </FormMessage>
-                </FormItem>
-              )}
-            /> )}
-              {selectOption === CommissionTypes.PERCENTAGE && (<FormField
-                  control={form.control}
-                  name="priceValues.commissionValue"
-                  render={({ field, fieldState: { error } }: any) => (
-                      <FormItem>
-                          <FormLabel>{t("lbCommissionValue")}</FormLabel>
-                          <FormControl>
-                              <Input
-                                      {...field}
-                                      placeholder={t("phCommissionValue")}
-                                      type="number"
-                                      onChange={(event: any) =>
-                                          field.onChange(+event.target.value)
-                                      }
-                                  />
-
-
-                          </FormControl>
-                          <FormMessage>
-                              {!!error?.message && t(error?.message)}
-                          </FormMessage>
-                      </FormItem> ) }
-                  />
-                  )}
+                    </FormControl>
+                    <FormMessage>
+                      {!!error?.message && t(error?.message)}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            )}
+            {selectOption === CommissionTypes.PERCENTAGE && (
+              <FormField
+                control={form.control}
+                name="priceValues.commissionValue"
+                render={({ field, fieldState: { error } }: any) => (
+                  <FormItem>
+                    <FormLabel>{t("lbCommissionValue")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder={t("phCommissionValue")}
+                        type="number"
+                        onChange={(event: any) =>
+                          field.onChange(+event.target.value)
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage>
+                      {!!error?.message && t(error?.message)}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            )}
 
             <PriceShow
               price={value}

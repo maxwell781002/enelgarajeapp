@@ -13,7 +13,6 @@ import { Input } from "@repo/ui/components/ui/input";
 import PriceInput from "@repo/ui/components/price-input";
 import { useTranslations } from "next-intl";
 
-
 export default function PriceWidget({
   form,
   currency,
@@ -23,20 +22,24 @@ export default function PriceWidget({
 }) {
   const t = useTranslations("Product");
 
-  const handleQuantityPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuantityPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const newPrice = +event.target.value;
     if (newPrice < 0) {
       return;
     }
-      form.setValue("price", newPrice);
+    form.setValue("price", newPrice);
   };
-    const handleQuantityPriceOffer = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newPrice = +event.target.value;
-        if (newPrice < 0) {
-            return;
-        }
-        form.setValue("offerPrice", newPrice);
-    };
+  const handleQuantityPriceOffer = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newPrice = +event.target.value;
+    if (newPrice < 0) {
+      return;
+    }
+    form.setValue("offerPrice", newPrice);
+  };
   return (
     <>
       <div className="grid gap-4 grid-cols-2">
@@ -47,10 +50,10 @@ export default function PriceWidget({
             <FormItem>
               <FormLabel>{t("lbPrice")}</FormLabel>
               <FormControl>
-                  <PriceInput
-                      onBlur={handleQuantityPriceChange}
-                      value={field.value}
-                  />
+                <PriceInput
+                  onBlur={handleQuantityPriceChange}
+                  value={field.value}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>
@@ -63,10 +66,10 @@ export default function PriceWidget({
             <FormItem>
               <FormLabel>{t("lbOfferPrice")}</FormLabel>
               <FormControl>
-                  <PriceInput
-                      onBlur={handleQuantityPriceOffer}
-                      value={field.value}
-                  />
+                <PriceInput
+                  onBlur={handleQuantityPriceOffer}
+                  value={field.value}
+                />
               </FormControl>
               <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
             </FormItem>

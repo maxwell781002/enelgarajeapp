@@ -1,14 +1,14 @@
-import React from "react"
+import React from "react";
 import {
   ToggleGroup as ToggleGroupPrimitive,
   Toolbar as ToolbarPrimitive,
-} from "@radix-ui/react-toolbar"
+} from "@radix-ui/react-toolbar";
 
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "@repo/ui/lib/utils";
 
 interface ToolbarProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 const Toolbar = ({ children, className }: ToolbarProps) => {
@@ -16,15 +16,16 @@ const Toolbar = ({ children, className }: ToolbarProps) => {
     <ToolbarPrimitive
       className={cn(
         "sticky inset-x-0 top-0 z-50 my-2 rounded-sm bg-secondary/40 px-4 py-2 backdrop-blur-lg",
-        className
-      )}>
+        className,
+      )}
+    >
       {children}
     </ToolbarPrimitive>
-  )
-}
+  );
+};
 
-const ToggleGroup = ToggleGroupPrimitive
+const ToggleGroup = ToggleGroupPrimitive;
 
-ToggleGroup.displayName = ToggleGroupPrimitive.displayName
+ToggleGroup.displayName = ToggleGroupPrimitive.displayName;
 
-export { Toolbar, ToggleGroup }
+export { Toolbar, ToggleGroup };

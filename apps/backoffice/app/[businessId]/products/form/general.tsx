@@ -23,7 +23,7 @@ export default function GeneralProductForm({
   categories,
 }: GeneralProductFormProps) {
   const t = useTranslations("Product");
-    const [value, setValue] = useState("");
+  const [value, setValue] = useState("");
   return (
     <>
       <FormField
@@ -192,12 +192,12 @@ export default function GeneralProductForm({
           <FormItem>
             <FormLabel>{t("lbDescription")}</FormLabel>
             <FormControl>
-              {/*<Textarea placeholder={t("phDescription")} {...field} />*/}
-                <Editor
-                    content={value}
+              {<Textarea placeholder={t("phDescription")} {...field} />}
+              {/*<Editor
+                    content={field.value}
                     onChange={setValue}
                     placeholder={t("phDescription")}
-                     />
+                     />*/}
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>
