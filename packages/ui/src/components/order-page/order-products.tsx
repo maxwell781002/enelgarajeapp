@@ -13,24 +13,37 @@ import { TCurrency } from "@repo/model/types/enums";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { getTranslations } from "next-intl/server";
 
+type TProductUrlGenerate = (item: CompleteOrderProduct) => string;
+
 const ProductLink = ({
   item,
+  baseUrl,
   children,
-}: { item: CompleteOrderProduct } & PropsWithChildren) => (
-  <Link
-    href={`products/${item.product.slug}`}
-    className="bg-white hover:bg-gray-100 text-gray-800 h-10 w-10 text-blue-500 underline hover:text-blue-700 transition-colors"
-    aria-label="View"
-  >
-    {children}
-  </Link>
-);
-
-type OrderProductsProps = {
-  order: CompleteOrder;
+}: {
+  item: CompleteOrderProduct;
+  baseUrl: TProductUrlGenerate;
+} & PropsWithChildren) => {
+  const url = baseUrl(item);
+  return (
+    <Link
+      href={url}
+      className="bg-white hover:bg-gray-100 text-gray-800 h-10 w-10 text-blue-500 underline hover:text-blue-700 transition-colors"
+      aria-label="View"
+    >
+      {children}
+    </Link>
+  );
 };
 
-export default async function OrderProducts({ order }: OrderProductsProps) {
+export type OrderProductsProps = {
+  order: CompleteOrder;
+  baseUrl: TProductUrlGenerate;
+};
+
+export default async function OrderProducts({
+  order,
+  baseUrl,
+}: OrderProductsProps) {
   const t = await getTranslations("OrderDetailBack");
   return (
     <Card>
@@ -52,7 +65,7 @@ export default async function OrderProducts({ order }: OrderProductsProps) {
               {order.items.map((item: CompleteOrderProduct, index) => (
                 <tr key={index} className="border-b">
                   <td className="p-2">
-                    <ProductLink item={item}>
+                    <ProductLink item={item} baseUrl={baseUrl}>
                       <Image
                         src={item.product.image}
                         width={48}
@@ -62,7 +75,9 @@ export default async function OrderProducts({ order }: OrderProductsProps) {
                     </ProductLink>
                   </td>
                   <td className="p-2">
-                    <ProductLink item={item}>{item.product.name}</ProductLink>
+                    <ProductLink item={item} baseUrl={baseUrl}>
+                      {item.product.name}
+                    </ProductLink>
                   </td>
                   <td className="p-2">{item.quantity}</td>
                   <td className="p-2">
