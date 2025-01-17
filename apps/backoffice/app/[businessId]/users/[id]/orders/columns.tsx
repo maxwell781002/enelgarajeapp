@@ -1,6 +1,6 @@
 import { ColumnDef } from "@repo/ui/components/table/index";
 import { Badge } from "@repo/ui/components/ui/badge";
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import { statusLabel } from "@repo/ui/components/status/status-label";
 import { statusColors } from "@repo/model/repositories/order";
 import PriceDisplay from "@repo/ui/components/prices/price";

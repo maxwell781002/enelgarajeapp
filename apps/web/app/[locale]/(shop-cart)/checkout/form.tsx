@@ -62,7 +62,7 @@ export default function CheckoutForm({
         addressName={addressType}
         business={business}
         successfulUrl="/checkout-successful?orderId="
-        render={({ neighborhoods }) => (
+        render={({ neighborhoods, neighborhoodLoading }) => (
           <>
             <FormField
               control={form.control}
@@ -118,6 +118,7 @@ export default function CheckoutForm({
                 form={form}
                 addresses={addresses}
                 neighborhoods={neighborhoods}
+                neighborhoodLoading={neighborhoodLoading}
                 addressUrl="/address-user"
                 addAlias={true}
               />

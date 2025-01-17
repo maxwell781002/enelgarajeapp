@@ -1,3 +1,4 @@
+import { CompleteBusiness } from "@repo/model/zod/index";
 import CurrencySelect from "@repo/ui/components/currency-select";
 import { DateTimePicker } from "@repo/ui/components/date-widget";
 import FormOfPaymentSelect from "@repo/ui/components/form-payment";
@@ -10,13 +11,18 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Switch } from "@repo/ui/components/ui/switch";
 import { Textarea } from "@repo/ui/components/ui/textarea";
+import { useState } from "react";
+import Markdown from "@repo/ui/components/markdown";
 
 export type TicketFormProps = {
   form: any;
+  business: CompleteBusiness;
   t: (key: string) => string;
 };
 
-export default function TicketForm({ form, t }: TicketFormProps) {
+export default function TicketForm({ form, t, business }: TicketFormProps) {
+  const [openTerms, setOpenTerms] = useState(false);
+  const handleTermAndCondition = () => setOpenTerms((prev) => !prev);
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -74,6 +80,19 @@ export default function TicketForm({ form, t }: TicketFormProps) {
       </div>
       <FormField
         control={form.control}
+        name="ticket.nota"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbTicketNota")}</FormLabel>
+            <FormControl>
+              <Textarea placeholder={t("phTicketNota")} {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
         name="ticket.acceptTerms"
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
@@ -89,19 +108,21 @@ export default function TicketForm({ form, t }: TicketFormProps) {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="ticket.nota"
-        render={({ field, fieldState: { error } }: any) => (
-          <FormItem>
-            <FormLabel>{t("lbTicketNota")}</FormLabel>
-            <FormControl>
-              <Textarea placeholder={t("phTicketNota")} {...field} />
-            </FormControl>
-            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-          </FormItem>
-        )}
-      />
+      {business.ticketTermsConditions && (
+        <>
+          <strong
+            className="block cursor-pointer text-blue-600 hover:text-blue-800 underline underline-offset-2 hover:underline-offset-4 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            onClick={handleTermAndCondition}
+          >
+            {t("ticketTermsAndConditions")}
+          </strong>
+          {openTerms && (
+            <Markdown className="w-full">
+              {business.ticketTermsConditions}
+            </Markdown>
+          )}
+        </>
+      )}
     </>
   );
 }

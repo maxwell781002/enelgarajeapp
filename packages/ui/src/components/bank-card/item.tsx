@@ -7,7 +7,7 @@ import {
 } from "@repo/ui/components/ui/card";
 import { Button } from "@repo/ui/components/ui/button";
 import { QrCode } from "lucide-react";
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import { CompleteCollaboratorCardBank } from "@repo/model/zod/collaboratorcardbank";
 import { useTranslations } from "next-intl";
 import CopyToClipboard from "../copy-to-clipboard/copy-to-clipboard-text";
