@@ -9,7 +9,7 @@ import { Form } from "@repo/ui/components/ui/form";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 export type AddressUserFormProps = {
   action: (object: any) => Promise<any>;
@@ -35,6 +35,7 @@ export default function AddressUserForm({
         title: defaultValues?.id ? t("addressUpdated") : t("addressCreated"),
       }),
   });
+  const [neighborhoodsLoading, startNeighborhoods] = useTransition();
   const [neighborhoods, setNeighborhoods] = useState<
     NeighborhoodWithShipping[]
   >([]);
@@ -42,9 +43,12 @@ export default function AddressUserForm({
   useEffect(() => {
     if (city) {
       form.resetField("neighborhoodId");
-      getNeighborhoodsByCityAndBusiness(city, business).then((data) => {
-        setNeighborhoods(data);
-      });
+      (async () => {
+        startNeighborhoods(async () => {
+          const data = await getNeighborhoodsByCityAndBusiness(city, business);
+          setNeighborhoods(data);
+        });
+      })();
     }
   }, [city]);
   const [btnDisabled, setBtnDisabled] = useState(false);
@@ -56,7 +60,11 @@ export default function AddressUserForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <AddressForm neighborhoods={neighborhoods} form={form} />
+        <AddressForm
+          neighborhoods={neighborhoods}
+          form={form}
+          neighborhoodLoading={neighborhoodsLoading}
+        />
         <Button type="submit" disabled={btnDisabled}>
           {t("save")}
         </Button>

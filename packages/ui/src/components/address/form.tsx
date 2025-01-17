@@ -10,23 +10,24 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { ProvinceSelect } from "@repo/ui/components/state-select";
 import { CitySelect } from "@repo/ui/components/city-select";
-import EntitySelect from "@repo/ui/components/entity-select";
-import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
+import "react-loading-skeleton/dist/skeleton.css";
+import Neighborhood, {
+  NeighborhoodProps,
+} from "@repo/ui/components/address/neighborhood";
 
 export type AddressFormProps = {
   form: any;
   name?: string;
-  neighborhoods: NeighborhoodWithShipping[];
   addAlias?: boolean;
   addName?: boolean;
-};
+} & Pick<NeighborhoodProps, "neighborhoods" | "neighborhoodLoading">;
 
 export default function AddressForm({
   form,
   name = "",
-  neighborhoods,
   addAlias = true,
   addName = true,
+  ...props
 }: AddressFormProps) {
   const t = useTranslations("Address");
   name = name ? `${name}.` : "";
@@ -110,28 +111,7 @@ export default function AddressForm({
             </FormItem>
           )}
         />
-        {neighborhoods.length > 0 && (
-          <FormField
-            control={form.control}
-            name={`${name}neighborhoodId`}
-            render={({ field, fieldState: { error } }: any) => (
-              <FormItem>
-                <FormLabel>{t("lbNeighborhoodId")}</FormLabel>
-                <FormControl>
-                  <EntitySelect
-                    {...field}
-                    placeholder={t("phNeighborhoodId")}
-                    disabled={!city}
-                    items={neighborhoods}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {!!error?.message && t(error?.message)}
-                </FormMessage>
-              </FormItem>
-            )}
-          />
-        )}
+        <Neighborhood {...props} form={form} name={name} t={t} city={city} />
       </div>
       <FormField
         control={form.control}
