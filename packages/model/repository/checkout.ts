@@ -22,7 +22,7 @@ import {
 } from "../prisma/zod";
 import { userRepository } from "../repositories/user";
 import { addAddressToUser } from "./address";
-import { sendOrderToTelegram } from "../listeners/new-order";
+import { sendOrderToTelegram } from "../listeners/new-order/index";
 import { OrderSend } from "../lib/event-emitter/events";
 import { transaction } from "../prisma/prisma-client";
 import { calculateOrderProductCommissionAndPrice } from "./shop-cart";

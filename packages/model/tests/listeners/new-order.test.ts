@@ -8,7 +8,7 @@ import {
   telegramBusinessFactory,
   userFactory,
 } from "../factories";
-import { sendOrderToTelegram } from "../../listeners/new-order";
+import { sendOrderToTelegram } from "../../listeners/new-order/index";
 import { OrderSend } from "../../lib/event-emitter/events";
 
 describe("new-order", () => {
@@ -27,7 +27,12 @@ describe("new-order", () => {
       phone: "+5353024637",
     });
     const product = await productFactory({ businessId: business.id });
-    order = await orderFactory({ businessId: business.id, userId: user.id });
+    order = await orderFactory({
+      businessId: business.id,
+      userId: user.id,
+      identifier: "123",
+      isCollaborator: true,
+    });
     await productOrderFactory({
       orderId: order.id,
       productId: product.id,

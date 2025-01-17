@@ -336,6 +336,12 @@ export class OrderRepository extends BaseRepository<
         business: {
           include: { telegram: true },
         },
+        orderAddress: {
+          include: { address: { include: { neighborhood: true } } },
+        },
+        ticket: {
+          include: { customer: true },
+        },
       },
     });
   }

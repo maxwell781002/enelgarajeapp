@@ -41,8 +41,8 @@
     "noPaymentMethod": "No tiene ningún medio de pago configurado.",
     "lbCurrency": "Moneda",
     "phCurrency": "Seleccionar Moneda",
-    "lbTicketTermsConditions": "Términos y Conditions que se muestra en la compra a los gestores",
-    "phTicketTermsConditions": "Términos y Conditions",
+    "lbTicketTermsConditions": "Términos y Condicions que se muestra en la compra a los gestores",
+    "phTicketTermsConditions": "Términos y Condicions",
     "btnSaving": "Guardando..."
   },
   "Totals": {
