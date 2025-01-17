@@ -38,14 +38,14 @@
     "phTicketCurrency": "Moneda",
     "lbTicketFormOfPayment": "Forma de pago",
     "phTicketFormOfPayment": "Forma de pago",
-    "lbAcceptTerms": "Aceptar terminos y condiciones",
-    "phAcceptTerms": "Aceptar terminos y condiciones",
+    "lbAcceptTerms": "Aceptar térrminos y condiciones",
+    "phAcceptTerms": "Aceptar términos y condiciones",
     "ticketTermsConditions": "Debe aceptar los términos y condiciones",
     "lbTicketNota": "Nota (opcional)",
     "phTicketNota": "Escriba la nota",
     "required": "Requerido",
     "Required": "Requerido",
-    "ticketTermsAndConditions": "Terminos y condiciones"
+    "ticketTermsAndConditions": "Términos y condiciones"
   },
   "FormOfPaymentSelect": {
     "CASH": "En efectivo",

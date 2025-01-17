@@ -45,6 +45,8 @@ export const generateText = (data: TGetCollaboratorData, host: string) => {
   return `
 🛒 *Nueva orden de un Gestor*
 
+*Orden de compra*: ${data.identifier}
+
 *Gestor*
 *Nombre*: ${printText(data.userData.name)}
 *Teléfono*: ${printText(data.userData.phone)}
@@ -65,7 +67,7 @@ ${shippingText}
 *Fecha de entrega*: ${data.deliveryDate}
 *Total*: ${data.total}
 
-🔗[${data.identifier}](${data.order_url})
+🔗[Ver más](${data.order_url})
 
 🎉🎉🎉
 `;

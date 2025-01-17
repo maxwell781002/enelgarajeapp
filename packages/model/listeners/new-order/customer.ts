@@ -31,6 +31,8 @@ export const generateText = (data: TGenerateCustomerMessage, host: string) => {
   return `
 🛒 *Nueva orden*
 
+*Orden de compra*: ${data.identifier}
+
 *Cliente*: ${printText(data.userData.name)}
 *Teléfono*: ${printText(data.userData.phone)}
 ${whatsapp}
@@ -42,7 +44,7 @@ ${products}
 ${shippingText}
 *Total*: ${data.total}
 
-🔗[${data.identifier}](${data.order_url})
+🔗[Ver más](${data.order_url})
 
 🎉🎉🎉
 `;
