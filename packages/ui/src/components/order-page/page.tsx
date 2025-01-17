@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@repo/ui/components/ui/table";
 import { getTranslations } from "next-intl/server";
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import EmptyOrders from "./empty";
 import Link from "next/link";
 import { CompleteBusiness } from "@repo/model/zod/business";

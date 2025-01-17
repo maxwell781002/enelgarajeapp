@@ -5,7 +5,7 @@ import { DialogForm } from "./DialogForm";
 import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
-import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
+import { getCityByCode, getStateByCode } from "@repo/model/lib/locations/index";
 import { CompleteBusinessNeighborhood } from "@repo/model/zod/businessneighborhood";
 import PriceDisplay from "@repo/ui/components/prices/price";
 

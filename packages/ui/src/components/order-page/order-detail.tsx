@@ -1,4 +1,4 @@
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import AddressCard from "@repo/ui/components/address/card";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { Separator } from "@repo/ui/components/ui/separator";

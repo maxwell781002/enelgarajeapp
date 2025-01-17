@@ -3,8 +3,8 @@
 import { CompleteAddress } from "@repo/model/zod/address";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { Check, Edit2Icon } from "lucide-react";
-import { getCityByCode } from "@repo/ui/lib/locations/index";
-import { getStateByCode } from "@repo/ui/lib/locations/index";
+import { getCityByCode } from "@repo/model/lib/locations/index";
+import { getStateByCode } from "@repo/model/lib/locations/index";
 import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { useTranslations } from "next-intl";
 import { useState } from "react";

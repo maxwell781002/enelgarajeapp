@@ -1,5 +1,5 @@
 import { ColumnDef } from "@repo/ui/components/table/index";
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { Check } from "lucide-react";
 import { BtnList } from "@repo/ui/components/ui/btn-list";

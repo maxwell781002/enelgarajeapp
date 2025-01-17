@@ -1,5 +1,5 @@
 import { ColumnDef } from "@repo/ui/components/table/index";
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { CompleteCollaboratorCardBank } from "@repo/model/zod/collaboratorcardbank";
 import ActiveInactive from "@repo/ui/components/active-inactive";
