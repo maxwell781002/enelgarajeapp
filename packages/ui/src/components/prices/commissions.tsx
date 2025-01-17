@@ -12,6 +12,7 @@ import { Input } from "../ui/input";
 import PriceDisplay from "./price";
 import { commissionCalculate } from "@repo/model/lib/utils";
 import { cn } from "@repo/ui/lib/utils";
+import PriceInput from "@repo/ui/components/price-input";
 
 export type CommissionsProps = {
   form: any;
@@ -50,6 +51,16 @@ export default function Commissions({
 }: CommissionsProps) {
   const t = useTranslations("Product");
   const show = form.watch("priceValues.hasCommission");
+  const selectOption = form.watch("priceValues.commissionType");
+  const handleQuantityCommissionValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newPrice = +event.target.value;
+    if (newPrice < 0) {
+      return;
+    }
+    form.setValue("priceValues.commissionValue", newPrice);
+  };
   const [value, base] = commissionCalculate(
     basePrice,
     form.watch("priceValues.commissionType"),
@@ -98,7 +109,7 @@ export default function Commissions({
                           value,
                         }),
                       )}
-                      onValueChange={field.onChange}
+                      onChange={field.onChange}
                       placeholder={t("phCommissionType")}
                     />
                   </FormControl>
@@ -108,28 +119,51 @@ export default function Commissions({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="priceValues.commissionValue"
-              render={({ field, fieldState: { error } }: any) => (
-                <FormItem>
-                  <FormLabel>{t("lbCommissionValue")}</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder={t("phCommissionValue")}
-                      type="number"
-                      onChange={(event: any) =>
-                        field.onChange(+event.target.value)
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage>
-                    {!!error?.message && t(error?.message)}
-                  </FormMessage>
-                </FormItem>
-              )}
-            />
+            {selectOption === CommissionTypes.FIXED && (
+              <FormField
+                control={form.control}
+                name="priceValues.commissionValue"
+                render={({ field, fieldState: { error } }: any) => (
+                  <FormItem>
+                    <FormLabel>{t("lbCommissionValue")}</FormLabel>
+                    <FormControl>
+                      <PriceInput
+                        onBlur={handleQuantityCommissionValueChange}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage>
+                      {!!error?.message && t(error?.message)}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            )}
+            {selectOption === CommissionTypes.PERCENTAGE && (
+              <FormField
+                control={form.control}
+                name="priceValues.commissionValue"
+                render={({ field, fieldState: { error } }: any) => (
+                  <FormItem>
+                    <FormLabel>{t("lbCommissionValue")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder={t("phCommissionValue")}
+                        type="number"
+                        onChange={(event: any) =>
+                          field.onChange(+event.target.value)
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage>
+                      {!!error?.message && t(error?.message)}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            )}
+
             <PriceShow
               price={value}
               currency={currency}

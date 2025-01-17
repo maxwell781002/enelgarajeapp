@@ -4,6 +4,7 @@
 node_modules
 .pnp
 .pnp.js
+.idea
 
 # Local env files
 .env
@@ -39,5 +40,6 @@ yarn-error.log*
 
 *.node
 
+/.idea
 packages/model/prisma/generated
 packages/model/prisma/zod
