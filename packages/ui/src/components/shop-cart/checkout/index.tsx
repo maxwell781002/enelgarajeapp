@@ -17,6 +17,7 @@ export type RenderOptions = {
   neighborhoods: NeighborhoodWithShipping[];
   form: any;
   wantDomicile: boolean;
+  neighborhoodLoading: boolean;
 };
 
 export type CheckoutPageProps = {
@@ -81,6 +82,7 @@ export default function CheckoutPage({
     neighborhoods,
     form,
     wantDomicile,
+    neighborhoodLoading,
   });
 
   return (

@@ -56,7 +56,7 @@ export default function CheckoutForm({
         addressName="address"
         business={business}
         successfulUrl={`/${business.id}/checkout-successful?orderId=`}
-        render={({ neighborhoods, wantDomicile }) => (
+        render={({ neighborhoods, wantDomicile, neighborhoodLoading }) => (
           <>
             <h3 className="text-lg font-semibold">{t("customer")}</h3>
             <CustomerForm form={form} t={t} />
@@ -83,6 +83,7 @@ export default function CheckoutForm({
               <AddressForm
                 form={form}
                 neighborhoods={neighborhoods}
+                neighborhoodLoading={neighborhoodLoading}
                 addAlias={false}
                 addName={false}
                 name="address"
