@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/ui/select";
 import { SelectProps, SelectValueProps } from "@radix-ui/react-select";
-import { CITIES } from "@repo/ui/lib/locations/cities";
+import { CITIES } from "@repo/model/lib/locations/cities";
 
 export type CitySelectProps = {
   placeholder?: string;

@@ -6,7 +6,7 @@ import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { CompleteNeighborhood } from "@repo/model/zod/neighborhood";
-import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
+import { getCityByCode, getStateByCode } from "@repo/model/lib/locations/index";
 
 type ActionProps = {
   row: CompleteNeighborhood;

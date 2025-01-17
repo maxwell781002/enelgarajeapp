@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { CompleteOrder } from "@repo/model/zod/order";
-import { formatDate } from "@repo/ui/lib/date";
+import { formatDate } from "@repo/model/lib/date";
 import CardDisplay from "@repo/ui/components/card-display";
-import { getCityByCode, getStateByCode } from "@repo/ui/lib/locations/index";
+import { getCityByCode, getStateByCode } from "@repo/model/lib/locations/index";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
 import OrderProducts, {

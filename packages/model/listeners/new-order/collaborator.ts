@@ -1,0 +1,72 @@
+import { formatDate } from "../../lib/date";
+import { formatPrice } from "../../lib/utils";
+import { CompleteOrder } from "../../prisma/zod";
+import {
+  addressText,
+  getAddressData,
+  getCommonData,
+  getProductsText,
+  hasShippingText,
+  printText,
+  TGetCommonData,
+  whatsappText,
+} from "./common";
+
+export type TGetCollaboratorData = TGetCommonData &
+  ReturnType<typeof getCollaboratorData>;
+
+const getCollaboratorData = (order: CompleteOrder, host: string) => {
+  const common = getCommonData(order, host);
+  const ticket = order.ticket;
+  const addressData = getAddressData(order);
+  const customer = ticket?.customer;
+  return {
+    ...common,
+    addressData,
+    ticket,
+    customer,
+    commission: formatPrice(order.commission),
+    deliveryDate: ticket?.deliveryDate && formatDate(ticket?.deliveryDate),
+  };
+};
+
+export const generateCollaboratorMessage = (
+  order: CompleteOrder,
+  host: string,
+) => {
+  const message = getCollaboratorData(order, host);
+  return generateText(message, host);
+};
+
+export const generateText = (data: TGetCollaboratorData, host: string) => {
+  const whatsapp = whatsappText(data);
+  const products = getProductsText(data, host);
+  const shippingText = hasShippingText(data);
+  return `
+🛒 *Nueva orden de un Gestor*
+
+*Gestor*
+*Nombre*: ${printText(data.userData.name)}
+*Teléfono*: ${printText(data.userData.phone)}
+${whatsapp}
+
+*Cliente*
+*Nombre*: ${printText(data.customer?.name)}
+*Teléfono*: ${printText(data.ticket?.phone)}
+*CI*: ${printText(data.customer?.identification)}
+${addressText(data.addressData)}
+*Notas*: ${printText(data.ticket?.nota)}
+
+*Productos*
+${products}
+
+${shippingText}
+🎁 *Comisión*: ${data.commission}
+*Fecha de entrega*: ${data.deliveryDate}
+*Total*: ${data.total}
+
+🔗[${data.identifier}](${data.order_url})
+
+🎉🎉🎉
+`;
+};

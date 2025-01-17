@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/ui/select";
 import { SelectProps, SelectValueProps } from "@radix-ui/react-select";
-import { STATES, IState } from "@repo/ui/lib/locations/states";
+import { STATES, IState } from "@repo/model/lib/locations/states";
 
 export type ProvinceSelectProps = {
   placeholder?: string;
