@@ -1,7 +1,24 @@
 import { PrismaClient } from "./generated/client";
 import slugify from "slugify";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { Pool } from "@neondatabase/serverless";
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import ws from "ws";
+
+const connectionString = process.env.POSTGRES_PRISMA_URL as string;
+
+neonConfig.fetchEndpoint = (host) => {
+  const [protocol, port] =
+    host === "db.localtest.me" ? ["http", 4444] : ["https", 443];
+  return `${protocol}://${host}:${port}/sql`;
+};
+const connectionStringUrl = new URL(connectionString);
+neonConfig.useSecureWebSocket =
+  connectionStringUrl.hostname !== "db.localtest.me";
+neonConfig.wsProxy =
+  connectionStringUrl.hostname === "db.localtest.me"
+    ? (host) => `${host}:4444/v1`
+    : undefined;
+neonConfig.webSocketConstructor = ws; // when using Node.js
 
 const randomString = () => Math.random().toString(36).substring(2, 7);
 
@@ -14,7 +31,7 @@ export const createSlug = ({ args, query }: any) => {
   return query(args);
 };
 
-const neon = new Pool({ connectionString: process.env.POSTGRES_PRISMA_URL });
+const neon = new Pool({ connectionString });
 const adapter = new PrismaNeon(neon);
 const _prismaBase =
   process.env.TEST === "true"

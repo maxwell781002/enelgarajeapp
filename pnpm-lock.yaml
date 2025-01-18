@@ -299,6 +299,9 @@ importers:
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.0(bufferutil@4.0.9)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -324,12 +327,15 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.4.0(@types/node@22.7.6)(terser@5.34.0))
+      bufferutil:
+        specifier: ^4.0.9
+        version: 4.0.9
       dotenv-cli:
         specifier: ^7.4.2
         version: 7.4.2
       jsdom:
         specifier: ^24.1.1
-        version: 24.1.1
+        version: 24.1.1(bufferutil@4.0.9)
       next:
         specifier: ^14.2.11
         version: 14.2.11(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)
@@ -3123,6 +3129,10 @@ packages:
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
 
+  bufferutil@4.0.9:
+    resolution: {integrity: sha512-WDtdLmJvAuNNPzByAYpRo2rF1Mmradw6gvWsQKf63476DDXmomT9zUiGypLcG4ibIM67vhAj8jJRdbmEws2Aqw==}
+    engines: {node: '>=6.14.2'}
+
   builtin-modules@3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
@@ -4885,6 +4895,10 @@ packages:
     peerDependenciesMeta:
       encoding:
         optional: true
+
+  node-gyp-build@4.8.4:
+    resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
+    hasBin: true
 
   node-plop@0.26.3:
     resolution: {integrity: sha512-Cov028YhBZ5aB7MdMWJEmwyBig43aGL5WT4vdoB28Oitau1zZAcHUn8Sgfk9HM33TqhtLJ9PlM/O0Mv+QpV/4Q==}
@@ -9370,7 +9384,7 @@ snapshots:
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -9590,6 +9604,10 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+
+  bufferutil@4.0.9:
+    dependencies:
+      node-gyp-build: 4.8.4
 
   builtin-modules@3.3.0: {}
 
@@ -10887,7 +10905,7 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.5
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -10901,7 +10919,7 @@ snapshots:
   https-proxy-agent@7.0.5:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.5
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -11239,6 +11257,35 @@ snapshots:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
       ws: 8.18.0
+      xml-name-validator: 5.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    optional: true
+
+  jsdom@24.1.1(bufferutil@4.0.9):
+    dependencies:
+      cssstyle: 4.0.1
+      data-urls: 5.0.0
+      decimal.js: 10.4.3
+      form-data: 4.0.0
+      html-encoding-sniffer: 4.0.0
+      http-proxy-agent: 7.0.2
+      https-proxy-agent: 7.0.5
+      is-potential-custom-element-name: 1.0.1
+      nwsapi: 2.2.12
+      parse5: 7.1.2
+      rrweb-cssom: 0.7.1
+      saxes: 6.0.0
+      symbol-tree: 3.2.4
+      tough-cookie: 4.1.4
+      w3c-xmlserializer: 5.0.0
+      webidl-conversions: 7.0.0
+      whatwg-encoding: 3.1.1
+      whatwg-mimetype: 4.0.0
+      whatwg-url: 14.0.0
+      ws: 8.18.0(bufferutil@4.0.9)
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -11758,6 +11805,8 @@ snapshots:
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+
+  node-gyp-build@4.8.4: {}
 
   node-plop@0.26.3:
     dependencies:
@@ -13567,7 +13616,12 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.18.0: {}
+  ws@8.18.0:
+    optional: true
+
+  ws@8.18.0(bufferutil@4.0.9):
+    optionalDependencies:
+      bufferutil: 4.0.9
 
   xml-name-validator@5.0.0: {}
 
