@@ -4,7 +4,7 @@ import { UserRoles } from "@repo/model/repositories/user";
 
 export const runtime = "experimental-edge";
 
-const NO_BUSINESS_PATHS = ["errors", "request-shop"];
+const NO_BUSINESS_PATHS = ["errors", "request-shop", "sentry-example-page"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
