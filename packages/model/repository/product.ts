@@ -28,6 +28,7 @@ export const getById = (id: string) => {
 };
 
 export const addProductFields = (product: any) => {
+  if (!product) return product;
   const _isOffer = !!(product.offerPrice && product.offerPrice < product.price);
   const price = _isOffer ? product.offerPrice : product.price;
   const [commission, businessProfit] = commissionCalculate(
