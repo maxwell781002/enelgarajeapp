@@ -16,6 +16,7 @@ import { collaboratorProfileRepository } from "./collaborator-profile";
 import { collaboratorInvoiceRepository } from "./collaborator-invoice";
 import { customerRepository } from "./customer";
 import { collaboratorTicketRepository } from "./collaborator-ticket";
+import { businessSiteRepository } from "./business-site";
 
 export default {
   [orderRepository.getRepositoryModelName()]: orderRepository,
@@ -29,6 +30,7 @@ export default {
   [paymentMethodRepository.getRepositoryModelName()]: paymentMethodRepository,
   [neighborhoodRepository.getRepositoryModelName()]: neighborhoodRepository,
   [customerRepository.getRepositoryModelName()]: customerRepository,
+  [businessSiteRepository.getRepositoryModelName()]: businessSiteRepository,
   [collaboratorTicketRepository.getRepositoryModelName()]:
     collaboratorTicketRepository,
   [collaboratorInvoiceRepository.getRepositoryModelName()]:

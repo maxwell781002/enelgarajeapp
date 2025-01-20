@@ -1,5 +1,5 @@
 import { afterAll, describe, expect, it, vi } from "vitest";
-import { UploadFile } from "../../lib/upload_file";
+import { uploadFile } from "../../lib/upload_file";
 
 const vercelBlob = vi.hoisted(() => ({
   del: vi.fn(),
@@ -17,7 +17,7 @@ describe("uploadFile", () => {
 
   it("uploadFile good", () => {
     const file = new File([], "file.jpg");
-    UploadFile("business_logos", file, () => {});
+    uploadFile("business_logos", file, () => {});
     expect(vercelBlob.put).toBeCalledWith("business_logos/file.jpg", file, {
       access: "public",
     });
@@ -27,7 +27,7 @@ describe("uploadFile", () => {
   it("uploadFile error", async () => {
     const file = new File([], "file.jpg");
     try {
-      await UploadFile("business_logos", file, () => {
+      await uploadFile("business_logos", file, () => {
         throw new Error("Error");
       });
       expect(false).toBe(true);
