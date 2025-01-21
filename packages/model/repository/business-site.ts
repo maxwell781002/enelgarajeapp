@@ -2,10 +2,12 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
 import { businessSiteRepository } from "@repo/model/repositories/business-site";
 
+//TODO implement a test for this
 export const getSite = async (business: CompleteBusiness) => {
-  const site =
-    getPlanFeature("CAN_CONFIGURE_SITE", business) &&
-    (await businessSiteRepository.getByBusinessId(business.id));
+  const site = !business
+    ? {}
+    : getPlanFeature("CAN_CONFIGURE_SITE", business) &&
+      (await businessSiteRepository.getByBusinessId(business.id));
   return {
     logo: site?.logo?.url || "/logo.png",
     logoFooter: site?.logo?.url || "/logo-name.png",
