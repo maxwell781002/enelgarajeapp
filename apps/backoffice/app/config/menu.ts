@@ -1,6 +1,7 @@
 import { LinkItem, MenuItem, SEPARATOR } from "@repo/ui/types/linkItem";
 import {
   Home,
+  LayoutTemplate,
   Package2,
   Settings,
   TagsIcon,
@@ -36,6 +37,12 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     link: `/${businessId}`,
     title: "Dashboard",
     Icon: Home,
+    active: true,
+  },
+  {
+    link: `/${businessId}/site`,
+    title: "Sitio web",
+    Icon: LayoutTemplate,
     active: true,
   },
   {

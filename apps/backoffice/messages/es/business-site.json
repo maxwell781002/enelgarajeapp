@@ -1,0 +1,17 @@
+{
+  "BusinessSite": {
+    "pageTitle": "Sitio web configuración",
+    "backSite": "Regresar",
+    "lbLogo": "Logo",
+    "phLogo": "Seleccionar Logo",
+    "lbEmail": "Correo electrónico",
+    "phEmail": "Correo electrónico",
+    "lbPhone": "Teléfono",
+    "phPhone": "Teléfono que se pondrá en el pie de página.",
+    "btnSaving": "Guardando...",
+    "required": "Requerido",
+    "btnSubmit": "Salvar",
+    "businessSiteUpdated": "Datos del sitio actualizados",
+    "businessSiteCreated": "Datos del sitio actualizados"
+  }
+}

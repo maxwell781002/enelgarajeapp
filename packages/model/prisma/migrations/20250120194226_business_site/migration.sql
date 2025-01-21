@@ -1,9 +1,8 @@
 -- CreateTable
 CREATE TABLE "BusinessSite" (
     "id" TEXT NOT NULL,
-    "email" TEXT,
-    "phone" TEXT,
-    "logo" JSONB,
+    "email" TEXT NOT NULL,
+    "logo" JSONB NOT NULL,
     "businessId" TEXT NOT NULL,
 
     CONSTRAINT "BusinessSite_pkey" PRIMARY KEY ("id")

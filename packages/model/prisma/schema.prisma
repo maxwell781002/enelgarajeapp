@@ -56,9 +56,8 @@ model Business {
 
 model BusinessSite {
   id         String   @id @default(uuid())
-  email      String?
-  phone      String?
-  logo       Json?
+  email      String
+  logo       Json
   business   Business @relation(fields: [businessId], references: [id])
   businessId String   @unique
 }
