@@ -37,6 +37,10 @@ export class CategoryRepository extends BaseRepository<
       where,
     });
   }
+
+  countByBusinessId(businessId: string) {
+    return this.model.count({ where: { businessId } });
+  }
 }
 
 export const categoryRepository = new CategoryRepository();

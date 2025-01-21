@@ -9,8 +9,7 @@ import TableLayout from "@repo/ui/components/table-layout/layout";
 import Filter from "./filters";
 import { redirect } from "next/navigation";
 import { getBusinessById } from "@repo/model/repository/business";
-import { getPlanFeature } from "@repo/model/lib/plans-feature";
-import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
+import { isCategoryLimited } from "@repo/model/repository/category";
 
 type PageProps = {
   searchParams: any;
@@ -23,9 +22,6 @@ export default async function Page({
 }: PageProps) {
   const t = await getTranslations("Category");
   const business = await getBusinessById(businessId);
-  if (!getPlanFeature("CAN_CREATE_CATEGORY", business)) {
-    return <UpgradePlan business={business} title={t("upgrade_plan_title")} />;
-  }
   const { list, remove, update, create, search } = crud(
     `/${businessId}/categories`,
     categoryRepository.getRepositoryModelName(),
@@ -47,6 +43,8 @@ export default async function Page({
             title={t("createCategory")}
             action={create}
             defaultValues={{ businessId, active: true, priority: 0 }}
+            business={business}
+            isLimited={await isCategoryLimited(business)}
           />
         }
       >
