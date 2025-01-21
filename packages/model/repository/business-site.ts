@@ -2,8 +2,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
 import { businessSiteRepository } from "@repo/model/repositories/business-site";
 
-//TODO implement a test for this
-export const getSite = async (business: CompleteBusiness) => {
+export const getSite = async (business: CompleteBusiness | null) => {
   const site = !business
     ? {}
     : getPlanFeature("CAN_CONFIGURE_SITE", business) &&
