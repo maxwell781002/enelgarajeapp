@@ -8,10 +8,9 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { Switch } from "@repo/ui/components/ui/switch";
-import { Textarea } from "@repo/ui/components/ui/textarea";
 import { useTranslations } from "next-intl";
 import Editor from "@repo/ui/components/rich-text/editor";
-import { useState } from "react";
+
 
 export type GeneralProductFormProps = {
   form: any;
@@ -23,7 +22,6 @@ export default function GeneralProductForm({
   categories,
 }: GeneralProductFormProps) {
   const t = useTranslations("Product");
-  const [value, setValue] = useState("");
   return (
     <>
       <FormField
@@ -192,12 +190,10 @@ export default function GeneralProductForm({
           <FormItem>
             <FormLabel>{t("lbDescription")}</FormLabel>
             <FormControl>
-              {<Textarea placeholder={t("phDescription")} {...field} />}
-              {/*<Editor
-                    content={field.value}
-                    onChange={setValue}
-                    placeholder={t("phDescription")}
-                     />*/}
+              {/*<Textarea placeholder={t("phDescription")} {...field} />*/}
+              <Editor
+                  {...field}
+                     />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>
