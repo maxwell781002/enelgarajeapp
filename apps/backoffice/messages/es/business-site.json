@@ -12,6 +12,10 @@
     "required": "Requerido",
     "btnSubmit": "Salvar",
     "businessSiteUpdated": "Datos del sitio actualizados",
-    "businessSiteCreated": "Datos del sitio actualizados"
+    "businessSiteCreated": "Datos del sitio actualizados",
+    "email": "Correo electrónico",
+    "siteNotConfigured": "El sitio web no ha sido configurado",
+    "configureSite": "Configurar sitio web",
+    "siteNotConfiguredDescription": "El sitio web no ha sido configurado, por favor configurelo para poder utilizarlo."
   }
 }

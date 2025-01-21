@@ -1,7 +1,10 @@
+import { businessSiteRepository } from "@repo/model/repositories/business-site";
 import { Button } from "@repo/ui/components/button";
 import { Edit } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import SiteData from "./data";
+import NotConfigured from "./no-configured";
 
 export default async function Page({
   params: { businessId },
@@ -9,6 +12,12 @@ export default async function Page({
   params: { businessId: string };
 }) {
   const t = await getTranslations("BusinessSite");
+  const site = await businessSiteRepository.getByBusinessId(businessId);
+  const content = site ? (
+    <SiteData site={site} />
+  ) : (
+    <NotConfigured businessId={businessId} />
+  );
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex flex-1 justify-between">
@@ -19,7 +28,7 @@ export default async function Page({
           </Button>
         </Link>
       </div>
-      <h1>Business Site</h1>
+      {content}
     </div>
   );
 }
