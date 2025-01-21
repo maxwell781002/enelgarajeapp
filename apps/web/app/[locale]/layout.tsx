@@ -1,5 +1,5 @@
 import "@repo/ui/globals.css";
-import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -20,18 +20,32 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
 });
 
-export const metadata: Metadata = {
-  title: "EnElGaraje",
-  description: "Plataforma de compra/ventas",
+type LayoutProps = {
+  children: React.ReactNode;
+  params: { locale: string };
 };
+
+export async function generateMetadata(
+  params: LayoutProps,
+  parent: ResolvingMetadata,
+) {
+  const previousImages = (await parent).openGraph?.images || [];
+  const business = (await getCurrentBusiness()) as CompleteBusiness;
+  const site = await getSite(business);
+  const image = site.logo;
+  return {
+    title: business.name || "EnElGaraje",
+    description: business.description || "Plataforma de compra/ventas",
+    openGraph: {
+      images: image ? [image, ...previousImages] : previousImages,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
   params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
+}: LayoutProps) {
   const messages = await getMessages();
   const business = (await getCurrentBusiness()) as CompleteBusiness;
   const site = await getSite(business);

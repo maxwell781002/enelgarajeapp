@@ -21,10 +21,7 @@ export function Footer({ logo, email, phone }: FooterProps) {
         <nav className="flex flex-col items-center gap-1 sm:gap-4 sm:flex-row text-sm">
           <div className="flex items-center">
             <Mail className="h-5 w-5 text-primary mr-2" />
-            <Link
-              href={`mailto:${email}`}
-              className="text-sm hover:underline"
-            >
+            <Link href={`mailto:${email}`} className="text-sm hover:underline">
               {email}
             </Link>
           </div>
