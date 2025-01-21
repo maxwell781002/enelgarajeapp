@@ -1,0 +1,22 @@
+{
+  "BusinessSite": {
+    "pageTitle": "Sitio web configuración",
+    "backSite": "Regresar",
+    "lbLogo": "Logo",
+    "phLogo": "Seleccionar Logo",
+    "lbEmail": "Correo electrónico",
+    "phEmail": "Correo electrónico",
+    "lbPhone": "Teléfono",
+    "phPhone": "Teléfono que se pondrá en el pie de página.",
+    "btnSaving": "Guardando...",
+    "required": "Requerido",
+    "btnSubmit": "Salvar",
+    "businessSiteUpdated": "Datos del sitio actualizados",
+    "businessSiteCreated": "Datos del sitio actualizados",
+    "email": "Correo electrónico",
+    "siteNotConfigured": "El sitio web no ha sido configurado",
+    "configureSite": "Configurar sitio web",
+    "siteNotConfiguredDescription": "El sitio web no ha sido configurado, por favor configurelo para que vea datos de su negocio.",
+    "upgrade_plan_title": "Configuración de sitio web"
+  }
+}

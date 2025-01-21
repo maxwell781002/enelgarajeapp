@@ -44,13 +44,22 @@ model Business {
   users                  UserBusiness[]
   businessNeighborhood   BusinessNeighborhood[]
   userAddress            UserAddress[]
-  paymentMethod          PaymentMethod[]        @relation("paymentMehtods")
+  paymentMethod          PaymentMethod[]        @relation("paymentMethods")
   invitationLinks        InvitationLink[]
   cardBanks              CollaboratorCardBank[]
   collaboratorInvoices   CollaboratorInvoice[]
   collaboratorProfiles   CollaboratorProfile[]
   customers              Customer[]
   tickets                CollaboratorTicket[]
+  businessSite           BusinessSite?
+}
+
+model BusinessSite {
+  id         String   @id @default(uuid())
+  email      String
+  logo       Json
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String   @unique
 }
 
 enum Currency {
@@ -72,7 +81,7 @@ model PaymentMethod {
   name            String /// @zod.min(1, { message: "required" })
   type            PaymentMethodType
   data            Json
-  business        Business          @relation("paymentMehtods", fields: [businessId], references: [id])
+  business        Business          @relation("paymentMethods", fields: [businessId], references: [id])
   businessId      String
   defaultBusiness Business?         @relation("defaultPaymentMehtod")
 }
