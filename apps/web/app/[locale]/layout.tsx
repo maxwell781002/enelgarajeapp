@@ -9,6 +9,7 @@ import { Header } from "../../components/layout/header";
 import { Footer } from "../../components/layout/footer";
 import { BusinessContextProvider } from "@repo/ui/context/business";
 import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
+import { getSite } from "@repo/model/repository/business-site";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -33,6 +34,7 @@ export default async function RootLayout({
 }) {
   const messages = await getMessages();
   const business = (await getCurrentBusiness()) as CompleteBusiness;
+  const site = await getSite(business);
 
   return (
     <html lang={locale}>
@@ -45,12 +47,12 @@ export default async function RootLayout({
                   <Header
                     business={business}
                     locale={locale}
-                    logo="/logo.png"
+                    logo={site.logo}
                   />
                   <main className="flex-1 container pt-20 md:py-16 lg:py-20">
                     {children}
                   </main>
-                  <Footer />
+                  <Footer {...site} />
                 </BusinessContextProvider>
               ) : (
                 <h1>not found</h1>

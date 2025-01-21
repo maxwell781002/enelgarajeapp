@@ -20,6 +20,7 @@ import { MapPinIcon } from "lucide-react";
 import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
 import SwitchApp from "@repo/ui/components/switch-app";
 import { ApplicationsNames } from "@repo/model/lib/applications-names";
+import Image from "next/image";
 
 export async function Header({
   business,
@@ -43,7 +44,7 @@ export async function Header({
         className="flex items-center gap-2"
         prefetch={false}
       >
-        <img src={logo} alt="logo" className="h-7" />
+        <Image src={logo} alt="logo" width={50} height={50} />
         <span className="text-lg font-semibold">{business.name}</span>
       </Link>
       <Sheet>
