@@ -34,8 +34,8 @@ export async function generateMetadata(
   const site = await getSite(business);
   const image = site.logo;
   return {
-    title: business.name || "EnElGaraje",
-    description: business.description || "Plataforma de compra/ventas",
+    title: business?.name || "EnElGaraje",
+    description: business?.description || "Plataforma de compra/ventas",
     openGraph: {
       images: image ? [image, ...previousImages] : previousImages,
     },
