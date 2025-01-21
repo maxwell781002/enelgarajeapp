@@ -16,6 +16,7 @@
     "email": "Correo electrónico",
     "siteNotConfigured": "El sitio web no ha sido configurado",
     "configureSite": "Configurar sitio web",
-    "siteNotConfiguredDescription": "El sitio web no ha sido configurado, por favor configurelo para poder utilizarlo."
+    "siteNotConfiguredDescription": "El sitio web no ha sido configurado, por favor configurelo para que vea datos de su negocio.",
+    "upgrade_plan_title": "Configuración de sitio web"
   }
 }

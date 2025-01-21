@@ -5,6 +5,9 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import SiteData from "./data";
 import NotConfigured from "./no-configured";
+import { getPlanFeature } from "@repo/model/lib/plans-feature";
+import { getBusinessById } from "@repo/model/repository/business";
+import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 
 export default async function Page({
   params: { businessId },
@@ -12,6 +15,10 @@ export default async function Page({
   params: { businessId: string };
 }) {
   const t = await getTranslations("BusinessSite");
+  const business = await getBusinessById(businessId);
+  if (!getPlanFeature("CAN_CONFIGURE_SITE", business)) {
+    return <UpgradePlan business={business} title={t("upgrade_plan_title")} />;
+  }
   const site = await businessSiteRepository.getByBusinessId(businessId);
   const content = site ? (
     <SiteData site={site} />
