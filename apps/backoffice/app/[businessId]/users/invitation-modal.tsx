@@ -16,12 +16,15 @@ import GenerateLink from "./generate-link";
 
 export type CreateInvitationProps = {
   business: CompleteBusiness;
-  hasPlan: boolean;
+  canCreate: boolean;
 };
 
-export function CreateInvitation({ business, hasPlan }: CreateInvitationProps) {
+export function CreateInvitation({
+  business,
+  canCreate,
+}: CreateInvitationProps) {
   const t = useTranslations("User");
-  if (!hasPlan) {
+  if (!canCreate) {
     return (
       <UpgradePlan
         business={business}

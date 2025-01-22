@@ -11,6 +11,7 @@ import UserTable from "./table";
 import { CreateInvitation } from "./invitation-modal";
 import { getPlanFeature } from "@repo/model/lib/plans-feature";
 import { revalidatePath } from "next/cache";
+import { isUserByBusinessLimited } from "@repo/model/repository/user";
 
 type PageProps = {
   searchParams: any;
@@ -36,7 +37,7 @@ export default async function Page({
     const url = await search(query);
     return redirect(url);
   };
-  const hasPlan = getPlanFeature<number>("NUMBER_BUSINESS_USER", business);
+  const isLimited = await isUserByBusinessLimited(business);
   const pagination = await list({ ...searchParams, businessId });
   const remove = async (id: string) => {
     "use server";
@@ -49,7 +50,7 @@ export default async function Page({
         title={t("UserList")}
         filter={<Filter onChange={handleSearch} />}
         buttons={
-          <CreateInvitation business={business} hasPlan={hasPlan !== 0} />
+          <CreateInvitation business={business} canCreate={!isLimited} />
         }
       >
         <UserTable pagination={pagination as PaginationResult<any>} />

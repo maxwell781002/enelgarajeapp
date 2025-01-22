@@ -25,7 +25,7 @@ export const generateCustomerMessage = (order: CompleteOrder, host: string) => {
 };
 
 export const generateText = (data: TGenerateCustomerMessage, host: string) => {
-  const whatsapp = whatsappText(data);
+  const whatsapp = whatsappText(data.userData.phone as string);
   const products = getProductsText(data, host);
   const shippingText = hasShippingText(data);
   return `

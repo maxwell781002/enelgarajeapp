@@ -23,10 +23,10 @@ ${printText(data.city)}, ${printText(data.state)}
 ${printText(data.reference)}`;
 };
 
-export const whatsappText = (data: TGetCommonData) => {
+export const whatsappText = (phone: string) => {
   const message_whatsapp = "Hola%20ha%20comprado%20en%20nuestra%20tienda";
   return `*Whatsapp*
-📱[Aplicación](https://api.whatsapp.com/send/?phone=${data.userData.phone}&text=${message_whatsapp}) 🌐[web](https://web.whatsapp.com/send?phone=${data.userData.phone}&text=${message_whatsapp})`;
+📱[Aplicación](https://api.whatsapp.com/send/?phone=${phone}&text=${message_whatsapp}) 🌐[web](https://web.whatsapp.com/send?phone=${phone}&text=${message_whatsapp})`;
 };
 
 export const getProductsText = (data: TGetCommonData, host: string) => {
