@@ -39,7 +39,9 @@ export const generateCollaboratorMessage = (
 };
 
 export const generateText = (data: TGetCollaboratorData, host: string) => {
-  const whatsapp = whatsappText(data);
+  const collaboratorWhatsapp = whatsappText(data.userData.phone as string);
+  const customerWhatsapp =
+    data.ticket?.phone && whatsappText(data.ticket?.phone as string);
   const products = getProductsText(data, host);
   const shippingText = hasShippingText(data);
   return `
@@ -50,11 +52,12 @@ export const generateText = (data: TGetCollaboratorData, host: string) => {
 *Gestor*
 *Nombre*: ${printText(data.userData.name)}
 *Teléfono*: ${printText(data.userData.phone)}
-${whatsapp}
+${collaboratorWhatsapp}
 
 *Cliente*
 *Nombre*: ${printText(data.customer?.name)}
 *Teléfono*: ${printText(data.ticket?.phone)}
+${customerWhatsapp}
 *CI*: ${printText(data.customer?.identification)}
 ${addressText(data.addressData)}
 *Notas*: ${printText(data.ticket?.nota)}
