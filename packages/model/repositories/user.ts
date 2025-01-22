@@ -127,6 +127,15 @@ export class UserRepository extends BaseRepository<
       where: { userId, businessId },
     });
   }
+
+  countByBusinessId(businessId: string) {
+    return prisma().userBusiness.count({
+      where: {
+        businessId,
+        type: UserBusinessType.COLLABORATOR,
+      },
+    });
+  }
 }
 
 export const userRepository = new UserRepository();
