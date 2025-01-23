@@ -130,12 +130,17 @@ export class OrderRepository extends BaseRepository<
     );
   }
 
-  collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
+  collaboratorAndReferredPaginate({
+    userId,
+    ...data
+  }: CollaboratorPaginateData = {}) {
     return this.basePaginate(
       { ...data },
       {
-        userId,
-        isCollaborator: true,
+        OR: [
+          { userId, isCollaborator: true },
+          { referredById: userId, isCollaborator: false },
+        ],
         collaboratorInvoiceId: null,
         status: OrderStatus.PAYED,
         commission: {
