@@ -316,11 +316,23 @@ export class OrderRepository extends BaseRepository<
         collaboratorInvoiceId: null,
       },
     });
-    const values = await Promise.all([historicalProfit, totalOrderForPayment]);
+    const totalPaymentReferred = prisma().order.count({
+      where: {
+        businessId,
+        referredById: userId,
+        status: OrderStatus.PAYED,
+      },
+    });
+    const values = await Promise.all([
+      historicalProfit,
+      totalOrderForPayment,
+      totalPaymentReferred,
+    ]);
     return {
       historicalProfit: values[0]._sum.commission ?? 0,
       totalBusinessProfit: values[0]._sum.businessProfit ?? 0,
       totalOrderForPayment: values[1] ?? 0,
+      totalPaymentReferred: values[2] ?? 0,
     };
   }
 
