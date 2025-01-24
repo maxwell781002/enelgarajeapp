@@ -14,7 +14,7 @@ export type SocialNetworks = "FACEBOOK" | "WHATSAPP" | "TELEGRAM";
 export type SharedLinksProps = {
   socialNetworks: SocialNetworks[];
   url: string;
-  text: string;
+  text?: string;
   hashtag?: string;
 };
 

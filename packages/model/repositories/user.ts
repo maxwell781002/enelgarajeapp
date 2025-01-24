@@ -4,10 +4,12 @@ import { CompleteUser, UserModel } from "../prisma/zod";
 import {
   UserRoles as BaseUserRoles,
   CollaboratorProfile,
+  UserBusiness,
   UserBusinessType,
 } from "../prisma/generated/client";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { UserWithCollaboratorProfile } from "../types/user";
+import { generateCode } from "../lib/utils";
 
 export const UserRoles = BaseUserRoles;
 
@@ -135,6 +137,28 @@ export class UserRepository extends BaseRepository<
         type: UserBusinessType.COLLABORATOR,
       },
     });
+  }
+
+  async getReferredCode(userId: string, businessId: string) {
+    const entity = (await prisma().userBusiness.findFirst({
+      where: {
+        userId,
+        businessId,
+      },
+    })) as UserBusiness;
+    if (entity.referredCode) {
+      return entity.referredCode;
+    }
+    const referredCode = generateCode(8);
+    await prisma().userBusiness.update({
+      where: { userId_businessId: { userId, businessId } },
+      data: {
+        userId,
+        businessId,
+        referredCode,
+      },
+    });
+    return referredCode;
   }
 }
 
