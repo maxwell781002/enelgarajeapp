@@ -156,11 +156,11 @@ export class OrderRepository extends BaseRepository<
     return this.basePaginate(paginate);
   }
 
-  async isOrdersByTheSameUser(ids: string[], userId: string) {
+  async isOrdersByTheSameUserOrReferred(ids: string[], userId: string) {
     return (
       ids.length ===
       (await prisma().order.count({
-        where: { id: { in: ids }, userId },
+        where: { id: { in: ids }, OR: [{ userId }, { referredById: userId }] },
       }))
     );
   }
