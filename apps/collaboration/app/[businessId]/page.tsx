@@ -25,7 +25,7 @@ export default async function Home({
   );
   return (
     <>
-      <div className="mb-4 grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+      <div className="mb-4 grid gap-4 md:grid-cols-1 lg:grid-cols-4">
         <CardTotal
           title={t("historicalProfit")}
           Icon={DollarSign}
@@ -42,6 +42,11 @@ export default async function Home({
           title={t("totalPendingInvoiceToConfirm")}
           Icon={DockIcon}
           value={user._collaboratorProfile.totalPendingInvoiceToConfirm}
+        />
+        <CardTotal
+          title={t("totalPaymentReferred")}
+          Icon={DockIcon}
+          value={user._collaboratorProfile.totalPaymentReferred}
         />
       </div>
       <CollaboratorInvoice

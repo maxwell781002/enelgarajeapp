@@ -24,7 +24,7 @@ export default async function Page({
     orderRepository.getRepositoryModelName(),
     searchParams,
     {
-      paginateMethod: "userPaginate",
+      paginateMethod: "collaboratorPaginate",
     },
   );
   const handleSearch = async (query: any) => {
