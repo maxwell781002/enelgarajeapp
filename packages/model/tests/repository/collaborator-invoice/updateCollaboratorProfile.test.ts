@@ -165,7 +165,7 @@ describe("updateCollaboratorProfile", () => {
     expect(historicalProfit).toBe(10 + 5);
     expect(totalBusinessProfit).toBe(50 + 85);
     expect(totalPendingInvoiceToConfirm).toBe(2);
-    expect(totalOrderForPayment).toBe(2);
+    expect(totalOrderForPayment).toBe(4);
     expect(totalPaymentReferred).toBe(2);
   });
 });

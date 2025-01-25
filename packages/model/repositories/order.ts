@@ -294,8 +294,10 @@ export class OrderRepository extends BaseRepository<
   async getCollaboratorStatistic(businessId: string, userId: string) {
     const where = {
       businessId,
-      userId,
-      isCollaborator: true,
+      OR: [
+        { userId, isCollaborator: true },
+        { referredById: userId, isCollaborator: false },
+      ],
     };
     const historicalProfit = prisma().order.aggregate({
       _sum: {

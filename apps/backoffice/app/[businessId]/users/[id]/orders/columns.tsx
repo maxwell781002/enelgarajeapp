@@ -73,9 +73,7 @@ export const columns: ColumnDef<any>[] = [
     }: {
       cell: { value: string; row: any };
     }) => {
-      return (
-        <BooleanValue value={!!referredById} />
-      );
+      return <BooleanValue value={!!referredById} />;
     },
   },
   {
