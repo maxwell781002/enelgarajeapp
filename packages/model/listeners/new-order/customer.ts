@@ -24,10 +24,19 @@ export const generateCustomerMessage = (order: CompleteOrder, host: string) => {
   return generateText(message, host);
 };
 
+const generateReferredMessage = (order: TGenerateCustomerMessage) => {
+  if (!order.referredBy) {
+    return "";
+  }
+  return `
+👷‍♀️ *Referido por*: ${order.referredBy}`;
+};
+
 export const generateText = (data: TGenerateCustomerMessage, host: string) => {
   const whatsapp = whatsappText(data.userData.phone as string);
   const products = getProductsText(data, host);
   const shippingText = hasShippingText(data);
+  const referredMessage = generateReferredMessage(data);
   return `
 🛒 *Nueva orden*
 
@@ -37,6 +46,7 @@ export const generateText = (data: TGenerateCustomerMessage, host: string) => {
 *Teléfono*: ${printText(data.userData.phone)}
 ${whatsapp}
 ${addressText(data.addressData)}
+${referredMessage}
 
 *Productos*
 ${products}

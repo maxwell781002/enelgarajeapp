@@ -65,6 +65,7 @@ export const getCommonData = (order: CompleteOrder, host: string) => {
       name: user?.name,
       phone: normalizePhone(user?.phone),
     },
+    referredBy: order.referredBy?.name,
     items: order.items.map((item: CompleteOrderProduct) => ({
       id: item.product.id,
       name: item.product.name,

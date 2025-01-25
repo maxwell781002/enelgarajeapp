@@ -240,8 +240,10 @@ export const createOrder = async (
     userId: user.id,
     productsDetails: products,
     isCollaborator,
-    referredById: data.referredById,
   };
+  if (data.referredById) {
+    order.referredById = data.referredById;
+  }
   order = await addShipping(
     order,
     data.address as CompleteAddress,

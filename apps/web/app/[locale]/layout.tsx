@@ -10,7 +10,7 @@ import { Footer } from "../../components/layout/footer";
 import { BusinessContextProvider } from "@repo/ui/context/business";
 import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
 import { getSite } from "@repo/model/repository/business-site";
-import { ReferredCode, useReferredCode } from "../../components/referred-code";
+import { ReferredCode } from "../../components/referred-code";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",

@@ -1,7 +1,7 @@
 import { getBusinessById } from "@repo/model/repository/business";
 import { getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
-import CollaboratorOrder from "@repo/ui/components/order-page/collaborator-order";
+import CollaboratorOrder from "@repo/ui/components/order-page/back-order/collaborator-order";
 import CheckoutSuccessfulPage from "@repo/ui/components/shop-cart/checkout-successful/page";
 
 export type PageProps = {
