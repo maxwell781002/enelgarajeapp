@@ -40,6 +40,7 @@ export const WebShoppingCartSchema = BaseCart.extend({
   addressType: z.string(),
   businessRequestAddress: z.boolean().optional(),
   wantDomicile: z.boolean().optional(),
+  referredCode: z.string().optional(),
   [AddressType.newAddress]: AddressModel.omit({ id: true }).optional(),
   [AddressType.selectAddress]: AddressModel.optional(),
 }).refine(
@@ -74,7 +75,7 @@ export type TCollaboratorShoppingCartSchema = z.infer<
 export type TShoppingCartSchemaRegister = Omit<
   TCollaboratorShoppingCartSchema,
   "customer" | "ticket"
->;
+> & { referredById?: string };
 
 export type TUserRegisterSchema = z.infer<typeof UserRegisterSchema> & {
   [AddressType.newAddress]: CompleteAddress;

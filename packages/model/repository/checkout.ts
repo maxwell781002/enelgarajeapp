@@ -190,14 +190,22 @@ export const createWebOrder = async (
   data: TWebShoppingCartSchema,
 ) => {
   WebShoppingCartSchema.parse(data);
-  let { phone, name, addressType, ...rest } = data;
+  let { phone, name, addressType, referredCode, ...rest } = data;
   const address = rest[addressType as AddressType];
+  const referredById =
+    referredCode &&
+    (await userRepository.getUserIdByReferredCode(referredCode));
   const entity = await transaction(async () => {
     await userRepository.update(user.id, { ...user, phone, name });
     if (addressType === AddressType.newAddress && rest.wantDomicile) {
       await addAddressToUser(user.id, business.id, address);
     }
-    return createOrder(business, user, { ...rest, address }, false);
+    return createOrder(
+      business,
+      user,
+      { ...rest, address, referredById },
+      false,
+    );
   });
   //TODO: When I configure the listener send the event instance of
   // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
@@ -230,6 +238,7 @@ export const createOrder = async (
     userId: user.id,
     productsDetails: products,
     isCollaborator,
+    referredById: data.referredById,
   };
   order = await addShipping(
     order,

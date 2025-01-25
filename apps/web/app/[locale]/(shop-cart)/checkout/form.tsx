@@ -24,6 +24,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { Switch } from "@repo/ui/components/ui/switch";
 import CheckoutPage from "@repo/ui/components/shop-cart/checkout/index";
 import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
@@ -53,11 +54,19 @@ export default function CheckoutForm({
       form.resetField(AddressType.newAddress);
     }
   }, [addressType]);
+  const [cookies, setCookie, removeCookie] = useCookies(["referredCode"]);
+  const handleAction = async (formData: any) => {
+    const referredCode = cookies.referredCode;
+    formData.referredCode = referredCode;
+    const data = await action(formData);
+    removeCookie("referredCode");
+    return data;
+  };
 
   return (
     <Form {...form}>
       <CheckoutPage
-        action={action}
+        action={handleAction}
         form={form}
         addressName={addressType}
         business={business}

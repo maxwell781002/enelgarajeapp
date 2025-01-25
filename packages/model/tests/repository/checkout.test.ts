@@ -9,9 +9,10 @@ import {
   clearBd,
   neighborhoodFactory,
   productFactory,
+  userBusinessFactory,
   userFactory,
 } from "../factories";
-import { CommissionTypes, Currency } from "../../types/enums";
+import { CommissionTypes, Currency, UserBusinessType } from "../../types/enums";
 import { FormOfPaymentType, OrderStatus } from "../../prisma/generated/client";
 import { productRepository } from "../../repositories/product";
 import { AddressType } from "../../validation/user";
@@ -20,6 +21,7 @@ import { TCustomerForm } from "../../validation/customer";
 import { TCollaboratorTicketForm } from "../../validation/collaborator-ticket";
 import { customerRepository } from "../../repositories/customer";
 import { collaboratorTicketRepository } from "../../repositories/collaborator-ticket";
+import { generateCode } from "../../lib/utils";
 
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
@@ -60,13 +62,22 @@ const ticket: TCollaboratorTicketForm = {
 describe("Checkout", () => {
   let business;
   let user;
+  let referredUser;
   let product1;
   let product2;
   let neighborhood;
+  const referredCode = generateCode(8);
 
   beforeAll(async () => {
     user = await userFactory();
     business = await businessFactory();
+    referredUser = await userFactory();
+    await userBusinessFactory({
+      userId: referredUser.id,
+      businessId: business.id,
+      type: UserBusinessType.COLLABORATOR,
+      referredCode,
+    });
     neighborhood = await neighborhoodFactory({
       name: "neighborhood1",
       city: "city1",
@@ -304,6 +315,7 @@ describe("Checkout", () => {
     const order = await createWebOrder(business, user, {
       phone: "253",
       name: "test",
+      referredCode,
       addressType: AddressType.newAddress,
       cartItems: [
         {
@@ -328,6 +340,7 @@ describe("Checkout", () => {
     const date = new Date();
     const position = 4;
     const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+    expect(order.referredById).toBe(referredUser.id);
     expect(order.orderAddress).toBeDefined();
     expect(order.total).toBe(270);
     expect(order.commission).toBe(0);

@@ -160,6 +160,15 @@ export class UserRepository extends BaseRepository<
     });
     return referredCode;
   }
+
+  async getUserIdByReferredCode(referredCode: string) {
+    const entity = await prisma().userBusiness.findFirst({
+      where: {
+        referredCode,
+      },
+    });
+    return entity?.userId;
+  }
 }
 
 export const userRepository = new UserRepository();
