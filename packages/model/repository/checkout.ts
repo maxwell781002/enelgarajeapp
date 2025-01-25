@@ -59,7 +59,7 @@ const calculateProductCommission = (
 export const orderItems = async (
   businessId: string,
   items: TCartItem[],
-  isCollaborator: boolean,
+  calculateCommission: boolean,
 ) => {
   const byIds = items.reduce<any>((acc, item) => {
     acc[item.productId] = {
@@ -89,7 +89,7 @@ export const orderItems = async (
       const { quantity, customPrice } = byIds[product.id];
       const [itemCommission, itemBusinessProfit, price] =
         calculateProductCommission(
-          isCollaborator,
+          calculateCommission,
           product,
           quantity,
           customPrice,
@@ -166,7 +166,7 @@ export const createCollaboratorOrder = async (
   CollaboratorShoppingCartSchema.parse(data);
   const { customer, ticket, ...rest } = data;
   const entity = await transaction(async () => {
-    const order = await createOrder(business, user, rest, true);
+    const order = await createOrder(business, user, rest, true, true);
     const customerEntity = await createCustomer(customer, business.id);
     await createCollaboratorTicket(
       ticket,
@@ -205,6 +205,7 @@ export const createWebOrder = async (
       user,
       { ...rest, address, referredById },
       false,
+      !!referredById,
     );
   });
   //TODO: When I configure the listener send the event instance of
@@ -218,6 +219,7 @@ export const createOrder = async (
   user: CompleteUser,
   data: TShoppingCartSchemaRegister,
   isCollaborator: boolean,
+  calculateCommission: boolean,
 ) => {
   const {
     items,
@@ -227,7 +229,7 @@ export const createOrder = async (
     businessProfit,
     hasProductOutOfStock,
     productToUpdate,
-  } = await orderItems(business.id, data.cartItems, isCollaborator);
+  } = await orderItems(business.id, data.cartItems, calculateCommission);
   if (hasProductOutOfStock) {
     throw new BadRequestError("out_of_stock");
   }

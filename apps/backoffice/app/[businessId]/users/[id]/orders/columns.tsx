@@ -5,6 +5,7 @@ import { statusLabel } from "@repo/ui/components/status/status-label";
 import { statusColors } from "@repo/model/repositories/order";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import AddToInvoice from "./addToInvoice";
+import BooleanValue from "@repo/ui/components/boolean-value";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -62,6 +63,19 @@ export const columns: ColumnDef<any>[] = [
       cell: { value: Date; row: any };
     }) => {
       return formatDate(sentAt);
+    },
+  },
+  {
+    header: "¿Es referido?",
+    accessorKey: "referredById",
+    cell: ({
+      cell: { value: referredById, row },
+    }: {
+      cell: { value: string; row: any };
+    }) => {
+      return (
+        <BooleanValue value={!!referredById} />
+      );
     },
   },
   {

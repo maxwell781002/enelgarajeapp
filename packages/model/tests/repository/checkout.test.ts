@@ -343,8 +343,8 @@ describe("Checkout", () => {
     expect(order.referredById).toBe(referredUser.id);
     expect(order.orderAddress).toBeDefined();
     expect(order.total).toBe(270);
-    expect(order.commission).toBe(0);
-    expect(order.businessProfit).toBe(0);
+    expect(order.commission).toBe(50);
+    expect(order.businessProfit).toBe(120);
     expect(order.userId).toBe(user.id);
     expect(order.shipping).toBe(100);
     expect(order.hasShipping).toBe(true);
@@ -360,8 +360,8 @@ describe("Checkout", () => {
         orderId: order.id,
         price: 120,
         position: 0,
-        commission: 0,
-        businessProfit: 0,
+        commission: 40,
+        businessProfit: 80,
         quantity: 2,
         customPrice: 0,
       },
@@ -370,8 +370,8 @@ describe("Checkout", () => {
         orderId: order.id,
         price: 50,
         position: 0,
-        commission: 0,
-        businessProfit: 0,
+        commission: 10,
+        businessProfit: 40,
         quantity: 1,
         customPrice: 0,
       },
