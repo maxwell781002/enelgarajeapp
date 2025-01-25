@@ -1,15 +1,15 @@
 "use client";
+import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 
 export const ReferredCode = ({ children }: { children: React.ReactNode }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["referredCode"]);
+  const setReferredCode = useShopCart.use.setReferredCode();
   const searchParams = useSearchParams();
   const referredCode = searchParams.get("rc");
   useEffect(() => {
     if (!referredCode) return;
-    setCookie("referredCode", referredCode);
+    setReferredCode(referredCode);
   }, [referredCode]);
   return children;
 };
