@@ -13,12 +13,14 @@ type Items = {
 export default function CardDisplay({
   title,
   items,
+  className,
 }: {
   title: string;
   items: Items[];
+  className?: string;
 }) {
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>{title}</span>

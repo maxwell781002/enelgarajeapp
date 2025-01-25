@@ -271,6 +271,7 @@ export class OrderRepository extends BaseRepository<
           include: { product: { include: { priceValues: true } } },
           orderBy: { position: "asc" },
         },
+        referredBy: true,
       },
     });
   }
@@ -363,6 +364,7 @@ export class OrderRepository extends BaseRepository<
         ticket: {
           include: { customer: true },
         },
+        referredBy: true,
       },
     });
   }

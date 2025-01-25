@@ -4,8 +4,7 @@ import ChangeStatus from "./changeStatus";
 import { revalidatePath } from "next/cache";
 import { getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
-import ClientBackofficeOrder from "@repo/ui/components/order-page/client-backoffice-order";
-import CollaboratorOrder from "@repo/ui/components/order-page/collaborator-order";
+import BackOrder from "@repo/ui/components/order-page/back-order/index";
 
 type OrderDetailProps = {
   params: { businessId: string; id: string };
@@ -33,17 +32,10 @@ export default async function Page({
       urlTitle="Ir a órdenes"
       headerChildren={changeStatusComponent}
     >
-      {order.isCollaborator ? (
-        <CollaboratorOrder
-          baseUrl={(item) => `/${businessId}/products/${item.product.id}`}
-          order={order as CompleteOrder}
-        />
-      ) : (
-        <ClientBackofficeOrder
-          order={order as CompleteOrder}
-          baseUrl={(item) => `/${businessId}/products/${item.product.id}`}
-        />
-      )}
+      <BackOrder
+        order={order}
+        baseUrl={(item) => `/${businessId}/products/${item.product.id}`}
+      />
     </BackPage>
   );
 }
