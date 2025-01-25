@@ -25,7 +25,7 @@ export default async function CollaboratorOrders({
       pageSize: 1000,
     },
     {
-      paginateMethod: "collaboratorPaginate",
+      paginateMethod: "collaboratorAndReferredPaginate",
     },
   );
   const handleSearch = async (query: any) => {

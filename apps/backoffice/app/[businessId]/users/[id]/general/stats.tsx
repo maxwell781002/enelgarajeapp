@@ -10,7 +10,7 @@ export default async function Stats({
 }) {
   const t = await getTranslations("UserDetail");
   return (
-    <div className="flex flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="flex flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
       <StatCard
         title={t("historicalProfit")}
         value={
@@ -30,6 +30,10 @@ export default async function Stats({
       <StatCard
         title={t("totalOrderForPayment")}
         value={user._collaboratorProfile.totalOrderForPayment}
+      />
+      <StatCard
+        title={t("totalPaymentReferred")}
+        value={user._collaboratorProfile.totalPaymentReferred ?? 0}
       />
     </div>
   );

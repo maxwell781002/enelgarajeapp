@@ -15,18 +15,25 @@ import {
 } from "@repo/model/repository/shop-cart";
 import { createSelectors } from "@repo/ui/stores/index";
 
-const initialState: { order: ShopCartOrder } = {
+type ShopCartState = ShopCartOrder & {
+  referredCode?: string;
+};
+
+const initialState: { order: ShopCartState } = {
   order: {
     items: [],
     total: 0,
+    referredCode: "",
   },
 };
 
 export type ShopCartStore = {
   currentBusinessId: string;
-  byBusiness: Record<string, ShopCartOrder>;
-  order: ShopCartOrder;
+  byBusiness: Record<string, ShopCartState>;
+  order: ShopCartState;
   add: (item: CompleteProduct) => void;
+  setReferredCode: (code: string) => void;
+  referredCode: () => string | undefined;
   numberOfItems: () => number;
   commission: () => number;
   inCart: (id: string) => boolean;
@@ -61,6 +68,11 @@ const _useShopCart = create<ShopCartStore>()(
           // @ts-ignore
           state.order = addProductToOrder(state.order, item);
         }),
+      setReferredCode: (code: string) =>
+        set((state) => {
+          state.order.referredCode = code;
+        }),
+      referredCode: () => get().order.referredCode,
       clear: () => set({ ...initialState }),
       numberOfItems: () =>
         get().order.items.reduce((acc, item) => acc + item.quantity, 0),

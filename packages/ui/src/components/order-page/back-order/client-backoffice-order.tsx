@@ -45,9 +45,20 @@ export default async function ClientBackofficeOrder({
       ]
     : [];
   const user = order.user as CompleteUser;
+  const referredBy = order.referredBy;
   return (
     <div className="container mx-auto p-4">
       <div className="space-y-6">
+        {!!referredBy && (
+          <CardDisplay
+            className="bg-green-500 text-white"
+            title={t("cardReferredBy")}
+            items={[
+              { label: t("collaboratorName"), value: referredBy.name },
+              { label: t("phone"), value: referredBy.phone },
+            ]}
+          />
+        )}
         <CardDisplay
           title={t("cardGeneral")}
           items={[

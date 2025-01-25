@@ -120,22 +120,29 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  userPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
-    return this.basePaginate(
-      { ...data },
-      {
-        userId,
-        isCollaborator: true,
-      },
-    );
-  }
-
   collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
     return this.basePaginate(
       { ...data },
       {
-        userId,
-        isCollaborator: true,
+        OR: [
+          { userId, isCollaborator: true },
+          { referredById: userId, isCollaborator: false },
+        ],
+      },
+    );
+  }
+
+  collaboratorAndReferredPaginate({
+    userId,
+    ...data
+  }: CollaboratorPaginateData = {}) {
+    return this.basePaginate(
+      { ...data },
+      {
+        OR: [
+          { userId, isCollaborator: true },
+          { referredById: userId, isCollaborator: false },
+        ],
         collaboratorInvoiceId: null,
         status: OrderStatus.PAYED,
         commission: {
@@ -149,11 +156,11 @@ export class OrderRepository extends BaseRepository<
     return this.basePaginate(paginate);
   }
 
-  async isOrdersByTheSameUser(ids: string[], userId: string) {
+  async isOrdersByTheSameUserOrReferred(ids: string[], userId: string) {
     return (
       ids.length ===
       (await prisma().order.count({
-        where: { id: { in: ids }, userId },
+        where: { id: { in: ids }, OR: [{ userId }, { referredById: userId }] },
       }))
     );
   }
@@ -264,6 +271,7 @@ export class OrderRepository extends BaseRepository<
           include: { product: { include: { priceValues: true } } },
           orderBy: { position: "asc" },
         },
+        referredBy: true,
       },
     });
   }
@@ -289,8 +297,10 @@ export class OrderRepository extends BaseRepository<
   async getCollaboratorStatistic(businessId: string, userId: string) {
     const where = {
       businessId,
-      userId,
-      isCollaborator: true,
+      OR: [
+        { userId, isCollaborator: true },
+        { referredById: userId, isCollaborator: false },
+      ],
     };
     const historicalProfit = prisma().order.aggregate({
       _sum: {
@@ -316,11 +326,23 @@ export class OrderRepository extends BaseRepository<
         collaboratorInvoiceId: null,
       },
     });
-    const values = await Promise.all([historicalProfit, totalOrderForPayment]);
+    const totalPaymentReferred = prisma().order.count({
+      where: {
+        businessId,
+        referredById: userId,
+        status: OrderStatus.PAYED,
+      },
+    });
+    const values = await Promise.all([
+      historicalProfit,
+      totalOrderForPayment,
+      totalPaymentReferred,
+    ]);
     return {
       historicalProfit: values[0]._sum.commission ?? 0,
       totalBusinessProfit: values[0]._sum.businessProfit ?? 0,
       totalOrderForPayment: values[1] ?? 0,
+      totalPaymentReferred: values[2] ?? 0,
     };
   }
 
@@ -342,6 +364,7 @@ export class OrderRepository extends BaseRepository<
         ticket: {
           include: { customer: true },
         },
+        referredBy: true,
       },
     });
   }

@@ -21,11 +21,13 @@ describe.only("createCollaboratorInvoice", () => {
   let order1;
   let order2;
   let order3;
+  let orderReferred;
   let user;
   let cardBank;
 
   beforeAll(async () => {
     user = await userFactory();
+    const otherUser = await userFactory();
     business = await businessFactory({ slug: "http://localhost:3000" });
     await userBusinessFactory({
       userId: user.id,
@@ -54,6 +56,15 @@ describe.only("createCollaboratorInvoice", () => {
       businessProfit: 70,
       isCollaborator: true,
     });
+    orderReferred = await orderFactory({
+      userId: otherUser.id,
+      businessId: business.id,
+      status: OrderStatus.PAYED,
+      commission: 30,
+      businessProfit: 70,
+      isCollaborator: false,
+      referredById: user.id,
+    });
     cardBank = await collaboratorCardBankFactory({
       businessId: business.id,
       collaboratorId: user.id,
@@ -68,7 +79,7 @@ describe.only("createCollaboratorInvoice", () => {
 
   it("createCollaboratorInvoice", async () => {
     const data = await createCollaboratorInvoice({
-      ordersId: [order1.id, order2.id],
+      ordersId: [order1.id, order2.id, orderReferred.id],
       businessId: business.id,
       amount: 100,
       collaboratorId: user.id,
@@ -81,8 +92,10 @@ describe.only("createCollaboratorInvoice", () => {
     const order1FromDb = await orderRepository.getById(order1.id);
     const order2FromDb = await orderRepository.getById(order2.id);
     const order3FromDb = await orderRepository.getById(order3.id);
+    const orderReferredFromDb = await orderRepository.getById(orderReferred.id);
     expect(order1FromDb.collaboratorInvoiceId).toBe(data.id);
     expect(order2FromDb.collaboratorInvoiceId).toBe(data.id);
+    expect(orderReferredFromDb.collaboratorInvoiceId).toBe(data.id);
     expect(order3FromDb.collaboratorInvoiceId).toBeNull();
     const profile = await prisma().collaboratorProfile.findFirst({
       where: { collaboratorId: user.id, businessId: business.id },
@@ -90,6 +103,7 @@ describe.only("createCollaboratorInvoice", () => {
     expect(profile).toBeDefined();
     expect(profile?.totalPendingInvoiceToConfirm).toBe(1);
     expect(profile?.totalOrderForPayment).toBe(1);
+    expect(profile?.totalPaymentReferred).toBe(1);
     expect(profile?.totalBusinessProfit).toBe(0);
     expect(profile?.historicalProfit).toBe(0);
 
@@ -100,7 +114,8 @@ describe.only("createCollaboratorInvoice", () => {
     expect(profile2).toBeDefined();
     expect(profile2?.totalPendingInvoiceToConfirm).toBe(0);
     expect(profile2?.totalOrderForPayment).toBe(1);
-    expect(profile2?.totalBusinessProfit).toBe(170);
-    expect(profile2?.historicalProfit).toBe(30);
+    expect(profile2?.totalPaymentReferred).toBe(1);
+    expect(profile2?.totalBusinessProfit).toBe(240);
+    expect(profile2?.historicalProfit).toBe(60);
   });
 });

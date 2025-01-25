@@ -33,4 +33,19 @@ describe("updateCollaboratorProfileListener", () => {
       "businessId",
     );
   });
+
+  it("Is referred", () => {
+    updateCollaboratorProfileListener(
+      new OrderPayed({
+        isCollaborator: false,
+        userId: "userId",
+        businessId: "businessId",
+        referredById: "referredById",
+      } as CompleteOrder),
+    );
+    expect(module.updateCollaboratorProfile).toBeCalledWith(
+      "userId",
+      "businessId",
+    );
+  });
 });

@@ -24,6 +24,8 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { Switch } from "@repo/ui/components/ui/switch";
 import CheckoutPage from "@repo/ui/components/shop-cart/checkout/index";
 import { useEffect } from "react";
+import { useShopCart } from "@repo/ui/stores/shop-cart";
+import { useStore } from "@repo/ui/stores/index";
 
 type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
@@ -53,11 +55,17 @@ export default function CheckoutForm({
       form.resetField(AddressType.newAddress);
     }
   }, [addressType]);
+  const referredCode = useStore(useShopCart, (state) => state.referredCode());
+  const handleAction = async (formData: any) => {
+    formData.referredCode = referredCode;
+    const data = await action(formData);
+    return data;
+  };
 
   return (
     <Form {...form}>
       <CheckoutPage
-        action={action}
+        action={handleAction}
         form={form}
         addressName={addressType}
         business={business}

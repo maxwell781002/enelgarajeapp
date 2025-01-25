@@ -3,9 +3,10 @@ import { updateCollaboratorProfile } from "../repository/collaborator-profile";
 
 export const updateCollaboratorProfileListener = (event: OrderPayed) => {
   const order = event.data;
-  if (order.isCollaborator) {
+  const userId = order.isCollaborator ? order.userId : order.referredById;
+  if (userId) {
     return updateCollaboratorProfile(
-      order.userId as string,
+      userId as string,
       order.businessId as string,
     );
   }

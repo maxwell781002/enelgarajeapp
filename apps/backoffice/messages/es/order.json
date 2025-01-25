@@ -36,7 +36,8 @@
     "TRANSFER": "Transferencia",
     "CASH": "Efectivo",
     "commission": "Comisión",
-    "cardNota": "Notas"
+    "cardNota": "Notas",
+    "cardReferredBy": "Referido por"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",

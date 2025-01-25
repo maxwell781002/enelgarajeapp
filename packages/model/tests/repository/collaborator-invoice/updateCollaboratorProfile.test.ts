@@ -17,30 +17,33 @@ import { collaboratorProfileRepository } from "../../../repositories/collaborato
 // The two collaborators will have 3 orders
 // The collaborator 1 will have 2 invoices one of them confirmed
 // The collaborator 1 will confirm another invoice
+// The collaborator will have 3 orders as referred and 2 of then payed.
 
 const createOrder = async (
   business,
   cardBank,
-  collaborator,
+  user,
   commission,
   businessProfit,
   hasInvoice = false,
   confirmed = false,
   status: OrderStatus = OrderStatus.SEND,
+  referredById = null,
 ) => {
   const orderData = {
     status,
     businessId: business.id,
-    userId: collaborator.id,
+    userId: user.id,
     commission,
     businessProfit,
-    isCollaborator: true,
+    referredById,
+    isCollaborator: !referredById,
   };
   if (hasInvoice) {
     const data: any = {
       confirmed,
       businessId: business.id,
-      collaboratorId: collaborator.id,
+      collaboratorId: user.id,
       amount: 100,
       currency: Currency.CUP,
       transferCode: "transferCode",
@@ -54,33 +57,35 @@ const createOrder = async (
 
 describe("updateCollaboratorProfile", () => {
   let business;
-  let user;
+  let user1;
+  let user2;
   let cardBank;
   beforeAll(async () => {
     business = await businessFactory();
-    user = await userFactory();
+    user1 = await userFactory();
+    user2 = await userFactory();
     await userBusinessFactory({
-      userId: user.id,
+      userId: user1.id,
       businessId: business.id,
       type: UserBusinessType.COLLABORATOR,
     });
     cardBank = await collaboratorCardBankFactory({
       businessId: business.id,
-      collaboratorId: user.id,
+      collaboratorId: user1.id,
       cardNumber: "cardNumber",
       phone: "+5353024637",
     });
 
     //User 1
-    await createOrder(business, cardBank, user, 30, 70);
-    await createOrder(business, cardBank, user, 10, 50, true, true);
-    await createOrder(business, cardBank, user, 5, 85, true, true);
-    await createOrder(business, cardBank, user, 20, 60, true);
-    await createOrder(business, cardBank, user, 20, 60, true);
+    await createOrder(business, cardBank, user1, 30, 70);
+    await createOrder(business, cardBank, user1, 10, 50, true, true);
+    await createOrder(business, cardBank, user1, 5, 85, true, true);
+    await createOrder(business, cardBank, user1, 20, 60, true);
+    await createOrder(business, cardBank, user1, 20, 60, true);
     await createOrder(
       business,
       cardBank,
-      user,
+      user1,
       20,
       60,
       false,
@@ -90,7 +95,7 @@ describe("updateCollaboratorProfile", () => {
     await createOrder(
       business,
       cardBank,
-      user,
+      user1,
       20,
       60,
       false,
@@ -101,12 +106,45 @@ describe("updateCollaboratorProfile", () => {
     await createOrder(
       business,
       cardBank,
-      user,
+      user1,
       0,
       60,
       false,
       false,
       OrderStatus.PAYED,
+    );
+    await createOrder(
+      business,
+      cardBank,
+      user2,
+      10,
+      60,
+      false,
+      false,
+      OrderStatus.PAYED,
+      user1.id,
+    );
+    await createOrder(
+      business,
+      cardBank,
+      user2,
+      10,
+      60,
+      false,
+      false,
+      OrderStatus.PAYED,
+      user1.id,
+    );
+    await createOrder(
+      business,
+      cardBank,
+      user2,
+      10,
+      60,
+      false,
+      false,
+      OrderStatus.SEND,
+      user1.id,
     );
   });
 
@@ -115,17 +153,19 @@ describe("updateCollaboratorProfile", () => {
   });
 
   it("updateCollaboratorProfile", async () => {
-    const { id } = await updateCollaboratorProfile(user.id, business.id);
+    const { id } = await updateCollaboratorProfile(user1.id, business.id);
     const profile = await collaboratorProfileRepository.getById(id);
     const {
       historicalProfit,
       totalBusinessProfit,
       totalPendingInvoiceToConfirm,
       totalOrderForPayment,
+      totalPaymentReferred,
     } = profile;
     expect(historicalProfit).toBe(10 + 5);
     expect(totalBusinessProfit).toBe(50 + 85);
     expect(totalPendingInvoiceToConfirm).toBe(2);
-    expect(totalOrderForPayment).toBe(2);
+    expect(totalOrderForPayment).toBe(4);
+    expect(totalPaymentReferred).toBe(2);
   });
 });

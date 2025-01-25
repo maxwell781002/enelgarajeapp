@@ -66,3 +66,14 @@ export const commissionCalculate = (
 
 export const transfermovilText = (cardNumber: string, phone: string) =>
   `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${cardNumber},${phone},`;
+
+export const generateCode = (length: number) => {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};

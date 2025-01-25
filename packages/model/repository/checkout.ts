@@ -59,7 +59,7 @@ const calculateProductCommission = (
 export const orderItems = async (
   businessId: string,
   items: TCartItem[],
-  isCollaborator: boolean,
+  calculateCommission: boolean,
 ) => {
   const byIds = items.reduce<any>((acc, item) => {
     acc[item.productId] = {
@@ -89,7 +89,7 @@ export const orderItems = async (
       const { quantity, customPrice } = byIds[product.id];
       const [itemCommission, itemBusinessProfit, price] =
         calculateProductCommission(
-          isCollaborator,
+          calculateCommission,
           product,
           quantity,
           customPrice,
@@ -166,7 +166,7 @@ export const createCollaboratorOrder = async (
   CollaboratorShoppingCartSchema.parse(data);
   const { customer, ticket, ...rest } = data;
   const entity = await transaction(async () => {
-    const order = await createOrder(business, user, rest, true);
+    const order = await createOrder(business, user, rest, true, true);
     const customerEntity = await createCustomer(customer, business.id);
     await createCollaboratorTicket(
       ticket,
@@ -190,14 +190,23 @@ export const createWebOrder = async (
   data: TWebShoppingCartSchema,
 ) => {
   WebShoppingCartSchema.parse(data);
-  let { phone, name, addressType, ...rest } = data;
+  let { phone, name, addressType, referredCode, ...rest } = data;
   const address = rest[addressType as AddressType];
+  const referredById =
+    referredCode &&
+    (await userRepository.getUserIdByReferredCode(referredCode));
   const entity = await transaction(async () => {
     await userRepository.update(user.id, { ...user, phone, name });
     if (addressType === AddressType.newAddress && rest.wantDomicile) {
       await addAddressToUser(user.id, business.id, address);
     }
-    return createOrder(business, user, { ...rest, address }, false);
+    return createOrder(
+      business,
+      user,
+      { ...rest, address, referredById },
+      false,
+      !!referredById,
+    );
   });
   //TODO: When I configure the listener send the event instance of
   // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
@@ -210,6 +219,7 @@ export const createOrder = async (
   user: CompleteUser,
   data: TShoppingCartSchemaRegister,
   isCollaborator: boolean,
+  calculateCommission: boolean,
 ) => {
   const {
     items,
@@ -219,7 +229,7 @@ export const createOrder = async (
     businessProfit,
     hasProductOutOfStock,
     productToUpdate,
-  } = await orderItems(business.id, data.cartItems, isCollaborator);
+  } = await orderItems(business.id, data.cartItems, calculateCommission);
   if (hasProductOutOfStock) {
     throw new BadRequestError("out_of_stock");
   }
@@ -231,6 +241,9 @@ export const createOrder = async (
     productsDetails: products,
     isCollaborator,
   };
+  if (data.referredById) {
+    order.referredById = data.referredById;
+  }
   order = await addShipping(
     order,
     data.address as CompleteAddress,

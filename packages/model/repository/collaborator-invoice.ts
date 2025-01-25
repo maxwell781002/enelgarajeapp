@@ -19,7 +19,10 @@ export const createCollaboratorInvoice = async ({
     UserBusinessType.COLLABORATOR,
   );
   if (
-    !(await orderRepository.isOrdersByTheSameUser(ordersId, collaboratorId))
+    !(await orderRepository.isOrdersByTheSameUserOrReferred(
+      ordersId,
+      collaboratorId,
+    ))
   ) {
     throw new OrderAreTheDifferentUserError();
   }
