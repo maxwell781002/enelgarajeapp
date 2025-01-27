@@ -123,12 +123,13 @@ export class OrderRepository extends BaseRepository<
   collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
     return this.basePaginate(
       { ...data },
-      {
-        OR: [
-          { userId, isCollaborator: true },
-          { referredById: userId, isCollaborator: false },
-        ],
-      },
+      { userId, isCollaborator: true }
+      // {
+      //   OR: [
+      //     { userId, isCollaborator: true },
+      //     { referredById: userId, isCollaborator: false },
+      //   ],
+      // },
     );
   }
 
