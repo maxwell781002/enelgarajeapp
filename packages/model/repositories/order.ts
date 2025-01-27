@@ -86,6 +86,7 @@ export class OrderRepository extends BaseRepository<
     { businessId, status, query, ...data }: PaginateData = {},
     where: any = {},
   ) {
+    if (!businessId) throw new Error("Business id is required");
     where = clearWhere({
       businessId,
       status,
@@ -110,9 +111,6 @@ export class OrderRepository extends BaseRepository<
         },
       ];
     }
-
-    // console.log("sss", where);
-
     return super.paginate({
       ...data,
       where,
@@ -124,15 +122,15 @@ export class OrderRepository extends BaseRepository<
   }
 
   collaboratorPaginate({ userId, ...data }: CollaboratorPaginateData = {}) {
+    if (!userId) throw new Error("User id is required");
     return this.basePaginate(
       { ...data },
-      { userId, isCollaborator: true }
-      // {
-      //   OR: [
-      //     { userId, isCollaborator: true },
-      //     { referredById: userId, isCollaborator: false },
-      //   ],
-      // },
+      {
+        OR: [
+          { userId, isCollaborator: true },
+          { referredById: userId, isCollaborator: false },
+        ],
+      },
     );
   }
 
