@@ -8,6 +8,7 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import TableLayout from "@repo/ui/components/table-layout/layout";
 import { getTranslations } from "next-intl/server";
 import { TableContextProvider } from "@repo/ui/context/table";
+import { getCurrentUser } from "@repo/model/repository/user";
 
 type PageProps = {
   searchParams: any;
@@ -32,19 +33,23 @@ export default async function Page({
     const url = await search(query);
     return redirect(url);
   };
-  // const data = await list({ businessId });
-  const data = {
-    data: [],
-    total: 0,
-    pageSize: 10,
-    pageIndex: 1,
-    firstRecordNumber: 1,
-    lastRecordNumber: 1,
-    hasMore: false,
-    totalPage: 1,
-    previousLink: "",
-    nextLink: "",
-  }
+  const user = await getCurrentUser();
+  const data = await list({ businessId, userId: user.id });
+
+  // TODO: Fix this
+  // const data = {
+  //   data: [],
+  //   total: 0,
+  //   pageSize: 10,
+  //   pageIndex: 1,
+  //   firstRecordNumber: 1,
+  //   lastRecordNumber: 1,
+  //   hasMore: false,
+  //   totalPage: 1,
+  //   previousLink: "",
+  //   nextLink: "",
+  // }
+
   return (
     <TableContextProvider>
       <TableLayout

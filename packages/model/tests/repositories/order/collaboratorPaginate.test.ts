@@ -59,11 +59,12 @@ describe("collaboratorPaginate", () => {
   });
 
   it("Order user1", async () => {
-    // const orders = await orderRepository.collaboratorPaginate({
-    //   userId: user1.id,
-    // });
-    // expect(orders.data.length).toEqual(2);
-    // expect(orders.data[0].id).toEqual(order1.id);
-    // expect(orders.data[1].id).toEqual(order3.id);
+    const orders = await orderRepository.collaboratorPaginate({
+      userId: user1.id,
+      businessId: business.id,
+    });
+    expect(orders.data.length).toEqual(2);
+    expect(orders.data[0].id).toEqual(order1.id);
+    expect(orders.data[1].id).toEqual(order3.id);
   });
 });
