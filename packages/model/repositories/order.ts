@@ -110,6 +110,9 @@ export class OrderRepository extends BaseRepository<
         },
       ];
     }
+
+    // console.log("sss", where);
+
     return super.paginate({
       ...data,
       where,
