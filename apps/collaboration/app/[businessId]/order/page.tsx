@@ -35,21 +35,6 @@ export default async function Page({
   };
   const user = await getCurrentUser();
   const data = await list({ businessId, userId: user.id });
-
-  // TODO: Fix this
-  // const data = {
-  //   data: [],
-  //   total: 0,
-  //   pageSize: 10,
-  //   pageIndex: 1,
-  //   firstRecordNumber: 1,
-  //   lastRecordNumber: 1,
-  //   hasMore: false,
-  //   totalPage: 1,
-  //   previousLink: "",
-  //   nextLink: "",
-  // }
-
   return (
     <TableContextProvider>
       <TableLayout

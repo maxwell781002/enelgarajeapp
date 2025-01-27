@@ -15,7 +15,7 @@ export default async function Page({
     <BackPage href={`/${businessId}/order`} urlTitle="Ir a órdenes">
       <BackOrder
         order={order}
-        baseUrl={(item) => `/${businessId}/products/${item.product.id}`}
+        baseUrl={(item) => `/${businessId}/products/${item.product.slug}`}
       />
     </BackPage>
   );
