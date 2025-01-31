@@ -185,6 +185,7 @@ export class ProductRepository extends BaseRepository<
       where,
       pageSize: PAGE_SIZE_FRONTEND,
       orderBy: { priority: "desc" },
+      distinct: ["id"],
     });
   }
 
