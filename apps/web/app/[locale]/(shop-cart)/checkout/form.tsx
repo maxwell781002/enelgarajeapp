@@ -62,7 +62,7 @@ export default function CheckoutForm({
     return data;
   };
 
-  console.log(form.formState.errors);
+  console.log(form.formState.errors, form.getValues());
 
   return (
     <Form {...form}>
