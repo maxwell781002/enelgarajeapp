@@ -62,6 +62,8 @@ export default function CheckoutForm({
     return data;
   };
 
+  console.log(form.formState.errors);
+
   return (
     <Form {...form}>
       <CheckoutPage
