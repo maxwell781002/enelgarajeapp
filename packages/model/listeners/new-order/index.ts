@@ -71,5 +71,19 @@ const sendToWhatsapp = (order: CompleteOrder, message: string) => {
   if (order.businessId !== process.env.BUSINESS_TESTING_ID) {
     return;
   }
-  console.log("sendToWhatsapp", message);
+  if (!process.env.BOT_WHATSAPP_URL) {
+    console.log("BOT_WHATSAPP_URL is not configured");
+    return;
+  }
+  return fetch(process.env.BOT_WHATSAPP_URL as string, {
+    method: "POST",
+    body: JSON.stringify({
+      message,
+      id: process.env.BOT_WHATSAPP_TESTING_ID,
+      type: "GROUP",
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };
