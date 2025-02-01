@@ -21,6 +21,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
   return Promise.all([
     sendToBusinessGroup(order, method(order, HOST)),
     sendToPrivateGroup(order, method(order, HOST)),
+    sendToWhatsapp(order, method(order, HOST)),
   ]);
 };
 
@@ -63,4 +64,12 @@ const sendMessage = (message: any) => {
       "Content-Type": "application/json",
     },
   });
+};
+
+const sendToWhatsapp = (order: CompleteOrder, message: string) => {
+  console.log("BUSINESS_TESTING_ID", process.env.BUSINESS_TESTING_ID);
+  if (order.businessId !== process.env.BUSINESS_TESTING_ID) {
+    return;
+  }
+  console.log("sendToWhatsapp", message);
 };
