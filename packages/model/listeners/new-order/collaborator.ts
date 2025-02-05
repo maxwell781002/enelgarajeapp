@@ -99,7 +99,7 @@ const generateWhatsappText = (data: TGetCollaboratorData, host: string) => {
 
 *Cliente*
 *Nombre*: ${printText(data.customer?.name)}
-*Teléfono*: ${printText(data.ticket?.phone)}}
+*Teléfono*: ${printText(data.ticket?.phone)}
 *CI*: ${printText(data.customer?.identification)}
 ${addressText(data.addressData)}
 *Notas*: ${printText(data.ticket?.nota)}
