@@ -4,6 +4,7 @@ import {
   getAddressData,
   getCommonData,
   getProductsText,
+  getProductsWithoutLinksText,
   hasShippingText,
   printText,
   TGetCommonData,
@@ -14,16 +15,6 @@ type TGenerateCustomerMessage = TGetCommonData & {
   addressData: ReturnType<typeof getAddressData>;
 };
 
-export const generateCustomerMessage = (order: CompleteOrder, host: string) => {
-  const addressData = getAddressData(order);
-  const common = getCommonData(order, host);
-  const message = {
-    ...common,
-    addressData,
-  };
-  return generateText(message, host);
-};
-
 const generateReferredMessage = (order: TGenerateCustomerMessage) => {
   if (!order.referredBy) {
     return "";
@@ -32,7 +23,20 @@ const generateReferredMessage = (order: TGenerateCustomerMessage) => {
 👷‍♀️ *Referido por*: ${order.referredBy}`;
 };
 
-export const generateText = (data: TGenerateCustomerMessage, host: string) => {
+export const generateCustomerTelegramMessage = (
+  order: CompleteOrder,
+  host: string,
+) => {
+  const addressData = getAddressData(order);
+  const common = getCommonData(order, host);
+  const message = {
+    ...common,
+    addressData,
+  };
+  return generateTelegramText(message, host);
+};
+
+const generateTelegramText = (data: TGenerateCustomerMessage, host: string) => {
   const whatsapp = whatsappText(data.userData.phone as string);
   const products = getProductsText(data, host);
   const shippingText = hasShippingText(data);
@@ -55,6 +59,46 @@ ${shippingText}
 *Total*: ${data.total}
 
 🔗[Ver más](${data.order_url})
+
+🎉🎉🎉
+`;
+};
+
+export const generateCustomerWhatsappMessage = (
+  order: CompleteOrder,
+  host: string,
+) => {
+  const addressData = getAddressData(order);
+  const common = getCommonData(order, host);
+  const message = {
+    ...common,
+    addressData,
+  };
+  return generateWhatsappText(message, host);
+};
+
+const generateWhatsappText = (data: TGenerateCustomerMessage, host: string) => {
+  const products = getProductsWithoutLinksText(data, host);
+  const shippingText = hasShippingText(data);
+  const referredMessage = generateReferredMessage(data);
+  return `
+🛒 *Nueva orden*
+
+*Orden de compra*: ${data.identifier}
+
+*Cliente*: ${printText(data.userData.name)}
+*Teléfono*: ${printText(data.userData.phone)}
+${addressText(data.addressData)}
+${referredMessage}
+
+*Productos*
+${products}
+
+${shippingText}
+*Total*: ${data.total}
+
+🔗 Ver más
+${data.order_url}
 
 🎉🎉🎉
 `;

@@ -2,8 +2,14 @@ import { OrderSend } from "@repo/model/lib/event-emitter/events";
 import { CompleteTelegramBusiness } from "@repo/model/prisma/zod/index";
 import { CompleteOrder } from "@repo/model/prisma/zod/order";
 import { orderRepository } from "@repo/model/repositories/order";
-import { generateCollaboratorMessage } from "./collaborator";
-import { generateCustomerMessage } from "./customer";
+import {
+  generateCollaboratorTelegramMessage,
+  generateCollaboratorWhatsappMessage,
+} from "./collaborator";
+import {
+  generateCustomerTelegramMessage,
+  generateCustomerWhatsappMessage,
+} from "./customer";
 
 const HOST = "https://backoffice.enelgaraje.com";
 
@@ -15,12 +21,20 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
   if (!process.env.BOT_WEBHOOK_URL) {
     return;
   }
-  const method = order.isCollaborator
-    ? generateCollaboratorMessage
-    : generateCustomerMessage;
+  const telegramMethod = order.isCollaborator
+    ? generateCollaboratorTelegramMessage
+    : generateCustomerTelegramMessage;
+
+  const whatsappMethod = order.isCollaborator
+    ? generateCollaboratorWhatsappMessage
+    : generateCustomerWhatsappMessage;
+
   return Promise.all([
-    sendToBusinessGroup(order, method(order, HOST)),
-    sendToPrivateGroup(order, method(order, HOST)),
+    sendToBusinessGroup(order, telegramMethod(order, HOST)),
+    sendToPrivateGroup(order, telegramMethod(order, HOST)),
+    sendToWhatsapp(order, whatsappMethod(order, HOST))
+      ?.then((response: Response) => response.text())
+      .then((text: string) => console.log("Whatsapp response ==>", text)),
   ]);
 };
 
@@ -59,6 +73,33 @@ const sendMessage = (message: any) => {
   return fetch(process.env.BOT_WEBHOOK_URL as string, {
     method: "POST",
     body: JSON.stringify(message),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+const sendToWhatsapp = (order: CompleteOrder, message: string) => {
+  console.log("BUSINESS_TESTING_ID", process.env.BUSINESS_TESTING_ID);
+  if (order.businessId !== process.env.BUSINESS_TESTING_ID) {
+    return;
+  }
+  if (!process.env.BOT_WHATSAPP_URL) {
+    console.log("BOT_WHATSAPP_URL is not configured");
+    return;
+  }
+  const url = `${process.env.BOT_WHATSAPP_URL}/instances/send-message`;
+  const body = {
+    message,
+    preview_link: false,
+    chat_id: process.env.BOT_WHATSAPP_TESTING_ID,
+    chat_type: "group",
+    instance_id: process.env.WHATSAPP_TESTING_INSTANCE,
+  };
+  console.log("Whatsapp data ==>", body);
+  return fetch(url as string, {
+    method: "POST",
+    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
     },

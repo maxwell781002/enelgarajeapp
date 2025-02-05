@@ -40,6 +40,15 @@ export const getProductsText = (data: TGetCommonData, host: string) => {
     .join("\n");
 };
 
+export const getProductsWithoutLinksText = (
+  data: TGetCommonData,
+  host: string,
+) => {
+  return data.items
+    .map((item: any) => `👉 ${item.name} - ${item.price} - ${item.quantity}`)
+    .join("\n");
+};
+
 export const getAddressData = (order: CompleteOrder) => {
   const address = order.orderAddress?.address;
   return (
