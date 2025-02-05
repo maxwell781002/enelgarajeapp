@@ -6,6 +6,7 @@ import {
   getAddressData,
   getCommonData,
   getProductsText,
+  getProductsWithoutLinksText,
   hasShippingText,
   printText,
   TGetCommonData,
@@ -30,15 +31,15 @@ const getCollaboratorData = (order: CompleteOrder, host: string) => {
   };
 };
 
-export const generateCollaboratorMessage = (
+export const generateCollaboratorTelegramMessage = (
   order: CompleteOrder,
   host: string,
 ) => {
   const message = getCollaboratorData(order, host);
-  return generateText(message, host);
+  return generateTelegramText(message, host);
 };
 
-export const generateText = (data: TGetCollaboratorData, host: string) => {
+const generateTelegramText = (data: TGetCollaboratorData, host: string) => {
   const collaboratorWhatsapp = whatsappText(data.userData.phone as string);
   const customerWhatsapp =
     data.ticket?.phone && whatsappText(data.ticket?.phone as string);
@@ -71,6 +72,48 @@ ${shippingText}
 *Total*: ${data.total}
 
 🔗[Ver más](${data.order_url})
+
+🎉🎉🎉
+`;
+};
+
+export const generateCollaboratorWhatsappMessage = (
+  order: CompleteOrder,
+  host: string,
+) => {
+  const message = getCollaboratorData(order, host);
+  return generateWhatsappText(message, host);
+};
+
+const generateWhatsappText = (data: TGetCollaboratorData, host: string) => {
+  const products = getProductsWithoutLinksText(data, host);
+  const shippingText = hasShippingText(data);
+  return `
+🛒 *Nueva orden de un Gestor*
+
+*Orden de compra*: ${data.identifier}
+
+*Gestor*
+*Nombre*: ${printText(data.userData.name)}
+*Teléfono*: ${printText(data.userData.phone)}
+
+*Cliente*
+*Nombre*: ${printText(data.customer?.name)}
+*Teléfono*: ${printText(data.ticket?.phone)}}
+*CI*: ${printText(data.customer?.identification)}
+${addressText(data.addressData)}
+*Notas*: ${printText(data.ticket?.nota)}
+
+*Productos*
+${products}
+
+${shippingText}
+🎁 *Comisión*: ${data.commission}
+*Fecha de entrega*: ${data.deliveryDate}
+*Total*: ${data.total}
+
+🔗Ver más
+${data.order_url}
 
 🎉🎉🎉
 `;
