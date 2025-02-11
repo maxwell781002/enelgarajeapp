@@ -17,6 +17,7 @@ import { collaboratorInvoiceRepository } from "./collaborator-invoice";
 import { customerRepository } from "./customer";
 import { collaboratorTicketRepository } from "./collaborator-ticket";
 import { businessSiteRepository } from "./business-site";
+import { whatsappConnectRepository } from "./whatsapp-connect";
 
 export default {
   [orderRepository.getRepositoryModelName()]: orderRepository,
@@ -24,6 +25,8 @@ export default {
   [productRepository.getRepositoryModelName()]: productRepository,
   [userRepository.getRepositoryModelName()]: userRepository,
   [categoryRepository.getRepositoryModelName()]: categoryRepository,
+  [whatsappConnectRepository.getRepositoryModelName()]:
+    whatsappConnectRepository,
   [userAddressRepository.getRepositoryModelName()]: userAddressRepository,
   [invitationLinkRepository.getRepositoryModelName()]: invitationLinkRepository,
   [orderAddressRepository.getRepositoryModelName()]: orderAddressRepository,
