@@ -52,6 +52,22 @@ model Business {
   customers              Customer[]
   tickets                CollaboratorTicket[]
   businessSite           BusinessSite?
+  whatsappConnect        WhatsappConnect?
+}
+
+model WhatsappConnect {
+  id          String                @id @default(uuid())
+  status      WhatsappConnectStatus @default(CREATED) /// @zod.optional()
+  paring_code String? /// @zod.optional()
+  secure_code String? /// @zod.optional()
+  business    Business              @relation(fields: [businessId], references: [id])
+  businessId  String                @unique
+}
+
+enum WhatsappConnectStatus {
+  CREATED
+  CODE_SENT
+  CONNECTED
 }
 
 model BusinessSite {
