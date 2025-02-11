@@ -31,6 +31,7 @@
     "lbTelegram": "¿Tiene canal de telegram?",
     "Telegram": "Telegram",
     "tabGeneral": "General",
+    "tabWhatsapp": "Whatsapp",
     "lbPlan": "Plan",
     "yourPlan": "Tu plan activo",
     "phPlan": "Seleccionar plan",
@@ -38,12 +39,19 @@
     "ENTERPRISE": "Empresarial",
     "lbSendOrderToWhatsapp": "¿Mandar los mensajes para Whatsapp?",
     "tabAdmin": "Administración",
-    "noPaymentMethod": "No tiene ningún medio de pago configurado.",
+    "noPaymentMethod": "No tiene ningú medio de pago configurado.",
     "lbCurrency": "Moneda",
     "phCurrency": "Seleccionar Moneda",
     "lbTicketTermsConditions": "Términos y Condicions que se muestra en la compra a los gestores",
     "phTicketTermsConditions": "Términos y Condicions",
-    "btnSaving": "Guardando..."
+    "btnSaving": "Guardando...",
+    "whatsappNotConnect": "No tienes el whatsapp conectado.",
+    "whatsappIsConnecting": "Recuperando código para conectar a whatsapp. Espere unos minutos por favor.",
+    "whatsappConnect": {
+      "phone": "Teléfono de Whatsapp",
+      "code": "Código de Whatsapp"
+    },
+    "whatsappConnectCodeExplain": "Este código lo debe poner en whatsapp para conectarse si todavía no lo ha hecho."
   },
   "Totals": {
     "totalProducts": "Total de productos",
