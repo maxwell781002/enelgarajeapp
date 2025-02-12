@@ -8,6 +8,7 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
+  await prisma().whatsappConnect.deleteMany();
   await prisma().collaboratorTicket.deleteMany();
   await prisma().customer.deleteMany();
   await prisma().collaboratorInvoice.deleteMany();
@@ -44,6 +45,12 @@ export const businessFactory = (data = {}) => {
       slug: "http://localhost:3000",
       ...data,
     },
+  });
+};
+
+export const whatsappConnectFactory = (data: any) => {
+  return prisma().whatsappConnect.create({
+    data,
   });
 };
 

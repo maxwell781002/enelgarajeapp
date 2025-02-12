@@ -17,7 +17,9 @@ export const useWhatsAppConnect = (
       return;
     setLoading(true);
     const intervalId = setInterval(async () => {
-      const response = await fetch(`/api/whatsapp-connect/${businessId}`);
+      const response = await fetch(
+        `/api/whatsapp-connect?businessId=${businessId}`,
+      );
       const data = await response.json();
       setWhatsappConnect(data);
       if (!data || data.status !== WhatsappConnectStatus.CREATED) {
