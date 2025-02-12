@@ -21,7 +21,7 @@ export class WhatsappConnectRepository extends BaseRepository<
     paringCode: string,
   ) {
     const entity = await this.model.findUnique({
-      where: { businessId, secure_code: secureCode },
+      where: { businessId, secureCode: secureCode },
     });
     if (!entity) {
       return null;
@@ -30,8 +30,8 @@ export class WhatsappConnectRepository extends BaseRepository<
       where: { id: entity.id },
       data: {
         status: WhatsappConnectStatus.CODE_SENT,
-        paring_code: paringCode,
-        secure_code: "",
+        paringCode: paringCode,
+        secureCode: "",
       },
     });
   }

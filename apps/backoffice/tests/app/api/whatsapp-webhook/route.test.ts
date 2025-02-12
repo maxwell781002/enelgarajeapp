@@ -17,7 +17,7 @@ describe("POST /api/whatsapp-webhook", () => {
     business = await businessFactory();
     whatsappConnect = await whatsappConnectFactory({
       businessId: business.id,
-      secure_code: "456",
+      secureCode: "456",
     });
   });
 
@@ -81,8 +81,8 @@ describe("POST /api/whatsapp-webhook", () => {
     ).json();
     expect(result.message).to.equal("Success");
     const entity = await whatsappConnectRepository.getByBusinessId(business.id);
-    expect(entity?.paring_code).to.equal("QAZXSW");
+    expect(entity?.paringCode).to.equal("QAZXSW");
     expect(entity?.status).to.equal(WhatsappConnectStatus.CODE_SENT);
-    expect(entity?.secure_code).to.equal("");
+    expect(entity?.secureCode).to.equal("");
   });
 });

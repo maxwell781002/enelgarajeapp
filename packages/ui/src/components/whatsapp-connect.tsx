@@ -46,7 +46,7 @@ const Content = ({ business }: WhatsappConnectProps) => {
     <>
       <ShowData
         object={{
-          code: whatsappConnect?.paring_code,
+          code: whatsappConnect?.paringCode,
           phone: whatsappConnect?.phone,
         }}
         t={(key) => t(`whatsappConnect.${key}`)}

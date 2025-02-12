@@ -5,8 +5,9 @@ CREATE TYPE "WhatsappConnectStatus" AS ENUM ('CREATED', 'CODE_SENT', 'CONNECTED'
 CREATE TABLE "WhatsappConnect" (
     "id" TEXT NOT NULL,
     "status" "WhatsappConnectStatus" NOT NULL DEFAULT 'CREATED',
-    "paring_code" TEXT,
-    "secure_code" TEXT,
+    "phone" TEXT,
+    "paringCode" TEXT,
+    "secureCode" TEXT,
     "businessId" TEXT NOT NULL,
 
     CONSTRAINT "WhatsappConnect_pkey" PRIMARY KEY ("id")
