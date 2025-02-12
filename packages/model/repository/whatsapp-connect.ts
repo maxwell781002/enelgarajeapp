@@ -15,3 +15,23 @@ export const updateByBusinessIdAndSecureCode = (
     paringCode,
   );
 };
+
+export const connectWhatsapp = async (businessId: string, phone: string) => {
+  const entity = await whatsappConnectRepository.createWhatsappConnect(
+    businessId,
+    phone,
+  );
+  const { WHATSAPP_WEBHOOK_RETURN, WHATSAPP_CREATE_INSTANCE_URL } = process.env;
+  await fetch(WHATSAPP_CREATE_INSTANCE_URL as string, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      phone: entity.phone,
+      webhook: `${WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${entity.secureCode}`,
+    }),
+  });
+  return entity;
+};

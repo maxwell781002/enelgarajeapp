@@ -15,13 +15,20 @@ export class WhatsappConnectRepository extends BaseRepository<
     return this.model.findUnique({ where: { businessId } });
   }
 
+  createWhatsappConnect(businessId: string, phone: string) {
+    const secureCode = Math.floor(100000 + Math.random() * 900000).toString();
+    return this.model.create({
+      data: { businessId, secureCode, phone },
+    });
+  }
+
   async updateByBusinessIdAndSecureCode(
     businessId: string,
     secureCode: string,
     paringCode: string,
   ) {
     const entity = await this.model.findUnique({
-      where: { businessId, secureCode: secureCode },
+      where: { businessId, secureCode },
     });
     if (!entity) {
       return null;
@@ -30,7 +37,7 @@ export class WhatsappConnectRepository extends BaseRepository<
       where: { id: entity.id },
       data: {
         status: WhatsappConnectStatus.CODE_SENT,
-        paringCode: paringCode,
+        paringCode,
         secureCode: "",
       },
     });

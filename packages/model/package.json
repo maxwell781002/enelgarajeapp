@@ -65,6 +65,7 @@
     "next": "^14.2.11",
     "prisma": "5.19.1",
     "ts-node": "^10.9.2",
+    "vitest-fetch-mock": "^0.4.3",
     "zod-prisma": "^0.5.4"
   },
   "dependencies": {
