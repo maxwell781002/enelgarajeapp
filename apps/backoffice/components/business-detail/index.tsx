@@ -13,7 +13,7 @@ import {
   TabsTrigger,
 } from "@repo/ui/components/ui/tabs";
 import BusinessDetailGeneral from "./general";
-import { WhatsappConnect } from "@repo/ui/components/whatsapp-connect";
+import { WhatsappConnect } from "@repo/ui/components/whatsapp-connect/index";
 
 export default async function BusinessDetail({
   businessId,

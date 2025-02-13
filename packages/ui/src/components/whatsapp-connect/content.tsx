@@ -1,36 +1,23 @@
-"use client";
-
-import { useWhatsAppConnect } from "@repo/ui/hooks/whatsapp-connect";
 import { CompleteBusiness } from "@repo/model/zod/business";
-import { AlertCircle } from "lucide-react";
+import { useWhatsAppConnect } from "@repo/ui/hooks/whatsapp-connect";
 import { useTranslations } from "next-intl";
 import AlertMessage from "@repo/ui/components/alert-message";
+import { AlertCircle } from "lucide-react";
 import ShowData from "@repo/ui/components/show-data";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/ui/card";
+import NoConnected from "@repo/ui/components/whatsapp-connect/no-connected";
 
-export type WhatsappConnectProps = {
+export type ContentProps = {
   business: CompleteBusiness;
 };
 
-const Content = ({ business }: WhatsappConnectProps) => {
+export default function Content({ business }: ContentProps) {
   const { whatsappConnect, loading } = useWhatsAppConnect(
     business.id as string,
     business.whatsappConnect,
   );
   const t = useTranslations("Business");
   if (!whatsappConnect) {
-    return (
-      <AlertMessage
-        Icon={AlertCircle}
-        text={t("whatsappNotConnect")}
-        className="flex items-center p-4 text-yellow-800 bg-yellow-100 rounded-lg"
-      />
-    );
+    return <NoConnected business={business} />;
   }
   if (loading) {
     return (
@@ -56,23 +43,5 @@ const Content = ({ business }: WhatsappConnectProps) => {
         {t("whatsappConnectCodeExplain")}
       </p>
     </>
-  );
-};
-
-export function WhatsappConnect({ business }: WhatsappConnectProps) {
-  const t = useTranslations("Business");
-  return (
-    <Card className="overflow-hidden">
-      <CardHeader>
-        <div className="flex flex-1">
-          <div>
-            <CardTitle>{t("tabWhatsapp")}</CardTitle>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Content business={business} />
-      </CardContent>
-    </Card>
   );
 }

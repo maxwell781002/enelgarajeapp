@@ -51,6 +51,8 @@
       "phone": "Teléfono de Whatsapp",
       "code": "Código de Whatsapp"
     },
+    "btnWhatsappConnect": "Conectar Whatsapp",
+    "whatsapp-connect-btn-connect": "Conectar",
     "whatsappConnectCodeExplain": "Este código lo debe poner en whatsapp para conectarse si todavía no lo ha hecho."
   },
   "Totals": {
