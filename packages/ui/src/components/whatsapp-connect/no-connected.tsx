@@ -5,14 +5,26 @@ import { AlertCircle } from "lucide-react";
 import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/button";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import { useState, useTransition } from "react";
 
 export type NoConnectedProps = {
   business: CompleteBusiness;
+  action: (data: any) => Promise<any>;
 };
 
-const Form = ({ business }: NoConnectedProps) => {
+const Form = ({ business, action }: NoConnectedProps) => {
   const t = useTranslations("Business");
-  const handleSubmit = () => {};
+  const [phone, setPhone] = useState(business.phone as string);
+  const [loading, startTransition] = useTransition();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    return startTransition(() => {
+      return action({
+        phone,
+        businessId: business.id,
+      });
+    });
+  };
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
@@ -20,19 +32,20 @@ const Form = ({ business }: NoConnectedProps) => {
           htmlFor="phone"
           className="block text-sm font-medium text-gray-700"
         >
-          Phone Number
+          {t("whatsapp-connect-phone-lb")}
         </label>
         <Input
           type="tel"
           id="phone"
-          placeholder="Enter phone number"
-          value={business.phone as string}
-          // onChange={(e) => setPhoneNumber(e.target.value)}
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           className="w-full"
         />
       </div>
       <div className="flex justify-end space-x-2">
-        <Button type="submit">{t("whatsapp-connect-btn-connect")}</Button>
+        <Button loading={loading} type="submit">
+          {t("whatsapp-connect-btn-connect")}
+        </Button>
       </div>
     </form>
   );

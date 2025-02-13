@@ -105,7 +105,11 @@ export class BusinessRepository extends BaseRepository<
   getAllBusinessData(id: string) {
     return this.model.findUnique({
       where: { id },
-      include: { telegram: true, defaultPaymentMethod: true },
+      include: {
+        telegram: true,
+        defaultPaymentMethod: true,
+        whatsappConnect: true,
+      },
     });
   }
 
@@ -132,7 +136,7 @@ export class BusinessRepository extends BaseRepository<
         where,
         select: { businessId: true },
       })
-    ).map(({ businessId }) => businessId);
+    ).map(({ businessId }: any) => businessId);
   }
 
   async getBusinessIdByUserOwner(userId: string) {

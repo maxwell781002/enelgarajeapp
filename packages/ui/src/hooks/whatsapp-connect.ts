@@ -30,9 +30,10 @@ export const useWhatsAppConnect = (
     return () => {
       clearInterval(intervalId);
     };
-  }, [businessId]);
+  }, [businessId, whatsappConnect?.status]);
   return {
     whatsappConnect,
     loading,
+    setWhatsappConnect,
   };
 };

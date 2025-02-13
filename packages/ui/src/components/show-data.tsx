@@ -19,7 +19,7 @@ export default function ShowData({
   return (
     <div className={`${bgColor} ${textColor} ${className}`}>
       {Object.entries(object).map(([key, value]) => (
-        <div>
+        <div key={key}>
           <label
             htmlFor="phone-number"
             className={`block text-sm font-medium ${labelColor} mb-1`}
