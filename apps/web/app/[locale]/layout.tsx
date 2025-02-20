@@ -11,6 +11,7 @@ import { BusinessContextProvider } from "@repo/ui/context/business";
 import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
 import { getSite } from "@repo/model/repository/business-site";
 import { ReferredCode } from "../../components/referred-code";
+import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -54,29 +55,31 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ReferredCode>
-          <RouteLoadingLayout>
-            <div className="flex flex-col min-h-dvh">
-              <NextIntlClientProvider messages={messages}>
-                {business ? (
-                  <BusinessContextProvider business={business}>
-                    <Header
-                      business={business}
-                      locale={locale}
-                      logo={site.logo}
-                    />
-                    <main className="flex-1 container pt-20 md:py-16 lg:py-20">
-                      {children}
-                    </main>
-                    <Footer {...site} />
-                  </BusinessContextProvider>
-                ) : (
-                  <h1>not found</h1>
-                )}
-              </NextIntlClientProvider>
-            </div>
-          </RouteLoadingLayout>
-        </ReferredCode>
+        <FacebookOpenNavigator>
+          <ReferredCode>
+            <RouteLoadingLayout>
+              <div className="flex flex-col min-h-dvh">
+                <NextIntlClientProvider messages={messages}>
+                  {business ? (
+                    <BusinessContextProvider business={business}>
+                      <Header
+                        business={business}
+                        locale={locale}
+                        logo={site.logo}
+                      />
+                      <main className="flex-1 container pt-20 md:py-16 lg:py-20">
+                        {children}
+                      </main>
+                      <Footer {...site} />
+                    </BusinessContextProvider>
+                  ) : (
+                    <h1>not found</h1>
+                  )}
+                </NextIntlClientProvider>
+              </div>
+            </RouteLoadingLayout>
+          </ReferredCode>
+        </FacebookOpenNavigator>
       </body>
     </html>
   );
