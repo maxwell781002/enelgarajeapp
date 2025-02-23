@@ -13,6 +13,8 @@ import Filter from "./filters";
 import { categoryRepository } from "@repo/model/repositories/category";
 import { redirect } from "next/navigation";
 import TableLayout from "@repo/ui/components/table-layout/layout";
+import { getBusinessById } from "@repo/model/repository/business";
+import SendToWhatsapp from "./whatsapp/send";
 
 type PageProps = {
   searchParams: any;
@@ -24,6 +26,7 @@ export default async function Page({
   params: { businessId },
 }: PageProps) {
   const t = await getTranslations("Product");
+  const business = await getBusinessById(businessId);
   const { list, remove, update, search } = crud(
     `/${businessId}/products`,
     productRepository.getRepositoryModelName(),
@@ -41,13 +44,19 @@ export default async function Page({
       <TableLayout
         title={t("ProductList")}
         buttons={
-          <Link href={`/${businessId}/products/form`}>
-            <Button>{t("createProduct")}</Button>
-          </Link>
+          <div className="flex gap-2">
+            <SendToWhatsapp />
+            <Link href={`/${businessId}/products/form`}>
+              <Button>{t("createProduct")}</Button>
+            </Link>
+          </div>
         }
         filter={<Filter onChange={handleSearch} categories={categories} />}
       >
-        <ProductTable pagination={pagination as PaginationResult<any>} />
+        <ProductTable
+          pagination={pagination as PaginationResult<any>}
+          business={business}
+        />
       </TableLayout>
     </TableContextProvider>
   );
