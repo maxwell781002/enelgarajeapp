@@ -51,6 +51,7 @@
       "phone": "Teléfono de Whatsapp",
       "code": "Código de Whatsapp"
     },
+    "lbCanConnectWhatsapp": "Conectar cuenta de Whatsapp personal",
     "btnWhatsappConnect": "Conectar Whatsapp",
     "whatsapp-connect-phone-lb": "Teléfono",
     "whatsapp-connect-btn-connect": "Conectar",

@@ -6,14 +6,7 @@ import { getTranslations } from "next-intl/server";
 import Totals from "../../components/totals";
 import { productRepository } from "@repo/model/repositories/product";
 import { orderRepository } from "@repo/model/repositories/order";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@repo/ui/components/ui/tabs";
-import BusinessDetailGeneral from "./general";
-import { WhatsappConnect } from "@repo/ui/components/whatsapp-connect/index";
+import BusinessDetailWrapper from "./wrapper";
 
 export default async function BusinessDetail({
   businessId,
@@ -44,18 +37,7 @@ export default async function BusinessDetail({
         orderPayed={totalPayed}
         orderReject={totalReject}
       />
-      <Tabs defaultValue="general">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="general">{t("tabGeneral")}</TabsTrigger>
-          <TabsTrigger value="whatsapp">{t("tabWhatsapp")}</TabsTrigger>
-        </TabsList>
-        <TabsContent value="general">
-          <BusinessDetailGeneral business={business} />
-        </TabsContent>
-        <TabsContent value="whatsapp">
-          <WhatsappConnect business={business} />
-        </TabsContent>
-      </Tabs>
+      <BusinessDetailWrapper business={business} />
     </div>
   );
 }
