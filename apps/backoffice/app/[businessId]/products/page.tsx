@@ -1,10 +1,7 @@
 import { crud } from "@repo/model/lib/crud";
 import { TableContextProvider } from "@repo/ui/context/table";
 import { getTranslations } from "next-intl/server";
-import {
-  productRepository,
-  ProductRepository,
-} from "@repo/model/repositories/product";
+import { productRepository } from "@repo/model/repositories/product";
 import ProductTable from "./table";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
@@ -44,11 +41,11 @@ export default async function Page({
       <TableLayout
         title={t("ProductList")}
         buttons={
-          <div className="flex gap-2">
-            <SendToWhatsapp />
+          <div className="flex gap-2 flex-col sm:flex-row">
             <Link href={`/${businessId}/products/form`}>
               <Button>{t("createProduct")}</Button>
             </Link>
+            <SendToWhatsapp />
           </div>
         }
         filter={<Filter onChange={handleSearch} categories={categories} />}

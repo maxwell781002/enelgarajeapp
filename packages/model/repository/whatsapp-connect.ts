@@ -44,3 +44,16 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   });
   return entity;
 };
+
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+export const sendProducts = async (
+  productsIds: string[],
+  businessId: string,
+  date: string,
+) => {
+  return sleep(2000).then(() => {
+    console.log(productsIds, businessId, date);
+  });
+};

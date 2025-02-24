@@ -1,18 +1,21 @@
 "use client";
 
-import { Button } from "@repo/ui/components/button";
 import { useTranslations } from "next-intl";
 import { useStore } from "./store";
+import { Button } from "@repo/ui/components/button";
+import Link from "next/link";
 
 export default function SendToWhatsapp() {
-  const totalProducts = useStore((state) => state.totalProducts());
   const t = useTranslations("Product");
+  const totalProducts = useStore((state) => state.totalProducts());
   if (!totalProducts) {
     return;
   }
   return (
-    <Button variant="outline">
-      {t("sendToWhatsappBtn")}: {totalProducts}
-    </Button>
+    <Link href="products/whatsapp">
+      <Button variant="outline">
+        {t("sendToWhatsappBtn")}: {totalProducts}
+      </Button>
+    </Link>
   );
 }
