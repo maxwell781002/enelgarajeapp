@@ -15,7 +15,7 @@ export default async function Page({ params: { businessId } }: PageProps) {
   };
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
-      <Configure action={sendToWhatsapp} />
+      <Configure action={sendToWhatsapp} businessId={businessId} />
     </BackPage>
   );
 }

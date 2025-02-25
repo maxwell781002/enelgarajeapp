@@ -6,10 +6,12 @@ type Store = {
   totalProducts: () => number;
   isProductInList: (product: CompleteProduct) => boolean;
   addOrRemove: (product: CompleteProduct) => void;
+  clear: () => void;
 };
 
 export const useStore = create<Store>((set, get) => ({
   productList: [],
+  clear: () => set(() => ({ productList: [] })),
   totalProducts: () => get().productList.length,
   isProductInList: (product: CompleteProduct) =>
     !!get().productList.find((item) => item.id === product.id),

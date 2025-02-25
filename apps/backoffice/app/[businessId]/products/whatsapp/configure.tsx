@@ -22,9 +22,11 @@ import { useFormProcess } from "@repo/ui/hooks/useFormProcess";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useRouter } from "next/navigation";
 
 export type ConfigureProps = {
   action: (productIds: string[], date: string) => Promise<void>;
+  businessId: string;
 };
 
 const resolver = zodResolver(
@@ -33,14 +35,18 @@ const resolver = zodResolver(
   }),
 );
 
-export default function Configure({ action }: ConfigureProps) {
+export default function Configure({ action, businessId }: ConfigureProps) {
   const products = useStore((state) => state.productList);
+  const clear = useStore((state) => state.clear);
   const t = useTranslations("Product");
+  const router = useRouter();
   const create = async (formData: FormData) => {
     await action(
       products.map((p) => p.id),
       formData.get("date") as string,
     );
+    clear();
+    router.push(`/${businessId}/products`);
   };
   const { toast } = useToast();
   const { form, onSubmit, saving } = useFormProcess({
