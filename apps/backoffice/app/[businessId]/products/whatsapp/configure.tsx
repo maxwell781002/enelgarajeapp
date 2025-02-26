@@ -43,7 +43,7 @@ export default function Configure({ action, businessId }: ConfigureProps) {
   const create = async (formData: FormData) => {
     await action(
       products.map((p) => p.id),
-      formData.get("date") as string,
+      JSON.parse(formData.get("date") as string),
     );
     clear();
     router.push(`/${businessId}/products`);

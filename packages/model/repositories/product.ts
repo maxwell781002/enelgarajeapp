@@ -221,6 +221,15 @@ export class ProductRepository extends BaseRepository<
       });
     return Promise.all(promises);
   }
+
+  getProductsByIds(ids: string[], businessId: string) {
+    return this.model.findMany({
+      where: { id: { in: ids }, businessId },
+      include: {
+        priceValues: true,
+      },
+    });
+  }
 }
 
 export const productRepository = new ProductRepository();
