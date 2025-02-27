@@ -9,6 +9,7 @@ import ShowData from "@repo/ui/components/show-data";
 import NoConnected, {
   NoConnectedProps,
 } from "@repo/ui/components/whatsapp-connect/no-connected";
+import { CompleteWhatsappConnect } from "@repo/model/zod/whatsappconnect";
 
 export type ContentProps = {
   business: CompleteBusiness;
@@ -17,7 +18,7 @@ export type ContentProps = {
 export default function Content({ business, action, ...props }: ContentProps) {
   const { whatsappConnect, loading, setWhatsappConnect } = useWhatsAppConnect(
     business.id as string,
-    business.whatsappConnect,
+    business.whatsappConnect as CompleteWhatsappConnect,
   );
   const t = useTranslations("Business");
   const handleAction = async (data: any) => {

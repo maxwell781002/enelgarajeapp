@@ -12,7 +12,7 @@ export default function ProductTable({
   business,
   ...props
 }: ProductTableProps) {
-  const columns = getColumns(business.canConnectWhatsapp);
+  const columns = getColumns(business.canConnectWhatsapp as boolean);
   return (
     <MyTable
       {...props}

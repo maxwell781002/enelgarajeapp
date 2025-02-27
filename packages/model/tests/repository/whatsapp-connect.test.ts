@@ -9,7 +9,10 @@ describe("whatsapp connect", () => {
   let business;
 
   beforeAll(async () => {
-    business = await businessFactory({ slug: "http://localhost:8000" });
+    business = await businessFactory({
+      slug: "http://localhost:8000",
+      canConnectWhatsapp: true,
+    });
     fetchMocker.enableMocks();
     fetchMocker.doMock();
   });
@@ -32,6 +35,7 @@ describe("whatsapp connect", () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
         },
         body: JSON.stringify({
           phone: "123456789",

@@ -73,4 +73,4 @@ export const isLimited = async (business: CompleteBusiness) => {
 export const getCollaboratorProductUrl = (product: CompleteProduct) => {
   const random = Math.random().toString(36).substring(2, 7);
   return `${process.env.COLLABORATOR_HOST}/p/${random}/${product.slug}`;
-}
+};

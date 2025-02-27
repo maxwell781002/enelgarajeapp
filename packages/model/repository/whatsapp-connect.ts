@@ -74,14 +74,14 @@ export const sendProducts = async (
     businessId,
   );
   const getMessage = (_product: CompleteProduct) => {
-    const product = addProductFields(_product)
+    const product = addProductFields(_product);
     return `🛒 Producto: *${product.name}*
 💵 Precio: *${formatPrice(product._price, business.currency)}*
 💰 Comisión: *${formatPrice(product._commission, business.currency)}*
 🛍️ En Stock: *${product.stock}*
 🛒️ Fuera de Stock: *${product._outOfStock ? "Si" : "No"}*
 🔗 url: ${getCollaboratorProductUrl(product)}
-`
+`;
   };
   const messageBulk: TMessageBulk = {
     messages: products.map((product: CompleteProduct) => ({

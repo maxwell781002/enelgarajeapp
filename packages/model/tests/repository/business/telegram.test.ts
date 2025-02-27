@@ -45,6 +45,7 @@ describe("business", () => {
       groupId: "456",
       invitationLink: "http://localhost:4000",
     };
+    console.log(business);
     business = await createOrUpdateBusiness(
       {
         name: "Business",
