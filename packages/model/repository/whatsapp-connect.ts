@@ -7,6 +7,9 @@ import {
   TMessageBulk,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
+import { formatPrice } from "../lib/utils";
+import { addProductFields } from "./product";
+import { getCollaboratorProductUrl } from "./product";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return whatsappConnectRepository.getByBusinessId(businessId);
@@ -52,9 +55,6 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   return entity;
 };
 
-const sleep = (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
 export const sendProducts = async (
   productsIds: string[],
   businessId: string,
@@ -73,13 +73,24 @@ export const sendProducts = async (
     productsIds,
     businessId,
   );
+  const getMessage = (_product: CompleteProduct) => {
+    const product = addProductFields(_product)
+    return `🛒 Producto: *${product.name}*
+💵 Precio: *${formatPrice(product._price, business.currency)}*
+💰 Comisión: *${formatPrice(product._commission, business.currency)}*
+🛍️ En Stock: *${product.stock}*
+🛒️ Fuera de Stock: *${product._outOfStock ? "Si" : "No"}*
+🔗 url: ${getCollaboratorProductUrl(product)}
+`
+  };
   const messageBulk: TMessageBulk = {
     messages: products.map((product: CompleteProduct) => ({
-      message: product.name,
+      message: getMessage(product),
       senderPhone: connect.phone,
-      // mediaUrl: product.mediaUrl,
+      mediaUrl: (product.image as any)?.url,
       chatId: process.env.BOT_WHATSAPP_TESTING_ID as string, // TODO: change to business whatsapp id
       chatType: ChatType.GROUP,
+      previewLink: false,
     })),
     scheduledTime,
   };

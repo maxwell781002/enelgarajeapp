@@ -9,6 +9,7 @@ import BtnRemove from "./button-remove";
 import { IProduct } from "@repo/model/types/product";
 import BooleanValue from "@repo/ui/components/boolean-value";
 import SharedLinks from "@repo/ui/components/shared-links";
+import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -27,8 +28,7 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
       };
     }
   };
-  const random = Math.random().toString(36).substring(2, 7);
-  const productCollaboratorUrl = `${process.env.COLLABORATOR_HOST}/p/${random}/${product.slug}`;
+  const productCollaboratorUrl = getCollaboratorProductUrl(product);
 
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
