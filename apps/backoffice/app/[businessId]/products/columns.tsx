@@ -1,8 +1,21 @@
 import Image from "@repo/ui/components/image";
 import { ColumnDef } from "@repo/ui/components/table/index";
 import Link from "next/link";
+import AddButton from "./whatsapp/add-button";
 
-export const columns: ColumnDef<any>[] = [
+const checkoutColumn = {
+  header: "",
+  accessorKey: "name",
+  cell: ({
+    cell: { value: name, row },
+  }: {
+    cell: { value: string; row: any };
+  }) => {
+    return <AddButton row={row} />;
+  },
+};
+
+const columns: ColumnDef<any>[] = [
   {
     header: "Image",
     accessorKey: "image",
@@ -46,3 +59,6 @@ export const columns: ColumnDef<any>[] = [
       value,
   },
 ];
+
+export const getColumns = (addCheckoutButton: boolean) =>
+  addCheckoutButton ? [checkoutColumn, ...columns] : columns;

@@ -1,0 +1,47 @@
+export enum ChatType {
+  GROUP = "group",
+  CHAT = "chat",
+  CHANNEL = "channel",
+}
+
+export type TMessage = {
+  chatId: string;
+  message: string;
+  senderPhone: string;
+  chatType: ChatType;
+  mediaUrl?: string;
+  previewLink?: boolean;
+};
+
+export type TMessageBulk = {
+  messages: TMessage[];
+  scheduledTime: string;
+};
+
+const doRequest = async (method: string, url: string, body: any) => {
+  return fetch(`${process.env.BOT_WHATSAPP_URL}${url}`, {
+    method,
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
+    },
+  });
+};
+
+export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
+  const url = "/instances/send-message-bulk";
+  const body = {
+    messages: messageBulk.messages.map((message) => ({
+      message: message.message,
+      preview_link: message.previewLink,
+      chat_id: message.chatId,
+      chat_type: message.chatType,
+      sender_phone: message.senderPhone,
+      media_url: message.mediaUrl,
+    })),
+    scheduled_time: messageBulk.scheduledTime,
+  };
+  console.log("Whatsapp data ==>", body);
+  return doRequest("POST", url, body);
+};

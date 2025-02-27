@@ -1,15 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export type FacebookOpenNavigatorProps = {
   children: React.ReactNode;
-}
+};
 
-export default function FacebookOpenNavigator({ children }: FacebookOpenNavigatorProps) {
+export default function FacebookOpenNavigator({
+  children,
+}: FacebookOpenNavigatorProps) {
   useEffect(() => {
     console.log("FacebookOpenNavigator");
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       console.log(window.navigator.userAgent);
       // const userAgent = window.navigator.userAgent;
       // if (userAgent.indexOf("FBAN") !== -1 || userAgent.indexOf("FBAV") !== -1) {
@@ -20,4 +22,4 @@ export default function FacebookOpenNavigator({ children }: FacebookOpenNavigato
   }, []);
 
   return <>{children}</>;
-};
+}

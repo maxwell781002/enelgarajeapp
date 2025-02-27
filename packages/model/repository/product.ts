@@ -2,7 +2,7 @@ import { INFINITE_NUMBER, NUMBER_OF_PRODUCTS } from "../configs/plans";
 import { getPlanFeature } from "../lib/plans-feature";
 import { commissionCalculate } from "../lib/utils";
 import prisma from "../prisma/prisma-client";
-import { CompleteBusiness } from "../prisma/zod";
+import { CompleteBusiness, CompleteProduct } from "../prisma/zod";
 import { productRepository } from "../repositories/product";
 
 export const getBySlug = async (slug: string) => {
@@ -68,4 +68,9 @@ export const isLimited = async (business: CompleteBusiness) => {
     business.id,
   );
   return totalActive + totalInactive >= featureValue;
+};
+
+export const getCollaboratorProductUrl = (product: CompleteProduct) => {
+  const random = Math.random().toString(36).substring(2, 7);
+  return `${process.env.COLLABORATOR_HOST}/p/${random}/${product.slug}`;
 };

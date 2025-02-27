@@ -1,11 +1,18 @@
 "use client";
 
 import MyTable, { MyTableProps } from "@repo/ui/components/table/index";
-import { columns } from "./columns";
+import { getColumns } from "./columns";
+import { CompleteBusiness } from "@repo/model/zod/index";
 
-export default function ProductTable(
-  props: Omit<MyTableProps, "columns" | "emptyTitle" | "emptyDescription">,
-) {
+export type ProductTableProps = {
+  business: CompleteBusiness;
+} & Omit<MyTableProps, "columns" | "emptyTitle" | "emptyDescription">;
+
+export default function ProductTable({
+  business,
+  ...props
+}: ProductTableProps) {
+  const columns = getColumns(business.canConnectWhatsapp as boolean);
   return (
     <MyTable
       {...props}

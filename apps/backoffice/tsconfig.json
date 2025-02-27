@@ -13,6 +13,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "../../packages/ui/src/components/status/status-label.tsx", "../../packages/ui/src/components/status/status-select.tsx"  ],
+, "../../packages/ui/src/components/status/status-label.tsx", "../../packages/ui/src/components/status/status-select.tsx", "../../packages/ui/src/components/whatsapp-connect.tsx"  ],
   "exclude": ["node_modules"]
 }
