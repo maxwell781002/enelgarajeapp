@@ -47,6 +47,7 @@
     "btnSaving": "Guardando...",
     "whatsappNotConnect": "No tienes el whatsapp conectado.",
     "whatsappIsConnecting": "Recuperando código para conectar a whatsapp. Espere unos minutos por favor.",
+    "whatsapp-connect-phone-help": "Debe poner delante el código del país, por ejemplo: 5353896787",
     "whatsappConnect": {
       "phone": "Teléfono de Whatsapp",
       "code": "Código de Whatsapp"
