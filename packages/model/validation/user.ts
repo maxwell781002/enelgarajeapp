@@ -3,6 +3,7 @@ import { z } from "zod";
 import { CompleteAddress } from "../prisma/zod/address";
 import { CustomerForm } from "@repo/model/validation/customer";
 import { CollaboratorTicketForm } from "@repo/model/validation/collaborator-ticket";
+import { phoneSchema } from "@repo/model/validation/general";
 
 export enum AddressType {
   newAddress = "newAddress",
@@ -10,9 +11,7 @@ export enum AddressType {
 }
 
 const UserValidation = {
-  phone: z.string().min(2, {
-    message: "required",
-  }),
+  phone: phoneSchema,
   name: z.string().min(2, {
     message: "required",
   }),

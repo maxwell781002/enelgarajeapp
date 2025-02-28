@@ -6,6 +6,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/button";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { useState, useTransition } from "react";
+import { phoneSchema } from "@repo/model/validation/general";
 
 export type NoConnectedProps = {
   business: CompleteBusiness;
@@ -16,6 +17,8 @@ const Form = ({ business, action }: NoConnectedProps) => {
   const t = useTranslations("Business");
   const [phone, setPhone] = useState(business.phone as string);
   const [loading, startTransition] = useTransition();
+  const validation = phoneSchema.safeParse(phone).error;
+  const errorMessage = validation?.errors.map((error: any) => error.message);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     return startTransition(() => {
@@ -41,6 +44,18 @@ const Form = ({ business, action }: NoConnectedProps) => {
           onChange={(e) => setPhone(e.target.value)}
           className="w-full"
         />
+        <div className="flex flex-col space-y-2">
+          <div className="text-muted-foreground text-sm">
+            {t("whatsapp-connect-phone-help")}
+          </div>
+          {errorMessage && (
+            <div className="text-red-500">
+              {errorMessage.map((error: any) => (
+                <div key={error}>{error}</div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="flex justify-end space-x-2">
         <Button loading={loading} type="submit">
