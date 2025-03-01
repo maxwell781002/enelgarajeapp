@@ -156,6 +156,17 @@ export class BusinessRepository extends BaseRepository<
       },
     });
   }
+
+  connectWhatsapp(id: string, whatsappConnectId: string) {
+    return prisma().business.update({
+      where: {
+        id,
+      },
+      data: {
+        whatsappConnectId,
+      },
+    });
+  }
 }
 
 export const businessRepository = new BusinessRepository();

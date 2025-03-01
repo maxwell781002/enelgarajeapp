@@ -15,10 +15,14 @@ export class WhatsappConnectRepository extends BaseRepository<
     return this.model.findUnique({ where: { businessId } });
   }
 
-  createWhatsappConnect(businessId: string, phone: string) {
+  findByPhone(phone: string) {
+    return this.model.findUnique({ where: { phone } });
+  }
+
+  createWhatsappConnect(phone: string) {
     const secureCode = Math.floor(100000 + Math.random() * 900000).toString();
     return this.model.create({
-      data: { businessId, secureCode, phone },
+      data: { secureCode, phone },
     });
   }
 

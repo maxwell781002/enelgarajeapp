@@ -3,6 +3,7 @@ import { whatsappConnectRepository } from "../repositories/whatsapp-connect";
 import { getBusinessById } from "./business";
 import {
   ChatType,
+  createInstance,
   sendWhatsappMessagesBulk,
   TMessageBulk,
 } from "../integrations/whatsapp";
@@ -10,6 +11,7 @@ import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
 import { formatPrice } from "../lib/utils";
 import { addProductFields } from "./product";
 import { getCollaboratorProductUrl } from "./product";
+import { businessRepository } from "../repositories/business";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return whatsappConnectRepository.getByBusinessId(businessId);
@@ -32,26 +34,25 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   if (!business.canConnectWhatsapp) {
     throw new Error("Business can't connect whatsapp");
   }
-  const entity = await whatsappConnectRepository.createWhatsappConnect(
-    businessId,
-    phone,
-  );
-  const { WHATSAPP_WEBHOOK_RETURN, WHATSAPP_CREATE_INSTANCE_URL } = process.env;
-  console.log(
-    `${WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${entity.secureCode}`,
-  );
-  await fetch(WHATSAPP_CREATE_INSTANCE_URL as string, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
-    },
-    body: JSON.stringify({
-      phone: entity.phone,
-      webhook: `${WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${entity.secureCode}`,
-    }),
-  });
+  if (business.whatsappConnect) {
+    throw new Error("Business already connected to whatsapp");
+  }
+  let isNew = false;
+  let entity = await whatsappConnectRepository.findByPhone(phone);
+  if (!entity) {
+    entity = await whatsappConnectRepository.createWhatsappConnect(phone);
+    isNew = true;
+  }
+  await businessRepository.connectWhatsapp(businessId, entity.id);
+  if (isNew) {
+    await createInstance(
+      {
+        phone: entity.phone,
+      },
+      businessId,
+      entity.secureCode,
+    );
+  }
   return entity;
 };
 

@@ -19,6 +19,10 @@ export type TMessageBulk = {
   externalId: string;
 };
 
+export type TCreateInstance = {
+  phone: string;
+};
+
 const doRequest = async (method: string, url: string, body: any) => {
   return fetch(`${process.env.BOT_WHATSAPP_URL}${url}`, {
     method,
@@ -28,6 +32,18 @@ const doRequest = async (method: string, url: string, body: any) => {
       "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
     },
   });
+};
+
+export const createInstance = (
+  data: TCreateInstance,
+  businessId: string,
+  secureCode: string,
+) => {
+  const body = {
+    phone: data.phone,
+    webhook: `${process.env.WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${secureCode}`,
+  };
+  return doRequest("POST", "/instances" as string, body);
 };
 
 export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
