@@ -93,6 +93,7 @@ export const sendProducts = async (
       previewLink: false,
     })),
     scheduledTime,
+    externalId: businessId,
   };
   const response = await sendWhatsappMessagesBulk(messageBulk);
   console.log(await response.json());

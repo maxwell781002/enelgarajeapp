@@ -16,6 +16,7 @@ export type TMessage = {
 export type TMessageBulk = {
   messages: TMessage[];
   scheduledTime: string;
+  externalId: string;
 };
 
 const doRequest = async (method: string, url: string, body: any) => {
@@ -41,6 +42,7 @@ export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
       media_url: message.mediaUrl,
     })),
     scheduled_time: messageBulk.scheduledTime,
+    external_id: messageBulk.externalId,
   };
   console.log("Whatsapp data ==>", body);
   return doRequest("POST", url, body);
