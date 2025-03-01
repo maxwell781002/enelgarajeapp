@@ -11,10 +11,6 @@ export class WhatsappConnectRepository extends BaseRepository<
     super(WhatsappConnectModel.omit({ id: true }), "whatsappConnect");
   }
 
-  getByBusinessId(businessId: string) {
-    return this.model.findUnique({ where: { businessId } });
-  }
-
   findByPhone(phone: string) {
     return this.model.findUnique({ where: { phone } });
   }
@@ -26,13 +22,9 @@ export class WhatsappConnectRepository extends BaseRepository<
     });
   }
 
-  async updateByBusinessIdAndSecureCode(
-    businessId: string,
-    secureCode: string,
-    paringCode: string,
-  ) {
+  async updateSecureCode(id: string, secureCode: string, paringCode: string) {
     const entity = await this.model.findUnique({
-      where: { businessId, secureCode },
+      where: { id, secureCode },
     });
     if (!entity) {
       return null;

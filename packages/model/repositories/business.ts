@@ -167,6 +167,15 @@ export class BusinessRepository extends BaseRepository<
       },
     });
   }
+
+  async retrieveWhatsappConnect(id: string) {
+    return (
+      await this.model.findUnique({
+        where: { id },
+        include: { whatsappConnect: true },
+      })
+    ).whatsappConnect;
+  }
 }
 
 export const businessRepository = new BusinessRepository();

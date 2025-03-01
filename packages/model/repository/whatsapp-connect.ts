@@ -14,19 +14,15 @@ import { getCollaboratorProductUrl } from "./product";
 import { businessRepository } from "../repositories/business";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
-  return whatsappConnectRepository.getByBusinessId(businessId);
+  return businessRepository.retrieveWhatsappConnect(businessId);
 };
 
-export const updateByBusinessIdAndSecureCode = (
-  businessId: string,
+export const updateSecureCode = (
+  id: string,
   secureCode: string,
   paringCode: string,
 ) => {
-  return whatsappConnectRepository.updateByBusinessIdAndSecureCode(
-    businessId,
-    secureCode,
-    paringCode,
-  );
+  return whatsappConnectRepository.updateSecureCode(id, secureCode, paringCode);
 };
 
 export const connectWhatsapp = async (businessId: string, phone: string) => {

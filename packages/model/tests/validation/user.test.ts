@@ -7,7 +7,7 @@ describe("User", () => {
   it("I need newAddress", () => {
     const user = WebShoppingCartSchema.safeParse({
       name: "test",
-      phone: "test",
+      phone: "5353024895",
       addressType: AddressType.newAddress,
       businessRequestAddress: true,
       wantDomicile: true,
@@ -22,7 +22,7 @@ describe("User", () => {
   it("I newAddress", () => {
     const user = WebShoppingCartSchema.safeParse({
       name: "test",
-      phone: "test",
+      phone: "5353024895",
       addressType: AddressType.newAddress,
       cartItems,
       businessRequestAddress: true,
@@ -39,7 +39,7 @@ describe("User", () => {
     expect(user).toEqual({
       success: true,
       data: {
-        phone: "test",
+        phone: "5353024895",
         name: "test",
         addressType: "newAddress",
         businessRequestAddress: true,
@@ -60,7 +60,7 @@ describe("User", () => {
   it("I need selectAddress", () => {
     const user = WebShoppingCartSchema.safeParse({
       name: "test",
-      phone: "test",
+      phone: "5353024895",
       addressType: AddressType.selectAddress,
       businessRequestAddress: true,
       wantDomicile: true,
@@ -75,7 +75,7 @@ describe("User", () => {
   it("I selectAddress", () => {
     const user = WebShoppingCartSchema.safeParse({
       name: "test",
-      phone: "test",
+      phone: "5353024895",
       addressType: AddressType.selectAddress,
       businessRequestAddress: true,
       cartItems,
@@ -93,7 +93,7 @@ describe("User", () => {
     expect(user).toEqual({
       success: true,
       data: {
-        phone: "test",
+        phone: "5353024895",
         name: "test",
         addressType: "selectAddress",
         businessRequestAddress: true,
@@ -115,7 +115,7 @@ describe("User", () => {
   it("I do not need selectAddress", () => {
     const user = WebShoppingCartSchema.safeParse({
       name: "test",
-      phone: "test",
+      phone: "5353024895",
       addressType: AddressType.selectAddress,
       businessRequestAddress: false,
       cartItems,
@@ -123,7 +123,7 @@ describe("User", () => {
     expect(user).toEqual({
       success: true,
       data: {
-        phone: "test",
+        phone: "5353024895",
         name: "test",
         addressType: "selectAddress",
         businessRequestAddress: false,
