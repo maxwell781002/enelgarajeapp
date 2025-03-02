@@ -4,28 +4,23 @@ import AlertMessage from "@repo/ui/components/alert-message";
 import { AlertCircle } from "lucide-react";
 import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/button";
-import { CompleteBusiness } from "@repo/model/zod/business";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { phoneSchema } from "@repo/model/validation/general";
 
 export type NoConnectedProps = {
-  business: CompleteBusiness;
-  action: (data: any) => Promise<any>;
+  create: (data: any) => void;
+  isCreating: boolean;
 };
 
-const Form = ({ business, action }: NoConnectedProps) => {
+const Form = ({ create, isCreating }: NoConnectedProps) => {
   const t = useTranslations("Business");
-  const [phone, setPhone] = useState(business.phone as string);
-  const [loading, startTransition] = useTransition();
+  const [phone, setPhone] = useState();
   const validation = phoneSchema.safeParse(phone).error;
   const errorMessage = validation?.errors.map((error: any) => error.message);
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    return startTransition(() => {
-      return action({
-        phone,
-        businessId: business.id,
-      });
+    return create({
+      phone,
     });
   };
   return (
@@ -41,7 +36,7 @@ const Form = ({ business, action }: NoConnectedProps) => {
           type="tel"
           id="phone"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setPhone(e.target.value as any)}
           className="w-full"
         />
         <div className="flex flex-col space-y-2">
@@ -58,7 +53,7 @@ const Form = ({ business, action }: NoConnectedProps) => {
         </div>
       </div>
       <div className="flex justify-end space-x-2">
-        <Button loading={loading} type="submit">
+        <Button loading={isCreating} type="submit">
           {t("whatsapp-connect-btn-connect")}
         </Button>
       </div>

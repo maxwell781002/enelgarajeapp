@@ -1,7 +1,6 @@
 "use client";
 
 import { CompleteBusiness } from "@repo/model/zod/business";
-import { useWhatsAppConnect } from "@repo/ui/hooks/whatsapp-connect";
 import { useTranslations } from "next-intl";
 import AlertMessage from "@repo/ui/components/alert-message";
 import { AlertCircle } from "lucide-react";
@@ -12,21 +11,22 @@ import NoConnected, {
 import { CompleteWhatsappConnect } from "@repo/model/zod/whatsappconnect";
 
 export type ContentProps = {
-  business: CompleteBusiness;
+  business: CompleteBusiness | null;
+  whatsappConnect: CompleteWhatsappConnect | null;
+  loading: boolean;
+  setWhatsappConnect: (whatsappConnect: CompleteWhatsappConnect | null) => void;
 } & NoConnectedProps;
 
-export default function Content({ business, action, ...props }: ContentProps) {
-  const { whatsappConnect, loading, setWhatsappConnect } = useWhatsAppConnect(
-    business.id as string,
-    business.whatsappConnect as CompleteWhatsappConnect,
-  );
+export default function Content({
+  business,
+  create,
+  whatsappConnect,
+  loading,
+  ...props
+}: ContentProps) {
   const t = useTranslations("Business");
-  const handleAction = async (data: any) => {
-    const entity = await action(data);
-    setWhatsappConnect(entity);
-  };
   if (!whatsappConnect) {
-    return <NoConnected business={business} action={handleAction} {...props} />;
+    return <NoConnected create={create} {...props} />;
   }
   if (loading) {
     return (

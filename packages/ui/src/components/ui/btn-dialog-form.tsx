@@ -37,25 +37,25 @@ export function BtnDialogForm({
     await action(formData);
     setOpen(false);
   };
-  const handleOpen = () => {
+  const toggle = () => {
     setOpen((prev) => !prev);
   };
   return (
     <>
       <Button
         variant={btnVariant}
-        onClick={handleOpen}
+        onClick={toggle}
         size={btnIcon ? "icon" : "default"}
       >
         {btnIcon || btnText}
       </Button>
-      <Dialog open={open} onOpenChange={handleOpen}>
+      <Dialog open={open} onOpenChange={toggle}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <Component action={handleAction} {...props} />
+            <Component action={handleAction} {...props} toggleDialog={toggle} />
           </div>
         </DialogContent>
       </Dialog>

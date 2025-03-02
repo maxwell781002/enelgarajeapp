@@ -56,7 +56,10 @@
     "btnWhatsappConnect": "Conectar Whatsapp",
     "whatsapp-connect-phone-lb": "Teléfono",
     "whatsapp-connect-btn-connect": "Conectar",
-    "whatsappConnectCodeExplain": "Este código lo debe poner en whatsapp para conectarse si todavía no lo ha hecho."
+    "whatsappConnectCodeExplain": "Este código lo debe poner en whatsapp para conectarse si todavía no lo ha hecho.",
+    "disconnectWhatsapp": "Desconectar Whatsapp",
+    "disconnectWhatsappMessage": "Esto eliminará la conexión con su whatsapp.",
+    "disconnectWhatsappSuccess": "Conexión eliminada"
   },
   "Totals": {
     "totalProducts": "Total de productos",
