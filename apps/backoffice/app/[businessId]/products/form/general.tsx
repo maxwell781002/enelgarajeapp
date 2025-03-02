@@ -11,7 +11,6 @@ import { Switch } from "@repo/ui/components/ui/switch";
 import { useTranslations } from "next-intl";
 import Editor from "@repo/ui/components/rich-text/editor";
 
-
 export type GeneralProductFormProps = {
   form: any;
   categories: any[];
@@ -191,9 +190,7 @@ export default function GeneralProductForm({
             <FormLabel>{t("lbDescription")}</FormLabel>
             <FormControl>
               {/*<Textarea placeholder={t("phDescription")} {...field} />*/}
-              <Editor
-                  {...field}
-                     />
+              <Editor {...field} />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>

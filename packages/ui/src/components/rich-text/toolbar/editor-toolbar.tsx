@@ -15,14 +15,41 @@ import {
 
 import { Toggle } from "@repo/ui/components/ui/toggle";
 import { ToggleGroup, Toolbar } from "@repo/ui/components/toolbar";
-
-import { FormatType } from "./format-type";
+import { Separator } from "@repo/ui/components/ui/separator";
+import { FormatType } from "@repo/ui/components/rich-text/toolbar/format-type";
+import { EmojiPicker } from "@repo/ui/components/rich-text/toolbar/emoji-picker";
+import { StickerPicker } from "@repo/ui/components/rich-text/toolbar/sticker-picker";
 
 interface EditorToolbarProps {
-  editor: Editor;
+  editor: Editor | null;
 }
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
+  if (!editor) {
+    return null;
+  }
+
+  const addEmoji = (emoji: string) => {
+    editor.chain().focus().insertContent(emoji).run();
+  };
+
+  const addSticker = (stickerUrl: string) => {
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: "image",
+        attrs: {
+          src: stickerUrl,
+          alt: "sticker",
+          class: "inline-sticker",
+          width: 32,
+          height: 32,
+        },
+      })
+      .run();
+  };
+
   return (
     <Toolbar
       className="m-0 flex items-center justify-between p-2"
@@ -137,6 +164,12 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
           <Redo className="h-4 w-4" />
         </Toggle>
       </ToggleGroup>
+
+      <Separator orientation="vertical" className="h-6" />
+      <div className="flex items-center space-x-1">
+        <EmojiPicker onEmojiSelect={addEmoji} />
+        <StickerPicker onStickerSelect={addSticker} />
+      </div>
     </Toolbar>
   );
 };
