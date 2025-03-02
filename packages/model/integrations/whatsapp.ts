@@ -23,15 +23,22 @@ export type TCreateInstance = {
   phone: string;
 };
 
-const doRequest = async (method: string, url: string, body: any) => {
-  return fetch(`${process.env.BOT_WHATSAPP_URL}${url}`, {
+const doRequest = async (method: string, url: string, body: any = null) => {
+  const data: any = {
     method,
-    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
       "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
     },
-  });
+  };
+  if (body) {
+    data.body = JSON.stringify(body);
+  }
+  return fetch(`${process.env.BOT_WHATSAPP_URL}${url}`, data);
+};
+
+export const removeInstance = (phone: string) => {
+  return doRequest("DELETE", `/instances/${phone}` as string);
 };
 
 export const createInstance = (

@@ -168,6 +168,17 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
+  disconnectWhatsapp(id: string) {
+    return prisma().business.update({
+      where: {
+        id,
+      },
+      data: {
+        whatsappConnectId: null,
+      },
+    });
+  }
+
   async retrieveWhatsappConnect(id: string) {
     return (
       await this.model.findUnique({
@@ -175,6 +186,12 @@ export class BusinessRepository extends BaseRepository<
         include: { whatsappConnect: true },
       })
     ).whatsappConnect;
+  }
+
+  countByWhatsappConnect(whatsappConnectId: string) {
+    return this.model.count({
+      where: { whatsappConnectId },
+    });
   }
 }
 

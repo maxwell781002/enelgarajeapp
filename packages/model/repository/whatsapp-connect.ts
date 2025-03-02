@@ -4,6 +4,7 @@ import { getBusinessById } from "./business";
 import {
   ChatType,
   createInstance,
+  removeInstance,
   sendWhatsappMessagesBulk,
   TMessageBulk,
 } from "../integrations/whatsapp";
@@ -15,6 +16,20 @@ import { businessRepository } from "../repositories/business";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
+};
+
+export const removeInstanceByBusinessId = async (businessId: string) => {
+  const connect = await getWhatsappConnectByBusinessId(businessId);
+  if (!connect) {
+    throw new Error("Business not connected to whatsapp");
+  }
+  const count = await businessRepository.countByWhatsappConnect(connect.id);
+  if (count > 1) {
+    return businessRepository.disconnectWhatsapp(businessId);
+  }
+  await removeInstance(connect.phone);
+  await businessRepository.disconnectWhatsapp(businessId);
+  return whatsappConnectRepository.remove(connect.id);
 };
 
 export const updateSecureCode = (

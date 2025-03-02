@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { businessFactory, clearBd } from "../factories";
-import { connectWhatsapp } from "../../repository/whatsapp-connect";
+import { businessFactory, clearBd } from "../../factories";
+import { connectWhatsapp } from "../../../repository/whatsapp-connect";
 import createFetchMock from "vitest-fetch-mock";
-import { businessRepository } from "../../repositories/business";
+import { businessRepository } from "../../../repositories/business";
 
 const fetchMocker = createFetchMock(vi);
 const phone = "123456789";
