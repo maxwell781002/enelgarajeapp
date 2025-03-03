@@ -1,18 +1,19 @@
-import { productRepository } from "../repositories/product";
-import { whatsappConnectRepository } from "../repositories/whatsapp-connect";
-import { getBusinessById } from "./business";
+import { productRepository } from "@repo/model/repositories/product";
+import { whatsappConnectRepository } from "@repo/model/repositories/whatsapp-connect";
+import { getBusinessById } from "@repo/model/repository/business";
 import {
   ChatType,
   createInstance,
   removeInstance,
+  retrieveCode,
   sendWhatsappMessagesBulk,
   TMessageBulk,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
-import { formatPrice } from "../lib/utils";
-import { addProductFields } from "./product";
-import { getCollaboratorProductUrl } from "./product";
-import { businessRepository } from "../repositories/business";
+import { formatPrice } from "@repo/model/lib/utils";
+import { addProductFields } from "@repo/model/repository/product";
+import { getCollaboratorProductUrl } from "@repo/model/repository/product";
+import { businessRepository } from "@repo/model/repositories/business";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -109,4 +110,19 @@ export const sendProducts = async (
   };
   const response = await sendWhatsappMessagesBulk(messageBulk);
   console.log(await response.json());
+};
+
+export const retrieveCodeByBusinessId = async (businessId: string) => {
+  const business = await getBusinessById(businessId);
+  if (!business.canConnectWhatsapp) {
+    throw new Error("Business can't connect whatsapp");
+  }
+  const whatsappConnect = await getWhatsappConnectByBusinessId(businessId);
+  if (!whatsappConnect) {
+    throw new Error("Business already connected to whatsapp");
+  }
+  const { code } = await retrieveCode({
+    phone: whatsappConnect.phone,
+  });
+  return whatsappConnectRepository.updateCode(whatsappConnect.id, code);
 };

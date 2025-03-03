@@ -23,6 +23,10 @@ export type TCreateInstance = {
   phone: string;
 };
 
+export type TRetrieveCode = {
+  phone: string;
+};
+
 const doRequest = async (method: string, url: string, body: any = null) => {
   const data: any = {
     method,
@@ -35,6 +39,12 @@ const doRequest = async (method: string, url: string, body: any = null) => {
     data.body = JSON.stringify(body);
   }
   return fetch(`${process.env.BOT_WHATSAPP_URL}${url}`, data);
+};
+
+export const retrieveCode = async (data: TRetrieveCode) => {
+  return (
+    await doRequest("POST", `/instances/retrieve-code` as string, data)
+  ).json();
 };
 
 export const removeInstance = (phone: string) => {

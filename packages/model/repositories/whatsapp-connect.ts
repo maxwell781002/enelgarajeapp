@@ -22,6 +22,16 @@ export class WhatsappConnectRepository extends BaseRepository<
     });
   }
 
+  updateCode(id: string, paringCode: string) {
+    return this.model.update({
+      where: { id },
+      data: {
+        paringCode,
+        status: WhatsappConnectStatus.CODE_SENT,
+      },
+    });
+  }
+
   async updateSecureCode(id: string, secureCode: string, paringCode: string) {
     const entity = await this.model.findUnique({
       where: { id, secureCode },
