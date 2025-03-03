@@ -13,7 +13,7 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { Switch } from "@repo/ui/components/ui/switch";
-import { Textarea } from "@repo/ui/components/ui/textarea";
+import Editor from "@repo/ui/components/rich-text/editor";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -120,7 +120,7 @@ export default function BusinessForm({
           <FormItem>
             <FormLabel>{t("lbDescription")}</FormLabel>
             <FormControl>
-              <Textarea placeholder={t("phDescription")} {...field} />
+              <Editor placeholder={t("phDescription")} {...field} />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>
@@ -133,7 +133,7 @@ export default function BusinessForm({
           <FormItem>
             <FormLabel>{t("lbTicketTermsConditions")}</FormLabel>
             <FormControl>
-              <Textarea placeholder={t("phTicketTermsConditions")} {...field} />
+              <Editor placeholder={t("phTicketTermsConditions")} {...field} />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>

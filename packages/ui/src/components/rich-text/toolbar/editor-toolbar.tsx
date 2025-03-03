@@ -15,14 +15,22 @@ import {
 
 import { Toggle } from "@repo/ui/components/ui/toggle";
 import { ToggleGroup, Toolbar } from "@repo/ui/components/toolbar";
-
-import { FormatType } from "./format-type";
+import { FormatType } from "@repo/ui/components/rich-text/toolbar/format-type";
+import { EmojiPicker } from "@repo/ui/components/rich-text/toolbar/emoji-picker";
 
 interface EditorToolbarProps {
-  editor: Editor;
+  editor: Editor | null;
 }
 
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
+  if (!editor) {
+    return null;
+  }
+
+  const addEmoji = (emoji: string) => {
+    editor.chain().focus().insertContent(emoji).run();
+  };
+
   return (
     <Toolbar
       className="m-0 flex items-center justify-between p-2"
@@ -113,6 +121,10 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         </Toggle>
 
         <FormatType editor={editor} />
+
+        <div className="flex flex-row items-center">
+          <EmojiPicker onEmojiSelect={addEmoji} />
+        </div>
       </ToggleGroup>
 
       <ToggleGroup
