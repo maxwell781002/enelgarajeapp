@@ -17,8 +17,11 @@ import { useWhatsAppConnect } from "@repo/ui/hooks/whatsapp-connect";
 import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { useToast } from "@repo/ui/components/ui/use-toast";
+import { Button } from "@repo/ui/components/button";
 
-export type WrapperProps = Omit<
+export type WrapperProps = {
+  retrieveCode: () => Promise<CompleteWhatsappConnect>;
+} & Omit<
   ContentProps,
   "loading" | "whatsappConnect" | "setWhatsappConnect" | "isCreating"
 > &
@@ -28,6 +31,7 @@ export default function Wrapper({
   business,
   remove,
   create,
+  retrieveCode,
   ...props
 }: WrapperProps) {
   const { whatsappConnect, loading, setWhatsappConnect } = useWhatsAppConnect(
@@ -53,6 +57,13 @@ export default function Wrapper({
       return create(data);
     });
   };
+  const [isRetrieving, startRetrieve] = useTransition();
+  const doRetrieve = () => {
+    return startRetrieve(async () => {
+      const newWhatsappConnect = await retrieveCode();
+      setWhatsappConnect(newWhatsappConnect);
+    });
+  };
   return (
     <Card className="overflow-hidden">
       <CardHeader>
@@ -60,12 +71,22 @@ export default function Wrapper({
           <div className="flex justify-between flex-1">
             <CardTitle>{t("tabWhatsapp")}</CardTitle>
             {whatsappConnect && (
-              <RemoveWhatsappConnect
-                business={business}
-                remove={doRemove}
-                isRemoving={isRemoving}
-                {...props}
-              />
+              <div className="flex gap-2">
+                <Button
+                  loading={isRetrieving}
+                  variant="default"
+                  onClick={doRetrieve}
+                  loadingText={t("retrieveCodeBtn")}
+                >
+                  {t("retrieveCodeBtn")}
+                </Button>
+                <RemoveWhatsappConnect
+                  business={business}
+                  remove={doRemove}
+                  isRemoving={isRemoving}
+                  {...props}
+                />
+              </div>
             )}
           </div>
         </div>

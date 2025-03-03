@@ -9,7 +9,7 @@ export type RemoveWhatsappConnectContentProps = {
   business: CompleteBusiness;
   isRemoving: boolean;
   remove: (afterRemove?: () => void) => any;
-  toggleDialog: () => void;
+  toggleDialog?: () => void;
 };
 
 function RemoveWhatsappConnectContent({
@@ -39,7 +39,7 @@ export default function RemoveWhatsappConnect(
     <BtnDialogForm
       Component={RemoveWhatsappConnectContent}
       title={t("disconnectWhatsapp")}
-      btnVariant={"default"}
+      btnVariant={"destructive"}
       {...props}
     />
   );

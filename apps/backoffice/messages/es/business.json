@@ -59,7 +59,8 @@
     "whatsappConnectCodeExplain": "Este código lo debe poner en whatsapp para conectarse si todavía no lo ha hecho.",
     "disconnectWhatsapp": "Desconectar Whatsapp",
     "disconnectWhatsappMessage": "Esto eliminará la conexión con su whatsapp.",
-    "disconnectWhatsappSuccess": "Conexión eliminada"
+    "disconnectWhatsappSuccess": "Conexión eliminada",
+    "retrieveCodeBtn": "Reenviar código"
   },
   "Totals": {
     "totalProducts": "Total de productos",
