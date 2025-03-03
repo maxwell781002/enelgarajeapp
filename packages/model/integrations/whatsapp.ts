@@ -42,9 +42,19 @@ const doRequest = async (method: string, url: string, body: any = null) => {
 };
 
 export const retrieveCode = async (data: TRetrieveCode) => {
-  return (
-    await doRequest("POST", `/instances/retrieve-code` as string, data)
-  ).json();
+  let retries = 3;
+  while (retries > 0) {
+    try {
+      return (
+        await doRequest("POST", `/instances/retrieve-code` as string, data)
+      ).json();
+    } catch (e) {
+      retries--;
+      console.log("Error retrieving code, retrying...", e);
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+    }
+  }
+  throw new Error("Failed to retrieve code");
 };
 
 export const removeInstance = (phone: string) => {

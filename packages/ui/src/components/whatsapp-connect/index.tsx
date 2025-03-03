@@ -13,7 +13,6 @@ export function WhatsappConnect({
 }: Omit<WrapperProps, "create" | "remove" | "retrieveCode">) {
   const doConnect = async ({ phone }: any) => {
     "use server";
-    console.log("doConnect", business.id, phone);
     return connectWhatsapp(business.id as string, phone);
   };
   const doRemove = async () => {

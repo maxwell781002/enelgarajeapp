@@ -18,12 +18,17 @@ import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { Button } from "@repo/ui/components/button";
+import { WhatsappConnectStatus } from "@repo/model/types/enums";
 
 export type WrapperProps = {
   retrieveCode: () => Promise<CompleteWhatsappConnect>;
+  create: (
+    data: any,
+    afterCreate?: () => void,
+  ) => Promise<CompleteWhatsappConnect>;
 } & Omit<
   ContentProps,
-  "loading" | "whatsappConnect" | "setWhatsappConnect" | "isCreating"
+  "loading" | "whatsappConnect" | "setWhatsappConnect" | "isCreating" | "create"
 > &
   Omit<RemoveWhatsappConnectContentProps, "isRemoving">;
 
@@ -52,9 +57,11 @@ export default function Wrapper({
     });
   };
   const [isCreating, startCreate] = useTransition();
-  const doCreate = (data: any) => {
-    return startCreate(() => {
-      return create(data);
+  const doCreate = (data: any, afterCreate?: () => void) => {
+    return startCreate(async () => {
+      const newWhatsappConnect = await create(data);
+      setWhatsappConnect(newWhatsappConnect);
+      afterCreate?.();
     });
   };
   const [isRetrieving, startRetrieve] = useTransition();
@@ -72,14 +79,16 @@ export default function Wrapper({
             <CardTitle>{t("tabWhatsapp")}</CardTitle>
             {whatsappConnect && (
               <div className="flex gap-2">
-                <Button
-                  loading={isRetrieving}
-                  variant="default"
-                  onClick={doRetrieve}
-                  loadingText={t("retrieveCodeBtn")}
-                >
-                  {t("retrieveCodeBtn")}
-                </Button>
+                {whatsappConnect.status !== WhatsappConnectStatus.CREATED && (
+                  <Button
+                    loading={isRetrieving}
+                    variant="default"
+                    onClick={doRetrieve}
+                    loadingText={t("retrieveCodeBtn")}
+                  >
+                    {t("retrieveCodeBtn")}
+                  </Button>
+                )}
                 <RemoveWhatsappConnect
                   business={business}
                   remove={doRemove}

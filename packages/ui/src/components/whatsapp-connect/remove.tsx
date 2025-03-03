@@ -19,7 +19,7 @@ function RemoveWhatsappConnectContent({
 }: RemoveWhatsappConnectContentProps) {
   const t = useTranslations("Business");
   const doRemove = async () => {
-    await remove(() => toggleDialog());
+    await remove(() => toggleDialog?.());
   };
   return (
     <>

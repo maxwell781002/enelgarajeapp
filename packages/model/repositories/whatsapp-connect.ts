@@ -27,7 +27,6 @@ export class WhatsappConnectRepository extends BaseRepository<
       where: { id },
       data: {
         paringCode,
-        status: WhatsappConnectStatus.CODE_SENT,
       },
     });
   }

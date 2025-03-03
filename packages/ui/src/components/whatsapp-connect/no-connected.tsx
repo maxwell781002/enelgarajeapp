@@ -6,22 +6,27 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/button";
 import { useState } from "react";
 import { phoneSchema } from "@repo/model/validation/general";
+import { CompleteWhatsappConnect } from "@repo/model/zod/whatsappconnect";
 
 export type NoConnectedProps = {
-  create: (data: any) => void;
+  create: (data: any, afterCreate?: () => void) => void;
   isCreating: boolean;
+  toggleDialog?: () => void;
 };
 
-const Form = ({ create, isCreating }: NoConnectedProps) => {
+const Form = ({ create, isCreating, toggleDialog }: NoConnectedProps) => {
   const t = useTranslations("Business");
   const [phone, setPhone] = useState();
   const validation = phoneSchema.safeParse(phone).error;
   const errorMessage = validation?.errors.map((error: any) => error.message);
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    return create({
-      phone,
-    });
+    await create(
+      {
+        phone,
+      },
+      () => toggleDialog?.(),
+    );
   };
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -69,6 +74,7 @@ export default function NoConnected(props: NoConnectedProps) {
         <BtnDialogForm
           btnVariant="default"
           btnText={t("btnWhatsappConnect")}
+          loadingText={t("btnWhatsappConnect")}
           Component={Form}
           {...props}
         />

@@ -19,14 +19,13 @@ export type ContentProps = {
 
 export default function Content({
   business,
-  create,
   whatsappConnect,
   loading,
   ...props
 }: ContentProps) {
   const t = useTranslations("Business");
   if (!whatsappConnect) {
-    return <NoConnected create={create} {...props} />;
+    return <NoConnected {...props} />;
   }
   if (loading) {
     return (
