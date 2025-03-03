@@ -11,24 +11,29 @@ export class WhatsappConnectRepository extends BaseRepository<
     super(WhatsappConnectModel.omit({ id: true }), "whatsappConnect");
   }
 
-  getByBusinessId(businessId: string) {
-    return this.model.findUnique({ where: { businessId } });
+  findByPhone(phone: string) {
+    return this.model.findUnique({ where: { phone } });
   }
 
-  createWhatsappConnect(businessId: string, phone: string) {
+  createWhatsappConnect(phone: string) {
     const secureCode = Math.floor(100000 + Math.random() * 900000).toString();
     return this.model.create({
-      data: { businessId, secureCode, phone },
+      data: { secureCode, phone },
     });
   }
 
-  async updateByBusinessIdAndSecureCode(
-    businessId: string,
-    secureCode: string,
-    paringCode: string,
-  ) {
+  updateCode(id: string, paringCode: string) {
+    return this.model.update({
+      where: { id },
+      data: {
+        paringCode,
+      },
+    });
+  }
+
+  async updateSecureCode(id: string, secureCode: string, paringCode: string) {
     const entity = await this.model.findUnique({
-      where: { businessId, secureCode },
+      where: { id, secureCode },
     });
     if (!entity) {
       return null;

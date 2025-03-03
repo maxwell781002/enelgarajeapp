@@ -1,30 +1,44 @@
-import { productRepository } from "../repositories/product";
-import { whatsappConnectRepository } from "../repositories/whatsapp-connect";
-import { getBusinessById } from "./business";
+import { productRepository } from "@repo/model/repositories/product";
+import { whatsappConnectRepository } from "@repo/model/repositories/whatsapp-connect";
+import { getBusinessById } from "@repo/model/repository/business";
 import {
   ChatType,
+  createInstance,
+  removeInstance,
+  retrieveCode,
   sendWhatsappMessagesBulk,
   TMessageBulk,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
-import { formatPrice } from "../lib/utils";
-import { addProductFields } from "./product";
-import { getCollaboratorProductUrl } from "./product";
+import { formatPrice } from "@repo/model/lib/utils";
+import { addProductFields } from "@repo/model/repository/product";
+import { getCollaboratorProductUrl } from "@repo/model/repository/product";
+import { businessRepository } from "@repo/model/repositories/business";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
-  return whatsappConnectRepository.getByBusinessId(businessId);
+  return businessRepository.retrieveWhatsappConnect(businessId);
 };
 
-export const updateByBusinessIdAndSecureCode = (
-  businessId: string,
+export const removeInstanceByBusinessId = async (businessId: string) => {
+  const connect = await getWhatsappConnectByBusinessId(businessId);
+  if (!connect) {
+    throw new Error("Business not connected to whatsapp");
+  }
+  const count = await businessRepository.countByWhatsappConnect(connect.id);
+  if (count > 1) {
+    return businessRepository.disconnectWhatsapp(businessId);
+  }
+  await removeInstance(connect.phone);
+  await businessRepository.disconnectWhatsapp(businessId);
+  return whatsappConnectRepository.remove(connect.id);
+};
+
+export const updateSecureCode = (
+  id: string,
   secureCode: string,
   paringCode: string,
 ) => {
-  return whatsappConnectRepository.updateByBusinessIdAndSecureCode(
-    businessId,
-    secureCode,
-    paringCode,
-  );
+  return whatsappConnectRepository.updateSecureCode(id, secureCode, paringCode);
 };
 
 export const connectWhatsapp = async (businessId: string, phone: string) => {
@@ -32,26 +46,25 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   if (!business.canConnectWhatsapp) {
     throw new Error("Business can't connect whatsapp");
   }
-  const entity = await whatsappConnectRepository.createWhatsappConnect(
-    businessId,
-    phone,
-  );
-  const { WHATSAPP_WEBHOOK_RETURN, WHATSAPP_CREATE_INSTANCE_URL } = process.env;
-  console.log(
-    `${WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${entity.secureCode}`,
-  );
-  await fetch(WHATSAPP_CREATE_INSTANCE_URL as string, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
-    },
-    body: JSON.stringify({
-      phone: entity.phone,
-      webhook: `${WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${entity.secureCode}`,
-    }),
-  });
+  if (business.whatsappConnect) {
+    throw new Error("Business already connected to whatsapp");
+  }
+  let isNew = false;
+  let entity = await whatsappConnectRepository.findByPhone(phone);
+  if (!entity) {
+    entity = await whatsappConnectRepository.createWhatsappConnect(phone);
+    isNew = true;
+  }
+  await businessRepository.connectWhatsapp(businessId, entity.id);
+  if (isNew) {
+    await createInstance(
+      {
+        phone: entity.phone,
+      },
+      businessId,
+      entity.secureCode,
+    );
+  }
   return entity;
 };
 
@@ -93,7 +106,23 @@ export const sendProducts = async (
       previewLink: false,
     })),
     scheduledTime,
+    externalId: businessId,
   };
   const response = await sendWhatsappMessagesBulk(messageBulk);
   console.log(await response.json());
+};
+
+export const retrieveCodeByBusinessId = async (businessId: string) => {
+  const business = await getBusinessById(businessId);
+  if (!business.canConnectWhatsapp) {
+    throw new Error("Business can't connect whatsapp");
+  }
+  const whatsappConnect = await getWhatsappConnectByBusinessId(businessId);
+  if (!whatsappConnect) {
+    throw new Error("Business already connected to whatsapp");
+  }
+  const { code } = await retrieveCode({
+    phone: whatsappConnect.phone,
+  });
+  return whatsappConnectRepository.updateCode(whatsappConnect.id, code);
 };

@@ -6,18 +6,19 @@ import {
   clearBd,
   whatsappConnectFactory,
 } from "@repo/model/tests/factories";
-import { whatsappConnectRepository } from "@repo/model/repositories/whatsapp-connect";
 import { WhatsappConnectStatus } from "@repo/model/types/enums";
+import { businessRepository } from "@repo/model/repositories/business";
 
 describe("POST /api/whatsapp-webhook", () => {
   let business: any;
   let whatsappConnect: any;
 
   beforeAll(async () => {
-    business = await businessFactory();
     whatsappConnect = await whatsappConnectFactory({
-      businessId: business.id,
       secureCode: "456",
+    });
+    business = await businessFactory({
+      whatsappConnectId: whatsappConnect.id,
     });
   });
 
@@ -80,7 +81,9 @@ describe("POST /api/whatsapp-webhook", () => {
       )
     ).json();
     expect(result.message).to.equal("Success");
-    const entity = await whatsappConnectRepository.getByBusinessId(business.id);
+    const entity = await businessRepository.retrieveWhatsappConnect(
+      business.id,
+    );
     expect(entity?.paringCode).to.equal("QAZXSW");
     expect(entity?.status).to.equal(WhatsappConnectStatus.CODE_SENT);
     expect(entity?.secureCode).to.equal("");

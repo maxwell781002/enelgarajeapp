@@ -49,7 +49,7 @@ vi.mock("../../../listeners/new-order", () => ({
 const customer: TCustomerForm = {
   name: "Pepe",
   identification: "1234567890",
-  phone: "+5353024637",
+  phone: "5353024637",
 };
 const ticket: TCollaboratorTicketForm = {
   deliveryDate: new Date(),
@@ -313,7 +313,7 @@ describe("Checkout", () => {
 
   it("Is normal user", async () => {
     const order = await createWebOrder(business, user, {
-      phone: "253",
+      phone: "5353024895",
       name: "test",
       referredCode,
       addressType: AddressType.newAddress,
@@ -386,7 +386,7 @@ describe("Checkout", () => {
 
   it("Is normal user, select address", async () => {
     const order = await createWebOrder(business, user, {
-      phone: "253",
+      phone: "5353024895",
       name: "test",
       addressType: AddressType.selectAddress,
       cartItems: [
@@ -422,7 +422,7 @@ describe("Checkout", () => {
   it("Out of stock", async () => {
     try {
       await createWebOrder(business, user, {
-        phone: "253",
+        phone: "5353024895",
         name: "test",
         addressType: AddressType.selectAddress,
         cartItems: [

@@ -156,6 +156,43 @@ export class BusinessRepository extends BaseRepository<
       },
     });
   }
+
+  connectWhatsapp(id: string, whatsappConnectId: string) {
+    return prisma().business.update({
+      where: {
+        id,
+      },
+      data: {
+        whatsappConnectId,
+      },
+    });
+  }
+
+  disconnectWhatsapp(id: string) {
+    return prisma().business.update({
+      where: {
+        id,
+      },
+      data: {
+        whatsappConnectId: null,
+      },
+    });
+  }
+
+  async retrieveWhatsappConnect(id: string) {
+    return (
+      await this.model.findUnique({
+        where: { id },
+        include: { whatsappConnect: true },
+      })
+    ).whatsappConnect;
+  }
+
+  countByWhatsappConnect(whatsappConnectId: string) {
+    return this.model.count({
+      where: { whatsappConnectId },
+    });
+  }
 }
 
 export const businessRepository = new BusinessRepository();

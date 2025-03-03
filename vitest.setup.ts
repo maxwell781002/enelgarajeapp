@@ -9,3 +9,4 @@ process.env.POSTGRES_URL_NON_POOLING =
   "postgres://postgres:postgres@localhost:5432/main-test";
 
 process.env.BOT_WEBHOOK_URL = "";
+process.env.CATALOG_BOT_APK_KEY = "apk-test";
