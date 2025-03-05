@@ -1,37 +1,16 @@
-export enum ChatType {
-  GROUP = "group",
-  CHAT = "chat",
-  CHANNEL = "channel",
-}
-
-export type TMessage = {
-  chatId: string;
-  message: string;
-  senderPhone: string;
-  chatType: ChatType;
-  mediaUrl?: string;
-  previewLink?: boolean;
-};
-
-export type TMessageBulk = {
-  messages: TMessage[];
-  scheduledTime: string;
-  externalId: string;
-};
-
-export type TCreateInstance = {
-  phone: string;
-};
-
-export type TRetrieveCode = {
-  phone: string;
-};
+import {
+  TCreateInstance,
+  TRetrieveCode,
+  TMessageBulk,
+  TMessagesRetrieve,
+} from "@repo/model/types/whatsapp-connect";
 
 const doRequest = async (method: string, url: string, body: any = null) => {
   const data: any = {
     method,
     headers: {
       "Content-Type": "application/json",
+      cache: "force-cache",
       "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
     },
   };
@@ -89,4 +68,26 @@ export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
   };
   console.log("Whatsapp data ==>", body);
   return doRequest("POST", url, body);
+};
+
+export const getMessages = async (
+  externalId: string,
+  lastEvaluatedKey: string | null,
+) => {
+  let url = `/messages/get-messages-bulk/${externalId}`;
+  if (lastEvaluatedKey) {
+    url = `${url}?last_evaluated_key=${lastEvaluatedKey}`;
+  }
+  const data: any = await (await doRequest("GET", url)).json();
+  return {
+    items: data.items,
+    lastEvaluatedKey: data.last_evaluated_key,
+  } as TMessagesRetrieve;
+};
+
+export const removeMessagesBulk = (scheduledTime: string) => {
+  return doRequest(
+    "DELETE",
+    `/messages/remove-messages-bulk/${scheduledTime}` as string,
+  );
 };

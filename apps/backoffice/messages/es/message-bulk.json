@@ -1,0 +1,9 @@
+{
+  "MessageBulk": {
+    "messageTitle": "Mensajes",
+    "messageDescription": "Mensajes enviados a Whatsapp",
+    "removeMessage": "Eliminar",
+    "removeMessageDescription": "El mensaje sera eliminado completamente.",
+    "removeMessageError": "Error al eliminar el mensaje"
+  }
+}

@@ -42,6 +42,7 @@ describe("whatsapp connect", () => {
         headers: {
           "Content-Type": "application/json",
           "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
+          cache: "force-cache",
         },
         body: JSON.stringify({
           phone,
