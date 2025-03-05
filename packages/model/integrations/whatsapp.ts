@@ -74,7 +74,7 @@ export const getMessages = async (
   externalId: string,
   lastEvaluatedKey: string | null,
 ) => {
-  let url = `/instances/get-messages-bulk/${externalId}`;
+  let url = `/messages/get-messages-bulk/${externalId}`;
   if (lastEvaluatedKey) {
     url = `${url}?last_evaluated_key=${lastEvaluatedKey}`;
   }
@@ -83,4 +83,11 @@ export const getMessages = async (
     items: data.items,
     lastEvaluatedKey: data.last_evaluated_key,
   } as TMessagesRetrieve;
+};
+
+export const removeMessagesBulk = (scheduledTime: string) => {
+  return doRequest(
+    "DELETE",
+    `/messages/remove-messages-bulk/${scheduledTime}` as string,
+  );
 };

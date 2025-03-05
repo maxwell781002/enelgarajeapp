@@ -7,14 +7,14 @@ import {
   retrieveCode,
   getMessages,
   sendWhatsappMessagesBulk,
-  TMessageBulk,
+  removeMessagesBulk as baseRemoveMessagesBulk,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
 import { formatPrice } from "@repo/model/lib/utils";
 import { addProductFields } from "@repo/model/repository/product";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
-import { ChatType } from "@repo/model/types/whatsapp-connect";
+import { ChatType, TMessageBulk } from "@repo/model/types/whatsapp-connect";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -133,4 +133,9 @@ export const getMessagesBulk = async (
   lastEvaluatedKey: string | null = null,
 ) => {
   return getMessages(businessId, lastEvaluatedKey);
+};
+
+export const removeMessagesBulk = async (scheduledTime: string) => {
+  const response = await baseRemoveMessagesBulk(scheduledTime);
+  return response.status === 200;
 };

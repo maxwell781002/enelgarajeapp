@@ -15,11 +15,13 @@ import { useTransition } from "react";
 
 export type MessagesBulkProps = {
   retrieveMessages: (lastEvaluatedKey?: string | null) => Promise<any>;
+  removeMessage: (scheduledTime: string) => Promise<any>;
   messages: TMessagesRetrieve;
 };
 
 export default function MessagesBulk({
   retrieveMessages,
+  removeMessage,
   messages,
 }: MessagesBulkProps) {
   const [messagesBulk, setMessagesBulk] = useState<TMessagesRetrieve>(messages);
@@ -35,6 +37,26 @@ export default function MessagesBulk({
       });
     });
   };
+  const [removing, startRemoving] = useTransition();
+  const handleRemove = (
+    scheduledTime: string,
+    onSuccess?: () => void,
+    onError?: () => void,
+  ) => {
+    startRemoving(async () => {
+      if (await removeMessage(scheduledTime)) {
+        setMessagesBulk((prev) => ({
+          ...prev,
+          items: prev.items.filter(
+            (item) => item.scheduled_time !== scheduledTime,
+          ),
+        }));
+        onSuccess?.();
+      } else {
+        onError?.();
+      }
+    });
+  };
   return (
     <Card>
       <CardHeader>
@@ -47,6 +69,8 @@ export default function MessagesBulk({
             <MessagesBulkItem
               key={message.scheduled_time}
               messageBulk={message}
+              remove={handleRemove}
+              removing={removing}
             />
           ))}
         </div>

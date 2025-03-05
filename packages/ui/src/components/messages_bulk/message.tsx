@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import Markdown from "@repo/ui/components/markdown";
 import { Badge } from "@repo/ui/components/ui/badge";
+import BtnConfirm from "@repo/ui/components/btn-confirm";
+import { useTranslations } from "next-intl";
 
 const MessageItem = ({ item }: any) => {
   return (
@@ -21,14 +23,32 @@ const MessageItem = ({ item }: any) => {
 
 export default function MessagesBulkItem({
   messageBulk,
+  remove,
+  removing,
 }: {
   messageBulk: any;
+  remove: (scheduledTime: string, ...args: any) => void;
+  removing: boolean;
 }) {
   console.log(messageBulk);
   const date = new Date(messageBulk.sent_at);
+  const t = useTranslations("MessageBulk");
+  const handleRemove = (...args: any) => {
+    return remove(messageBulk.scheduled_time, ...args);
+  };
   return (
     <div className="mb-4 border-b border-gray-300 pb-4 w-full">
       <div className="flex justify-between">
+        {messageBulk.status === "PENDING" && (
+          <BtnConfirm
+            isLoading={removing}
+            title={t("removeMessage")}
+            description={t("removeMessageDescription")}
+            textButton={t("removeMessage")}
+            action={handleRemove}
+            textError={t("removeMessageError")}
+          />
+        )}
         <h2 className="text-xl font-bold mb-4 mr-2">
           {date.toDateString()} {date.toTimeString()}
         </h2>
