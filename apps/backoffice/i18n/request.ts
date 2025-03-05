@@ -19,6 +19,7 @@ export default getRequestConfig(async () => {
     ...(await import(`../messages/${locale}/business-site.json`)).default,
     ...(await import(`../messages/${locale}/business-neighborhood.json`))
       .default,
+    ...(await import(`../messages/${locale}/message-bulk.json`)).default,
   };
 
   return {

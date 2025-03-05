@@ -10,6 +10,7 @@ import {
   BriefcaseBusinessIcon,
   MapPinIcon,
   Users2Icon,
+  MessagesSquare,
 } from "lucide-react";
 
 export const coreMenu: LinkItem[] = [
@@ -67,6 +68,12 @@ export const businessMenu: (businessId: string) => LinkItem[] = (
     link: `/${businessId}/products`,
     title: "Productos",
     Icon: Package2,
+    active: true,
+  },
+  {
+    link: `/${businessId}/messages`,
+    title: "Mensajes",
+    Icon: MessagesSquare,
     active: true,
   },
   {
