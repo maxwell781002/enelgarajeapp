@@ -31,64 +31,68 @@ export const coreMenu: LinkItem[] = [
   },
 ];
 
-export const businessMenu: (businessId: string) => LinkItem[] = (
+export const businessMenu: (
   businessId: string,
-) => [
-  {
-    link: `/${businessId}`,
-    title: "Dashboard",
-    Icon: Home,
-    active: true,
-  },
-  {
-    link: `/${businessId}/site`,
-    title: "Sitio web",
-    Icon: LayoutTemplate,
-    active: true,
-  },
-  {
-    link: `/${businessId}/orders`,
-    title: "Órdenes",
-    Icon: ShoppingBasketIcon,
-    active: true,
-  },
-  {
-    link: `/${businessId}/categories`,
-    title: "Categorías",
-    Icon: TagsIcon,
-    active: true,
-  },
-  {
-    link: `/${businessId}/payment-methods`,
-    title: "Métodos de pago",
-    Icon: DollarSignIcon,
-    active: true,
-  },
-  {
-    link: `/${businessId}/products`,
-    title: "Productos",
-    Icon: Package2,
-    active: true,
-  },
-  {
-    link: `/${businessId}/messages`,
-    title: "Mensajes",
-    Icon: MessagesSquare,
-    active: true,
-  },
-  {
-    link: `/${businessId}/neighborhood`,
-    title: "Repartos",
-    Icon: MapPinIcon,
-    active: true,
-  },
-  {
-    link: `/${businessId}/users`,
-    title: "Gestores",
-    Icon: Users2Icon,
-    active: true,
-  },
-];
+  excludeLinks?: string[],
+) => LinkItem[] = (businessId: string, excludeLinks?: string[]) => {
+  const menu = [
+    {
+      link: `/${businessId}`,
+      title: "Dashboard",
+      Icon: Home,
+      active: true,
+    },
+    {
+      link: `/${businessId}/site`,
+      title: "Sitio web",
+      Icon: LayoutTemplate,
+      active: true,
+    },
+    {
+      link: `/${businessId}/orders`,
+      title: "Órdenes",
+      Icon: ShoppingBasketIcon,
+      active: true,
+    },
+    {
+      link: `/${businessId}/categories`,
+      title: "Categorías",
+      Icon: TagsIcon,
+      active: true,
+    },
+    {
+      link: `/${businessId}/payment-methods`,
+      title: "Métodos de pago",
+      Icon: DollarSignIcon,
+      active: true,
+    },
+    {
+      link: `/${businessId}/products`,
+      title: "Productos",
+      Icon: Package2,
+      active: true,
+    },
+    {
+      link: `/${businessId}/messages`,
+      title: "Mensajes",
+      Icon: MessagesSquare,
+      active: true,
+    },
+    {
+      link: `/${businessId}/neighborhood`,
+      title: "Repartos",
+      Icon: MapPinIcon,
+      active: true,
+    },
+    {
+      link: `/${businessId}/users`,
+      title: "Gestores",
+      Icon: Users2Icon,
+      active: true,
+    },
+  ];
+  return menu.filter((item) => !excludeLinks?.includes(item.link));
+};
 
 export const secondaryMenu: LinkItem[] = [
   {

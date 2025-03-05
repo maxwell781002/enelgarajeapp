@@ -34,10 +34,13 @@ export default async function RootLayout({
     "use server";
     await redirect(`/${businessId}`);
   };
+  const excludeLinks: string[] = business.canConnectWhatsapp
+    ? []
+    : [`/${businessId}/messages`];
   return (
     <BusinessContextProvider business={business}>
       <LayoutMain
-        menuItems={businessMenu(businessId)}
+        menuItems={businessMenu(businessId, excludeLinks)}
         secondaryMenu={secondaryMenu}
         userImage={session?.user?.image}
         userMenuItems={profileMenu}
