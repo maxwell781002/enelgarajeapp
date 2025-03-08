@@ -33,8 +33,7 @@ describe("whatsapp connect", () => {
   it("test", async () => {
     whatsappConnect = await connectWhatsapp(business.id, phone);
     expect(whatsappConnect).toBeTruthy();
-    const { WHATSAPP_WEBHOOK_RETURN, BOT_WHATSAPP_URL } = process.env;
-    const businessId = business.id;
+    const { BOT_WHATSAPP_URL } = process.env;
     expect(fetchMocker).toHaveBeenCalledWith(
       `${BOT_WHATSAPP_URL}/instances` as string,
       {
@@ -46,7 +45,10 @@ describe("whatsapp connect", () => {
         },
         body: JSON.stringify({
           phone,
-          webhook: `${WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${whatsappConnect.secureCode}`,
+          data: {
+            id: whatsappConnect.id,
+            secureCode: whatsappConnect.secureCode,
+          },
         }),
       },
     );

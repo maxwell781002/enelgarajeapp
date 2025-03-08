@@ -14,7 +14,11 @@ import { formatPrice } from "@repo/model/lib/utils";
 import { addProductFields } from "@repo/model/repository/product";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
-import { ChatType, TMessageBulk } from "@repo/model/types/whatsapp-connect";
+import {
+  ChatType,
+  TMessageBulk,
+  UpdateSecureCodeProps,
+} from "@repo/model/types/whatsapp-connect";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -34,11 +38,11 @@ export const removeInstanceByBusinessId = async (businessId: string) => {
   return whatsappConnectRepository.remove(connect.id);
 };
 
-export const updateSecureCode = (
-  id: string,
-  secureCode: string,
-  paringCode: string,
-) => {
+export const updateSecureCode = ({
+  id,
+  secureCode,
+  paringCode,
+}: UpdateSecureCodeProps) => {
   return whatsappConnectRepository.updateSecureCode(id, secureCode, paringCode);
 };
 
@@ -62,7 +66,7 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
       {
         phone: entity.phone,
       },
-      businessId,
+      entity.id,
       entity.secureCode,
     );
   }

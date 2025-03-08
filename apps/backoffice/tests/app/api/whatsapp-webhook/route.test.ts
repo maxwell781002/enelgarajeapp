@@ -26,48 +26,6 @@ describe("POST /api/whatsapp-webhook", () => {
     await clearBd();
   });
 
-  it("Not businessId", async () => {
-    const result = await (
-      await POST(
-        new NextRequest("http://localhost/api/whatsapp-webhook", {
-          method: "POST",
-          body: JSON.stringify({ code: "123" }),
-        }),
-      )
-    ).json();
-    expect(result.message).to.equal("businessId required");
-  });
-
-  it("Not secure code", async () => {
-    const result = await (
-      await POST(
-        new NextRequest(
-          `http://localhost/api/whatsapp-webhook?businessId=${business.id}`,
-          {
-            method: "POST",
-            body: JSON.stringify({ code: "123" }),
-          },
-        ),
-      )
-    ).json();
-    expect(result.message).to.equal("secureCode required");
-  });
-
-  it("Invalid code", async () => {
-    const result = await (
-      await POST(
-        new NextRequest(
-          `http://localhost/api/whatsapp-webhook?businessId=${business.id}&secureCode=123`,
-          {
-            method: "POST",
-            body: JSON.stringify({ code: "123" }),
-          },
-        ),
-      )
-    ).json();
-    expect(result.message).to.equal("NotFound");
-  });
-
   it("Valid code", async () => {
     const result = await (
       await POST(
@@ -75,7 +33,12 @@ describe("POST /api/whatsapp-webhook", () => {
           `http://localhost/api/whatsapp-webhook?businessId=${business.id}&secureCode=456`,
           {
             method: "POST",
-            body: JSON.stringify({ code: "QAZXSW" }),
+            body: JSON.stringify({
+              event: "create_instance",
+              id: whatsappConnect.id,
+              paringCode: "QAZXSW",
+              secureCode: "456",
+            }),
           },
         ),
       )

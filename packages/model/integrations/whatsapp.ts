@@ -3,6 +3,7 @@ import {
   TRetrieveCode,
   TMessageBulk,
   TMessagesRetrieve,
+  UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
 
 const doRequest = async (method: string, url: string, body: any = null) => {
@@ -42,12 +43,18 @@ export const removeInstance = (phone: string) => {
 
 export const createInstance = (
   data: TCreateInstance,
-  businessId: string,
+  id: string,
   secureCode: string,
 ) => {
-  const body = {
+  const body: {
+    phone: string;
+    data: Omit<UpdateSecureCodeProps, "paringCode">;
+  } = {
     phone: data.phone,
-    webhook: `${process.env.WHATSAPP_WEBHOOK_RETURN}?businessId=${businessId}&secureCode=${secureCode}`,
+    data: {
+      id,
+      secureCode,
+    },
   };
   return doRequest("POST", "/instances" as string, body);
 };

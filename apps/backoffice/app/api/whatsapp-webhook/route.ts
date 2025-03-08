@@ -1,21 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSearchParams } from "@repo/model/lib/url";
-import {
-  getWhatsappConnectByBusinessId,
-  updateSecureCode,
-} from "@repo/model/repository/whatsapp-connect";
+import { updateSecureCode } from "@repo/model/repository/whatsapp-connect";
+
+const listeners: any = {
+  create_instance: updateSecureCode,
+};
 
 export async function POST(req: NextRequest) {
-  const params: any = getSearchParams(req.nextUrl.searchParams);
-  if (!params.businessId)
-    return NextResponse.json({ message: "businessId required" });
-  if (!params.secureCode)
-    return NextResponse.json({ message: "secureCode required" });
-  const { code } = await req.json();
-  let entity = await getWhatsappConnectByBusinessId(params.businessId);
-  if (!entity) {
-    return NextResponse.json({ message: "NotFound" });
+  const { event, ...props } = await req.json();
+  if (listeners[event]) {
+    await listeners[event](props);
   }
-  entity = await updateSecureCode(entity.id, params.secureCode, code);
-  return NextResponse.json({ message: entity ? "Success" : "NotFound" });
+  return NextResponse.json({ message: "Success" });
 }

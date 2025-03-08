@@ -31,3 +31,9 @@ export type TMessagesRetrieve = {
   items: any[];
   lastEvaluatedKey: string;
 };
+
+export type UpdateSecureCodeProps = {
+  id: string;
+  secureCode: string;
+  paringCode: string;
+};
