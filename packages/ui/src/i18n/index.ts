@@ -17,7 +17,6 @@ const config: ReturnType<typeof getRequestConfig> = getRequestConfig(
     };
 
     return {
-      locale,
       messages,
     };
   },

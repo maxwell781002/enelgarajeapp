@@ -12,6 +12,7 @@ import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
 import { getSite } from "@repo/model/repository/business-site";
 import { ReferredCode } from "../../components/referred-code";
 import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
+import Error404 from "@repo/ui/components/page-errors/404";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -73,7 +74,7 @@ export default async function RootLayout({
                       <Footer {...site} />
                     </BusinessContextProvider>
                   ) : (
-                    <h1>not found</h1>
+                    <Error404 />
                   )}
                 </NextIntlClientProvider>
               </div>
