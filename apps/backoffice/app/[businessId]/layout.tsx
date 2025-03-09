@@ -34,7 +34,7 @@ export default async function RootLayout({
     "use server";
     await redirect(`/${businessId}`);
   };
-  const excludeLinks: string[] = business.canConnectWhatsapp
+  const excludeLinks: string[] = business?.canConnectWhatsapp
     ? []
     : [`/${businessId}/messages`];
   return (
