@@ -32,6 +32,8 @@ silent: !process.env.CI,
 // For all available options, see:
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
+authToken: process.env.SENTRY_AUTH_TOKEN,
+
 // Upload a larger set of source maps for prettier stack traces (increases build time)
 widenClientFileUpload: true,
 
@@ -57,4 +59,6 @@ disableLogger: true,
 // https://docs.sentry.io/product/crons/
 // https://vercel.com/docs/cron-jobs
 automaticVercelMonitors: true,
+
+autoInstrumentServerFunctions: false,
 });
