@@ -3,6 +3,17 @@
 import Head from "next/head";
 import * as Sentry from "@sentry/nextjs";
 
+const style = {
+  padding: "12px",
+  cursor: "pointer",
+  backgroundColor: "#AD6CAA",
+  borderRadius: "4px",
+  border: "none",
+  color: "white",
+  fontSize: "14px",
+  margin: "18px",
+};
+
 export default function Page() {
   return (
     <div>
@@ -38,16 +49,7 @@ export default function Page() {
         <p>Get started by sending us a sample error:</p>
         <button
           type="button"
-          style={{
-            padding: "12px",
-            cursor: "pointer",
-            backgroundColor: "#AD6CAA",
-            borderRadius: "4px",
-            border: "none",
-            color: "white",
-            fontSize: "14px",
-            margin: "18px",
-          }}
+          style={style}
           onClick={async () => {
             await Sentry.startSpan(
               {
@@ -64,6 +66,15 @@ export default function Page() {
           }}
         >
           Throw error!
+        </button>
+
+        <button
+          style={style}
+          onClick={() => {
+            throw new Error("Sentry Example Frontend Error");
+          }}
+        >
+          Client error
         </button>
 
         <p>
