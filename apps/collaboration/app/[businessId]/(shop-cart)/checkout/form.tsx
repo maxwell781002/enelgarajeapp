@@ -55,7 +55,9 @@ export default function CheckoutForm({
         form={form}
         addressName="address"
         business={business}
-        successfulUrl={`/${business.id}/checkout-successful?orderId=`}
+        successfulUrl={(id: string) =>
+          `/${business.id}/checkout-successful/${id}`
+        }
         render={({ neighborhoods, wantDomicile, neighborhoodLoading }) => (
           <>
             <h3 className="text-lg font-semibold">{t("customer")}</h3>

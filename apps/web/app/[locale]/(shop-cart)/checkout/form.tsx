@@ -71,7 +71,7 @@ export default function CheckoutForm({
         form={form}
         addressName={addressType}
         business={business}
-        successfulUrl="/checkout-successful?orderId="
+        successfulUrl={(id: string) => `/checkout-successful/${id}`}
         render={({ neighborhoods, neighborhoodLoading }) => (
           <>
             <FormField

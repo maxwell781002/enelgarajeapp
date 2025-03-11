@@ -9,16 +9,16 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 export type PageProps = {
-  searchParams: {
-    orderId: string;
+  params: {
+    id: string;
   };
 };
 
-export default async function Page({ searchParams: { orderId } }: PageProps) {
+export default async function Page({ params: { id } }: PageProps) {
   const t = await getTranslations("CheckoutSuccessful");
   const to = await getTranslations("OrderDetail");
   const business = await getCurrentBusiness();
-  const order = await getOrderById(orderId);
+  const order = await getOrderById(id);
   const whatsappMessage = encodeURIComponent(
     t("orderMessage", { reference: order?.identifier }),
   );
