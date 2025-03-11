@@ -7,18 +7,13 @@ import CheckoutSuccessfulPage from "@repo/ui/components/shop-cart/checkout-succe
 export type PageProps = {
   params: {
     businessId: string;
-  };
-  searchParams: {
-    orderId: string;
+    id: string;
   };
 };
 
-export default async function Page({
-  params: { businessId },
-  searchParams: { orderId },
-}: PageProps) {
+export default async function Page({ params: { businessId, id } }: PageProps) {
   const business = await getBusinessById(businessId);
-  const order = await getOrderById(orderId);
+  const order = await getOrderById(id);
   return (
     <CheckoutSuccessfulPage business={business} order={order as CompleteOrder}>
       <CollaboratorOrder

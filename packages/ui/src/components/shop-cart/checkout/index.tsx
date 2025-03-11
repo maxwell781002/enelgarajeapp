@@ -26,7 +26,7 @@ export type CheckoutPageProps = {
   addressName: string;
   business: CompleteBusiness;
   render: (options: RenderOptions) => ReactNode;
-  successfulUrl: string;
+  successfulUrl: (id: string) => string;
 };
 
 export default function CheckoutPage({
@@ -57,7 +57,7 @@ export default function CheckoutPage({
       try {
         const { id } = await action(data);
         clear();
-        return router.push(`${successfulUrl}${id}`);
+        return router.push(successfulUrl(id));
       } catch (e: any) {
         if (e.message === "out_of_stock") {
           return setShopCartHasError(true);
