@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateSecureCode } from "@repo/model/repository/whatsapp-connect";
+import {
+  authenticatedWhatsapp,
+  disconnectWhatsapp,
+  updateSecureCode,
+} from "@repo/model/repository/whatsapp-connect";
 
 const listeners: any = {
   create_instance: updateSecureCode,
+  authenticated: authenticatedWhatsapp,
+  disconnected: disconnectWhatsapp,
 };
 
 export async function POST(req: NextRequest) {

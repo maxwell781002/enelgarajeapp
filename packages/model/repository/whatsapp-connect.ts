@@ -20,6 +20,7 @@ import {
   UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
 import { getCurrentUser } from "./user";
+import { WhatsappConnectStatus } from "../types/enums";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -150,4 +151,24 @@ export const getMessagesBulk = async (
 export const removeMessagesBulk = async (scheduledTime: string) => {
   const response = await baseRemoveMessagesBulk(scheduledTime);
   return response.status === 200;
+};
+
+export const disconnectWhatsapp = async ({ phone }: { phone: string }) => {
+  const entity = await whatsappConnectRepository.findByPhone(phone);
+  if (entity) {
+    return whatsappConnectRepository.changeStatus(
+      entity.id,
+      WhatsappConnectStatus.DISCONNECTED,
+    );
+  }
+};
+
+export const authenticatedWhatsapp = async ({ phone }: { phone: string }) => {
+  const entity = await whatsappConnectRepository.findByPhone(phone);
+  if (entity) {
+    return whatsappConnectRepository.changeStatus(
+      entity.id,
+      WhatsappConnectStatus.CONNECTED,
+    );
+  }
 };

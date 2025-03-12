@@ -22,6 +22,7 @@ describe("POST /api/whatsapp-webhook", () => {
 
   beforeAll(async () => {
     whatsappConnect = await whatsappConnectFactory({
+      phone: "5491111111111",
       secureCode: "456",
     });
     business = await businessFactory({
@@ -57,5 +58,49 @@ describe("POST /api/whatsapp-webhook", () => {
     expect(entity?.paringCode).to.equal("QAZXSW");
     expect(entity?.status).to.equal(WhatsappConnectStatus.CODE_SENT);
     expect(entity?.secureCode).to.equal("");
+  });
+
+  it("Connect", async () => {
+    const result = await (
+      await POST(
+        new NextRequest(
+          `http://localhost/api/whatsapp-webhook?businessId=${business.id}&secureCode=456`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              event: "authenticated",
+              phone: whatsappConnect.phone,
+            }),
+          },
+        ),
+      )
+    ).json();
+    expect(result.message).to.equal("Success");
+    const entity = await businessRepository.retrieveWhatsappConnect(
+      business.id,
+    );
+    expect(entity?.status).to.equal(WhatsappConnectStatus.CONNECTED);
+  });
+
+  it("Disconnect", async () => {
+    const result = await (
+      await POST(
+        new NextRequest(
+          `http://localhost/api/whatsapp-webhook?businessId=${business.id}&secureCode=456`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              event: "disconnected",
+              phone: whatsappConnect.phone,
+            }),
+          },
+        ),
+      )
+    ).json();
+    expect(result.message).to.equal("Success");
+    const entity = await businessRepository.retrieveWhatsappConnect(
+      business.id,
+    );
+    expect(entity?.status).to.equal(WhatsappConnectStatus.DISCONNECTED);
   });
 });
