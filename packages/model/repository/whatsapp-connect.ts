@@ -29,7 +29,7 @@ export const getWhatsappConnectByBusinessId = (businessId: string) => {
 export const removeInstanceByBusinessId = async (businessId: string) => {
   const connect = await getWhatsappConnectByBusinessId(businessId);
   if (!connect) {
-    throw new Error("Business not connected to whatsapp");
+    return;
   }
   const count = await businessRepository.countByWhatsappConnect(connect.id);
   if (count > 1) {
@@ -37,7 +37,7 @@ export const removeInstanceByBusinessId = async (businessId: string) => {
   }
   await removeInstance(connect.phone);
   await businessRepository.disconnectWhatsapp(businessId);
-  return whatsappConnectRepository.remove(connect.id);
+  await whatsappConnectRepository.remove(connect.id);
 };
 
 export const updateSecureCode = ({
