@@ -9,6 +9,7 @@ import NoConnected, {
   NoConnectedProps,
 } from "@repo/ui/components/whatsapp-connect/no-connected";
 import { CompleteWhatsappConnect } from "@repo/model/zod/whatsappconnect";
+import { WhatsappConnectStatus } from "@repo/model/types/enums";
 
 export type ContentProps = {
   business: CompleteBusiness | null;
@@ -37,13 +38,16 @@ export default function Content({
       />
     );
   }
+  const data: any = {
+    phone: whatsappConnect?.phone,
+  };
+  if (whatsappConnect?.status == WhatsappConnectStatus.CODE_SENT) {
+    data.code = whatsappConnect?.paringCode;
+  }
   return (
     <>
       <ShowData
-        object={{
-          code: whatsappConnect?.paringCode,
-          phone: whatsappConnect?.phone,
-        }}
+        object={data}
         t={(key) => t(`whatsappConnect.${key}`)}
         className="grid md:grid-cols-2 gap-4"
       />

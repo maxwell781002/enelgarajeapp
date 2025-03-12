@@ -60,7 +60,9 @@
     "disconnectWhatsapp": "Desconectar Whatsapp",
     "disconnectWhatsappMessage": "Esto eliminará la conexión con su whatsapp.",
     "disconnectWhatsappSuccess": "Conexión eliminada",
-    "retrieveCodeBtn": "Reenviar código"
+    "retrieveCodeBtn": "Reenviar código",
+    "connectWhatsappError": "Error al conectar whatsapp",
+    "whatsapp_connected_to_other_user": "Este teléfono ya fue conectado por otro usuario. Debe hacerlo la misma persona."
   },
   "Totals": {
     "totalProducts": "Total de productos",

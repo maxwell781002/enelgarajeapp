@@ -11,6 +11,13 @@ import { businessRepository } from "../../../repositories/business";
 const fetchMocker = createFetchMock(vi);
 const phone = "123456789";
 
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
+
 describe("Remove connection", () => {
   let business;
   let business2;

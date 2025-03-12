@@ -59,9 +59,17 @@ export default function Wrapper({
   const [isCreating, startCreate] = useTransition();
   const doCreate = (data: any, afterCreate?: () => void) => {
     return startCreate(async () => {
-      const newWhatsappConnect = await create(data);
-      setWhatsappConnect(newWhatsappConnect);
-      afterCreate?.();
+      try {
+        const newWhatsappConnect = await create(data);
+        setWhatsappConnect(newWhatsappConnect);
+        afterCreate?.();
+      } catch (error: any) {
+        toast({
+          title: t("connectWhatsappError"),
+          description: t(error.message),
+          variant: "destructive",
+        });
+      }
     });
   };
   const [isRetrieving, startRetrieve] = useTransition();
@@ -79,7 +87,7 @@ export default function Wrapper({
             <CardTitle>{t("tabWhatsapp")}</CardTitle>
             {whatsappConnect && (
               <div className="flex gap-2">
-                {whatsappConnect.status !== WhatsappConnectStatus.CREATED && (
+                {whatsappConnect.status === WhatsappConnectStatus.CODE_SENT && (
                   <Button
                     loading={isRetrieving}
                     variant="default"

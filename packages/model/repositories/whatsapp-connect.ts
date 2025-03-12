@@ -1,7 +1,7 @@
 import { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { WhatsappConnectModel, CompleteWhatsappConnect } from "../prisma/zod";
-import { WhatsappConnectStatus } from "../types/enums";
+import { TWhatsappConnectStatus, WhatsappConnectStatus } from "../types/enums";
 
 export class WhatsappConnectRepository extends BaseRepository<
   CompleteWhatsappConnect,
@@ -15,10 +15,10 @@ export class WhatsappConnectRepository extends BaseRepository<
     return this.model.findUnique({ where: { phone } });
   }
 
-  createWhatsappConnect(phone: string) {
+  createWhatsappConnect(phone: string, ownerId: string) {
     const secureCode = Math.floor(100000 + Math.random() * 900000).toString();
     return this.model.create({
-      data: { secureCode, phone },
+      data: { secureCode, phone, ownerId },
     });
   }
 
@@ -28,6 +28,13 @@ export class WhatsappConnectRepository extends BaseRepository<
       data: {
         paringCode,
       },
+    });
+  }
+
+  changeStatus(id: string, status: TWhatsappConnectStatus) {
+    return this.model.update({
+      where: { id },
+      data: { status },
     });
   }
 
