@@ -53,23 +53,26 @@ model Business {
   customers              Customer[]
   tickets                CollaboratorTicket[]
   businessSite           BusinessSite?
-  whatsappConnect        WhatsappConnect? @relation(fields: [whatsappConnectId], references: [id])
+  whatsappConnect        WhatsappConnect?       @relation(fields: [whatsappConnectId], references: [id])
   whatsappConnectId      String?
 }
 
 model WhatsappConnect {
   id         String                @id @default(uuid())
   status     WhatsappConnectStatus @default(CREATED) /// @zod.optional()
-  phone      String? @unique /// @zod.min(1, { message: "required" })
+  phone      String?               @unique /// @zod.min(1, { message: "required" })
   paringCode String? /// @zod.optional()
   secureCode String? /// @zod.optional()
   business   Business[]
+  ownerId    String?
+  owner      User?                 @relation(fields: [ownerId], references: [id])
 }
 
 enum WhatsappConnectStatus {
   CREATED
   CODE_SENT
   CONNECTED
+  DISCONNECTED
 }
 
 model BusinessSite {
@@ -183,6 +186,7 @@ model User {
   collaboratorInvoices CollaboratorInvoice[]
   collaboratorProfiles CollaboratorProfile[]
   tickets              CollaboratorTicket[]
+  whatsappConnect      WhatsappConnect[]
 }
 
 model UserBusiness {

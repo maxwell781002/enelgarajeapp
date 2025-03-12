@@ -7,6 +7,7 @@ const listeners: any = {
 
 export async function POST(req: NextRequest) {
   const { event, ...props } = await req.json();
+  console.log(event, props);
   if (listeners[event]) {
     await listeners[event](props);
   }
