@@ -19,6 +19,7 @@ import {
   TMessageBulk,
   UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
+import { getCurrentUser } from "./user";
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -48,6 +49,7 @@ export const updateSecureCode = ({
 
 export const connectWhatsapp = async (businessId: string, phone: string) => {
   const business = await getBusinessById(businessId);
+  const user = await getCurrentUser();
   if (!business.canConnectWhatsapp) {
     throw new Error("Business can't connect whatsapp");
   }
@@ -56,8 +58,14 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   }
   let isNew = false;
   let entity = await whatsappConnectRepository.findByPhone(phone);
+  if (entity && entity.ownerId !== user.id) {
+    throw new Error("whatsapp_connected_to_other_user");
+  }
   if (!entity) {
-    entity = await whatsappConnectRepository.createWhatsappConnect(phone);
+    entity = await whatsappConnectRepository.createWhatsappConnect(
+      phone,
+      user.id,
+    );
     isNew = true;
   }
   await businessRepository.connectWhatsapp(businessId, entity.id);

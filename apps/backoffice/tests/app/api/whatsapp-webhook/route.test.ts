@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { POST } from "../../../../app/api/whatsapp-webhook/route";
 import { NextRequest } from "next/server";
 import {
@@ -8,6 +8,13 @@ import {
 } from "@repo/model/tests/factories";
 import { WhatsappConnectStatus } from "@repo/model/types/enums";
 import { businessRepository } from "@repo/model/repositories/business";
+
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 describe("POST /api/whatsapp-webhook", () => {
   let business: any;

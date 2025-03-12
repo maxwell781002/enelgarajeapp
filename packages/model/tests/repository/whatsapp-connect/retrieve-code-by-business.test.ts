@@ -10,6 +10,13 @@ import createFetchMock from "vitest-fetch-mock";
 const fetchMocker = createFetchMock(vi);
 const phone = "123456789";
 
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
+
 describe("retrieveCodeByBusiness", () => {
   let businessNoCanConnect;
   let businessNoWhatsappConnect;
