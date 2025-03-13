@@ -1,8 +1,8 @@
-import { businessRepository } from "../repositories/business";
+import { businessRepository } from "@repo/model/repositories/business";
 import { headers } from "next/headers";
-import { telegramBusinessRepository } from "../repositories/telegram-business";
-import { TUserBusinessType, UserBusinessType } from "../types/enums";
-import { UserIsNotCollaboratorError } from "../errors/bad-request";
+import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
+import { TUserBusinessType, UserBusinessType } from "@repo/model/types/enums";
+import { UserIsNotCollaboratorError } from "@repo/model/errors/bad-request";
 
 export const getCurrentBusiness = async () => {
   const headersList = headers();
