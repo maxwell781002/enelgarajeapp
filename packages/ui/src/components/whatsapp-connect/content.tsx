@@ -51,9 +51,11 @@ export default function Content({
         t={(key) => t(`whatsappConnect.${key}`)}
         className="grid md:grid-cols-2 gap-4"
       />
-      <p className="text-sm text-muted-foreground">
-        {t("whatsappConnectCodeExplain")}
-      </p>
+      {whatsappConnect?.status == WhatsappConnectStatus.CODE_SENT && (
+        <p className="text-sm text-muted-foreground">
+          {t("whatsappConnectCodeExplain")}
+        </p>
+      )}
     </>
   );
 }

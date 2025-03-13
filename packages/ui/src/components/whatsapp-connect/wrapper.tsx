@@ -83,7 +83,7 @@ export default function Wrapper({
     <Card className="overflow-hidden">
       <CardHeader>
         <div className="flex flex-1">
-          <div className="flex justify-between flex-1">
+          <div className="flex justify-between flex-1 flex-col md:flex-row gap-2">
             <CardTitle>{t("tabWhatsapp")}</CardTitle>
             {whatsappConnect && (
               <div className="flex gap-2">
