@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import TableLayout from "@repo/ui/components/table-layout/layout";
 import { getBusinessById } from "@repo/model/repository/business";
 import SendToWhatsapp from "./whatsapp/send";
+import { getWhatsappConnectByBusinessId } from "@repo/model/repository/whatsapp-connect";
 
 type PageProps = {
   searchParams: any;
@@ -24,6 +25,7 @@ export default async function Page({
 }: PageProps) {
   const t = await getTranslations("Product");
   const business = await getBusinessById(businessId);
+  const whatsappConnect = await getWhatsappConnectByBusinessId(businessId);
   const { list, remove, update, search } = crud(
     `/${businessId}/products`,
     productRepository.getRepositoryModelName(),
@@ -53,6 +55,7 @@ export default async function Page({
         <ProductTable
           pagination={pagination as PaginationResult<any>}
           business={business}
+          whatsappConnect={whatsappConnect}
         />
       </TableLayout>
     </TableContextProvider>
