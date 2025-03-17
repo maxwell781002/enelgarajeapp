@@ -9,9 +9,9 @@ import {
 const doRequest = async (method: string, url: string, body: any = null) => {
   const data: any = {
     method,
+    cache: "no-store",
     headers: {
       "Content-Type": "application/json",
-      cache: "force-cache",
       "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
     },
   };

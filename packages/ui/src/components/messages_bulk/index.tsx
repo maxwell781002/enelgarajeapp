@@ -1,17 +1,10 @@
 "use client";
+
 import { TMessagesRetrieve } from "@repo/model/types/whatsapp-connect";
 import { useState } from "react";
-import MessagesBulkItem from "@repo/ui/components/messages_bulk/message";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/ui/card";
-import { useTranslations } from "next-intl";
-import ShowMore from "@repo/ui/components/show-more";
 import { useTransition } from "react";
+import { TableMessages } from "@repo/ui/components/messages_bulk/table";
+import MessageBulkDetail from "@repo/ui/components/messages_bulk/detail";
 
 export type MessagesBulkProps = {
   retrieveMessages: (lastEvaluatedKey?: string | null) => Promise<any>;
@@ -25,7 +18,6 @@ export default function MessagesBulk({
   messages,
 }: MessagesBulkProps) {
   const [messagesBulk, setMessagesBulk] = useState<TMessagesRetrieve>(messages);
-  const t = useTranslations("MessageBulk");
   const [loading, startLoading] = useTransition();
   const handleGetMore = () => {
     startLoading(async () => {
@@ -37,6 +29,7 @@ export default function MessagesBulk({
       });
     });
   };
+  const [selected, setSelected] = useState<string | null>(null);
   const [removing, startRemoving] = useTransition();
   const handleRemove = (
     scheduledTime: string,
@@ -51,37 +44,30 @@ export default function MessagesBulk({
             (item) => item.scheduled_time !== scheduledTime,
           ),
         }));
+        setSelected(null);
         onSuccess?.();
       } else {
         onError?.();
       }
     });
   };
+  if (selected) {
+    return (
+      <MessageBulkDetail
+        onSelect={setSelected}
+        messageBulk={selected}
+        remove={handleRemove}
+        removing={removing}
+      />
+    );
+  }
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("messageTitle")}</CardTitle>
-        <CardDescription>{t("messageDescription")}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="pr-4 -mr-4 flex flex-wrap gap-2">
-          {messagesBulk.items.map((message: any) => (
-            <MessagesBulkItem
-              key={message.scheduled_time}
-              messageBulk={message}
-              remove={handleRemove}
-              removing={removing}
-            />
-          ))}
-        </div>
-        {messagesBulk.lastEvaluatedKey && (
-          <div className="w-full flex justify-end">
-            <ShowMore onClick={handleGetMore} disabled={loading}>
-              Ver más
-            </ShowMore>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <TableMessages
+      messages={messagesBulk}
+      hasMore={!!messagesBulk.lastEvaluatedKey}
+      loadMore={handleGetMore}
+      loading={loading}
+      onSelect={setSelected}
+    />
   );
 }
