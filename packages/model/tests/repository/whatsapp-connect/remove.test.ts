@@ -65,10 +65,10 @@ describe("Remove connection", () => {
       `${process.env.BOT_WHATSAPP_URL}/instances/${phone}` as string,
       {
         method: "DELETE",
+        cache: "no-store",
         headers: {
           "Content-Type": "application/json",
           "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
-          cache: "force-cache",
         },
       },
     );
