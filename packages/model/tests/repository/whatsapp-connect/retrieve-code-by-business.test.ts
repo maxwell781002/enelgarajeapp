@@ -75,10 +75,10 @@ describe("retrieveCodeByBusiness", () => {
       `${process.env.BOT_WHATSAPP_URL}/instances/retrieve-code` as string,
       {
         method: "POST",
+        cache: "no-store",
         headers: {
           "Content-Type": "application/json",
           "apk-key": process.env.CATALOG_BOT_APK_KEY as string,
-          cache: "force-cache",
         },
         body: JSON.stringify({
           phone,
