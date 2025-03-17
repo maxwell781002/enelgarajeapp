@@ -4,10 +4,11 @@ import BtnConfirm from "@repo/ui/components/btn-confirm";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import Markdown from "@repo/ui/components/markdown";
+import { formatDateZn } from "@repo/model/lib/date";
 
 export const dateString = (sent_at: string) => {
   const date = new Date(sent_at);
-  return date.toDateString() + " " + date.toTimeString();
+  return formatDateZn(date, 0);
 };
 
 export type MessageBulkDetailProps = {
