@@ -2,10 +2,11 @@ import Link from "next/link";
 import { ArrowLeftIcon } from "./icons";
 
 type BackPageProps = {
-  href: string;
+  href?: string;
   urlTitle: string;
   children: React.ReactNode;
   headerChildren?: React.ReactNode;
+  onClick?: () => void;
 };
 
 export default function BackPage({
@@ -13,14 +14,16 @@ export default function BackPage({
   urlTitle,
   children,
   headerChildren,
+  onClick,
 }: BackPageProps) {
   return (
     <>
       <div className="flex flex-1 justify-between">
         <Link
-          href={href}
+          href={href || "#"}
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground pb-4"
           prefetch={false}
+          onClick={onClick}
         >
           <ArrowLeftIcon className="h-4 w-4" />
           {urlTitle}
