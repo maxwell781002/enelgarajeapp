@@ -46,17 +46,17 @@ export function TableMessages({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>{t("messageTitle")}</CardTitle>
         <CardDescription>{t("messageDescription")}</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
-          <TableCaption>A list of your recent invoices.</TableCaption>
           <TableHeader className="bg-muted/50 hidden md:table-header-group">
             <TableRow>
-              <TableHead>Date</TableHead>
-              <TableHead className="text-center">Number menssages</TableHead>
-              <TableHead className="text-right">Status</TableHead>
+              <TableHead>{t("table.date")}</TableHead>
+              <TableHead className="text-center">
+                {t("table.messages")}
+              </TableHead>
+              <TableHead className="text-right">{t("table.status")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -87,7 +87,7 @@ export function TableMessages({
               <TableCell colSpan={3} className="text-right">
                 {hasMore && (
                   <ShowMore onClick={loadMore} disabled={loading}>
-                    Ver más
+                    {t("table.showMore")}
                   </ShowMore>
                 )}
               </TableCell>

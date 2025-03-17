@@ -1,33 +1,77 @@
 import BackPage from "@repo/ui/components/back-page";
-import MessagesBulkItem from "@repo/ui/components/messages_bulk/message";
+import { useTranslations } from "next-intl";
+import BtnConfirm from "@repo/ui/components/btn-confirm";
+import { Badge } from "@repo/ui/components/ui/badge";
+import { Card, CardContent } from "@repo/ui/components/ui/card";
+import Markdown from "@repo/ui/components/markdown";
 
 export type MessageBulkDetailProps = {
   onSelect: (item: any) => void;
-  messagesBulk: any;
-  handleRemove: (scheduledTime: string, ...args: any) => void;
+  messageBulk: any;
+  remove: (scheduledTime: string, ...args: any) => void;
   removing: boolean;
+};
+
+const MessageItem = ({ item }: any) => {
+  return (
+    <Card className="w-64 overflow-hidden shadow-lg">
+      <CardContent className="p-0">
+        <div className="relative w-full">
+          <img src={item.media_url} alt="Card image" />
+        </div>
+        <div className="bg-white p-3">
+          <Markdown className=" ">
+            {item.message.replace(/\n/g, "\n\n").replace(/\*/g, "**")}
+          </Markdown>
+        </div>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default function MessageBulkDetail({
   onSelect,
-  messagesBulk,
-  handleRemove,
+  messageBulk,
+  remove,
   removing,
 }: MessageBulkDetailProps) {
+  const t = useTranslations("MessageBulk");
+  console.log(messageBulk);
+  const date = new Date(messageBulk.sent_at);
+  const handleRemove = (...args: any) => {
+    return remove(messageBulk.scheduled_time, ...args);
+  };
   return (
     <BackPage
       onClick={() => {
         onSelect(null);
       }}
-      urlTitle="Mensajes por lotes"
+      urlTitle={t("messageTitle")}
     >
-      <div className="pr-4 -mr-4 flex flex-wrap gap-2">
-        <MessagesBulkItem
-          key={messagesBulk.scheduled_time}
-          messageBulk={messagesBulk}
-          remove={handleRemove}
-          removing={removing}
-        />
+      <div className="mb-4 border-b border-gray-300 pb-4 w-full">
+        <div className="flex justify-between">
+          {messageBulk.status === "PENDING" && (
+            <BtnConfirm
+              isLoading={removing}
+              title={t("removeMessage")}
+              description={t("removeMessageDescription")}
+              textButton={t("removeMessage")}
+              action={handleRemove}
+              textError={t("removeMessageError")}
+            />
+          )}
+          <h2 className="text-xl font-bold mb-4 mr-2">
+            {date.toDateString()} {date.toTimeString()}
+          </h2>
+          <div>
+            <Badge className="bg-blue-500">{messageBulk.status}</Badge>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {messageBulk.messages.map((message: any, index: number) => (
+            <MessageItem key={index} item={message} />
+          ))}
+        </div>
       </div>
     </BackPage>
   );

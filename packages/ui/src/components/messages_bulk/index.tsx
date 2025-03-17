@@ -2,7 +2,6 @@
 
 import { TMessagesRetrieve } from "@repo/model/types/whatsapp-connect";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { TableMessages } from "@repo/ui/components/messages_bulk/table";
 import MessageBulkDetail from "@repo/ui/components/messages_bulk/detail";
@@ -19,7 +18,6 @@ export default function MessagesBulk({
   messages,
 }: MessagesBulkProps) {
   const [messagesBulk, setMessagesBulk] = useState<TMessagesRetrieve>(messages);
-  const t = useTranslations("MessageBulk");
   const [loading, startLoading] = useTransition();
   const handleGetMore = () => {
     startLoading(async () => {
@@ -57,8 +55,8 @@ export default function MessagesBulk({
     return (
       <MessageBulkDetail
         onSelect={setSelected}
-        messagesBulk={selected}
-        handleRemove={handleRemove}
+        messageBulk={selected}
+        remove={handleRemove}
         removing={removing}
       />
     );

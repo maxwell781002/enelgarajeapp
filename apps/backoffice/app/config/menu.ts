@@ -74,7 +74,7 @@ export const businessMenu: (
     },
     {
       link: `/${businessId}/messages`,
-      title: "Mensajes",
+      title: "Publicaciones",
       Icon: MessagesSquare,
       active: true,
     },

@@ -1,9 +1,15 @@
 {
   "MessageBulk": {
-    "messageTitle": "Mensajes",
-    "messageDescription": "Mensajes enviados a Whatsapp",
+    "messageTitle": "Publicaciones",
+    "messageDescription": "Publicaciones enviadas a Whatsapp",
     "removeMessage": "Eliminar",
-    "removeMessageDescription": "El mensaje sera eliminado completamente.",
-    "removeMessageError": "Error al eliminar el mensaje"
+    "removeMessageDescription": "La publicación sera eliminada completamente.",
+    "removeMessageError": "Error al eliminar la publicación",
+    "table": {
+      "date": "Fecha",
+      "messages": "Mensajes",
+      "status": "Status",
+      "showMore": "Ver más"
+    }
   }
 }
