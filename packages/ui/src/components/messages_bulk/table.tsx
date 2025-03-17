@@ -11,6 +11,7 @@ import {
   CardHeader,
 } from "@repo/ui/components/ui/card";
 import TableWrapper from "@repo/ui/components/table/wrapper";
+import { dateString } from "@repo/ui/components/messages_bulk/detail";
 
 export type TableMessagesProps = {
   messages: TMessagesRetrieve;
@@ -18,11 +19,6 @@ export type TableMessagesProps = {
   hasMore: boolean;
   loading: boolean;
   onSelect: (item: any) => void;
-};
-
-const dateString = (sent_at: string) => {
-  const date = new Date(sent_at);
-  return date.toDateString() + " " + date.toTimeString();
 };
 
 const getColumns = (

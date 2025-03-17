@@ -2,6 +2,7 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import EmptyTable, { EmptyTableProps } from "@repo/ui/components/table/empty";
 import Pagination from "@repo/ui/components/table/pagination";
 import TableWrapper, { ColumnDef } from "@repo/ui/components/table/wrapper";
+export type { ColumnDef } from "@repo/ui/components/table/wrapper";
 
 export type MyTableProps = {
   pagination: PaginationResult<any>;
