@@ -87,15 +87,13 @@ export default async function BusinessDetailGeneral({
           </span>
         </div>
         <strong className="block">{t("lbDescription")}</strong>
-        <p className="text-muted-foreground">
-          <Markdown className="w-full">{business.description}</Markdown>
-        </p>
+        <Markdown className="prose max-w-none prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
+          {business.description}
+        </Markdown>
         <strong className="block">{t("lbTicketTermsConditions")}</strong>
-        <p className="text-muted-foreground">
-          <Markdown className="w-full">
-            {business.ticketTermsConditions}
-          </Markdown>
-        </p>
+        <Markdown className="prose max-w-none prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
+          {business.ticketTermsConditions}
+        </Markdown>
       </CardContent>
     </Card>
   );
