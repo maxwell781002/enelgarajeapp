@@ -15,6 +15,7 @@ import {
 import { getTranslations } from "next-intl/server";
 import BooleanValue from "@repo/ui/components/boolean-value";
 import { CompleteBusiness } from "@repo/model/zod/index";
+import Markdown from "@repo/ui/components/markdown";
 
 export type BusinessDetailGeneralProps = {
   business: CompleteBusiness;
@@ -86,10 +87,14 @@ export default async function BusinessDetailGeneral({
           </span>
         </div>
         <strong className="block">{t("lbDescription")}</strong>
-        <p className="text-muted-foreground">{business.description}</p>
+        <p className="text-muted-foreground">
+          <Markdown className="w-full">{business.description}</Markdown>
+        </p>
         <strong className="block">{t("lbTicketTermsConditions")}</strong>
         <p className="text-muted-foreground">
-          {business.ticketTermsConditions}
+          <Markdown className="w-full">
+            {business.ticketTermsConditions}
+          </Markdown>
         </p>
       </CardContent>
     </Card>
