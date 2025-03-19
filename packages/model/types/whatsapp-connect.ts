@@ -30,3 +30,7 @@ export type UpdateSecureCodeProps = {
   secureCode: string;
   paringCode: string;
 };
+
+export type UpdateChatListProps = {
+  id: string;
+};

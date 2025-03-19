@@ -38,6 +38,13 @@ export class WhatsappConnectRepository extends BaseRepository<
     });
   }
 
+  updateChatList(id: string, updatingChatList: boolean) {
+    return this.model.update({
+      where: { id },
+      data: { updatingChatList },
+    });
+  }
+
   async updateSecureCode(id: string, secureCode: string, paringCode: string) {
     const entity = await this.model.findUnique({
       where: { id, secureCode },

@@ -58,14 +58,15 @@ model Business {
 }
 
 model WhatsappConnect {
-  id         String                @id @default(uuid())
-  status     WhatsappConnectStatus @default(CREATED) /// @zod.optional()
-  phone      String?               @unique /// @zod.min(1, { message: "required" })
-  paringCode String? /// @zod.optional()
-  secureCode String? /// @zod.optional()
-  business   Business[]
-  ownerId    String?
-  owner      User?                 @relation(fields: [ownerId], references: [id])
+  id               String                @id @default(uuid())
+  status           WhatsappConnectStatus @default(CREATED) /// @zod.optional()
+  phone            String?               @unique /// @zod.min(1, { message: "required" })
+  paringCode       String? /// @zod.optional()
+  secureCode       String? /// @zod.optional()
+  updatingChatList Boolean               @default(false) /// @zod.optional()
+  business         Business[]
+  ownerId          String?
+  owner            User?                 @relation(fields: [ownerId], references: [id])
 }
 
 enum WhatsappConnectStatus {

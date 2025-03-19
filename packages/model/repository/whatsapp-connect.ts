@@ -8,6 +8,8 @@ import {
   getMessages,
   sendWhatsappMessagesBulk,
   removeMessagesBulk as baseRemoveMessagesBulk,
+  refreshChatList as baseRefreshChatList,
+  getChatList as BaseGetChatList,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
 import { formatPrice } from "@repo/model/lib/utils";
@@ -16,11 +18,11 @@ import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
 import {
   TMessageBulk,
+  UpdateChatListProps,
   UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
 import { getCurrentUser } from "./user";
 import { WhatsappConnectStatus } from "../types/enums";
-import { getChatList as BaseGetChatList } from "../integrations/whatsapp";
 
 export const getChatList = async (businessId: string) => {
   const connect = await getWhatsappConnectByBusinessId(businessId);
@@ -28,6 +30,26 @@ export const getChatList = async (businessId: string) => {
     throw new Error("Business not connected to whatsapp");
   }
   return BaseGetChatList(connect.phone);
+};
+
+export const refreshChatList = async (businessId: string) => {
+  const connect = await getWhatsappConnectByBusinessId(businessId);
+  if (!connect) {
+    throw new Error("Business not connected to whatsapp");
+  }
+  await baseRefreshChatList(connect.phone, connect.id);
+  await whatsappConnectRepository.updateChatList(connect.id, true);
+};
+
+export const updateChatListListener = async ({
+  data: { id },
+}: {
+  data: UpdateChatListProps;
+}) => {
+  const entity = await whatsappConnectRepository.getById(id);
+  if (entity) {
+    return whatsappConnectRepository.updateChatList(entity.id, false);
+  }
 };
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
