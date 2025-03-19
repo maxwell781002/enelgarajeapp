@@ -15,7 +15,6 @@ import { addProductFields } from "@repo/model/repository/product";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
 import {
-  ChatType,
   TMessageBulk,
   UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
@@ -116,7 +115,6 @@ export const sendProducts = async (
       senderPhone: connect.phone,
       mediaUrl: (product.image as any)?.url,
       chatId: process.env.BOT_WHATSAPP_TESTING_ID as string, // TODO: change to business whatsapp id
-      chatType: ChatType.GROUP,
       previewLink: false,
     })),
     scheduledTime,

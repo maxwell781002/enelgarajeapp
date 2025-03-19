@@ -66,7 +66,6 @@ export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
       message: message.message,
       preview_link: message.previewLink,
       chat_id: message.chatId,
-      chat_type: message.chatType,
       sender_phone: message.senderPhone,
       media_url: message.mediaUrl,
     })),

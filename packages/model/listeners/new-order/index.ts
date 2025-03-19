@@ -93,7 +93,6 @@ const sendToWhatsapp = (order: CompleteOrder, message: string) => {
     message,
     preview_link: false,
     chat_id: process.env.BOT_WHATSAPP_TESTING_ID,
-    chat_type: "group",
     instance_id: process.env.WHATSAPP_TESTING_INSTANCE,
   };
   console.log("Whatsapp data ==>", body);
