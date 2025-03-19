@@ -20,6 +20,15 @@ import {
 } from "@repo/model/types/whatsapp-connect";
 import { getCurrentUser } from "./user";
 import { WhatsappConnectStatus } from "../types/enums";
+import { getChatList as BaseGetChatList } from "../integrations/whatsapp";
+
+export const getChatList = async (businessId: string) => {
+  const connect = await getWhatsappConnectByBusinessId(businessId);
+  if (!connect) {
+    throw new Error("Business not connected to whatsapp");
+  }
+  return BaseGetChatList(connect.phone);
+};
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -84,6 +93,7 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
 export const sendProducts = async (
   productsIds: string[],
   businessId: string,
+  chatId: string,
   scheduledTime: string,
 ) => {
   const connect: CompleteWhatsappConnect =
@@ -114,7 +124,7 @@ export const sendProducts = async (
       message: getMessage(product),
       senderPhone: connect.phone,
       mediaUrl: (product.image as any)?.url,
-      chatId: process.env.BOT_WHATSAPP_TESTING_ID as string, // TODO: change to business whatsapp id
+      chatId,
       previewLink: false,
     })),
     scheduledTime,

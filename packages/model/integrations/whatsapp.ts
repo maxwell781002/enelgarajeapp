@@ -97,3 +97,7 @@ export const removeMessagesBulk = (scheduledTime: string) => {
     `/messages/remove-messages-bulk/${scheduledTime}` as string,
   );
 };
+
+export const getChatList = async (phone: string) => {
+  return (await doRequest("GET", `/instances/get-chat-list/${phone}`)).json();
+};
