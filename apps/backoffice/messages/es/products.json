@@ -61,6 +61,8 @@
       "continue": "Borrar"
     },
     "phChatList": "Selecciona el grupo",
-    "Required": "Requerido"
+    "Required": "Requerido",
+    "refreshChatListMessage": "¿Deseas recargar la lista de grupos?",
+    "refreshChatList": "Recargar"
   }
 }

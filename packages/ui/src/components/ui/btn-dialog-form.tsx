@@ -46,6 +46,7 @@ export function BtnDialogForm({
         variant={btnVariant}
         onClick={toggle}
         size={btnIcon ? "icon" : "default"}
+        type="button"
       >
         {btnIcon || btnText}
       </Button>

@@ -6,7 +6,6 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/button";
 import { useState } from "react";
 import { phoneSchema } from "@repo/model/validation/general";
-import { CompleteWhatsappConnect } from "@repo/model/zod/whatsappconnect";
 
 export type NoConnectedProps = {
   create: (data: any, afterCreate?: () => void) => void;

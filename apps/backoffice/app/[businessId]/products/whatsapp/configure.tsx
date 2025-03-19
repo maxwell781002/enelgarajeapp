@@ -24,12 +24,14 @@ import { useToast } from "@repo/ui/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
-import EntitySelect, { Item } from "@repo/ui/components/entity-select";
+import ChatListSelect, { Item } from "@repo/ui/components/chat-list/index";
 
 export type ConfigureProps = {
   action: (productIds: string[], date: string, chatId: string) => Promise<void>;
   businessId: string;
   chatList: Item[];
+  refreshChatList: () => void;
+  getChatList: () => Promise<Item[]>;
 };
 
 const resolver = zodResolver(
@@ -43,6 +45,8 @@ export default function Configure({
   action,
   businessId,
   chatList,
+  refreshChatList,
+  getChatList,
 }: ConfigureProps) {
   const products = useStore((state) => state.productList);
   const clear = useStore((state) => state.clear);
@@ -101,10 +105,14 @@ export default function Configure({
                 render={({ field, fieldState: { error } }: any) => (
                   <FormItem>
                     <FormControl>
-                      <EntitySelect
+                      <ChatListSelect
                         {...field}
+                        t={t}
                         items={chatList}
                         placeholder={t("phChatList")}
+                        refresh={refreshChatList}
+                        businessId={businessId}
+                        getChatList={getChatList}
                       />
                     </FormControl>
                     <FormMessage>
