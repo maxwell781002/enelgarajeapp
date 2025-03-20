@@ -19,7 +19,6 @@ export type Item = BaseItem;
 export type RefreshChatListContentProps = {
   isRefreshing: boolean;
   refresh: () => any;
-  toggleDialog?: () => void;
   t: (key: string) => string;
 };
 
@@ -53,7 +52,9 @@ export default function ChatListSelect({
     doRefresh,
     loading: isRefreshing,
     chatList,
-  } = useUpdateChatList(businessId, refresh, getChatList, items);
+    open,
+    toggle,
+  } = useUpdateChatList(businessId, refresh, getChatList, items, t);
   return (
     <div className="flex items-center gap-2">
       <EntitySelect {...props} items={chatList} />
@@ -64,6 +65,8 @@ export default function ChatListSelect({
         t={t}
         refresh={doRefresh}
         isRefreshing={isRefreshing}
+        toggle={toggle}
+        open={open}
         {...props}
       />
     </div>

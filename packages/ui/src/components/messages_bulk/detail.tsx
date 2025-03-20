@@ -5,6 +5,7 @@ import { Badge } from "@repo/ui/components/ui/badge";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import Markdown from "@repo/ui/components/markdown";
 import { formatDateZn } from "@repo/model/lib/date";
+import { useToggle } from "@repo/ui/hooks/useToggle";
 
 export const dateString = (sent_at: string) => {
   const date = new Date(sent_at);
@@ -43,8 +44,10 @@ export default function MessageBulkDetail({
 }: MessageBulkDetailProps) {
   const t = useTranslations("MessageBulk");
   console.log(messageBulk);
-  const handleRemove = (...args: any) => {
-    return remove(messageBulk.scheduled_time, ...args);
+  const [open, toggle] = useToggle();
+  const handleRemove = async (...args: any) => {
+    await remove(messageBulk.scheduled_time, ...args);
+    toggle();
   };
   return (
     <BackPage
@@ -70,6 +73,8 @@ export default function MessageBulkDetail({
                 textButton={t("removeMessage")}
                 action={handleRemove}
                 textError={t("removeMessageError")}
+                open={open}
+                toggle={toggle}
               />
             )}
           </div>

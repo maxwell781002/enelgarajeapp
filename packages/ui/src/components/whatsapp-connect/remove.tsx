@@ -1,25 +1,26 @@
 "use client";
 
 import { CompleteBusiness } from "@repo/model/zod/business";
-import { BtnDialogForm } from "@repo/ui/components/ui/btn-dialog-form";
+import {
+  BtnDialogForm,
+  BtnDialogFormProps,
+} from "@repo/ui/components/ui/btn-dialog-form";
 import { useTranslations } from "next-intl";
 import { Button } from "@repo/ui/components/button";
 
 export type RemoveWhatsappConnectContentProps = {
   business: CompleteBusiness;
   isRemoving: boolean;
-  remove: (afterRemove?: () => void) => any;
-  toggleDialog?: () => void;
+  remove: () => any;
 };
 
 function RemoveWhatsappConnectContent({
   isRemoving,
   remove,
-  toggleDialog,
 }: RemoveWhatsappConnectContentProps) {
   const t = useTranslations("Business");
   const doRemove = async () => {
-    await remove(() => toggleDialog?.());
+    await remove();
   };
   return (
     <>
@@ -31,8 +32,11 @@ function RemoveWhatsappConnectContent({
   );
 }
 
+export type RemoveWhatsappConnectProps = BtnDialogFormProps &
+  RemoveWhatsappConnectContentProps;
+
 export default function RemoveWhatsappConnect(
-  props: RemoveWhatsappConnectContentProps,
+  props: RemoveWhatsappConnectProps,
 ) {
   const t = useTranslations("Business");
   return (

@@ -10,22 +10,20 @@ import { phoneSchema } from "@repo/model/validation/general";
 export type NoConnectedProps = {
   create: (data: any, afterCreate?: () => void) => void;
   isCreating: boolean;
-  toggleDialog?: () => void;
+  openConnect: boolean;
+  toggleConnect: () => void;
 };
 
-const Form = ({ create, isCreating, toggleDialog }: NoConnectedProps) => {
+const Form = ({ create, isCreating }: NoConnectedProps) => {
   const t = useTranslations("Business");
   const [phone, setPhone] = useState();
   const validation = phoneSchema.safeParse(phone).error;
   const errorMessage = validation?.errors.map((error: any) => error.message);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await create(
-      {
-        phone,
-      },
-      () => toggleDialog?.(),
-    );
+    await create({
+      phone,
+    });
   };
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -65,7 +63,11 @@ const Form = ({ create, isCreating, toggleDialog }: NoConnectedProps) => {
   );
 };
 
-export default function NoConnected(props: NoConnectedProps) {
+export default function NoConnected({
+  openConnect,
+  toggleConnect,
+  ...props
+}: NoConnectedProps) {
   const t = useTranslations("Business");
   return (
     <div>
@@ -75,6 +77,8 @@ export default function NoConnected(props: NoConnectedProps) {
           btnText={t("btnWhatsappConnect")}
           loadingText={t("btnWhatsappConnect")}
           Component={Form}
+          open={openConnect}
+          toggle={toggleConnect}
           {...props}
         />
       </div>

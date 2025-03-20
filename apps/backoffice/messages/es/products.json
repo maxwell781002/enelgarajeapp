@@ -63,6 +63,7 @@
     "phChatList": "Selecciona el grupo",
     "Required": "Requerido",
     "refreshChatListMessage": "¿Deseas recargar la lista de grupos?",
-    "refreshChatList": "Recargar"
+    "refreshChatList": "Recargar",
+    "chatListUpdated": "Lista de grupos actualizada"
   }
 }

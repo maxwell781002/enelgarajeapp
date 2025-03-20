@@ -19,18 +19,22 @@ import { useTransition } from "react";
 import { useToast } from "@repo/ui/components/ui/use-toast";
 import { Button } from "@repo/ui/components/button";
 import { WhatsappConnectStatus } from "@repo/model/types/enums";
+import { useToggle } from "@repo/ui/hooks/useToggle";
 
 export type WrapperProps = {
   retrieveCode: () => Promise<CompleteWhatsappConnect>;
-  create: (
-    data: any,
-    afterCreate?: () => void,
-  ) => Promise<CompleteWhatsappConnect>;
+  create: (data: any) => Promise<CompleteWhatsappConnect>;
 } & Omit<
   ContentProps,
-  "loading" | "whatsappConnect" | "setWhatsappConnect" | "isCreating" | "create"
+  | "loading"
+  | "whatsappConnect"
+  | "setWhatsappConnect"
+  | "isCreating"
+  | "create"
+  | "openConnect"
+  | "toggleConnect"
 > &
-  Omit<RemoveWhatsappConnectContentProps, "isRemoving">;
+  Omit<RemoveWhatsappConnectContentProps, "isRemoving" | "open" | "toggle">;
 
 export default function Wrapper({
   business,
@@ -46,23 +50,25 @@ export default function Wrapper({
   const t = useTranslations("Business");
   const [isRemoving, startRemove] = useTransition();
   const { toast } = useToast();
-  const doRemove = (afterRemove?: () => void) => {
+  const [openRemove, toggleRemove] = useToggle();
+  const doRemove = () => {
     return startRemove(async () => {
       await remove();
       setWhatsappConnect(null);
-      afterRemove?.();
+      toggleRemove();
       toast({
         title: t("disconnectWhatsappSuccess"),
       });
     });
   };
+  const [openConnect, toggleConnect] = useToggle();
   const [isCreating, startCreate] = useTransition();
-  const doCreate = (data: any, afterCreate?: () => void) => {
+  const doCreate = (data: any) => {
     return startCreate(async () => {
       try {
         const newWhatsappConnect = await create(data);
         setWhatsappConnect(newWhatsappConnect);
-        afterCreate?.();
+        toggleConnect();
       } catch (error: any) {
         toast({
           title: t("connectWhatsappError"),
@@ -101,6 +107,8 @@ export default function Wrapper({
                   business={business}
                   remove={doRemove}
                   isRemoving={isRemoving}
+                  open={openRemove}
+                  toggle={toggleRemove}
                   {...props}
                 />
               </div>
@@ -116,6 +124,8 @@ export default function Wrapper({
           setWhatsappConnect={setWhatsappConnect}
           create={doCreate}
           isCreating={isCreating}
+          openConnect={openConnect}
+          toggleConnect={toggleConnect}
           {...props}
         />
       </CardContent>
