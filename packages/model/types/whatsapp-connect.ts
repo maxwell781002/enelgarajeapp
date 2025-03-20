@@ -1,14 +1,7 @@
-export enum ChatType {
-  GROUP = "group",
-  CHAT = "chat",
-  CHANNEL = "channel",
-}
-
 export type TMessage = {
   chatId: string;
   message: string;
   senderPhone: string;
-  chatType: ChatType;
   mediaUrl?: string;
   previewLink?: boolean;
 };
@@ -36,4 +29,8 @@ export type UpdateSecureCodeProps = {
   id: string;
   secureCode: string;
   paringCode: string;
+};
+
+export type UpdateChatListProps = {
+  id: string;
 };

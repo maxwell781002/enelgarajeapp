@@ -8,6 +8,8 @@ import {
   getMessages,
   sendWhatsappMessagesBulk,
   removeMessagesBulk as baseRemoveMessagesBulk,
+  refreshChatList as baseRefreshChatList,
+  getChatList as BaseGetChatList,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
 import { formatPrice } from "@repo/model/lib/utils";
@@ -15,12 +17,40 @@ import { addProductFields } from "@repo/model/repository/product";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
 import {
-  ChatType,
   TMessageBulk,
+  UpdateChatListProps,
   UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
 import { getCurrentUser } from "./user";
 import { WhatsappConnectStatus } from "../types/enums";
+
+export const getChatList = async (businessId: string) => {
+  const connect = await getWhatsappConnectByBusinessId(businessId);
+  if (!connect) {
+    throw new Error("Business not connected to whatsapp");
+  }
+  return BaseGetChatList(connect.phone);
+};
+
+export const refreshChatList = async (businessId: string) => {
+  const connect = await getWhatsappConnectByBusinessId(businessId);
+  if (!connect) {
+    throw new Error("Business not connected to whatsapp");
+  }
+  await baseRefreshChatList(connect.phone, connect.id);
+  await whatsappConnectRepository.updateChatList(connect.id, true);
+};
+
+export const updateChatListListener = async ({
+  data: { id },
+}: {
+  data: UpdateChatListProps;
+}) => {
+  const entity = await whatsappConnectRepository.getById(id);
+  if (entity) {
+    return whatsappConnectRepository.updateChatList(entity.id, false);
+  }
+};
 
 export const getWhatsappConnectByBusinessId = (businessId: string) => {
   return businessRepository.retrieveWhatsappConnect(businessId);
@@ -85,6 +115,7 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
 export const sendProducts = async (
   productsIds: string[],
   businessId: string,
+  chatId: string,
   scheduledTime: string,
 ) => {
   const connect: CompleteWhatsappConnect =
@@ -115,8 +146,7 @@ export const sendProducts = async (
       message: getMessage(product),
       senderPhone: connect.phone,
       mediaUrl: (product.image as any)?.url,
-      chatId: process.env.BOT_WHATSAPP_TESTING_ID as string, // TODO: change to business whatsapp id
-      chatType: ChatType.GROUP,
+      chatId,
       previewLink: false,
     })),
     scheduledTime,

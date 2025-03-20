@@ -24,6 +24,7 @@ describe("POST /api/whatsapp-webhook", () => {
     whatsappConnect = await whatsappConnectFactory({
       phone: "5491111111111",
       secureCode: "456",
+      updatingChatList: true,
     });
     business = await businessFactory({
       whatsappConnectId: whatsappConnect.id,
@@ -102,5 +103,27 @@ describe("POST /api/whatsapp-webhook", () => {
       business.id,
     );
     expect(entity?.status).to.equal(WhatsappConnectStatus.DISCONNECTED);
+  });
+
+  it("Refresh chat list", async () => {
+    const result = await (
+      await POST(
+        new NextRequest(`http://localhost/api/whatsapp-webhook`, {
+          method: "POST",
+          body: JSON.stringify({
+            event: "chat_list_updated",
+            phone: whatsappConnect.phone,
+            data: {
+              id: whatsappConnect.id,
+            },
+          }),
+        }),
+      )
+    ).json();
+    expect(result.message).to.equal("Success");
+    const entity = await businessRepository.retrieveWhatsappConnect(
+      business.id,
+    );
+    expect(entity?.updatingChatList).to.equal(false);
   });
 });

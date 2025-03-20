@@ -6,8 +6,9 @@ import { useState } from "react";
 
 export type BtnConfirmProps = {
   isLoading: boolean;
-  actionConfirm: (onSuccess?: () => void, onError?: () => void) => any;
-  toggleDialog?: () => void;
+  action: () => any;
+  open: boolean;
+  toggle?: () => void;
   textError?: string;
   textButton?: string;
   description?: string;
@@ -17,8 +18,7 @@ export type BtnConfirmProps = {
 
 function BtnConfirmContent({
   isLoading,
-  actionConfirm,
-  toggleDialog,
+  action,
   description,
   textButton,
   textError,
@@ -26,10 +26,7 @@ function BtnConfirmContent({
   const [showError, setShowError] = useState<boolean>(false);
   const doAction = async () => {
     setShowError(false);
-    await actionConfirm(
-      () => toggleDialog?.(),
-      () => setShowError(true),
-    );
+    await action();
   };
   return (
     <>
@@ -44,6 +41,8 @@ function BtnConfirmContent({
 
 export default function BtnConfirm({
   action,
+  toggle,
+  open,
   ...props
 }: Omit<BtnConfirmProps, "actionConfirm"> & {
   action: (onSuccess?: () => void, onError?: () => void) => any;
@@ -52,7 +51,9 @@ export default function BtnConfirm({
     <BtnDialogForm
       Component={BtnConfirmContent}
       btnVariant={"destructive"}
-      actionConfirm={action}
+      action={action}
+      toggle={toggle}
+      open={open}
       {...props}
     />
   );

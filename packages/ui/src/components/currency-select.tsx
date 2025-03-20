@@ -1,6 +1,9 @@
 import { Currency } from "@repo/model/types/enums";
-import { SelectWidget } from "./select";
-import { SelectWidgetProps } from "./select.js";
+import {
+  SelectWidget,
+  SelectWidgetProps,
+  Item,
+} from "@repo/ui/components/select";
 
 export default function CurrencySelect(
   props: Omit<SelectWidgetProps, "items">,
@@ -9,5 +12,5 @@ export default function CurrencySelect(
     label,
     value,
   }));
-  return <SelectWidget items={currencyItems} {...props} />;
+  return <SelectWidget items={currencyItems as Item[]} {...props} />;
 }

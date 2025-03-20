@@ -1,3 +1,5 @@
+"use client";
+
 import { CompleteBusiness } from "@repo/model/zod/business";
 import Form from "./form";
 import {
@@ -6,6 +8,7 @@ import {
 } from "@repo/ui/components/ui/btn-dialog-form";
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { useTranslations } from "next-intl";
+import { useToggle } from "@repo/ui/hooks/useToggle";
 
 export type DialogFormProps = {
   isLimited?: boolean;
@@ -19,6 +22,7 @@ export function DialogForm({
   ...props
 }: DialogFormProps) {
   const t = useTranslations("PaymentMethod");
+  const [open, toggle] = useToggle();
   if (business && isLimited) {
     return (
       <UpgradePlan
@@ -35,6 +39,8 @@ export function DialogForm({
       {...props}
       title={title}
       btnVariant={"default"}
+      toggle={toggle}
+      open={open}
     />
   );
 }

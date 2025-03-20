@@ -4,6 +4,7 @@ import {
   TMessageBulk,
   TMessagesRetrieve,
   UpdateSecureCodeProps,
+  UpdateChatListProps,
 } from "@repo/model/types/whatsapp-connect";
 
 const doRequest = async (method: string, url: string, body: any = null) => {
@@ -66,7 +67,6 @@ export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
       message: message.message,
       preview_link: message.previewLink,
       chat_id: message.chatId,
-      chat_type: message.chatType,
       sender_phone: message.senderPhone,
       media_url: message.mediaUrl,
     })),
@@ -97,4 +97,21 @@ export const removeMessagesBulk = (scheduledTime: string) => {
     "DELETE",
     `/messages/remove-messages-bulk/${scheduledTime}` as string,
   );
+};
+
+export const getChatList = async (phone: string) => {
+  return (await doRequest("GET", `/instances/get-chat-list/${phone}`)).json();
+};
+
+export const refreshChatList = (phone: string, id: string) => {
+  const body: {
+    phone: string;
+    data: UpdateChatListProps;
+  } = {
+    phone,
+    data: {
+      id,
+    },
+  };
+  return doRequest("POST", "/instances/refresh-chat-list" as string, body);
 };

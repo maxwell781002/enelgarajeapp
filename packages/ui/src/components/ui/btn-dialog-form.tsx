@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@repo/ui/components/ui/dialog";
+import { TToggle } from "@repo/ui/hooks/useToggle";
 
 export type FormProps<T> = {
   action: (formData: any) => Promise<void>;
@@ -20,6 +21,8 @@ export type BtnDialogFormProps = {
   btnText?: string;
   btnVariant: ButtonProps["variant"];
   Component: React.ComponentType<FormProps<any>>;
+  toggle: TToggle;
+  open: boolean;
 } & FormProps<any>;
 
 export function BtnDialogForm({
@@ -29,16 +32,14 @@ export function BtnDialogForm({
   Component,
   action,
   btnVariant = "outline",
+  toggle,
+  open,
   ...props
 }: BtnDialogFormProps): JSX.Element {
   btnText = btnText || title;
-  const [open, setOpen] = useState(false);
   const handleAction = async (formData: any) => {
     await action(formData);
-    setOpen(false);
-  };
-  const toggle = () => {
-    setOpen((prev) => !prev);
+    toggle();
   };
   return (
     <>
@@ -46,6 +47,7 @@ export function BtnDialogForm({
         variant={btnVariant}
         onClick={toggle}
         size={btnIcon ? "icon" : "default"}
+        type="button"
       >
         {btnIcon || btnText}
       </Button>
@@ -55,7 +57,7 @@ export function BtnDialogForm({
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <Component action={handleAction} {...props} toggleDialog={toggle} />
+            <Component action={handleAction} {...props} />
           </div>
         </DialogContent>
       </Dialog>

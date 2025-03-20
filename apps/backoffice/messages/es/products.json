@@ -59,6 +59,11 @@
       "description": "Solo puede borrar un producto si no se ha hecho ninguna compra con él.",
       "cancel": "Cancelar",
       "continue": "Borrar"
-    }
+    },
+    "phChatList": "Selecciona el grupo",
+    "Required": "Requerido",
+    "refreshChatListMessage": "¿Deseas recargar la lista de grupos?",
+    "refreshChatList": "Recargar",
+    "chatListUpdated": "Lista de grupos actualizada"
   }
 }

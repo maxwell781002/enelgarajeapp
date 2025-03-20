@@ -3,12 +3,14 @@ import {
   authenticatedWhatsapp,
   disconnectWhatsapp,
   updateSecureCode,
+  updateChatListListener,
 } from "@repo/model/repository/whatsapp-connect";
 
 const listeners: any = {
   create_instance: updateSecureCode,
   authenticated: authenticatedWhatsapp,
   disconnected: disconnectWhatsapp,
+  chat_list_updated: updateChatListListener,
 };
 
 export async function POST(req: NextRequest) {
