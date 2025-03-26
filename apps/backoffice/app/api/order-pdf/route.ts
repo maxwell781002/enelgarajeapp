@@ -1,6 +1,16 @@
 export async function GET() {
   const url = process.env.PDF_GENERATOR_URL as string;
-  const response = await fetch(url);
+  const response = await fetch(`${url}/api/generate`, {
+    method: "POST",
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "Pepe ff",
+    }),
+  });
+
   const blob = await response.blob();
   return new Response(blob, {
     headers: {
