@@ -37,7 +37,8 @@
     "CASH": "Efectivo",
     "commission": "Comisión",
     "cardNota": "Notas",
-    "cardReferredBy": "Referido por"
+    "cardReferredBy": "Referido por",
+    "btnDownloadInvoice": "Factura"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",

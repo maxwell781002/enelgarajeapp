@@ -1,4 +1,8 @@
+import { getCurrentUser } from "@repo/model/repository/user";
+
 export async function GET() {
+  const user = await getCurrentUser();
+  console.log(user);
   const url = process.env.PDF_GENERATOR_URL as string;
   const response = await fetch(`${url}/api/generate`, {
     method: "POST",
