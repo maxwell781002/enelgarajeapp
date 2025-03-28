@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   businessFactory,
   clearBd,
@@ -9,6 +9,13 @@ import {
 import { UserBusinessType } from "../../../types/enums";
 import { OrderStatus } from "../../../prisma/generated/client";
 import { orderRepository } from "../../../repositories/order";
+
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 describe("collaboratorAndReferredPaginate", () => {
   let user1;

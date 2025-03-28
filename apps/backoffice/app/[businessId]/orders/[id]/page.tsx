@@ -30,7 +30,7 @@ export default async function Page({
         options={orderRepository.orderToChange(order.status)}
       />
       <ButtonDownloadFile
-        url={"/api/order-pdf"}
+        url={`/api/order-pdf/${id}`}
         label={t("btnDownloadInvoice")}
         fileName={order.identifier ?? ""}
       />

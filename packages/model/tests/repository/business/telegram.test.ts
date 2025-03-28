@@ -1,8 +1,15 @@
-import { afterAll, describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it, vi } from "vitest";
 import { clearBd } from "../../factories";
 import { createOrUpdateBusiness } from "../../../repository/business";
 import { telegramBusinessRepository } from "../../../repositories/telegram-business";
 import { BusinessPlan } from "../../../prisma/generated/client";
+
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 describe("business", () => {
   let business;
