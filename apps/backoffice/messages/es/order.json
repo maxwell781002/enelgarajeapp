@@ -40,9 +40,6 @@
     "cardReferredBy": "Referido por",
     "btnDownloadInvoice": "Factura"
   },
-  "Invoice": {
-    "title": "Factura"
-  },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",
     "OrderList": "Pedidos"
