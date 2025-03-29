@@ -10,6 +10,8 @@
     "phDescription": "Descripción del negocio",
     "lbUserId": "Propietario",
     "phUserId": "Propietario",
+    "lbWhatsappGroupChatId": "Id del grupo de whatsapp",
+    "phWhatsappGroupChatId": "Id del grupo de whatsapp",
     "lbSlug": "Dominio",
     "phSlug": "Dominio del negocio",
     "lbPhone": "Teléfono",

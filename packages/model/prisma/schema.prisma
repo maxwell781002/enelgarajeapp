@@ -53,6 +53,7 @@ model Business {
   customers              Customer[]
   tickets                CollaboratorTicket[]
   businessSite           BusinessSite?
+  whatsappGroupChatId    String?
   whatsappConnect        WhatsappConnect?       @relation(fields: [whatsappConnectId], references: [id])
   whatsappConnectId      String?
 }
