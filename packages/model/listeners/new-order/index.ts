@@ -10,6 +10,7 @@ import {
   generateCustomerTelegramMessage,
   generateCustomerWhatsappMessage,
 } from "./customer";
+import { sendWhatsappMessages } from "../../integrations/whatsapp";
 
 const HOST = "https://backoffice.enelgaraje.com";
 
@@ -42,7 +43,8 @@ const sendToPrivateGroup = (order: CompleteOrder, message: string) => {
   if (!order.business?.sendOrderToWhatsapp) {
     return;
   }
-  const message_whatsapp = `Hola%20tiene%20una%20nueva%20orden%20${order.identifier}`;
+  const message_whatsapp =
+    `Hola%20tiene%20una%20nueva%20orden%20${order.identifier}`;
   message = `
 ${message}
 
@@ -80,27 +82,15 @@ const sendMessage = (message: any) => {
 };
 
 const sendToWhatsapp = (order: CompleteOrder, message: string) => {
-  console.log("BUSINESS_TESTING_ID", process.env.BUSINESS_TESTING_ID);
-  if (order.businessId !== process.env.BUSINESS_TESTING_ID) {
+  console.log("Whatsapp message ==>", message);
+  if (!order.business?.whatsappGroupChatId) {
     return;
   }
-  if (!process.env.BOT_WHATSAPP_URL) {
-    console.log("BOT_WHATSAPP_URL is not configured");
-    return;
-  }
-  const url = `${process.env.BOT_WHATSAPP_URL}/instances/send-message`;
-  const body = {
+  console.log("Whatsapp chatId ==>", order.business?.whatsappGroupChatId);
+  return sendWhatsappMessages({
+    chatId: order.business?.whatsappGroupChatId,
     message,
-    preview_link: false,
-    chat_id: process.env.BOT_WHATSAPP_TESTING_ID,
-    instance_id: process.env.WHATSAPP_TESTING_INSTANCE,
-  };
-  console.log("Whatsapp data ==>", body);
-  return fetch(url as string, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    senderPhone: process.env.PHONE_WHATSAPP_BOT as string,
+    previewLink: false,
   });
 };

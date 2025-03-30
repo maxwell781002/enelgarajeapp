@@ -1,10 +1,11 @@
 import {
   TCreateInstance,
-  TRetrieveCode,
+  TMessage,
   TMessageBulk,
   TMessagesRetrieve,
-  UpdateSecureCodeProps,
+  TRetrieveCode,
   UpdateChatListProps,
+  UpdateSecureCodeProps,
 } from "@repo/model/types/whatsapp-connect";
 
 const doRequest = async (method: string, url: string, body: any = null) => {
@@ -72,6 +73,19 @@ export const sendWhatsappMessagesBulk = async (messageBulk: TMessageBulk) => {
     })),
     scheduled_time: messageBulk.scheduledTime,
     external_id: messageBulk.externalId,
+  };
+  console.log("Whatsapp data ==>", body);
+  return doRequest("POST", url, body);
+};
+
+export const sendWhatsappMessages = async (message: TMessage) => {
+  const url = "/instances/send-message";
+  const body = {
+    message: message.message,
+    preview_link: message.previewLink,
+    chat_id: message.chatId,
+    sender_phone: message.senderPhone,
+    media_url: message.mediaUrl,
   };
   console.log("Whatsapp data ==>", body);
   return doRequest("POST", url, body);
