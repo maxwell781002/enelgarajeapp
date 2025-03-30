@@ -33,10 +33,6 @@ const getOrderData = async (
       },
       items: [
         {
-          label: t("commission"),
-          value: formatPrice(order.commission, order.currency),
-        },
-        {
           label: t("shipping"),
           value: formatPrice(order.shipping, order.currency),
         },
@@ -157,7 +153,8 @@ export async function GET(
     headers: {
       "Content-Type": "application/pdf",
       "Cache-Control": "no-store, max-age=0",
-      "Content-Disposition": `attachment; filename="order-${order.identifier}.pdf"`,
+      "Content-Disposition":
+        `attachment; filename="order-${order.identifier}.pdf"`,
     },
   });
 }
