@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   businessFactory,
   clearBd,
@@ -18,6 +18,13 @@ import { collaboratorProfileRepository } from "../../../repositories/collaborato
 // The collaborator 1 will have 2 invoices one of them confirmed
 // The collaborator 1 will confirm another invoice
 // The collaborator will have 3 orders as referred and 2 of then payed.
+
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
 
 const createOrder = async (
   business,

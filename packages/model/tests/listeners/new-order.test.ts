@@ -11,6 +11,13 @@ import {
 import { sendOrderToTelegram } from "../../listeners/new-order/index";
 import { OrderSend } from "../../lib/event-emitter/events";
 
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
+
 describe("new-order", () => {
   let order;
   let business;

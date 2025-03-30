@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { telegramBusinessRepository } from "@repo/model/repositories/telegram-business";
 import { TUserBusinessType, UserBusinessType } from "@repo/model/types/enums";
 import { UserIsNotCollaboratorError } from "@repo/model/errors/bad-request";
+import { getCurrentUser } from "./user";
+import { SecurityUser } from "../lib/auth";
 
 export const getCurrentBusiness = async () => {
   const headersList = headers();
@@ -16,6 +18,21 @@ export const getBusinessById = async (businessId: string) => {
 
 export const getAllBusinessData = (businessId: string) => {
   return businessRepository.getAllBusinessData(businessId);
+};
+
+// TODO: Make the testing
+export const checkBusinessAccess = async (
+  businessId: string,
+  user: SecurityUser | null = null,
+) => {
+  user = user ?? (await getCurrentUser());
+  if (!user) {
+    return null;
+  }
+  return (
+    user.businessIds.includes(businessId) ||
+    user.businessCollaboratorIds.includes(businessId)
+  );
 };
 
 export const createOrUpdateBusiness = async (

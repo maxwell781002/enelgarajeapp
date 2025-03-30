@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { formatDate } from "@repo/model/lib/date";
 import CardDisplay from "@repo/ui/components/card-display";
-import { getCityByCode, getStateByCode } from "@repo/model/lib/locations/index";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import { TCurrency } from "@repo/model/types/enums";
 import OrderProducts, {
@@ -15,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
+import { getAddressData } from "@repo/ui/components/order-page/address-data";
 
 export type CollaboratorOrderProps = {
   order: CompleteOrder;
@@ -25,31 +25,7 @@ export default async function CollaboratorOrder({
   ...props
 }: CollaboratorOrderProps) {
   const t = await getTranslations("OrderDetailBack");
-  const address = order.orderAddress?.address;
-  const addressItems = address
-    ? [
-        {
-          label: t("address"),
-          value: address.address,
-        },
-        {
-          label: t("neighborhood"),
-          value: address.neighborhood?.name,
-        },
-        {
-          label: t("city"),
-          value: getCityByCode(address.city)?.name,
-        },
-        {
-          label: t("state"),
-          value: getStateByCode(address.state)?.name,
-        },
-        {
-          label: t("reference"),
-          value: address.reference,
-        },
-      ]
-    : [];
+  const addressItems = await getAddressData(order);
   const ticket = order.ticket;
   const user = order.user as CompleteUser;
   return (

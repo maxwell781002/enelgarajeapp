@@ -2,6 +2,13 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { businessFactory, clearBd, productFactory } from "../../factories";
 import { paginateFrontend } from "../../../repository/product";
 
+const mocksAuth = vi.hoisted(() => ({
+  auth: vi.fn(() => ({})),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: mocksAuth.auth,
+}));
+
 vi.mock("../../../repository/order", () => ({
   getCurrentOrder: () => null,
   hasProduct: () => null,

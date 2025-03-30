@@ -162,7 +162,10 @@ export class OrderRepository extends BaseRepository<
     return (
       ids.length ===
       (await prisma().order.count({
-        where: { id: { in: ids }, OR: [{ userId }, { referredById: userId }] },
+        where: {
+          id: { in: ids },
+          OR: [{ userId }, { referredById: userId }],
+        },
       }))
     );
   }
@@ -187,7 +190,9 @@ export class OrderRepository extends BaseRepository<
   }
 
   protected generateIdentifier(date: Date, position: number) {
-    return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+    return `${date.getFullYear()}${
+      date.getMonth() + 1
+    }${date.getDate()}-${position}`;
   }
 
   protected async getLastPosition(businessId: string) {
@@ -262,6 +267,7 @@ export class OrderRepository extends BaseRepository<
     return prisma().order.findUnique({
       where: { id },
       include: {
+        business: true,
         user: true,
         ticket: {
           include: { customer: true },
