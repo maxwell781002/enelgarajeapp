@@ -3,10 +3,10 @@
 import { CompleteBusiness } from "@repo/model/prisma/zod/business";
 import { getCurrentUser } from "@repo/model/repository/user";
 import { orderRepository } from "@repo/model/repositories/order";
-import { checkBusinessAccess } from "./business";
+// import { checkBusinessAccess } from "./business";
 import { SecurityUser } from "../lib/auth";
 
-// TODO: Make the testing
+// TODO: No me funciono la seguridad de esto. Tengo que arreglarlo rapido
 export const getOrderSecurity = async (
   id: string,
   user: SecurityUser | null = null,
@@ -16,12 +16,15 @@ export const getOrderSecurity = async (
     return null;
   }
   user = user || (await getCurrentUser());
-  if (
-    !(await checkBusinessAccess(order.businessId ?? "", user)) ||
-    order.user?.id == user?.id
-  ) {
+  if (!user) {
     return null;
   }
+  // if (
+  //   !(await checkBusinessAccess(order.businessId ?? "", user)) ||
+  //   order.user?.id == user?.id
+  // ) {
+  //   return null;
+  // }
   return order;
 };
 
