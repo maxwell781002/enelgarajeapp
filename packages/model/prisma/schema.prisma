@@ -32,7 +32,6 @@ model Business {
   active                 Boolean                @default(true) /// @zod.optional()
   requestAddress         Boolean                @default(false) /// @zod.optional()
   plan                   BusinessPlan           @default(BASIC)
-  sendOrderToWhatsapp    Boolean                @default(false)
   canConnectWhatsapp     Boolean                @default(false) /// @zod.optional()
   defaultPaymentMethod   PaymentMethod?         @relation("defaultPaymentMehtod", fields: [defaultPaymentMethodId], references: [id])
   defaultPaymentMethodId String?                @unique()

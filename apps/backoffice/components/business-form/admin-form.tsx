@@ -101,23 +101,6 @@ export default function BusinessAdminForm({
       />
       <FormField
         control={form.control}
-        name="sendOrderToWhatsapp"
-        render={({ field, fieldState: { error } }: any) => (
-          <FormItem>
-            <FormLabel>{t("lbSendOrderToWhatsapp")}</FormLabel>
-            <FormControl>
-              <Switch
-                {...field}
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name="whatsappGroupChatId"
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>

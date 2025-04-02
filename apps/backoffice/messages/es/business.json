@@ -39,7 +39,6 @@
     "phPlan": "Seleccionar plan",
     "BASIC": "Básico",
     "ENTERPRISE": "Empresarial",
-    "lbSendOrderToWhatsapp": "¿Mandar los mensajes para Whatsapp?",
     "tabAdmin": "Administración",
     "noPaymentMethod": "No tiene ningú medio de pago configurado.",
     "lbCurrency": "Moneda",
