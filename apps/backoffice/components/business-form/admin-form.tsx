@@ -129,23 +129,6 @@ export default function BusinessAdminForm({
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="canConnectWhatsapp"
-        render={({ field, fieldState: { error } }: any) => (
-          <FormItem>
-            <FormLabel>{t("lbCanConnectWhatsapp")}</FormLabel>
-            <FormControl>
-              <Switch
-                {...field}
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
-          </FormItem>
-        )}
-      />
       <div>
         <h3>
           {t("lbTelegram")}

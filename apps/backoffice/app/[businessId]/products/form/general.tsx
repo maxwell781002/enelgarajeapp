@@ -189,7 +189,19 @@ export default function GeneralProductForm({
           <FormItem>
             <FormLabel>{t("lbDescription")}</FormLabel>
             <FormControl>
-              {/*<Textarea placeholder={t("phDescription")} {...field} />*/}
+              <Editor {...field} />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="socialNetworksDescription"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbSocialNetworksDescription")}</FormLabel>
+            <FormControl>
               <Editor {...field} />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
