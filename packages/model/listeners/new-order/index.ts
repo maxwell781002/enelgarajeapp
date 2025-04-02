@@ -32,9 +32,7 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
 
   return Promise.all([
     sendToBusinessGroup(order, telegramMethod(order, HOST)),
-    sendToWhatsapp(order, whatsappMethod(order, HOST))
-      ?.then((response: Response) => response.text())
-      .then((text: string) => console.log("Whatsapp response ==>", text)),
+    sendToWhatsapp(order, whatsappMethod(order, HOST)),
   ]);
 };
 

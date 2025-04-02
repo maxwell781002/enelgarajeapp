@@ -10,6 +10,8 @@ import {
 } from "../factories";
 import { sendOrderToTelegram } from "../../listeners/new-order/index";
 import { OrderSend } from "../../lib/event-emitter/events";
+import { businessRepository } from "../../repositories/business";
+import { orderRepository } from "../../repositories/order";
 
 const mocksAuth = vi.hoisted(() => ({
   auth: vi.fn(() => ({})),
@@ -21,7 +23,6 @@ vi.mock("@repo/model/lib/auth", () => ({
 describe("new-order", () => {
   let order;
   let business;
-  let event;
 
   beforeAll(async () => {
     process.env.BOT_WEBHOOK_URL = "https://some.url";
@@ -45,7 +46,6 @@ describe("new-order", () => {
       price: 100,
       position: 0,
     });
-    event = new OrderSend(order);
   });
 
   afterAll(async () => {
@@ -55,16 +55,22 @@ describe("new-order", () => {
   });
 
   it("no telegram configured", async () => {
-    await sendOrderToTelegram(event);
+    const event = await orderRepository.getById(order.id);
+    await sendOrderToTelegram(new OrderSend(event));
     expect(global.fetch).toBeCalledTimes(0);
   });
 
   it("with telegram configured", async () => {
+    await businessRepository.update(business.id, {
+      ...business,
+      whatsappGroupChatId: "test",
+    });
     await telegramBusinessFactory({
       businessId: business.id,
       groupId: "groupId",
     });
-    await sendOrderToTelegram(event);
+    const event = await orderRepository.getById(order.id);
+    await sendOrderToTelegram(new OrderSend(event));
     expect(global.fetch).toBeCalledTimes(2);
   });
 });
