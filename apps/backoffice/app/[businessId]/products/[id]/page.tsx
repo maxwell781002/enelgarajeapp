@@ -1,15 +1,21 @@
 import { Pencil1Icon, Cross1Icon } from "@radix-ui/react-icons";
 import { productRepository } from "@repo/model/repositories/product";
 import BackPage from "@repo/ui/components/back-page";
-import ProductDetail from "@repo/ui/components/product-page/product";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import BtnRemove from "./button-remove";
-import { IProduct } from "@repo/model/types/product";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@repo/ui/components/ui/tabs";
 import BooleanValue from "@repo/ui/components/boolean-value";
 import SharedLinks from "@repo/ui/components/shared-links";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
+import ProductDetail from "@repo/ui/components/product-page/product";
+import { IProduct } from "@repo/model/types/product";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -64,7 +70,7 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             {t("lbStock")}: {product.stock}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row sm:gap-4 bg-white rounded-lg p-4 text-black">
+        <div className="flex flex-col sm:flex-row sm:gap-4 bg-white rounded-lg p-4 text-black mb-4">
           <p>{t("lbCollaboratorUrl")}</p>
           <SharedLinks
             socialNetworks={["FACEBOOK", "WHATSAPP", "TELEGRAM"]}
@@ -72,13 +78,29 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             text={product.name}
           />
         </div>
-        <ProductDetail
-          product={product as IProduct}
-          t={t}
-          showCommission
-          showStock
-          showBusinessProfit
-        />
+        <Tabs defaultValue="general">
+          <TabsList className="w-full">
+            <TabsTrigger value="general" className="w-full">
+              {t("tabGeneral")}
+            </TabsTrigger>
+            <TabsTrigger value="socialNetworks" className="w-full">
+              {t("tabSocialNetworks")}
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="general">
+            <ProductDetail
+              product={product as IProduct}
+              t={t}
+              showCommission
+              showStock
+              showBusinessProfit
+            />
+          </TabsContent>
+          <TabsContent value="socialNetworks">
+            aaaa
+            {/* <ProductDetailPage product={product} /> */}
+          </TabsContent>
+        </Tabs>
       </>
     </BackPage>
   );

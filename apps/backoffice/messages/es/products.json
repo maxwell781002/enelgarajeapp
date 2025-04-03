@@ -66,6 +66,7 @@
     "Required": "Requerido",
     "refreshChatListMessage": "¿Deseas recargar la lista de grupos?",
     "refreshChatList": "Recargar",
-    "chatListUpdated": "Lista de grupos actualizada"
+    "chatListUpdated": "Lista de grupos actualizada",
+    "tabSocialNetworks": "Vista de whatsapp"
   }
 }
