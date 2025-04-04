@@ -12,7 +12,11 @@ import { redirect } from "next/navigation";
 import TableLayout from "@repo/ui/components/table-layout/layout";
 import { getBusinessById } from "@repo/model/repository/business";
 import SendToWhatsapp from "./whatsapp/send";
-import { getWhatsappConnectByBusinessId } from "@repo/model/repository/whatsapp-connect";
+import {
+  getProductMessageText,
+  getWhatsappConnectByBusinessId,
+} from "@repo/model/repository/whatsapp-connect";
+import { addProductFields } from "@repo/model/repository/product";
 
 type PageProps = {
   searchParams: any;
@@ -31,13 +35,22 @@ export default async function Page({
     productRepository.getRepositoryModelName(),
     searchParams,
   );
-  const pagination = await list({ businessId });
+  let { data, ...pagination } = await list({ businessId });
   const categories = await categoryRepository.getAll(businessId);
   const handleSearch = async (query: any) => {
     "use server";
     const url = await search(query);
     return redirect(url);
   };
+  data = await Promise.all(
+    data.map(async (item: any) => {
+      const product = { business, ...addProductFields(item) };
+      return {
+        ...product,
+        _whatsappMessage: getProductMessageText(product),
+      };
+    }),
+  );
   return (
     <TableContextProvider update={update} remove={remove}>
       <TableLayout
@@ -53,7 +66,7 @@ export default async function Page({
         filter={<Filter onChange={handleSearch} categories={categories} />}
       >
         <ProductTable
-          pagination={pagination as PaginationResult<any>}
+          pagination={{ data, ...pagination } as PaginationResult<any>}
           business={business}
           whatsappConnect={whatsappConnect}
         />

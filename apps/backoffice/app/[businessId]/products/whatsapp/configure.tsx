@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import ChatListSelect, { Item } from "@repo/ui/components/chat-list/index";
-import ProductWhatsapp from "@repo/ui/components/social-networks-views/product-whatsapp";
+import { WhatsappItem } from "@repo/ui/components/social-networks-views/whatsapp";
 
 export type ConfigureProps = {
   action: (productIds: string[], date: string, chatId: string) => Promise<void>;
@@ -131,7 +131,11 @@ export default function Configure({
             </div>
             <div className="max-h-[50vh] overflow-y-auto pr-4 -mr-4 flex flex-wrap gap-2 justify-center md:justify-start">
               {products.map((product) => (
-                <ProductWhatsapp key={product.id} product={product} />
+                <WhatsappItem
+                  key={product.id}
+                  mediaUrl={(product.image as any)?.url as string}
+                  message={(product as any)._whatsappMessage || ""}
+                />
               ))}
             </div>
           </form>

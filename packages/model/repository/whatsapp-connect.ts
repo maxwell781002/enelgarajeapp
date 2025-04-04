@@ -11,14 +11,12 @@ import {
   retrieveCode,
   sendWhatsappMessagesBulk,
 } from "../integrations/whatsapp";
-import {
-  CompleteBusiness,
-  CompleteProduct,
-  CompleteWhatsappConnect,
-} from "../prisma/zod";
+import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
 import { formatPrice } from "@repo/model/lib/utils";
-import { addProductFields } from "@repo/model/repository/product";
-import { getCollaboratorProductUrl } from "@repo/model/repository/product";
+import {
+  addProductFields,
+  getCollaboratorProductUrl,
+} from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
 import {
   TMessageBulk,
@@ -116,7 +114,7 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   return entity;
 };
 
-export const getMessageText = (_product: CompleteProduct) => {
+export const getProductMessageText = (_product: CompleteProduct) => {
   const product = addProductFields(_product);
   return `🛒 Producto: *${product.name}*
 💵 Precio: *${formatPrice(product._price, product.business.currency)}*
@@ -149,7 +147,7 @@ export const sendProducts = async (
   );
   const messageBulk: TMessageBulk = {
     messages: products.map((product: CompleteProduct) => ({
-      message: getMessageText(product),
+      message: getProductMessageText(product),
       senderPhone: connect.phone,
       mediaUrl: (product.image as any)?.url,
       chatId,

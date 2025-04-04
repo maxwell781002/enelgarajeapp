@@ -16,7 +16,8 @@ import SharedLinks from "@repo/ui/components/shared-links";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import ProductDetail from "@repo/ui/components/product-page/product";
 import { IProduct } from "@repo/model/types/product";
-import ProductWhatsapp from "@repo/ui/components/social-networks-views/product-whatsapp";
+import { WhatsappItem } from "@repo/ui/components/social-networks-views/whatsapp";
+import { getProductMessageText } from "@repo/model/repository/whatsapp-connect";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -36,6 +37,7 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
     }
   };
   const productCollaboratorUrl = getCollaboratorProductUrl(product);
+  const productWithWhatsappMessage = getProductMessageText(product);
 
   return (
     <BackPage href={`/${businessId}/products`} urlTitle="Ir a productos">
@@ -98,7 +100,10 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
             />
           </TabsContent>
           <TabsContent value="socialNetworks" className="flex justify-center">
-            <ProductWhatsapp product={product} />
+            <WhatsappItem
+              mediaUrl={(product.image as any)?.url as string}
+              message={productWithWhatsappMessage || ""}
+            />
           </TabsContent>
         </Tabs>
       </>
