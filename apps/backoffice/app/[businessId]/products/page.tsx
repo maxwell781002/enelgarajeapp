@@ -44,7 +44,7 @@ export default async function Page({
   };
   data = await Promise.all(
     data.map(async (item: any) => {
-      const product = { business, ...addProductFields(item) };
+      const product = { ...addProductFields(item), business };
       return {
         ...product,
         _whatsappMessage: getProductMessageText(product),

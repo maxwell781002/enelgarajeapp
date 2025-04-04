@@ -147,7 +147,7 @@ export const sendProducts = async (
   );
   const messageBulk: TMessageBulk = {
     messages: products.map((product: CompleteProduct) => ({
-      message: getProductMessageText(product),
+      message: getProductMessageText({ ...product, business }),
       senderPhone: connect.phone,
       mediaUrl: (product.image as any)?.url,
       chatId,
