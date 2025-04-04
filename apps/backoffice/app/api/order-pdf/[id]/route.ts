@@ -12,31 +12,42 @@ const getOrderData = async (
   order: CompleteOrder,
   t: (key: string) => string,
 ) => {
-  const data = {
+  const addressItems = await getAddressData(order);
+  const data: any = {
     logo: { value: "/logo.png" },
     business: { value: order.business?.name ?? "" },
     identifier: { value: order.identifier ?? "" },
-    createdAt: { label: t("createdAt"), value: formatDate(order.createdAt) },
+    dates: {
+      createdAt: { label: t("createdAt"), value: formatDate(order.createdAt) },
+    },
+    deliveryAddress: {
+      label: t("deliveryAddress"),
+      value: addressItems,
+    },
     products: {
       label: t("cardProducts"),
-      columnsHeader: [t("product"), t("quantity"), t("price")],
+      columnsHeader: [t("product"), t("quantity"), t("price"), t("total")],
       items: order.items.map((item) => ({
         product: item.product.name,
         quantity: item.quantity,
+        unitPrice: formatPrice(item.price, order.currency),
         price: formatPrice(item.price, order.currency),
       })),
     },
-    footer: {
+    summary: {
       total: {
         label: t("total"),
         value: formatPrice(order.total, order.currency),
       },
       items: [
         {
-          label: t("shipping"),
+          label: t("shippingInvoice"),
           value: formatPrice(order.shipping, order.currency),
         },
       ],
+    },
+    footer: {
+      // slogan: t("slogan"),
     },
   };
   return data;
@@ -48,14 +59,13 @@ const getCollaboratorData = async (
 ) => {
   const ticket = order.ticket;
   const user = order.user as CompleteUser;
-  const addressItems = await getAddressData(order);
   const data = await getOrderData(order, t);
+  data.dates.sentAt = {
+    label: t("deliveryDate"),
+    value: formatDate(ticket?.deliveryDate ?? new Date()),
+  };
   const result: any = {
     ...data,
-    sentAt: {
-      label: t("deliveryDate"),
-      value: formatDate(ticket?.deliveryDate ?? new Date()),
-    },
     referredBy: {
       label: t("cardCollaborator"),
       value: [
@@ -69,7 +79,6 @@ const getCollaboratorData = async (
         { label: t("customerName"), value: ticket?.customer?.name },
         { label: t("identification"), value: ticket?.customer?.identification },
         { label: t("phone"), value: ticket?.phone },
-        ...addressItems,
       ],
     },
     paymentMethod: {
@@ -87,7 +96,7 @@ const getCollaboratorData = async (
     },
   };
   if (ticket?.nota) {
-    result.nota = {
+    result.note = {
       label: t("cardNota"),
       value: ticket?.nota,
     };
@@ -110,7 +119,6 @@ const getClientData = async (
       ],
     };
   }
-  const addressItems = await getAddressData(order);
   const user = order.user as CompleteUser;
   return {
     ...data,
@@ -119,7 +127,6 @@ const getClientData = async (
       value: [
         { label: t("customerName"), value: user.name },
         { label: t("phone"), value: user.phone },
-        ...addressItems,
       ],
     },
   };
@@ -139,7 +146,7 @@ export async function GET(
   const data = order.isCollaborator
     ? await getCollaboratorData(order, t)
     : await getClientData(order, t);
-  const url = `${process.env.PDF_GENERATOR_URL}/api/generate/invoice`;
+  const url = `${process.env.PDF_GENERATOR_URL}/api/generate/invoice-business`;
   const response = await fetch(url, {
     method: "POST",
     cache: "no-store",

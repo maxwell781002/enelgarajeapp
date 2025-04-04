@@ -30,6 +30,7 @@
     "reference": "Referencia",
     "cardPayment": "Pago",
     "shipping": "Precio de domicilio",
+    "shippingInvoice": "Envío",
     "total": "Total a pagar",
     "currency": "Moneda en que hará el pago.",
     "formOfPayment": "Forma de pago",
@@ -38,7 +39,8 @@
     "commission": "Comisión",
     "cardNota": "Notas",
     "cardReferredBy": "Referido por",
-    "btnDownloadInvoice": "Factura"
+    "btnDownloadInvoice": "Factura",
+    "deliveryAddress": "Dirección de entrega"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",
