@@ -2,10 +2,9 @@ import BackPage from "@repo/ui/components/back-page";
 import { useTranslations } from "next-intl";
 import BtnConfirm from "@repo/ui/components/btn-confirm";
 import { Badge } from "@repo/ui/components/ui/badge";
-import { Card, CardContent } from "@repo/ui/components/ui/card";
-import Markdown from "@repo/ui/components/markdown";
 import { formatDateZn } from "@repo/model/lib/date";
 import { useToggle } from "@repo/ui/hooks/useToggle";
+import { WhatsappItem } from "@repo/ui/components/social-networks-views/whatsapp";
 
 export const dateString = (sent_at: string) => {
   const date = new Date(sent_at);
@@ -17,23 +16,6 @@ export type MessageBulkDetailProps = {
   messageBulk: any;
   remove: (scheduledTime: string, ...args: any) => void;
   removing: boolean;
-};
-
-const MessageItem = ({ item }: any) => {
-  return (
-    <Card className="w-64 overflow-hidden shadow-lg">
-      <CardContent className="p-0">
-        <div className="relative w-full">
-          <img src={item.media_url} alt="Card image" />
-        </div>
-        <div className="bg-white p-3">
-          <Markdown className=" ">
-            {item.message.replace(/\n/g, "\n\n").replace(/\*/g, "**")}
-          </Markdown>
-        </div>
-      </CardContent>
-    </Card>
-  );
 };
 
 export default function MessageBulkDetail({
@@ -81,7 +63,11 @@ export default function MessageBulkDetail({
         </div>
         <div className="flex flex-wrap gap-2 justify-center">
           {messageBulk.messages.map((message: any, index: number) => (
-            <MessageItem key={index} item={message} />
+            <WhatsappItem
+              key={index}
+              mediaUrl={message.media_url}
+              message={message.message}
+            />
           ))}
         </div>
       </div>

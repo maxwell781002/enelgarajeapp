@@ -16,6 +16,7 @@ import SharedLinks from "@repo/ui/components/shared-links";
 import { getCollaboratorProductUrl } from "@repo/model/repository/product";
 import ProductDetail from "@repo/ui/components/product-page/product";
 import { IProduct } from "@repo/model/types/product";
+import ProductWhatsapp from "@repo/ui/components/social-networks-views/product-whatsapp";
 
 type PageProps = {
   params: { id: string; businessId: string };
@@ -96,9 +97,8 @@ export default async function Page({ params: { id, businessId } }: PageProps) {
               showBusinessProfit
             />
           </TabsContent>
-          <TabsContent value="socialNetworks">
-            aaaa
-            {/* <ProductDetailPage product={product} /> */}
+          <TabsContent value="socialNetworks" className="flex justify-center">
+            <ProductWhatsapp product={product} />
           </TabsContent>
         </Tabs>
       </>
