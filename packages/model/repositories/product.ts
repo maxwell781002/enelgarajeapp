@@ -46,6 +46,7 @@ export class ProductRepository extends BaseRepository<
       await this.model.findUnique({
         where,
         include: {
+          business: true,
           priceValues: true,
         },
       }),

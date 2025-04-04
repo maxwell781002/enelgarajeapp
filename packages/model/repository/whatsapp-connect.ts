@@ -3,18 +3,20 @@ import { whatsappConnectRepository } from "@repo/model/repositories/whatsapp-con
 import { getBusinessById } from "@repo/model/repository/business";
 import {
   createInstance,
-  removeInstance,
-  retrieveCode,
-  getMessages,
-  sendWhatsappMessagesBulk,
-  removeMessagesBulk as baseRemoveMessagesBulk,
-  refreshChatList as baseRefreshChatList,
   getChatList as BaseGetChatList,
+  getMessages,
+  refreshChatList as baseRefreshChatList,
+  removeInstance,
+  removeMessagesBulk as baseRemoveMessagesBulk,
+  retrieveCode,
+  sendWhatsappMessagesBulk,
 } from "../integrations/whatsapp";
 import { CompleteProduct, CompleteWhatsappConnect } from "../prisma/zod";
 import { formatPrice } from "@repo/model/lib/utils";
-import { addProductFields } from "@repo/model/repository/product";
-import { getCollaboratorProductUrl } from "@repo/model/repository/product";
+import {
+  addProductFields,
+  getCollaboratorProductUrl,
+} from "@repo/model/repository/product";
 import { businessRepository } from "@repo/model/repositories/business";
 import {
   TMessageBulk,
@@ -112,6 +114,18 @@ export const connectWhatsapp = async (businessId: string, phone: string) => {
   return entity;
 };
 
+export const getProductMessageText = (_product: CompleteProduct) => {
+  const product = addProductFields(_product);
+  return `🛒 Producto: *${product.name}*
+💵 Precio: *${formatPrice(product._price, product.business.currency)}*
+💰 Comisión: *${formatPrice(product._commission, product.business.currency)}*
+🛍️ En Stock: *${product.stock}*
+🛒️ Fuera de Stock: *${product._outOfStock ? "Si" : "No"}*
+${product.socialNetworksDescription || ""}
+🔗 url: ${getCollaboratorProductUrl(product)}
+`;
+};
+
 export const sendProducts = async (
   productsIds: string[],
   businessId: string,
@@ -131,19 +145,9 @@ export const sendProducts = async (
     productsIds,
     businessId,
   );
-  const getMessage = (_product: CompleteProduct) => {
-    const product = addProductFields(_product);
-    return `🛒 Producto: *${product.name}*
-💵 Precio: *${formatPrice(product._price, business.currency)}*
-💰 Comisión: *${formatPrice(product._commission, business.currency)}*
-🛍️ En Stock: *${product.stock}*
-🛒️ Fuera de Stock: *${product._outOfStock ? "Si" : "No"}*
-🔗 url: ${getCollaboratorProductUrl(product)}
-`;
-  };
   const messageBulk: TMessageBulk = {
     messages: products.map((product: CompleteProduct) => ({
-      message: getMessage(product),
+      message: getProductMessageText({ ...product, business }),
       senderPhone: connect.phone,
       mediaUrl: (product.image as any)?.url,
       chatId,

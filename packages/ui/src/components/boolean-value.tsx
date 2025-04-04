@@ -1,6 +1,10 @@
 import { Check, CircleX } from "lucide-react";
 
-export default function BooleanValue({ value }: { value: boolean }) {
+export default function BooleanValue({
+  value,
+}: {
+  value: boolean | undefined;
+}) {
   return (
     <>
       {value ? (

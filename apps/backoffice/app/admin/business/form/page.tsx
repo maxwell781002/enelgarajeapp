@@ -12,7 +12,6 @@ const defaultValues = {
   description: "",
   active: true,
   plan: DEFAULT_PLAN,
-  sendOrderToWhatsapp: false,
   requestAddress: false,
 };
 

@@ -32,31 +32,8 @@ export const sendOrderToTelegram = async (event: OrderSend) => {
 
   return Promise.all([
     sendToBusinessGroup(order, telegramMethod(order, HOST)),
-    sendToPrivateGroup(order, telegramMethod(order, HOST)),
-    sendToWhatsapp(order, whatsappMethod(order, HOST))
-      ?.then((response: Response) => response.text())
-      .then((text: string) => console.log("Whatsapp response ==>", text)),
+    sendToWhatsapp(order, whatsappMethod(order, HOST)),
   ]);
-};
-
-const sendToPrivateGroup = (order: CompleteOrder, message: string) => {
-  if (!order.business?.sendOrderToWhatsapp) {
-    return;
-  }
-  const message_whatsapp =
-    `Hola%20tiene%20una%20nueva%20orden%20${order.identifier}`;
-  message = `
-${message}
-
-*MANDAR MENSAJE AL NEGOCIO*
-📱[Aplicación](https://api.whatsapp.com/send/?phone=${order.business?.phone}&text=${message_whatsapp}) 🌐[web](https://web.whatsapp.com/send?phone=${order.business?.phone}&text=${message_whatsapp})
-`;
-
-  return sendMessage({
-    message,
-    group_id: process.env.TELEGRAM_PRIVATE_GROUP,
-    message_id: `${order.id}_private_group`,
-  });
 };
 
 const sendToBusinessGroup = (order: CompleteOrder, message: string) => {
