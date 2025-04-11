@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import React, { forwardRef } from "react";
 import { IMaskInput } from "react-imask";
 import { cn } from "@repo/ui/lib/utils";
 
@@ -33,17 +33,14 @@ export default function PriceInput({
     baseMethod: any | undefined,
   ) => {
     const value = e.target.value;
-    if (value === "") {
-      baseMethod?.({
-        target: { value: "0" },
-      } as React.ChangeEvent<HTMLInputElement>);
-    } else {
+    let priceInCents = 0;
+    if (value !== "") {
       const cleanedValue = parseFloat(value.replace(/,/g, ""));
-      const priceInCents = `${cleanedValue * 100}`;
-      baseMethod?.({
-        target: { value: priceInCents },
-      } as React.ChangeEvent<HTMLInputElement>);
+      priceInCents = Math.round(cleanedValue * 100);
     }
+    baseMethod?.({
+      target: { value: priceInCents },
+    } as unknown as React.ChangeEvent<HTMLInputElement>);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     return createEvent(e, onChange);
