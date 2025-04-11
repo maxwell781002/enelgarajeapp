@@ -1,7 +1,5 @@
 "use client";
 
-import { TCurrency } from "@repo/model/types/enums";
-import PriceDisplay from "./price";
 import {
   FormControl,
   FormField,
@@ -9,17 +7,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui/components/ui/form";
-import { Input } from "@repo/ui/components/ui/input";
 import PriceInput from "@repo/ui/components/price-input";
 import { useTranslations } from "next-intl";
 
-export default function PriceWidget({
-  form,
-  currency,
-}: {
-  form: any;
-  currency?: TCurrency;
-}) {
+export default function PriceWidget({ form }: { form: any }) {
   const t = useTranslations("Product");
 
   const handleQuantityPriceChange = (
@@ -75,11 +66,6 @@ export default function PriceWidget({
             </FormItem>
           )}
         />
-        {/*<PriceDisplay
-          price={form.watch("price")}
-          offerPrice={form.watch("offerPrice")}
-          currency={currency}
-        />*/}
       </div>
     </>
   );
