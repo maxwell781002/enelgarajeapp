@@ -110,6 +110,7 @@ ${products}
 ${shippingText}
 🎁 *Comisión*: ${data.commission}
 *Fecha de entrega*: ${data.deliveryDate}
+💶 *Forma de pago*: ${data.ticket?.currency}
 *Total*: ${data.total}
 
 🔗Ver más
