@@ -1,4 +1,10 @@
-import { CommissionTypes, TCurrency } from "@repo/model/types/enums";
+import {
+  CommissionTypes,
+  Currency,
+  FormOfPaymentType,
+  TCurrency,
+  TFormOfPaymentType,
+} from "@repo/model/types/enums";
 
 export type FormatPriceOptions = {
   showAcronym?: boolean;
@@ -76,4 +82,15 @@ export const generateCode = (length: number) => {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+};
+
+export const isValidFormOfPaymentType = (
+  paymentType: TFormOfPaymentType,
+  currency: TCurrency,
+) => {
+  const options: Record<TFormOfPaymentType, TCurrency[]> = {
+    [FormOfPaymentType.TRANSFER]: [Currency.CUP, Currency.USD, Currency.MLC],
+    [FormOfPaymentType.CASH]: [Currency.CUP, Currency.USD],
+  };
+  return options[paymentType].includes(currency);
 };

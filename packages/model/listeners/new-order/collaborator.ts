@@ -1,6 +1,7 @@
 import { formatDate } from "../../lib/date";
 import { formatPrice } from "../../lib/utils";
 import { CompleteOrder } from "../../prisma/zod";
+import { FormOfPaymentType, TFormOfPaymentType } from "../../types/enums";
 import {
   addressText,
   getAddressData,
@@ -77,6 +78,11 @@ ${shippingText}
 `;
 };
 
+const formOfPaymentText = {
+  [FormOfPaymentType.CASH]: "Efectivo",
+  [FormOfPaymentType.TRANSFER]: "Transferencia",
+};
+
 export const generateCollaboratorWhatsappMessage = (
   order: CompleteOrder,
   host: string,
@@ -110,8 +116,12 @@ ${products}
 ${shippingText}
 🎁 *Comisión*: ${data.commission}
 *Fecha de entrega*: ${data.deliveryDate}
-💶 *Forma de pago*: ${data.ticket?.currency}
 *Total*: ${data.total}
+
+💶 *Forma de pago*:
+Moneda: ${data.ticket?.currency}
+Método: ${formOfPaymentText[data.ticket?.formOfPayment as TFormOfPaymentType]}
+
 
 🔗Ver más
 ${data.order_url}

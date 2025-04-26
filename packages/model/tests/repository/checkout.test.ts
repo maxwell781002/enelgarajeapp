@@ -154,7 +154,9 @@ describe("Checkout", () => {
     expect(ticketEntity).toBeDefined();
     const date = new Date();
     const position = 1;
-    const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+    const identifier = `${date.getFullYear()}${
+      date.getMonth() + 1
+    }${date.getDate()}-${position}`;
     expect(order.total).toBe(170);
     expect(order.commission).toBe(50);
     expect(order.businessProfit).toBe(120);
@@ -178,6 +180,7 @@ describe("Checkout", () => {
         businessProfit: 40,
         quantity: 1,
         customPrice: 0,
+        originalPrice: 50,
       },
       {
         productId: product2.id,
@@ -188,6 +191,7 @@ describe("Checkout", () => {
         businessProfit: 80,
         quantity: 2,
         customPrice: 0,
+        originalPrice: 60,
       },
     ]);
     const productEntity = await productRepository.getById(product1.id);
@@ -239,7 +243,9 @@ describe("Checkout", () => {
     });
     const date = new Date();
     const position = 2;
-    const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+    const identifier = `${date.getFullYear()}${
+      date.getMonth() + 1
+    }${date.getDate()}-${position}`;
     expect(order.total).toBe(480); // ok
     expect(order.businessProfit).toBe(160); // ok
     expect(order.commission).toBe(320); //ok
@@ -263,6 +269,7 @@ describe("Checkout", () => {
         businessProfit: 80,
         quantity: 2,
         customPrice: 0,
+        originalPrice: 60,
       },
       {
         productId: product1.id,
@@ -273,6 +280,7 @@ describe("Checkout", () => {
         businessProfit: 80,
         quantity: 2,
         customPrice: 180,
+        originalPrice: 50,
       },
     ]);
     const productEntity = await productRepository.getById(product1.id);
@@ -339,7 +347,9 @@ describe("Checkout", () => {
     });
     const date = new Date();
     const position = 4;
-    const identifier = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}-${position}`;
+    const identifier = `${date.getFullYear()}${
+      date.getMonth() + 1
+    }${date.getDate()}-${position}`;
     expect(order.referredById).toBe(referredUser.id);
     expect(order.orderAddress).toBeDefined();
     expect(order.total).toBe(270);
@@ -364,6 +374,7 @@ describe("Checkout", () => {
         businessProfit: 80,
         quantity: 2,
         customPrice: 0,
+        originalPrice: 60,
       },
       {
         productId: product1.id,
@@ -374,6 +385,7 @@ describe("Checkout", () => {
         businessProfit: 40,
         quantity: 1,
         customPrice: 0,
+        originalPrice: 50,
       },
     ]);
     const productEntity = await productRepository.getById(product1.id);

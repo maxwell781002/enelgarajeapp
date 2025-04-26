@@ -98,6 +98,7 @@ export const orderItems = async (
         price,
         quantity,
         customPrice,
+        originalPrice: product._price,
         position: 0,
         productId: product.id,
         commission: itemCommission,
