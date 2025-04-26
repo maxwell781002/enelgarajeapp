@@ -35,7 +35,9 @@ export const getProductsText = (data: TGetCommonData, host: string) => {
   return data.items
     .map(
       (item: any) =>
-        `👉 [${item.name}](${productUrl(item)}) - ${item.price} - ${item.quantity}`,
+        `👉 [${item.name}](${productUrl(
+          item,
+        )}) \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio original: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
     )
     .join("\n");
 };
@@ -45,7 +47,10 @@ export const getProductsWithoutLinksText = (
   host: string,
 ) => {
   return data.items
-    .map((item: any) => `👉 ${item.name} - ${item.price} - ${item.quantity}`)
+    .map(
+      (item: any) =>
+        `👉 ${item.name} \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio original: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
+    )
     .join("\n");
 };
 
@@ -76,9 +81,13 @@ export const getCommonData = (order: CompleteOrder, host: string) => {
     },
     referredBy: order.referredBy?.name,
     items: order.items.map((item: CompleteOrderProduct) => ({
-      id: item.product.id,
+      id: item.product.id, //TODO this field should be named productId
       name: item.product.name,
       price: formatPrice(item.price, order.currency),
+      originalPrice: formatPrice(item.originalPrice, order.currency),
+      customPrice: item.customPrice
+        ? formatPrice(item.customPrice, order.currency)
+        : formatPrice(item.originalPrice, order.currency),
       quantity: item.quantity,
     })),
     total: formatPrice(order.total, order.currency),
