@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const phoneSchema = z
   .string()
+  .regex(/^\d+$/, { message: "phoneInvalidDigit" })
   .length(10, {
-    message: "Debe tener exactamente 10 dígitos",
-  })
-  .regex(/^\d+$/, { message: "Debe contener solo dígitos" });
+    message: "phoneInvalidLength",
+  });

@@ -45,6 +45,9 @@
     "phTicketNota": "Escriba la nota",
     "required": "Requerido",
     "Required": "Requerido",
+    "invalidFormOfPayment": "Forma de pago no valida para la moneda seleccionada.",
+    "phoneInvalidLength": "Debe contener exactamente 10 dígitos",
+    "phoneInvalidDigit": "Debe contener solo dígitos",
     "ticketTermsAndConditions": "Términos y condiciones"
   },
   "FormOfPaymentSelect": {
