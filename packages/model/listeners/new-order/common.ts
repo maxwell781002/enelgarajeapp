@@ -13,8 +13,8 @@ export const printText = (data: any) => (data ? data : "");
 export const hasShippingText = (data: TGetCommonData) =>
   `🚚 ${
     data.shipping > 0
-      ? `✅ Pagó el envío ${data.formatShipping}`
-      : "❌ No pagó el envío"
+      ? `Mensajería ${data.formatShipping}`
+      : "❌ No pagó la mensajería"
   }`;
 
 export const addressText = (data: ReturnType<typeof getAddressData>) => {
@@ -41,7 +41,7 @@ export const getProductsText = (data: TGetCommonData, host: string) => {
           productUrl(
             item,
           )
-        }) \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio tienda: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
+        }): ${item.quantity} x ${item.customPrice} = ${item.price}`,
     )
     .join("\n");
 };
@@ -53,7 +53,7 @@ export const getProductsWithoutLinksText = (
   return data.items
     .map(
       (item: any) =>
-        `👉 ${item.name} \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio tienda: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
+        `👉 ${item.name}: ${item.quantity} x ${item.customPrice} = ${item.price}`,
     )
     .join("\n");
 };
@@ -73,6 +73,7 @@ export const getAddressData = (order: CompleteOrder) => {
 
 export const getCommonData = (order: CompleteOrder, host: string) => {
   const user = order.user;
+  const totalProducts = order.items.reduce((acc, item) => acc + item.price, 0);
   return {
     order_url: `${host}/${order.businessId}/orders/${order.id}`,
     businessId: order.businessId,
@@ -95,6 +96,7 @@ export const getCommonData = (order: CompleteOrder, host: string) => {
         : formatPrice(item.originalPrice, order.currency),
       quantity: item.quantity,
     })),
+    totalProducts: formatPrice(totalProducts, order.currency),
     total: formatPrice(order.total, order.currency),
   };
 };

@@ -14,8 +14,9 @@ import {
   whatsappText,
 } from "./common";
 
-export type TGetCollaboratorData = TGetCommonData &
-  ReturnType<typeof getCollaboratorData>;
+export type TGetCollaboratorData =
+  & TGetCommonData
+  & ReturnType<typeof getCollaboratorData>;
 
 const getCollaboratorData = (order: CompleteOrder, host: string) => {
   const common = getCommonData(order, host);
@@ -42,8 +43,8 @@ export const generateCollaboratorTelegramMessage = (
 
 const generateTelegramText = (data: TGetCollaboratorData, host: string) => {
   const collaboratorWhatsapp = whatsappText(data.userData.phone as string);
-  const customerWhatsapp =
-    data.ticket?.phone && whatsappText(data.ticket?.phone as string);
+  const customerWhatsapp = data.ticket?.phone &&
+    whatsappText(data.ticket?.phone as string);
   const products = getProductsText(data, host);
   const shippingText = hasShippingText(data);
   return `
@@ -67,10 +68,17 @@ ${addressText(data.addressData)}
 *Productos*
 ${products}
 
+*Total de los productos*: ${data.totalProducts}
+
+💶 *Forma de pago*:
+Moneda: ${data.ticket?.currency}
+Método: ${formOfPaymentText[data.ticket?.formOfPayment as TFormOfPaymentType]}
+
 ${shippingText}
 🎁 *Comisión*: ${data.commission}
 *Fecha de entrega*: ${data.deliveryDate}
-*Total*: ${data.total}
+
+*TOTAL A COBRAR*: ${data.total}
 
 🔗[Ver más](${data.order_url})
 
@@ -113,15 +121,17 @@ ${addressText(data.addressData)}
 *Productos*
 ${products}
 
-${shippingText}
-🎁 *Comisión*: ${data.commission}
-*Fecha de entrega*: ${data.deliveryDate}
-*Total*: ${data.total}
+*Total de los productos*: ${data.totalProducts}
 
 💶 *Forma de pago*:
 Moneda: ${data.ticket?.currency}
 Método: ${formOfPaymentText[data.ticket?.formOfPayment as TFormOfPaymentType]}
 
+${shippingText}
+🎁 *Comisión*: ${data.commission}
+*Fecha de entrega*: ${data.deliveryDate}
+
+*TOTAL A COBRAR*: ${data.total}
 
 🔗Ver más
 ${data.order_url}
