@@ -11,12 +11,14 @@ export type TGetCommonData = ReturnType<typeof getCommonData>;
 export const printText = (data: any) => (data ? data : "");
 
 export const hasShippingText = (data: TGetCommonData) =>
-  `🚚 ${data.shipping > 0 ? "✅ Pagó el envío" : "❌ No pagó el envío"}`;
+  `🚚 ${
+    data.shipping > 0
+      ? `✅ Pagó el envío ${data.formatShipping}`
+      : "❌ No pagó el envío"
+  }`;
 
 export const addressText = (data: ReturnType<typeof getAddressData>) => {
-  return !data
-    ? ""
-    : `*Dirección*
+  return !data ? "" : `*Dirección*
 ${printText(data.address)}
 ${printText(data.neighborhood)}
 ${printText(data.city)}, ${printText(data.state)}
@@ -35,9 +37,11 @@ export const getProductsText = (data: TGetCommonData, host: string) => {
   return data.items
     .map(
       (item: any) =>
-        `👉 [${item.name}](${productUrl(
-          item,
-        )}) \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio original: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
+        `👉 [${item.name}](${
+          productUrl(
+            item,
+          )
+        }) \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio tienda: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
     )
     .join("\n");
 };
@@ -49,7 +53,7 @@ export const getProductsWithoutLinksText = (
   return data.items
     .map(
       (item: any) =>
-        `👉 ${item.name} \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio original: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
+        `👉 ${item.name} \n Precio: ${item.price} \n Cantidad: ${item.quantity} \n Precio tienda: ${item.originalPrice} \n Precio gestor: ${item.customPrice}`,
     )
     .join("\n");
 };
@@ -74,6 +78,7 @@ export const getCommonData = (order: CompleteOrder, host: string) => {
     businessId: order.businessId,
     identifier: order.identifier,
     shipping: order.shipping,
+    formatShipping: formatPrice(order.shipping, order.currency),
     userData: {
       id: user?.id,
       name: user?.name,
