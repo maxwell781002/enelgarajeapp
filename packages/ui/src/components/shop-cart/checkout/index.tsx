@@ -54,16 +54,12 @@ export default function CheckoutPage({
   const [shopCartHasError, setShopCartHasError] = useState(false);
   const handlerAction = async (data: any) => {
     return startOrderRegistering(async () => {
-      try {
-        const { id } = await action(data);
-        clear();
-        return router.push(successfulUrl(id));
-      } catch (e: any) {
-        if (e.message === "out_of_stock") {
-          return setShopCartHasError(true);
-        }
-        throw e;
+      const { id, error } = await action(data);
+      if (error === "out_of_stock") {
+        return setShopCartHasError(true);
       }
+      clear();
+      return router.push(successfulUrl(id));
     });
   };
   const {

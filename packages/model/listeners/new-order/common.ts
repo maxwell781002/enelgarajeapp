@@ -18,7 +18,9 @@ export const hasShippingText = (data: TGetCommonData) =>
   }`;
 
 export const addressText = (data: ReturnType<typeof getAddressData>) => {
-  return !data ? "" : `*Dirección*
+  return !data
+    ? ""
+    : `*Dirección*
 ${printText(data.address)}
 ${printText(data.neighborhood)}
 ${printText(data.city)}, ${printText(data.state)}
@@ -37,11 +39,9 @@ export const getProductsText = (data: TGetCommonData, host: string) => {
   return data.items
     .map(
       (item: any) =>
-        `👉 [${item.name}](${
-          productUrl(
-            item,
-          )
-        }): ${item.quantity} x ${item.customPrice} = ${item.price}`,
+        `👉 [${item.name}](${productUrl(
+          item,
+        )}): ${item.quantity} x ${item.customPrice} = ${item.price}`,
     )
     .join("\n");
 };

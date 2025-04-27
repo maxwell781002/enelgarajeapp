@@ -166,23 +166,30 @@ export const createCollaboratorOrder = async (
 ) => {
   CollaboratorShoppingCartSchema.parse(data);
   const { customer, ticket, ...rest } = data;
-  const entity = await transaction(async () => {
-    const order = await createOrder(business, user, rest, true, true);
-    const customerEntity = await createCustomer(customer, business.id);
-    await createCollaboratorTicket(
-      ticket,
-      business.id,
-      customerEntity.id,
-      order.id,
-      user.id,
-      customer.phone,
-    );
-    return order;
-  });
-  //TODO: When I configure the listener send the event instance of
-  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
-  await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
-  return entity;
+  try {
+    const entity = await transaction(async () => {
+      const order = await createOrder(business, user, rest, true, true);
+      const customerEntity = await createCustomer(customer, business.id);
+      await createCollaboratorTicket(
+        ticket,
+        business.id,
+        customerEntity.id,
+        order.id,
+        user.id,
+        customer.phone,
+      );
+      return order;
+    });
+    //TODO: When I configure the listener send the event instance of
+    // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+    await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
+    return entity;
+  } catch (e: any) {
+    if (e instanceof BadRequestError) {
+      return { error: e.message };
+    }
+    throw e;
+  }
 };
 
 export const createWebOrder = async (
@@ -196,23 +203,30 @@ export const createWebOrder = async (
   const referredById =
     referredCode &&
     (await userRepository.getUserIdByReferredCode(referredCode));
-  const entity = await transaction(async () => {
-    await userRepository.update(user.id, { ...user, phone, name });
-    if (addressType === AddressType.newAddress && rest.wantDomicile) {
-      await addAddressToUser(user.id, business.id, address);
+  try {
+    const entity = await transaction(async () => {
+      await userRepository.update(user.id, { ...user, phone, name });
+      if (addressType === AddressType.newAddress && rest.wantDomicile) {
+        await addAddressToUser(user.id, business.id, address);
+      }
+      return createOrder(
+        business,
+        user,
+        { ...rest, address, referredById },
+        false,
+        !!referredById,
+      );
+    });
+    //TODO: When I configure the listener send the event instance of
+    // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
+    await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
+    return entity;
+  } catch (e: any) {
+    if (e instanceof BadRequestError) {
+      return { error: e.message };
     }
-    return createOrder(
-      business,
-      user,
-      { ...rest, address, referredById },
-      false,
-      !!referredById,
-    );
-  });
-  //TODO: When I configure the listener send the event instance of
-  // eventEmitter.dispatch(new OrderSend(newOrder as CompleteOrder));
-  await sendOrderToTelegram(new OrderSend(entity as CompleteOrder));
-  return entity;
+    throw e;
+  }
 };
 
 export const createOrder = async (

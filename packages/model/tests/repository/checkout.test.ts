@@ -199,29 +199,25 @@ describe("Checkout", () => {
   });
 
   it("Collaborator, Bad custom price", async () => {
-    try {
-      await createCollaboratorOrder(business, user, {
-        customer,
-        ticket,
-        cartItems: [
-          {
-            productId: product1.id,
-            quantity: 10,
-            customPrice: 10,
-          },
-          {
-            productId: product2.id,
-            quantity: 2,
-          },
-        ],
-        wantDomicile: false,
-      });
-      expect(false).toBe(true);
-    } catch (e) {
-      expect(e.message).toBe("error_price_custom");
-      const productEntity = await productRepository.getById(product1.id);
-      expect(productEntity.stock).toBe(9);
-    }
+    const { error } = await createCollaboratorOrder(business, user, {
+      customer,
+      ticket,
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 10,
+          customPrice: 10,
+        },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: false,
+    });
+    expect(error).toBe("error_price_custom");
+    const productEntity = await productRepository.getById(product1.id);
+    expect(productEntity.stock).toBe(9);
   });
 
   it("Collaborator with custom price", async () => {
@@ -432,24 +428,20 @@ describe("Checkout", () => {
   });
 
   it("Out of stock", async () => {
-    try {
-      await createWebOrder(business, user, {
-        phone: "5353024895",
-        name: "test",
-        addressType: AddressType.selectAddress,
-        cartItems: [
-          {
-            productId: product1.id,
-            quantity: 100,
-          },
-        ],
-        wantDomicile: false,
-      });
-      expect(false).toBe(true);
-    } catch (e) {
-      expect(e.message).toBe("out_of_stock");
-      const productEntity = await productRepository.getById(product1.id);
-      expect(productEntity.stock).toBe(4);
-    }
+    const { error } = await createWebOrder(business, user, {
+      phone: "5353024895",
+      name: "test",
+      addressType: AddressType.selectAddress,
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 100,
+        },
+      ],
+      wantDomicile: false,
+    });
+    expect(error).toBe("out_of_stock");
+    const productEntity = await productRepository.getById(product1.id);
+    expect(productEntity.stock).toBe(4);
   });
 });

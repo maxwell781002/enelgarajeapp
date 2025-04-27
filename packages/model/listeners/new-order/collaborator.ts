@@ -14,9 +14,8 @@ import {
   whatsappText,
 } from "./common";
 
-export type TGetCollaboratorData =
-  & TGetCommonData
-  & ReturnType<typeof getCollaboratorData>;
+export type TGetCollaboratorData = TGetCommonData &
+  ReturnType<typeof getCollaboratorData>;
 
 const getCollaboratorData = (order: CompleteOrder, host: string) => {
   const common = getCommonData(order, host);
@@ -43,8 +42,8 @@ export const generateCollaboratorTelegramMessage = (
 
 const generateTelegramText = (data: TGetCollaboratorData, host: string) => {
   const collaboratorWhatsapp = whatsappText(data.userData.phone as string);
-  const customerWhatsapp = data.ticket?.phone &&
-    whatsappText(data.ticket?.phone as string);
+  const customerWhatsapp =
+    data.ticket?.phone && whatsappText(data.ticket?.phone as string);
   const products = getProductsText(data, host);
   const shippingText = hasShippingText(data);
   return `
