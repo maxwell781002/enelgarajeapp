@@ -16,7 +16,6 @@ import { addProductFields } from "../repository/product";
 type PaginateData = {
   businessId?: string;
   categoryId?: string;
-  active?: boolean;
 } & BasePaginateData;
 
 export const PAGE_SIZE_FRONTEND = 6;
@@ -130,16 +129,14 @@ export class ProductRepository extends BaseRepository<
     businessId,
     query,
     categoryId,
-    active,
+    where: baseWhere = {},
     ...data
   }: PaginateData = {}) {
     const where = clearWhere({
       businessId,
       categoryId,
+      ...baseWhere,
     });
-    if (active !== undefined) {
-      where["active"] = active;
-    }
     if (query) {
       where["name"] = {
         contains: query,
@@ -160,10 +157,18 @@ export class ProductRepository extends BaseRepository<
     return this.basePaginate(paginate);
   }
 
-  collaborationPaginate(paginate: PaginateData = {}) {
+  collaborationPaginate(
+    paginate: PaginateData = {},
+  ) {
     return this.basePaginate({
       ...paginate,
-      active: true,
+      where: {
+        active: true,
+        OR: [
+          { stock: 0, allowOrderOutOfStock: true },
+          { stock: { gt: 0 } },
+        ],
+      },
     });
   }
 
