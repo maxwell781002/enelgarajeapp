@@ -70,15 +70,16 @@ ${products}
 
 *Total de los productos*: ${data.totalProducts}
 
+${shippingText}
+
+*TOTAL A COBRAR*: ${data.total}
+
 💶 *Forma de pago*:
 Moneda: ${data.ticket?.currency}
 Método: ${formOfPaymentText[data.ticket?.formOfPayment as TFormOfPaymentType]}
 
-${shippingText}
-🎁 *Comisión*: ${data.commission}
 *Fecha de entrega*: ${data.deliveryDate}
-
-*TOTAL A COBRAR*: ${data.total}
+🎁 *Comisión*: ${data.commission}
 
 🔗[Ver más](${data.order_url})
 
@@ -123,15 +124,16 @@ ${products}
 
 *Total de los productos*: ${data.totalProducts}
 
+${shippingText}
+
+*TOTAL A COBRAR*: ${data.total}
+
 💶 *Forma de pago*:
 Moneda: ${data.ticket?.currency}
 Método: ${formOfPaymentText[data.ticket?.formOfPayment as TFormOfPaymentType]}
 
-${shippingText}
-🎁 *Comisión*: ${data.commission}
 *Fecha de entrega*: ${data.deliveryDate}
-
-*TOTAL A COBRAR*: ${data.total}
+🎁 *Comisión*: ${data.commission}
 
 🔗Ver más
 ${data.order_url}
