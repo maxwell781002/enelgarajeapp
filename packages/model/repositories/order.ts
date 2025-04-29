@@ -12,6 +12,7 @@ import { OrderStatus } from "../prisma/generated/client";
 import { clearWhere } from "../lib/util-query";
 import { OrderPayed } from "../lib/event-emitter/events";
 import { updateCollaboratorProfileListener } from "../listeners/update-order";
+import { restoreOrder } from "../repository/product";
 
 export const statusColors: Record<OrderStatus, string> = {
   CREATED: "bg-yellow-500",
@@ -63,8 +64,15 @@ export class OrderRepository extends BaseRepository<
     return transitions[currentStatus] || [];
   }
 
+  getByIdToChangeStatus(id: string) {
+    return this.model.findUnique({
+      where: { id },
+      include: { items: { include: { product: true } } },
+    });
+  }
+
   async changeStatus(id: string, status: OrderStatus) {
-    const currentOrder = await this.getById(id);
+    const currentOrder = await this.getByIdToChangeStatus(id);
     if (!nextStatuses(currentOrder.status).includes(status)) {
       throw new Error("Invalid status transition");
     }
@@ -75,8 +83,11 @@ export class OrderRepository extends BaseRepository<
       });
       if (status === OrderStatus.PAYED) {
         await updateCollaboratorProfileListener(
-          new OrderPayed(order as CompleteOrder),
+          new OrderPayed(currentOrder as CompleteOrder),
         );
+      }
+      if (status === OrderStatus.REJECTED) {
+        await restoreOrder(currentOrder as CompleteOrder);
       }
       return order;
     });
