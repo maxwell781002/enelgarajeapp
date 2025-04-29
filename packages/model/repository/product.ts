@@ -2,7 +2,11 @@ import { INFINITE_NUMBER, NUMBER_OF_PRODUCTS } from "../configs/plans";
 import { getPlanFeature } from "../lib/plans-feature";
 import { commissionCalculate } from "../lib/utils";
 import prisma from "../prisma/prisma-client";
-import { CompleteBusiness, CompleteProduct } from "../prisma/zod";
+import {
+  CompleteBusiness,
+  CompleteOrder,
+  CompleteProduct,
+} from "../prisma/zod";
 import { productRepository, UpdateStockItem } from "../repositories/product";
 
 export const getBySlug = async (slug: string) => {
@@ -77,4 +81,13 @@ export const getCollaboratorProductUrl = (product: CompleteProduct) => {
 
 export const decrementStock = async (products: UpdateStockItem[]) => {
   return productRepository.updateStock(products, "decrement");
+};
+
+export const incrementStock = async (products: UpdateStockItem[]) => {
+  return productRepository.updateStock(products, "increment");
+};
+
+export const restoreOrder = async (order: CompleteOrder) => {
+  const products = order.items.map((item) => [item.product, item.quantity]);
+  return incrementStock(products as UpdateStockItem[]);
 };
