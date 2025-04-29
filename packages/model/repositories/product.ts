@@ -12,6 +12,7 @@ import { clearWhere } from "../lib/util-query";
 import { isFile } from "../lib/utils";
 import { CommissionTypes } from "../types/enums";
 import { addProductFields } from "../repository/product";
+import { TIncrementDecrement } from "../types/db";
 
 type PaginateData = {
   businessId?: string;
@@ -157,17 +158,12 @@ export class ProductRepository extends BaseRepository<
     return this.basePaginate(paginate);
   }
 
-  collaborationPaginate(
-    paginate: PaginateData = {},
-  ) {
+  collaborationPaginate(paginate: PaginateData = {}) {
     return this.basePaginate({
       ...paginate,
       where: {
         active: true,
-        OR: [
-          { stock: 0, allowOrderOutOfStock: true },
-          { stock: { gt: 0 } },
-        ],
+        OR: [{ stock: 0, allowOrderOutOfStock: true }, { stock: { gt: 0 } }],
       },
     });
   }
@@ -212,15 +208,15 @@ export class ProductRepository extends BaseRepository<
     return { totalActive: values[0], totalInactive: values[1] };
   }
 
-  updateStock(products: UpdateStockItem[]) {
+  updateStock(products: UpdateStockItem[], operation: TIncrementDecrement) {
     const promises = products
       .filter(([product]) => product.isExhaustible)
-      .map(([product, decrement]) => {
+      .map(([product, value]) => {
         return this.model.update({
           where: { id: product.id },
           data: {
             stock: {
-              decrement,
+              [operation]: value,
             },
           },
         });

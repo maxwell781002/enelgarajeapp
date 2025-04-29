@@ -3,7 +3,7 @@ import { getPlanFeature } from "../lib/plans-feature";
 import { commissionCalculate } from "../lib/utils";
 import prisma from "../prisma/prisma-client";
 import { CompleteBusiness, CompleteProduct } from "../prisma/zod";
-import { productRepository } from "../repositories/product";
+import { productRepository, UpdateStockItem } from "../repositories/product";
 
 export const getBySlug = async (slug: string) => {
   return addProductFields(
@@ -73,4 +73,8 @@ export const isLimited = async (business: CompleteBusiness) => {
 export const getCollaboratorProductUrl = (product: CompleteProduct) => {
   const random = Math.random().toString(36).substring(2, 7);
   return `${process.env.COLLABORATOR_HOST}/p/${random}/${product.slug}`;
+};
+
+export const decrementStock = async (products: UpdateStockItem[]) => {
+  return productRepository.updateStock(products, "decrement");
 };

@@ -8,7 +8,7 @@ import {
   WebShoppingCartSchema,
 } from "@repo/model/validation/user";
 import { productRepository } from "@repo/model/repositories/product";
-import { addProductFields } from "./product";
+import { addProductFields, decrementStock } from "./product";
 import { getShippingPrice } from "../lib/order";
 import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
@@ -266,7 +266,7 @@ export const createOrder = async (
     total,
     !!data.wantDomicile,
   );
-  await productRepository.updateStock(productToUpdate);
+  await decrementStock(productToUpdate);
   const entity = await orderRepository.createOrder(order, business, items);
   return entity;
 };
