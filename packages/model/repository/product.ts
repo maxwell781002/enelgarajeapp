@@ -1,4 +1,5 @@
 import { INFINITE_NUMBER, NUMBER_OF_PRODUCTS } from "../configs/plans";
+import { OrderRejected } from "../lib/event-emitter/events";
 import { getPlanFeature } from "../lib/plans-feature";
 import { commissionCalculate } from "../lib/utils";
 import prisma from "../prisma/prisma-client";
@@ -87,7 +88,15 @@ export const incrementStock = async (products: UpdateStockItem[]) => {
   return productRepository.updateStock(products, "increment");
 };
 
-export const restoreOrder = async (order: CompleteOrder) => {
-  const products = order.items.map((item) => [item.product, item.quantity]);
+// export const restoreOrder = async (order: CompleteOrder) => {
+//   const products = order.items.map((item) => [item.product, item.quantity]);
+//   return incrementStock(products as UpdateStockItem[]);
+// };
+
+export const restoreOrder = async (event: OrderRejected) => {
+  const products = event.data.items.map((item) => [
+    item.product,
+    item.quantity,
+  ]);
   return incrementStock(products as UpdateStockItem[]);
 };
