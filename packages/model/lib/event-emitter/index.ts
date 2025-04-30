@@ -3,9 +3,17 @@ import { createListener } from "./listeners";
 
 export class Dispatcher {
   private subscribers: Record<string, Function[]> = {};
+  private static instance: Dispatcher;
 
   constructor() {
     createListener(this);
+  }
+
+  private static getInstance(): Dispatcher {
+    if (this.instance === undefined) {
+      this.instance = new Dispatcher();
+    }
+    return this.instance;
   }
 
   on<T>(event: string, listener: (event: EventData<T>) => void) {
@@ -15,15 +23,10 @@ export class Dispatcher {
     this.subscribers[event].push(listener);
   }
 
-  emitAsync<T>(event: EventData<T>) {
-    if (!this.subscribers[event.eventName]) {
-      return;
-    }
-    const promises = this.subscribers[event.eventName].map((listener) =>
-      listener(event),
-    );
+  static emit<T>(event: EventData<T>) {
+    const instance = this.getInstance();
+    const subscribers = instance.subscribers[event.eventName] || [];
+    const promises = subscribers.map((listener) => listener(event));
     return Promise.all(promises);
   }
 }
-
-export default new Dispatcher();

@@ -19,6 +19,14 @@ export class OrderSend extends EventData<CompleteOrder> {
     super(data, OrderSend.eventName);
   }
 }
+
+export class OrderCreated extends EventData<CompleteOrder> {
+  static eventName: string = "OrderCreated";
+  constructor(data: CompleteOrder) {
+    super(data, OrderCreated.eventName);
+  }
+}
+
 export class OrderPayed extends EventData<CompleteOrder> {
   static eventName: string = "OrderPayed";
   constructor(data: CompleteOrder) {
