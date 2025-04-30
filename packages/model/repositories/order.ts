@@ -4,7 +4,6 @@ import {
   CompleteBusiness,
   CompleteOrder,
   CompleteOrderProduct,
-  CompleteUser,
   OrderModel,
 } from "../prisma/zod";
 import { PaginateData as BasePaginateData } from "../types/pagination";
@@ -16,8 +15,6 @@ import {
   OrderRejected,
   OrderSend,
 } from "../lib/event-emitter/events";
-import { updateCollaboratorProfileListener } from "../listeners/update-order";
-// import { restoreOrder } from "../repository/product";
 import { Dispatcher } from "../lib/event-emitter";
 
 export const statusColors: Record<OrderStatus, string> = {
@@ -70,15 +67,11 @@ export class OrderRepository extends BaseRepository<
     return transitions[currentStatus] || [];
   }
 
-  getByIdToChangeStatus(id: string) {
-    return this.model.findUnique({
+  async changeStatus(id: string, status: OrderStatus) {
+    const currentOrder = await this.model.findUnique({
       where: { id },
       include: { items: { include: { product: true } } },
     });
-  }
-
-  async changeStatus(id: string, status: OrderStatus) {
-    const currentOrder = await this.getByIdToChangeStatus(id);
     if (!nextStatuses(currentOrder.status).includes(status)) {
       throw new Error("Invalid status transition");
     }
@@ -94,14 +87,6 @@ export class OrderRepository extends BaseRepository<
         [OrderStatus.CREATED]: OrderCreated,
       };
       await Dispatcher.emit(new events[status](currentOrder as CompleteOrder));
-      if (status === OrderStatus.PAYED) {
-        await updateCollaboratorProfileListener(
-          new OrderPayed(currentOrder as CompleteOrder),
-        );
-      }
-      // if (status === OrderStatus.REJECTED) {
-      //   await restoreOrder(currentOrder as CompleteOrder);
-      // }
       return order;
     });
   }
