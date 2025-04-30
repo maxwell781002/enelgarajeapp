@@ -1,9 +1,28 @@
-import EventEmitter from "node:events";
 import { EventData } from "./events";
+import { createListener } from "./listeners";
 
-class Dispatcher extends EventEmitter {
-  dispatch<T>(event: EventData<T>) {
-    this.emit(event.constructor.name, event);
+export class Dispatcher {
+  private subscribers: Record<string, Function[]> = {};
+
+  constructor() {
+    createListener(this);
+  }
+
+  on<T>(event: string, listener: (event: EventData<T>) => void) {
+    if (!this.subscribers[event]) {
+      this.subscribers[event] = [];
+    }
+    this.subscribers[event].push(listener);
+  }
+
+  emitAsync<T>(event: EventData<T>) {
+    if (!this.subscribers[event.eventName]) {
+      return;
+    }
+    const promises = this.subscribers[event.eventName].map((listener) =>
+      listener(event),
+    );
+    return Promise.all(promises);
   }
 }
 

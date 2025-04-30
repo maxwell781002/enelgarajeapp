@@ -10,9 +10,14 @@ import {
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { OrderStatus } from "../prisma/generated/client";
 import { clearWhere } from "../lib/util-query";
-import { OrderPayed } from "../lib/event-emitter/events";
+import {
+  OrderPayed,
+  OrderRejected,
+  OrderSend,
+} from "../lib/event-emitter/events";
 import { updateCollaboratorProfileListener } from "../listeners/update-order";
-import { restoreOrder } from "../repository/product";
+// import { restoreOrder } from "../repository/product";
+import dispatcher from "../lib/event-emitter";
 
 export const statusColors: Record<OrderStatus, string> = {
   CREATED: "bg-yellow-500",
@@ -81,14 +86,22 @@ export class OrderRepository extends BaseRepository<
         where: { id },
         data: { status },
       });
+      const events = {
+        [OrderStatus.SEND]: OrderSend,
+        [OrderStatus.PAYED]: OrderPayed,
+        [OrderStatus.REJECTED]: OrderRejected,
+      };
+      await dispatcher.emitAsync(
+        new events[status](currentOrder as CompleteOrder),
+      );
       if (status === OrderStatus.PAYED) {
         await updateCollaboratorProfileListener(
           new OrderPayed(currentOrder as CompleteOrder),
         );
       }
-      if (status === OrderStatus.REJECTED) {
-        await restoreOrder(currentOrder as CompleteOrder);
-      }
+      // if (status === OrderStatus.REJECTED) {
+      //   await restoreOrder(currentOrder as CompleteOrder);
+      // }
       return order;
     });
   }
