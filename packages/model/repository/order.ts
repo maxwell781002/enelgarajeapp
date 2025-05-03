@@ -30,8 +30,16 @@ export const getOrderSecurity = async (
   return order;
 };
 
+// TODO: Remove this method
 export const getOrderById = async (id: string) => {
   return orderRepository.getOrderById(id);
+};
+
+export const getOrderByIdAndBusinessId = async (
+  id: string,
+  businessId: string,
+) => {
+  return orderRepository.getOrderByIdAndBusinessId(id, businessId);
 };
 
 export const getOrderCurrentUser = async (

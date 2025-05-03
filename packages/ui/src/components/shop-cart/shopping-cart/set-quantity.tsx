@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { Save, RotateCcw } from "lucide-react";
@@ -23,7 +23,10 @@ export default function QuantitySetter({
 }: QuantitySetterProps) {
   const [quantity, setQuantity] = useState(originalQuantity);
   const [isDirty, setIsDirty] = useState(false);
-
+  useEffect(() => {
+    setQuantity(originalQuantity);
+    setIsDirty(false);
+  }, [originalQuantity]);
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = parseInt(event.target.value, 10);
     if (newQuantity < 1) {
@@ -32,7 +35,6 @@ export default function QuantitySetter({
     setQuantity(newQuantity);
     setIsDirty(newQuantity !== originalQuantity);
   };
-
   const handleReset = () => {
     setQuantity(originalQuantity);
     setIsDirty(false);

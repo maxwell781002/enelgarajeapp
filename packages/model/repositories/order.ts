@@ -273,9 +273,31 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  // TODO: Remove this method
   getOrderById(id: string) {
     return prisma().order.findUnique({
       where: { id },
+      include: {
+        business: true,
+        user: true,
+        ticket: {
+          include: { customer: true },
+        },
+        orderAddress: {
+          include: { address: { include: { neighborhood: true } } },
+        },
+        items: {
+          include: { product: { include: { priceValues: true } } },
+          orderBy: { position: "asc" },
+        },
+        referredBy: true,
+      },
+    });
+  }
+
+  getOrderByIdAndBusinessId(id: string, businessId: string) {
+    return prisma().order.findUnique({
+      where: { id, businessId },
       include: {
         business: true,
         user: true,

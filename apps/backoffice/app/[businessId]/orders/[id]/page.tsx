@@ -26,7 +26,7 @@ export default async function Page({
     revalidatePath(`/${businessId}/orders/${id}`);
   };
   const changeStatusComponent = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 justify-end">
       <ChangeStatus
         status={order.status}
         onChange={changeStatus}
@@ -51,6 +51,7 @@ export default async function Page({
       href={`/${businessId}/orders`}
       urlTitle="Ir a órdenes"
       headerChildren={changeStatusComponent}
+      className="flex flex-col"
     >
       <BackOrder
         order={order}
