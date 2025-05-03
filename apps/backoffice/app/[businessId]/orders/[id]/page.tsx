@@ -2,11 +2,14 @@ import { orderRepository } from "@repo/model/repositories/order";
 import BackPage from "@repo/ui/components/back-page";
 import ChangeStatus from "./changeStatus";
 import { revalidatePath } from "next/cache";
-import { getOrderById } from "@repo/model/repository/order";
+import { canBeUpdated, getOrderById } from "@repo/model/repository/order";
 import { CompleteOrder } from "@repo/model/zod/order";
 import BackOrder from "@repo/ui/components/order-page/back-order/index";
 import ButtonDownloadFile from "@repo/ui/components/button-download-file";
 import { getTranslations } from "next-intl/server";
+import { Button } from "@repo/ui/components/button";
+import { PencilIcon } from "lucide-react";
+import Link from "next/link";
 
 type OrderDetailProps = {
   params: { businessId: string; id: string };
@@ -34,6 +37,13 @@ export default async function Page({
         label={t("btnDownloadInvoice")}
         fileName={order.identifier ?? ""}
       />
+      {(await canBeUpdated(order)) && (
+        <Link href={`/${businessId}/orders/${id}/edit`}>
+          <Button variant="outline">
+            <PencilIcon /> {t("btnEdit")}
+          </Button>
+        </Link>
+      )}
     </div>
   );
   return (

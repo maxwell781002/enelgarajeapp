@@ -40,7 +40,8 @@
     "cardNota": "Notas",
     "cardReferredBy": "Referido por",
     "btnDownloadInvoice": "Factura",
-    "deliveryAddress": "Dirección de entrega"
+    "deliveryAddress": "Dirección de entrega",
+    "btnEdit": "Editar"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",

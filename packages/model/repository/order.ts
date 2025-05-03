@@ -5,6 +5,8 @@ import { getCurrentUser } from "@repo/model/repository/user";
 import { orderRepository } from "@repo/model/repositories/order";
 // import { checkBusinessAccess } from "./business";
 import { SecurityUser } from "../lib/auth";
+import { CompleteOrder } from "../prisma/zod";
+import { OrderStatus } from "../types/enums";
 
 // TODO: No me funciono la seguridad de esto. Tengo que arreglarlo rapido
 export const getOrderSecurity = async (
@@ -46,4 +48,8 @@ export const getOrderCurrentUser = async (
     businessId as string,
     isCollaborator,
   );
+};
+
+export const canBeUpdated = (order: CompleteOrder) => {
+  return order.status === OrderStatus.SEND;
 };

@@ -171,12 +171,12 @@ export class OrderRepository extends BaseRepository<
   async isOrdersByTheSameUserOrReferred(ids: string[], userId: string) {
     return (
       ids.length ===
-        (await prisma().order.count({
-          where: {
-            id: { in: ids },
-            OR: [{ userId }, { referredById: userId }],
-          },
-        }))
+      (await prisma().order.count({
+        where: {
+          id: { in: ids },
+          OR: [{ userId }, { referredById: userId }],
+        },
+      }))
     );
   }
 
