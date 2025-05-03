@@ -303,9 +303,12 @@ model Order {
   collaboratorInvoiceId String?
   referredBy            User?                @relation("referredBy", fields: [referredById], references: [id])
   referredById          String?
-
-  orderAddress OrderAddress?
-  ticket       CollaboratorTicket?
+  orderAddress          OrderAddress?
+  ticket                CollaboratorTicket?
+  changedOrderNote      String?
+  changedByOrderId      String?
+  changedByOrder        Order?               @relation("changedOrderChild", fields: [changedByOrderId], references: [id])
+  changedOrderChild     Order[]              @relation("changedOrderChild")
 }
 
 model OrderProduct {
