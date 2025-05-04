@@ -23,65 +23,63 @@ export default async function ClientBackofficeOrder({
   const user = order.user as CompleteUser;
   const referredBy = order.referredBy;
   return (
-    <div className="container mx-auto p-4">
-      <div className="space-y-6">
-        {!!referredBy && (
-          <CardDisplay
-            className="bg-green-500 text-white"
-            title={t("cardReferredBy")}
-            items={[
-              { label: t("collaboratorName"), value: referredBy.name },
-              { label: t("phone"), value: referredBy.phone },
-            ]}
-          />
-        )}
+    <>
+      {!!referredBy && (
         <CardDisplay
-          title={t("cardGeneral")}
+          className="bg-green-500 text-white"
+          title={t("cardReferredBy")}
           items={[
-            { label: t("identifier"), value: order.identifier as string },
-            {
-              label: t("createdAt"),
-              value: formatDate(order.createdAt as Date),
-            },
-            {
-              label: t("total"),
-              value: (
-                <PriceDisplay
-                  price={order.total as number}
-                  currency={order.currency as TCurrency}
-                />
-              ),
-            },
-            {
-              label: t("commission"),
-              value: (
-                <PriceDisplay
-                  price={order.commission as number}
-                  currency={order.currency as TCurrency}
-                />
-              ),
-            },
-            {
-              label: t("shipping"),
-              value: (
-                <PriceDisplay
-                  price={order.shipping as number}
-                  currency={order.currency as TCurrency}
-                />
-              ),
-            },
+            { label: t("collaboratorName"), value: referredBy.name },
+            { label: t("phone"), value: referredBy.phone },
           ]}
         />
-        <CardDisplay
-          title={t("cardCustomer")}
-          items={[
-            { label: t("customerName"), value: user.name },
-            { label: t("phone"), value: user.phone },
-            ...addressItems,
-          ]}
-        />
-        <OrderProducts order={order} {...props} />
-      </div>
-    </div>
+      )}
+      <CardDisplay
+        title={t("cardGeneral")}
+        items={[
+          { label: t("identifier"), value: order.identifier as string },
+          {
+            label: t("createdAt"),
+            value: formatDate(order.createdAt as Date),
+          },
+          {
+            label: t("total"),
+            value: (
+              <PriceDisplay
+                price={order.total as number}
+                currency={order.currency as TCurrency}
+              />
+            ),
+          },
+          {
+            label: t("commission"),
+            value: (
+              <PriceDisplay
+                price={order.commission as number}
+                currency={order.currency as TCurrency}
+              />
+            ),
+          },
+          {
+            label: t("shipping"),
+            value: (
+              <PriceDisplay
+                price={order.shipping as number}
+                currency={order.currency as TCurrency}
+              />
+            ),
+          },
+        ]}
+      />
+      <CardDisplay
+        title={t("cardCustomer")}
+        items={[
+          { label: t("customerName"), value: user.name },
+          { label: t("phone"), value: user.phone },
+          ...addressItems,
+        ]}
+      />
+      <OrderProducts order={order} {...props} />
+    </>
   );
 }

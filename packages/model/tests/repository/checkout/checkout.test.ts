@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   createCollaboratorOrder,
   createWebOrder,
-} from "../../repository/checkout";
+} from "../../../repository/checkout";
 import {
   businessFactory,
   businessNeighborhoodFactory,
@@ -11,18 +11,31 @@ import {
   productFactory,
   userBusinessFactory,
   userFactory,
-} from "../factories";
-import { CommissionTypes, Currency, UserBusinessType } from "../../types/enums";
-import { FormOfPaymentType, OrderStatus } from "../../prisma/generated/client";
-import { productRepository } from "../../repositories/product";
-import { AddressType } from "../../validation/user";
+} from "../../factories";
+import {
+  CommissionTypes,
+  Currency,
+  UserBusinessType,
+} from "../../../types/enums";
+import {
+  FormOfPaymentType,
+  OrderStatus,
+} from "../../../prisma/generated/client";
+import { productRepository } from "../../../repositories/product";
+import { AddressType } from "../../../validation/user";
 import prisma from "@repo/model/prisma/prisma-client";
-import { TCustomerForm } from "../../validation/customer";
-import { TCollaboratorTicketForm } from "../../validation/collaborator-ticket";
-import { customerRepository } from "../../repositories/customer";
-import { collaboratorTicketRepository } from "../../repositories/collaborator-ticket";
-import { generateCode } from "../../lib/utils";
+import { TCustomerForm } from "../../../validation/customer";
+import { TCollaboratorTicketForm } from "../../../validation/collaborator-ticket";
+import { customerRepository } from "../../../repositories/customer";
+import { collaboratorTicketRepository } from "../../../repositories/collaborator-ticket";
+import { generateCode } from "../../../lib/utils";
 
+const auth = vi.hoisted(() => ({
+  auth: vi.fn(),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: auth.auth,
+}));
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
   set: vi.fn(),

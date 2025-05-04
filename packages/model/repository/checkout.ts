@@ -7,8 +7,11 @@ import {
   TWebShoppingCartSchema,
   WebShoppingCartSchema,
 } from "@repo/model/validation/user";
-import { productRepository } from "@repo/model/repositories/product";
-import { addProductFields, decrementStock } from "./product";
+import {
+  productRepository,
+  UpdateStockItem,
+} from "@repo/model/repositories/product";
+import { addProductFields, decrementStock, incrementStock } from "./product";
 import { getShippingPrice } from "../lib/order";
 import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
@@ -17,6 +20,7 @@ import {
   CompleteAddress,
   CompleteBusiness,
   CompleteOrder,
+  CompleteOrderProduct,
   CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
@@ -28,6 +32,7 @@ import { transaction } from "../prisma/prisma-client";
 import { calculateOrderProductCommissionAndPrice } from "./shop-cart";
 import { createCustomer } from "./customer";
 import { createCollaboratorTicket } from "./collaborator-ticket";
+import { getOrderByIdAndBusinessId } from "./order";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -111,8 +116,8 @@ export const orderItems = async (
         total: total + price,
         commission: commission + itemCommission,
         businessProfit: businessProfit + itemBusinessProfit,
-        hasProductOutOfStock:
-          hasProductOutOfStock || isOutOfStock(product, quantity),
+        hasProductOutOfStock: hasProductOutOfStock ||
+          isOutOfStock(product, quantity),
       };
     },
     {
@@ -130,7 +135,7 @@ export const orderItems = async (
 const addShipping = async (
   order: any,
   address: CompleteAddress,
-  business: CompleteBusiness,
+  businessId: string,
   total: number,
   wantDomicile: boolean,
 ) => {
@@ -139,7 +144,7 @@ const addShipping = async (
   }
   const neighborhoodId = address.neighborhoodId;
   const neighborhoodShipping = await getBusinessShippingPrice(
-    business.id,
+    businessId,
     neighborhoodId as string,
   );
   const shipping = await getShippingPrice(
@@ -200,8 +205,7 @@ export const createWebOrder = async (
   WebShoppingCartSchema.parse(data);
   let { phone, name, addressType, referredCode, ...rest } = data;
   const address = rest[addressType as AddressType];
-  const referredById =
-    referredCode &&
+  const referredById = referredCode &&
     (await userRepository.getUserIdByReferredCode(referredCode));
   try {
     const entity = await transaction(async () => {
@@ -262,11 +266,71 @@ export const createOrder = async (
   order = await addShipping(
     order,
     data.address as CompleteAddress,
-    business,
+    business.id,
     total,
     !!data.wantDomicile,
   );
   await decrementStock(productToUpdate);
   const entity = await orderRepository.createOrder(order, business, items);
   return entity;
+};
+
+export const updateOrderItems = async (
+  orderId: string,
+  productItems: CompleteOrderProduct[],
+  businessId: string,
+  changedOrderNote: string = "",
+) => {
+  const order = await getOrderByIdAndBusinessId(orderId, businessId);
+  if (!order || order.changedByOrderId) {
+    throw new Error("bad_order");
+  }
+  const cartItems: TCartItem[] = productItems.map((item) => ({
+    productId: item.productId,
+    quantity: item.quantity,
+    customPrice: item.customPrice,
+  }));
+  const productToRestore: UpdateStockItem[] = order?.items.map((item) => [
+    item.product as CompleteProduct,
+    item.quantity,
+  ]) || [];
+  return await transaction(async () => {
+    await incrementStock(productToRestore);
+    const {
+      items,
+      products,
+      total,
+      commission,
+      businessProfit,
+      hasProductOutOfStock,
+      productToUpdate,
+    } = await orderItems(businessId, cartItems, !!order?.isCollaborator);
+    if (hasProductOutOfStock) {
+      throw new BadRequestError("out_of_stock");
+    }
+    await decrementStock(productToUpdate);
+
+    let orderToUpdate: any = {
+      total,
+      commission,
+      businessProfit,
+      productsDetails: products,
+      changedOrderNote,
+    };
+    const { address } = order?.orderAddress || {};
+    if (address) {
+      const { neighborhood, neighborhoodId, ...restAddress } = address;
+      orderToUpdate = await addShipping(
+        orderToUpdate,
+        {
+          ...restAddress,
+          neighborhoodId,
+        } as CompleteAddress,
+        businessId,
+        total,
+        !!order?.hasShipping,
+      );
+    }
+    return orderRepository.copyOrder(order, items, orderToUpdate);
+  });
 };

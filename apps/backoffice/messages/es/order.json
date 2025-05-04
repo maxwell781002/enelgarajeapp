@@ -40,7 +40,9 @@
     "cardNota": "Notas",
     "cardReferredBy": "Referido por",
     "btnDownloadInvoice": "Factura",
-    "deliveryAddress": "Dirección de entrega"
+    "deliveryAddress": "Dirección de entrega",
+    "btnEdit": "Editar",
+    "cardChangedOrderNote": "Por qué se cambio la orden."
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",
@@ -50,5 +52,28 @@
     "lbName": "Nombre",
     "lbPhone": "Teléfono",
     "isCollaborator": "Es Gestor"
+  },
+  "OrderItemUpdate": {
+    "remove_dialog": {
+      "title": "Eliminar producto",
+      "description": "¿Seguro que quiere eliminar el producto?",
+      "cancel": "Cancelar",
+      "continue": "Eliminar"
+    },
+    "title": "Editar pedido",
+    "errorProductEmpty": "No puede borrar todos los productos. Cancele la orden si no desea que se realice.",
+    "btnUpdate": "Actualizar",
+    "btnUpdateLoading": "Actualizando...",
+    "restore": "Restaurar",
+    "orderNotePlaceholder": "Escriba la razón del cambio",
+    "orderNoteLabel": "Razón del cambio",
+    "errors": {
+      "has_out_of_stock": "Uno o más productos no tiene stock suficiente."
+    }
+  },
+  "Checkout": {
+    "subtotal": "Subtotal",
+    "shipping_price_cart": "Precio de domicilio",
+    "total_cart": "Total"
   }
 }

@@ -7,6 +7,7 @@ type BackPageProps = {
   children: React.ReactNode;
   headerChildren?: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 };
 
 export default function BackPage({
@@ -15,10 +16,11 @@ export default function BackPage({
   children,
   headerChildren,
   onClick,
+  className,
 }: BackPageProps) {
   return (
     <>
-      <div className="flex flex-1 justify-between">
+      <div className={className || "flex flex-1 justify-between"}>
         <Link
           href={href || "#"}
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground pb-4"

@@ -98,6 +98,7 @@ export class OrderRepository extends BaseRepository<
     if (!businessId) throw new Error("Business id is required");
     where = clearWhere({
       businessId,
+      changedByOrderId: null,
       status,
       ...where,
     });
@@ -238,6 +239,56 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  async copyOrder(
+    originalOrder: any,
+    productItems: CompleteOrderProduct[],
+    orderToUpdate: any,
+  ) {
+    const newPosition =
+      (await this.getLastPosition(originalOrder.businessId as string)) + 1;
+    const {
+      id,
+      businessId,
+      business,
+      user,
+      ticket,
+      ticketId,
+      changedByOrderId,
+      userId,
+      collaboratorInvoiceId,
+      collaboratorInvoice,
+      referredById,
+      referredBy,
+      orderAddress,
+      ...rest
+    } = originalOrder;
+    const data = {
+      ...rest,
+      ...orderToUpdate,
+      userId,
+      ticket: ticketId,
+      businessId,
+      position: newPosition,
+      identifier: this.generateIdentifier(new Date(), newPosition),
+      sentAt: new Date(),
+      items: {
+        create: productItems,
+      },
+    };
+    if (referredById) {
+      data.referredBy = referredById;
+    }
+    const entity = await prisma().order.create({
+      data,
+      include: { items: { orderBy: { position: "asc" } }, orderAddress: true },
+    });
+    await prisma().order.update({
+      where: { id },
+      data: { changedByOrderId: entity.id },
+    });
+    return entity;
+  }
+
   hasOrders(productId: string) {
     return prisma().order.count({
       where: {
@@ -272,9 +323,31 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  // TODO: Remove this method
   getOrderById(id: string) {
     return prisma().order.findUnique({
       where: { id },
+      include: {
+        business: true,
+        user: true,
+        ticket: {
+          include: { customer: true },
+        },
+        orderAddress: {
+          include: { address: { include: { neighborhood: true } } },
+        },
+        items: {
+          include: { product: { include: { priceValues: true } } },
+          orderBy: { position: "asc" },
+        },
+        referredBy: true,
+      },
+    });
+  }
+
+  getOrderByIdAndBusinessId(id: string, businessId: string) {
+    return prisma().order.findUnique({
+      where: { id, businessId },
       include: {
         business: true,
         user: true,
