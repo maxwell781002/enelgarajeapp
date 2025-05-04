@@ -135,7 +135,7 @@ export const orderItems = async (
 const addShipping = async (
   order: any,
   address: CompleteAddress,
-  business: CompleteBusiness,
+  businessId: string,
   total: number,
   wantDomicile: boolean,
 ) => {
@@ -144,7 +144,7 @@ const addShipping = async (
   }
   const neighborhoodId = address.neighborhoodId;
   const neighborhoodShipping = await getBusinessShippingPrice(
-    business.id,
+    businessId,
     neighborhoodId as string,
   );
   const shipping = await getShippingPrice(
@@ -267,7 +267,7 @@ export const createOrder = async (
   order = await addShipping(
     order,
     data.address as CompleteAddress,
-    business,
+    business.id,
     total,
     !!data.wantDomicile,
   );
@@ -294,15 +294,40 @@ export const updateOrderItems = async (
     ]) || [];
   return await transaction(async () => {
     await incrementStock(productToRestore);
-    const { items, hasProductOutOfStock, productToUpdate } = await orderItems(
-      businessId,
-      cartItems,
-      !!order?.isCollaborator,
-    );
+    const {
+      items,
+      products,
+      total,
+      commission,
+      businessProfit,
+      hasProductOutOfStock,
+      productToUpdate,
+    } = await orderItems(businessId, cartItems, !!order?.isCollaborator);
     if (hasProductOutOfStock) {
       throw new BadRequestError("out_of_stock");
     }
     await decrementStock(productToUpdate);
-    return orderRepository.copyOrder(order, items);
+
+    let orderToUpdate: any = {
+      total,
+      commission,
+      businessProfit,
+      productsDetails: products,
+    };
+    const { address } = order?.orderAddress || {};
+    if (address) {
+      const { neighborhood, neighborhoodId, ...restAddress } = address;
+      orderToUpdate = await addShipping(
+        orderToUpdate,
+        {
+          ...restAddress,
+          neighborhoodId,
+        } as CompleteAddress,
+        businessId,
+        total,
+        !!order?.hasShipping,
+      );
+    }
+    return orderRepository.copyOrder(order, items, orderToUpdate);
   });
 };

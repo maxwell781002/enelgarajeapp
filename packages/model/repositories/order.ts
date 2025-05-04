@@ -239,21 +239,47 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
-  async copyOrder(originalOrder: any, productItems: CompleteOrderProduct[]) {
+  async copyOrder(
+    originalOrder: any,
+    productItems: CompleteOrderProduct[],
+    orderToUpdate: any,
+  ) {
     const newPosition =
       (await this.getLastPosition(originalOrder.businessId as string)) + 1;
-    const { id, businessId, ...data } = originalOrder;
-    const entity = await prisma().order.create({
-      data: {
-        ...data,
-        businessId: businessId as string,
-        position: newPosition,
-        identifier: this.generateIdentifier(new Date(), newPosition),
-        sentAt: new Date(),
-        items: {
-          create: productItems,
-        },
+    const {
+      id,
+      businessId,
+      business,
+      user,
+      ticket,
+      ticketId,
+      changedByOrderId,
+      userId,
+      collaboratorInvoiceId,
+      collaboratorInvoice,
+      referredById,
+      referredBy,
+      orderAddress,
+      ...rest
+    } = originalOrder;
+    const data = {
+      ...rest,
+      ...orderToUpdate,
+      userId,
+      ticket: ticketId,
+      businessId,
+      position: newPosition,
+      identifier: this.generateIdentifier(new Date(), newPosition),
+      sentAt: new Date(),
+      items: {
+        create: productItems,
       },
+    };
+    if (referredById) {
+      data.referredBy = referredById;
+    }
+    const entity = await prisma().order.create({
+      data,
       include: { items: { orderBy: { position: "asc" } }, orderAddress: true },
     });
     await prisma().order.update({
