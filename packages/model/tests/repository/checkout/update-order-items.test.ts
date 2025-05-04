@@ -18,6 +18,7 @@ import { Currency } from "../../../types/enums";
 import { FormOfPaymentType } from "../../../prisma/generated/client";
 import { productRepository } from "../../../repositories/product";
 import { CompleteOrder } from "../../../prisma/zod";
+import { BadRequestError } from "../../../errors/bad-request";
 
 const auth = vi.hoisted(() => ({
   auth: vi.fn(),
@@ -85,7 +86,7 @@ describe("updateOrderItems", () => {
     await clearBd();
   });
 
-  it("test", async () => {
+  it("good order", async () => {
     const order = await createCollaboratorOrder(business, user, {
       customer,
       ticket,
@@ -135,5 +136,48 @@ describe("updateOrderItems", () => {
     expect(newOrder.isCollaborator).toBe(oldOrder.isCollaborator);
     expect(newOrder.currency).toBe(oldOrder.currency);
     expect(newOrder.ticketId).toBe((oldOrder as any).ticketId);
+  });
+
+  it("bad request", async () => {
+    const order = await createCollaboratorOrder(business, user, {
+      customer,
+      ticket,
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 2,
+          customPrice: 10,
+        },
+        {
+          productId: product2.id,
+          quantity: 2,
+        },
+      ],
+      wantDomicile: true,
+      address,
+    });
+    const entityProp1 = await productRepository.getById(product1.id);
+    expect(entityProp1.stock).toBe(2);
+    const entityProp2 = await productRepository.getById(product2.id);
+    expect(entityProp2.stock).toBe(2);
+    try {
+      await updateOrderItems(
+        order.id,
+        order.items.map((item) => ({ ...item, quantity: 6 })),
+        business.id,
+      );
+      expect(true).toBe(false);
+    } catch (e: any) {
+      expect(e instanceof BadRequestError).toBe(true);
+    }
+    const entityProp1After = await productRepository.getById(product1.id);
+    expect(entityProp1After.stock).toBe(2);
+    const entityProp2After = await productRepository.getById(product2.id);
+    expect(entityProp2After.stock).toBe(2);
+    const oldOrder = (await orderRepository.getOrderByIdAndBusinessId(
+      order.id,
+      business.id,
+    )) as CompleteOrder;
+    expect(oldOrder.changedByOrderId === null).toBe(true);
   });
 });

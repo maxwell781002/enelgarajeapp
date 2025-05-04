@@ -30,6 +30,12 @@ import { customerRepository } from "../../../repositories/customer";
 import { collaboratorTicketRepository } from "../../../repositories/collaborator-ticket";
 import { generateCode } from "../../../lib/utils";
 
+const auth = vi.hoisted(() => ({
+  auth: vi.fn(),
+}));
+vi.mock("@repo/model/lib/auth", () => ({
+  auth: auth.auth,
+}));
 const mocksCookies = vi.hoisted(() => ({
   get: vi.fn(() => ({ value: "" })),
   set: vi.fn(),
