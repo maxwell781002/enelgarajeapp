@@ -28,7 +28,7 @@ export default function OrderProductForm({
   action,
 }: {
   order: CompleteOrder;
-  action: (items: CompleteOrderProduct[], changedOrderNote: string) => void;
+  action: (items: CompleteOrderProduct[], changedOrderNote: string) => Promise<any>;
 }) {
   const [items, setItems] = useState<OrderProduct[]>(order.items);
   const [changedOrderNote, setChangedOrderNote] = useState<string>("");
@@ -52,7 +52,10 @@ export default function OrderProductForm({
   const [saving, startSaving] = useTransition();
   const handleSubmit = () => {
     startSaving(async () => {
-      const result = await action(items, changedOrderNote);
+      const result: any = await action(
+        items as unknown as CompleteOrderProduct[],
+        changedOrderNote,
+      );
       if (result?.error) {
         return setShopCartHasError(true);
       }
@@ -71,7 +74,6 @@ export default function OrderProductForm({
           value={changedOrderNote}
           onChange={(e) => setChangedOrderNote(e.target.value)}
           placeholder={t("orderNotePlaceholder")}
-          label={t("orderNoteLabel")}
           className="w-full"
         />
         {shopCartHasError && (
@@ -86,15 +88,15 @@ export default function OrderProductForm({
               <CardContent className="p-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <Image
-                    src={item.product.image || "/placeholder.svg"}
-                    alt={item.product.name}
+                    src={(item as any).product.image || "/placeholder.svg"}
+                    alt={(item as any).product.name}
                     width={80}
                     height={80}
                     className="rounded-md object-cover"
                   />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-base md:text-lg truncate">
-                      {item.product.name}
+                      {(item as any).product.name}
                     </h3>
                     <PriceDisplay
                       price={getPrice(item)}
