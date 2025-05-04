@@ -116,8 +116,8 @@ export const orderItems = async (
         total: total + price,
         commission: commission + itemCommission,
         businessProfit: businessProfit + itemBusinessProfit,
-        hasProductOutOfStock:
-          hasProductOutOfStock || isOutOfStock(product, quantity),
+        hasProductOutOfStock: hasProductOutOfStock ||
+          isOutOfStock(product, quantity),
       };
     },
     {
@@ -205,8 +205,7 @@ export const createWebOrder = async (
   WebShoppingCartSchema.parse(data);
   let { phone, name, addressType, referredCode, ...rest } = data;
   const address = rest[addressType as AddressType];
-  const referredById =
-    referredCode &&
+  const referredById = referredCode &&
     (await userRepository.getUserIdByReferredCode(referredCode));
   try {
     const entity = await transaction(async () => {
@@ -280,18 +279,21 @@ export const updateOrderItems = async (
   orderId: string,
   productItems: CompleteOrderProduct[],
   businessId: string,
+  changedOrderNote: string = "",
 ) => {
   const order = await getOrderByIdAndBusinessId(orderId, businessId);
+  if (!order || order.changedByOrderId) {
+    throw new Error("bad_order");
+  }
   const cartItems: TCartItem[] = productItems.map((item) => ({
     productId: item.productId,
     quantity: item.quantity,
     customPrice: item.customPrice,
   }));
-  const productToRestore: UpdateStockItem[] =
-    order?.items.map((item) => [
-      item.product as CompleteProduct,
-      item.quantity,
-    ]) || [];
+  const productToRestore: UpdateStockItem[] = order?.items.map((item) => [
+    item.product as CompleteProduct,
+    item.quantity,
+  ]) || [];
   return await transaction(async () => {
     await incrementStock(productToRestore);
     const {
@@ -313,6 +315,7 @@ export const updateOrderItems = async (
       commission,
       businessProfit,
       productsDetails: products,
+      changedOrderNote,
     };
     const { address } = order?.orderAddress || {};
     if (address) {

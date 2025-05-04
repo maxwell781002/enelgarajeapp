@@ -4,7 +4,6 @@ import OrderEditForm from "./form";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import { updateOrderItems } from "@repo/model/repository/checkout";
-import { revalidatePath } from "next/cache";
 import { BadRequestError } from "@repo/model/errors/bad-request";
 
 type OrderEditPageProps = {
@@ -18,11 +17,13 @@ export default async function OrderEditPage({
   params: { id, businessId },
 }: OrderEditPageProps) {
   const order = await getOrderByIdAndBusinessId(id, businessId);
-  const updateOrderItemsAction = async (items: CompleteOrderProduct[]) => {
+  const updateOrderItemsAction = async (
+    items: CompleteOrderProduct[],
+    changedOrderNote: string,
+  ) => {
     "use server";
     try {
-      await updateOrderItems(id, items, businessId);
-      revalidatePath(`/${businessId}/orders/${id}`);
+      return await updateOrderItems(id, items, businessId, changedOrderNote);
     } catch (e) {
       if (e instanceof BadRequestError) {
         return { error: e.message };

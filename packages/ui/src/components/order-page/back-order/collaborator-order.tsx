@@ -29,99 +29,97 @@ export default async function CollaboratorOrder({
   const ticket = order.ticket;
   const user = order.user as CompleteUser;
   return (
-    <div className="container mx-auto p-4">
-      <div className="space-y-6">
-        <CardDisplay
-          title={t("cardGeneral")}
-          items={[
-            { label: t("identifier"), value: order.identifier as string },
-            {
-              label: t("createdAt"),
-              value: formatDate(order.createdAt as Date),
-            },
-            {
-              label: ticket && t("deliveryDate"),
-              value: ticket && formatDate(ticket.deliveryDate as Date),
-            },
-            {
-              label: t("total"),
-              value: (
-                <PriceDisplay
-                  price={order.total as number}
-                  currency={order.currency as TCurrency}
-                />
-              ),
-            },
-            {
-              label: t("commission"),
-              value: (
-                <PriceDisplay
-                  price={order.commission as number}
-                  currency={order.currency as TCurrency}
-                />
-              ),
-            },
-            {
-              label: t("shipping"),
-              value: (
-                <PriceDisplay
-                  price={order.shipping as number}
-                  currency={order.currency as TCurrency}
-                />
-              ),
-            },
-          ]}
-        />
-        <CardDisplay
-          title={t("cardCollaborator")}
-          items={[
-            { label: t("collaboratorName"), value: user.name },
-            { label: t("phone"), value: user.phone },
-          ]}
-        />
-        {!!ticket && (
-          <>
-            <CardDisplay
-              title={t("cardCustomer")}
-              items={[
-                { label: t("customerName"), value: ticket?.customer?.name },
-                {
-                  label: t("identification"),
-                  value: ticket?.customer?.identification,
-                },
-                { label: t("phone"), value: ticket?.phone },
-                ...addressItems,
-              ]}
-            />
-            <CardDisplay
-              title={t("cardPayment")}
-              items={[
-                {
-                  label: t("currency"),
-                  value: ticket?.currency,
-                },
-                {
-                  label: t("formOfPayment"),
-                  value: ticket?.formOfPayment && t(ticket?.formOfPayment),
-                },
-              ]}
-            />
-            {ticket?.nota && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex justify-between items-center">
-                    <span>{t("cardNota")}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>{ticket?.nota}</p>
-                </CardContent>
-              </Card>
-            )}
-          </>
-        )}
-        <OrderProducts order={order} {...props} />
-      </div>
-    </div>
+    <>
+      <CardDisplay
+        title={t("cardGeneral")}
+        items={[
+          { label: t("identifier"), value: order.identifier as string },
+          {
+            label: t("createdAt"),
+            value: formatDate(order.createdAt as Date),
+          },
+          {
+            label: ticket && t("deliveryDate"),
+            value: ticket && formatDate(ticket.deliveryDate as Date),
+          },
+          {
+            label: t("total"),
+            value: (
+              <PriceDisplay
+                price={order.total as number}
+                currency={order.currency as TCurrency}
+              />
+            ),
+          },
+          {
+            label: t("commission"),
+            value: (
+              <PriceDisplay
+                price={order.commission as number}
+                currency={order.currency as TCurrency}
+              />
+            ),
+          },
+          {
+            label: t("shipping"),
+            value: (
+              <PriceDisplay
+                price={order.shipping as number}
+                currency={order.currency as TCurrency}
+              />
+            ),
+          },
+        ]}
+      />
+      <CardDisplay
+        title={t("cardCollaborator")}
+        items={[
+          { label: t("collaboratorName"), value: user.name },
+          { label: t("phone"), value: user.phone },
+        ]}
+      />
+      {!!ticket && (
+        <>
+          <CardDisplay
+            title={t("cardCustomer")}
+            items={[
+              { label: t("customerName"), value: ticket?.customer?.name },
+              {
+                label: t("identification"),
+                value: ticket?.customer?.identification,
+              },
+              { label: t("phone"), value: ticket?.phone },
+              ...addressItems,
+            ]}
+          />
+          <CardDisplay
+            title={t("cardPayment")}
+            items={[
+              {
+                label: t("currency"),
+                value: ticket?.currency,
+              },
+              {
+                label: t("formOfPayment"),
+                value: ticket?.formOfPayment && t(ticket?.formOfPayment),
+              },
+            ]}
+          />
+          {ticket?.nota && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex justify-between items-center">
+                  <span>{t("cardNota")}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{ticket?.nota}</p>
+              </CardContent>
+            </Card>
+          )}
+        </>
+      )}
+      <OrderProducts order={order} {...props} />
+    </>
   );
 }

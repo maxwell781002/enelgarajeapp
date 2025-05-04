@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useTransition } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@repo/ui/components/button";
@@ -19,6 +18,8 @@ import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import { Alert } from "@repo/ui/components/ui/alert";
 import Totals from "@repo/ui/components/shop-cart/checkout/total";
 import AlertMessage from "@repo/ui/components/alert-message";
+import { Textarea } from "@repo/ui/components/ui/textarea";
+import { redirect } from "next/navigation";
 
 const getPrice = (item: OrderProduct) => item.customPrice || item.originalPrice;
 
@@ -27,9 +28,10 @@ export default function OrderProductForm({
   action,
 }: {
   order: CompleteOrder;
-  action: (items: CompleteOrderProduct[]) => void;
+  action: (items: CompleteOrderProduct[], changedOrderNote: string) => void;
 }) {
   const [items, setItems] = useState<OrderProduct[]>(order.items);
+  const [changedOrderNote, setChangedOrderNote] = useState<string>("");
   const t = useTranslations("OrderItemUpdate");
   const [shopCartHasError, setShopCartHasError] = useState(false);
   const handleRemove = (productId: string) => {
@@ -49,11 +51,12 @@ export default function OrderProductForm({
   };
   const [saving, startSaving] = useTransition();
   const handleSubmit = () => {
-    startSaving(() => {
-      const { error } = action(items);
-      if (error) {
-        setShopCartHasError(true);
+    startSaving(async () => {
+      const result = await action(items, changedOrderNote);
+      if (result?.error) {
+        return setShopCartHasError(true);
       }
+      return redirect(`/${order.businessId}/orders/${result.id}`);
     });
   };
   const handleRestore = () => {
@@ -61,9 +64,16 @@ export default function OrderProductForm({
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4 md:p-6">
+    <div className="w-full max-w-3xl mx-auto p-4 md:p-6 bg-white rounded-md">
       <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
       <div className="space-y-4">
+        <Textarea
+          value={changedOrderNote}
+          onChange={(e) => setChangedOrderNote(e.target.value)}
+          placeholder={t("orderNotePlaceholder")}
+          label={t("orderNoteLabel")}
+          className="w-full"
+        />
         {shopCartHasError && (
           <AlertMessage
             variant="destructive"
