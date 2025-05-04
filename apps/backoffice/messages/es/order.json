@@ -62,6 +62,7 @@
     "title": "Editar pedido",
     "errorProductEmpty": "No puede borrar todos los productos. Cancele la orden si no desea que se realice.",
     "btnUpdate": "Actualizar",
+    "btnUpdateLoading": "Actualizando...",
     "restore": "Restaurar"
   },
   "Checkout": {

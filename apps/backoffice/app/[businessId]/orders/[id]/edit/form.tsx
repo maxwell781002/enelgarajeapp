@@ -2,9 +2,9 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/button";
 import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { Input } from "@repo/ui/components/ui/input";
 import { Separator } from "@repo/ui/components/ui/separator";
@@ -18,12 +18,20 @@ import { OrderProduct } from "@repo/model/prisma/generated/client/index.d";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import { Alert } from "@repo/ui/components/ui/alert";
 import Totals from "@repo/ui/components/shop-cart/checkout/total";
+import AlertMessage from "@repo/ui/components/alert-message";
 
 const getPrice = (item: OrderProduct) => item.customPrice || item.originalPrice;
 
-export default function OrderProductForm({ order }: { order: CompleteOrder }) {
+export default function OrderProductForm({
+  order,
+  action,
+}: {
+  order: CompleteOrder;
+  action: (items: CompleteOrderProduct[]) => void;
+}) {
   const [items, setItems] = useState<OrderProduct[]>(order.items);
   const t = useTranslations("OrderItemUpdate");
+  const [shopCartHasError, setShopCartHasError] = useState(false);
   const handleRemove = (productId: string) => {
     setItems((prev) => prev.filter((item) => productId !== item.productId));
   };
@@ -39,8 +47,14 @@ export default function OrderProductForm({ order }: { order: CompleteOrder }) {
       ),
     );
   };
-  const handleSubmit = (e: React.FormEvent) => {
-    console.log("handleSubmit");
+  const [saving, startSaving] = useTransition();
+  const handleSubmit = () => {
+    startSaving(() => {
+      const { error } = action(items);
+      if (error) {
+        setShopCartHasError(true);
+      }
+    });
   };
   const handleRestore = () => {
     setItems(order.items);
@@ -50,6 +64,12 @@ export default function OrderProductForm({ order }: { order: CompleteOrder }) {
     <div className="w-full max-w-3xl mx-auto p-4 md:p-6">
       <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
       <div className="space-y-4">
+        {shopCartHasError && (
+          <AlertMessage
+            variant="destructive"
+            text={t("errors.has_out_of_stock")}
+          />
+        )}
         {items.length > 0 ? (
           items.map((item) => (
             <Card key={item.productId} className="overflow-hidden">
@@ -118,7 +138,12 @@ export default function OrderProductForm({ order }: { order: CompleteOrder }) {
               >
                 {t("restore")}
               </Button>
-              <Button onClick={handleSubmit} className="w-full sm:w-auto">
+              <Button
+                loading={saving}
+                loadingText={t("btnUpdateLoading")}
+                onClick={handleSubmit}
+                className="w-full sm:w-auto"
+              >
                 {t("btnUpdate")}
               </Button>
             </div>

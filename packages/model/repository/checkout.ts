@@ -7,8 +7,11 @@ import {
   TWebShoppingCartSchema,
   WebShoppingCartSchema,
 } from "@repo/model/validation/user";
-import { productRepository } from "@repo/model/repositories/product";
-import { addProductFields, decrementStock } from "./product";
+import {
+  productRepository,
+  UpdateStockItem,
+} from "@repo/model/repositories/product";
+import { addProductFields, decrementStock, incrementStock } from "./product";
 import { getShippingPrice } from "../lib/order";
 import { BadRequestError } from "../errors/bad-request";
 import { getBusinessShippingPrice } from "./business-neighborhood";
@@ -17,6 +20,7 @@ import {
   CompleteAddress,
   CompleteBusiness,
   CompleteOrder,
+  CompleteOrderProduct,
   CompleteProduct,
   CompleteUser,
 } from "../prisma/zod";
@@ -28,6 +32,7 @@ import { transaction } from "../prisma/prisma-client";
 import { calculateOrderProductCommissionAndPrice } from "./shop-cart";
 import { createCustomer } from "./customer";
 import { createCollaboratorTicket } from "./collaborator-ticket";
+import { getOrderByIdAndBusinessId } from "./order";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -269,4 +274,35 @@ export const createOrder = async (
   await decrementStock(productToUpdate);
   const entity = await orderRepository.createOrder(order, business, items);
   return entity;
+};
+
+export const updateOrderItems = async (
+  orderId: string,
+  productItems: CompleteOrderProduct[],
+  businessId: string,
+) => {
+  const order = await getOrderByIdAndBusinessId(orderId, businessId);
+  const cartItems: TCartItem[] = productItems.map((item) => ({
+    productId: item.productId,
+    quantity: item.quantity,
+    customPrice: item.customPrice,
+  }));
+  const productToRestore: UpdateStockItem[] =
+    order?.items.map((item) => [
+      item.product as CompleteProduct,
+      item.quantity,
+    ]) || [];
+  return await transaction(async () => {
+    await incrementStock(productToRestore);
+    const { items, hasProductOutOfStock, productToUpdate } = await orderItems(
+      businessId,
+      cartItems,
+      !!order?.isCollaborator,
+    );
+    if (hasProductOutOfStock) {
+      throw new BadRequestError("out_of_stock");
+    }
+    await decrementStock(productToUpdate);
+    return orderRepository.copyOrder(order, items);
+  });
 };

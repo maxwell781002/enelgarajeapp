@@ -239,6 +239,30 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  async copyOrder(originalOrder: any, productItems: CompleteOrderProduct[]) {
+    const newPosition =
+      (await this.getLastPosition(originalOrder.businessId as string)) + 1;
+    const { id, businessId, ...data } = originalOrder;
+    const entity = await prisma().order.create({
+      data: {
+        ...data,
+        businessId: businessId as string,
+        position: newPosition,
+        identifier: this.generateIdentifier(new Date(), newPosition),
+        sentAt: new Date(),
+        items: {
+          create: productItems,
+        },
+      },
+      include: { items: { orderBy: { position: "asc" } }, orderAddress: true },
+    });
+    await prisma().order.update({
+      where: { id },
+      data: { changedByOrderId: entity.id },
+    });
+    return entity;
+  }
+
   hasOrders(productId: string) {
     return prisma().order.count({
       where: {
