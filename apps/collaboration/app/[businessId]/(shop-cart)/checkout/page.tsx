@@ -5,12 +5,13 @@ import { getCurrentUser } from "@repo/model/repository/user";
 import { Currency, FormOfPaymentType } from "@repo/model/types/enums";
 
 export type Props = {
-  params: {
+  params: Promise<{
     businessId: string;
-  };
+  }>;
 };
 
-export default async function Component({ params: { businessId } }: Props) {
+export default async function Component({ params }: Props) {
+  const { businessId } = await params;
   const business = await getBusinessById(businessId);
   const user = await getCurrentUser();
   const action = async ({ customer, address, ...data }: any) => {

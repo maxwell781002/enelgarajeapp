@@ -7,16 +7,15 @@ import CollaboratorInvoice from "./_invoices";
 import PriceDisplay from "@repo/ui/components/prices/price";
 
 export type Props = {
-  searchParams: any;
-  params: {
+  searchParams: Promise<any>;
+  params: Promise<{
     businessId: string;
-  };
+  }>;
 };
 
-export default async function Home({
-  searchParams,
-  params: { businessId },
-}: Props) {
+export default async function Home({ params, searchParams }: Props) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("Dashboard");
   const currentUser = await getCurrentUser();
   const user = await userRepository.getUserWithCollaboratorProfile(

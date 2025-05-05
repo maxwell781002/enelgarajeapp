@@ -12,14 +12,16 @@ import { getBusinessById } from "@repo/model/repository/business";
 import { isCategoryLimited } from "@repo/model/repository/category";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
 export default async function Page({
-  searchParams,
-  params: { businessId },
+  params,
+  searchParams: propsSearchParams,
 }: PageProps) {
+  const { businessId } = await params;
+  const searchParams = await propsSearchParams;
   const t = await getTranslations("Category");
   const business = await getBusinessById(businessId);
   const { list, remove, update, create, search } = crud(

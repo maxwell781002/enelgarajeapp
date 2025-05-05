@@ -11,14 +11,13 @@ import { TableContextProvider } from "@repo/ui/context/table";
 import { getCurrentUser } from "@repo/model/repository/user";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { businessId },
-}: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("Order");
   const { list, search } = crud(
     `/${businessId}/order`,

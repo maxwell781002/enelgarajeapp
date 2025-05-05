@@ -14,14 +14,13 @@ import Filter from "./filters";
 import { redirect } from "next/navigation";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { businessId },
-}: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("Business");
   const { list, remove, search } = crud(
     "/admin/business",

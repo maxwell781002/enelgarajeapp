@@ -10,10 +10,11 @@ import { getBusinessById } from "@repo/model/repository/business";
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 
 export default async function Page({
-  params: { businessId },
+  params,
 }: {
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   const t = await getTranslations("BusinessSite");
   const business = await getBusinessById(businessId);
   if (!getPlanFeature("CAN_CONFIGURE_SITE", business)) {

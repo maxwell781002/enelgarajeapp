@@ -1,9 +1,10 @@
 import BusinessDetail from "../../components/business-detail";
 
 export default async function BusinessPage({
-  params: { businessId },
+  params,
 }: {
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   return <BusinessDetail businessId={businessId} />;
 }

@@ -11,14 +11,16 @@ import { businessNeighborhoodRepository } from "@repo/model/repositories/busines
 import { CompleteBusinessNeighborhood } from "@repo/model/zod/businessneighborhood";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
 export default async function Page({
-  searchParams,
-  params: { businessId },
+  params,
+  searchParams: propsSearchParams,
 }: PageProps) {
+  const { businessId } = await params;
+  const searchParams = await propsSearchParams;
   const t = await getTranslations("BusinessNeighborhood");
   const { list, remove, update, create, search } = crud(
     `/${businessId}/neighborhood`,

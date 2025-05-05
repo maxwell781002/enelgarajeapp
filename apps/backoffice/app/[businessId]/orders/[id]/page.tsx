@@ -12,12 +12,11 @@ import { PencilIcon } from "lucide-react";
 import Link from "next/link";
 
 type OrderDetailProps = {
-  params: { businessId: string; id: string };
+  params: Promise<{ businessId: string; id: string }>;
 };
 
-export default async function Page({
-  params: { businessId, id },
-}: OrderDetailProps) {
+export default async function Page({ params }: OrderDetailProps) {
+  const { businessId, id } = await params;
   const order = (await getOrderById(id)) as CompleteOrder;
   const t = await getTranslations("OrderDetailBack");
   const changeStatus = async (status: string) => {

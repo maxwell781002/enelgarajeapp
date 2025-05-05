@@ -4,21 +4,21 @@ import ProductPage, {
 import { ResolvingMetadata } from "next";
 
 export type ProductPageProps = {
-  params: {
+  params: Promise<{
     productSlug: string;
     locale: string;
-  };
+  }>;
 };
 
 export async function generateMetadata(
-  { params: { productSlug } }: ProductPageProps,
+  { params }: ProductPageProps,
   parent: ResolvingMetadata,
 ) {
+  const { productSlug } = await params;
   return BaseGenerateMetadata(productSlug, parent);
 }
 
-export default async function Page({
-  params: { productSlug, locale },
-}: ProductPageProps) {
+export default async function Page({ params }: ProductPageProps) {
+  const { productSlug, locale } = await params;
   return <ProductPage productSlug={productSlug} locale={locale} />;
 }

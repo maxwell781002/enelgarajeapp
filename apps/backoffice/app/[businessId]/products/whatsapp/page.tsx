@@ -8,12 +8,13 @@ import BackPage from "@repo/ui/components/back-page";
 import { revalidatePath } from "next/cache";
 
 export type PageProps = {
-  params: {
+  params: Promise<{
     businessId: string;
-  };
+  }>;
 };
 
-export default async function Page({ params: { businessId } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { businessId } = await params;
   const chatList = await getChatListServer(businessId);
   const sendToWhatsapp = async (
     productIds: string[],

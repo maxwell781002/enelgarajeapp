@@ -48,7 +48,7 @@
     "prisma-reset": "prisma migrate reset --schema=./prisma/schema.prisma"
   },
   "peerDependencies": {
-    "next": "^14.2.11"
+    "next": "15.3.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -62,7 +62,7 @@
     "bufferutil": "^4.0.9",
     "dotenv-cli": "^7.4.2",
     "jsdom": "^24.1.1",
-    "next": "^14.2.11",
+    "next": "15.3.1",
     "prisma": "5.19.1",
     "ts-node": "^10.9.2",
     "vitest-fetch-mock": "^0.4.3",

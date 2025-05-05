@@ -134,10 +134,10 @@ const getClientData = async (
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   const user = await getCurrentUser();
-  const { id } = params;
   const order = (await getOrderSecurity(id, user)) as CompleteOrder;
   if (!order) {
     return new Response("Not found", { status: 404 });

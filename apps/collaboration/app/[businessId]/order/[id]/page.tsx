@@ -4,12 +4,11 @@ import { CompleteOrder } from "@repo/model/zod/order";
 import BackOrder from "@repo/ui/components/order-page/back-order/index";
 
 type OrderDetailProps = {
-  params: { businessId: string; id: string };
+  params: Promise<{ businessId: string; id: string }>;
 };
 
-export default async function Page({
-  params: { businessId, id },
-}: OrderDetailProps) {
+export default async function Page({ params }: OrderDetailProps) {
+  const { businessId, id } = await params;
   const order = (await getOrderById(id)) as CompleteOrder;
   return (
     <BackPage href={`/${businessId}/order`} urlTitle="Ir a órdenes">

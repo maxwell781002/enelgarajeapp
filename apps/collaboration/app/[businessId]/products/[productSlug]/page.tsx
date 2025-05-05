@@ -9,23 +9,23 @@ import { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 export type ProductPageProps = {
-  params: {
+  params: Promise<{
     productSlug: string;
     businessId: string;
     locale: string;
-  };
+  }>;
 };
 
 export async function generateMetadata(
-  { params: { productSlug } }: ProductPageProps,
+  { params }: ProductPageProps,
   parent: ResolvingMetadata,
 ) {
+  const { productSlug } = await params;
   return BaseGenerateMetadata(productSlug, parent);
 }
 
-export default async function Page({
-  params: { productSlug, locale, businessId },
-}: ProductPageProps) {
+export default async function Page({ params }: ProductPageProps) {
+  const { productSlug, locale, businessId } = await params;
   const t = await getTranslations("Product");
   const user = await getCurrentUser();
   const business = await getBusinessById(businessId);

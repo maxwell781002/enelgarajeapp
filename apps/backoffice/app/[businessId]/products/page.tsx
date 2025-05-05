@@ -19,14 +19,13 @@ import {
 import { addProductFields } from "@repo/model/repository/product";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { businessId },
-}: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("Product");
   const business = await getBusinessById(businessId);
   const whatsappConnect = await getWhatsappConnectByBusinessId(businessId);

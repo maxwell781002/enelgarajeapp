@@ -11,10 +11,11 @@ const defaultValues = {
 };
 
 export default async function Page({
-  params: { businessId },
+  params,
 }: {
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   const t = await getTranslations("BusinessSite");
   const { logo, ...site } = (await businessSiteRepository.getByBusinessId(
     businessId,

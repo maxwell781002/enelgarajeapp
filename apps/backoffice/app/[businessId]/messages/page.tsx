@@ -6,10 +6,11 @@ import MessagesBulk from "@repo/ui/components/messages_bulk/index";
 import { revalidatePath } from "next/cache";
 
 export default async function Page({
-  params: { businessId },
+  params,
 }: {
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   const retrieveMessages = async (lastEvaluatedKey: string | null = null) => {
     "use server";
     return getMessagesBulk(businessId, lastEvaluatedKey);
