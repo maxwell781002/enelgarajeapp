@@ -39,11 +39,5 @@
     "prisma": "5.19.1",
     "typescript": "^5",
     "zod-prisma": "^0.5.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.1.2",
-      "@types/react-dom": "19.1.3"
-    }
   }
 }
