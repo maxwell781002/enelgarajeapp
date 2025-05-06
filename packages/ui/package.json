@@ -2,11 +2,11 @@
   "name": "@repo/ui",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "exports": {
     "./globals.css": "./globals.css",
     "./postcss.config": "./postcss.config.js",
-    "./tailwind.config": "./tailwind.config.ts",
+    "./tailwind.config": "./tailwind.config.js",
     "./lib/*": [
       "./src/lib/*.ts"
     ],
