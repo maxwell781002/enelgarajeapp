@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@repo/model/lib/auth";
 import { UserRoles } from "@repo/model/repositories/user";
 
-export const runtime = "experimental-edge";
-
 const NO_BUSINESS_PATHS = ["errors", "request-shop", "sentry-example-page"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
