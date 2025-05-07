@@ -58,6 +58,6 @@ export const getOrderCurrentUser = async (
   );
 };
 
-export const canBeUpdated = (order: CompleteOrder) => {
+export const canBeUpdated = async (order: CompleteOrder) => {
   return order.status === OrderStatus.SEND;
 };
