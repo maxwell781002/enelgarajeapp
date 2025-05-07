@@ -35,7 +35,7 @@ const CustomPrice = ({ item }: { item: ShopCartItem }) => {
 
 export default function CardItem({ item, ...props }: CardItemProps) {
   return (
-    <BaseCardItem item={item} {...props}>
+    <BaseCardItem item={item} showStock {...props}>
       <CustomPrice item={item} />
     </BaseCardItem>
   );

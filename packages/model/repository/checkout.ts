@@ -116,8 +116,8 @@ export const orderItems = async (
         total: total + price,
         commission: commission + itemCommission,
         businessProfit: businessProfit + itemBusinessProfit,
-        hasProductOutOfStock: hasProductOutOfStock ||
-          isOutOfStock(product, quantity),
+        hasProductOutOfStock:
+          hasProductOutOfStock || isOutOfStock(product, quantity),
       };
     },
     {
@@ -205,7 +205,8 @@ export const createWebOrder = async (
   WebShoppingCartSchema.parse(data);
   let { phone, name, addressType, referredCode, ...rest } = data;
   const address = rest[addressType as AddressType];
-  const referredById = referredCode &&
+  const referredById =
+    referredCode &&
     (await userRepository.getUserIdByReferredCode(referredCode));
   try {
     const entity = await transaction(async () => {
@@ -290,10 +291,11 @@ export const updateOrderItems = async (
     quantity: item.quantity,
     customPrice: item.customPrice,
   }));
-  const productToRestore: UpdateStockItem[] = order?.items.map((item) => [
-    item.product as CompleteProduct,
-    item.quantity,
-  ]) || [];
+  const productToRestore: UpdateStockItem[] =
+    order?.items.map((item) => [
+      item.product as CompleteProduct,
+      item.quantity,
+    ]) || [];
   return await transaction(async () => {
     await incrementStock(productToRestore);
     const {

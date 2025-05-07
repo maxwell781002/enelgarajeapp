@@ -28,7 +28,10 @@ export default function OrderProductForm({
   action,
 }: {
   order: CompleteOrder;
-  action: (items: CompleteOrderProduct[], changedOrderNote: string) => Promise<any>;
+  action: (
+    items: CompleteOrderProduct[],
+    changedOrderNote: string,
+  ) => Promise<any>;
 }) {
   const [items, setItems] = useState<OrderProduct[]>(order.items);
   const [changedOrderNote, setChangedOrderNote] = useState<string>("");
