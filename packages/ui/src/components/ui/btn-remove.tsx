@@ -6,6 +6,7 @@ import {
   BtnConfirm,
   BtnConfirmProps,
 } from "@repo/ui/components/ui/btn-confirm";
+import { JSX } from "react";
 
 type TKey = "title" | "description" | "btnIcon";
 

@@ -241,8 +241,6 @@ importers:
         specifier: ^0.5.4
         version: 0.5.4(decimal.js@10.4.3)(prisma@5.19.1)(zod@3.23.8)
 
-  packages/config: {}
-
   packages/eslint-config:
     devDependencies:
       '@typescript-eslint/eslint-plugin':

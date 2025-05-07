@@ -3,6 +3,7 @@ import PriceDisplay from "@repo/ui/components/prices/price";
 import Markdown from "@repo/ui/components/markdown";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";
+import { JSX } from "react";
 
 export type ProductDetailProps = {
   product: IProduct;
