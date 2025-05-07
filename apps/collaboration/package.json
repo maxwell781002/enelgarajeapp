@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3001",
+    "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,7 +15,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@repo/model": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@sentry/nextjs": "^8.32.0",
+    "@sentry/nextjs": "^9.15.0",
     "lucide-react": "^0.428.0",
     "next": "15.3.1",
     "next-intl": "^3.17.2",
