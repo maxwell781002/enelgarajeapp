@@ -44,7 +44,7 @@ export default async function Page({
           <DialogForm
             title={t("createCategory")}
             action={create}
-            defaultValues={{ businessId, active: true, priority: 0 }}
+            defaultValues={{ businessId, active: true, priority: 0, name: "" }}
             business={business}
             isLimited={await isCategoryLimited(business)}
           />

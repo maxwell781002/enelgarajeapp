@@ -78,7 +78,6 @@ export default function CategoryForm({ action, defaultValues }: FormAction) {
               <FormLabel>{t("lbPriority")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder={t("phPriority")}
                   type="number"
                   {...field}
                   onChange={(event: any) => field.onChange(+event.target.value)}
