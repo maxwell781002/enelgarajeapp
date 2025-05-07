@@ -41,6 +41,12 @@ describe("ProductRepository", () => {
       stock: 0,
       allowOrderOutOfStock: false,
     });
+    await productFactory({
+      businessId: business.id,
+      name: "product_5",
+      stock: 10,
+      active: false,
+    });
   });
   afterAll(async () => {
     await clearBd();

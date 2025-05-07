@@ -18,7 +18,7 @@
     "custom_price": "Precio libre",
     "custom_price_help": "Introduzca un precio mayor al definido por el negocio, si logró vender el producto por un precio mayor.",
     "errors": {
-      "has_out_of_stock": "Tiene productos que no tienen stock disponible.",
+      "has_out_of_stock": "Alcanzó el Limite!. Ya tiene todos los productos disponibles en el carrito.",
       "item_out_of_stock": "Este producto no tiene stock disponible.",
       "error_price_custom": "El precio libre debe ser mayor al precio del producto."
     }

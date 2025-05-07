@@ -19,6 +19,7 @@ export type CardItemProps = {
   url: string;
   onRemove: () => void;
   showCommission?: boolean;
+  showStock?: boolean;
 } & QuantitySetterProps &
   PropsWithChildren;
 
@@ -28,6 +29,7 @@ export default function CardItem({
   url,
   showCommission,
   children,
+  showStock,
   ...quantityProps
 }: CardItemProps) {
   const t = useTranslations("ShopCart");
@@ -71,6 +73,7 @@ export default function CardItem({
                   price={item.product.price}
                   classNameText="text-sm"
                 />
+                {showStock && <span>Stock: {item.product.stock}</span>}
               </Link>
             </div>
           </div>
