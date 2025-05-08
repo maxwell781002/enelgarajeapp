@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { JSX } from "react";
 
 import { Button, ButtonProps } from "@repo/ui/components/ui/button";
 import {

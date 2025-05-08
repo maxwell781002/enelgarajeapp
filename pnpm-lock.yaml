@@ -15,6 +15,9 @@ importers:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.41)
     devDependencies:
+      '@vitejs/plugin-react':
+        specifier: ^4.3.1
+        version: 4.3.1(vite@5.4.0(@types/node@22.7.6)(terser@5.39.0))
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -53,7 +56,7 @@ importers:
         version: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-intl:
         specifier: ^4.1.0
-        version: 4.1.0(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
+        version: 4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -129,7 +132,7 @@ importers:
         version: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-intl:
         specifier: ^4.1.0
-        version: 4.1.0(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
+        version: 4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -196,7 +199,7 @@ importers:
         version: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-intl:
         specifier: ^4.1.0
-        version: 4.1.0(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
+        version: 4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -455,13 +458,13 @@ importers:
         version: 10.1.1
       next-intl:
         specifier: ^4.1.0
-        version: 4.1.0(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
+        version: 4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4)
       next-share:
         specifier: ^0.27.0
         version: 0.27.0(react@19.1.0)
       nextjs-toploader:
         specifier: ^3.7.15
-        version: 3.7.15(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 3.7.15(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       qrcode.react:
         specifier: ^4.1.0
         version: 4.1.0(react@19.1.0)
@@ -7115,7 +7118,7 @@ snapshots:
       '@babel/traverse': 7.24.8
       '@babel/types': 7.24.9
       convert-source-map: 2.0.0
-      debug: 4.3.5
+      debug: 4.3.7
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -9631,6 +9634,17 @@ snapshots:
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
       vite: 5.4.0(@types/node@12.20.55)(terser@5.39.0)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@vitejs/plugin-react@4.3.1(vite@5.4.0(@types/node@22.7.6)(terser@5.39.0))':
+    dependencies:
+      '@babel/core': 7.24.9
+      '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.24.9)
+      '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.24.9)
+      '@types/babel__core': 7.20.5
+      react-refresh: 0.14.2
+      vite: 5.4.0(@types/node@22.7.6)(terser@5.39.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -12470,7 +12484,7 @@ snapshots:
       next: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
 
-  next-intl@4.1.0(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4):
+  next-intl@4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.5.4):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.4
       negotiator: 1.0.0
@@ -12513,7 +12527,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextjs-toploader@3.7.15(next@15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  nextjs-toploader@3.7.15(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       next: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       nprogress: 0.2.0

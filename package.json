@@ -1,6 +1,7 @@
 {
   "name": "catalog",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -10,6 +11,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
     "prettier": "^3.5.3",
     "turbo": "^2.5.2",
     "typescript": "5.8.2",

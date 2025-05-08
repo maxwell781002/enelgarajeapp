@@ -21,7 +21,7 @@ export default async function Page({ params }: PageProps) {
   const business = await getCurrentBusiness();
   const order = await getOrderById(id);
   const whatsappMessage = encodeURIComponent(
-    t("orderMessage", { reference: order?.identifier }),
+    t("orderMessage", { reference: order?.identifier as string }),
   );
   return (
     <CheckoutSuccessfulPage order={order as CompleteOrder} business={business}>
