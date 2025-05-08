@@ -1,7 +1,9 @@
 import { getRequestConfig } from "next-intl/server";
 
 const config: ReturnType<typeof getRequestConfig> = getRequestConfig(
-  async ({ locale }: { locale: string }) => {
+  async ({ requestLocale }) => {
+    const locale = await requestLocale;
+    if (!locale) return { locale: "es", messages: {} };
     const messages = {
       ...(await import(`./messages/${locale}/shop-cart.json`)).default,
       ...(await import(`./messages/${locale}/product.json`)).default,
@@ -17,6 +19,7 @@ const config: ReturnType<typeof getRequestConfig> = getRequestConfig(
     };
 
     return {
+      locale,
       messages,
     };
   },

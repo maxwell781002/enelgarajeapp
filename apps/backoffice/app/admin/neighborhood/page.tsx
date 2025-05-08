@@ -10,10 +10,11 @@ import { neighborhoodRepository } from "@repo/model/repositories/neighborhood";
 import NeighborhoodTable from "./table";
 
 type PageProps = {
-  searchParams: any;
+  searchParams: Promise<any>;
 };
 
 export default async function Page({ searchParams }: PageProps) {
+  searchParams = await searchParams;
   const t = await getTranslations("Neighborhood");
   const { list, remove, update, create, search } = crud(
     "/admin/neighborhood",

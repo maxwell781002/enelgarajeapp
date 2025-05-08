@@ -20,10 +20,11 @@ import { WhatsappItem } from "@repo/ui/components/social-networks-views/whatsapp
 import { getProductMessageText } from "@repo/model/repository/whatsapp-connect";
 
 type PageProps = {
-  params: { id: string; businessId: string };
+  params: Promise<{ id: string; businessId: string }>;
 };
 
-export default async function Page({ params: { id, businessId } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { id, businessId } = await params;
   const t = await getTranslations("Product");
   const product = await productRepository.getAllProduct({ id });
   const remove = async (id: string) => {

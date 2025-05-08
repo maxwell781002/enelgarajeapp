@@ -64,7 +64,7 @@ export default function ProductForm({
           {t("alertWarning")}
         </Alert>
       )}
-      <FormMessage>{!!globalError && t(globalError)}</FormMessage>
+      <FormMessage>{!!globalError && t(globalError as string)}</FormMessage>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <Tabs defaultValue="general">
           <TabsList className="grid w-full grid-cols-2">

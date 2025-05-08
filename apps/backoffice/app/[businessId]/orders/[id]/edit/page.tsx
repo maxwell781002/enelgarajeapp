@@ -7,15 +7,14 @@ import { updateOrderItems } from "@repo/model/repository/checkout";
 import { BadRequestError } from "@repo/model/errors/bad-request";
 
 type OrderEditPageProps = {
-  params: {
+  params: Promise<{
     businessId: string;
     id: string;
-  };
+  }>;
 };
 
-export default async function OrderEditPage({
-  params: { id, businessId },
-}: OrderEditPageProps) {
+export default async function OrderEditPage({ params }: OrderEditPageProps) {
+  const { id, businessId } = await params;
   const order = await getOrderByIdAndBusinessId(id, businessId);
   const updateOrderItemsAction = async (
     items: CompleteOrderProduct[],

@@ -11,12 +11,13 @@ import { UserBusinessType } from "@repo/model/types/enums";
 import { BusinessContextProvider } from "@repo/ui/context/business";
 
 export default async function RootLayout({
+  params,
   children,
-  params: { businessId },
 }: {
   children: React.ReactNode;
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   const session = await auth();
   const business = await businessRepository.getById(businessId);
   const businesses =

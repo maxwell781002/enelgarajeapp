@@ -12,14 +12,13 @@ import { addProductFields } from "@repo/model/repository/product";
 import { CARD_SKELETON } from "@repo/ui/components/table-layout/skeleton";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { businessId },
-}: PageProps) {
+export default async function Page({ searchParams, params }: PageProps) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("ProductCollaboration");
   const { list, remove, update, search } = crud(
     `/${businessId}/products`,

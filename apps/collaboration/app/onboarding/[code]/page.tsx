@@ -14,21 +14,22 @@ import { AlertCircle } from "lucide-react";
 import { CompleteInvitationLink } from "@repo/model/zod/invitationlink";
 
 export type OnboardingProps = {
-  params: {
+  params: Promise<{
     code: string;
-  };
+  }>;
 };
 
 export default async function Onboarding({ params }: OnboardingProps) {
+  const { code } = await params;
   const { user } = await auth();
   const t = await getTranslations("InvitationLink");
   const businessIds = await businessRepository.getBusinessIdByUserCollaborator(
     user.id,
   );
-  const alreadyOnboarding = businessIds.includes(params.code);
+  const alreadyOnboarding = businessIds.includes(code);
   const invitationLink = alreadyOnboarding
     ? true
-    : await findInvitationLink(user.id, params.code);
+    : await findInvitationLink(user.id, code);
   if (invitationLink == ErrorType.INVITATION_LINK_NOT_FOUND) {
     return redirect("/errors/404");
   }
@@ -40,7 +41,7 @@ export default async function Onboarding({ params }: OnboardingProps) {
   }
   const action = async (data: any) => {
     "use server";
-    await businessUserLink({ id: user.id, ...data }, params.code);
+    await businessUserLink({ id: user.id, ...data }, code);
     return redirect(
       `/onboarding/${(invitationLink as CompleteInvitationLink).businessId}`,
     );

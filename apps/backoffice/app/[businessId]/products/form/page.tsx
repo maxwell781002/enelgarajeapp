@@ -12,8 +12,8 @@ import { CommissionTypes } from "@repo/model/types/enums";
 import { ProductRegister } from "@repo/model/validation/product";
 
 type FormAction = {
-  params: { businessId: string };
-  searchParams: { id?: string };
+  params: Promise<{ businessId: string }>;
+  searchParams: Promise<{ id?: string }>;
 };
 
 const priceValues = {
@@ -38,10 +38,9 @@ const defaultValues: ProductRegister = {
   priceValues,
 };
 
-export default async function PageForm({
-  params: { businessId },
-  searchParams: { id },
-}: FormAction) {
+export default async function PageForm({ params, searchParams }: FormAction) {
+  const { id } = await searchParams;
+  const { businessId } = await params;
   const business = await getBusinessById(businessId);
   const t = await getTranslations("Product");
   // If we have business, is new object and is limited

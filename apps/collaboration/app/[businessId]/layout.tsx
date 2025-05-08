@@ -13,13 +13,14 @@ import { BusinessContextProvider } from "@repo/ui/context/business";
 import { businessRepository } from "@repo/model/repositories/business";
 import ShopCartSwitch from "./shop-cart-switch";
 
-export default async function RootLayout({
-  children,
-  params: { businessId },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { businessId: string };
-}>) {
+export default async function RootLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: Promise<{ businessId: string }>;
+  }>,
+) {
+  const { businessId } = await props.params;
+  const { children } = props;
   const session = await auth();
   const business = await businessRepository.getById(businessId);
   const businesses = await getBusinessSecurity(

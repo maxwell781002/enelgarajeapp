@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components/ui/table";
+import { JSX } from "react";
 
 export type ColumnDef<TData> = {
   header: string;

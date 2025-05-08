@@ -15,10 +15,11 @@ import { SecurityUser } from "@repo/model/lib/auth";
 const defaultValues = {};
 
 export default async function PageForm({
-  params: { businessId },
+  params,
 }: {
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   const t = await getTranslations("Business");
   const business = await businessRepository.getById(businessId);
   const telegram = await telegramBusinessRepository.getByBusinessId(businessId);

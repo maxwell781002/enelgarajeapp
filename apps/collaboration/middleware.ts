@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@repo/model/lib/auth";
 
-export const runtime = "experimental-edge";
-
-const NO_BUSINESS_PATHS = ["errors", "onboarding", "sentry-example-page"];
+const NO_BUSINESS_PATHS = ["errors", "onboarding"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
+  if (pathname === "/sentry-example-page") {
+    return;
+  }
   if (pathname.startsWith("/p")) {
     //Public page
     return;

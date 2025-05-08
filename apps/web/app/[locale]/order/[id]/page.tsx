@@ -1,13 +1,12 @@
-import OrderItemPage, {
-  OrderItemPageProps,
-} from "@repo/ui/components/order-page/order-item-page";
+import OrderItemPage from "@repo/ui/components/order-page/order-item-page";
 
 export type PageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default async function Page({ params: { id } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
   return <OrderItemPage id={id} />;
 }

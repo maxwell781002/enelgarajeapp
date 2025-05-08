@@ -5,13 +5,14 @@ import CollaboratorOrder from "@repo/ui/components/order-page/back-order/collabo
 import CheckoutSuccessfulPage from "@repo/ui/components/shop-cart/checkout-successful/page";
 
 export type PageProps = {
-  params: {
+  params: Promise<{
     businessId: string;
     id: string;
-  };
+  }>;
 };
 
-export default async function Page({ params: { businessId, id } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { businessId, id } = await params;
   const business = await getBusinessById(businessId);
   const order = await getOrderById(id);
   return (

@@ -7,7 +7,7 @@ import { getCurrentUser } from "./user";
 import { SecurityUser } from "../lib/auth";
 
 export const getCurrentBusiness = async () => {
-  const headersList = headers();
+  const headersList = await headers();
   const hostname = headersList.get("x-forwarded-host");
   return hostname ? businessRepository.getBySlugAndActive(hostname) : null;
 };

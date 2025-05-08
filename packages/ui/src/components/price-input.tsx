@@ -4,7 +4,7 @@ import { cn } from "@repo/ui/lib/utils";
 
 type PriceFieldProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-const PriceMask = forwardRef<HTMLElement, any>(function PriceMask(props, ref) {
+const PriceMask = forwardRef<any, any>(function PriceMask(props, ref) {
   const { value, ...other } = props;
   return (
     <IMaskInput

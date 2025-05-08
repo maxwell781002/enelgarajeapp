@@ -10,14 +10,13 @@ import { getTranslations } from "next-intl/server";
 import { TableContextProvider } from "@repo/ui/context/table";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { businessId },
-}: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("Order");
   const { list, search } = crud(
     `/${businessId}/orders`,

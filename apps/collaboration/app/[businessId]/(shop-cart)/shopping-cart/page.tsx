@@ -2,10 +2,11 @@ import ShoppingCartPage from "@repo/ui/components/shop-cart/shopping-cart/page";
 import CardItem from "./card-item";
 
 export default async function Page({
-  params: { businessId },
+  params,
 }: {
-  params: { businessId: string };
+  params: Promise<{ businessId: string }>;
 }) {
+  const { businessId } = await params;
   return (
     <ShoppingCartPage
       baseUrl={`/${businessId}`}

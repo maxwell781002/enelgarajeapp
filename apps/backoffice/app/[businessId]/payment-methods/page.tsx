@@ -12,14 +12,13 @@ import { getBusinessById } from "@repo/model/repository/business";
 import { isPaymentMethodLimited } from "@repo/model/repository/payment-method";
 
 type PageProps = {
-  searchParams: any;
-  params: { businessId: string };
+  searchParams: Promise<any>;
+  params: Promise<{ businessId: string }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { businessId },
-}: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { businessId } = await params;
+  searchParams = await searchParams;
   const t = await getTranslations("PaymentMethod");
   const { list, remove, update, create, search } = crud(
     `/${businessId}/payment-methods`,

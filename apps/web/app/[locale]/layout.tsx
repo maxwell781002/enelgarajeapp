@@ -25,11 +25,11 @@ const geistMono = localFont({
 
 type LayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata(
-  params: LayoutProps,
+  { params }: LayoutProps,
   parent: ResolvingMetadata,
 ) {
   const previousImages = (await parent).openGraph?.images || [];
@@ -45,10 +45,8 @@ export async function generateMetadata(
   };
 }
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: LayoutProps) {
+export default async function RootLayout({ params, children }: LayoutProps) {
+  const { locale } = await params;
   const messages = await getMessages();
   const business = (await getCurrentBusiness()) as CompleteBusiness;
   const site = await getSite(business);

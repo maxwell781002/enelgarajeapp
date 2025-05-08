@@ -14,17 +14,16 @@ import CollaboratorInvoice from "./invoices";
 import OrdersContext from "./orders/context";
 
 export type PageProps = {
-  searchParams: any;
-  params: {
+  searchParams: Promise<any>;
+  params: Promise<{
     businessId: string;
     id: string;
-  };
+  }>;
 };
 
-export default async function Page({
-  searchParams,
-  params: { id, businessId },
-}: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { id, businessId } = await params;
+  searchParams = await searchParams;
   const user = await userRepository.getUserWithCollaboratorProfile(
     id,
     businessId,

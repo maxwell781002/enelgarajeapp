@@ -9,15 +9,14 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
     random: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({
-  params: { slug, random },
-}: PageProps) {
+export async function generateMetadata({ params }: PageProps) {
+  const { slug, random } = await params;
   const product = await getBySlugWithBusiness(slug);
   const description = `Precio: ${formatPrice(
     product._price,
@@ -32,7 +31,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { slug } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params;
   const product = await getBySlugWithBusiness(slug);
   const business = product.business;
   const commission = formatPrice(product._commission, business.currency);
