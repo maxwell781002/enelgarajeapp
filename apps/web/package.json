@@ -3,10 +3,11 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
+    "dev": "next dev --turbopack --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --max-warnings 0",
+    "check-types": "tsc --noEmit",
     "prisma-migration-deploy": "prisma migrate deploy --schema=../../packages/model/prisma/schema.prisma",
     "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
     "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && next build"
