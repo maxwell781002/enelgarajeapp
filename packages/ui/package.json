@@ -48,7 +48,7 @@
   "peerDependencies": {
     "@repo/model": "workspace:*",
     "next": "15.3.1",
-    "next-intl": "^3.17.2",
+    "next-intl": "^4.1.0",
     "use-debounce": "^10.0.3"
   },
   "devDependencies": {
