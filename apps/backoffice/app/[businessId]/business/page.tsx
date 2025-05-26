@@ -12,7 +12,9 @@ import { telegramBusinessRepository } from "@repo/model/repositories/telegram-bu
 import { paymentMethodRepository } from "@repo/model/repositories/payment-method";
 import { SecurityUser } from "@repo/model/lib/auth";
 
-const defaultValues = {};
+const defaultValues = {
+  whatsappGroupChatId: "",
+};
 
 export default async function PageForm({
   params,
@@ -34,15 +36,19 @@ export default async function PageForm({
     return redirect(`/${id}`);
   };
   const paymentMethods = await paymentMethodRepository.getAll(businessId);
+  const data = {
+    ...defaultValues,
+    ...business,
+    telegram,
+    userId: owner?.userId,
+  };
+  if (business.whatsappGroupChatId === null) {
+    data.whatsappGroupChatId = "";
+  }
   return (
     <BackPage href={`/${businessId}`} urlTitle={t("backBusiness")}>
       <BusinessForm
-        defaultValues={{
-          ...defaultValues,
-          ...business,
-          telegram,
-          userId: owner?.userId,
-        }}
+        defaultValues={data}
         paymentMethods={paymentMethods}
         action={action}
         isAdmin={user?.role === UserRoles.ADMIN}

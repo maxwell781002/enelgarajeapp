@@ -58,7 +58,6 @@ export default function BusinessAdminForm({
             <FormControl>
               <PlanSelect
                 {...field}
-                onCheckedChange={field.onChange}
                 placeholder={t("phPlan")}
               />
             </FormControl>
