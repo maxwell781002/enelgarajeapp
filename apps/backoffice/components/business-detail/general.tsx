@@ -5,7 +5,6 @@ import {
   CardTitle,
 } from "@repo/ui/components/ui/card";
 import {
-  Edit,
   Globe,
   Phone,
   Send,

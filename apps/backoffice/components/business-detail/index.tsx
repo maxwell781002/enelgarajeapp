@@ -2,7 +2,6 @@ import { Edit } from "lucide-react";
 import { businessRepository } from "@repo/model/repositories/business";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/ui/button";
-import { getTranslations } from "next-intl/server";
 import Totals from "../../components/totals";
 import { productRepository } from "@repo/model/repositories/product";
 import { orderRepository } from "@repo/model/repositories/order";
@@ -14,7 +13,6 @@ export default async function BusinessDetail({
   businessId: string;
 }) {
   const business = await businessRepository.getAllBusinessData(businessId);
-  const t = await getTranslations("Business");
   const { totalActive, totalInactive } =
     await productRepository.getTotals(businessId);
   const { totalSend, totalPayed, totalReject } =
