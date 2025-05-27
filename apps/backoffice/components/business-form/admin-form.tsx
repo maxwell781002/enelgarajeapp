@@ -56,10 +56,7 @@ export default function BusinessAdminForm({
           <FormItem>
             <FormLabel>{t("lbPlan")}</FormLabel>
             <FormControl>
-              <PlanSelect
-                {...field}
-                placeholder={t("phPlan")}
-              />
+              <PlanSelect {...field} placeholder={t("phPlan")} />
             </FormControl>
             <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
           </FormItem>

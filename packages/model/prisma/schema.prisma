@@ -205,6 +205,7 @@ model UserBusiness {
 enum UserBusinessType {
   OWNER
   COLLABORATOR
+  MESSENGER
 }
 
 model Customer {
@@ -271,11 +272,12 @@ model CollaboratorCardBank {
 }
 
 model InvitationLink {
-  id         String   @id @default(uuid())
+  id         String           @id @default(uuid())
   code       String
-  business   Business @relation(fields: [businessId], references: [id])
+  type       UserBusinessType @default(COLLABORATOR)
+  business   Business         @relation(fields: [businessId], references: [id])
   businessId String
-  createdAt  DateTime @default(now())
+  createdAt  DateTime         @default(now())
 }
 
 model Order {
