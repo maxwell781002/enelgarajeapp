@@ -7,7 +7,11 @@
     "invitation": {
       "title": "Crear invitación",
       "description": "Aqui puedes copiar el link de invitaciones para que los gestores se registren en tu negocio.",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "type": {
+        "messenger": "Mensajero",
+        "collaborator": "Gestor"
+      }
     },
     "remove": "¿Está seguro que va a eliminar el usuario?",
     "removeDescription": "El usuario será eliminado completamente.",
