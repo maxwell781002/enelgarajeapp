@@ -147,12 +147,20 @@ export class BusinessRepository extends BaseRepository<
     return this.getBusinessIdByUserId(userId, UserBusinessType.COLLABORATOR);
   }
 
-  createCollaborator(userId: string, businessId: string) {
+  async getBusinessIdByUserMessenger(userId: string) {
+    return this.getBusinessIdByUserId(userId, UserBusinessType.MESSENGER);
+  }
+
+  createCollaborator(
+    userId: string,
+    businessId: string,
+    type: TUserBusinessType,
+  ) {
     return prisma().userBusiness.create({
       data: {
         userId,
         businessId,
-        type: UserBusinessType.COLLABORATOR,
+        type,
       },
     });
   }

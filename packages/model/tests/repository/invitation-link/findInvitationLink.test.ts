@@ -13,16 +13,21 @@ import {
 } from "../../factories";
 import { businessRepository } from "../../../repositories/business";
 import { invitationLinkRepository } from "../../../repositories/invitation-link";
+import { CompleteInvitationLink } from "../../../prisma/zod";
+import { UserBusinessType } from "../../../types/enums";
 
 describe("findInvitationLink", () => {
   let user;
+  let userMessenger;
   let userIn;
   let invitationLinkOutOfDate;
   let invitationLinkOut;
   let invitationLinkUserIn;
+  let invitationLinkOutMessenger;
 
   beforeAll(async () => {
     user = await userFactory();
+    userMessenger = await userFactory();
     userIn = await userFactory();
     const business = await businessFactory();
     invitationLinkOutOfDate = await invitationLinkFactory({
@@ -33,6 +38,11 @@ describe("findInvitationLink", () => {
     invitationLinkOut = await invitationLinkFactory({
       code: "code",
       businessId: business.id,
+    });
+    invitationLinkOutMessenger = await invitationLinkFactory({
+      code: "code-messenger",
+      businessId: business.id,
+      type: UserBusinessType.MESSENGER,
     });
     invitationLinkUserIn = await invitationLinkFactory({
       code: "codeUserIn",
@@ -63,7 +73,7 @@ describe("findInvitationLink", () => {
 
   it("New user", async () => {
     const result = await findInvitationLink(user.id, invitationLinkOut.code);
-    expect(result.id).toBe(invitationLinkOut.id);
+    expect((result as CompleteInvitationLink).id).toBe(invitationLinkOut.id);
   });
 
   it("Link user to business", async () => {
@@ -71,6 +81,14 @@ describe("findInvitationLink", () => {
     const { id, ...userData } = user;
     const businessIds =
       await businessRepository.getBusinessIdByUserCollaborator(id);
+    expect(businessIds.includes(invitationLinkOut.businessId)).toBeTruthy();
+  });
+
+  it("Link user to business as messenger", async () => {
+    await businessUserLink(userMessenger, invitationLinkOutMessenger.code);
+    const { id, ...userData } = userMessenger;
+    const businessIds =
+      await businessRepository.getBusinessIdByUserMessenger(id);
     expect(businessIds.includes(invitationLinkOut.businessId)).toBeTruthy();
   });
 
