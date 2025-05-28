@@ -28,8 +28,8 @@ export default function CardDisplay({
       </CardHeader>
       <CardContent>
         <dl className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {items.map(({ label, value }) => (
-            <div>
+          {items.map(({ label, value }, index) => (
+            <div key={index}>
               <dt className="font-semibold">{label}</dt>
               <dd>{value}</dd>
             </div>

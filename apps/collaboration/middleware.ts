@@ -24,7 +24,10 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   }
   const user = session.user;
   const firstPart = pathname.split("/")[1];
-  const businessIds = user.businessCollaboratorIds || [];
+  const businessIds = [
+    ...user.businessCollaboratorIds,
+    ...user.businessMessengerIds,
+  ];
   if (
     firstPart === "onboarding" &&
     businessIds.includes(pathname.split("/")[2])
@@ -33,6 +36,12 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   }
   if (NO_BUSINESS_PATHS.includes(firstPart as string)) {
     return;
+  }
+  if (
+    user.businessMessengerIds.includes(firstPart) &&
+    !pathname.includes("/messenger")
+  ) {
+    return `/${firstPart}/messenger`;
   }
   if (pathname === "/" && businessIds.length > 0) {
     return `/${businessIds[0]}`;
@@ -45,6 +54,7 @@ export const getRedirect = async (request: NextRequest, session: any) => {
 export default async function middleware(request: NextRequest) {
   const session = await auth();
   const url = (await getRedirect(request, session)) as unknown as string;
+  console.log("URL", url);
   return url
     ? NextResponse.redirect(new URL(url, request.url))
     : NextResponse.next();

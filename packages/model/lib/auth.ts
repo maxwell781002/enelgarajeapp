@@ -8,6 +8,7 @@ import { CompleteUser } from "../prisma/zod";
 export type SecurityUser = {
   businessIds: string[];
   businessCollaboratorIds: string[];
+  businessMessengerIds: string[];
 } & CompleteUser;
 
 const adapter: any = PrismaAdapter(prisma());
@@ -16,11 +17,12 @@ const getUserByAccount = async (provider_providerAccountId: any) => {
     provider_providerAccountId,
   );
   if (!user) return null;
-  user.businessIds = await businessRepository.getBusinessIdByUserOwner(
-    user?.id,
-  );
+  user.businessIds =
+    (await businessRepository.getBusinessIdByUserOwner(user?.id)) || [];
   user.businessCollaboratorIds =
-    await businessRepository.getBusinessIdByUserCollaborator(user?.id);
+    (await businessRepository.getBusinessIdByUserCollaborator(user?.id)) || [];
+  user.businessMessengerIds =
+    (await businessRepository.getBusinessIdByUserMessenger(user?.id)) || [];
   return user;
 };
 

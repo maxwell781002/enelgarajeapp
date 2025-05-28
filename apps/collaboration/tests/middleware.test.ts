@@ -20,7 +20,11 @@ describe("Middleware", () => {
 
   it("got to errors", async () => {
     const url = await getRedirect(new NextRequest("http://localhost/errors"), {
-      user: {},
+      user: {
+        businessIds: [],
+        businessCollaboratorIds: [],
+        businessMessengerIds: [],
+      },
     });
     expect(url).toBeUndefined();
   });
@@ -29,7 +33,11 @@ describe("Middleware", () => {
     const url = await getRedirect(
       new NextRequest("http://localhost/onboarding"),
       {
-        user: {},
+        user: {
+          businessIds: [],
+          businessCollaboratorIds: [],
+          businessMessengerIds: [],
+        },
       },
     );
     expect(url).toBeUndefined();
@@ -39,7 +47,11 @@ describe("Middleware", () => {
     const url = await getRedirect(
       new NextRequest("http://localhost/business1"),
       {
-        user: {},
+        user: {
+          businessIds: [],
+          businessCollaboratorIds: [],
+          businessMessengerIds: [],
+        },
       },
     );
     expect(url).toBe("/errors/403");
@@ -50,10 +62,26 @@ describe("Middleware", () => {
       new NextRequest("http://localhost/business1/aaa"),
       {
         user: {
+          businessIds: ["business1"],
           businessCollaboratorIds: ["business1"],
+          businessMessengerIds: [],
         },
       },
     );
     expect(url).toBeUndefined();
+  });
+
+  it("got to messenger", async () => {
+    const url = await getRedirect(
+      new NextRequest("http://localhost/business1/aaa"),
+      {
+        user: {
+          businessIds: ["business1"],
+          businessCollaboratorIds: [],
+          businessMessengerIds: ["business1"],
+        },
+      },
+    );
+    expect(url).toBe("/business1/messenger");
   });
 });

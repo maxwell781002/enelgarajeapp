@@ -22,7 +22,7 @@ export const isCurrentUserCollaborator = async (businessId: string) => {
 export const getBusinessSecurity = async (
   user: SecurityUser,
   businessId: string,
-  type: TUserBusinessType,
+  type: TUserBusinessType | TUserBusinessType[],
 ) => {
   const business =
     (await businessRepository.getByUserAndActive(user?.id, type)) || [];
