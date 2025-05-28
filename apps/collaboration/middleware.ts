@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@repo/model/lib/auth";
 
-const NO_BUSINESS_PATHS = ["errors", "onboarding"];
+const NO_BUSINESS_PATHS = ["errors", "onboarding", "messenger"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
   let { pathname } = request.nextUrl;
@@ -25,8 +25,8 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   const user = session.user;
   const firstPart = pathname.split("/")[1];
   const businessIds = [
-    ...user.businessCollaboratorIds,
-    ...user.businessMessengerIds,
+    ...(user.businessCollaboratorIds || []),
+    ...(user.businessMessengerIds || []),
   ];
   if (
     firstPart === "onboarding" &&
@@ -37,11 +37,9 @@ export const getRedirect = async (request: NextRequest, session: any) => {
   if (NO_BUSINESS_PATHS.includes(firstPart as string)) {
     return;
   }
-  if (
-    user.businessMessengerIds.includes(firstPart) &&
-    !pathname.includes("/messenger")
-  ) {
-    return `/${firstPart}/messenger`;
+  // The user is messenger.
+  if (user.businessMessengerIds?.length) {
+    return "/messenger";
   }
   if (pathname === "/" && businessIds.length > 0) {
     return `/${businessIds[0]}`;
