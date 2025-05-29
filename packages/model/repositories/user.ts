@@ -70,6 +70,11 @@ export class UserRepository extends BaseRepository<
     return user as UserWithCollaboratorProfile;
   }
 
+  addUserType(user: UserWithCollaboratorProfile) {
+    user._userType = user.business?.[0]?.type;
+    return user;
+  }
+
   basePaginate({ query, where, ...data }: PaginateData) {
     where = where || {};
     if (query) {
@@ -84,17 +89,14 @@ export class UserRepository extends BaseRepository<
     });
   }
 
-  async paginateCollaborators({
-    businessId,
-    query,
-    hasDoubts,
-    ...rest
-  }: PaginateData = {}) {
+  async getUsers({ businessId, query, hasDoubts, ...rest }: PaginateData = {}) {
     const where: any = {
       business: {
         some: {
           businessId,
-          type: UserBusinessType.COLLABORATOR,
+          type: {
+            in: [UserBusinessType.COLLABORATOR, UserBusinessType.MESSENGER],
+          },
         },
       },
     };
@@ -116,10 +118,17 @@ export class UserRepository extends BaseRepository<
             businessId,
           },
         },
+        business: {
+          where: {
+            businessId,
+          },
+        },
       },
     });
     return {
-      data: data.map((user: CompleteUser) => this.addCollaboratorProfile(user)),
+      data: data.map((user: CompleteUser) =>
+        this.addUserType(this.addCollaboratorProfile(user)),
+      ),
       ...pagination,
     };
   }

@@ -82,6 +82,6 @@ describe("Middleware", () => {
         },
       },
     );
-    expect(url).toBe("/business1/messenger");
+    expect(url).toBe("/messenger");
   });
 });

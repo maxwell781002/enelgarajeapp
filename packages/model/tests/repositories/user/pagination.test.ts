@@ -16,6 +16,7 @@ describe("User", () => {
   let user2;
   let user3;
   let user4;
+  let user5;
 
   beforeAll(async () => {
     business1 = await businessFactory({ slug: "http://localhost:3001" });
@@ -24,6 +25,7 @@ describe("User", () => {
     user2 = await userFactory();
     user3 = await userFactory();
     user4 = await userFactory();
+    user5 = await userFactory();
     await userBusinessFactory({
       userId: user1.id,
       businessId: business1.id,
@@ -54,6 +56,11 @@ describe("User", () => {
       businessId: business2.id,
       type: UserBusinessType.COLLABORATOR,
     });
+    await userBusinessFactory({
+      userId: user5.id,
+      businessId: business2.id,
+      type: UserBusinessType.MESSENGER,
+    });
   });
 
   afterAll(() => {
@@ -61,7 +68,7 @@ describe("User", () => {
   });
 
   it("business 1", async () => {
-    const { data } = await userRepository.paginateCollaborators({
+    const { data } = await userRepository.getUsers({
       businessId: business1.id,
     });
     expect(data.length).toBe(1);
@@ -69,18 +76,19 @@ describe("User", () => {
   });
 
   it("business 2", async () => {
-    const { data } = await userRepository.paginateCollaborators({
+    const { data } = await userRepository.getUsers({
       businessId: business2.id,
     });
-    expect(data.length).toBe(3);
+    expect(data.length).toBe(4);
     const ids = data.map((u) => u.id);
     expect(ids).toContain(user2.id);
     expect(ids).toContain(user3.id);
     expect(ids).toContain(user4.id);
+    expect(ids).toContain(user5.id);
   });
 
   it("business 2", async () => {
-    const { data } = await userRepository.paginateCollaborators({
+    const { data } = await userRepository.getUsers({
       businessId: business2.id,
       hasDoubts: true,
     });
