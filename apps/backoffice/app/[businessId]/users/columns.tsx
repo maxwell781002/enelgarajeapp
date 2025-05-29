@@ -5,8 +5,7 @@ import { BtnRemove } from "@repo/ui/components/ui/btn-remove";
 import { useTranslations } from "next-intl";
 import { CompleteUser } from "@repo/model/zod/user";
 import Link from "next/link";
-import { Truck, Megaphone } from "lucide-react";
-import { UserBusinessType } from "@repo/model/types/enums";
+import UserIcon from "./user-icon";
 
 type ActionProps = {
   row: CompleteUser;
@@ -41,11 +40,7 @@ export const columns: ColumnDef<any>[] = [
           alt={row.name as string}
           className="rounded-full h-8 w-8"
         />
-        {row._userType === UserBusinessType.MESSENGER ? (
-          <Truck />
-        ) : (
-          <Megaphone />
-        )}
+        <UserIcon userType={row._userType} />
         {value}
       </Link>
     ),

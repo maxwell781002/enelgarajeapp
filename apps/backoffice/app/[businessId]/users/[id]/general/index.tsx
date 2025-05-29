@@ -13,6 +13,8 @@ import HasOrderSelected from "./has-order-selected";
 import { createCollaboratorInvoice } from "@repo/model/repository/collaborator-invoice";
 import { collaboratorCardBankRepository } from "@repo/model/repositories/collaborator-card-bank";
 import { UserWithCollaboratorProfile } from "@repo/model/types/user";
+import UserIcon from "../../user-icon";
+import { UserBusinessType, TUserBusinessType } from "@repo/model/types/enums";
 
 interface UserProfileProps {
   user: UserWithCollaboratorProfile;
@@ -42,7 +44,7 @@ export default async function UserProfile({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>{t(`title.${user._userType}`)}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex sm:flex-row mb-4 flex-col sm:justify-between w-full">
@@ -54,7 +56,10 @@ export default async function UserProfile({
               className="rounded-full"
             />
             <div className="mb-4">
-              <h2 className="text-2xl font-bold">{user.name}</h2>
+              <h2 className="text-2xl font-bold flex items-center gap-2">
+                <UserIcon userType={user._userType as TUserBusinessType} />
+                {user.name}
+              </h2>
               <div className="flex items-center text-sm text-muted-foreground">
                 <Phone className="mr-2 h-4 w-4" />
                 {user.phone}
@@ -63,7 +68,9 @@ export default async function UserProfile({
           </div>
           <HasOrderSelected action={saveInvoice} cards={cards} />
         </div>
-        <Stats user={user} />
+        {user._userType === UserBusinessType.COLLABORATOR && (
+          <Stats user={user} />
+        )}
       </CardContent>
     </Card>
   );

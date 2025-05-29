@@ -20,8 +20,11 @@
     "removeCancel": "Cancelar"
   },
   "UserDetail": {
-    "title": "Detalles del gestor",
-    "backUsers": "Volver a gestores",
+    "title": {
+      "COLLABORATOR": "Detalles del gestor",
+      "MESSENGER": "Detalles del mensajero"
+    },
+    "backUsers": "Volver a usuarios",
     "tabOrders": "Órdenes por pagar",
     "tabInvoices": "Facturas",
     "tabCardNumbers": "Tarjetas",

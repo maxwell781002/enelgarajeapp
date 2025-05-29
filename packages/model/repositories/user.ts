@@ -2,10 +2,10 @@ import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteUser, UserModel } from "../prisma/zod";
 import {
-  UserRoles as BaseUserRoles,
   CollaboratorProfile,
   UserBusiness,
   UserBusinessType,
+  UserRoles as BaseUserRoles,
 } from "../prisma/generated/client";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { UserWithCollaboratorProfile } from "../types/user";
@@ -51,9 +51,14 @@ export class UserRepository extends BaseRepository<
             businessId,
           },
         },
+        business: {
+          where: {
+            businessId,
+          },
+        },
       },
     });
-    return this.addCollaboratorProfile(user);
+    return this.addCollaboratorProfile(this.addUserType(user));
   }
 
   addCollaboratorProfile(
