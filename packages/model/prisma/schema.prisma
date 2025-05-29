@@ -171,6 +171,7 @@ model User {
   phone           String?
   orderReferredBy Order[]         @relation("referredBy")
   orders          Order[]
+  ordersCarriedBy Order[]         @relation("carriedBy")
   email           String          @unique
   emailVerified   DateTime?
   image           String?
@@ -284,6 +285,8 @@ model Order {
   id                    String               @id @default(uuid())
   user                  User?                @relation(fields: [userId], references: [id])
   userId                String?
+  messenger             User?                @relation("carriedBy", fields: [messengerId], references: [id])
+  messengerId           String?
   items                 OrderProduct[]
   productsDetails       Json
   shipping              Int                  @default(0)
