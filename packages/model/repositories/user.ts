@@ -148,7 +148,9 @@ export class UserRepository extends BaseRepository<
     return prisma().userBusiness.count({
       where: {
         businessId,
-        type: UserBusinessType.COLLABORATOR,
+        type: {
+          in: [UserBusinessType.COLLABORATOR, UserBusinessType.MESSENGER],
+        },
       },
     });
   }
@@ -182,6 +184,24 @@ export class UserRepository extends BaseRepository<
       },
     });
     return entity?.userId;
+  }
+
+  getByBusinessIdAndType(
+    userId: string,
+    businessId: string,
+    type: UserBusinessType,
+  ) {
+    return prisma().user.findFirst({
+      where: {
+        id: userId,
+        business: {
+          some: {
+            businessId,
+            type,
+          },
+        },
+      },
+    });
   }
 }
 

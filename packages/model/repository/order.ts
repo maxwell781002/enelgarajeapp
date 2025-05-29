@@ -6,7 +6,8 @@ import { orderRepository } from "@repo/model/repositories/order";
 // import { checkBusinessAccess } from "./business";
 import { SecurityUser } from "../lib/auth";
 import { CompleteOrder } from "../prisma/zod";
-import { OrderStatus } from "../types/enums";
+import { OrderStatus, UserBusinessType } from "../types/enums";
+import { userRepository } from "../repositories/user";
 
 // TODO: No me funciono la seguridad de esto. Tengo que arreglarlo rapido
 export const getOrderSecurity = async (
@@ -60,4 +61,21 @@ export const getOrderCurrentUser = async (
 
 export const canBeUpdated = async (order: CompleteOrder) => {
   return order.status === OrderStatus.SEND;
+};
+
+export const setMessengerToOrder = async (
+  businessId: string,
+  orderId: string,
+  userId: string,
+) => {
+  const order = await getOrderByIdAndBusinessId(orderId, businessId);
+  const user = await userRepository.getByBusinessIdAndType(
+    userId,
+    businessId,
+    UserBusinessType.MESSENGER,
+  );
+  if (!user || !order) {
+    throw new Error("User or order not found");
+  }
+  return orderRepository.setMessengerToOrder(orderId, user.id);
 };
