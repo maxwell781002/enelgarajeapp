@@ -34,6 +34,7 @@ export default function ShoppingCartPage({
   const t = useTranslations("ShopCart");
   const items = useStore(useShopCart, (state) => state.items());
   const [hasProductOutOfStock, setHasProductOutOfStock] = useState(false);
+  const [hasProductInactive, setHasProductInactive] = useState(false);
   const [checkingStock, startCheckingStock] = useTransition();
   useEffect(() => {
     if (items?.length) {
@@ -46,9 +47,10 @@ export default function ShoppingCartPage({
           },
         )
           .then((res) => res.json())
-          .then(({ hasProductOutOfStock }) =>
-            setHasProductOutOfStock(hasProductOutOfStock),
-          ),
+          .then(({ hasProductOutOfStock, hasProductInactive }) => {
+            setHasProductOutOfStock(hasProductOutOfStock);
+            setHasProductInactive(hasProductInactive);
+          }),
       );
     }
   }, [items]);
@@ -75,6 +77,12 @@ export default function ShoppingCartPage({
         <AlertMessage
           variant="destructive"
           text={t("errors.has_out_of_stock")}
+        />
+      )}
+      {hasProductInactive && (
+        <AlertMessage
+          variant="destructive"
+          text={t("errors.has_product_inactive")}
         />
       )}
       <div className="overflow-auto">
@@ -124,7 +132,10 @@ export default function ShoppingCartPage({
             <Button
               className="w-full"
               disabled={
-                hasProductOutOfStock || checkingStock || hasItemWithErrors
+                hasProductOutOfStock ||
+                hasProductInactive ||
+                checkingStock ||
+                hasItemWithErrors
               }
             >
               {t("checkout")}

@@ -21,7 +21,8 @@
     "shipping_suggestion": "Sugerencia",
     "shipping_suggestion_text": "Si selecciona un reparto, se le sugerirá un precio de envío",
     "errors": {
-      "has_out_of_stock": "Alcanzó el Limite!. Ya tiene todos los productos disponibles en el carrito."
+      "has_out_of_stock": "Alcanzó el Limite!. Ya tiene todos los productos disponibles en el carrito.",
+      "has_product_inactive": "Alguno de los productos que tiene en el carrito no se encuentra activo."
     },
     "customer": "Datos del cliente",
     "lbCustomerName": "Nombre",

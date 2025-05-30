@@ -78,6 +78,7 @@ describe("Checkout", () => {
   let referredUser;
   let product1;
   let product2;
+  let productInactive;
   let neighborhood;
   const referredCode = generateCode(8);
 
@@ -114,6 +115,17 @@ describe("Checkout", () => {
       },
     });
     product2 = await productFactory({
+      businessId: business.id,
+      price: 60,
+      priceValues: {
+        create: {
+          commissionValue: 20,
+          commissionType: CommissionTypes.FIXED,
+        },
+      },
+    });
+    productInactive = await productFactory({
+      active: false,
       businessId: business.id,
       price: 60,
       priceValues: {
@@ -456,5 +468,21 @@ describe("Checkout", () => {
     expect(error).toBe("out_of_stock");
     const productEntity = await productRepository.getById(product1.id);
     expect(productEntity.stock).toBe(4);
+  });
+
+  it("Product inactive", async () => {
+    const { error } = await createWebOrder(business, user, {
+      phone: "5353024895",
+      name: "test",
+      addressType: AddressType.selectAddress,
+      cartItems: [
+        {
+          productId: productInactive.id,
+          quantity: 1,
+        },
+      ],
+      wantDomicile: false,
+    });
+    expect(error).toBe("product_inactive");
   });
 });
