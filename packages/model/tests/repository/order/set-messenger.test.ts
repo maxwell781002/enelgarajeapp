@@ -20,6 +20,7 @@ vi.mock("@repo/model/lib/auth", () => ({
 describe("setMessengerToOrder", () => {
   let user;
   let order;
+  let orderPayed;
   let business;
 
   beforeAll(async () => {
@@ -39,6 +40,12 @@ describe("setMessengerToOrder", () => {
       identifier: "user1_1",
       businessId: business.id,
     });
+    orderPayed = await orderFactory({
+      userId: customer.id,
+      status: OrderStatus.PAYED,
+      identifier: "user1_2",
+      businessId: business.id,
+    });
   });
 
   afterAll(async () => {
@@ -48,5 +55,14 @@ describe("setMessengerToOrder", () => {
   it("setMessengerToOrder", async () => {
     const entity = await setMessengerToOrder(business.id, order.id, user.id);
     expect(entity.messengerId).toBe(user.id);
+  });
+
+  it("setMessengerToOrder order payed", async () => {
+    try {
+      await setMessengerToOrder(business.id, orderPayed.id, user.id);
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
   });
 });

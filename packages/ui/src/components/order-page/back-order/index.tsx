@@ -14,19 +14,20 @@ import {
 import { getTranslations } from "next-intl/server";
 import Messenger from "./messenger";
 import CardDisplay from "@repo/ui/components/card-display";
-import { UserBusinessType } from "@repo/model/types/enums";
+import { OrderStatus, UserBusinessType } from "@repo/model/types/enums";
 import { getUserByBusinessIdAndType } from "@repo/model/repository/user";
 import { setMessengerToOrder } from "@repo/model/repository/order";
+import { CompleteUser } from "@repo/model/prisma/zod/user";
 
 export type BackOrderProps = ClientBackofficeOrderProps &
   CollaboratorOrderProps;
 
 export default async function BackOrder({ order, ...props }: BackOrderProps) {
   const t = await getTranslations("OrderDetailBack");
-  const messengers = await getUserByBusinessIdAndType(
+  const messengers = (await getUserByBusinessIdAndType(
     order.businessId as string,
     UserBusinessType.MESSENGER,
-  );
+  )) as CompleteUser[];
   const content = order.isCollaborator ? (
     <CollaboratorOrder order={order as CompleteOrder} {...props} />
   ) : (
@@ -38,7 +39,8 @@ export default async function BackOrder({ order, ...props }: BackOrderProps) {
         <CardDisplay title={t("cardMessenger")}>
           <Messenger
             user={order.messenger}
-            users={messengers}
+            users={messengers || []}
+            disabled={order.status === OrderStatus.PAYED}
             onUserChange={async (userId: string) => {
               "use server";
               return setMessengerToOrder(

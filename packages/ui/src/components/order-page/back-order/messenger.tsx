@@ -6,10 +6,11 @@ import { useTranslations } from "next-intl";
 import EntitySelect from "@repo/ui/components/entity-select";
 
 interface MessengerProps {
-  user?: CompleteUser;
+  user?: CompleteUser | null;
   users: CompleteUser[];
   onUserChange: (userId: string) => void;
   className?: string;
+  disabled?: boolean;
 }
 
 export function Messenger({
@@ -17,6 +18,7 @@ export function Messenger({
   users,
   onUserChange,
   className = "",
+  disabled = false,
 }: MessengerProps) {
   const t = useTranslations("OrderDetailBack");
   const [isEditing, setIsEditing] = useState(false);
@@ -43,13 +45,15 @@ export function Messenger({
             ? (selectedUser.name as string)
             : t("noMessengerAssigned")}
         </span>
-        <button
-          onClick={() => setIsEditing(true)}
-          className="text-gray-500 hover:text-gray-700 focus:outline-none"
-          aria-label="Edit user"
-        >
-          <Pencil1Icon className="w-4 h-4" />
-        </button>
+        {!disabled && (
+          <button
+            onClick={() => setIsEditing(true)}
+            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label="Edit user"
+          >
+            <Pencil1Icon className="w-4 h-4" />
+          </button>
+        )}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import { orderRepository } from "@repo/model/repositories/order";
 // import { checkBusinessAccess } from "./business";
 import { SecurityUser } from "../lib/auth";
 import { CompleteOrder } from "../prisma/zod";
-import { OrderStatus, UserBusinessType } from "../types/enums";
+import { OrderStatus, UserBusinessType } from "@repo/model/types/enums";
 import { userRepository } from "../repositories/user";
 
 // TODO: No me funciono la seguridad de esto. Tengo que arreglarlo rapido
@@ -76,6 +76,9 @@ export const setMessengerToOrder = async (
   );
   if (!user || !order) {
     throw new Error("User or order not found");
+  }
+  if (order.status === OrderStatus.PAYED) {
+    throw new Error("Order already payed");
   }
   return orderRepository.setMessengerToOrder(orderId, user.id);
 };
