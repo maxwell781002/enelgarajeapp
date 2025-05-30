@@ -84,6 +84,7 @@ export const orderItems = async (
         commission,
         businessProfit,
         hasProductOutOfStock,
+        hasProductInactive,
         items,
         products,
         productToUpdate,
@@ -118,6 +119,7 @@ export const orderItems = async (
         businessProfit: businessProfit + itemBusinessProfit,
         hasProductOutOfStock:
           hasProductOutOfStock || isOutOfStock(product, quantity),
+        hasProductInactive: hasProductInactive || !product.active,
       };
     },
     {
@@ -128,6 +130,7 @@ export const orderItems = async (
       commission: 0,
       businessProfit: 0,
       hasProductOutOfStock: false,
+      hasProductInactive: false,
     },
   );
 };
@@ -248,10 +251,14 @@ export const createOrder = async (
     commission,
     businessProfit,
     hasProductOutOfStock,
+    hasProductInactive,
     productToUpdate,
   } = await orderItems(business.id, data.cartItems, calculateCommission);
   if (hasProductOutOfStock) {
     throw new BadRequestError("out_of_stock");
+  }
+  if (hasProductInactive) {
+    throw new BadRequestError("product_inactive");
   }
   let order: any = {
     total,

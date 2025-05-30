@@ -10,12 +10,12 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const isCollaborator = params.isCollaborator === "true";
   try {
-    const { hasProductOutOfStock } = await orderItems(
+    const { hasProductOutOfStock, hasProductInactive } = await orderItems(
       params.businessId,
       body,
       isCollaborator,
     );
-    return NextResponse.json({ hasProductOutOfStock });
+    return NextResponse.json({ hasProductOutOfStock, hasProductInactive });
   } catch (error: any) {
     if (error.message === "error_price_custom") {
       return NextResponse.json({ message: error.message });

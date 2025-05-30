@@ -20,7 +20,8 @@
     "errors": {
       "has_out_of_stock": "Alcanzó el Limite!. Ya tiene todos los productos disponibles en el carrito.",
       "item_out_of_stock": "Este producto no tiene stock disponible.",
-      "error_price_custom": "El precio libre debe ser mayor al precio del producto."
+      "error_price_custom": "El precio libre debe ser mayor al precio del producto.",
+      "has_product_inactive": "Alguno de los productos que tiene en el carrito no se encuentra activo."
     }
   },
   "CheckoutSuccessful": {

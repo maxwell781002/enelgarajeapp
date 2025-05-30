@@ -51,12 +51,17 @@ export default function CheckoutPage({
       customPrice: item.customPrice,
     })),
   );
-  const [shopCartHasError, setShopCartHasError] = useState(false);
+  const [shopCartOutOfStockError, setShopCartOutOfStockError] = useState(false);
+  const [shopCartProductInactiveError, setShopCartProductInactiveError] =
+    useState(false);
   const handlerAction = async (data: any) => {
     return startOrderRegistering(async () => {
       const { id, error } = await action(data);
       if (error === "out_of_stock") {
-        return setShopCartHasError(true);
+        return setShopCartOutOfStockError(true);
+      }
+      if (error === "product_inactive") {
+        return setShopCartProductInactiveError(true);
       }
       clear();
       return router.push(successfulUrl(id));
@@ -95,10 +100,16 @@ export default function CheckoutPage({
           total={total}
           wantDomicile={wantDomicile as boolean}
         />
-        {shopCartHasError && (
+        {shopCartOutOfStockError && (
           <AlertMessage
             variant="destructive"
             text={t("errors.has_out_of_stock")}
+          />
+        )}
+        {shopCartProductInactiveError && (
+          <AlertMessage
+            variant="destructive"
+            text={t("errors.has_product_inactive")}
           />
         )}
         <Button
