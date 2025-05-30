@@ -45,7 +45,8 @@
     "cardChangedOrderNote": "Por qué se cambio la orden.",
     "cardMessenger": "Mensajero",
     "noMessengerAssigned": "Mensajero no asignado",
-    "selectMessenger": "Seleccionar mensajero"
+    "selectMessenger": "Seleccionar mensajero",
+    "subTotal": "Subtotal"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",
