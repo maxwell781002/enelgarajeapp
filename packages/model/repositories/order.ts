@@ -348,6 +348,7 @@ export class OrderRepository extends BaseRepository<
           orderBy: { position: "asc" },
         },
         referredBy: true,
+        messenger: true,
       },
     });
   }

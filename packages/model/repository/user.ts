@@ -47,3 +47,10 @@ export const isUserByBusinessLimited = async (business: CompleteBusiness) => {
   const total = await userRepository.countByBusinessId(business.id);
   return total >= featureValue;
 };
+
+export const getUserByBusinessIdAndType = async (
+  businessId: string,
+  type: TUserBusinessType,
+) => {
+  return userRepository.getByBusinessIdAndType(businessId, type);
+};

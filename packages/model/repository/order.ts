@@ -69,7 +69,7 @@ export const setMessengerToOrder = async (
   userId: string,
 ) => {
   const order = await getOrderByIdAndBusinessId(orderId, businessId);
-  const user = await userRepository.getByBusinessIdAndType(
+  const user = await userRepository.getByUserAndBusinessIdAndType(
     userId,
     businessId,
     UserBusinessType.MESSENGER,

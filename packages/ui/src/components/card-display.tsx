@@ -14,10 +14,12 @@ export default function CardDisplay({
   title,
   items,
   className,
+  children,
 }: {
   title: string;
-  items: Items[];
+  items?: Items[];
   className?: string;
+  children?: React.ReactNode;
 }) {
   return (
     <Card className={className}>
@@ -28,13 +30,14 @@ export default function CardDisplay({
       </CardHeader>
       <CardContent>
         <dl className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {items.map(({ label, value }, index) => (
+          {items?.map(({ label, value }, index) => (
             <div key={index}>
               <dt className="font-semibold">{label}</dt>
               <dd>{value}</dd>
             </div>
           ))}
         </dl>
+        {children}
       </CardContent>
     </Card>
   );

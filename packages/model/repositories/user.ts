@@ -186,7 +186,7 @@ export class UserRepository extends BaseRepository<
     return entity?.userId;
   }
 
-  getByBusinessIdAndType(
+  getByUserAndBusinessIdAndType(
     userId: string,
     businessId: string,
     type: UserBusinessType,
@@ -194,6 +194,19 @@ export class UserRepository extends BaseRepository<
     return prisma().user.findFirst({
       where: {
         id: userId,
+        business: {
+          some: {
+            businessId,
+            type,
+          },
+        },
+      },
+    });
+  }
+
+  getByBusinessIdAndType(businessId: string, type: UserBusinessType) {
+    return prisma().user.findMany({
+      where: {
         business: {
           some: {
             businessId,
