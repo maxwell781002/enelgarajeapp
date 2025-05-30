@@ -2,10 +2,10 @@ import prisma, { Prisma } from "../prisma/prisma-client";
 import { BaseRepository } from "../lib/base-repository";
 import { CompleteUser, UserModel } from "../prisma/zod";
 import {
-  UserRoles as BaseUserRoles,
   CollaboratorProfile,
   UserBusiness,
   UserBusinessType,
+  UserRoles as BaseUserRoles,
 } from "../prisma/generated/client";
 import { PaginateData as BasePaginateData } from "../types/pagination";
 import { UserWithCollaboratorProfile } from "../types/user";
@@ -51,9 +51,14 @@ export class UserRepository extends BaseRepository<
             businessId,
           },
         },
+        business: {
+          where: {
+            businessId,
+          },
+        },
       },
     });
-    return this.addCollaboratorProfile(user);
+    return this.addCollaboratorProfile(this.addUserType(user));
   }
 
   addCollaboratorProfile(
@@ -70,6 +75,11 @@ export class UserRepository extends BaseRepository<
     return user as UserWithCollaboratorProfile;
   }
 
+  addUserType(user: UserWithCollaboratorProfile) {
+    user._userType = user.business?.[0]?.type;
+    return user;
+  }
+
   basePaginate({ query, where, ...data }: PaginateData) {
     where = where || {};
     if (query) {
@@ -84,17 +94,14 @@ export class UserRepository extends BaseRepository<
     });
   }
 
-  async paginateCollaborators({
-    businessId,
-    query,
-    hasDoubts,
-    ...rest
-  }: PaginateData = {}) {
+  async getUsers({ businessId, query, hasDoubts, ...rest }: PaginateData = {}) {
     const where: any = {
       business: {
         some: {
           businessId,
-          type: UserBusinessType.COLLABORATOR,
+          type: {
+            in: [UserBusinessType.COLLABORATOR, UserBusinessType.MESSENGER],
+          },
         },
       },
     };
@@ -116,10 +123,17 @@ export class UserRepository extends BaseRepository<
             businessId,
           },
         },
+        business: {
+          where: {
+            businessId,
+          },
+        },
       },
     });
     return {
-      data: data.map((user: CompleteUser) => this.addCollaboratorProfile(user)),
+      data: data.map((user: CompleteUser) =>
+        this.addUserType(this.addCollaboratorProfile(user)),
+      ),
       ...pagination,
     };
   }
@@ -134,7 +148,9 @@ export class UserRepository extends BaseRepository<
     return prisma().userBusiness.count({
       where: {
         businessId,
-        type: UserBusinessType.COLLABORATOR,
+        type: {
+          in: [UserBusinessType.COLLABORATOR, UserBusinessType.MESSENGER],
+        },
       },
     });
   }
@@ -168,6 +184,37 @@ export class UserRepository extends BaseRepository<
       },
     });
     return entity?.userId;
+  }
+
+  getByUserAndBusinessIdAndType(
+    userId: string,
+    businessId: string,
+    type: UserBusinessType,
+  ) {
+    return prisma().user.findFirst({
+      where: {
+        id: userId,
+        business: {
+          some: {
+            businessId,
+            type,
+          },
+        },
+      },
+    });
+  }
+
+  getByBusinessIdAndType(businessId: string, type: UserBusinessType) {
+    return prisma().user.findMany({
+      where: {
+        business: {
+          some: {
+            businessId,
+            type,
+          },
+        },
+      },
+    });
   }
 }
 

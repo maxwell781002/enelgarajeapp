@@ -28,7 +28,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     userRepository.getRepositoryModelName(),
     searchParams,
     {
-      paginateMethod: "paginateCollaborators",
+      paginateMethod: "getUsers",
     },
   );
   const handleSearch = async (query: any) => {

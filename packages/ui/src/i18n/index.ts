@@ -16,6 +16,7 @@ const config: ReturnType<typeof getRequestConfig> = getRequestConfig(
       ...(await import(`./messages/${locale}/errors-page.json`)).default,
       ...(await import(`./messages/${locale}/invitation-link.json`)).default,
       ...(await import(`./messages/${locale}/dashboard.json`)).default,
+      ...(await import(`./messages/${locale}/messenger-page.json`)).default,
     };
 
     return {

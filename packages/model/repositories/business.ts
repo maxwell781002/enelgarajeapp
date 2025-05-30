@@ -83,12 +83,16 @@ export class BusinessRepository extends BaseRepository<
     });
   }
 
-  getByUserAndActive(userId: string, type: TUserBusinessType) {
+  getByUserAndActive(
+    userId: string,
+    type: TUserBusinessType | TUserBusinessType[],
+  ) {
+    const types = Array.isArray(type) ? type : [type];
     return this.model.findMany({
       where: {
         active: true,
         users: {
-          some: { userId, type },
+          some: { userId, type: { in: types } },
         },
       },
     });
@@ -147,12 +151,27 @@ export class BusinessRepository extends BaseRepository<
     return this.getBusinessIdByUserId(userId, UserBusinessType.COLLABORATOR);
   }
 
-  createCollaborator(userId: string, businessId: string) {
+  async getBusinessIdByUserMessenger(userId: string) {
+    return this.getBusinessIdByUserId(userId, UserBusinessType.MESSENGER);
+  }
+
+  async getBusinessIdByUserOther(userId: string) {
+    return [
+      ...((await this.getBusinessIdByUserCollaborator(userId)) || []),
+      ...((await this.getBusinessIdByUserMessenger(userId)) || []),
+    ];
+  }
+
+  createCollaborator(
+    userId: string,
+    businessId: string,
+    type: TUserBusinessType,
+  ) {
     return prisma().userBusiness.create({
       data: {
         userId,
         businessId,
-        type: UserBusinessType.COLLABORATOR,
+        type,
       },
     });
   }

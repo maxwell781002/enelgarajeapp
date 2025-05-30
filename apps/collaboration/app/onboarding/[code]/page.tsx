@@ -22,8 +22,11 @@ export type OnboardingProps = {
 export default async function Onboarding({ params }: OnboardingProps) {
   const { code } = await params;
   const { user } = await auth();
+  if (!user.phone) {
+    user.phone = "";
+  }
   const t = await getTranslations("InvitationLink");
-  const businessIds = await businessRepository.getBusinessIdByUserCollaborator(
+  const businessIds = await businessRepository.getBusinessIdByUserOther(
     user.id,
   );
   const alreadyOnboarding = businessIds.includes(code);

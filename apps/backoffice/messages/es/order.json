@@ -42,7 +42,10 @@
     "btnDownloadInvoice": "Factura",
     "deliveryAddress": "Dirección de entrega",
     "btnEdit": "Editar",
-    "cardChangedOrderNote": "Por qué se cambio la orden."
+    "cardChangedOrderNote": "Por qué se cambio la orden.",
+    "cardMessenger": "Mensajero",
+    "noMessengerAssigned": "Mensajero no asignado",
+    "selectMessenger": "Seleccionar mensajero"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",

@@ -6,9 +6,10 @@ import { useState } from "react";
 
 export type GenerateLinkProps = {
   businessId: string;
+  type: string;
 };
 
-export default function GenerateLink({ businessId }: GenerateLinkProps) {
+export default function GenerateLink({ businessId, type }: GenerateLinkProps) {
   const t = useTranslations("User");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ export default function GenerateLink({ businessId }: GenerateLinkProps) {
     setLoading(true);
     const data = await fetch(`/api/invitation-link?businessId=${businessId}`, {
       method: "POST",
+      body: JSON.stringify({ type }),
     });
     const json = await data.json();
     setCode(json.link);
@@ -25,7 +27,7 @@ export default function GenerateLink({ businessId }: GenerateLinkProps) {
       {code ? (
         <CopyToClipboard text={code} />
       ) : (
-        <Button onClick={handleButton} disabled={loading}>
+        <Button onClick={handleButton} disabled={loading || !type}>
           {t("generateLink")}
         </Button>
       )}

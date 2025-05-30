@@ -55,6 +55,7 @@ export const businessUserLink = async (
     return businessRepository.createCollaborator(
       id,
       (invitationLink as CompleteInvitationLink).businessId,
+      (invitationLink as CompleteInvitationLink).type,
     );
   });
 };

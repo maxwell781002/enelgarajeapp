@@ -1,3 +1,5 @@
+"use client";
+
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -13,6 +15,8 @@ import {
 import UpgradePlan from "@repo/ui/components/upgrade-plan/index";
 import { useTranslations } from "next-intl";
 import GenerateLink from "./generate-link";
+import { SelectWidget } from "@repo/ui/components/select";
+import { useState } from "react";
 
 export type CreateInvitationProps = {
   business: CompleteBusiness;
@@ -24,6 +28,7 @@ export function CreateInvitation({
   canCreate,
 }: CreateInvitationProps) {
   const t = useTranslations("User");
+  const [type, setType] = useState<string>("");
   if (!canCreate) {
     return (
       <UpgradePlan
@@ -45,7 +50,19 @@ export function CreateInvitation({
           <DialogDescription>{t("invitation.description")}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <GenerateLink businessId={business.id} />
+          <SelectWidget
+            items={[
+              { label: t("invitation.type.messenger"), value: "MESSENGER" },
+              {
+                label: t("invitation.type.collaborator"),
+                value: "COLLABORATOR",
+              },
+            ]}
+            onChange={(value) => {
+              setType(value as string);
+            }}
+          />
+          <GenerateLink businessId={business.id} type={type} />
         </div>
         <DialogFooter>
           <DialogClose asChild>

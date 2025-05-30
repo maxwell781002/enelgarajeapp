@@ -187,6 +187,13 @@ export class OrderRepository extends BaseRepository<
     });
   }
 
+  async setMessengerToOrder(orderId: string, userId: string) {
+    return prisma().order.update({
+      where: { id: orderId },
+      data: { messengerId: userId },
+    });
+  }
+
   get(id: any, query?: any) {
     return super.get(id, {
       include: {
@@ -341,6 +348,7 @@ export class OrderRepository extends BaseRepository<
           orderBy: { position: "asc" },
         },
         referredBy: true,
+        messenger: true,
       },
     });
   }

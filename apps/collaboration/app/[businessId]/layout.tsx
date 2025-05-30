@@ -23,14 +23,10 @@ export default async function RootLayout(
   const { children } = props;
   const session = await auth();
   const business = await businessRepository.getById(businessId);
-  const businesses = await getBusinessSecurity(
-    session?.user,
-    businessId,
+  const businesses = await getBusinessSecurity(session?.user, businessId, [
     UserBusinessType.COLLABORATOR,
-  );
-  if (businesses === null) {
-    return redirect(`/errors/403`);
-  }
+    UserBusinessType.MESSENGER,
+  ]);
   const onChangeBusiness = async (businessId: string) => {
     "use server";
     await redirect(`/${businessId}`);

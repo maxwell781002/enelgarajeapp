@@ -4,13 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import {
-  Globe,
-  Phone,
-  Send,
-  DoorOpen,
-  DollarSignIcon,
-} from "lucide-react";
+import { Globe, Phone, Send, DoorOpen, DollarSignIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import BooleanValue from "@repo/ui/components/boolean-value";
 import { CompleteBusiness } from "@repo/model/zod/index";
