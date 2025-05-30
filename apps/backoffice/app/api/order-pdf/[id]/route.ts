@@ -13,6 +13,7 @@ const getOrderData = async (
   t: (key: string) => string,
 ) => {
   const addressItems = await getAddressData(order);
+  const totalProducts = order.items.reduce((acc, item) => acc + item.price, 0);
   const data: any = {
     logo: { value: "/logo.png" },
     business: { value: order.business?.name ?? "" },
@@ -30,7 +31,7 @@ const getOrderData = async (
       items: order.items.map((item) => ({
         product: item.product.name,
         quantity: item.quantity,
-        unitPrice: formatPrice(item.price, order.currency),
+        unitPrice: formatPrice(item.originalPrice, order.currency),
         price: formatPrice(item.price, order.currency),
       })),
     },
@@ -40,6 +41,10 @@ const getOrderData = async (
         value: formatPrice(order.total, order.currency),
       },
       items: [
+        {
+          label: t("subTotal"),
+          value: formatPrice(totalProducts, order.currency),
+        },
         {
           label: t("shippingInvoice"),
           value: formatPrice(order.shipping, order.currency),
