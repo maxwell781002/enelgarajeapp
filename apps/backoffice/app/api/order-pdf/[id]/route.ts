@@ -31,7 +31,10 @@ const getOrderData = async (
       items: order.items.map((item) => ({
         product: item.product.name,
         quantity: item.quantity,
-        unitPrice: formatPrice(item.originalPrice, order.currency),
+        unitPrice: formatPrice(
+          item.customPrice ?? item.originalPrice,
+          order.currency,
+        ),
         price: formatPrice(item.price, order.currency),
       })),
     },
