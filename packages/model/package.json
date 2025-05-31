@@ -36,6 +36,9 @@
     ],
     "./tests/*": [
       "./tests/*.ts"
+    ],
+    "./migration-scripts/*": [
+      "./migration-scripts/*.ts"
     ]
   },
   "prisma": {
