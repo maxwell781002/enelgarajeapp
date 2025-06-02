@@ -1,11 +1,38 @@
 import prisma from "@repo/model/prisma/prisma-client";
+import { skuGenerator } from "../lib/utils";
+import { PREFIX_SKU } from "../repositories/product";
 
 const main = () => {
   return prisma().$transaction(async (tx) => {
+    console.log('START PRODUCT SKU');
     const businesses = await tx.business.findMany();
     for (const business of businesses) {
-      console.log(business.name);
+      console.log(`BUSINESS => ${business.name}`);
+      let count = await tx.product.count({
+        where: {
+          businessId: business.id,
+        },
+      });
+      const products = await tx.product.findMany({
+        where: {
+          businessId: business.id,
+          sku: null,
+        },
+      });
+      for (const product of products) {
+        console.log(product.name);
+        await tx.product.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            sku: skuGenerator(PREFIX_SKU, count + 1),
+          },
+        });
+        count++;
+      }
     }
+    console.log('END PRODUCT SKU');
   });
 };
 
