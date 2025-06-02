@@ -9,7 +9,7 @@ import {
 } from "../validation/product";
 import { orderRepository } from "./order";
 import { clearWhere } from "../lib/util-query";
-import { isFile } from "../lib/utils";
+import { isFile, skuGenerator } from "../lib/utils";
 import { CommissionTypes } from "../types/enums";
 import { addProductFields } from "../repository/product";
 import { TIncrementDecrement } from "../types/db";
@@ -20,6 +20,7 @@ type PaginateData = {
 } & BasePaginateData;
 
 export const PAGE_SIZE_FRONTEND = 6;
+export const PREFIX_SKU = "P";
 
 export type UpdateStockItem = [product: CompleteProduct, quantity: number];
 
@@ -30,6 +31,12 @@ export class ProductRepository extends BaseRepository<
   constructor() {
     super(ProductValidation, "product");
     this.addValidator("update", ProductUpdateValidation);
+  }
+
+  getCountByBusinessId(businessId: string) {
+    return this.model.count({
+      where: { businessId },
+    });
   }
 
   getByBusinessAndIds(ids: string[], businessId: string) {
@@ -70,12 +77,18 @@ export class ProductRepository extends BaseRepository<
     };
   }
 
+  async getNextSku(businessId: string, currentCount: number | null = null) {
+    const count = currentCount ?? (await this.getCountByBusinessId(businessId));
+    return skuGenerator(PREFIX_SKU, count + 1);
+  }
+
   protected async doCreate(data: any) {
     const { priceValues, ...rest } = data;
     return transaction(async () => {
       const blob = await this.uploadImage(rest);
       const entity = await super.doCreate({
         ...this.getObject(rest),
+        sku: await this.getNextSku(rest.businessId),
         image: blob,
       });
       const commissions = this.getCommissionData(priceValues || {}, entity.id);

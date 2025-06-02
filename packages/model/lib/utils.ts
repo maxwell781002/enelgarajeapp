@@ -94,3 +94,11 @@ export const isValidFormOfPaymentType = (
   };
   return options[paymentType].includes(currency);
 };
+
+export const skuGenerator = (
+  prefix: string,
+  position: number,
+  pad: number = 5,
+) => {
+  return `${prefix}-${position.toString().padStart(pad, "0")}`;
+};
