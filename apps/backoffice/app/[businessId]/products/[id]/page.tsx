@@ -62,6 +62,7 @@ export default async function Page({ params }: PageProps) {
           />
         </div>
         <div className="flex flex-col sm:flex-row sm:gap-4 bg-muted-foreground rounded-lg p-4 text-white mb-4">
+          <div className="mr-4">SKU: {product.sku}</div>
           {t("lbActive")}: <BooleanValue value={product.active} />
           {t("lbIsNew")}: <BooleanValue value={product.isNew} />
           {t("lbIsExhaustible")}: <BooleanValue value={product.isExhaustible} />
