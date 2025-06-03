@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     (
       <ProductOpenGraphCard
         productName={product.name}
+        sku={product.sku}
         t={t}
         imageUrl={product.image.downloadUrl}
         price={formatPrice(product._price, business.currency)}

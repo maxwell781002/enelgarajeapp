@@ -3,6 +3,7 @@ interface OpenGraphCardProps {
   productName: string;
   price: string;
   commission: string;
+  sku: string;
   stock: number;
   outOfStock: boolean;
   t: (key: string) => string;
@@ -13,6 +14,7 @@ export default function ProductOpenGraphCard({
   productName,
   price,
   commission,
+  sku,
   stock,
   outOfStock,
   t,
@@ -23,6 +25,7 @@ export default function ProductOpenGraphCard({
         <img src={imageUrl} alt={productName} height="100%" />
       </div>
       <div tw="flex flex-col px-4 h-full w-full items-start bg-white">
+        <span tw="text-lg font-semibold">SKU: {sku}</span>
         <span tw="text-lg font-semibold">💵 {price}</span>
         <span tw="text-lg font-semibold text-green-700">
           🎁 {t("ProductOpenGraph.commission")}: {commission}
