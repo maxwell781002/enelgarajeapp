@@ -11,7 +11,7 @@
     "prisma-migration-deploy": "prisma migrate deploy --schema=../../packages/model/prisma/schema.prisma",
     "prisma-generate": "prisma generate --schema=../../packages/model/prisma/schema.prisma",
     "prisma-migration-scripts": "tsx ../../packages/model/migration-scripts/index.ts",
-    "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && npm prisma-migration-scripts && next build"
+    "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && pnpm prisma-migration-scripts && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
