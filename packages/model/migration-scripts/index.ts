@@ -2,6 +2,7 @@ import prisma from "@repo/model/prisma/prisma-client";
 import { skuGenerator } from "../lib/utils";
 import { PREFIX_SKU } from "../repositories/product";
 
+// In production the first time does not work. Check it for future scripts.
 const main = () => {
   return prisma().$transaction(async (tx) => {
     console.log('START PRODUCT SKU');
@@ -36,12 +37,12 @@ const main = () => {
   });
 };
 
-main()
-  .then(async () => {
-    await prisma().$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma().$disconnect();
-    process.exit(1);
-  });
+// main()
+//   .then(async () => {
+//     await prisma().$disconnect();
+//   })
+//   .catch(async (e) => {
+//     console.error(e);
+//     await prisma().$disconnect();
+//     process.exit(1);
+//   });
