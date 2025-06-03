@@ -7,6 +7,7 @@ import ProductPage, {
 import SharedLinks from "@repo/ui/components/shared-links";
 import { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { getBySlug } from "packages/model/repository/product";
 
 export type ProductPageProps = {
   params: Promise<{
@@ -33,6 +34,7 @@ export default async function Page({ params }: ProductPageProps) {
     user.id,
     businessId,
   );
+  const product = await getBySlug(productSlug);
   return (
     <>
       <div className="flex flex-col gap-4 bg-white rounded-lg p-4 text-black">
@@ -46,6 +48,9 @@ export default async function Page({ params }: ProductPageProps) {
           socialNetworks={["FACEBOOK", "WHATSAPP", "TELEGRAM"]}
           url={`https://${business.slug}/${productSlug}?rc=${referredCode}`}
         />
+        <div>
+          <p className="font-bold">SKU: {product.sku}</p>
+        </div>
       </div>
       <ProductPage
         showCommission

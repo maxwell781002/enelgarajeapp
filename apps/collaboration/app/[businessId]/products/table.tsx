@@ -27,6 +27,7 @@ export default function ProductTable({
           <CardItem
             showStock
             showCommission
+            showSku
             key={item.id}
             item={
               {

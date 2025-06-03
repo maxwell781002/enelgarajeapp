@@ -14,6 +14,7 @@ type CardItemProps = {
   baseUrl?: string;
   showStock?: boolean;
   showCommission?: boolean;
+  showSku?: boolean;
 };
 
 export function CardItem({
@@ -21,6 +22,7 @@ export function CardItem({
   baseUrl,
   showStock,
   showCommission,
+  showSku,
 }: CardItemProps) {
   const t = useTranslations("Product");
 
@@ -65,6 +67,12 @@ export function CardItem({
             <div className="mt-2 flex">
               <span className="font-semibold mr-2 ">{t("commission")}: </span>
               <PriceDisplay price={item._commission} classNameText="text-sm" />
+            </div>
+          )}
+          {showSku && (
+            <div className="mt-2">
+              <span className="font-semibold">SKU: </span>
+              <span>{item.sku}</span>
             </div>
           )}
         </div>
