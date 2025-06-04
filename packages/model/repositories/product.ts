@@ -152,10 +152,20 @@ export class ProductRepository extends BaseRepository<
       ...baseWhere,
     });
     if (query) {
-      where["name"] = {
-        contains: query,
-        mode: "insensitive",
-      };
+      where["OR"] = [
+        {
+          name: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          sku: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+      ];
     }
     return super.paginate({
       ...data,
