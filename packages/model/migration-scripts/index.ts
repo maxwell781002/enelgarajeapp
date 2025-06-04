@@ -5,7 +5,7 @@ import { PREFIX_SKU } from "../repositories/product";
 // In production the first time does not work. Check it for future scripts.
 const main = () => {
   return prisma().$transaction(async (tx) => {
-    console.log('START PRODUCT SKU');
+    console.log("START PRODUCT SKU");
     const businesses = await tx.business.findMany();
     for (const business of businesses) {
       console.log(`BUSINESS => ${business.name}`);
@@ -33,7 +33,7 @@ const main = () => {
         count++;
       }
     }
-    console.log('END PRODUCT SKU');
+    console.log("END PRODUCT SKU");
   });
 };
 
