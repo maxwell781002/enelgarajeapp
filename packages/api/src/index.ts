@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 const app = new Hono().basePath("/api");
 
-app.use('/*', cors({ origin: "*" }))
+app.use("/*", cors({ origin: "*" }));
 
 app.get("/hello", (c) => {
   return c.json({
