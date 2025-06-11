@@ -6,13 +6,16 @@
   "engines": {
     "node": ">=v20.15.1"
   },
-  "exports": "./src/index.ts",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
   "peerDependencies": {
     "next": "15.3.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@repo/model": "workspace:*"
   },
   "dependencies": {
     "hono": "^4.7.10"

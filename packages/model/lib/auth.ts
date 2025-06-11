@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@repo/model/prisma/prisma-client";
 import { businessRepository } from "@repo/model/repositories/business";
 import { CompleteUser } from "../prisma/zod";
+import { getToken as BaseGetToken } from "next-auth/jwt";
 
 export type SecurityUser = {
   businessIds: string[];
@@ -43,4 +44,5 @@ const config = {
   },
 } satisfies NextAuthConfig;
 
+export const getToken = BaseGetToken;
 export const { handlers, signIn, signOut, auth }: any = NextAuth(config);

@@ -262,6 +262,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/model':
+        specifier: workspace:*
+        version: link:../model
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
