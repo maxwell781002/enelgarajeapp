@@ -11,7 +11,7 @@ app.get("/token/:token", async (c) => {
     return c.json({ error: "Not found" }, 404);
   }
   return c.json({
-    token: generateToken(user),
+    token: await generateToken(user),
     user,
   });
 });

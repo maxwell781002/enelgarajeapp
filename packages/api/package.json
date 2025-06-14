@@ -17,8 +17,7 @@
     "@repo/typescript-config": "workspace:*"
   },
   "dependencies": {
-    "hono": "^4.7.10",
     "@repo/model": "workspace:*",
-    "jsonwebtoken": "^9.0.2"
+    "hono": "^4.7.10"
   }
 }

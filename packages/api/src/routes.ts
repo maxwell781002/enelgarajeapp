@@ -2,10 +2,14 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { cors } from "hono/cors";
 import securityApp from "@repo/api/security";
-import { getUserByToken } from "@repo/api/utils/security";
+import secureApp from "@repo/api/secure";
 export const dynamic = "force-dynamic";
+import type { JwtVariables } from "hono/jwt";
+import { auth } from "@repo/api/utils/security";
 
-const app = new Hono().basePath("/api");
+type Variables = JwtVariables;
+
+const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
 app.use("/*", cors({ origin: "*" }));
 
@@ -15,16 +19,8 @@ app.get("/hello", (c) => {
   });
 });
 
-app.get("/secure", async (c) => {
-  const token = await getUserByToken(c);
-  console.log(token);
-  console.log(c.req.header("Authorization"));
-  return c.json({
-    message: `Hello from Hono on Vercel! You're now on /api/secure!`,
-  });
-});
-
 app.route("/security", securityApp);
+auth(app).route("/secure", secureApp);
 
 export const GET = handle(app);
 export const POST = handle(app);
