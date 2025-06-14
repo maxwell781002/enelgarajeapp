@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { getExternalSection } from "@repo/model/repository/external-section";
-import { getToken } from "@repo/model/lib/auth";
+import { generateToken } from "@repo/api/utils/security";
 
 const app = new Hono();
 
@@ -11,7 +11,7 @@ app.get("/token/:token", async (c) => {
     return c.json({ error: "Not found" }, 404);
   }
   return c.json({
-    token: getToken(user),
+    token: generateToken(user),
     user,
   });
 });

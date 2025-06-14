@@ -1,5 +1,5 @@
-import { externalSectionRepository } from "../repositories/external-section";
-import { getCurrentUser } from "./user";
+import { externalSectionRepository } from "@repo/model/repositories/external-section";
+import { getCurrentUser } from "@repo/model/repository/user";
 
 export const generateExternalSection = async () => {
   const user = await getCurrentUser();

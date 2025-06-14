@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { cors } from "hono/cors";
 import securityApp from "@repo/api/security";
+import { getUserByToken } from "@repo/api/utils/security";
 export const dynamic = "force-dynamic";
 
 const app = new Hono().basePath("/api");
@@ -14,10 +15,12 @@ app.get("/hello", (c) => {
   });
 });
 
-app.get("/:wild", (c) => {
-  const wild = c.req.param("wild");
+app.get("/secure", async (c) => {
+  const token = await getUserByToken(c);
+  console.log(token);
+  console.log(c.req.header("Authorization"));
   return c.json({
-    message: `Hello from Hono on Vercel! You're now on /api/${wild}!`,
+    message: `Hello from Hono on Vercel! You're now on /api/secure!`,
   });
 });
 

@@ -9,7 +9,6 @@ const mocksAuth = vi.hoisted(() => ({
 }));
 vi.mock("@repo/model/lib/auth", () => ({
   auth: mocksAuth.auth,
-  getToken: vi.fn(() => "token"),
 }));
 
 describe("get-token", () => {
@@ -34,7 +33,7 @@ describe("get-token", () => {
     const res = await app.request(`/api/security/token/${result.token}`);
     expect(res.status).toBe(200);
     const { token, user: userResponse } = await res.json();
-    expect(token).toBe("token");
+    expect(token).toBeDefined();
     expect(userResponse.id).toBe(user.id);
   });
 });
