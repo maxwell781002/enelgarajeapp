@@ -11,4 +11,9 @@ app.get("/", async (c: Context) => {
   });
 });
 
+app.get("/status", async (c: Context) => {
+  const payload = c.get("jwtPayload");
+  return c.json(payload);
+});
+
 export default app;

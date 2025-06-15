@@ -22,12 +22,14 @@ app.get("/hello", (c) => {
 app.route("/security", securityApp);
 auth(app).route("/secure", secureApp);
 
-export const GET = handle(app);
-export const POST = handle(app);
-export const OPTIONS = handle(app);
-export const HEAD = handle(app);
-export const PUT = handle(app);
-export const DELETE = handle(app);
-export const PATCH = handle(app);
+const handler = handle(app);
+
+export const GET = handler;
+export const POST = handler;
+export const OPTIONS = handler;
+export const HEAD = handler;
+export const PUT = handler;
+export const DELETE = handler;
+export const PATCH = handler;
 
 export default app;
