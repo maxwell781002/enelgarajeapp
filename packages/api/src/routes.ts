@@ -3,6 +3,7 @@ import { handle } from "hono/vercel";
 import { cors } from "hono/cors";
 import securityApp from "@repo/api/security";
 import secureApp from "@repo/api/secure";
+import ordersApp from "@repo/api/orders";
 export const dynamic = "force-dynamic";
 import type { JwtVariables } from "hono/jwt";
 import { auth } from "@repo/api/utils/security";
@@ -21,6 +22,7 @@ app.get("/hello", (c) => {
 
 app.route("/security", securityApp);
 auth(app).route("/secure", secureApp);
+auth(app).route("/orders", ordersApp);
 
 const handler = handle(app);
 
