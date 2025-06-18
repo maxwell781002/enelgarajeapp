@@ -121,6 +121,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.52.2(react@19.1.0))
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/model':
         specifier: workspace:*
         version: link:../../packages/model
@@ -188,6 +191,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.52.2(react@19.1.0))
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/model':
         specifier: workspace:*
         version: link:../../packages/model

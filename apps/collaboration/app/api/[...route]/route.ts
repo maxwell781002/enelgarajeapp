@@ -1,3 +1,1 @@
-import { GET, POST } from "@repo/api";
-
-export { GET, POST };
+export * from "@repo/api/routes";

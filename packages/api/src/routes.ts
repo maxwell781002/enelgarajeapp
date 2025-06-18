@@ -4,7 +4,6 @@ import { cors } from "hono/cors";
 import securityApp from "@repo/api/security";
 import secureApp from "@repo/api/secure";
 import ordersApp from "@repo/api/orders";
-export const dynamic = "force-dynamic";
 import type { JwtVariables } from "hono/jwt";
 import { auth } from "@repo/api/utils/security";
 
