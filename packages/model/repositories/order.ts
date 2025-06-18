@@ -466,6 +466,26 @@ export class OrderRepository extends BaseRepository<
       },
     });
   }
+
+  getOrdersByMessenger(messengerId: string) {
+    return prisma().order.findMany({
+      where: { messengerId },
+      include: {
+        user: true,
+        items: {
+          include: { product: true },
+          orderBy: { position: "asc" },
+        },
+        business: true,
+        orderAddress: {
+          include: { address: { include: { neighborhood: true } } },
+        },
+        ticket: {
+          include: { customer: true },
+        },
+      },
+    });
+  }
 }
 
 export const orderRepository = new OrderRepository();

@@ -82,3 +82,8 @@ export const setMessengerToOrder = async (
   }
   return orderRepository.setMessengerToOrder(orderId, user.id);
 };
+
+export const getOrdersByMessenger = async (messengerId: string) => {
+  return orderRepository.getOrdersByMessenger(messengerId);
+};
+

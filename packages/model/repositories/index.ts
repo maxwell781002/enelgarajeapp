@@ -18,6 +18,7 @@ import { customerRepository } from "./customer";
 import { collaboratorTicketRepository } from "./collaborator-ticket";
 import { businessSiteRepository } from "./business-site";
 import { whatsappConnectRepository } from "./whatsapp-connect";
+import { externalSectionRepository } from "./external-section";
 
 export default {
   [orderRepository.getRepositoryModelName()]: orderRepository,
@@ -46,4 +47,6 @@ export default {
     businessNeighborhoodRepository,
   [telegramBusinessRepository.getRepositoryModelName()]:
     telegramBusinessRepository,
+  [externalSectionRepository.getRepositoryModelName()]:
+    externalSectionRepository,
 } as Record<string, BaseRepository<any, any>>;

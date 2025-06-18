@@ -191,6 +191,15 @@ model User {
   collaboratorProfiles CollaboratorProfile[]
   tickets              CollaboratorTicket[]
   whatsappConnect      WhatsappConnect[]
+  externalSections     ExternalSection[]
+}
+
+model ExternalSection {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
 }
 
 model UserBusiness {

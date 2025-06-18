@@ -8,6 +8,7 @@ const randomEmail = () => {
 };
 
 export const clearBd = async () => {
+  await prisma().externalSection.deleteMany();
   await prisma().whatsappConnect.deleteMany();
   await prisma().collaboratorTicket.deleteMany();
   await prisma().customer.deleteMany();
