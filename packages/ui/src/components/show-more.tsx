@@ -8,7 +8,7 @@ export default function Paginator({
   ...props
 }: ButtonProps) {
   return (
-    <Button variant={"outline"} disabled={disabled} {...props}>
+    <Button variant={"outline-solid"} disabled={disabled} {...props}>
       {disabled ? (
         <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
       ) : (

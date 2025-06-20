@@ -53,7 +53,7 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
       <PopoverTrigger asChild>
         <FormControl>
           <Button
-            variant={"outline"}
+            variant={"outline-solid"}
             className={cn(
               "w-full pl-3 text-left font-normal",
               !value && "text-muted-foreground",
