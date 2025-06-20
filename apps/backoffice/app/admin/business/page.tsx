@@ -22,6 +22,9 @@ export default async function Page({ params, searchParams }: PageProps) {
   const { businessId } = await params;
   searchParams = await searchParams;
   const t = await getTranslations("Business");
+  if ((searchParams as any).active === undefined) {
+    return redirect(`/admin/business?active=${true}`);
+  }
   const { list, remove, search } = crud(
     "/admin/business",
     businessRepository.getRepositoryModelName(),

@@ -2,10 +2,14 @@ import prisma, { Prisma } from "@repo/model/prisma/prisma-client";
 import { BaseRepository } from "@repo/model/lib/base-repository";
 import { CompleteBusiness } from "@repo/model/prisma/zod/business";
 import { BusinessValidation } from "@repo/model/validation/business";
-import { PaginateData } from "@repo/model/types/pagination";
+import { PaginateData as BasePaginateData } from "@repo/model/types/pagination";
 import { TUserBusinessType, UserBusinessType } from "@repo/model/types/enums";
 
 // TODO: I am working with userBusiness using only one user.
+
+type PaginateData = {
+  active?: boolean;
+} & BasePaginateData;
 
 export class BusinessRepository extends BaseRepository<
   CompleteBusiness,
@@ -15,7 +19,7 @@ export class BusinessRepository extends BaseRepository<
     super(BusinessValidation, "business");
   }
 
-  paginate({ query, ...data }: PaginateData = {}) {
+  paginate({ query, active, ...data }: PaginateData = {}) {
     const where: any = {};
     if (query) {
       where["name"] = {
@@ -23,6 +27,7 @@ export class BusinessRepository extends BaseRepository<
         mode: "insensitive",
       };
     }
+    where["active"] = active;
     return super.paginate({
       ...data,
       where,
