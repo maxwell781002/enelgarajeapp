@@ -34,7 +34,7 @@ const Editor = ({ value, placeholder, onChange }: EditorProps) => {
     content: value,
     editorProps: {
       attributes: {
-        class: "prose dark:prose-invert focus:outline-none max-w-full",
+        class: "prose dark:prose-invert focus:outline-hidden max-w-full",
       },
       transformPastedHTML: (html) => html,
     },

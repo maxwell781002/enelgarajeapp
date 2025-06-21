@@ -18,7 +18,7 @@ export default function ProductList() {
   return (
     <div>
       <h1 className="text-2xl font-bold">{t("products")}</h1>
-      <div className="border shadow-sm rounded-lg mt-4">
+      <div className="border shadow-xs rounded-lg mt-4">
         <Table>
           <TableHeader>
             <TableRow>

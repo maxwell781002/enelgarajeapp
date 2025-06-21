@@ -111,7 +111,7 @@ export default function TicketForm({ form, t, business }: TicketFormProps) {
       {business.ticketTermsConditions && (
         <>
           <strong
-            className="block cursor-pointer text-blue-600 hover:text-blue-800 underline underline-offset-2 hover:underline-offset-4 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="block cursor-pointer text-blue-600 hover:text-blue-800 underline underline-offset-2 hover:underline-offset-4 transition-all duration-200 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             onClick={handleTermAndCondition}
           >
             {t("ticketTermsAndConditions")}

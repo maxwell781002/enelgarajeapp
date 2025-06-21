@@ -48,7 +48,7 @@ export function Messenger({
         {!disabled && (
           <button
             onClick={() => setIsEditing(true)}
-            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            className="text-gray-500 hover:text-gray-700 focus:outline-hidden"
             aria-label="Edit user"
           >
             <Pencil1Icon className="w-4 h-4" />
@@ -71,14 +71,14 @@ export function Messenger({
       <div className="flex gap-1">
         <button
           onClick={handleSave}
-          className="text-green-600 hover:text-green-800 focus:outline-none border border-green-600 hover:border-green-800 rounded p-1.5 transition-colors"
+          className="text-green-600 hover:text-green-800 focus:outline-hidden border border-green-600 hover:border-green-800 rounded p-1.5 transition-colors"
           aria-label="Save changes"
         >
           <CheckIcon className="w-4 h-4" />
         </button>
         <button
           onClick={handleCancel}
-          className="text-red-600 hover:text-red-800 focus:outline-none border border-red-600 hover:border-red-800 rounded p-1.5 transition-colors"
+          className="text-red-600 hover:text-red-800 focus:outline-hidden border border-red-600 hover:border-red-800 rounded p-1.5 transition-colors"
           aria-label="Cancel"
         >
           <Cross2Icon className="w-4 h-4" />
