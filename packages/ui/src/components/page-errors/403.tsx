@@ -23,7 +23,7 @@ export default async function Page403() {
         <BtnServerAction
           action={logoutAction}
           className="mb-8"
-          variant={"outline-solid"}
+          variant={"outline"}
         >
           <LogOut className="h-4 w-4 mr-2" />
           <div className="ml-2">{t("loginAgain")}</div>

@@ -31,7 +31,7 @@ export function BtnDialogForm({
   btnText,
   Component,
   action,
-  btnVariant = "outline-solid",
+  btnVariant = "outline",
   toggle,
   open,
   ...props
