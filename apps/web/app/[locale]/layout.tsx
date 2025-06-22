@@ -1,4 +1,5 @@
-import "@repo/ui/globals.css";
+// import "@repo/ui/globals.css";
+import "@repo/ui/main.css";
 import type { ResolvingMetadata } from "next";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
