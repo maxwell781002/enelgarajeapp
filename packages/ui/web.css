@@ -2,18 +2,23 @@
 @plugin 'tailwindcss-animate';
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
-@plugin "./tailwind-plugin/tw-theme";
-@plugin "./tailwind-plugin/tw-bs-grid";
+@plugin "./styles/tailwind-plugin/tw-theme";
+@plugin "./styles/tailwind-plugin/tw-bs-grid";
+@source "../../packages/ui/src/**/*.{ts,tsx}";
+@source "./pages/**/*.{ts,tsx}";
+@source "./components*.{ts,tsx}";
+@source "./app/**/*.{ts,tsx}";
+@source "./src*.{ts,tsx}";
 @custom-variant dark (&:where(.dark, .dark *));
-@import "./safe.css";
-@import "./utilities.css";
+@import "./styles/safe.css";
+@import "./styles/utilities.css";
 @layer base {
-  @import "./base.css";
+  @import "./styles/base.css";
 }
 @layer components {
-  @import "./components.css";
-  @import "./navigation.css";
-  @import "./buttons.css";
+  @import "./styles/components.css";
+  @import "./styles/navigation.css";
+  @import "./styles/buttons.css";
 }
 .iiz__hint {
   @apply rounded-md;
@@ -33,12 +38,3 @@ input:-webkit-autofill:active {
 .dark input:-webkit-autofill {
   -webkit-text-fill-color: #ddd;
 }
-
-/*-----------------*/
-
-/* @import "tailwindcss";
-
-
-
-
- */

@@ -7,6 +7,7 @@ import { ArrowLeftRight } from "lucide-react";
 import { get } from "http";
 import { getBusinessById } from "@repo/model/repository/business";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import { cn } from "../lib/utils";
 
 export type AvailableApps =
   | ApplicationsNames.WEB
@@ -33,7 +34,7 @@ export default async function SwitchApp({
       ? process.env.COLLABORATOR_HOST
       : `https://${business.slug}`;
   return (
-    <Button asChild className={className}>
+    <Button asChild className={cn("text-white", className)}>
       <Link href={url as string}>
         <ArrowLeftRight className="w-4 h-4 mr-2" />
         {t(`switch-app.${application}`)}
