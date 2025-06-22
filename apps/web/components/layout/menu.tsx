@@ -17,16 +17,38 @@ import { CompleteBusiness } from "packages/model/prisma/zod";
 import { Logout } from "./logout";
 import SignInIcon from "@repo/ui/components/icons";
 
+const MenuIcon = ({ openLabel }: { openLabel?: string }) => (
+  <>
+    <span className="mr-2 font-medium">{openLabel}</span>
+    <button id="nav-toggle" className="focus:outline-none">
+      <svg className="h-3 fill-current block menu-open" viewBox="0 0 20 20">
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+    </button>
+  </>
+);
+const MenuMobileIcon = () => (
+  <label className="cursor-pointer flex items-center text-text-dark dark:text-white border border-border dark:border-border/40 p-1 rounded-md">
+    <button id="nav-toggle-mobile" className="focus:outline-none">
+      <svg className="h-5 fill-current block menu-open" viewBox="0 0 20 20">
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+    </button>
+  </label>
+);
+
 export type MenuProps = {
   locale: string;
-  openLabel?: string;
+  isMobile?: boolean;
   user?: SecurityUser;
   business: CompleteBusiness;
 };
 
 export default async function Menu({
   locale,
-  openLabel,
+  isMobile = false,
   user,
   business,
 }: MenuProps) {
@@ -61,16 +83,7 @@ export default async function Menu({
     <Sheet>
       <SheetTrigger asChild>
         <button className="order-3 cursor-pointer flex items-center text-text-dark dark:text-white lg:order-1">
-          {!!openLabel && <span className="mr-2 font-medium">{openLabel}</span>}
-          <button id="nav-toggle" className="focus:outline-none">
-            <svg
-              className="h-3 fill-current block menu-open"
-              viewBox="0 0 20 20"
-            >
-              <title>Menu Open</title>
-              <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
-            </svg>
-          </button>
+          {isMobile ? <MenuMobileIcon /> : <MenuIcon openLabel="Pages" />}
         </button>
       </SheetTrigger>
       <SheetContent className="bg-white">
@@ -109,7 +122,7 @@ export default async function Menu({
             </ul>
           </div>
         </div>
-        <SheetFooter>
+        <SheetFooter className="flex flex-col md:flex-row gap-4">
           {!user ? (
             <Link
               href={`/${locale}/auth/login`}
@@ -122,13 +135,14 @@ export default async function Menu({
               </Button>
             </Link>
           ) : (
-            <div className="flex flex-col gap-4">
-              <Logout title={t("logout")} action={logoutAction} />
+            <>
               <SwitchApp
+                className="w-full"
                 application={ApplicationsNames.WEB}
                 businessId={business.id}
               />
-            </div>
+              <Logout title={t("logout")} action={logoutAction} />
+            </>
           )}
         </SheetFooter>
       </SheetContent>

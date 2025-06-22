@@ -45,7 +45,7 @@ export async function Header({
           </div>
 
           <div className="relative z-40 block md:hidden ml-6">
-            <Menu business={business} locale={locale} user={user} />
+            <Menu business={business} locale={locale} user={user} isMobile />
           </div>
         </div>
       </nav>
