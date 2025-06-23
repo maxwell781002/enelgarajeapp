@@ -6,7 +6,7 @@ import { cn } from "@repo/ui/lib/utils";
 import SearchBar from "./search";
 import Menu from "./menu";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
 
 export async function Header({
   business,
@@ -37,7 +37,7 @@ export async function Header({
         </div>
         <div className="order-2 lg:order-3 ml-auto flex items-center lg:ml-0">
           {/* <ThemeSwitcher className="mr-4 md:mr-6" /> */}
-          {/* <Cart /> */}
+          <ShoppingCartHeader className="relative" />
 
           <div className="ml-4 md:ml-6">
             {/* <NavUser pathname={Astro.url.pathname} client:load /> */}
