@@ -5,6 +5,8 @@ import Image from "next/image";
 import { cn } from "@repo/ui/lib/utils";
 import SearchBar from "./search";
 import Menu from "./menu";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export async function Header({
   business,
@@ -23,18 +25,15 @@ export async function Header({
     >
       <nav className="navbar flex-wrap container">
         <div className="order-1 flex items-center justify-between space-x-7 lg:space-x-14">
-          <Image src={logo} alt="logo" width={50} height={50} />
+          <Link href="/">
+            <Image src={logo} alt="logo" width={50} height={50} />
+          </Link>
           <div className="relative z-40 hidden md:block">
-            <Menu
-              business={business}
-              locale={locale}
-              openLabel="Pages"
-              user={user}
-            />
+            <Menu business={business} locale={locale} user={user} />
           </div>
         </div>
         <div className="max-lg:mt-4 w-full lg:w-[45%] xl:w-[60%] lg:order-2 order-3">
-          <SearchBar />
+          <SearchBar locale={locale} />
         </div>
         <div className="order-2 lg:order-3 ml-auto flex items-center lg:ml-0">
           {/* <ThemeSwitcher className="mr-4 md:mr-6" /> */}

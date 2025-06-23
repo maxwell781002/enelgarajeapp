@@ -13,6 +13,7 @@ import { getSite } from "@repo/model/repository/business-site";
 import { ReferredCode } from "../../components/referred-code";
 import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
 import Error404 from "@repo/ui/components/page-errors/404";
+import { ProductContextProvider } from "apps/web/context/product-context";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -61,14 +62,16 @@ export default async function RootLayout({ params, children }: LayoutProps) {
                 <NextIntlClientProvider messages={messages}>
                   {business ? (
                     <BusinessContextProvider business={business}>
-                      <Header
-                        business={business}
-                        locale={locale}
-                        logo={site.logo}
-                      />
-                      <main className="flex-1 container pt-20 md:py-16 lg:py-20">
-                        {children}
-                      </main>
+                      <ProductContextProvider>
+                        <Header
+                          business={business}
+                          locale={locale}
+                          logo={site.logo}
+                        />
+                        <main className="flex-1 container pt-20 md:py-16 lg:py-20">
+                          {children}
+                        </main>
+                      </ProductContextProvider>
                       <Footer {...site} />
                     </BusinessContextProvider>
                   ) : (

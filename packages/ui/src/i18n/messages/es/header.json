@@ -11,6 +11,7 @@
     "switch-app": {
       "WEB": "Modo gestor",
       "COLLABORATOR": "Modo cliente"
-    }
+    },
+    "search": "Buscar productos"
   }
 }

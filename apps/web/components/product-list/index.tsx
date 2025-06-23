@@ -3,9 +3,6 @@ import CategoryMenu from "./category-menu";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import ProductList from "./list";
 import { paginateFrontend } from "@repo/model/repository/product";
-import SearchInput from "@repo/ui/components/search";
-import { redirect } from "next/navigation";
-import { TableContextProvider } from "@repo/ui/context/table";
 
 export type ProductListWrapperProps = {
   currentBusiness: CompleteBusiness;
@@ -18,7 +15,6 @@ export type ProductListWrapperProps = {
 export default async function ProductListWrapper({
   currentBusiness,
   categorySlug,
-  baseUrl,
   business,
   searchParams,
 }: ProductListWrapperProps) {
@@ -29,14 +25,8 @@ export default async function ProductListWrapper({
     categoryId: currenItem?.id,
     ...searchParams,
   });
-  const search = async (query: any) => {
-    "use server";
-    const url = `${baseUrl}?${new URLSearchParams({ ...searchParams, ...query })}`;
-    return redirect(url);
-  };
   return (
-    <TableContextProvider>
-      <SearchInput className="mb-2" onChange={search} />
+    <>
       <div className="mb-8">
         <CategoryMenu items={categories} active={currenItem} />
       </div>
@@ -46,6 +36,6 @@ export default async function ProductListWrapper({
         categoryId={currenItem?.id}
         businessId={business.id}
       />
-    </TableContextProvider>
+    </>
   );
 }

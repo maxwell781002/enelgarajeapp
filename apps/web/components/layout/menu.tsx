@@ -20,22 +20,22 @@ import SignInIcon from "@repo/ui/components/icons";
 const MenuIcon = ({ openLabel }: { openLabel?: string }) => (
   <>
     <span className="mr-2 font-medium">{openLabel}</span>
-    <button id="nav-toggle" className="focus:outline-none">
+    <div id="nav-toggle" className="focus:outline-none">
       <svg className="h-3 fill-current block menu-open" viewBox="0 0 20 20">
         <title>Menu Open</title>
         <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
       </svg>
-    </button>
+    </div>
   </>
 );
 const MenuMobileIcon = () => (
   <label className="cursor-pointer flex items-center text-text-dark dark:text-white border border-border dark:border-border/40 p-1 rounded-md">
-    <button id="nav-toggle-mobile" className="focus:outline-none">
+    <div id="nav-toggle-mobile" className="focus:outline-none">
       <svg className="h-5 fill-current block menu-open" viewBox="0 0 20 20">
         <title>Menu Open</title>
         <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
       </svg>
-    </button>
+    </div>
   </label>
 );
 
