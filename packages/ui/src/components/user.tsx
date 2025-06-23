@@ -7,19 +7,19 @@ export type UserProps = {
   user?: SecurityUser;
   onlyIcon?: boolean;
   size?: string;
-}
+};
 
-export default function User({user, onlyIcon, size = "h-10 w-10"}: UserProps) {
+export default function User({
+  user,
+  onlyIcon,
+  size = "h-10 w-10",
+}: UserProps) {
   if (!user) {
     return (
-      <Link
-        href={'/auth/login'}
-        prefetch={false}
-        className="w-full"
-      >
+      <Link href={"/auth/login"} prefetch={false} className="w-full">
         <UserIcon />
       </Link>
-    )
+    );
   }
   return (
     <div className="flex items-center gap-2">
@@ -31,5 +31,5 @@ export default function User({user, onlyIcon, size = "h-10 w-10"}: UserProps) {
       />
       {!onlyIcon && user?.name}
     </div>
-  )
+  );
 }

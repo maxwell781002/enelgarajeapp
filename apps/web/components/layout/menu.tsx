@@ -84,18 +84,18 @@ export default async function Menu({
     <Sheet>
       <SheetTrigger asChild>
         <button className="order-3 cursor-pointer flex items-center text-text-dark dark:text-white lg:order-1">
-          {isMobile ? <MenuMobileIcon /> : <MenuIcon openLabel="Pages" />}
+          {isMobile ? <MenuMobileIcon /> : <MenuIcon openLabel={t("pages")} />}
         </button>
       </SheetTrigger>
-      <SheetContent className="bg-white">
+      <SheetContent className="bg-white" side="left">
         <SheetHeader>
           <div className="justify-start">
-            <SheetTitle>Business name</SheetTitle>
+            <SheetTitle>{business?.name}</SheetTitle>
             <User user={user} />
           </div>
         </SheetHeader>
         <div className="grid flex-1 auto-rows-min gap-6 px-4">
-          <div className="bg-white dark:bg-darkmode-body overflow-y-auto w-full md:w-96 p-9 sidebar">
+          <div className="bg-white dark:bg-darkmode-body overflow-y-auto w-full p-9 sidebar">
             <ul className="nav-list">
               {menu.map((menuItem) => (
                 <li key={menuItem.url} className={cn("nav-item")}>

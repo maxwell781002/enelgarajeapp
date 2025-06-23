@@ -18,17 +18,19 @@ export const useFilterChange = (
     },
     {},
   );
-  const changeFilter = useDebouncedCallback((name: string, term: string) => {
+  const changeNow = (name: string, term: string) => {
     (startLoading as any)(() => {
       return onChange({
         ...value,
         [name]: term,
       });
     });
-  }, 300);
+  };
+  const changeFilter = useDebouncedCallback(changeNow, 300);
 
   return {
     changeFilter,
+    changeNow,
     value,
   };
 };

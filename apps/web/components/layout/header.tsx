@@ -1,5 +1,4 @@
 import { CompleteBusiness } from "@repo/model/zod/business";
-import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@repo/model/repository/user";
 import Image from "next/image";
 import { cn } from "@repo/ui/lib/utils";
@@ -8,6 +7,7 @@ import Menu from "./menu";
 import Link from "next/link";
 import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
 import User from "@repo/ui/components/user";
+import { allCategories } from "packages/model/repository/category";
 
 export async function Header({
   business,
@@ -19,7 +19,7 @@ export async function Header({
   logo: string;
 }) {
   const user = await getCurrentUser();
-  const t = await getTranslations("Header");
+  const categories = await allCategories(business.id);
   return (
     <header
       className={cn("header z-30 sticky top-0 transition-shadow duration-300")}
@@ -34,7 +34,7 @@ export async function Header({
           </div>
         </div>
         <div className="max-lg:mt-4 w-full lg:w-[45%] xl:w-[60%] lg:order-2 order-3">
-          <SearchBar locale={locale} />
+          <SearchBar locale={locale} categories={categories} />
         </div>
         <div className="order-2 lg:order-3 ml-auto flex items-center lg:ml-0">
           <ShoppingCartHeader className="relative" />

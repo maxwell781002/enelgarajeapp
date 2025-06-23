@@ -95,6 +95,14 @@
   @apply cursor-pointer h-2.5 w-2.5 rounded-full bg-light opacity-100;
 }
 
+.bg-primary {
+  @apply bg-primary text-white;
+}
+
+button[role="checkbox"] {
+  @apply text-white;
+}
+
 .banner-pagination-bullet-active {
   @apply h-2.5 w-5 bg-dark dark:bg-darkmode-primary duration-200;
 }
