@@ -16,6 +16,7 @@ import { ApplicationsNames } from "packages/model/lib/applications-names";
 import { CompleteBusiness } from "packages/model/prisma/zod";
 import { Logout } from "./logout";
 import SignInIcon from "@repo/ui/components/icons";
+import User from "@repo/ui/components/user";
 
 const MenuIcon = ({ openLabel }: { openLabel?: string }) => (
   <>
@@ -90,24 +91,14 @@ export default async function Menu({
         <SheetHeader>
           <div className="justify-start">
             <SheetTitle>Business name</SheetTitle>
-            {!!user?.name && (
-              <div className="flex items-center gap-2">
-                <img
-                  src={user.image as string}
-                  referrerPolicy="no-referrer"
-                  alt={"user name"}
-                  className="aspect-square rounded-md object-cover h-10 w-10"
-                />
-                {user?.name}
-              </div>
-            )}
+            <User user={user} />
           </div>
         </SheetHeader>
         <div className="grid flex-1 auto-rows-min gap-6 px-4">
           <div className="bg-white dark:bg-darkmode-body overflow-y-auto w-full md:w-96 p-9 sidebar">
             <ul className="nav-list">
               {menu.map((menuItem) => (
-                <li className={cn("nav-item")}>
+                <li key={menuItem.url} className={cn("nav-item")}>
                   <Link
                     href={menuItem.url}
                     className={cn(
