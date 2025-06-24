@@ -1,12 +1,15 @@
 {
   "Product": {
     "inCart": "En el carrito",
+    "addToCartLabel": "Agregar al carrito",
     "photos": "Imágenes",
     "moreProducts": "Ver más",
     "commission": "Comisión",
     "lbSharedByCollaborator": "Comparte el producto y gana comisión",
     "lbProductSharedByCollaboratorDescription": "Cuando compartes el producto por esta vía y algún cliente compra en la tienda ganarás la comisión correspondiente.",
-    "stock": "Stock"
+    "stock": "Stock",
+    "description": "Descripción",
+    "moreInfo": "Información adicional"
   },
   "ProductCollaboration": {
     "ProductList": "Productos",
