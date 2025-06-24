@@ -22,7 +22,7 @@ export function BtnAddCart({
     <div className="relative">
       {inCart && (
         <div className="absolute left-7 -top-2  bg-green-600 rounded-full p-1 h-5 w-5 mr-2">
-          <CheckIcon className="h-3.5 w-3.5 text-primary-foreground" />
+          <CheckIcon className="h-3.5 w-3.5 text-white" />
         </div>
       )}
       <Button

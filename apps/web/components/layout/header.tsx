@@ -22,7 +22,9 @@ export async function Header({
   const categories = await allCategories(business.id);
   return (
     <header
-      className={cn("header z-30 sticky top-0 transition-shadow duration-300")}
+      className={cn(
+        "mb-4 header z-30 sticky top-0 transition-shadow duration-300 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/40 shadow-sm",
+      )}
     >
       <nav className="navbar flex-wrap container">
         <div className="order-1 flex items-center justify-between space-x-7 lg:space-x-14">

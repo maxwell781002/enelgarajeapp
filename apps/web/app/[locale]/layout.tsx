@@ -1,6 +1,6 @@
 import "@repo/ui/web.css";
 import type { ResolvingMetadata } from "next";
-import localFont from "next/font/local";
+import { Karla, Fira_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { CompleteBusiness } from "@repo/model/zod/index";
@@ -15,13 +15,15 @@ import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
 import Error404 from "@repo/ui/components/page-errors/404";
 import { ProductContextProvider } from "apps/web/context/product-context";
 
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const karla = Karla({
+  subsets: ["latin"],
+  variable: "--font-karla",
+  weight: ["400", "500", "700"],
 });
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+const sfMono = Fira_Mono({
+  subsets: ["latin"],
+  variable: "--font-sf-mono",
+  weight: ["400", "500", "700"],
 });
 
 type LayoutProps = {
@@ -54,7 +56,7 @@ export default async function RootLayout({ params, children }: LayoutProps) {
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${karla.variable} ${sfMono.variable}`}>
         <FacebookOpenNavigator>
           <ReferredCode>
             <RouteLoadingLayout>
