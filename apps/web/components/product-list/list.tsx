@@ -11,7 +11,6 @@ import HasMorePaginator, {
 
 export type ProductListProps = {
   data: CompleteProduct[];
-  categoryId: string;
   businessId: string;
   hastMore: boolean;
 };
@@ -19,18 +18,16 @@ export type ProductListProps = {
 export default function ProductList({
   data,
   businessId,
-  categoryId,
   hastMore,
 }: ProductListProps) {
   const searchParams = useSearchParams();
   const params = useMemo(() => {
     const urlParams: any = getSearchParams(searchParams);
-    const params = {
+    return {
       ...urlParams,
       businessId,
     };
-    return categoryId ? { ...params, categoryId } : params;
-  }, [searchParams, businessId, categoryId]);
+  }, [searchParams, businessId]);
   const { reset, setList, list, updateItem, ...props } = useHasMorePaginator(
     data,
     hastMore,

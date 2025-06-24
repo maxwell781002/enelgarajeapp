@@ -68,9 +68,7 @@ export default async function RootLayout({ params, children }: LayoutProps) {
                           locale={locale}
                           logo={site.logo}
                         />
-                        <main className="flex-1 container pt-20 md:py-16 lg:py-20">
-                          {children}
-                        </main>
+                        <main className="flex-1 container">{children}</main>
                       </ProductContextProvider>
                       <Footer {...site} />
                     </BusinessContextProvider>

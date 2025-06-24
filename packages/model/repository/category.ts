@@ -15,3 +15,6 @@ export const isCategoryLimited = async (business: CompleteBusiness) => {
 export const allCategories = (businessId: string) => {
   return categoryRepository.getAll(businessId);
 };
+
+export const getCategoryBySlug = (slug: string) =>
+  categoryRepository.getBySlug(slug);

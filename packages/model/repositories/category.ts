@@ -41,6 +41,10 @@ export class CategoryRepository extends BaseRepository<
   countByBusinessId(businessId: string) {
     return this.model.count({ where: { businessId } });
   }
+
+  getBySlug(slug: string) {
+    return this.model.findUnique({ where: { slug } });
+  }
 }
 
 export const categoryRepository = new CategoryRepository();

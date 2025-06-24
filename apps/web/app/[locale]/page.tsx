@@ -12,9 +12,7 @@ export default async function Page({
   if (!currentBusiness) return <div>Not found</div>;
   return (
     <ProductList
-      currentBusiness={currentBusiness as CompleteBusiness}
-      baseUrl="/"
-      business={currentBusiness}
+      business={currentBusiness as CompleteBusiness}
       searchParams={searchParams}
     />
   );
