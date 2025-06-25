@@ -103,6 +103,26 @@ button[role="checkbox"] {
   @apply text-white;
 }
 
+button {
+  @apply border-gray-200;
+}
+
+input {
+  @apply border-gray-200;
+}
+
+div[role="alertdialog"] {
+  @apply bg-white;
+}
+
+div[role="card"] {
+  @apply border-gray-100 border-b-0
+}
+
+h3[role="cart-product-title"] {
+  @apply text-xl;
+}
+
 .banner-pagination-bullet-active {
   @apply h-2.5 w-5 bg-dark dark:bg-darkmode-primary duration-200;
 }
