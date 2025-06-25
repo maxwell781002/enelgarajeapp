@@ -28,8 +28,9 @@ export async function Header({
     >
       <nav className="navbar flex-wrap container">
         <div className="order-1 flex items-center justify-between space-x-7 lg:space-x-14">
-          <Link href="/">
+          <Link href="/" className="flex gap-1 justify-center">
             <Image src={logo} alt="logo" width={50} height={50} />
+            <h1 className="h6 flex items-center">{business.name}</h1>
           </Link>
           <div className="relative z-40 hidden md:block">
             <Menu business={business} locale={locale} user={user} />

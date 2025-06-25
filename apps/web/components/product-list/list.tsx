@@ -13,12 +13,14 @@ export type ProductListProps = {
   data: CompleteProduct[];
   businessId: string;
   hastMore: boolean;
+  emptyComponent?: React.ReactNode;
 };
 
 export default function ProductList({
   data,
   businessId,
   hastMore,
+  emptyComponent,
 }: ProductListProps) {
   const searchParams = useSearchParams();
   const params = useMemo(() => {
@@ -35,6 +37,8 @@ export default function ProductList({
     params,
   );
   useEffect(() => reset(), [searchParams]);
+
+  if (list.length === 0 && emptyComponent) return emptyComponent;
 
   return (
     <HasMorePaginator {...props}>
