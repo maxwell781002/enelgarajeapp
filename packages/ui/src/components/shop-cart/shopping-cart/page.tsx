@@ -121,7 +121,6 @@ export default function ShoppingCartPage({
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
           <Link href={`${baseUrl}/checkout`} prefetch={false}>
-          >
             <Button
               disabled={
                 hasProductOutOfStock ||

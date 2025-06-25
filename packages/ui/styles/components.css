@@ -103,11 +103,43 @@ button[role="checkbox"] {
   @apply text-white;
 }
 
+button[role="tab"] {
+  @apply border-gray-200 border-1;
+}
+
+button[role="switch"] {
+  @apply bg-gray-200;
+}
+
+button[role="switch"] span {
+  @apply bg-gray-500;
+}
+
+button[role="switch"] span[data-state="checked"] {
+  @apply bg-gray-100;
+}
+
+button[role="tab"][aria-selected="true"] {
+  @apply bg-gray-100 text-text-dark;
+}
+
 button {
   @apply border-gray-200;
 }
 
+label {
+  @apply mr-3;
+}
+
+div[role="tablist"] {
+  @apply gap-x-2;
+}
+
 input {
+  @apply border-gray-200;
+}
+
+textarea {
   @apply border-gray-200;
 }
 
@@ -257,4 +289,8 @@ h3[role="cart-product-title"] {
   @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-[18px] prose-th:text-text-dark prose-th:dark:text-darkmode-text;
   @apply prose-tr:border-border prose-tr:dark:border-darkmode-border;
   @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-[18px] prose-td:dark:text-darkmode-text;
+}
+
+tr {
+  @apply border-gray-100;
 }

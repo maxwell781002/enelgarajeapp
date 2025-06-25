@@ -7,6 +7,12 @@
     "lbPhone": "Teléfono",
     "isCollaborator": "Es Gestor"
   },
+  "Orders": {
+    "identifier": "Order No.",
+    "status": "Estado",
+    "total": "Total",
+    "sentAt": "Enviado en"
+  },
   "Order": {
     "phSearch": "Buscar por identificador.",
     "OrderList": "Pedidos",
