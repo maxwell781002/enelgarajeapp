@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
+import GoogleAnalytics from "@repo/ui/google-analytics";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default async function RootLayout({
           </NextIntlClientProvider>
         </RouteLoadingLayout>
       </body>
+      <GoogleAnalytics />
     </html>
   );
 }

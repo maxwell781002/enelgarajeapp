@@ -26,7 +26,7 @@ export function CardItem({
   showCommission,
   showSku,
   classNameCard,
-  imageProps = {}
+  imageProps = {},
 }: CardItemProps) {
   const t = useTranslations("Product");
 
