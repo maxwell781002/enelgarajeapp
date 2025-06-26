@@ -17,9 +17,10 @@ import { TIncrementDecrement } from "../types/db";
 type PaginateData = {
   businessId?: string;
   categoryId?: string;
+  categories?: string[];
 } & BasePaginateData;
 
-export const PAGE_SIZE_FRONTEND = 6;
+export const PAGE_SIZE_FRONTEND = 10;
 export const PREFIX_SKU = "P";
 
 export type UpdateStockItem = [product: CompleteProduct, quantity: number];
@@ -195,6 +196,7 @@ export class ProductRepository extends BaseRepository<
     categoryId,
     businessId,
     query,
+    categories,
     ...props
   }: PaginateData = {}) {
     const where: any = { businessId, active: true };
@@ -204,6 +206,9 @@ export class ProductRepository extends BaseRepository<
         contains: query,
         mode: "insensitive",
       };
+    }
+    if (categories && categories.length > 0) {
+      where["categoryId"] = { in: categories };
     }
     return super.paginate({
       ...props,

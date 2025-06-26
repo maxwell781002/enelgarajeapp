@@ -31,11 +31,11 @@ export default function AddressCard({
     await onDelete?.();
   };
   return (
-    <Card className="border-2 transition-all peer-checked:border-primary">
+    <Card className="border-1 border-gray-100 transition-all peer-checked:border-primary">
       <CardContent className="p-4">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-semibold">{address.alias}</h3>
+            <h3 className="font-semibold text-xl">{address.alias}</h3>
             <p className="text-sm text-muted-foreground">{address.name}</p>
             <p className="text-sm text-muted-foreground">{address.address}</p>
             <p className="text-sm text-muted-foreground">

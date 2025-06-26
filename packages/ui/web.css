@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+@plugin 'tailwindcss-animate';
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "./styles/tailwind-plugin/tw-theme";
+@plugin "./styles/tailwind-plugin/tw-bs-grid";
+@source "../../packages/ui/src/**/*.{ts,tsx}";
+@source "./pages/**/*.{ts,tsx}";
+@source "./components*.{ts,tsx}";
+@source "./app/**/*.{ts,tsx}";
+@source "./src*.{ts,tsx}";
+@custom-variant dark (&:where(.dark, .dark *));
+@import "./styles/safe.css";
+@import "./styles/utilities.css";
+@layer base {
+  @import "./styles/base.css";
+}
+@layer components {
+  @import "./styles/components.css";
+  @import "./styles/navigation.css";
+  @import "./styles/buttons.css";
+}
+.iiz__hint {
+  @apply rounded-md;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #f2f2f2 inset;
+}
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.9) inset;
+}
+.dark input:-webkit-autofill {
+  -webkit-text-fill-color: #ddd;
+}

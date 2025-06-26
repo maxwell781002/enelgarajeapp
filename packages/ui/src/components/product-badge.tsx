@@ -11,8 +11,10 @@ export default function ProductBadge({
 }) {
   return (
     <div className={cn("flex gap-2 justify-end", className)}>
-      {product.isNew && <Badge className="bg-blue-500">Nuevo</Badge>}
-      {!!product._isOffer && <Badge className="bg-green-700">En Oferta</Badge>}
+      {product.isNew && <Badge className="bg-blue-500 text-white">Nuevo</Badge>}
+      {!!product._isOffer && (
+        <Badge className="bg-green-700 text-white">Oferta</Badge>
+      )}
     </div>
   );
 }

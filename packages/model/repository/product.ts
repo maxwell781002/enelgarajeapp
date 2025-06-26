@@ -51,8 +51,11 @@ export const addProductFields = (product: any) => {
 };
 
 export const paginateFrontend = async (parameters: any) => {
-  const { data, ...props } =
-    await productRepository.paginateFrontend(parameters);
+  const { categories } = parameters;
+  const { data, ...props } = await productRepository.paginateFrontend({
+    ...parameters,
+    categories: categories ? categories.split(",") : [],
+  });
   const products = data.map(async (item: any) => addProductFields(item));
   return {
     data: await Promise.all(products),

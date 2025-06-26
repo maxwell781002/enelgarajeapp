@@ -11,26 +11,25 @@ import HasMorePaginator, {
 
 export type ProductListProps = {
   data: CompleteProduct[];
-  categoryId: string;
   businessId: string;
   hastMore: boolean;
+  emptyComponent?: React.ReactNode;
 };
 
 export default function ProductList({
   data,
   businessId,
-  categoryId,
   hastMore,
+  emptyComponent,
 }: ProductListProps) {
   const searchParams = useSearchParams();
   const params = useMemo(() => {
     const urlParams: any = getSearchParams(searchParams);
-    const params = {
+    return {
       ...urlParams,
       businessId,
     };
-    return categoryId ? { ...params, categoryId } : params;
-  }, [searchParams, businessId, categoryId]);
+  }, [searchParams, businessId]);
   const { reset, setList, list, updateItem, ...props } = useHasMorePaginator(
     data,
     hastMore,
@@ -39,11 +38,18 @@ export default function ProductList({
   );
   useEffect(() => reset(), [searchParams]);
 
+  if (list.length === 0 && emptyComponent) return emptyComponent;
+
   return (
     <HasMorePaginator {...props}>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {list.map((item: any) => (
-          <CardItem key={item.id} item={item} baseUrl={""} />
+          <CardItem
+            key={item.id}
+            item={item}
+            baseUrl={""}
+            classNameCard="border-0"
+          />
         ))}
       </div>
     </HasMorePaginator>

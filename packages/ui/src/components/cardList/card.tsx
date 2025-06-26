@@ -15,6 +15,7 @@ type CardItemProps = {
   showStock?: boolean;
   showCommission?: boolean;
   showSku?: boolean;
+  classNameCard?: string;
 };
 
 export function CardItem({
@@ -23,29 +24,32 @@ export function CardItem({
   showStock,
   showCommission,
   showSku,
+  classNameCard,
 }: CardItemProps) {
   const t = useTranslations("Product");
 
   return (
-    <Card className="mb-4">
+    <Card className={`${classNameCard}`}>
       <div>
         <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
           <Image
             src={item.image}
             alt={item.name}
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
+            width={312}
+            height={269}
+            className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border"
           />
         </Link>
       </div>
-      <CardContent className="p-4">
-        {!!item.name && (
-          <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
-            <h3 className="text-lg font-medium">{item.name}</h3>
-          </Link>
-        )}
+      <CardContent className="px-3 pb-1">
+        <div className="flex justify-between items-center mb-2">
+          {!!item.name && (
+            <Link href={`${baseUrl}/${item.slug}`} prefetch={false}>
+              <h3 className="text-lg font-medium">{item.name}</h3>
+            </Link>
+          )}
+          <ProductBadge product={item} className="mt-2" />
+        </div>
         <div className="flex justify-between items-center">
           <span className="font-semibold font-sans">
             <PriceDisplay
@@ -55,7 +59,6 @@ export function CardItem({
           </span>
           <BtnAddCart product={item} outOfStock={item._outOfStock} />
         </div>
-        <ProductBadge product={item} className="mt-2" />
         <div className="flex flex-1 justify-between text-blue-500">
           {showStock && (
             <div className="mt-2">

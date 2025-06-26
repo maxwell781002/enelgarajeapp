@@ -37,11 +37,13 @@ export default async function Page({ params }: PageProps) {
           orderLb={to("order")}
         />
         {business?.phone ? (
-          <WhatsappButton
-            whatsappNumber={business.phone}
-            whatsappMessage={whatsappMessage}
-            text={t("btnWhatsappSubmit")}
-          />
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+            <WhatsappButton
+              whatsappNumber={business.phone}
+              whatsappMessage={whatsappMessage}
+              text={t("btnWhatsappSubmit")}
+            />
+          </div>
         ) : (
           <>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">

@@ -1,12 +1,19 @@
 {
   "Product": {
     "inCart": "En el carrito",
+    "addToCartLabel": "Agregar al carrito",
     "photos": "Imágenes",
     "moreProducts": "Ver más",
     "commission": "Comisión",
     "lbSharedByCollaborator": "Comparte el producto y gana comisión",
     "lbProductSharedByCollaboratorDescription": "Cuando compartes el producto por esta vía y algún cliente compra en la tienda ganarás la comisión correspondiente.",
-    "stock": "Stock"
+    "stock": "Stock",
+    "description": "Descripción",
+    "moreInfo": "Información adicional"
+  },
+  "ProductList": {
+    "title": "No se encontraron productos",
+    "description": "No hay ningún producto que coincida con los filtros seleccionados. Cámbielos para obtener un mejor resultado."
   },
   "ProductCollaboration": {
     "ProductList": "Productos",

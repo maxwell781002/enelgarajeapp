@@ -116,21 +116,12 @@ export default function ShoppingCartPage({
             <PriceDisplay price={orderTotal as number} />
           </span>
         </div>
-        <div className="flex flex-col gap-2">
-          <Link
-            href={productBaseUrl || "/"}
-            className="w-full"
-            prefetch={false}
-          >
+        <div className="flex w-full justify-between">
+          <Link href={productBaseUrl || "/"} prefetch={false}>
             <Button variant="outline">{t("continue_shopping")}</Button>
           </Link>
-          <Link
-            href={`${baseUrl}/checkout`}
-            className="w-full"
-            prefetch={false}
-          >
+          <Link href={`${baseUrl}/checkout`} prefetch={false}>
             <Button
-              className="w-full"
               disabled={
                 hasProductOutOfStock ||
                 hasProductInactive ||

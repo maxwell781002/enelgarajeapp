@@ -36,7 +36,7 @@ export default function PriceDisplay({
   return (
     <div className={cn("flex items-center gap-2", className)}>
       {offerPrice && offerPrice < price ? (
-        <>
+        <div className="flex flex-col">
           <span
             className={cn("text-lg font-bold text-green-600", classNameText)}
             aria-label="Offer price"
@@ -49,7 +49,7 @@ export default function PriceDisplay({
           >
             {formatPrice(price, false)}
           </span>
-        </>
+        </div>
       ) : (
         <span
           className={cn("text-lg font-bold", classNameText)}

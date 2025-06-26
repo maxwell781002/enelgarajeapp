@@ -66,7 +66,7 @@ export default function HasMorePaginator({
     <ScrollTop>
       {children}
       {hasMore && (
-        <div className="w-full flex flex-1 justify-end">
+        <div className="w-full flex flex-1 justify-end pt-4">
           <ShowMore onClick={handleGetMore} disabled={loading}>
             Ver más
           </ShowMore>

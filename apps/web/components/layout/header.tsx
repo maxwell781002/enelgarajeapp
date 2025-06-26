@@ -1,26 +1,13 @@
-import Link from "next/link";
 import { CompleteBusiness } from "@repo/model/zod/business";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-} from "@repo/ui/components/ui/sheet";
-import { Button } from "@repo/ui/components/ui/button";
-import SignInIcon, {
-  MenuIcon,
-  HomeIcon,
-  InfoIcon,
-  PackageIcon,
-} from "@repo/ui/components/icons";
-import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@repo/model/repository/user";
-import { signOut } from "@repo/model/lib/auth";
-import { Logout } from "./logout";
-import { MapPinIcon } from "lucide-react";
-import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
-import SwitchApp from "@repo/ui/components/switch-app";
-import { ApplicationsNames } from "@repo/model/lib/applications-names";
 import Image from "next/image";
+import { cn } from "@repo/ui/lib/utils";
+import SearchBar from "./search";
+import Menu from "./menu";
+import Link from "next/link";
+import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
+import User from "@repo/ui/components/user";
+import { allCategories } from "packages/model/repository/category";
 
 export async function Header({
   business,
@@ -32,96 +19,36 @@ export async function Header({
   logo: string;
 }) {
   const user = await getCurrentUser();
-  const t = await getTranslations("Header");
-  const logoutAction = async () => {
-    "use server";
-    return signOut();
-  };
+  const categories = await allCategories(business.id);
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex h-14 w-full bg-background shadow-lg flex items-center justify-between bg-background px-4 py-3 shadow-xs">
-      <Link
-        href={`/${locale}`}
-        className="flex items-center gap-2"
-        prefetch={false}
-      >
-        <Image src={logo} alt="logo" width={50} height={50} />
-        <span className="text-lg font-semibold">{business.name}</span>
-      </Link>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <MenuIcon className="h-6 w-6 text-muted-foreground" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="right" className="w-64">
-          <div className="grid gap-4 p-4">
-            {!!user?.name && (
-              <div className="border-b border-muted-foreground/10 pb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
-                <img
-                  src={user.image as string}
-                  referrerPolicy="no-referrer"
-                  alt={"user name"}
-                  className="aspect-square rounded-md object-cover h-10 w-10"
-                />
-                {user?.name}
-              </div>
-            )}
-            <Link
-              href={`/${locale}`}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <HomeIcon className="h-5 w-5" />
-              {t("home")}
-            </Link>
-            <Link
-              href={`/${locale}/about-us`}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <InfoIcon className="h-5 w-5" />
-              {t("about")}
-            </Link>
-            {!!user?.name && (
-              <>
-                <Link
-                  href={`/${locale}/order`}
-                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <PackageIcon className="h-5 w-5" />
-                  {t("order")}
-                </Link>
-                <Link
-                  href={`/${locale}/address-user`}
-                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                >
-                  <MapPinIcon className="h-5 w-5" />
-                  {t("address-user")}
-                </Link>
-                <SwitchApp
-                  application={ApplicationsNames.WEB}
-                  businessId={business.id}
-                />
-              </>
-            )}
-            {!user ? (
-              <Link
-                href={`/${locale}/auth/login`}
-                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-                prefetch={false}
-              >
-                <SignInIcon className="h-5 w-5" />
-                {t("login")}
-              </Link>
-            ) : (
-              <Logout title={t("logout")} action={logoutAction} />
-            )}
+    <header
+      className={cn(
+        "mb-4 header z-30 sticky top-0 transition-shadow duration-300 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/40 shadow-sm",
+      )}
+    >
+      <nav className="navbar flex-wrap container">
+        <div className="order-1 flex items-center justify-between space-x-7 lg:space-x-14">
+          <Link href="/" className="flex gap-1 justify-center">
+            <Image src={logo} alt="logo" width={50} height={50} />
+            <h1 className="h6 flex items-center">{business.name}</h1>
+          </Link>
+          <div className="relative z-40 hidden md:block">
+            <Menu business={business} locale={locale} user={user} />
           </div>
-        </SheetContent>
-      </Sheet>
-      <ShoppingCartHeader className="relative" />
+        </div>
+        <div className="max-lg:mt-4 w-full lg:w-[45%] xl:w-[60%] lg:order-2 order-3">
+          <SearchBar locale={locale} categories={categories} />
+        </div>
+        <div className="order-2 lg:order-3 ml-auto flex items-center lg:ml-0">
+          <ShoppingCartHeader className="relative" />
+          <div className="ml-4 md:ml-6">
+            <User user={user} onlyIcon size="h-8 w-8" />
+          </div>
+          <div className="relative z-40 block md:hidden ml-6">
+            <Menu business={business} locale={locale} user={user} isMobile />
+          </div>
+        </div>
+      </nav>
     </header>
   );
 }

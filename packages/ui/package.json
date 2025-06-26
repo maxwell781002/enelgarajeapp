@@ -4,6 +4,7 @@
   "private": true,
   "exports": {
     "./globals.css": "./globals.css",
+    "./web.css": "./web.css",
     "./postcss.config": "./postcss.config.js",
     "./lib/*": [
       "./src/lib/*.ts"
@@ -88,6 +89,7 @@
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-toolbar": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.2",
+    "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/typography": "^0.5.15",
     "@tiptap/extension-image": "^2.11.5",

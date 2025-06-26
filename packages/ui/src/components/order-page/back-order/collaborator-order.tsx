@@ -29,7 +29,7 @@ export default async function CollaboratorOrder({
   const ticket = order.ticket;
   const user = order.user as CompleteUser;
   return (
-    <>
+    <div className="space-y-6">
       <CardDisplay
         title={t("cardGeneral")}
         items={[
@@ -120,6 +120,6 @@ export default async function CollaboratorOrder({
         </>
       )}
       <OrderProducts order={order} {...props} />
-    </>
+    </div>
   );
 }

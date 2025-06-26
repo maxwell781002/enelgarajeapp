@@ -11,6 +11,11 @@
     "switch-app": {
       "WEB": "Modo gestor",
       "COLLABORATOR": "Modo cliente"
-    }
+    },
+    "search": "Buscar productos",
+    "pages": "Páginas",
+    "filters": "Filtros",
+    "apply": "Aplicar",
+    "close": "Cerrar"
   }
 }

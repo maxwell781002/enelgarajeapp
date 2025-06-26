@@ -38,7 +38,7 @@ export default function CardItem({
     return startRemoving(() => onRemove());
   };
   return (
-    <Card key={item.productId}>
+    <Card role="card" key={item.productId}>
       <div className="flex justify-end p-2">
         <div className="absolute">
           <BtnConfirm
@@ -67,7 +67,9 @@ export default function CardItem({
             </div>
             <div>
               <Link href={`${url}/${item.product.slug}`} prefetch={false}>
-                <h3 className="font-medium">{item.product.name}</h3>
+                <h3 role="cart-product-title" className="font-medium">
+                  {item.product.name}
+                </h3>
                 <PriceDisplay
                   offerPrice={item.product.offerPrice as number}
                   price={item.product.price}

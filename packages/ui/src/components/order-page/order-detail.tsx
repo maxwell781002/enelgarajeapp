@@ -15,7 +15,7 @@ type OrderProps = {
 export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
   return (
     <>
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+      <section className="w-full py-12 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="max-w-2xl mx-auto space-y-6">
             <div>
@@ -30,7 +30,7 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                 <Separator />
                 <div className="grid gap-4">
                   {order.items.map((item: CompleteOrderProduct) => (
-                    <>
+                    <div key={item.product.id}>
                       <div className="flex items-start justify-between">
                         <div className="font-medium">{item.product.name}</div>
                         <div className="flex flex-col">
@@ -42,7 +42,7 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                         </div>
                       </div>
                       <Separator />
-                    </>
+                    </div>
                   ))}
                 </div>
                 {!!order.shipping && (
@@ -82,17 +82,19 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                     />
                   </div>
                 </div>
+                {order?.orderAddress && (
+                  <div className="mt-5 flex flex-col gap-2">
+                    <h3 className="text-2xl font-bold tracking-tighter">
+                      Dirección
+                    </h3>
+                    <AddressCard address={order.orderAddress.address} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
-      {order?.orderAddress && (
-        <div className="mt-5">
-          <h3 className="text-1xl font-bold tracking-tighter">Dirección</h3>
-          <AddressCard address={order.orderAddress.address} />
-        </div>
-      )}
     </>
   );
 }
