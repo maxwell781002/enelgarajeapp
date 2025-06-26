@@ -3,7 +3,7 @@
 import { CardContent, Card } from "@repo/ui/components/ui/card";
 import Link from "next/link";
 import { BtnAddCart } from "@repo/ui/components/add-cart";
-import Image from "@repo/ui/components/image";
+import Image, { ImageProp } from "@repo/ui/components/image";
 import PriceDisplay from "@repo/ui/components/prices/price";
 import ProductBadge from "@repo/ui/components/product-badge";
 import { IProduct } from "@repo/model/types/product";
@@ -16,6 +16,7 @@ type CardItemProps = {
   showCommission?: boolean;
   showSku?: boolean;
   classNameCard?: string;
+  imageProps?: ImageProp;
 };
 
 export function CardItem({
@@ -25,6 +26,7 @@ export function CardItem({
   showCommission,
   showSku,
   classNameCard,
+  imageProps = {}
 }: CardItemProps) {
   const t = useTranslations("Product");
 
@@ -38,6 +40,7 @@ export function CardItem({
             width={312}
             height={269}
             className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border"
+            {...imageProps}
           />
         </Link>
       </div>

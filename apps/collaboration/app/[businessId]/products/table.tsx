@@ -36,6 +36,13 @@ export default function ProductTable({
               } as IProduct
             }
             baseUrl={baseUrl}
+            imageProps={{
+              width: 0,
+              height: 0,
+              sizes: "100vw",
+              style: { width: "100%", height: "auto" },
+              className: "w-full h-full object-cover"
+            }}
           />
         ))}
       </div>

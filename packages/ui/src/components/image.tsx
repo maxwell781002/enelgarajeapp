@@ -19,7 +19,9 @@ const toBase64 = (str: string) =>
     ? Buffer.from(str).toString("base64")
     : window.btoa(str);
 
-export default function Image({ src, height, width, ...props }: any) {
+export type ImageProp = any;
+
+export default function Image({ src, height, width, ...props }: ImageProp) {
   return (
     <BaseImage
       placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(width as number, height as number))}`}
