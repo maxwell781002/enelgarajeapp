@@ -51,7 +51,7 @@ export function CardItem({
               <h3 className="text-lg font-medium">{item.name}</h3>
             </Link>
           )}
-          <ProductBadge product={item} className="mt-2" />
+          {/* <ProductBadge product={item} className="mt-2" /> */}
         </div>
         <div className="flex justify-between items-center">
           <span className="font-semibold font-sans">

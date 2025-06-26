@@ -44,7 +44,7 @@ export default function ProductDetail({
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
             {product.name}
           </h1>
-          <ProductBadge product={product} className="mb-2" />
+          {/* <ProductBadge product={product} className="mb-2" /> */}
           <div className="flex justify-between items-center border-y border-indigo-600 py-2 mb-2">
             <div className="font-semibold mb-1">
               <PriceDisplay
