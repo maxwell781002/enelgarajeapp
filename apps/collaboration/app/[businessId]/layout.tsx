@@ -13,6 +13,23 @@ import { BusinessContextProvider } from "@repo/ui/context/business";
 import { businessRepository } from "@repo/model/repositories/business";
 import ShopCartSwitch from "./shop-cart-switch";
 
+type LayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ businessId: string }>;
+};
+
+export async function generateMetadata({ params }: LayoutProps) {
+  const { businessId } = await params;
+  const business = await businessRepository.getById(businessId);
+  const title = `${business?.name} | Gestores`;
+  return {
+    title: {
+      template: "%s | " + title,
+      default: title,
+    },
+  };
+}
+
 export default async function RootLayout(
   props: Readonly<{
     children: React.ReactNode;

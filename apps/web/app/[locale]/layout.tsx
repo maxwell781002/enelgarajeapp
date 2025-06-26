@@ -40,8 +40,12 @@ export async function generateMetadata(
   const business = (await getCurrentBusiness()) as CompleteBusiness;
   const site = await getSite(business);
   const image = site.logo;
+  const title = business?.name || "EnElGaraje";
   return {
-    title: business?.name || "EnElGaraje",
+    title: {
+      template: "%s | " + title,
+      default: title,
+    },
     description: business?.description || "Plataforma de compra/ventas",
     openGraph: {
       images: image ? [image, ...previousImages] : previousImages,
