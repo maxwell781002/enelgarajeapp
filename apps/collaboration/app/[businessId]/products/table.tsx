@@ -22,7 +22,7 @@ export default function ProductTable({
   }
   return (
     <div>
-      <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid gap-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {data.map((item: any) => (
           <CardItem
             showStock

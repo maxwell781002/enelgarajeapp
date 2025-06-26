@@ -59,7 +59,7 @@ export function CardItem({
           </span>
           <BtnAddCart product={item} outOfStock={item._outOfStock} />
         </div>
-        <div className="flex flex-1 justify-between text-blue-500">
+        <div className="flex flex-1 flex-col justify-between text-blue-500">
           {showStock && (
             <div className="mt-2">
               <span className="font-semibold">{t("stock")}: </span>
@@ -67,13 +67,13 @@ export function CardItem({
             </div>
           )}
           {showCommission && (
-            <div className="mt-2 flex">
+            <div className="flex">
               <span className="font-semibold mr-2 ">{t("commission")}: </span>
               <PriceDisplay price={item._commission} classNameText="text-sm" />
             </div>
           )}
           {showSku && (
-            <div className="mt-2">
+            <div>
               <span className="font-semibold">SKU: </span>
               <span>{item.sku}</span>
             </div>
