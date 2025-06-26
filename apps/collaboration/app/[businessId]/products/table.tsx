@@ -41,7 +41,7 @@ export default function ProductTable({
               height: 0,
               sizes: "100vw",
               style: { width: "100%", height: "auto" },
-              className: "w-full h-full object-cover"
+              className: "w-full h-full object-cover",
             }}
           />
         ))}

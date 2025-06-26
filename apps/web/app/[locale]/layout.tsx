@@ -14,6 +14,7 @@ import { ReferredCode } from "../../components/referred-code";
 import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
 import Error404 from "@repo/ui/components/page-errors/404";
 import { ProductContextProvider } from "apps/web/context/product-context";
+import GoogleAnalytics from "@repo/ui/google-analytics";
 
 const karla = Karla({
   subsets: ["latin"],
@@ -83,6 +84,7 @@ export default async function RootLayout({ params, children }: LayoutProps) {
           </ReferredCode>
         </FacebookOpenNavigator>
       </body>
+      <GoogleAnalytics />
     </html>
   );
 }
