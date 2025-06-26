@@ -77,7 +77,7 @@ const CustomZoomImage = ({
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     if (e.touches.length === 1) {
-      const touch = e.touches[0];
+      const touch: any = e.touches[0];
       updatePosition(touch.clientX, touch.clientY);
       setTouchStartPosition({ x: touch.clientX, y: touch.clientY });
       setTouchMoveCount(0);
@@ -87,7 +87,7 @@ const CustomZoomImage = ({
 
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     if (e.touches.length === 1) {
-      const touch = e.touches[0];
+      const touch: any = e.touches[0];
       updatePosition(touch.clientX, touch.clientY);
       setTouchMoveCount((prev) => prev + 1);
     }

@@ -30,7 +30,7 @@ export default function OrderDetail({ order, titleLb, orderLb }: OrderProps) {
                 <Separator />
                 <div className="grid gap-4">
                   {order.items.map((item: CompleteOrderProduct) => (
-                    <div key={item.id}>
+                    <div key={item.product.id}>
                       <div className="flex items-start justify-between">
                         <div className="font-medium">{item.product.name}</div>
                         <div className="flex flex-col">

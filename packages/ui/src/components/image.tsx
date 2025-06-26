@@ -19,18 +19,14 @@ const toBase64 = (str: string) =>
     ? Buffer.from(str).toString("base64")
     : window.btoa(str);
 
-type ImageProps = {
-  src: any;
-} & NextImageProps;
-
-export default function Image({ src, height, width, ...props }: ImageProps) {
+export default function Image({ src, height, width, ...props }: any) {
   return (
     <BaseImage
       placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(width as number, height as number))}`}
       src={src.downloadUrl}
       height={height}
       width={width}
-      {...props}
+      {...(props as any)}
     />
   );
 }

@@ -18,7 +18,7 @@ export const useFilterChange = (
     },
     {},
   );
-  const changeNow = (name: string, term: string) => {
+  const changeNow = (name: string, term: any) => {
     (startLoading as any)(() => {
       return onChange({
         ...value,

@@ -27,7 +27,7 @@ export default function Filter({ onChange, categories }: FilterType) {
           items={[{ name: "Todos", id: null }, ...categories]}
           placeholder={t("phCategoryId")}
           className="bg-withe"
-          onChange={(value) => changeFilter("categoryId", value)}
+          onChange={(value) => changeFilter("categoryId", value as string)}
         />
       </div>
     </div>

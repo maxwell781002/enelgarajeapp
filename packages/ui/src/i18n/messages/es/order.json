@@ -51,6 +51,8 @@
     "CASH": "Efectivo",
     "commission": "Comisión",
     "cardNota": "Notas",
-    "cardReferredBy": "Referido por"
+    "cardReferredBy": "Referido por",
+    "cardMessenger": "Mensajero",
+    "noMessengerAssigned": "Mensajero no asignado"
   }
 }
