@@ -10,6 +10,23 @@ import { Item } from "@repo/ui/components/entity-select";
 import { UserBusinessType } from "@repo/model/types/enums";
 import { BusinessContextProvider } from "@repo/ui/context/business";
 
+type LayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ businessId: string }>;
+};
+
+export async function generateMetadata({ params }: LayoutProps) {
+  const { businessId } = await params;
+  const business = await businessRepository.getById(businessId);
+  const title = `${business?.name} | Backoffice`;
+  return {
+    title: {
+      template: "%s | " + title,
+      default: title,
+    },
+  };
+}
+
 export default async function RootLayout({
   params,
   children,
