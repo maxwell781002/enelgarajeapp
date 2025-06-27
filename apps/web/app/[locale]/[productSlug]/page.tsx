@@ -8,6 +8,7 @@ import { formatPrice } from "packages/model/lib/utils";
 import { getCurrentBusiness } from "packages/model/repository/business";
 import { getBySlug } from "packages/model/repository/product";
 import { IProduct } from "packages/model/types/product";
+import OnLoad from "@repo/ui/google-analytics/on-load";
 
 export type ProductPageProps = {
   params: Promise<{
@@ -31,6 +32,7 @@ export default async function Page({ params }: ProductPageProps) {
   const t = await getTranslations("Product");
   return (
     <>
+      <OnLoad event={{ event: "view_item", product }} />
       <section className="md:section-sm">
         <div className="container">
           <div className="row justify-center">

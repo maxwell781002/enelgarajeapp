@@ -8,6 +8,7 @@ import { IProduct } from "@repo/model/types/product";
 export type GTMEvent = {
   event: string;
   product?: IProduct;
+  cartItems?: any;
   values?: Record<string, any>;
 };
 
@@ -46,7 +47,7 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
       businessId: businessContext.business?.id,
     },
   };
-  const sendEvent = ({ event, product, values }: GTMEvent) => {
+  const sendEvent = ({ event, product, cartItems, values }: GTMEvent) => {
     const data: any = {
       event,
       ...globalData,
@@ -59,6 +60,16 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
     );
     if (productData) {
       data.items.push(productData);
+    }
+    if (cartItems) {
+      data.items.push(
+        cartItems.map((item: any) =>
+          addProduct(
+            item.product,
+            businessContext.business?.currency as string,
+          ),
+        ),
+      );
     }
     console.log(data);
     // sendGTMEvent(data);

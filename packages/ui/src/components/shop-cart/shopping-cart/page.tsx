@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 import { useStore } from "@repo/ui/stores/index";
 import { ShopCartOrderItem } from "@repo/model/repository/shop-cart";
 import { useEffect, useState, useTransition } from "react";
+import OnLoad from "@repo/ui/google-analytics/on-load";
 
 export type ShoppingCartProps = {
   baseUrl?: string;
@@ -70,6 +71,7 @@ export default function ShoppingCartPage({
 
   return (
     <div className="flex flex-col gap-6">
+      <OnLoad event={{ event: "view_cart", cartItems: items }} />
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         {t("title")}
       </h1>
