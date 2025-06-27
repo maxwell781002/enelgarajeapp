@@ -71,7 +71,9 @@ export default function ShoppingCartPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <OnLoad event={{ event: "view_cart", cartItems: items }} />
+      {!!items?.length && (
+        <OnLoad event={{ event: "view_cart", cartItems: items }} />
+      )}
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         {t("title")}
       </h1>

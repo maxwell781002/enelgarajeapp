@@ -59,7 +59,7 @@ export default function CheckoutPage({
     useState(false);
   const handlerAction = async (data: any) => {
     return startOrderRegistering(async () => {
-      const { id, error } = await action(data);
+      const { id, error, ...rest } = await action(data);
       if (error === "out_of_stock") {
         return setShopCartOutOfStockError(true);
       }
@@ -67,7 +67,11 @@ export default function CheckoutPage({
         return setShopCartProductInactiveError(true);
       }
       clear();
-      sendEvent({ event: "purchase", cartItems: orderItems, values: data });
+      sendEvent({
+        event: "purchase",
+        cartItems: orderItems,
+        order: { id, ...rest },
+      });
       return router.push(successfulUrl(id));
     });
   };
@@ -92,7 +96,9 @@ export default function CheckoutPage({
 
   return (
     <div className="grid gap-6">
-      <OnLoad event={{ event: "begin_checkout", cartItems: orderItems }} />
+      {!!orderItems?.length && (
+        <OnLoad event={{ event: "begin_checkout", cartItems: orderItems }} />
+      )}
       <h1 className="text-2xl font-bold">{t("title")}</h1>
       <form
         onSubmit={form.handleSubmit((data: any) => handlerAction({ ...data }))}
