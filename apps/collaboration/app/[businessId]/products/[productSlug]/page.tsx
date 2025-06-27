@@ -8,6 +8,7 @@ import SharedLinks from "@repo/ui/components/shared-links";
 import { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getBySlug } from "packages/model/repository/product";
+import OnLoad from "@repo/ui/google-analytics/on-load";
 
 export type ProductPageProps = {
   params: Promise<{
@@ -37,6 +38,7 @@ export default async function Page({ params }: ProductPageProps) {
   const product = await getBySlug(productSlug);
   return (
     <>
+      <OnLoad event={{ event: "view_item", product }} />
       <div className="flex flex-col gap-4 bg-white rounded-lg p-4 text-black">
         <div>
           <p className="font-bold">{t("lbSharedByCollaborator")}</p>
