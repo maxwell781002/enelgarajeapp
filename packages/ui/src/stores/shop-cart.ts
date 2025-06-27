@@ -14,6 +14,7 @@ import {
   ShopCartOrderItem,
 } from "@repo/model/repository/shop-cart";
 import { createSelectors } from "@repo/ui/stores/index";
+import { useGTMEvent } from "../google-analytics/hook";
 
 type ShopCartState = ShopCartOrder & {
   referredCode?: string;
@@ -103,3 +104,16 @@ const _useShopCart = create<ShopCartStore>()(
 );
 
 export const useShopCart = createSelectors(_useShopCart);
+
+export const useAddProductToCart = () => {
+  const { sendEvent } = useGTMEvent();
+  const _addProductToCart = useShopCart.use.add();
+  const addProductToCart = (product: CompleteProduct) => {
+    _addProductToCart(product);
+    sendEvent({
+      event: "add_to_cart",
+      product,
+    });
+  };
+  return addProductToCart;
+};
