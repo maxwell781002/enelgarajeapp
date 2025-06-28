@@ -2,7 +2,6 @@ import { sendGTMEvent } from "@next/third-parties/google";
 import { useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useBusinessContext } from "../../context/business";
-import { IProduct } from "@repo/model/types/product";
 import { useStore } from "zustand";
 import { useShopCart } from "../../stores/shop-cart";
 import { CompleteOrder } from "@repo/model/prisma/zod/order";
@@ -10,7 +9,7 @@ import { CompleteOrderProduct } from "@repo/model/prisma/zod/orderproduct";
 
 export type GTMEvent = {
   event: string;
-  product?: IProduct;
+  product?: any;
   cartItems?: any;
   values?: Record<string, any>;
   order?: CompleteOrder;
@@ -20,7 +19,7 @@ const formatPrice = (amount: number) => {
   return (amount / 100).toFixed(2);
 };
 
-const addProduct = (product: IProduct, currency: string | undefined) => {
+const addProduct = (product: any, currency: string | undefined) => {
   return {
     item_id: product.id,
     item_sku: product.sku,

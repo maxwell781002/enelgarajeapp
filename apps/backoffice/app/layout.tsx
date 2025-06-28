@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import localFont from "next/font/local";
-import GoogleAnalytics from "@repo/ui/google-analytics";
+import GoogleAnalytics from "@repo/ui/components/google-analytics";
 import { SessionProvider } from "next-auth/react";
 
 const geistSans = localFont({

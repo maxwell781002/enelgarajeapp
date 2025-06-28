@@ -14,7 +14,7 @@ import {
 import { useTranslations } from "next-intl";
 import { OrderStatus } from "@repo/model/types/enums";
 import { useOptimistic, useState, useTransition } from "react";
-import { useGTMEvent } from "@repo/ui/google-analytics/hook";
+import { useGTMEvent } from "@repo/ui/components/google-analytics/hook";
 import { CompleteOrder } from "@repo/model/zod/order";
 
 type ChangeStatusProps = {

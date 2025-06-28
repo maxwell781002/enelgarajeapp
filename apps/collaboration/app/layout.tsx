@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import RouteLoadingLayout from "@repo/ui/layouts/route-loader-layout";
-import GoogleAnalytics from "@repo/ui/google-analytics";
+import GoogleAnalytics from "@repo/ui/components/google-analytics";
 import { SessionProvider } from "next-auth/react";
 
 const geistSans = localFont({

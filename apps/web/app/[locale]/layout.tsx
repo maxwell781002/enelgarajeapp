@@ -14,7 +14,7 @@ import { ReferredCode } from "../../components/referred-code";
 import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
 import Error404 from "@repo/ui/components/page-errors/404";
 import { ProductContextProvider } from "apps/web/context/product-context";
-import GoogleAnalytics from "@repo/ui/google-analytics";
+import GoogleAnalytics from "@repo/ui/components/google-analytics";
 import { SessionProvider } from "next-auth/react";
 
 const karla = Karla({

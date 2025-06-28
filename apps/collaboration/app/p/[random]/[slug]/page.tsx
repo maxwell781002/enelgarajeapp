@@ -7,7 +7,7 @@ import WhatsappButton from "@repo/ui/components/whatsapp-button";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import OnLoad from "@repo/ui/google-analytics/on-load";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export type PageProps = {
   params: Promise<{
