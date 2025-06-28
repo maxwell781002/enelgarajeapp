@@ -14,7 +14,7 @@ import {
   ShopCartOrderItem,
 } from "@repo/model/repository/shop-cart";
 import { createSelectors } from "@repo/ui/stores/index";
-import { useGTMEvent } from "../google-analytics/hook";
+import { useGTMEvent } from "../components/google-analytics/hook";
 
 type ShopCartState = ShopCartOrder & {
   referredCode?: string;

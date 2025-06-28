@@ -7,8 +7,8 @@ import ProductPage, {
 import SharedLinks from "@repo/ui/components/shared-links";
 import { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { getBySlug } from "packages/model/repository/product";
-import OnLoad from "@repo/ui/google-analytics/on-load";
+import { getBySlug } from "@repo/model/repository/product";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export type ProductPageProps = {
   params: Promise<{

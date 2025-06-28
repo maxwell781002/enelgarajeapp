@@ -7,7 +7,7 @@ import Menu from "./menu";
 import Link from "next/link";
 import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
 import User from "@repo/ui/components/user";
-import { allCategories } from "packages/model/repository/category";
+import { allCategories } from "@repo/model/repository/category";
 
 export async function Header({
   business,

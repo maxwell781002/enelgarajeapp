@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl";
 import { useStore } from "@repo/ui/stores/index";
 import { ShopCartOrderItem } from "@repo/model/repository/shop-cart";
 import { useEffect, useState, useTransition } from "react";
-import OnLoad from "@repo/ui/google-analytics/on-load";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export type ShoppingCartProps = {
   baseUrl?: string;

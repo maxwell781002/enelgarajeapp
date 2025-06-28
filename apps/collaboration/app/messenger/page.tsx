@@ -1,6 +1,6 @@
 import { Smartphone } from "lucide-react";
 import { BtnServerAction } from "@repo/ui/components/btn-server-action";
-import { generateExternalSection } from "packages/model/repository/external-section";
+import { generateExternalSection } from "@repo/model/repository/external-section";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import CopyToClipboard from "@repo/ui/components/copy-to-clipboard/copy-to-clipboard-text";

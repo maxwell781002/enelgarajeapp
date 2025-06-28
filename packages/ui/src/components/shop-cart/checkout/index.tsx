@@ -12,8 +12,8 @@ import AlertMessage from "@repo/ui/components/alert-message";
 import { Button } from "@repo/ui/components/button";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 import { useRouter } from "next/navigation";
-import OnLoad from "@repo/ui/google-analytics/on-load";
-import { useGTMEvent } from "@repo/ui/google-analytics/hook";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
+import { useGTMEvent } from "@repo/ui/components/google-analytics/hook";
 
 export type RenderOptions = {
   neighborhoods: NeighborhoodWithShipping[];

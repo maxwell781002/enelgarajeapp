@@ -2,7 +2,7 @@ import Link from "next/link";
 import { LockIcon } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
-import OnLoad from "@repo/ui/google-analytics/on-load";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export default async function NoUser() {
   const t = await getTranslations("Checkout");

@@ -1,13 +1,12 @@
 import { sendGTMEvent } from "@next/third-parties/google";
 import { useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
-import { useBusinessContext } from "../context/business";
-import { SecurityUser } from "@repo/model/lib/auth";
+import { useBusinessContext } from "../../context/business";
 import { IProduct } from "@repo/model/types/product";
 import { useStore } from "zustand";
-import { useShopCart } from "../stores/shop-cart";
+import { useShopCart } from "../../stores/shop-cart";
 import { CompleteOrder } from "@repo/model/prisma/zod/order";
-import { CompleteOrderProduct } from "packages/model/prisma/zod/orderproduct";
+import { CompleteOrderProduct } from "@repo/model/prisma/zod/orderproduct";
 
 export type GTMEvent = {
   event: string;
@@ -44,7 +43,6 @@ const addOrderItem = (
     item_sku: item.product.sku,
     item_name: item.product.name,
     price: formatPrice(item.price),
-    outOfStock: item.product._outOfStock,
     commission: item.commission,
     businessProfit: item.businessProfit,
     quantity: item.quantity,
@@ -55,7 +53,7 @@ const addOrderItem = (
 export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
   const session = useSession();
   const businessContext = useBusinessContext();
-  const user: SecurityUser | null = session?.data?.user;
+  const user: any = session?.data?.user;
   const referredCode = useStore(useShopCart, (state) => state.referredCode());
   const getGlobalData = () => {
     const globalData: Record<string, any> = {
@@ -69,6 +67,7 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
       business: {
         subdomain: window?.location?.hostname,
         businessId: businessContext.business?.id,
+        slug: businessContext.business?.slug,
       },
       isReferred: !!referredCode,
       referredCode,
@@ -116,7 +115,6 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
         currency: businessContext.business?.currency,
       };
     }
-    console.log(data);
     sendGTMEvent(data);
   };
   const calledOnce = useRef(false);

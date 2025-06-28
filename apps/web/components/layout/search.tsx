@@ -8,7 +8,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Filters } from "./filters";
-import { CompleteCategory } from "packages/model/prisma/zod";
+import { CompleteCategory } from "@repo/model/zod/category";
 
 export type SearchBarProps = {
   locale: string;
