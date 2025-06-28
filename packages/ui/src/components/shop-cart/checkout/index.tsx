@@ -12,6 +12,8 @@ import AlertMessage from "@repo/ui/components/alert-message";
 import { Button } from "@repo/ui/components/button";
 import { NeighborhoodWithShipping } from "@repo/model/types/neighborhood";
 import { useRouter } from "next/navigation";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
+import { useGTMEvent } from "@repo/ui/components/google-analytics/hook";
 
 export type RenderOptions = {
   neighborhoods: NeighborhoodWithShipping[];
@@ -52,11 +54,12 @@ export default function CheckoutPage({
     })),
   );
   const [shopCartOutOfStockError, setShopCartOutOfStockError] = useState(false);
+  const { sendEvent } = useGTMEvent();
   const [shopCartProductInactiveError, setShopCartProductInactiveError] =
     useState(false);
   const handlerAction = async (data: any) => {
     return startOrderRegistering(async () => {
-      const { id, error } = await action(data);
+      const { id, error, ...rest } = await action(data);
       if (error === "out_of_stock") {
         return setShopCartOutOfStockError(true);
       }
@@ -64,6 +67,11 @@ export default function CheckoutPage({
         return setShopCartProductInactiveError(true);
       }
       clear();
+      sendEvent({
+        event: "order_sent",
+        cartItems: orderItems,
+        order: { id, ...rest },
+      });
       return router.push(successfulUrl(id));
     });
   };
@@ -88,6 +96,9 @@ export default function CheckoutPage({
 
   return (
     <div className="grid gap-6">
+      {!!orderItems?.length && (
+        <OnLoad event={{ event: "begin_checkout", cartItems: orderItems }} />
+      )}
       <h1 className="text-2xl font-bold">{t("title")}</h1>
       <form
         onSubmit={form.handleSubmit((data: any) => handlerAction({ ...data }))}

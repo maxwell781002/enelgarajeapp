@@ -4,10 +4,11 @@ import ProductGallery from "apps/web/components/product-detail/ProductGallery";
 import Tabs from "apps/web/components/product-detail/Tabs";
 import { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { formatPrice } from "packages/model/lib/utils";
-import { getCurrentBusiness } from "packages/model/repository/business";
-import { getBySlug } from "packages/model/repository/product";
-import { IProduct } from "packages/model/types/product";
+import { formatPrice } from "@repo/model/lib/utils";
+import { getCurrentBusiness } from "@repo/model/repository/business";
+import { getBySlug } from "@repo/model/repository/product";
+import { IProduct } from "@repo/model/types/product";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export type ProductPageProps = {
   params: Promise<{
@@ -31,6 +32,7 @@ export default async function Page({ params }: ProductPageProps) {
   const t = await getTranslations("Product");
   return (
     <>
+      <OnLoad event={{ event: "view_item", product }} />
       <section className="md:section-sm">
         <div className="container">
           <div className="row justify-center">

@@ -4,7 +4,7 @@ import { ShoppingCartIcon } from "@repo/ui/components/icons";
 import { Button } from "@repo/ui/components/button";
 import { cn } from "@repo/ui/lib/utils";
 import { IProduct } from "@repo/model/types/product";
-import { useShopCart } from "@repo/ui/stores/shop-cart";
+import { useAddProductToCart, useShopCart } from "@repo/ui/stores/shop-cart";
 import { PropsWithChildren, useTransition } from "react";
 
 export function BtnAddCart({
@@ -19,12 +19,12 @@ export function BtnAddCart({
   onAdd: () => Promise<void>;
 } & PropsWithChildren) {
   const [loading, startLoading] = useTransition();
-  const _addToCart = useShopCart.use.add();
+  const addProductToCart = useAddProductToCart();
   const _changeBusiness = useShopCart.use.changeBusiness();
   const addProductToOrder = () => {
     startLoading(async () => {
       _changeBusiness(product.businessId);
-      _addToCart(product);
+      addProductToCart(product);
       return onAdd();
     });
   };

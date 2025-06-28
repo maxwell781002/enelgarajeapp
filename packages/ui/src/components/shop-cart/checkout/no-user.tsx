@@ -2,11 +2,13 @@ import Link from "next/link";
 import { LockIcon } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { getTranslations } from "next-intl/server";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export default async function NoUser() {
   const t = await getTranslations("Checkout");
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 p-10 text-center">
+      <OnLoad event={{ event: "checkout_no_user" }} />
       <div className="w-full max-w-md space-y-8">
         <div className="space-y-4">
           <div className="flex justify-center">

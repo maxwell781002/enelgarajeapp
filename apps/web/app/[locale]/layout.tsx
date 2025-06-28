@@ -14,7 +14,8 @@ import { ReferredCode } from "../../components/referred-code";
 import FacebookOpenNavigator from "@repo/ui/components/facebook-open-navigator";
 import Error404 from "@repo/ui/components/page-errors/404";
 import { ProductContextProvider } from "apps/web/context/product-context";
-import GoogleAnalytics from "@repo/ui/google-analytics";
+import GoogleAnalytics from "@repo/ui/components/google-analytics";
+import { SessionProvider } from "next-auth/react";
 
 const karla = Karla({
   subsets: ["latin"],
@@ -62,31 +63,33 @@ export default async function RootLayout({ params, children }: LayoutProps) {
   return (
     <html lang={locale}>
       <body className={`${karla.variable} ${sfMono.variable}`}>
-        <FacebookOpenNavigator>
-          <ReferredCode>
-            <RouteLoadingLayout>
-              <div className="flex flex-col min-h-dvh">
-                <NextIntlClientProvider messages={messages}>
-                  {business ? (
-                    <BusinessContextProvider business={business}>
-                      <ProductContextProvider>
-                        <Header
-                          business={business}
-                          locale={locale}
-                          logo={site.logo}
-                        />
-                        <main className="flex-1 container">{children}</main>
-                      </ProductContextProvider>
-                      <Footer {...site} />
-                    </BusinessContextProvider>
-                  ) : (
-                    <Error404 />
-                  )}
-                </NextIntlClientProvider>
-              </div>
-            </RouteLoadingLayout>
-          </ReferredCode>
-        </FacebookOpenNavigator>
+        <SessionProvider>
+          <FacebookOpenNavigator>
+            <ReferredCode>
+              <RouteLoadingLayout>
+                <div className="flex flex-col min-h-dvh">
+                  <NextIntlClientProvider messages={messages}>
+                    {business ? (
+                      <BusinessContextProvider business={business}>
+                        <ProductContextProvider>
+                          <Header
+                            business={business}
+                            locale={locale}
+                            logo={site.logo}
+                          />
+                          <main className="flex-1 container">{children}</main>
+                        </ProductContextProvider>
+                        <Footer {...site} />
+                      </BusinessContextProvider>
+                    ) : (
+                      <Error404 />
+                    )}
+                  </NextIntlClientProvider>
+                </div>
+              </RouteLoadingLayout>
+            </ReferredCode>
+          </FacebookOpenNavigator>
+        </SessionProvider>
       </body>
       <GoogleAnalytics />
     </html>

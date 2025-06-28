@@ -9,11 +9,11 @@ import {
 } from "@repo/ui/components/ui/sheet";
 import { cn } from "@repo/ui/lib/utils";
 import { getTranslations } from "next-intl/server";
-import { SecurityUser, signOut } from "packages/model/lib/auth";
+import { SecurityUser, signOut } from "@repo/model/lib/auth";
 import Link from "next/link";
 import SwitchApp from "@repo/ui/components/switch-app";
-import { ApplicationsNames } from "packages/model/lib/applications-names";
-import { CompleteBusiness } from "packages/model/prisma/zod";
+import { ApplicationsNames } from "@repo/model/lib/applications-names";
+import { CompleteBusiness } from "@repo/model/zod/business";
 import { Logout } from "./logout";
 import SignInIcon from "@repo/ui/components/icons";
 import User from "@repo/ui/components/user";

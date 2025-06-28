@@ -6,7 +6,7 @@ import { CheckIcon } from "./icons";
 import { cn } from "../lib/utils";
 import { useStore } from "@repo/ui/stores/index";
 import { IProduct } from "@repo/model/types/product";
-import { useShopCart } from "@repo/ui/stores/shop-cart";
+import { useAddProductToCart, useShopCart } from "@repo/ui/stores/shop-cart";
 
 export function BtnAddCart({
   product,
@@ -16,7 +16,7 @@ export function BtnAddCart({
   outOfStock: boolean;
 }) {
   const inCart = useStore(useShopCart, (state) => state.inCart(product.id));
-  const addProductToOrder = useShopCart.use.add();
+  const addProductToOrder = useAddProductToCart();
 
   return (
     <div className="relative">

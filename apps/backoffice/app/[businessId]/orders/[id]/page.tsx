@@ -30,6 +30,7 @@ export default async function Page({ params }: OrderDetailProps) {
         status={order.status}
         onChange={changeStatus}
         options={orderRepository.orderToChange(order.status)}
+        order={order}
       />
       <ButtonDownloadFile
         url={`/api/order-pdf/${id}`}

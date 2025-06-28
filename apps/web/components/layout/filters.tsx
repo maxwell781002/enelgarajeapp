@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@repo/ui/components/ui/sheet";
 import { MixerVerticalIcon } from "@radix-ui/react-icons";
-import { CompleteCategory } from "packages/model/prisma/zod";
+import { CompleteCategory } from "@repo/model/zod/category";
 import { useTranslations } from "next-intl";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { useState } from "react";

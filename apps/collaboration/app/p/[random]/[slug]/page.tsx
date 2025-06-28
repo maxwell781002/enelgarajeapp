@@ -7,6 +7,7 @@ import WhatsappButton from "@repo/ui/components/whatsapp-button";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import OnLoad from "@repo/ui/components/google-analytics/on-load";
 
 export type PageProps = {
   params: Promise<{
@@ -52,6 +53,7 @@ export default async function Page({ params }: PageProps) {
   };
   return (
     <div className="container mx-auto px-4 py-8 md:w-2/3">
+      <OnLoad event={{ event: "view_item", product }} />
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-1/2">
           <Image
