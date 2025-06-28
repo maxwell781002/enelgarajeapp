@@ -68,7 +68,7 @@ export default function CheckoutPage({
       }
       clear();
       sendEvent({
-        event: "purchase",
+        event: "order_sent",
         cartItems: orderItems,
         order: { id, ...rest },
       });

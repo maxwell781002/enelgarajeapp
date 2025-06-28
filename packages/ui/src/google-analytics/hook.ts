@@ -7,6 +7,7 @@ import { IProduct } from "@repo/model/types/product";
 import { useStore } from "zustand";
 import { useShopCart } from "../stores/shop-cart";
 import { CompleteOrder } from "@repo/model/prisma/zod/order";
+import { CompleteOrderProduct } from "packages/model/prisma/zod/orderproduct";
 
 export type GTMEvent = {
   event: string;
@@ -30,6 +31,23 @@ const addProduct = (product: IProduct, currency: string | undefined) => {
     commission: product._commission,
     businessProfit: product._businessProfit,
     quantity: product.stock,
+    currency,
+  };
+};
+
+const addOrderItem = (
+  item: CompleteOrderProduct,
+  currency: string | undefined,
+) => {
+  return {
+    item_id: item.product.id,
+    item_sku: item.product.sku,
+    item_name: item.product.name,
+    price: formatPrice(item.price),
+    outOfStock: item.product._outOfStock,
+    commission: item.commission,
+    businessProfit: item.businessProfit,
+    quantity: item.quantity,
     currency,
   };
 };
@@ -80,10 +98,7 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
       items = [
         ...items,
         ...cartItems.map((item: any) =>
-          addProduct(
-            item.product,
-            businessContext.business?.currency as string,
-          ),
+          addOrderItem(item, businessContext.business?.currency as string),
         ),
       ];
     }
@@ -102,7 +117,7 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
       };
     }
     console.log(data);
-    // sendGTMEvent(data);
+    sendGTMEvent(data);
   };
   const calledOnce = useRef(false);
   useEffect(() => {
@@ -110,7 +125,7 @@ export const useGTMEvent = (eventOnLoad: GTMEvent | null = null) => {
     if (calledOnce.current) return;
     sendEvent(eventOnLoad);
     calledOnce.current = true;
-  }, []);
+  }, [eventOnLoad]);
 
   return {
     sendEvent,
