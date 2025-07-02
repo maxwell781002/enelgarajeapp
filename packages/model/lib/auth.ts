@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@repo/model/prisma/prisma-client";
 import { businessRepository } from "@repo/model/repositories/business";
 import { CompleteUser } from "../prisma/zod";
+import { NextRequest } from "next/server";
 
 export type SecurityUser = {
   businessIds: string[];
@@ -44,3 +45,21 @@ const config = {
 } satisfies NextAuthConfig;
 
 export const { handlers, signIn, signOut, auth }: any = NextAuth(config);
+
+const GLOBAL_PARAM_NAME = "globalRedirectAfterLogin";
+
+export const redirectLogin = (session: any, request: NextRequest) => {
+  const isLogin = request.nextUrl.pathname.includes("/login");
+  const loginRedirect = new URL(process.env.AUTH_LOGIN_REDIRECT || "");
+  const isGlobalLogin =
+    request.headers.get("x-forwarded-host") === loginRedirect.host ||
+    request.nextUrl.searchParams.has(GLOBAL_PARAM_NAME);
+  if (!session && isLogin && !isGlobalLogin) {
+    const href = Buffer.from(request.nextUrl.href).toString("base64");
+    return `${loginRedirect.href}?${GLOBAL_PARAM_NAME}=${href}`;
+  }
+  const url = request.nextUrl.searchParams.get(GLOBAL_PARAM_NAME);
+  if (session && isGlobalLogin && url) {
+    return Buffer.from(url || "", "base64").toString("utf-8");
+  }
+};

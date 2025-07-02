@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@repo/model/lib/auth";
+import { auth, redirectLogin } from "@repo/model/lib/auth";
 
 const NO_BUSINESS_PATHS = ["errors", "onboarding", "messenger"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
+  const globalLogin = redirectLogin(session, request);
+  if (globalLogin) {
+    return globalLogin;
+  }
   let { pathname } = request.nextUrl;
   if (pathname === "/sentry-example-page") {
     return;
