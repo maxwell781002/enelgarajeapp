@@ -1,6 +1,6 @@
 import { getCurrentBusiness } from "@repo/model/repository/business";
 import { CompleteBusiness } from "@repo/model/zod/business";
-import ProductList from "../../components/product-list";
+import ProductList from "../../../components/product-list";
 
 export default async function Page({
   searchParams,
