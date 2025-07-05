@@ -31,6 +31,21 @@ const config = {
   providers: [Google],
   adapter: { ...adapter, getUserByAccount },
   session: { strategy: "jwt" },
+  //--
+  cookies: {
+    sessionToken: 
+    {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: process.env.NEXT_PUBLIC_DOMAIN,
+      }
+    },
+  },
+  //--
   callbacks: {
     async session({ session, token }: any) {
       return { ...session, user: token };
@@ -54,6 +69,15 @@ export const redirectLogin = (session: any, request: NextRequest) => {
   const isGlobalLogin =
     request.headers.get("x-forwarded-host") === loginRedirect.host ||
     request.nextUrl.searchParams.has(GLOBAL_PARAM_NAME);
+  console.log(
+    isLogin,
+    isGlobalLogin,
+    request.headers.get("x-forwarded-host"),
+    loginRedirect.host,
+    request.nextUrl.host,
+    request,
+    session,
+  );
   if (!session && isLogin && !isGlobalLogin) {
     const href = Buffer.from(request.nextUrl.href).toString("base64");
     return `${loginRedirect.href}?${GLOBAL_PARAM_NAME}=${href}`;

@@ -14,9 +14,11 @@ const intlMiddleware = createMiddleware({
 export default async function middleware(request: NextRequest) {
   const session = await auth();
   const globalLogin = redirectLogin(session, request);
-  if (globalLogin) {
-    return NextResponse.redirect(new URL(globalLogin, request.url));
-  }
+  console.log("globalLogin", globalLogin);
+  // const urls = ["reniertesting.enelgaraje.com", "auth.enelgaraje.com"];
+  // if (globalLogin && urls.includes(request.headers.get("x-forwarded-host") || "")) {
+  //   return NextResponse.redirect(new URL(globalLogin, request.url));
+  // }
   if (
     !session &&
     securePages.find((page) => request.nextUrl.pathname.includes(page))
