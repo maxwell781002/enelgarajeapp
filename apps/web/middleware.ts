@@ -1,6 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@repo/model/lib/auth";
+import { auth, redirectLogin } from "@repo/model/lib/auth";
 
 const locales = ["es"];
 const defaultLocale = "es";
@@ -13,6 +13,10 @@ const intlMiddleware = createMiddleware({
 
 export default async function middleware(request: NextRequest) {
   const session = await auth();
+  const globalLogin = redirectLogin(session, request);
+  if (globalLogin) {
+    return NextResponse.redirect(new URL(globalLogin, request.url));
+  }
   if (
     !session &&
     securePages.find((page) => request.nextUrl.pathname.includes(page))
