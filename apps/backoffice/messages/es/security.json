@@ -2,5 +2,10 @@
   "Security": {
     "title": "Autenticación",
     "description": "Escoja su red social preferida para iniciar sesión."
+  },
+  "CompleteLogin": {
+    "title": "Completando la autenticación",
+    "description": "Por favor espere mientras verificamos sus credenciales y configuramos su cuenta.",
+    "comment": "Esto usualmente toma solo unos segundos. Si continúas viendo esta página, por favor actualiza tu navegador o contacta al soporte."
   }
 }

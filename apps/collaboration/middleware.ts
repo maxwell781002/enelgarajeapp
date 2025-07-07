@@ -5,7 +5,7 @@ const NO_BUSINESS_PATHS = ["errors", "onboarding", "messenger"];
 
 export const getRedirect = async (request: NextRequest, session: any) => {
   const globalLogin = redirectLogin(session, request);
-  console.log("globalLogin", globalLogin)
+  console.log("globalLogin", globalLogin);
   // if (globalLogin) {
   //   return globalLogin;
   // }
