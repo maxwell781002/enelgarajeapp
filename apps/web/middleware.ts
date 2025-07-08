@@ -11,21 +11,33 @@ const intlMiddleware = createMiddleware({
   defaultLocale,
 });
 
+const urlsTesting = [
+  "reniertesting.enelgaraje.com",
+  "auth.enelgaraje.com",
+  "localhost:3000",
+  "localhost:3004",
+];
+const isUrlTesting = (request: NextRequest) =>
+  urlsTesting.includes(request.headers.get("x-forwarded-host") || "");
+
 export default async function middleware(request: NextRequest) {
   const session = await auth();
   const globalLogin = redirectLogin(session, request);
-  console.log("globalLogin", globalLogin);
-  // const urls = ["reniertesting.enelgaraje.com", "auth.enelgaraje.com"];
-  // if (globalLogin && urls.includes(request.headers.get("x-forwarded-host") || "")) {
-  //   return NextResponse.redirect(new URL(globalLogin, request.url));
-  // }
+  if (globalLogin && isUrlTesting(request)) {
+    console.log("globalLogin", globalLogin);
+    return NextResponse.redirect(new URL(globalLogin, request.url));
+  }
   if (
     !session &&
     securePages.find((page) => request.nextUrl.pathname.includes(page))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  if (session && request.nextUrl.pathname.includes("/auth/login")) {
+  if (
+    !isUrlTesting(request) &&
+    session &&
+    request.nextUrl.pathname.includes("/auth/login")
+  ) {
     const url = request.nextUrl.searchParams.get("redirectAfterLogin") || "/";
     return NextResponse.redirect(new URL(url, request.url));
   }

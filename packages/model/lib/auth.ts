@@ -33,16 +33,15 @@ const config = {
   session: { strategy: "jwt" },
   //--
   cookies: {
-    sessionToken: 
-    {
+    sessionToken: {
       name: `__Secure-next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
+        sameSite: "lax",
+        path: "/",
         secure: true,
         domain: process.env.NEXT_PUBLIC_DOMAIN,
-      }
+      },
     },
   },
   //--
@@ -62,28 +61,29 @@ const config = {
 export const { handlers, signIn, signOut, auth }: any = NextAuth(config);
 
 const GLOBAL_PARAM_NAME = "globalRedirectAfterLogin";
+const ORIGIN_HOST = "originHost";
 
 export const redirectLogin = (session: any, request: NextRequest) => {
   const isLogin = request.nextUrl.pathname.includes("/login");
   const loginRedirect = new URL(process.env.AUTH_LOGIN_REDIRECT || "");
   const isGlobalLogin =
-    request.headers.get("x-forwarded-host") === loginRedirect.host ||
-    request.nextUrl.searchParams.has(GLOBAL_PARAM_NAME);
-  console.log(
-    isLogin,
-    isGlobalLogin,
-    request.headers.get("x-forwarded-host"),
-    loginRedirect.host,
-    request.nextUrl.host,
-    request,
-    session,
-  );
+    request.headers.get("x-forwarded-host") === loginRedirect.host;
   if (!session && isLogin && !isGlobalLogin) {
-    const href = Buffer.from(request.nextUrl.href).toString("base64");
-    return `${loginRedirect.href}?${GLOBAL_PARAM_NAME}=${href}`;
+    const searchParams = Object.fromEntries(
+      request.nextUrl.searchParams.entries(),
+    );
+    searchParams[ORIGIN_HOST] = request.nextUrl.origin;
+    const oauthUrl = new URL(loginRedirect.href);
+    oauthUrl.searchParams.set(GLOBAL_PARAM_NAME, JSON.stringify(searchParams));
+    return oauthUrl.href;
   }
-  const url = request.nextUrl.searchParams.get(GLOBAL_PARAM_NAME);
-  if (session && isGlobalLogin && url) {
-    return Buffer.from(url || "", "base64").toString("utf-8");
+  const globalData = request.nextUrl.searchParams.get(GLOBAL_PARAM_NAME);
+  if (session && isGlobalLogin && globalData) {
+    const { [ORIGIN_HOST]: originHost, redirectAfterLogin } = JSON.parse(
+      globalData || "",
+    );
+    const url = new URL(`${originHost}/auth/complete-login`);
+    url.searchParams.set("redirectAfterLogin", redirectAfterLogin);
+    return url.href;
   }
 };
