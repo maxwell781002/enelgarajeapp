@@ -46,11 +46,16 @@ export default async function Page({ params }: ProductPageProps) {
 
               <div className="flex gap-2 items-center">
                 <h4 className="text-text-light dark:text-darkmode-text-light max-md:h2">
-                  {formatPrice(product?.price, business?.currency)}
+                  {formatPrice(
+                    product?.offerPrice > 0
+                      ? product?.offerPrice
+                      : product?.price,
+                    business?.currency,
+                  )}
                 </h4>
                 {product?.offerPrice > 0 ? (
                   <s className="text-text-light max-md:h3 dark:text-darkmode-text-light">
-                    {formatPrice(product?.offerPrice, business?.currency)}
+                    {formatPrice(product?.price, business?.currency)}
                   </s>
                 ) : (
                   ""
