@@ -11,19 +11,10 @@ const intlMiddleware = createMiddleware({
   defaultLocale,
 });
 
-const urlsTesting = [
-  "reniertesting.enelgaraje.com",
-  "auth.enelgaraje.com",
-  "localhost:3000",
-  "localhost:3004",
-];
-const isUrlTesting = (request: NextRequest) =>
-  urlsTesting.includes(request.headers.get("x-forwarded-host") || "");
-
 export default async function middleware(request: NextRequest) {
   const session = await auth();
   const globalLogin = redirectLogin(session, request);
-  if (globalLogin && isUrlTesting(request)) {
+  if (globalLogin) {
     console.log("globalLogin", globalLogin);
     return NextResponse.redirect(new URL(globalLogin, request.url));
   }
@@ -32,14 +23,6 @@ export default async function middleware(request: NextRequest) {
     securePages.find((page) => request.nextUrl.pathname.includes(page))
   ) {
     return NextResponse.redirect(new URL("/", request.url));
-  }
-  if (
-    !isUrlTesting(request) &&
-    session &&
-    request.nextUrl.pathname.includes("/auth/login")
-  ) {
-    const url = request.nextUrl.searchParams.get("redirectAfterLogin") || "/";
-    return NextResponse.redirect(new URL(url, request.url));
   }
   return intlMiddleware(request);
 }

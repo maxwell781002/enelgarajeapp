@@ -9,7 +9,7 @@ export default function RedirectAfterLogin({
 }: {
   redirectAfterLogin?: string;
 }) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   useEffect(() => {
     if (status === "authenticated") {

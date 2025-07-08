@@ -83,7 +83,9 @@ export const redirectLogin = (session: any, request: NextRequest) => {
       globalData || "",
     );
     const url = new URL(`${originHost}/auth/complete-login`);
-    url.searchParams.set("redirectAfterLogin", redirectAfterLogin);
+    if (redirectAfterLogin) {
+      url.searchParams.set("redirectAfterLogin", redirectAfterLogin);
+    }
     return url.href;
   }
 };
