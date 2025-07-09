@@ -375,14 +375,18 @@ export class OrderRepository extends BaseRepository<
   }
 
   async getTotals(businessId: string) {
+    const where = {
+      businessId,
+      changedByOrderId: null,
+    };
     const totalSend = prisma().order.count({
-      where: { businessId, status: OrderStatus.SEND },
+      where: { ...where, status: OrderStatus.SEND },
     });
     const totalPayed = prisma().order.count({
-      where: { businessId, status: OrderStatus.PAYED },
+      where: { ...where, status: OrderStatus.PAYED },
     });
     const totalReject = prisma().order.count({
-      where: { businessId, status: OrderStatus.REJECTED },
+      where: { ...where, status: OrderStatus.REJECTED },
     });
     const values = await Promise.all([totalSend, totalPayed, totalReject]);
     return {
