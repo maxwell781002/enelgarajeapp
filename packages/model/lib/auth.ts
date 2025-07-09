@@ -27,14 +27,15 @@ const getUserByAccount = async (provider_providerAccountId: any) => {
   return user;
 };
 
+const SESSION_COOKIE_NAME = `__Secure-next${process.env.AUTH_LOGIN_SESSION_COOKIE_PREFIX || ""}-auth.session-token`;
+
 const config = {
   providers: [Google],
   adapter: { ...adapter, getUserByAccount },
   session: { strategy: "jwt" },
-  //--
   cookies: {
     sessionToken: {
-      name: `__Secure-next-auth.session-token`,
+      name: SESSION_COOKIE_NAME,
       options: {
         httpOnly: true,
         sameSite: "lax",
@@ -44,7 +45,6 @@ const config = {
       },
     },
   },
-  //--
   callbacks: {
     async session({ session, token }: any) {
       return { ...session, user: token };
