@@ -10,7 +10,13 @@ import {
 import PriceInput from "@repo/ui/components/price-input";
 import { useTranslations } from "next-intl";
 
-export default function PriceWidget({ form }: { form: any }) {
+export default function PriceWidget({
+  form,
+  showCommission,
+}: {
+  form: any;
+  showCommission: boolean;
+}) {
   const t = useTranslations("Product");
 
   const handleQuantityPriceChange = (

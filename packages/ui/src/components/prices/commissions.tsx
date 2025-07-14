@@ -9,48 +9,27 @@ import {
 import { useTranslations } from "next-intl";
 import { SelectWidget } from "../select";
 import { Input } from "../ui/input";
-import PriceDisplay from "./price";
-import { commissionCalculate } from "@repo/model/lib/utils";
-import { cn } from "@repo/ui/lib/utils";
 import PriceInput from "@repo/ui/components/price-input";
+import PriceShow from "./price-show";
 
 export type CommissionsProps = {
   form: any;
   basePrice: number;
   currency?: TCurrency;
+  showCommission: boolean;
+  commission?: number;
+  businessProfit?: number;
 };
-
-function PriceShow({
-  price = 0,
-  currency,
-  label,
-}: {
-  price: number | undefined;
-  currency?: TCurrency;
-  label: string;
-}) {
-  return (
-    <div>
-      <FormLabel>{label}</FormLabel>
-      <PriceDisplay
-        price={price}
-        currency={currency}
-        classNameText={cn(
-          "text-lg font-bold",
-          price && price <= 0 && "text-red-600",
-        )}
-      />
-    </div>
-  );
-}
 
 export default function Commissions({
   form,
   basePrice,
   currency,
+  showCommission,
+  commission = 0,
+  businessProfit = 0,
 }: CommissionsProps) {
   const t = useTranslations("Product");
-  const show = form.watch("priceValues.hasCommission");
   const selectOption = form.watch("priceValues.commissionType");
   const handleQuantityCommissionValueChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -61,12 +40,6 @@ export default function Commissions({
     }
     form.setValue("priceValues.commissionValue", newPrice);
   };
-  const [value, base] = commissionCalculate(
-    basePrice,
-    form.watch("priceValues.commissionType"),
-    form.watch("priceValues.commissionValue"),
-  );
-
   return (
     <div className="pt-5">
       <FormField
@@ -91,7 +64,7 @@ export default function Commissions({
           </FormItem>
         )}
       />
-      {show && (
+      {showCommission && (
         <>
           <div className="grid gap-4 grid-cols-2">
             <FormField
@@ -163,16 +136,25 @@ export default function Commissions({
                 )}
               />
             )}
-
             <PriceShow
-              price={value}
+              price={commission}
               currency={currency}
               label={t("lbCommissionDisplay")}
             />
             <PriceShow
-              price={base}
+              price={businessProfit}
               currency={currency}
               label={t("lbBusinessProfit")}
+            />
+            <PriceShow
+              price={basePrice}
+              currency={currency}
+              label={t("lbFinalPrice")}
+            />
+            <PriceShow
+              price={businessProfit}
+              currency={currency}
+              label={t("lbOfferPrice")}
             />
           </div>
         </>
