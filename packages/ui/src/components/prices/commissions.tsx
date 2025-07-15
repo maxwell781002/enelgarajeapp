@@ -19,6 +19,7 @@ export type CommissionsProps = {
   showCommission: boolean;
   commission?: number;
   businessProfit?: number;
+  offerPrice?: number;
 };
 
 export default function Commissions({
@@ -28,6 +29,7 @@ export default function Commissions({
   showCommission,
   commission = 0,
   businessProfit = 0,
+  offerPrice = 0,
 }: CommissionsProps) {
   const t = useTranslations("Product");
   const selectOption = form.watch("priceValues.commissionType");
@@ -152,7 +154,7 @@ export default function Commissions({
               label={t("lbFinalPrice")}
             />
             <PriceShow
-              price={businessProfit}
+              price={offerPrice}
               currency={currency}
               label={t("lbOfferPrice")}
             />

@@ -70,6 +70,25 @@ export const commissionCalculate = (
   return [value, basePrice - value];
 };
 
+export const calculateBaseBusinessProfit = (
+  commissionType: string,
+  commission: number,
+  businessProfit: number,
+) => {
+  let price = 0;
+  if (commissionType === CommissionTypes.PERCENTAGE) {
+    const pt =
+      commission < 100 ? (-100 * businessProfit) / (commission - 100) : 0;
+    price = Math.trunc(pt);
+  } else if (commissionType === CommissionTypes.FIXED) {
+    price = commission + businessProfit;
+  }
+  return {
+    price,
+    offerPrice: 0,
+  };
+};
+
 export const transfermovilText = (cardNumber: string, phone: string) =>
   `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${cardNumber},${phone},`;
 
