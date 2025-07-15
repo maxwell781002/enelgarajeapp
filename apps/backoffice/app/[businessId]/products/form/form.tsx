@@ -26,7 +26,7 @@ type FormAction = {
   action: (object: any) => Promise<any>;
   defaultValues: CompleteProduct;
 } & Omit<GeneralProductFormProps, "form"> &
-  Omit<PriceProps, "form">;
+  Omit<PriceProps, "form" | "showCommission">;
 
 export default function ProductForm({
   action,

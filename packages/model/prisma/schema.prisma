@@ -132,7 +132,7 @@ model Product {
   image                     Json
   description               String /// @zod.min(1, { message: "Required" })
   socialNetworksDescription String?
-  price                     Int /// @zod.gte(0)
+  price                     Int /// @zod.gt(0)
   offerPrice                Int? /// @zod.gte(0)
   images                    Json[]
   active                    Boolean @default(true) /// @zod.optional()

@@ -23,6 +23,8 @@
     "lbPrice": "Precio",
     "phPrice": "Precio del producto",
     "lbOfferPrice": "Precio de oferta",
+    "lbFinalPrice": "Precio final",
+    "ConfigureBusinessProfitSwitch": "Configurar ganancia del negocio",
     "lbSocialNetworksDescription": "Descripción para redes sociales",
     "phSocialNetworksDescription": "Descripción para redes sociales",
     "phOfferPrice": "Precio de oferta del producto",
