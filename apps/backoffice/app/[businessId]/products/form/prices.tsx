@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 export type PriceProps = {
   form: any;
-} & Omit<CommissionsProps, "basePrice">;
+} & Omit<CommissionsProps, "basePrice" | "showCommission">;
 
 export default function Price({ form, ...props }: PriceProps) {
   const price = form.watch("price");
