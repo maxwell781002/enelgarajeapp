@@ -12,28 +12,43 @@ export type ActionConfig<Input = any> = {
   middlewares?: Middleware[];
 };
 
-export function action<Input = any, Output = any>(config: ActionConfig<Input>) {
-  return (
-    handler: (ctx: Context, input: Input) => Promise<Output>,
-  ): ((input: unknown) => Promise<Output>) => {
-    return async (rawInput: unknown): Promise<Output> => {
-      const input = config.input
-        ? config.input.parse(rawInput)
-        : (rawInput as Input);
+type Handler<Input = any, Output = any> = (
+  input: Input,
+  ctx: Context,
+) => Promise<Output>;
 
-      const ctx: Context = {
-        user: {
-          id: "",
-          role: "",
-        },
-        tenantId: "",
-      };
+const validateAndCleanInput = <Input>(
+  input: unknown,
+  config: ActionConfig<Input>,
+): Input => {
+  if (input instanceof FormData) {
+    return Object.fromEntries(input.entries()) as Input;
+  }
+  return config.input ? config.input.parse(input) : (input as Input);
+};
 
-      for (const middleware of config.middlewares || []) {
-        await middleware(ctx);
-      }
-
-      return await handler(ctx, input);
+export function action<Input = any, Output = any>(
+  config: ActionConfig<Input> | Handler<Input, Output>,
+  handler?: Handler<Input, Output>,
+) {
+  if (typeof config === "function") {
+    handler = config;
+    config = {};
+  }
+  return async (rawInput: unknown): Promise<Output> => {
+    const input = validateAndCleanInput(rawInput, config);
+    const ctx: Context = {
+      user: {
+        id: "",
+        role: "",
+      },
+      tenantId: "",
     };
+
+    for (const middleware of config.middlewares || []) {
+      await middleware(ctx);
+    }
+
+    return await (handler as Handler)(input, ctx);
   };
 }
