@@ -14,16 +14,16 @@ const schema = z.object({
 
 export const actionObject = action(
   { input: schema },
-  async (input: z.infer<typeof schema>) => {
-    console.log("actionObject", input);
+  async (ctx: Context<z.infer<typeof schema>>) => {
+    console.log("actionObject", ctx.input);
     return "hello world";
   },
 );
 
 export const actionFormData = action(
   { input: schema },
-  async (input: z.infer<typeof schema>) => {
-    console.log("actionFormData", input);
+  async (ctx: Context<z.infer<typeof schema>>) => {
+    console.log("actionFormData", ctx.input);
     return "hello world";
   },
 );

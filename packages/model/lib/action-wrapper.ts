@@ -1,20 +1,17 @@
 import { z } from "zod";
 
-export type Context = {
+export type Context<Input = any> = {
   tenantId: string;
   user: { id: string; role: string };
+  input: Input;
 };
-
-export type Middleware = (ctx: Context) => Promise<void>;
 
 export type ActionConfig<Input = any> = {
   input?: z.Schema<Input>;
-  middlewares?: Middleware[];
 };
 
 type Handler<Input = any, Output = any> = (
-  input: Input,
-  ctx: Context,
+  ctx: Context<Input>,
 ) => Promise<Output>;
 
 const validateAndCleanInput = <Input>(
@@ -37,18 +34,15 @@ export function action<Input = any, Output = any>(
   }
   return async (rawInput: unknown): Promise<Output> => {
     const input = validateAndCleanInput(rawInput, config);
-    const ctx: Context = {
+    const ctx: Context<Input> = {
       user: {
         id: "",
         role: "",
       },
       tenantId: "",
+      input,
     };
 
-    for (const middleware of config.middlewares || []) {
-      await middleware(ctx);
-    }
-
-    return await (handler as Handler)(input, ctx);
+    return (handler as Handler<Input, Output>)(ctx);
   };
 }
