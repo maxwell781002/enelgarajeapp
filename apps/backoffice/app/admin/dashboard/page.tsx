@@ -4,6 +4,7 @@ import {
   simpleAction,
   actionObject,
   actionFormData,
+  withLogging,
 } from "@repo/model/repository/to-test-middleware";
 import { ZodError } from "zod";
 
@@ -30,11 +31,17 @@ export default function Page() {
       }
     }
   };
+  const loggingFn = async () => {
+    "use server";
+    const result = await withLogging();
+    console.log("result", result);
+  };
   return (
     <div>
       <BtnServerAction action={simpleAction}>Simple Action</BtnServerAction>
       <BtnServerAction action={objectFn}>Object</BtnServerAction>
       <BtnServerAction action={formDataFn}>Object formData</BtnServerAction>
+      <BtnServerAction action={loggingFn}>Logging</BtnServerAction>
     </div>
   );
   // return redirect("/admin/business");
