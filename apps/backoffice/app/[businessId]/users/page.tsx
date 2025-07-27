@@ -9,7 +9,6 @@ import { getBusinessById } from "@repo/model/repository/business";
 import { userRepository } from "@repo/model/repositories/user";
 import UserTable from "./table";
 import { CreateInvitation } from "./invitation-modal";
-import { getPlanFeature } from "@repo/model/lib/plans-feature";
 import { revalidatePath } from "next/cache";
 import { isUserByBusinessLimited } from "@repo/model/repository/user";
 

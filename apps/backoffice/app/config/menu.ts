@@ -11,6 +11,7 @@ import {
   MapPinIcon,
   Users2Icon,
   MessagesSquare,
+  UserRoundCheck,
 } from "lucide-react";
 
 export const coreMenu: LinkItem[] = [
@@ -46,6 +47,12 @@ export const businessMenu: (
       link: `/${businessId}/site`,
       title: "Sitio web",
       Icon: LayoutTemplate,
+      active: true,
+    },
+    {
+      link: `/${businessId}/customers`,
+      title: "Clientes",
+      Icon: UserRoundCheck,
       active: true,
     },
     {

@@ -7,7 +7,7 @@ export type AuthContext = {
 };
 
 const auth = async (ctx: Context, next: any) => {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
   return next({ ...ctx, user });
 };
 
