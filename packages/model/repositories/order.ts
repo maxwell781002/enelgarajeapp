@@ -49,6 +49,10 @@ type CollaboratorPaginateData = {
   userId?: string;
 } & PaginateData;
 
+type CustomerPaginateData = {
+  userId?: string;
+} & PaginateData;
+
 export class OrderRepository extends BaseRepository<
   CompleteOrder,
   typeof Prisma.order
@@ -140,6 +144,16 @@ export class OrderRepository extends BaseRepository<
           { userId, isCollaborator: true },
           { referredById: userId, isCollaborator: false },
         ],
+      },
+    );
+  }
+
+  customerPaginate({ userId, ...data }: CustomerPaginateData) {
+    return this.basePaginate(
+      { ...data },
+      {
+        userId,
+        isCollaborator: false,
       },
     );
   }
