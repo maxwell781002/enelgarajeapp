@@ -1,0 +1,9 @@
+{
+  "Customers": {
+    "List": "Clientes",
+    "DetailTitle": "Detalles del cliente",
+    "backCustomers": "Lista de clientes",
+    "phSearch": "Buscar por nombre, teléfono o correo",
+    "OrderList": "Órdenes"
+  }
+}

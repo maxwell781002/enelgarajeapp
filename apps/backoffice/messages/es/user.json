@@ -2,7 +2,7 @@
   "User": {
     "upgrade_plan_title": "Creación de gestores",
     "UserList": "Gestores",
-    "phSearch": "Buscar...",
+    "phSearch": "Buscar por nombre, teléfono o correo",
     "generateLink": "Generar link",
     "invitation": {
       "title": "Crear invitación",

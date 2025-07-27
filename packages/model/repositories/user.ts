@@ -83,10 +83,26 @@ export class UserRepository extends BaseRepository<
   basePaginate({ query, where, ...data }: PaginateData) {
     where = where || {};
     if (query) {
-      where["name"] = {
-        contains: query,
-        mode: "insensitive",
-      };
+      where["OR"] = [
+        {
+          name: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          email: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          phone: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+      ];
     }
     return super.paginate({
       ...data,
@@ -94,7 +110,22 @@ export class UserRepository extends BaseRepository<
     });
   }
 
-  async getUsers({ businessId, query, hasDoubts, ...rest }: PaginateData = {}) {
+  async getCustomers({ businessId, ...rest }: PaginateData) {
+    const where: any = {
+      orders: {
+        some: {
+          businessId,
+          isCollaborator: false,
+        },
+      },
+    };
+    return this.basePaginate({
+      ...rest,
+      where,
+    });
+  }
+
+  async getUsers({ businessId, hasDoubts, ...rest }: PaginateData = {}) {
     const where: any = {
       business: {
         some: {
