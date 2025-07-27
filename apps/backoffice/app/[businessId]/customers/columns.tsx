@@ -17,4 +17,12 @@ export const columns: ColumnDef<any>[] = [
       </Link>
     ),
   },
+  {
+    header: "Teléfono",
+    accessorKey: "phone",
+  },
+  {
+    header: "Correo",
+    accessorKey: "email",
+  },
 ];

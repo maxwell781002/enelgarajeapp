@@ -12,7 +12,7 @@ export default function Filter({
   onChange: (value: any) => void;
 }) {
   const { changeFilter, value } = useFilterChange(onChange);
-  const t = useTranslations("User");
+  const t = useTranslations("Customers");
   return (
     <div className="flex flex-1 justify-between flex-col sm:flex-row gap-4">
       <Input

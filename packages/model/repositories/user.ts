@@ -83,10 +83,26 @@ export class UserRepository extends BaseRepository<
   basePaginate({ query, where, ...data }: PaginateData) {
     where = where || {};
     if (query) {
-      where["name"] = {
-        contains: query,
-        mode: "insensitive",
-      };
+      where["OR"] = [
+        {
+          name: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          email: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          phone: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+      ];
     }
     return super.paginate({
       ...data,
