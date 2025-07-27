@@ -13,7 +13,7 @@ import CustomerOrders from "./orders";
 export default async function Page({
   params,
 }: {
-  params: { id: string; businessId: string };
+  params: Promise<{ id: string; businessId: string }>;
 }) {
   const { id, businessId } = await params;
   const t = await getTranslations("Customers");
