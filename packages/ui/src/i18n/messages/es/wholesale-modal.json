@@ -1,7 +1,8 @@
 {
   "WholesaleModal": {
-    "cancelText": "Cancelar",
-    "confirmText": "Confirmar",
+    "cancelText": "No",
+    "title": "¿Vas a comprar de forma mayorista?",
+    "confirmText": "Si, comprar como mayorista",
     "processing": "Procesando...",
     "showMore": "Mostrar más",
     "showLess": "Mostrar menos",

@@ -16,7 +16,6 @@ export interface WholesaleModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  title: string;
   message: string | React.ReactNode;
   variant?: "default" | "destructive";
   isLoading?: boolean;
@@ -26,7 +25,6 @@ export function WholesaleModal({
   isOpen,
   onClose,
   onConfirm,
-  title,
   message,
   variant = "default",
   isLoading = false,
@@ -65,7 +63,7 @@ export function WholesaleModal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription className="text-left space-y-2">
             <div>
               {displayMessage}
@@ -86,14 +84,6 @@ export function WholesaleModal({
         <DialogFooter className="gap-2 sm:gap-2">
           <Button
             type="button"
-            variant="outline"
-            onClick={onClose}
-            disabled={isLoading}
-          >
-            {t("cancelText")}
-          </Button>
-          <Button
-            type="button"
             variant={variant === "destructive" ? "destructive" : "default"}
             onClick={handleConfirm}
             disabled={isLoading}
@@ -109,6 +99,14 @@ export function WholesaleModal({
             ) : (
               t("confirmText")
             )}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onClose}
+            disabled={isLoading}
+          >
+            {t("cancelText")}
           </Button>
         </DialogFooter>
       </DialogContent>

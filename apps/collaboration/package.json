@@ -14,6 +14,7 @@
     "vercel-build": "pnpm run prisma-generate && pnpm prisma-migration-deploy && pnpm prisma-migration-scripts && next build"
   },
   "dependencies": {
+    "zustand": "^5.0.2",
     "@hookform/resolvers": "^3.9.0",
     "@repo/api": "workspace:*",
     "@repo/model": "workspace:*",
