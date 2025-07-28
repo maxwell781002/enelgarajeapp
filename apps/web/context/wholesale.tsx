@@ -11,11 +11,11 @@ export enum IS_WHOLESALE {
   NO_CONFIGURED,
 }
 
-type WholesaleContextProps = {
+export type WholesaleContextProps = {
   wholesale: IS_WHOLESALE;
 };
 
-const wholesaleContext = createContext<WholesaleContextProps>(
+export const wholesaleContext = createContext<WholesaleContextProps>(
   {} as WholesaleContextProps,
 );
 
@@ -24,7 +24,7 @@ export const WholesaleContextProvider = ({
   ...props
 }: PropsWithChildren) => {
   const { business } = useBusinessContext();
-  const t = useTranslations("WholesaleModal");
+  const t = useTranslations("Wholesale");
   const [isWholesale, setIsWholesale] = useState<string | null>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   useEffect(() => {

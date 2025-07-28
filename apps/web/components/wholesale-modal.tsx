@@ -29,7 +29,7 @@ export function WholesaleModal({
   variant = "default",
   isLoading = false,
 }: WholesaleModalProps) {
-  const t = useTranslations("WholesaleModal");
+  const t = useTranslations("Wholesale");
   const [isExpanded, setIsExpanded] = React.useState(false);
   const maxLength = 150;
 
