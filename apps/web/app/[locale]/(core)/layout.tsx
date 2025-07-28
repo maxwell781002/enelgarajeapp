@@ -8,6 +8,7 @@ import { getSite } from "@repo/model/repository/business-site";
 import Error404 from "@repo/ui/components/page-errors/404";
 import { ProductContextProvider } from "apps/web/context/product-context";
 import { CompleteBusiness } from "@repo/model/zod/business";
+import { WholesaleContextProvider } from "apps/web/context/wholesale";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -44,11 +45,13 @@ export default async function RootLayout({ params, children }: LayoutProps) {
     <>
       {business ? (
         <BusinessContextProvider business={business}>
-          <ProductContextProvider>
-            <Header business={business} locale={locale} logo={site.logo} />
-            <main className="flex-1 container">{children}</main>
-          </ProductContextProvider>
-          <Footer {...site} />
+          <WholesaleContextProvider>
+            <ProductContextProvider>
+              <Header business={business} locale={locale} logo={site.logo} />
+              <main className="flex-1 container">{children}</main>
+            </ProductContextProvider>
+            <Footer {...site} />
+          </WholesaleContextProvider>
         </BusinessContextProvider>
       ) : (
         <Error404 />
