@@ -37,6 +37,7 @@ model Business {
   defaultPaymentMethodId String?                @unique()
   currency               Currency               @default(CUP) /// @zod.optional()
   ticketTermsConditions  String?
+  hasWholesaleMode       Boolean                @default(false) /// @zod.optional()
   telegram               TelegramBusiness?
   categories             Category[]
   products               Product[]
@@ -322,6 +323,7 @@ model Order {
   ticket                CollaboratorTicket?
   changedOrderNote      String?
   changedByOrderId      String?
+  isWholesale           Boolean              @default(false)
   changedByOrder        Order?               @relation("changedOrderChild", fields: [changedByOrderId], references: [id])
   changedOrderChild     Order[]              @relation("changedOrderChild")
 }
@@ -377,6 +379,8 @@ enum OrderStatus {
   SEND
   PAYED
   REJECTED
+  PRE_INVOICE_SENT
+  PENDING
 }
 
 model Account {
