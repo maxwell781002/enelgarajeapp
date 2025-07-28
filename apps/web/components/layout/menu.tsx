@@ -17,6 +17,7 @@ import { CompleteBusiness } from "@repo/model/zod/business";
 import { Logout } from "./logout";
 import SignInIcon from "@repo/ui/components/icons";
 import User from "@repo/ui/components/user";
+import WholesaleButton from "./wholesale-button";
 
 const MenuIcon = ({ openLabel }: { openLabel?: string }) => (
   <>
@@ -113,7 +114,8 @@ export default async function Menu({
             </ul>
           </div>
         </div>
-        <SheetFooter className="flex flex-col md:flex-row gap-4">
+        <SheetFooter className="flex flex-col gap-4">
+          <WholesaleButton />
           {!user ? (
             <Link
               href={`/${locale}/auth/login`}

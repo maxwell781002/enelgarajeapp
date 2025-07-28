@@ -13,6 +13,7 @@ export enum IS_WHOLESALE {
 
 export type WholesaleContextProps = {
   wholesale: IS_WHOLESALE;
+  clearAndOpen: () => void;
 };
 
 export const wholesaleContext = createContext<WholesaleContextProps>(
@@ -44,6 +45,10 @@ export const WholesaleContextProvider = ({
     localStorage.setItem("isWholesale", "false");
     setIsWholesale("false");
   };
+  const clearAndOpen = () => {
+    localStorage.removeItem("isWholesale");
+    setIsOpen(true);
+  };
   const wholesale =
     isWholesale === null
       ? IS_WHOLESALE.NO_CONFIGURED
@@ -55,6 +60,7 @@ export const WholesaleContextProvider = ({
       {...props}
       value={{
         wholesale,
+        clearAndOpen,
         ...props,
       }}
     >

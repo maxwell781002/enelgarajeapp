@@ -4,7 +4,6 @@ import * as React from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -64,7 +63,7 @@ export function WholesaleModal({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription className="text-left space-y-2">
+          <div className="text-left space-y-2">
             <div>
               {displayMessage}
               {isLongMessage && (
@@ -78,7 +77,7 @@ export function WholesaleModal({
                 </div>
               )}
             </div>
-          </DialogDescription>
+          </div>
         </DialogHeader>
 
         <DialogFooter className="gap-2 sm:gap-2">
