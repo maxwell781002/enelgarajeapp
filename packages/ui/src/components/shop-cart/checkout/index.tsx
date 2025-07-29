@@ -125,7 +125,9 @@ export default function CheckoutPage({
         )}
         <Button
           type="submit"
-          disabled={neighborhoodLoading || orderRegistering}
+          disabled={neighborhoodLoading}
+          loading={orderRegistering}
+          loadingText={t("processing")}
         >
           {t("continue")}
         </Button>
