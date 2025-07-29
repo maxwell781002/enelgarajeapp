@@ -40,6 +40,20 @@ export class OrderRejected extends EventData<CompleteOrder> {
   }
 }
 
+export class OrderPreInvoiceSent extends EventData<CompleteOrder> {
+  static eventName: string = "OrderPreInvoiceSent";
+  constructor(data: CompleteOrder) {
+    super(data, OrderPreInvoiceSent.eventName);
+  }
+}
+
+export class OrderPending extends EventData<CompleteOrder> {
+  static eventName: string = "OrderPending";
+  constructor(data: CompleteOrder) {
+    super(data, OrderPending.eventName);
+  }
+}
+
 export class EntityCreated extends EventData<any> {
   static eventName: string = "EntityCreated";
   constructor(data: any) {

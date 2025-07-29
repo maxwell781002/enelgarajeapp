@@ -12,6 +12,8 @@ import { clearWhere } from "../lib/util-query";
 import {
   OrderCreated,
   OrderPayed,
+  OrderPending,
+  OrderPreInvoiceSent,
   OrderRejected,
   OrderSend,
 } from "../lib/event-emitter/events";
@@ -22,6 +24,18 @@ export const statusColors: Record<OrderStatus, string> = {
   SEND: "bg-blue-500",
   PAYED: "bg-purple-500",
   REJECTED: "bg-red-500",
+  PRE_INVOICE_SENT: "bg-green-500",
+  PENDING: "bg-orange-500",
+};
+
+export const STATUS_OPTIONS = {
+  NORMAL: [OrderStatus.SEND, OrderStatus.PAYED, OrderStatus.REJECTED],
+  WITH_WHOLESALE: [
+    OrderStatus.SEND,
+    OrderStatus.PRE_INVOICE_SENT,
+    OrderStatus.PAYED,
+    OrderStatus.REJECTED,
+  ],
 };
 
 const transitions: Record<OrderStatus, [OrderStatus, string][]> = {
@@ -35,6 +49,8 @@ const transitions: Record<OrderStatus, [OrderStatus, string][]> = {
     [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
   ],
   [OrderStatus.CREATED]: [],
+  [OrderStatus.PRE_INVOICE_SENT]: [],
+  [OrderStatus.PENDING]: [],
 };
 export const nextStatuses = (status: OrderStatus) => {
   return transitions[status].map((item) => item[0]);
@@ -61,10 +77,8 @@ export class OrderRepository extends BaseRepository<
     super(OrderModel, "order");
   }
 
-  getStatus() {
-    return Object.entries(OrderStatus).filter(
-      ([key]) => key !== OrderStatus.CREATED,
-    );
+  getStatus(key: keyof typeof STATUS_OPTIONS = "NORMAL"): [string, string][] {
+    return STATUS_OPTIONS[key].map((key) => [key, key]);
   }
 
   orderToChange(currentStatus: OrderStatus) {
@@ -89,6 +103,8 @@ export class OrderRepository extends BaseRepository<
         [OrderStatus.PAYED]: OrderPayed,
         [OrderStatus.REJECTED]: OrderRejected,
         [OrderStatus.CREATED]: OrderCreated,
+        [OrderStatus.PRE_INVOICE_SENT]: OrderPreInvoiceSent,
+        [OrderStatus.PENDING]: OrderPending,
       };
       await Dispatcher.emit(new events[status](currentOrder as CompleteOrder));
       return order;

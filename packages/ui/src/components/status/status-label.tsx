@@ -5,6 +5,8 @@ export const statusLabel = (status: string) => {
     PAYED: "Pagado",
     REJECTED: "Rechazado",
     TODOS: "Todos",
+    PRE_INVOICE_SENT: "Pre-invoice enviado",
+    PENDING: "Pendiente",
   }[status];
 };
 

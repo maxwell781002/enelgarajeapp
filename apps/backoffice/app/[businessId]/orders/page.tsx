@@ -39,7 +39,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         filter={
           <Filter
             onChange={handleSearch}
-            options={orderRepository.getStatus()}
+            options={orderRepository.getStatus("WITH_WHOLESALE")}
           />
         }
       >
