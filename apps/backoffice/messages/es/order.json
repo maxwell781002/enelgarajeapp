@@ -9,6 +9,9 @@
   },
   "OrderDetailBack": {
     "cardGeneral": "Información General",
+    "backOrders": "Ir a órdenes",
+    "backOrder": "Ir a la orden",
+    "btnCreatePreInvoice": "Crear prefactura",
     "identifier": "Order Nro",
     "createdAt": "Creado el",
     "deliveryDate": "Fecha y hora de entrega",
