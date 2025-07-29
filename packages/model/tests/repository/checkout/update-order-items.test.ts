@@ -10,15 +10,17 @@ import {
 import { orderRepository } from "../../../repositories/order";
 import {
   createCollaboratorOrder,
+  createWebOrder,
   updateOrderItems,
 } from "../../../repository/checkout";
 import { TCustomerForm } from "../../../validation/customer";
 import { TCollaboratorTicketForm } from "../../../validation/collaborator-ticket";
-import { Currency } from "../../../types/enums";
+import { Currency, OrderStatus } from "../../../types/enums";
 import { FormOfPaymentType } from "../../../prisma/generated/client";
 import { productRepository } from "../../../repositories/product";
 import { CompleteOrder } from "../../../prisma/zod";
 import { BadRequestError } from "../../../errors/bad-request";
+import { AddressType } from "../../../validation/user";
 
 const auth = vi.hoisted(() => ({
   auth: vi.fn(),
@@ -179,5 +181,72 @@ describe("updateOrderItems", () => {
       business.id,
     )) as CompleteOrder;
     expect(oldOrder.changedByOrderId === null).toBe(true);
+  });
+
+  it("good order pre-invoice", async () => {
+    const order = await createWebOrder(business, user, {
+      phone: "5353024895",
+      name: "test",
+      addressType: AddressType.newAddress,
+      isWholesale: true,
+      cartItems: [
+        {
+          productId: product1.id,
+          quantity: 1,
+          customPrice: 10,
+        },
+        {
+          productId: product2.id,
+          quantity: 1,
+        },
+      ],
+      wantDomicile: true,
+      [AddressType.newAddress]: {
+        name: "Peter Parker",
+        address: "123 Main St",
+        city: "city",
+        state: "state",
+        reference: "12345",
+        neighborhoodId: neighborhood.id,
+      },
+    });
+    const entityProp1 = await productRepository.getById(product1.id);
+    expect(entityProp1.stock).toBe(1);
+    const entityProp2 = await productRepository.getById(product2.id);
+    expect(entityProp2.stock).toBe(1);
+    const newOrder = (await updateOrderItems(
+      order.id,
+      order.items.map((item) => ({ ...item, customPrice: 6 })),
+      business.id,
+      "pre-invoice note",
+      {
+        status: OrderStatus.PRE_INVOICE_SENT,
+      },
+    )) as CompleteOrder;
+    const entityProp1After = await productRepository.getById(product1.id);
+    expect(entityProp1After.stock).toBe(1);
+    const entityProp2After = await productRepository.getById(product2.id);
+    expect(entityProp2After.stock).toBe(1);
+    const oldOrder = (await orderRepository.getOrderByIdAndBusinessId(
+      order.id,
+      business.id,
+    )) as CompleteOrder;
+    expect(oldOrder.changedByOrderId === newOrder.id).toBe(true);
+    expect(newOrder.items.length).toBe(2);
+    expect(oldOrder.items.length).toBe(2);
+    expect(oldOrder.userId === user.id).toBe(true);
+    expect(newOrder.userId === user.id).toBe(true);
+    expect(newOrder.shipping).toBe(100);
+    expect(newOrder.total).toBe(112);
+    expect(newOrder.commission).toBe(0);
+    expect(newOrder.businessProfit).toBe(0); // TODO: I think that will be good calculate this value.
+    expect(newOrder.hasShipping).toBe(true);
+    expect(newOrder.businessId).toBe(oldOrder.businessId);
+    expect(newOrder.isCollaborator).toBe(oldOrder.isCollaborator);
+    expect(newOrder.currency).toBe(oldOrder.currency);
+    expect((newOrder as any).ticketId).toBe((oldOrder as any).ticketId);
+    expect(newOrder.changedOrderNote).toBe("pre-invoice note");
+    expect(newOrder.status).toBe(OrderStatus.PRE_INVOICE_SENT);
+    expect(newOrder.isWholesale).toBeTruthy();
   });
 });

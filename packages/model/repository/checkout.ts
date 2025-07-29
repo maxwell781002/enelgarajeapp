@@ -45,6 +45,11 @@ const calculateProductCommission = (
   quantity: number,
   customPrice: number = 0,
 ): [number, number, number] => {
+  //Si no es colaborador y tiene custom price es porque le estoy poniendo un precio custom porque es una prefactura.
+  //Quizás en el futuro se pueda mejorar esta lógica, porque siento que estoy mezclando cosas.
+  if (!isCollaborator) {
+    return [0, 0, (customPrice || product._price) * quantity];
+  }
   if (customPrice > 0 && customPrice <= product._price) {
     throw new BadRequestError("error_price_custom");
   }
@@ -289,6 +294,7 @@ export const updateOrderItems = async (
   productItems: CompleteOrderProduct[],
   businessId: string,
   changedOrderNote: string = "",
+  otherOrderData = {},
 ) => {
   const order = await getOrderByIdAndBusinessId(orderId, businessId);
   if (!order || order.changedByOrderId) {
@@ -326,6 +332,7 @@ export const updateOrderItems = async (
       businessProfit,
       productsDetails: products,
       changedOrderNote,
+      ...otherOrderData,
     };
     const { address } = order?.orderAddress || {};
     if (address) {

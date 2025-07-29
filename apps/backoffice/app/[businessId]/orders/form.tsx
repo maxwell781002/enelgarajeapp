@@ -76,7 +76,7 @@ export default function OrderProductForm({
         changedOrderNote,
       );
       if (result?.error) {
-        return setShopCartHasError(true);
+        return setShopCartHasError(true); // TODO: The backend is returning different types of error messages. This "error_price_custom" is one of them.
       }
       return redirect(`/${order.businessId}/orders/${result.id}`);
     });
