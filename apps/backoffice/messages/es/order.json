@@ -49,7 +49,13 @@
     "cardMessenger": "Mensajero",
     "noMessengerAssigned": "Mensajero no asignado",
     "selectMessenger": "Seleccionar mensajero",
-    "subTotal": "Subtotal"
+    "subTotal": "Subtotal",
+    "editTitle": "Editar pedido",
+    "editOrderNotePlaceholder": "Escriba la razón del cambio",
+    "preInvoiceTitle": "Crear prefactura",
+    "preInvoiceNotePlaceholder": "Escriba una nota (opcional)",
+    "editBtnUpdate": "Actualizar",
+    "preInvoiceBtnUpdate": "Crear prefactura"
   },
   "OrderUser": {
     "phSearch": "Buscar por identificador.",
@@ -67,12 +73,9 @@
       "cancel": "Cancelar",
       "continue": "Eliminar"
     },
-    "title": "Editar pedido",
     "errorProductEmpty": "No puede borrar todos los productos. Cancele la orden si no desea que se realice.",
-    "btnUpdate": "Actualizar",
     "btnUpdateLoading": "Actualizando...",
     "restore": "Restaurar",
-    "orderNotePlaceholder": "Escriba la razón del cambio",
     "orderNoteLabel": "Razón del cambio",
     "errors": {
       "has_out_of_stock": "Uno o más productos no tiene stock suficiente."
