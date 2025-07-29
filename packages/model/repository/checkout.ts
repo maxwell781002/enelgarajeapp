@@ -267,6 +267,7 @@ export const createOrder = async (
     userId: user.id,
     productsDetails: products,
     isCollaborator,
+    isWholesale: !!data.cartItems,
   };
   if (data.referredById) {
     order.referredById = data.referredById;

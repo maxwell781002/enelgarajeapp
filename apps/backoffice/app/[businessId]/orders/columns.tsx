@@ -79,6 +79,17 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
+    header: "¿Es mayorista?",
+    accessorKey: "isWholesale",
+    cell: ({
+      cell: { value: isWholesale, row },
+    }: {
+      cell: { value: string; row: any };
+    }) => {
+      return <BooleanValue value={!!isWholesale} />;
+    },
+  },
+  {
     header: "Estado",
     accessorKey: "status",
     cell: ({

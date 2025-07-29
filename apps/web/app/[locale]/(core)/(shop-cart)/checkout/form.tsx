@@ -23,9 +23,10 @@ import { CompleteAddress } from "@repo/model/zod/address";
 import { CompleteBusiness } from "@repo/model/zod/business";
 import { Switch } from "@repo/ui/components/ui/switch";
 import CheckoutPage from "@repo/ui/components/shop-cart/checkout/index";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useStore } from "@repo/ui/stores/index";
+import { IS_WHOLESALE, wholesaleContext } from "apps/web/context/wholesale";
 
 type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
@@ -43,9 +44,13 @@ export default function CheckoutForm({
   business,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
+  const { wholesale } = useContext(wholesaleContext);
   const form = useForm<TWebShoppingCartSchema>({
     resolver: zodResolver(WebShoppingCartSchema),
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      isWholesale: wholesale === IS_WHOLESALE.YES,
+    },
   });
   const requestAddress = form.watch("businessRequestAddress");
   const wantDomicile = form.watch("wantDomicile");
