@@ -13,21 +13,23 @@ import { OrderStatus } from "@repo/model/types/enums";
 type OrderButtonsProps = {
   order: CompleteOrder;
   businessId: string;
+  changeStatus: (status: string) => Promise<void>;
+  options: [string, string][];
 };
 
-async function NormalOrders({ order, businessId }: OrderButtonsProps) {
+async function NormalOrders({
+  order,
+  businessId,
+  changeStatus,
+  options,
+}: OrderButtonsProps) {
   const t = await getTranslations("OrderDetailBack");
-  const changeStatus = async (status: string) => {
-    "use server";
-    await orderRepository.changeStatus(order.id, status as any);
-    revalidatePath(`/${businessId}/orders/${order.id}`);
-  };
   return (
     <>
       <ChangeStatus
         status={order.status}
         onChange={changeStatus}
-        options={orderRepository.orderToChange(order.status)}
+        options={options}
         order={order}
       />
       <ButtonDownloadFile
@@ -46,7 +48,12 @@ async function NormalOrders({ order, businessId }: OrderButtonsProps) {
   );
 }
 
-async function WholesaleOrders({ order, businessId }: OrderButtonsProps) {
+async function WholesaleOrders({
+  order,
+  businessId,
+  changeStatus,
+  options,
+}: OrderButtonsProps) {
   const t = await getTranslations("OrderDetailBack");
   if (order.status === OrderStatus.SEND) {
     return (
@@ -58,17 +65,48 @@ async function WholesaleOrders({ order, businessId }: OrderButtonsProps) {
     );
   }
   return (
-    <ButtonDownloadFile
-      url={`/api/order-pdf/${order.id}`}
-      label={t("btnDownloadInvoice")}
-      fileName={order.identifier ?? ""}
-    />
+    <>
+      <ChangeStatus
+        status={order.status}
+        onChange={changeStatus}
+        options={options}
+        order={order}
+      />
+      <ButtonDownloadFile
+        url={`/api/order-pdf/${order.id}`}
+        label={t("btnDownloadInvoice")}
+        fileName={order.identifier ?? ""}
+      />
+    </>
   );
 }
 
-export default function OrderButtons({ order, businessId }: OrderButtonsProps) {
+export default function OrderButtons({
+  order,
+  businessId,
+}: Omit<OrderButtonsProps, "changeStatus" | "options">) {
+  const changeStatus = async (status: string) => {
+    "use server";
+    await orderRepository.changeStatus(order.id, status as any);
+    revalidatePath(`/${businessId}/orders/${order.id}`);
+  };
+  const options = orderRepository.orderToChange(order.status);
   if (order.isWholesale) {
-    return <WholesaleOrders order={order} businessId={businessId} />;
+    return (
+      <WholesaleOrders
+        order={order}
+        businessId={businessId}
+        changeStatus={changeStatus}
+        options={options}
+      />
+    );
   }
-  return <NormalOrders order={order} businessId={businessId} />;
+  return (
+    <NormalOrders
+      order={order}
+      businessId={businessId}
+      changeStatus={changeStatus}
+      options={options}
+    />
+  );
 }

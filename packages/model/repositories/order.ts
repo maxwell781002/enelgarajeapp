@@ -48,9 +48,17 @@ const transitions: Record<OrderStatus, [OrderStatus, string][]> = {
   [OrderStatus.REJECTED]: [
     [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
   ],
-  [OrderStatus.CREATED]: [],
-  [OrderStatus.PRE_INVOICE_SENT]: [],
-  [OrderStatus.PENDING]: [],
+  [OrderStatus.CREATED]: [
+    [OrderStatus.CREATED, statusColors[OrderStatus.CREATED]],
+  ],
+  [OrderStatus.PRE_INVOICE_SENT]: [
+    [OrderStatus.PRE_INVOICE_SENT, statusColors[OrderStatus.PRE_INVOICE_SENT]],
+    [OrderStatus.PAYED, statusColors[OrderStatus.PAYED]],
+    [OrderStatus.REJECTED, statusColors[OrderStatus.REJECTED]],
+  ],
+  [OrderStatus.PENDING]: [
+    [OrderStatus.PENDING, statusColors[OrderStatus.PENDING]],
+  ],
 };
 export const nextStatuses = (status: OrderStatus) => {
   return transitions[status].map((item) => item[0]);
