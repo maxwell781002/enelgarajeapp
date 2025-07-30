@@ -307,7 +307,6 @@ export class OrderRepository extends BaseRepository<
       businessId,
       position: newPosition,
       identifier: this.generateIdentifier(new Date(), newPosition),
-      sentAt: new Date(),
       items: {
         create: productItems,
       },
