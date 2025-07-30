@@ -8,6 +8,7 @@ import Link from "next/link";
 import ShoppingCartHeader from "@repo/ui/components/shop-cart/shopping-cart-header";
 import User from "@repo/ui/components/user";
 import { allCategories } from "@repo/model/repository/category";
+import WholesaleMessage from "./wholesale-message";
 
 export async function Header({
   business,
@@ -49,6 +50,7 @@ export async function Header({
           </div>
         </div>
       </nav>
+      <WholesaleMessage />
     </header>
   );
 }

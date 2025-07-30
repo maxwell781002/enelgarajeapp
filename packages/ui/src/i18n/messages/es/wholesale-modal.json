@@ -1,0 +1,14 @@
+{
+  "Wholesale": {
+    "cancelText": "No",
+    "title": "¿Vas a comprar de forma mayorista?",
+    "confirmText": "Si, comprar como mayorista",
+    "processing": "Procesando...",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos",
+    "text": "Este sistema permite dos tipos de compra, venta mayorista y venta minorista. Selecciones cómo desea hacer la compra.\nSi la compra la va a ser de forma mayorista, los precios que se muestran en los productos son referenciales. Una vez enviada la orden el negocio le hará una cotización por todos los productos incluidos en la orden.\nLa cotización solo se hará si usted es un cliente mayorista registrado en el negocio. En caso de no estar registrado el negocio primero hará el proceso de verificación y registro y luego se le enviará la cotización.",
+    "messageHeader": "Usted está haciendo compra en modo mayorista.",
+    "deactivateWholesale": "Deshabilitar mayorista",
+    "activateWholesale": "Habilitar mayorista"
+  }
+}

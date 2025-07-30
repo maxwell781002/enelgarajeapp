@@ -1,10 +1,11 @@
 import { getOrderByIdAndBusinessId } from "@repo/model/repository/order";
 import BackPage from "@repo/ui/components/back-page";
-import OrderEditForm from "./form";
+import OrderEditForm from "../../form";
 import { CompleteOrder } from "@repo/model/zod/order";
 import { CompleteOrderProduct } from "@repo/model/zod/orderproduct";
 import { updateOrderItems } from "@repo/model/repository/checkout";
 import { BadRequestError } from "@repo/model/errors/bad-request";
+import { getTranslations } from "next-intl/server";
 
 type OrderEditPageProps = {
   params: Promise<{
@@ -16,6 +17,7 @@ type OrderEditPageProps = {
 export default async function OrderEditPage({ params }: OrderEditPageProps) {
   const { id, businessId } = await params;
   const order = await getOrderByIdAndBusinessId(id, businessId);
+  const t = await getTranslations("OrderDetailBack");
   const updateOrderItemsAction = async (
     items: CompleteOrderProduct[],
     changedOrderNote: string,
@@ -31,10 +33,13 @@ export default async function OrderEditPage({ params }: OrderEditPageProps) {
     }
   };
   return (
-    <BackPage href={`/${businessId}/orders/${id}`} urlTitle="Ir a la orden">
+    <BackPage href={`/${businessId}/orders/${id}`} urlTitle={t("backOrder")}>
       <OrderEditForm
         order={order as CompleteOrder}
         action={updateOrderItemsAction}
+        title={t("editTitle")}
+        notePlaceholder={t("editOrderNotePlaceholder")}
+        btnActionTitle={t("editBtnUpdate")}
       />
     </BackPage>
   );

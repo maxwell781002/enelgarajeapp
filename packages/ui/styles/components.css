@@ -143,7 +143,7 @@ textarea {
   @apply border-gray-200;
 }
 
-div[role="alertdialog"] {
+div[role="alertdialog"], div[role="dialog"] {
   @apply bg-white;
 }
 

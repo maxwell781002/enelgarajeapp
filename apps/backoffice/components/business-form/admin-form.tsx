@@ -51,6 +51,23 @@ export default function BusinessAdminForm({
       />
       <FormField
         control={form.control}
+        name="hasWholesaleMode"
+        render={({ field, fieldState: { error } }: any) => (
+          <FormItem>
+            <FormLabel>{t("lbHasWholesaleMode")}</FormLabel>
+            <FormControl>
+              <Switch
+                {...field}
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <FormMessage>{!!error?.message && t(error?.message)}</FormMessage>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
         name="plan"
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
