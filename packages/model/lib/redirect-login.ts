@@ -4,23 +4,17 @@ const GLOBAL_PARAM_NAME = "globalRedirectAfterLogin";
 const ORIGIN_HOST = "originHost";
 const DOMAINS_TO_REDIRECT = [".enelgaraje.com"];
 
-export const isDomainToRedirect = (domain: string) => {
-  return DOMAINS_TO_REDIRECT.some((domainToRedirect) =>
-    new RegExp(domainToRedirect).test(domain),
+export const isDomainToRedirect = (domain: string | null | undefined) => {
+  return (
+    domain &&
+    DOMAINS_TO_REDIRECT.some((domainToRedirect) =>
+      new RegExp(domainToRedirect).test(domain),
+    )
   );
-};
-
-const processCustomDomains = (session: any, request: NextRequest) => {
-  if (session && request.nextUrl.pathname.includes("/auth/login")) {
-    return request.nextUrl.searchParams.get("redirectAfterLogin") || "/";
-  }
 };
 
 export const redirectLogin = (session: any, request: NextRequest) => {
   const currentHost = request.headers.get("x-forwarded-host");
-  if (currentHost && !isDomainToRedirect(currentHost)) {
-    return processCustomDomains(session, request);
-  }
   const isLogin = request.nextUrl.pathname.includes("/login");
   const loginRedirect = new URL(process.env.AUTH_LOGIN_REDIRECT || "");
   const isGlobalLogin = currentHost === loginRedirect.host;

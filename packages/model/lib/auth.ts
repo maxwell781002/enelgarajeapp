@@ -5,6 +5,7 @@ import prisma from "@repo/model/prisma/prisma-client";
 import { businessRepository } from "@repo/model/repositories/business";
 import { CompleteUser } from "../prisma/zod";
 import { NextRequest } from "next/server";
+import { isDomainToRedirect } from "./redirect-login";
 
 export type SecurityUser = {
   businessIds: string[];
@@ -28,34 +29,74 @@ const getUserByAccount = async (provider_providerAccountId: any) => {
 };
 
 const SESSION_COOKIE_NAME = `__Secure-next${process.env.AUTH_LOGIN_SESSION_COOKIE_PREFIX || ""}-auth.session-token`;
+const otherApp = [
+  "backoffice.enelgaraje.com",
+  "https://gestores.enelgaraje.com/",
+];
 
-const config = {
-  providers: [Google],
-  adapter: { ...adapter, getUserByAccount },
-  session: { strategy: "jwt" },
-  cookies: {
-    sessionToken: {
-      name: SESSION_COOKIE_NAME,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        domain: process.env.NEXT_PUBLIC_DOMAIN,
+const config = async (request: NextRequest | undefined) => {
+  const currentUrl = request?.headers.get("x-forwarded-host") || "";
+  const domain =
+    isDomainToRedirect(currentUrl) && !otherApp.includes(currentUrl)
+      ? process.env.NEXT_PUBLIC_DOMAIN
+      : undefined;
+  return {
+    providers: [Google],
+    adapter: { ...adapter, getUserByAccount },
+    session: { strategy: "jwt" },
+    cookies: {
+      sessionToken: {
+        name: SESSION_COOKIE_NAME,
+        options: {
+          httpOnly: true,
+          sameSite: "lax",
+          path: "/",
+          secure: true,
+          domain,
+        },
       },
     },
-  },
-  callbacks: {
-    async session({ session, token }: any) {
-      return { ...session, user: token };
+    callbacks: {
+      async session({ session, token }: any) {
+        return { ...session, user: token };
+      },
+      async jwt({ token, user }: any) {
+        return {
+          ...user,
+          ...token,
+        };
+      },
     },
-    async jwt({ token, user }: any) {
-      return {
-        ...user,
-        ...token,
-      };
-    },
-  },
-} satisfies NextAuthConfig;
+  } satisfies NextAuthConfig;
+};
+
+// const config = {
+//   providers: [Google],
+//   adapter: { ...adapter, getUserByAccount },
+//   session: { strategy: "jwt" },
+//   cookies: {
+//     sessionToken: {
+//       name: SESSION_COOKIE_NAME,
+//       options: {
+//         httpOnly: true,
+//         sameSite: "lax",
+//         path: "/",
+//         secure: true,
+//         domain: process.env.NEXT_PUBLIC_DOMAIN,
+//       },
+//     },
+//   },
+//   callbacks: {
+//     async session({ session, token }: any) {
+//       return { ...session, user: token };
+//     },
+//     async jwt({ token, user }: any) {
+//       return {
+//         ...user,
+//         ...token,
+//       };
+//     },
+//   },
+// } satisfies NextAuthConfig;
 
 export const { handlers, signIn, signOut, auth }: any = NextAuth(config);
