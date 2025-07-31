@@ -7,6 +7,7 @@ import {
 } from "@repo/model/repository/user";
 import { signOut } from "@repo/model/lib/auth";
 import { BtnServerAction } from "@repo/ui/components/btn-server-action";
+import { cn } from "@repo/ui/lib/utils";
 
 export default async function Page() {
   const whatsappNumber = process.env.PHONE_ADMIN_CONTACT as string;
@@ -22,6 +23,15 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
+      <div className="flex items-center gap-2 flex-col">
+        <img
+          src={user.image as string}
+          referrerPolicy="no-referrer"
+          alt={"user name"}
+          className={cn("aspect-square rounded-md object-cover h-15 w-15")}
+        />
+        {user?.name}
+      </div>
       <Store className="w-16 h-16 mb-6 text-primary" />
       {!hasBusiness && (
         <>

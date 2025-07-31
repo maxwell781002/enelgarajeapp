@@ -19,14 +19,6 @@ export default async function middleware(request: NextRequest) {
   const currentHost = request.headers.get("x-forwarded-host") || "";
   const session = await auth();
   const globalLogin = redirectLogin(session, request);
-  console.log(
-    "middleware",
-    session,
-    currentHost,
-    isDomainToRedirect(currentHost),
-    process.env.NEXT_PUBLIC_DOMAIN,
-    process.env.AUTH_LOGIN_SESSION_COOKIE_PREFIX,
-  );
   if (globalLogin && isDomainToRedirect(currentHost)) {
     console.log("globalLogin", globalLogin);
     return NextResponse.redirect(new URL(globalLogin, request.url));
