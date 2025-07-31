@@ -3,11 +3,14 @@ import WhatsappButton from "@repo/ui/components/whatsapp-button";
 import { getTranslations } from "next-intl/server";
 import { signOut } from "@repo/model/lib/auth";
 import { BtnServerAction } from "@repo/ui/components/btn-server-action";
+import { getCurrentUser } from "@repo/model/repository/user";
+import { cn } from "@repo/ui/lib/utils";
 
 export default async function Page403() {
   const whatsappNumber = process.env.PHONE_ADMIN_CONTACT as string;
   const t = await getTranslations("403Page");
   const whatsappMessage = encodeURIComponent(t("textChat"));
+  const user = await getCurrentUser();
   const logoutAction = async () => {
     "use server";
     return signOut({ redirectTo: "/" });
@@ -15,6 +18,15 @@ export default async function Page403() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 py-8">
       <div className="text-center">
+        <div className="flex items-center gap-2 flex-col">
+          <img
+            src={user.image as string}
+            referrerPolicy="no-referrer"
+            alt={"user name"}
+            className={cn("aspect-square rounded-md object-cover h-15 w-15")}
+          />
+          {user?.name}
+        </div>
         <ShieldX
           className="mx-auto h-24 w-24 text-red-500 mb-8"
           aria-hidden="true"
