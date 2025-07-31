@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { auth, redirectLogin } from "@repo/model/lib/auth";
+import { auth } from "@repo/model/lib/auth";
+import { redirectLogin } from "@repo/model/lib/redirect-login";
 
 const locales = ["es"];
 const defaultLocale = "es";
