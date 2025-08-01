@@ -11,7 +11,7 @@ export default function UserTable(
       {...props}
       columns={columns}
       emptyTitle="No hay gestores"
-      emptyDescription="No tienes registrado ningun gestor todavía."
+      emptyDescription="No tienes registrado ningún gestor todavía."
     />
   );
 }

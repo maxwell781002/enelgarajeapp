@@ -10,8 +10,8 @@ export default function CustomersTable(
     <MyTable
       {...props}
       columns={columns}
-      emptyTitle="No hay gestores"
-      emptyDescription="No tienes registrado ningun gestor todavía."
+      emptyTitle="No hay clientes"
+      emptyDescription="No tienes registrado ningún cliente todavía."
     />
   );
 }
