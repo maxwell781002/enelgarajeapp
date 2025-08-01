@@ -1,7 +1,10 @@
 import BackPage from "@repo/ui/components/back-page";
 import { getTranslations } from "next-intl/server";
 import PaymentGatewayForm from "./form";
-import { getPaymentGateways } from "@repo/model/repository/payment-gateway";
+import {
+  getPaymentGateways,
+  savePaymentGateways,
+} from "@repo/model/repository/payment-gateway";
 import { getPaymentGatewayDefaultValues } from "@repo/payment-method/factory-payment-gateway";
 import { CompletePaymentGateway } from "packages/model/prisma/zod";
 
@@ -18,8 +21,7 @@ export default async function PaymentGateway({
   );
   const action = async (object: any) => {
     "use server";
-    console.log(object);
-    return object;
+    return savePaymentGateways(object);
   };
   return (
     <BackPage href={`/${businessId}`} urlTitle={t("backTitle")}>

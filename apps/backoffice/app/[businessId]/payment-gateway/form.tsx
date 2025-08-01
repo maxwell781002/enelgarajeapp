@@ -40,7 +40,7 @@ export default function PaymentGatewayForm({
   const { form, onSubmit, saving } = useFormProcess({
     resolver,
     action,
-    defaultValues: { forms: defaultValues },
+    defaultValues: { items: defaultValues, businessId },
     onSuccess: () =>
       toast({
         title: t("paymentGatewayUpdated"),
@@ -48,7 +48,7 @@ export default function PaymentGatewayForm({
   });
   const { fields } = useFieldArray({
     control: form.control,
-    name: "forms",
+    name: "items",
   });
 
   return (
@@ -59,7 +59,7 @@ export default function PaymentGatewayForm({
             <RenderItemForm
               form={form}
               type={(field as any).type}
-              name={`forms.${index}`}
+              name={`items.${index}`}
             />
           </div>
         ))}

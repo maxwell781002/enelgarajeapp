@@ -12,3 +12,7 @@ export const getPaymentGateways = app(
     return paymentGatewayRepository.findByBusinessId(businessId);
   },
 );
+
+export const savePaymentGateways = app(async (ctx) => {
+  console.log(JSON.stringify(ctx, null, 2));
+});
