@@ -11,18 +11,20 @@ import { Switch } from "@repo/ui/components/ui/switch";
 
 export type BaseGatewayAdminFormType = {
   form: any;
+  name: string;
 } & PropsWithChildren;
 
 export default function BaseGatewayAdminForm({
   children,
   form,
+  name,
 }: BaseGatewayAdminFormType) {
-  const t = useTranslations("PaymentMethod");
+  const t = useTranslations("PaymentGateway");
   return (
     <>
       <FormField
         control={form.control}
-        name="active"
+        name={`${name}.active`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbActive")}</FormLabel>

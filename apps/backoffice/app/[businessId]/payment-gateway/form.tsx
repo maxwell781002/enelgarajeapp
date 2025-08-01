@@ -8,12 +8,21 @@ import { useTranslations } from "next-intl";
 import { Form } from "@repo/ui/components/ui/form";
 import { useFieldArray } from "react-hook-form";
 import { getAdminForm, TKey } from "@repo/payment-method/ui/admin/index";
+import { Button } from "@repo/ui/components/ui/button";
 
 const resolver = zodResolver(paymentGatewaysSchema);
 
-const RenderItemForm = ({ type, form }: { type: TKey; form: any }) => {
+const RenderItemForm = ({
+  type,
+  form,
+  name,
+}: {
+  type: TKey;
+  form: any;
+  name: string;
+}) => {
   const Component = getAdminForm(type);
-  return <Component form={form} />;
+  return <Component form={form} name={name} />;
 };
 
 export default function PaymentGatewayForm({
@@ -27,27 +36,34 @@ export default function PaymentGatewayForm({
 }) {
   const t = useTranslations("PaymentGateway");
   const { toast } = useToast();
+
   const { form, onSubmit } = useFormProcess({
     resolver,
     action,
     defaultValues,
     onSuccess: () =>
       toast({
-        title: defaultValues?.id ? t("categoryUpdated") : t("categoryCreated"),
+        title: t("paymentGatewayUpdated"),
       }),
   });
   const { fields } = useFieldArray({
     control: form.control,
     name: "forms",
   });
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {fields.map((field, index) => (
           <div key={field.id}>
-            <RenderItemForm form={form} type={(field as any).type} />
+            <RenderItemForm
+              form={form}
+              type={(field as any).type}
+              name={`forms.${index}`}
+            />
           </div>
         ))}
+        <Button type="submit">{t("btnSubmit")}</Button>
       </form>
     </Form>
   );

@@ -3,7 +3,7 @@ import { BasePaymentGateway } from "./base";
 
 export const TropipaySchema = BasePaymentGateway.extend({
   data: z.object({
-    clientId: z.string(),
-    clientSecret: z.string(),
+    clientId: z.string().min(1, { message: "required" }),
+    clientSecret: z.string().min(1, { message: "required" }),
   }),
 });

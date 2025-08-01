@@ -11,14 +11,16 @@ import { Input } from "@repo/ui/components/ui/input";
 
 export default function TropipayAdminForm({
   form,
+  name,
   ...rest
 }: Omit<BaseGatewayAdminFormType, "children">) {
-  const t = useTranslations("PaymentMethod");
+  const t = useTranslations("PaymentGateway");
+  const data = form.watch("data");
   return (
-    <BaseGatewayAdminForm form={form} {...rest}>
+    <BaseGatewayAdminForm form={form} name={name} {...rest}>
       <FormField
         control={form.control}
-        name="clientId"
+        name={`${name}.data.clientId`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbClientId")}</FormLabel>
@@ -31,7 +33,7 @@ export default function TropipayAdminForm({
       />
       <FormField
         control={form.control}
-        name="clientSecret"
+        name={`${name}.data.clientSecret`}
         render={({ field, fieldState: { error } }: any) => (
           <FormItem>
             <FormLabel>{t("lbClientSecret")}</FormLabel>
