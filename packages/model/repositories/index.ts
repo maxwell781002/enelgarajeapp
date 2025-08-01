@@ -19,6 +19,7 @@ import { collaboratorTicketRepository } from "./collaborator-ticket";
 import { businessSiteRepository } from "./business-site";
 import { whatsappConnectRepository } from "./whatsapp-connect";
 import { externalSectionRepository } from "./external-section";
+import { paymentGatewayRepository } from "./payment-gateway";
 
 export default {
   [orderRepository.getRepositoryModelName()]: orderRepository,
@@ -35,6 +36,7 @@ export default {
   [neighborhoodRepository.getRepositoryModelName()]: neighborhoodRepository,
   [customerRepository.getRepositoryModelName()]: customerRepository,
   [businessSiteRepository.getRepositoryModelName()]: businessSiteRepository,
+  [paymentGatewayRepository.getRepositoryModelName()]: paymentGatewayRepository,
   [collaboratorTicketRepository.getRepositoryModelName()]:
     collaboratorTicketRepository,
   [collaboratorInvoiceRepository.getRepositoryModelName()]:
