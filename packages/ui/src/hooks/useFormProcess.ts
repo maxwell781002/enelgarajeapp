@@ -1,3 +1,5 @@
+"use client";
+
 import { FieldValues, useForm } from "react-hook-form";
 import { TErrors, setErrors } from "@repo/ui/lib/form";
 import { isFile } from "@repo/model/lib/utils";

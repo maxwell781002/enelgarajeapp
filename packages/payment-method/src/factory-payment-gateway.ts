@@ -1,5 +1,6 @@
 import { QvapayGateway, TropipayGateway } from "./payment-gateway";
 
+// TODO: use import { PaymentGatewayType } from "@repo/model/types/enums"; as index
 const paymentGateway = {
   tropipay: TropipayGateway,
   qvapay: QvapayGateway,

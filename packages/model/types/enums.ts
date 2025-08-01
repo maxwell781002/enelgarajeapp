@@ -3,6 +3,7 @@ import {
   Currency as BaseCurrency,
   FormOfPaymentType as BaseFormOfPaymentType,
   OrderStatus as BaseOrderStatus,
+  PaymentGatewayType as BasePaymentGatewayType,
   UserBusinessType as BaseUserBusinessType,
   WhatsappConnectStatus as BaseWhatsappConnectStatus,
 } from "../prisma/generated/client";
@@ -24,3 +25,6 @@ export type TWhatsappConnectStatus = keyof typeof WhatsappConnectStatus;
 
 export const OrderStatus = BaseOrderStatus;
 export type TOrderStatus = keyof typeof OrderStatus;
+
+export const PaymentGatewayType = BasePaymentGatewayType;
+export type TPaymentGatewayType = keyof typeof PaymentGatewayType;

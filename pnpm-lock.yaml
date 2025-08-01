@@ -48,6 +48,9 @@ importers:
       '@repo/model':
         specifier: workspace:*
         version: link:../../packages/model
+      '@repo/payment-method':
+        specifier: workspace:*
+        version: link:../../packages/payment-method
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -426,6 +429,12 @@ importers:
       next:
         specifier: 15.3.1
         version: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next-intl:
+        specifier: ^4.1.0
+        version: 4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
 
   packages/typescript-config: {}
 
@@ -13090,6 +13099,16 @@ snapshots:
       use-intl: 4.1.0(react@19.1.0)
     optionalDependencies:
       typescript: 5.5.4
+
+  next-intl@4.1.0(next@15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.2):
+    dependencies:
+      '@formatjs/intl-localematcher': 0.5.4
+      negotiator: 1.0.0
+      next: 15.3.1(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      use-intl: 4.1.0(react@19.1.0)
+    optionalDependencies:
+      typescript: 5.8.2
 
   next-share@0.27.0(react@19.1.0):
     dependencies:
