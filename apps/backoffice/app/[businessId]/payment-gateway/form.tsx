@@ -22,7 +22,7 @@ const RenderItemForm = ({
   name: string;
 }) => {
   const Component = getAdminForm(type);
-  return <Component form={form} name={name} />;
+  return <Component form={form} name={name} type={type} />;
 };
 
 export default function PaymentGatewayForm({

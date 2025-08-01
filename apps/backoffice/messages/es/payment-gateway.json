@@ -8,6 +8,10 @@
     "phClientId": "Id del cliente",
     "lbClientSecret": "Secret del cliente",
     "phClientSecret": "Secret del cliente",
-    "paymentGatewayUpdated": "Medio de pago actualizados"
+    "paymentGatewayUpdated": "Medio de pago actualizados",
+    "titles": {
+      "TROPIPAY": "Tropipay",
+      "QVAPAY": "Qvapay"
+    }
   }
 }

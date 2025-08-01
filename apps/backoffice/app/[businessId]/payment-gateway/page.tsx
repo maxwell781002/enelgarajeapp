@@ -9,6 +9,10 @@ const defaultValues = {
       type: PaymentGatewayType.TROPIPAY,
       data: { clientId: "", clientSecret: "" },
     },
+    {
+      type: PaymentGatewayType.QVAPAY,
+      data: { clientId: "", clientSecret: "" },
+    },
   ],
 };
 
