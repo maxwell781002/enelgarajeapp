@@ -12,6 +12,10 @@ export class PaymentGatewayRepository extends BaseRepository<
   constructor() {
     super(PaymentGatewayModel.omit({ id: true }), "paymentGateway");
   }
+
+  findByBusinessId(businessId: string) {
+    return this.model.findMany({ where: { businessId } });
+  }
 }
 
 export const paymentGatewayRepository = new PaymentGatewayRepository();

@@ -1,20 +1,9 @@
 import BackPage from "@repo/ui/components/back-page";
 import { getTranslations } from "next-intl/server";
 import PaymentGatewayForm from "./form";
-import { PaymentGatewayType } from "@repo/model/types/enums";
-
-const defaultValues = {
-  forms: [
-    {
-      type: PaymentGatewayType.TROPIPAY,
-      data: { clientId: "", clientSecret: "" },
-    },
-    {
-      type: PaymentGatewayType.QVAPAY,
-      data: { clientId: "", clientSecret: "" },
-    },
-  ],
-};
+import { getPaymentGateways } from "@repo/model/repository/payment-gateway";
+import { getPaymentGatewayDefaultValues } from "@repo/payment-method/factory-payment-gateway";
+import { CompletePaymentGateway } from "packages/model/prisma/zod";
 
 export default async function PaymentGateway({
   params,
@@ -23,6 +12,10 @@ export default async function PaymentGateway({
 }) {
   const { businessId } = await params;
   const t = await getTranslations("PaymentGateway");
+  const paymentGateways = await getPaymentGateways({ businessId });
+  const defaultValues = getPaymentGatewayDefaultValues(
+    paymentGateways as CompletePaymentGateway[],
+  );
   const action = async (object: any) => {
     "use server";
     console.log(object);

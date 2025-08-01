@@ -1,3 +1,4 @@
+import ManualAdminForm from "./gateway/manual";
 import QvapayAdminForm from "./gateway/qvapay";
 import TropipayAdminForm from "./gateway/tropipay";
 import { PaymentGatewayType } from "@repo/model/types/enums";
@@ -5,6 +6,7 @@ import { PaymentGatewayType } from "@repo/model/types/enums";
 const paymentGateway = {
   [PaymentGatewayType.TROPIPAY]: TropipayAdminForm,
   [PaymentGatewayType.QVAPAY]: QvapayAdminForm,
+  [PaymentGatewayType.MANUAL]: ManualAdminForm,
 };
 
 export type TKey = keyof typeof paymentGateway;

@@ -12,7 +12,7 @@ import { Switch } from "@repo/ui/components/ui/switch";
 export type BaseGatewayAdminFormType = {
   form: any;
   name: string;
-  type: string
+  type: string;
 } & PropsWithChildren;
 
 export default function BaseGatewayAdminForm({

@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { Form } from "@repo/ui/components/ui/form";
 import { useFieldArray } from "react-hook-form";
 import { getAdminForm, TKey } from "@repo/payment-method/ui/admin/index";
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/button";
 
 const resolver = zodResolver(paymentGatewaysSchema);
 
@@ -37,10 +37,10 @@ export default function PaymentGatewayForm({
   const t = useTranslations("PaymentGateway");
   const { toast } = useToast();
 
-  const { form, onSubmit } = useFormProcess({
+  const { form, onSubmit, saving } = useFormProcess({
     resolver,
     action,
-    defaultValues,
+    defaultValues: { forms: defaultValues },
     onSuccess: () =>
       toast({
         title: t("paymentGatewayUpdated"),
@@ -63,7 +63,11 @@ export default function PaymentGatewayForm({
             />
           </div>
         ))}
-        <Button type="submit">{t("btnSubmit")}</Button>
+        <div className="flex justify-end">
+          <Button type="submit" loading={saving} loadingText={t("btnSaving")}>
+            {t("btnSubmit")}
+          </Button>
+        </div>
       </form>
     </Form>
   );

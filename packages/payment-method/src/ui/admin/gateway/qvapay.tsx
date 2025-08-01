@@ -15,7 +15,6 @@ export default function QvapayAdminForm({
   ...rest
 }: Omit<BaseGatewayAdminFormType, "children">) {
   const t = useTranslations("PaymentGateway");
-  const data = form.watch("data");
   return (
     <BaseGatewayAdminForm form={form} name={name} {...rest}>
       <FormField

@@ -4,6 +4,7 @@
     "backTitle": "Ir al negocio",
     "lbActive": "¿Poner como activo?",
     "btnSubmit": "Salvar",
+    "btnSaving": "Salvando...",
     "lbClientId": "Id del cliente",
     "phClientId": "Id del cliente",
     "lbClientSecret": "Secret del cliente",
@@ -11,7 +12,8 @@
     "paymentGatewayUpdated": "Medio de pago actualizados",
     "titles": {
       "TROPIPAY": "Tropipay",
-      "QVAPAY": "Qvapay"
+      "QVAPAY": "Qvapay",
+      "MANUAL": "Manual"
     }
   }
 }
