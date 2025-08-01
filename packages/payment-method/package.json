@@ -1,0 +1,23 @@
+{
+  "name": "@repo/payment-method",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=v20.15.1"
+  },
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "peerDependencies": {
+    "next": "15.3.1",
+    "next-auth": "5.0.0-beta.29"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/model": "workspace:*"
+  },
+  "dependencies": {
+  }
+}

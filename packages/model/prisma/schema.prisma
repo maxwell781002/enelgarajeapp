@@ -47,6 +47,7 @@ model Business {
   userAddress            UserAddress[]
   paymentMethod          PaymentMethod[]        @relation("paymentMethods")
   invitationLinks        InvitationLink[]
+  paymentGateway         PaymentGateway[]
   cardBanks              CollaboratorCardBank[]
   collaboratorInvoices   CollaboratorInvoice[]
   collaboratorProfiles   CollaboratorProfile[]
@@ -56,6 +57,21 @@ model Business {
   whatsappGroupChatId    String?
   whatsappConnect        WhatsappConnect?       @relation(fields: [whatsappConnectId], references: [id])
   whatsappConnectId      String?
+}
+
+enum PaymentGatewayType {
+  TROPIPAY
+  QVAPAY
+  MANUAL
+}
+
+model PaymentGateway {
+  id         String             @id @default(uuid())
+  type       PaymentGatewayType
+  active     Boolean            @default(true) /// @zod.optional()
+  data       Json
+  business   Business           @relation(fields: [businessId], references: [id])
+  businessId String
 }
 
 model WhatsappConnect {
