@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@repo/model/repository/user";
-import { Context, createApp } from "./index";
-import { SecurityUser } from "../auth";
+import { Context, createApp } from "@repo/model/lib/action/index";
+import { SecurityUser } from "@repo/model/lib/auth";
 
 export type AuthContext = {
   user: SecurityUser;

@@ -4,9 +4,9 @@ import PaymentGatewayForm from "./form";
 import {
   getPaymentGateways,
   savePaymentGateways,
-} from "@repo/model/repository/payment-gateway";
+} from "@repo/payment-method/actions";
 import { getPaymentGatewayDefaultValues } from "@repo/payment-method/factory-payment-gateway";
-import { CompletePaymentGateway } from "packages/model/prisma/zod";
+import { CompletePaymentGateway } from "@repo/model/zod/paymentgateway";
 
 export default async function PaymentGateway({
   params,

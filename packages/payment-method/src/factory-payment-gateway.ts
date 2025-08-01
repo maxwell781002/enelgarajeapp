@@ -1,13 +1,13 @@
 import {
   PaymentGatewayType,
   TPaymentGatewayType,
-} from "packages/model/types/enums";
+} from "@repo/model/types/enums";
 import {
   ManualGateway,
   QvapayGateway,
   TropipayGateway,
 } from "./payment-gateway";
-import { CompletePaymentGateway } from "packages/model/prisma/zod/paymentgateway";
+import { CompletePaymentGateway } from "@repo/model/prisma/zod/paymentgateway";
 
 const paymentGateway: Record<TPaymentGatewayType, any> = {
   [PaymentGatewayType.TROPIPAY]: TropipayGateway,
