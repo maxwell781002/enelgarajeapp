@@ -7,7 +7,7 @@ import { paymentGatewaysSchema } from "@repo/payment-method/schemas/index";
 import { useTranslations } from "next-intl";
 import { Form } from "@repo/ui/components/ui/form";
 import { useFieldArray } from "react-hook-form";
-import { getAdminForm, TKey } from "@repo/payment-method/ui/admin/index";
+import { getAdminForm, TKey } from "@repo/payment-method/get-admin-form";
 import { Button } from "@repo/ui/components/button";
 
 const resolver = zodResolver(paymentGatewaysSchema);

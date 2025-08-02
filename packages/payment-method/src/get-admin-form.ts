@@ -1,6 +1,6 @@
-import ManualAdminForm from "./gateway/manual";
-import QvapayAdminForm from "./gateway/qvapay";
-import TropipayAdminForm from "./gateway/tropipay";
+import ManualAdminForm from "./ui/admin/gateway/manual";
+import QvapayAdminForm from "./ui/admin/gateway/qvapay";
+import TropipayAdminForm from "./ui/admin/gateway/tropipay";
 import { PaymentGatewayType } from "@repo/model/types/enums";
 
 const paymentGateway = {

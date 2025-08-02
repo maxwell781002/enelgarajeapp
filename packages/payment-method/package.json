@@ -6,7 +6,8 @@
     "node": ">=v20.15.1"
   },
   "exports": {
-    "./*": "./src/*.ts"
+    "./*": "./src/*.ts",
+    "./ui/*": "./src/ui/*.tsx"
   },
   "peerDependencies": {
     "next": "15.3.1",

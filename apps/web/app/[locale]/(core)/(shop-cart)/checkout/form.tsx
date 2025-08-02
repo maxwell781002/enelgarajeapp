@@ -27,6 +27,7 @@ import { useContext, useEffect } from "react";
 import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useStore } from "@repo/ui/stores/index";
 import { IS_WHOLESALE, wholesaleContext } from "apps/web/context/wholesale";
+import SelectPaymentGateway from "@repo/payment-method/ui/frontend/payment-gateway-select";
 
 type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
@@ -138,6 +139,7 @@ export default function CheckoutForm({
                 addAlias={true}
               />
             )}
+            <SelectPaymentGateway />
           </>
         )}
       />

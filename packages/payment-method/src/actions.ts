@@ -1,5 +1,5 @@
 import { z } from "zod";
-import app from "@repo/model/lib/action/app";
+import { app } from "@repo/model/lib/action/app";
 import { paymentGatewayRepository } from "@repo/model/repositories/payment-gateway";
 import { paymentGatewaysSchema } from "./schemas";
 
