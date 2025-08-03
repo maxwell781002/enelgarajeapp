@@ -20,7 +20,11 @@ export const savePaymentGateways = app(
     const { businessId, items } = ctx.input;
     const promises = items.map(({ id, ...rest }: any) => {
       if (id) {
-        return paymentGatewayRepository.update(id, rest);
+        return paymentGatewayRepository.update(id, {
+          businessId,
+          data: {},
+          ...rest,
+        });
       }
       return paymentGatewayRepository.create({ businessId, data: {}, ...rest });
     });

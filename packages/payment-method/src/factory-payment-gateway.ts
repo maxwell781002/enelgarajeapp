@@ -49,9 +49,10 @@ export const createPaymentGatewayLog = async (order: CompleteOrder) => {
     order.paymentGatewayType as TPaymentGatewayType,
   );
   const { link, data } = await gateway.createPaymentLink(order);
+  console.log(link, data);
   // TODO: Check if already exist payment log register
   await paymentGatewayOrderLogRepository.create({
-    logs: [data],
+    logs: [JSON.stringify(data)],
     orderId: order.id,
     status: PaymentGatewayOrderLogStatus.SENT,
   });

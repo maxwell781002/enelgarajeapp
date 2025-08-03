@@ -9,6 +9,7 @@ import { Form } from "@repo/ui/components/ui/form";
 import { useFieldArray } from "react-hook-form";
 import { getAdminForm, TKey } from "@repo/payment-method/get-admin-form";
 import { Button } from "@repo/ui/components/button";
+import { useRouter } from "next/navigation";
 
 const resolver = zodResolver(paymentGatewaysSchema);
 
@@ -36,15 +37,18 @@ export default function PaymentGatewayForm({
 }) {
   const t = useTranslations("PaymentGateway");
   const { toast } = useToast();
+  const route = useRouter();
 
   const { form, onSubmit, saving } = useFormProcess({
     resolver,
     action,
     defaultValues: { items: defaultValues, businessId },
-    onSuccess: () =>
+    onSuccess: () => {
       toast({
         title: t("paymentGatewayUpdated"),
-      }),
+      });
+      route.push(`/${businessId}`);
+    },
   });
   const { fields } = useFieldArray({
     control: form.control,

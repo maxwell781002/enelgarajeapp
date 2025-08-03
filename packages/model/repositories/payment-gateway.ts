@@ -4,6 +4,7 @@ import {
   PaymentGatewayModel,
   CompletePaymentGateway,
 } from "@repo/model/prisma/zod/paymentgateway";
+import { TPaymentGatewayType } from "@repo/model/types/enums";
 
 export class PaymentGatewayRepository extends BaseRepository<
   CompletePaymentGateway,
@@ -19,6 +20,10 @@ export class PaymentGatewayRepository extends BaseRepository<
 
   findByBusinessIdActive(businessId: string) {
     return this.model.findMany({ where: { businessId, active: true } });
+  }
+
+  findByBusinessIdActiveAndType(businessId: string, type: TPaymentGatewayType) {
+    return this.model.findFirst({ where: { businessId, active: true, type } });
   }
 }
 
