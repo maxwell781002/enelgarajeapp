@@ -8,6 +8,8 @@ import {
   TropipayGateway,
 } from "./payment-gateway";
 import { CompletePaymentGateway } from "@repo/model/prisma/zod/paymentgateway";
+import { CompleteOrder } from "packages/model/prisma/zod/order";
+import { paymentGatewayOrderLogRepository } from "@repo/model/repositories/payment-gateway-order-log";
 
 const paymentGateway: Record<TPaymentGatewayType, any> = {
   [PaymentGatewayType.TROPIPAY]: TropipayGateway,
@@ -39,4 +41,16 @@ export const getPaymentGatewayDefaultValues = (
     };
   });
   return defaultValues;
+};
+
+export const createPaymentGatewayLog = async (order: CompleteOrder) => {
+  const gateway = createPaymentGateway(
+    order.paymentGatewayType as TPaymentGatewayType,
+  );
+  const { link, data } = await gateway.createPaymentLink(order);
+  await paymentGatewayOrderLogRepository.create({
+    logs: [data],
+    orderId: order.id,
+  });
+  return link;
 };

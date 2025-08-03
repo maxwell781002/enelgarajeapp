@@ -1,3 +1,4 @@
+import { CompleteOrder } from "@repo/model/prisma/zod/order";
 import { AbstractPaymentGateway } from "../abstract-payment-gateway";
 
 export class TropipayGateway extends AbstractPaymentGateway {
@@ -8,6 +9,13 @@ export class TropipayGateway extends AbstractPaymentGateway {
         clientId: "",
         clientSecret: "",
       },
+    };
+  }
+
+  async createPaymentLink(order: CompleteOrder) {
+    return {
+      link: "",
+      data: {},
     };
   }
 }
