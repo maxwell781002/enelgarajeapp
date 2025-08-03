@@ -18,7 +18,7 @@ const auth = async (ctx: Context, next: any) => {
 };
 
 const web = async (ctx: Context, next: any) => {
-  const business = getCurrentBusiness();
+  const business = await getCurrentBusiness();
   return next({ ...ctx, business });
 };
 

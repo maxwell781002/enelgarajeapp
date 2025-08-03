@@ -1,15 +1,7 @@
 {
   "PaymentGateway": {
-    "required": "Requerido",
-    "backTitle": "Ir al negocio",
-    "lbActive": "¿Poner como activo?",
-    "btnSubmit": "Salvar",
-    "btnSaving": "Salvando...",
-    "lbClientId": "Id del cliente",
-    "phClientId": "Id del cliente",
-    "lbClientSecret": "Secret del cliente",
-    "phClientSecret": "Secret del cliente",
-    "paymentGatewayUpdated": "Medio de pago actualizados",
+    "Required": "Requerido",
+    "lbSelectPaymentGateway": "Seleccione un medio de pago",
     "titles": {
       "TROPIPAY": "Tropipay",
       "QVAPAY": "Qvapay",

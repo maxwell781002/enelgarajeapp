@@ -16,6 +16,10 @@ export class PaymentGatewayRepository extends BaseRepository<
   findByBusinessId(businessId: string) {
     return this.model.findMany({ where: { businessId } });
   }
+
+  findByBusinessIdActive(businessId: string) {
+    return this.model.findMany({ where: { businessId, active: true } });
+  }
 }
 
 export const paymentGatewayRepository = new PaymentGatewayRepository();

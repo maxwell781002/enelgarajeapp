@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { app } from "@repo/model/lib/action/app";
+import { app, appWeb } from "@repo/model/lib/action/app";
 import { paymentGatewayRepository } from "@repo/model/repositories/payment-gateway";
 import { paymentGatewaysSchema } from "./schemas";
 
@@ -27,3 +27,8 @@ export const savePaymentGateways = app(
     await Promise.all(promises);
   },
 );
+
+export const getPaymentGatewaysActive = appWeb(async (ctx) => {
+  const { business } = ctx;
+  return paymentGatewayRepository.findByBusinessIdActive(business.id as string);
+});
