@@ -54,7 +54,8 @@ export default function CheckoutForm({
     resolver: zodResolver(WebShoppingCartSchema),
     defaultValues: {
       ...defaultValues,
-      paymentGateway: paymentGateways?.[0]?.type || PaymentGatewayType.MANUAL,
+      paymentGatewayType:
+        paymentGateways?.[0]?.type || PaymentGatewayType.MANUAL,
       isWholesale: wholesale === IS_WHOLESALE.YES,
     },
   });
@@ -69,10 +70,7 @@ export default function CheckoutForm({
   const referredCode = useStore(useShopCart, (state) => state.referredCode());
   const handleAction = async (formData: any) => {
     formData.referredCode = referredCode;
-    const paymentGatewayId = form.getValues("paymentGateway");
-    console.log("sssss", paymentGatewayId);
-    // const data = await action(formData);
-    // return data;
+    return action(formData);
   };
 
   console.log(form.formState.errors, form.getValues());
@@ -84,7 +82,7 @@ export default function CheckoutForm({
         form={form}
         addressName={addressType}
         business={business}
-        successfulUrl={(id: string) => `/checkout-successful/${id}`}
+        successfulUrl={(id: string) => `/redirect-payment-gateway/${id}`}
         render={({ neighborhoods, neighborhoodLoading }) => (
           <>
             <FormField
@@ -149,7 +147,7 @@ export default function CheckoutForm({
             <SelectPaymentGateway
               options={paymentGateways}
               form={form}
-              name="paymentGateway"
+              name="paymentGatewayType"
             />
           </>
         )}

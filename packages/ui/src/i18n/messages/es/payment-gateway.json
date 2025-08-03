@@ -13,6 +13,11 @@
         "QVAPAY": "Pago a través de criptomonedas.",
         "MANUAL": "En este método de pago el negocio se pondrá en contacto con usted después."
       }
+    },
+    "redirect": {
+      "title": "Procesando pago",
+      "description": "Estamos redirigiéndote al procesador de pagos...",
+      "subDescription": "Por favor, no cierres esta página."
     }
   }
 }

@@ -27,7 +27,6 @@ export function SelectPaymentGatewayGroup({
 }: SelectPaymentGatewayProps) {
   const t = useTranslations("PaymentGateway");
   const handleChange = (type: string) => {
-    // onChange(options.find((option) => option.id === id));
     onChange(type);
   };
   return (

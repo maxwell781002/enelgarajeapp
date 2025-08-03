@@ -30,6 +30,7 @@ export type TCartItem = z.infer<typeof CartItem>;
 
 const BaseCart = z.object({
   isWholesale: z.boolean().optional(),
+  paymentGatewayType: z.string().optional(),
   cartItems: z.array(CartItem).min(1, {
     message: "required",
   }),
@@ -41,7 +42,6 @@ export const WebShoppingCartSchema = BaseCart.extend({
   businessRequestAddress: z.boolean().optional(),
   wantDomicile: z.boolean().optional(),
   referredCode: z.string().optional(),
-  paymentGateway: z.string(),
   [AddressType.newAddress]: AddressModel.omit({ id: true }).optional(),
   [AddressType.selectAddress]: AddressModel.optional(),
 }).refine(

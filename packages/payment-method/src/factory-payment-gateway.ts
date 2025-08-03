@@ -1,4 +1,5 @@
 import {
+  PaymentGatewayOrderLogStatus,
   PaymentGatewayType,
   TPaymentGatewayType,
 } from "@repo/model/types/enums";
@@ -48,9 +49,11 @@ export const createPaymentGatewayLog = async (order: CompleteOrder) => {
     order.paymentGatewayType as TPaymentGatewayType,
   );
   const { link, data } = await gateway.createPaymentLink(order);
+  // TODO: Check if already exist payment log register
   await paymentGatewayOrderLogRepository.create({
     logs: [data],
     orderId: order.id,
+    status: PaymentGatewayOrderLogStatus.SENT,
   });
   return link;
 };
