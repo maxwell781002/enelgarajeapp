@@ -18,4 +18,8 @@ export class QvapayGateway extends AbstractPaymentGateway {
       data: {},
     };
   }
+
+  async verifyPayload(order: CompleteOrder, payload: any) {
+    return true;
+  }
 }

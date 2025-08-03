@@ -1,6 +1,6 @@
 import { CompleteOrder } from "@repo/model/prisma/zod/order";
 import { AbstractPaymentGateway } from "../abstract-payment-gateway";
-import { Tropipay } from "@yosle/tropipayjs";
+import { Tropipay, ServerSideUtils } from "@yosle/tropipayjs";
 import { PaymentGatewayType } from "@repo/model/types/enums";
 
 export class TropipayGateway extends AbstractPaymentGateway {
@@ -54,5 +54,18 @@ export class TropipayGateway extends AbstractPaymentGateway {
       link: paylink.shortUrl,
       data: paylink,
     };
+  }
+
+  async verifyPayload(order: CompleteOrder, payload: any) {
+    const config = await this.getClientConfig(order);
+    return ServerSideUtils.verifySignatureV3(
+      {
+        clientId: config.clientId,
+        clientSecret: config.clientSecret,
+      },
+      payload.originalCurrencyAmount,
+      payload.bankOrderCode,
+      payload.signaturev2,
+    );
   }
 }

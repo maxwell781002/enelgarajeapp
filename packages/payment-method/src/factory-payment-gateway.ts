@@ -1,4 +1,5 @@
 import {
+  OrderStatus,
   PaymentGatewayOrderLogStatus,
   PaymentGatewayType,
   TPaymentGatewayType,
@@ -11,6 +12,7 @@ import {
 import { CompletePaymentGateway } from "@repo/model/prisma/zod/paymentgateway";
 import { CompleteOrder } from "packages/model/prisma/zod/order";
 import { paymentGatewayOrderLogRepository } from "@repo/model/repositories/payment-gateway-order-log";
+import { changeOrderStatus, getOrderById } from "@repo/model/repository/order";
 
 const paymentGateway: Record<TPaymentGatewayType, any> = {
   [PaymentGatewayType.TROPIPAY]: TropipayGateway,
@@ -57,4 +59,30 @@ export const createPaymentGatewayLog = async (order: CompleteOrder) => {
     status: PaymentGatewayOrderLogStatus.SENT,
   });
   return link;
+};
+
+export const callbackPayment = async (id: string, data: any) => {
+  const order = await getOrderById(id);
+  const gateway = createPaymentGateway(
+    order.paymentGatewayType as TPaymentGatewayType,
+  );
+  const verify = await gateway.verifyPayload(order, data);
+  if (!verify) {
+    return false;
+  }
+  const orderLog = await paymentGatewayOrderLogRepository.findByOrderId(id);
+  const { status, ...rest } = data;
+  const paymentGatewayLogStatus =
+    status === "OK"
+      ? PaymentGatewayOrderLogStatus.PAID
+      : PaymentGatewayOrderLogStatus.FAILED;
+  await paymentGatewayOrderLogRepository.update(orderLog.id, {
+    ...orderLog,
+    status: paymentGatewayLogStatus,
+    logs: [...orderLog.logs, JSON.stringify({ status, ...rest })],
+  });
+  if (status === "OK") {
+    return changeOrderStatus(id, OrderStatus.PAYED);
+  }
+  return true;
 };

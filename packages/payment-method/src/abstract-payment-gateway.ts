@@ -19,4 +19,6 @@ export abstract class AbstractPaymentGateway {
       type,
     );
   }
+
+  abstract verifyPayload(order: CompleteOrder, payload: any): Promise<boolean>;
 }

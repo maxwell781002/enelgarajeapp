@@ -8,4 +8,8 @@ export class ManualGateway extends AbstractPaymentGateway {
       data: {},
     };
   }
+
+  async verifyPayload(order: CompleteOrder, payload: any) {
+    return true;
+  }
 }

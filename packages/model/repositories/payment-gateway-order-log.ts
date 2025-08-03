@@ -15,6 +15,10 @@ export class PaymentGatewayOrderLogRepository extends BaseRepository<
       "paymentGatewayOrderLog",
     );
   }
+
+  findByOrderId(orderId: string) {
+    return this.model.findUnique({ where: { orderId } });
+  }
 }
 
 export const paymentGatewayOrderLogRepository =

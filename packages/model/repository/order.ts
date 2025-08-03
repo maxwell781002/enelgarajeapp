@@ -6,7 +6,11 @@ import { orderRepository } from "@repo/model/repositories/order";
 // import { checkBusinessAccess } from "./business";
 import { SecurityUser } from "../lib/auth";
 import { CompleteOrder } from "../prisma/zod";
-import { OrderStatus, UserBusinessType } from "@repo/model/types/enums";
+import {
+  OrderStatus,
+  TOrderStatus,
+  UserBusinessType,
+} from "@repo/model/types/enums";
 import { userRepository } from "../repositories/user";
 
 // TODO: No me funciono la seguridad de esto. Tengo que arreglarlo rapido
@@ -85,4 +89,8 @@ export const setMessengerToOrder = async (
 
 export const getOrdersByMessenger = async (messengerId: string) => {
   return orderRepository.getOrdersByMessenger(messengerId);
+};
+
+export const changeOrderStatus = (id: string, status: TOrderStatus) => {
+  return orderRepository.changeStatus(id, status);
 };

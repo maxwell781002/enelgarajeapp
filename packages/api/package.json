@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@repo/payment-method": "workspace:*"
   },
   "dependencies": {
     "@repo/model": "workspace:*",
