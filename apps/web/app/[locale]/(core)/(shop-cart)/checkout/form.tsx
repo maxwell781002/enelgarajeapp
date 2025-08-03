@@ -144,11 +144,13 @@ export default function CheckoutForm({
                 addAlias={true}
               />
             )}
-            <SelectPaymentGateway
-              options={paymentGateways}
-              form={form}
-              name="paymentGatewayType"
-            />
+            {!!paymentGateways.length && (
+              <SelectPaymentGateway
+                options={paymentGateways}
+                form={form}
+                name="paymentGatewayType"
+              />
+            )}
           </>
         )}
       />

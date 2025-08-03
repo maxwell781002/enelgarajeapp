@@ -91,6 +91,6 @@ export const getOrdersByMessenger = async (messengerId: string) => {
   return orderRepository.getOrdersByMessenger(messengerId);
 };
 
-export const changeOrderStatus = (id: string, status: TOrderStatus) => {
+export const changeOrderStatus = async (id: string, status: TOrderStatus) => {
   return orderRepository.changeStatus(id, status);
 };
