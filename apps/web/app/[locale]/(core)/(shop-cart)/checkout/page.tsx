@@ -6,6 +6,8 @@ import { auth } from "@repo/model/lib/auth";
 import CheckoutForm from "./form";
 import { userAddressRepository } from "@repo/model/repositories/user-address";
 import { createWebOrder } from "@repo/model/repository/checkout";
+import { getPaymentGatewaysActive } from "@repo/payment-method/actions";
+import { CompletePaymentGateway } from "packages/model/prisma/zod";
 
 export default async function Component() {
   const business = await getCurrentBusiness();
@@ -31,6 +33,7 @@ export default async function Component() {
     "use server";
     return createWebOrder(business, user, data);
   };
+  const paymentGateways = await getPaymentGatewaysActive();
 
   return (
     <CheckoutForm
@@ -38,6 +41,7 @@ export default async function Component() {
       action={action}
       addresses={addresses}
       business={business}
+      paymentGateways={paymentGateways as CompletePaymentGateway[]}
     />
   );
 }

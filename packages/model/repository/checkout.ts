@@ -33,6 +33,7 @@ import { calculateOrderProductCommissionAndPrice } from "./shop-cart";
 import { createCustomer } from "./customer";
 import { createCollaboratorTicket } from "./collaborator-ticket";
 import { getOrderByIdAndBusinessId } from "./order";
+import { PaymentGatewayType } from "../types/enums";
 
 const isOutOfStock = (product: CompleteProduct, quantity: number): boolean =>
   !product.allowOrderOutOfStock &&
@@ -273,6 +274,7 @@ export const createOrder = async (
     productsDetails: products,
     isCollaborator,
     isWholesale: !!data.cartItems,
+    paymentGatewayType: data.paymentGatewayType || PaymentGatewayType.MANUAL,
   };
   if (data.referredById) {
     order.referredById = data.referredById;

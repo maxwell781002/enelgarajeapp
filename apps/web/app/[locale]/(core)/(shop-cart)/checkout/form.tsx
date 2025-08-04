@@ -27,6 +27,9 @@ import { useContext, useEffect } from "react";
 import { useShopCart } from "@repo/ui/stores/shop-cart";
 import { useStore } from "@repo/ui/stores/index";
 import { IS_WHOLESALE, wholesaleContext } from "apps/web/context/wholesale";
+import SelectPaymentGateway from "@repo/payment-method/ui/frontend/payment-gateway-select";
+import { CompletePaymentGateway } from "packages/model/prisma/zod";
+import { PaymentGatewayType } from "packages/model/types/enums";
 
 type TWebShoppingCartSchema = z.infer<typeof WebShoppingCartSchema>;
 
@@ -35,6 +38,7 @@ export type CheckoutFormProps = {
   defaultValues: TWebShoppingCartSchema;
   addresses: CompleteAddress[];
   business: CompleteBusiness;
+  paymentGateways: CompletePaymentGateway[];
 };
 
 export default function CheckoutForm({
@@ -42,6 +46,7 @@ export default function CheckoutForm({
   defaultValues,
   addresses,
   business,
+  paymentGateways,
 }: CheckoutFormProps) {
   const t = useTranslations("Checkout");
   const { wholesale } = useContext(wholesaleContext);
@@ -49,6 +54,8 @@ export default function CheckoutForm({
     resolver: zodResolver(WebShoppingCartSchema),
     defaultValues: {
       ...defaultValues,
+      paymentGatewayType:
+        paymentGateways?.[0]?.type || PaymentGatewayType.MANUAL,
       isWholesale: wholesale === IS_WHOLESALE.YES,
     },
   });
@@ -63,8 +70,7 @@ export default function CheckoutForm({
   const referredCode = useStore(useShopCart, (state) => state.referredCode());
   const handleAction = async (formData: any) => {
     formData.referredCode = referredCode;
-    const data = await action(formData);
-    return data;
+    return action(formData);
   };
 
   console.log(form.formState.errors, form.getValues());
@@ -76,7 +82,7 @@ export default function CheckoutForm({
         form={form}
         addressName={addressType}
         business={business}
-        successfulUrl={(id: string) => `/checkout-successful/${id}`}
+        successfulUrl={(id: string) => `/redirect-payment-gateway/${id}`}
         render={({ neighborhoods, neighborhoodLoading }) => (
           <>
             <FormField
@@ -136,6 +142,13 @@ export default function CheckoutForm({
                 neighborhoodLoading={neighborhoodLoading}
                 addressUrl="/address-user"
                 addAlias={true}
+              />
+            )}
+            {!!paymentGateways.length && (
+              <SelectPaymentGateway
+                options={paymentGateways}
+                form={form}
+                name="paymentGatewayType"
               />
             )}
           </>

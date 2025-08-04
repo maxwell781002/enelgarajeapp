@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { formDataToObject } from "../utils";
 
 export type Context<Input = any> = {
   input: Input;
@@ -13,7 +14,7 @@ const validateAndCleanInput = <Input>(
   config: ActionConfig<Input>,
 ): Input => {
   if (input instanceof FormData) {
-    return Object.fromEntries(input.entries()) as Input;
+    input = formDataToObject(input) as Input;
   }
   return config.input ? config.input.parse(input) : (input as Input);
 };

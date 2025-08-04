@@ -280,7 +280,11 @@ export class OrderRepository extends BaseRepository<
           create: productItems,
         },
       },
-      include: { items: { orderBy: { position: "asc" } }, orderAddress: true },
+      include: {
+        items: { orderBy: { position: "asc" } },
+        orderAddress: true,
+        user: true,
+      },
     });
   }
 

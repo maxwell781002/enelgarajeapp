@@ -1,0 +1,23 @@
+{
+  "PaymentGateway": {
+    "Required": "Requerido",
+    "lbSelectPaymentGateway": "Seleccione un medio de pago",
+    "titles": {
+      "TROPIPAY": "Tropipay",
+      "QVAPAY": "Qvapay",
+      "MANUAL": "Manual"
+    },
+    "select": {
+      "descriptions": {
+        "TROPIPAY": "Pago con una pasarela que permite el uso de varios tipos de métodos de pago.",
+        "QVAPAY": "Pago a través de criptomonedas.",
+        "MANUAL": "En este método de pago el negocio se pondrá en contacto con usted después."
+      }
+    },
+    "redirect": {
+      "title": "Procesando pago",
+      "description": "Estamos redirigiéndote al procesador de pagos...",
+      "subDescription": "Por favor, no cierres esta página."
+    }
+  }
+}

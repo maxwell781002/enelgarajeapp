@@ -30,6 +30,7 @@ export type TCartItem = z.infer<typeof CartItem>;
 
 const BaseCart = z.object({
   isWholesale: z.boolean().optional(),
+  paymentGatewayType: z.string().optional(),
   cartItems: z.array(CartItem).min(1, {
     message: "required",
   }),

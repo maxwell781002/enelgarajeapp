@@ -8,7 +8,7 @@ import { PaginationResult } from "@repo/model/types/pagination";
 import TableLayout from "@repo/ui/components/table-layout/layout";
 import { getTranslations } from "next-intl/server";
 import { TableContextProvider } from "@repo/ui/context/table";
-import { getBusinessById } from "packages/model/repository/business";
+import { getBusinessById } from "@repo/model/repository/business";
 
 type PageProps = {
   searchParams: Promise<any>;
