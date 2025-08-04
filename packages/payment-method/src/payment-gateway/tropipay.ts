@@ -29,7 +29,7 @@ export class TropipayGateway extends AbstractPaymentGateway {
   }
 
   async createPaymentLink(order: CompleteOrder) {
-    const callbackUrl = await this.getCallbackUrl(order);
+    const { urlNotification, urlSuccess } = await this.getCallbackUrl(order);
     const payload = {
       reference: order.id,
       concept: "Compra",
@@ -43,13 +43,11 @@ export class TropipayGateway extends AbstractPaymentGateway {
       lang: "es",
       serviceDate: order.sentAt,
       directPayment: "true",
-      urlSuccess: "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
-      // urlSuccess: callbackUrl,
-      urlFailed: "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
-      // urlFailed: callbackUrl,
-      urlNotification:
-        "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
-      // urlNotification: callbackUrl,
+      urlSuccess,
+      urlFailed: urlSuccess, // TODO: Change this
+      // urlNotification:
+      //   "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
+      urlNotification,
     };
 
     console.log("payload ==>", payload);

@@ -24,7 +24,9 @@ export abstract class AbstractPaymentGateway {
   async getCallbackUrl(order: CompleteOrder) {
     const headersList = await headers();
     const hostname = headersList.get("x-forwarded-host");
-    return `https://${hostname}/api/payment-method/callback/${order.id}`;
+    const urlNotification = `https://${hostname}/api/payment-method/callback/${order.id}`;
+    const urlSuccess = `https://${hostname}/checkout-successful/${order.id}`;
+    return { urlNotification, urlSuccess }
   }
 
   abstract verifyPayload(order: CompleteOrder, payload: any): Promise<boolean>;
