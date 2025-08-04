@@ -273,7 +273,7 @@ export const createOrder = async (
     userId: user.id,
     productsDetails: products,
     isCollaborator,
-    isWholesale: !!data.cartItems,
+    isWholesale: data.isWholesale,
     paymentGatewayType: data.paymentGatewayType || PaymentGatewayType.MANUAL,
   };
   if (data.referredById) {
