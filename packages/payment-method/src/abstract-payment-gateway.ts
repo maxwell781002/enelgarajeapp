@@ -26,7 +26,8 @@ export abstract class AbstractPaymentGateway {
     const hostname = headersList.get("x-forwarded-host");
     const urlNotification = `https://${hostname}/api/payment-method/callback/${order.id}`;
     const urlSuccess = `https://${hostname}/checkout-successful/${order.id}`;
-    return { urlNotification, urlSuccess }
+    const urlFailed = `https://${hostname}/failed-payment/${order.id}`;
+    return { urlNotification, urlSuccess, urlFailed };
   }
 
   abstract verifyPayload(order: CompleteOrder, payload: any): Promise<boolean>;

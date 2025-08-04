@@ -31,5 +31,20 @@
     "show_orders": "Ver órdenes",
     "btnWhatsappSubmit": "Contactar con el vendor vía WhatsApp",
     "orderMessage": "Hola, hice la compra {reference}"
+  },
+  "FailedPayment": {
+    "title": "Pago fallido",
+    "description": "Lo sentimos, parece que hubo un error al procesar su pago. Por favor, intente nuevamente.",
+    "continue_shopping": "Continuar comprando",
+    "transaction_declined": "Transacción Rechazada",
+    "declined_message": "No se pudo procesar su pago. Esto puede deberse a fondos insuficientes, una tarjeta vencida o que su banco ha rechazado la transacción.",
+    "reasons_title": "Razones comunes de fallo en el pago:",
+    "reasons": "Fondos insuficientes en su cuenta|Tarjeta vencida o datos inválidos|Tarjeta bloqueada por su banco|Información de facturación incorrecta|Problemas de red o técnicos",
+    "transaction_details": "Detalles de la transacción",
+    "transaction_id": "ID de transacción:",
+    "amount": "Monto:",
+    "date": "Fecha:",
+    "status": "Estado:",
+    "status_failed": "Fallido"
   }
 }

@@ -72,6 +72,10 @@ export default function CheckoutForm({
     formData.referredCode = referredCode;
     return action(formData);
   };
+  // If is wholesale, it doesn't use payment gateway.
+  if (wholesale === IS_WHOLESALE.YES) {
+    paymentGateways = [];
+  }
 
   console.log(form.formState.errors, form.getValues());
 
