@@ -29,7 +29,8 @@ export class TropipayGateway extends AbstractPaymentGateway {
   }
 
   async createPaymentLink(order: CompleteOrder) {
-    const { urlNotification, urlSuccess } = await this.getCallbackUrl(order);
+    const { urlNotification, urlSuccess, urlFailed } =
+      await this.getCallbackUrl(order);
     const payload = {
       reference: order.id,
       concept: "Compra",
@@ -46,7 +47,7 @@ export class TropipayGateway extends AbstractPaymentGateway {
       // urlSuccess: "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
       urlSuccess,
       // urlFailed: "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
-      urlFailed: urlSuccess, // TODO: Change this
+      urlFailed,
       // urlNotification:
       //   "https://webhook-test.com/c700af6da83f620f6a982ecda18e92d4",
       urlNotification,
