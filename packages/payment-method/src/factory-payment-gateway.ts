@@ -36,8 +36,10 @@ export const getPaymentGatewayDefaultValues = (
     {} as Record<TPaymentGatewayType, CompletePaymentGateway>,
   );
   const defaultValues = Object.entries(PaymentGatewayType).map(([g]) => {
-    const _class = createPaymentGateway(g);
-    const data = byTypes[g] ? byTypes[g] : _class.defaultValue();
+    const _class = createPaymentGateway(g as TPaymentGatewayType);
+    const data = byTypes[g as TPaymentGatewayType]
+      ? byTypes[g as TPaymentGatewayType]
+      : _class.defaultValue();
     return {
       type: g,
       ...data,
@@ -63,6 +65,9 @@ export const createPaymentGatewayLog = async (order: CompleteOrder) => {
 
 export const callbackPayment = async (id: string, data: any) => {
   const order = await getOrderById(id);
+  if (!order) {
+    return false;
+  }
   const gateway = createPaymentGateway(
     order.paymentGatewayType as TPaymentGatewayType,
   );
