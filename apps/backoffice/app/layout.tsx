@@ -8,6 +8,7 @@ import { getMessages } from "next-intl/server";
 import localFont from "next/font/local";
 import GoogleAnalytics from "@repo/ui/components/google-analytics";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,6 +43,7 @@ export default async function RootLayout({
             </NextIntlClientProvider>
           </RouteLoadingLayout>
         </SessionProvider>
+        <Analytics />
       </body>
       <GoogleAnalytics />
     </html>
