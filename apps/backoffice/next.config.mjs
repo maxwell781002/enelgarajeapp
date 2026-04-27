@@ -7,14 +7,14 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const nextConfig = {
   transpilePackages: ["@repo/ui"],
   images: {
-    remotePatterns: [
+    remotePatterns: process.env.IMAGE_HOSTNAME ? [
       {
         protocol: 'https',
         hostname: process.env.IMAGE_HOSTNAME,
         port: '',
         pathname: '/**',
       },
-    ],
+    ] : [],
   },
 };
 
